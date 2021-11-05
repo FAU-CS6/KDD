@@ -1,0 +1,33 @@
+#+title: KDD - Knowledge Discovery in Databases
+
+* Aufteilung
+  1. *Course Intro* - Dominik
+  2. *Introduction* - Dominik
+  3. *Data* - Melanie
+  4. *Preprocessing* - Dominik
+  5. *OLAP* - Melanie
+  6. *Mining Frequent Patterns, Associations and Correlations* - Dominik
+  7. *Classification* - Melanie
+  8. *Cluster Analysis* - Dominik
+  9. *Outlier Analysis* - Melanie
+  10. *Current Research at CS6* - Dominik
+
+* Sommersemester 2021
+  Semester duration: 25 April 2022 – 29 July 2022
+
+  | *Calendar Week* | *Lecture Topic*                        | *Lecturer*      | *Exercise*                |
+  |-----------------+----------------------------------------+-----------------+---------------------------|
+  |              17 | Course Introduction + KDD Introduction | Dominik Probst  |                           |
+  |              18 | Data                                   | Melanie B. Sigl | Optional: Intro to Python |
+  |              19 | Preprocessing, Part 1                  | Dominik Probst  | Intro to Pandas/Numpy     |
+  |              20 | Preprocessing, Part 2                  | Dominik Probst  | Data Profiling            |
+  |              21 | OLAP                                   | Melanie B. Sigl | Data Cleaning w/Pandas    |
+  |              22 | Frequent Pattern, Part 1               | Dominik Probst  | Exploratory Data Analysis |
+  |              23 | Frequent Pattern, Part 2               | Dominik Probst  | Frequent Pattern          |
+  |              24 | Classification, Part 1                 | Melanie B. Sigl | Classification            |
+  |              25 | Classification, Part 2                 | Melanie B. Sigl | Classification            |
+  |              26 | Cluster Analysis, Part 1               | Dominik Probst  | Classification            |
+  |              27 | Cluster Analysis, Part 2               | Dominik Probst  | Clustering                |
+  |              28 | Outlier Analysis, Part 1               | Melanie B. Sigl | Clustering                |
+  |              29 | Outlier Analysis, Part 2               | Melanie B. Sigl | Outlier                   |
+  |              30 | Current Resarch at CS6 and Exam QnA    | Dominik Probst  |                           |
