@@ -17,4 +17,4 @@ jobs:
           glob_root_file: true
           latexmk_shell_escape: true
         env:
-          TEXINPUTS: .:themefau//:
+          TEXINPUTS: ".:themefau//:"
