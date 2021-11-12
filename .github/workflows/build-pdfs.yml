@@ -1,9 +1,8 @@
-name: Build LaTeX documents
-
 on: [push]
 
 jobs:
   build_latex:
+    name: Build lecture PDFs
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
@@ -19,3 +18,9 @@ jobs:
             make "${filename%.*}.pdf"
             make "${filename%.*}.bbl"
             done
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Lecture Slides
+          path: |
+            lecture/*.pdf
