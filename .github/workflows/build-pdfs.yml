@@ -16,4 +16,4 @@ jobs:
           glob_root_file: true
           latexmk_shell_escape: true
         env:
-          TEXINPUTS: ".:/home/runner/work/KDD/KDD/lecture/themefau/:"
+          TEXINPUTS: ".:/home/runner/work/KDD/KDD/lecture/themefau//:"
