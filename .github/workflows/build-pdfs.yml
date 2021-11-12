@@ -1,0 +1,19 @@
+name: Build LaTeX documents
+
+on: [push]
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: "lecture"
+          root_file: "*.tex"
+          glob_root_file: true
+          latexmk_shell_escape: true
+        env:
+          TEXINPUTS: ".:./KDD/lecture/themefau/:"
