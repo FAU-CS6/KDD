@@ -13,6 +13,7 @@ jobs:
         with:
           run: |
             apk add make
+            apk add git
             cd lecture
             for filename in *.tex; do
             make vc.tex
