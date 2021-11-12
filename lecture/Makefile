@@ -7,7 +7,7 @@ BIBTEXER := biber
 
 SLIDES     = slides
 HANDOUT    = handout
-REFERENCES = body/references.bib
+REFERENCES = references.bib
 #FONTS      = Myriad Minion
 
 PDFDEP := $(wildcard head/*.tex) \
@@ -123,4 +123,3 @@ clean:
 
 distclean: clean
 	rm -f *.pdf figures/$(SLIDES)-figure[0-9]*.* figures/$(HANDOUT)-figure[0-9]*.*
-
