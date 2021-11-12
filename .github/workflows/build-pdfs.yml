@@ -18,9 +18,10 @@ jobs:
             make "${filename%.*}.pdf"
             make "${filename%.*}.bbl"
             done
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: Lecture Slides
-          path: |
-            lecture/*.pdf
+          path: lecture/*.pdf
+          retention-days: 5
