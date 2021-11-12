@@ -15,6 +15,7 @@ jobs:
             apk add make
             cd lecture
             for filename in *.tex; do
+            make vc.tex
             make "${filename%.*}.pdf"
             make "${filename%.*}.bbl"
             done
