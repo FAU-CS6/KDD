@@ -13,6 +13,7 @@ jobs:
         uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
+            apk add make
             cd lecture
             for filename in *.tex; do
             make "${filename%.*}.pdf"
