@@ -1,0 +1,75 @@
+%-------------------------------------------------------------------------------
+% Color theme file
+%
+% This work is licensed under the Creative Commons Attribution-ShareAlike 4.0
+% International License. To view a copy of this license, visit
+% http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to Creative
+% Commons, PO Box 1866, Mountain View, CA 94042, USA.
+% (C) Oliver Reiche <oliver.reiche@fau.de>
+%-------------------------------------------------------------------------------
+
+\mode<presentation>
+
+
+% FAU colors
+\definecolor{faublue}{RGB}{0,56,101}
+\definecolor{fauorange}{RGB}{201,147,19}
+\definecolor{faured}{RGB}{141,20,41}
+\definecolor{faucyan}{RGB}{0,177,235}
+\definecolor{faugreen}{RGB}{0,122,93}
+\definecolor{faugray}{RGB}{152,164,174}
+
+% Structure
+\setbeamercolor{structure}{fg=faublue}
+
+% Title
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{title page}{fg=white}
+\setbeamercolor{titlelike}{parent=structure}
+\setbeamercolor{frametitle}{parent=titlelike}
+
+% Normal text
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{alerted text}{fg=red}
+\setbeamercolor{example text}{fg=green!75!black}
+
+% Headline
+\setbeamercolor{headline}{parent=structure}
+
+% Footline
+\setbeamercolor{footline}{fg=faublue}
+
+% Captions
+\setbeamercolor{caption}{parent=normal text}
+\setbeamercolor{caption name}{parent=structure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Enumerations and lists %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Enumerate item
+\setbeamercolor{enumerate item}{parent=structure}
+\setbeamercolor{enumerate subitem}{parent=structure}
+\setbeamercolor{enumerate subsubitem}{parent=structure}
+
+% Itemize item
+\setbeamercolor{itemize item}{parent=structure}
+\setbeamercolor{itemize subitem}{parent=structure}
+\setbeamercolor{itemize subsubitem}{parent=structure}
+
+% Description item
+\setbeamercolor{description item}{parent=structure}
+\setbeamercolor{description subitem}{parent=structure}
+\setbeamercolor{description subsubitem}{parent=structure}
+%%%%%%%%%%%%%%%%%%%%%%% Enumerations and lists end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Block environment
+\setbeamercolor{block body}{}
+\setbeamercolor{block body alerted}{}
+\setbeamercolor{block body example}{}
+\setbeamercolor{block title}{parent=structure}
+\setbeamercolor{block title alerted}{parent=structure,fg=red}
+\setbeamercolor{block title example}{parent=structure,fg=green!75!black}
+
+
+\mode
+<all>

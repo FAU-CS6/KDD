@@ -1,0 +1,72 @@
+%-------------------------------------------------------------------------------
+% Main file
+%
+% This work is licensed under the Creative Commons Attribution-ShareAlike 4.0
+% International License. To view a copy of this license, visit
+% http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to Creative
+% Commons, PO Box 1866, Mountain View, CA 94042, USA.
+% (C) Oliver Reiche <oliver.reiche@fau.de>
+%-------------------------------------------------------------------------------
+
+\mode<presentation>
+
+
+\usepackage{calc}
+\usepackage{pgf}
+
+
+\newif\ifbeamer@image
+\beamer@imagefalse
+
+\newif\ifbeamer@plain
+\beamer@plainfalse
+
+\newif\ifbeamer@longtitle
+\beamer@longtitlefalse
+
+\DeclareOptionBeamer{image}[true]{%
+  \csname beamer@image#1\endcsname%
+}
+
+\DeclareOptionBeamer{plain}[true]{%
+  \csname beamer@plain#1\endcsname%
+}
+
+\DeclareOptionBeamer{longtitle}[true]{%
+  \csname beamer@longtitle#1\endcsname%
+}
+
+\ProcessOptionsBeamer
+
+
+% Set paths for TechFak images
+\ifdefined\imagepath\else
+  \def\imagepath{tf}
+\fi
+\ifdefined\sealpath\else
+  \def\sealpath{tf}
+\fi
+\def\imagecopyrightsmall{\color{black}Bilder: TF / Malter}
+
+
+\ifdefined\beamer@inst\else%
+  % Include FAU theme
+  \usetheme[
+    image=\ifbeamer@image true\else false\fi,
+    plain=\ifbeamer@plain true\else false\fi,
+    longtitle=\ifbeamer@longtitle true\else false\fi
+  ]{fau}
+\fi
+
+
+% Set colors for TechFak
+\colorlet{maincolor}{faugray}
+\colorlet{boxcolor1}{faublue}
+\colorlet{boxcolor2}{faublue}
+\colorlet{boxcolor3}{faublue}
+\colorlet{boxcolor4}{faublue}
+\colorlet{boxcolor5}{faublue}
+
+
+\mode
+<all>

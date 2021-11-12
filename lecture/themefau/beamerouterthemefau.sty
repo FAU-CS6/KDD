@@ -1,0 +1,174 @@
+%-------------------------------------------------------------------------------
+% Outer theme file
+%
+% This work is licensed under the Creative Commons Attribution-ShareAlike 4.0
+% International License. To view a copy of this license, visit
+% http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to Creative
+% Commons, PO Box 1866, Mountain View, CA 94042, USA.
+% (C) Oliver Reiche <oliver.reiche@fau.de>
+%-------------------------------------------------------------------------------
+
+\mode<presentation>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Margins %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfmathparse{\factor*1.56cm}
+\setbeamersize{text margin left=\pgfmathresult pt}
+\pgfmathparse{\factor*.68cm}
+\setbeamersize{text margin right=\pgfmathresult pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Margins end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Navigation symbols %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{navigation symbols}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Navigation symbols end %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frametitle %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{frametitle}{%
+  \insertframetitle\\
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frametitle end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Headline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\headlinebody}[1][\empty]{%
+  \def\paperheight{\factor*1.83cm}
+  \begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\paperheight}
+    \pgfputat{\pgfpoint{\paperwidth-\factor*.92cm}{\paperheight-\factor*.34cm}}{%
+      \pgfbox[right,top]{%
+        \pgfuseimage{faulogo-small}
+      }
+    }
+    % Additional headline logo
+    \ifx#1\empty\else
+      \pgfputat{\pgfpoint{\paperwidth-\factor*.92cm-\factor*4.56cm}%
+                         {\paperheight-\factor*.335cm}}{%
+        \pgfbox[right,top]{%
+          #1%
+        }
+      }
+    \fi
+  \end{pgfpicture}
+}
+\setbeamertemplate{headline}{%
+  \headlinebody
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Headline end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sidebar left %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{sidebar left}{%
+  \def\canvasheight{\paperheight-\factor*1.83cm} % height minus headline
+  \begin{pgfpicture}{0cm}{0cm}{\factor*.82cm}{\canvasheight}
+    \color{maincolor}
+    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*3.66cm}}%
+                  {\pgfpoint{\factor*.73cm}{-\factor*1.79cm}}
+
+    \color{boxcolor1}
+    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*5.52cm}}%
+                  {\pgfpoint{\factor*.73cm}{-\factor*0.41cm}}
+
+    \color{boxcolor2}
+    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*5.88cm}}%
+                  {\pgfpoint{\factor*.73cm}{-\factor*0.41cm}}
+
+    \color{boxcolor3}
+    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*6.24cm}}%
+                  {\pgfpoint{\factor*.73cm}{-\factor*0.41cm}}
+
+    \color{boxcolor4}
+    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*6.6cm}}%
+                  {\pgfpoint{\factor*.73cm}{-\factor*0.41cm}}
+
+    \color{boxcolor5}
+    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*6.96cm}}%
+                  {\pgfpoint{\factor*.73cm}{-\factor*0.36cm}}
+  \end{pgfpicture}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sidebar left end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sidebar right %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{sidebar right}{} % Hide default beamer logo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sidebar right end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{background}{%
+  \ifbeamer@plainframe\else%
+    \begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\paperheight}
+      \usebeamercolor[fg]{structure}
+      \pgfsetlinewidth{\factor*.75pt}
+      \pgfrect[stroke]{\pgfpoint{\factor*.82cm}{\paperheight-\factor*1.83cm}}
+                      {\pgfpoint{\paperwidth-\factor*.82cm+\factor*.75pt}{-\factor*16.46cm}}
+
+      \ifdefined\beamer@@tmpl@logo%
+        % Draw logo
+        \pgfputat{\pgfpoint{\paperwidth-\factorx*1.24cm}%
+                           {\paperheight-\factor*17.1cm}}{%
+          \pgfbox[right,bottom]{%
+            \scalebox{0.65}{% Same scale factor as FAU logo
+              \insertlogo
+            }
+          }
+        }
+      \fi
+    \end{pgfpicture}
+  \fi
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Background end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Footline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}{%
+  \def\canvasheight{\paperheight-\factor*18.29cm}
+  \begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\canvasheight}
+    % shortauthor, shortinstitute, and shorttitle
+    \pgfputat{\pgfpoint{\factor*.82cm}{\factor*.64cm}}{%
+      \pgfbox[left,top]{%
+        \pgfmathparse{\factorx*17cm}%
+        \parbox[c]{\pgfmathresult pt}{%
+          \vspace{.33ex}%
+          \setbox0=\hbox{\insertshortauthor\unskip}\ifdim\wd0=0pt\else%
+            \mbox{\insertshortauthor}\quad|\quad%
+          \fi%
+          \setbox0=\hbox{\insertshortinstitute\unskip}\ifdim\wd0=0pt\else%
+            \mbox{\insertshortinstitute}\quad|\quad%
+          \fi%
+          \mbox{\insertshorttitle}
+        }
+      }
+    }
+
+    % shortdate
+    \pgfputat{\pgfpoint{\factorx*18.92cm}{\factor*.64cm}}{%
+      \pgfbox[left,top]{%
+        \pgfmathparse{\factorx*3cm}
+        \parbox{\pgfmathresult pt}{%
+          \vspace{.33ex}%
+          \setbox0=\hbox{\insertshortdate\unskip}\ifdim\wd0=0pt\else%
+            \insertshortdate%
+          \fi%
+        }
+      }
+    }
+
+    % frame number
+    \pgfputat{\pgfpoint{\factorx*22.85cm}{\factor*.64cm}}{%
+      \pgfbox[left,top]{%
+        \pgfmathparse{\factorx*2cm}
+        \parbox{\pgfmathresult pt}{%
+          \vspace{.33ex}%
+          \raggedleft%
+          \insertframenumber
+        }
+      }
+    }
+  \end{pgfpicture}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Footline end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\mode
+<all>
