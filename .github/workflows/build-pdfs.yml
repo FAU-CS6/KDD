@@ -25,5 +25,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Lecture Slides
-          path: lecture/*.pdf
+          path: |
+            lecture/*.pdf
+            lecture/*.log
           retention-days: 5
