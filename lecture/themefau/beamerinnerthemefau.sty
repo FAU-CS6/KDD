@@ -34,39 +34,20 @@
   \fi
 
   % Decoration on the left
-  \color{boxcolor1}%
-  \pgfrect[fill]{\pgfpoint{0pt}{\paperheight-\factor*7.36cm}}%
-                {\pgfpoint{\factor*.7cm}{-\factor*.82cm}}
-
-  \color{boxcolor2}%
-  \pgfrect[fill]{\pgfpoint{0pt}{\paperheight-\factor*8.08cm}}%
-                {\pgfpoint{\factor*.7cm}{-\factor*.82cm}}
-
-  \color{boxcolor3}%
-  \pgfrect[fill]{\pgfpoint{0pt}{\paperheight-\factor*8.80cm}}%
-                {\pgfpoint{\factor*.7cm}{-\factor*.82cm}}
-
-  \color{boxcolor4}%
-  \pgfrect[fill]{\pgfpoint{0pt}{\paperheight-\factor*9.52cm}}%
-                {\pgfpoint{\factor*.7cm}{-\factor*.82cm}}
-
-  \color{boxcolor5}%
-  \pgfrect[fill]{\pgfpoint{0pt}{\paperheight-\factor*10.24cm}}%
-                {\pgfpoint{\factor*.7cm}{-\factor*.72cm}}
-
   \color{maincolor}%
-  \pgfrect[fill]{\pgfpoint{0pt}{\paperheight-\factor*3.68cm}}%
-                {\pgfpoint{\factor*.7cm}{-\factor*3.58cm}}
+  \pgfrect[fill]{\pgfpoint{0pt}{\paperheight}}%
+                {\pgfpoint{\paperwidth}{\paperheight}}
 
   \ifbeamer@plain%
-    % Plain background box
-    \pgfrect[fill]{\pgfpoint{\factor*.85cm}{\paperheight-\factor*3.68cm}}%
-                  {\pgfpoint{\paperwidth-\factor*.85cm}{-\factor*14.5cm}}
+
+  % Plain background box
+    % \pgfrect[fill]{\pgfpoint{\factor*.85cm}{\paperheight-\factor*3.68cm}}%
+                  % {\pgfpoint{\paperwidth-\factor*.85cm}{-\factor*14.5cm}}
 
     % Title
-    \pgfputat{\pgfpoint{\factorx*1.1cm}{\paperheight-\factor*3.88cm}}{%
+    \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*3.88cm}}{%
       \pgfbox[left,top]{%
-        \usebeamercolor[fg]{title}
+          \color{faugreen}%         \usebeamercolor[fg]{title}
         \pgfmathparse{\factorx*23.8cm}%
         \parbox{\pgfmathresult pt}{%
           \smallskip\raggedright%
@@ -121,12 +102,30 @@
     \fi
 
     \ifbeamer@longtitle%
-      % Upper box
-      \pgfrect[fill]{\pgfpoint{\factor*.85cm}{\paperheight-\factor*3.68cm}}%
-                    {\pgfpoint{\paperwidth-\factor*.85cm}{-\factor*7.25cm}}
+    %%%%%%%%%%%%%%%% Title page %%%%%%%%%%%%
+    % Upper box
+      \pgfrect[fill]{\pgfpoint{0}{\paperheight}}%
+                    {\pgfpoint{\paperwidth}{-\factor*21cm}}
+
+      % Headline
+  \pgfputat{\pgfpoint{\paperwidth-\factory*1.77cm}%
+                     {\paperheight-\factory*0.7cm}}{%
+    \pgfbox[right,top]{%
+      \pgfuseimage{faulogo-white}
+    }
+  }
+  % Additional headline logo
+  \ifx#1\empty\else
+  \pgfputat{\pgfpoint{\paperwidth-\factory*1.77cm-\factor*7.03cm}%
+                     {\paperheight-\factory*0.7cm}}{%
+    \pgfbox[right,top]{%
+      #1
+    }
+  }
+  \fi
 
       % Title
-      \pgfputat{\pgfpoint{\factorx*1.1cm}{\paperheight-\factor*3.88cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*5.88cm}}{%
         \pgfbox[left,top]{%
           \usebeamercolor[fg]{title}
           \pgfmathparse{\factorx*23.8cm}%
@@ -141,7 +140,7 @@
       \ifx#2\inserttitle%
 
       % Subtitle
-      \pgfputat{\pgfpoint{\factorx*1.1cm}{\paperheight-\factor*7.42cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*9.42cm}}{%
         \pgfbox[left,top]{%
           \usebeamercolor[fg]{title page}
           \pgfmathparse{\factorx*23.8cm}%
@@ -153,7 +152,7 @@
       }
 
       % Author, institute, and date
-      \pgfputat{\pgfpoint{\factorx*1.1cm}{\paperheight-\factor*10.94cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*12.94cm}}{%
         \pgfbox[left,bottom]{%
           \usebeamercolor[fg]{title page}
           \pgfmathparse{\factorx*23.8cm}%
@@ -172,30 +171,6 @@
           }
         }
       }
-      \fi
-
-      \ifbeamer@image%
-        % Draw image
-        \pgfputat{\pgfpoint{\factor*.85cm}{\paperheight-\factor*11.05cm}}{%
-          \pgfbox[left,top]{%
-            \pgfuseimage{image-small}
-          }
-        }
-        \ifdefined\imagecopyrightsmall
-          \pgfputat{\pgfpoint{\paperwidth}{\paperheight-\factor*18.18cm}}{%
-            \pgfbox[right,bottom]{%
-              \parbox{\paperwidth}{%
-                \raggedleft\tiny%
-                \imagecopyrightsmall\\
-                \smallskip
-              }
-            }
-          }
-        \fi
-      \else%
-        % Lower box
-        \pgfrect[fill]{\pgfpoint{\factor*.85cm}{\paperheight-\factor*11.06cm}}%
-                      {\pgfpoint{\paperwidth-\factor*.85cm}{-\factor*7.12cm}}
       \fi
 
       \ifdefined\beamer@@tmpl@logo%
@@ -217,13 +192,29 @@
       \fi
 
     \else % Not long title
+     %%%%%%%%%%%%%%%% section page %%%%%%%%%%%%
+        % Upper box
+      \pgfrect[fill]{\pgfpoint{0}{\paperheight}}%
+                    {\pgfpoint{\paperwidth}{-\factor*21cm}}
 
-      % Upper box
-      \pgfrect[fill]{\pgfpoint{\factor*.85cm}{\paperheight-\factor*3.68cm}}%
-                    {\pgfpoint{\paperwidth-\factor*.85cm}{-\factor*3.58cm}}
-
+                    % Headline
+  \pgfputat{\pgfpoint{\paperwidth-\factory*1.77cm}%
+                     {\paperheight-\factory*0.7cm}}{%
+    \pgfbox[right,top]{%
+      \pgfuseimage{faulogo-white}
+    }
+  }
+  % Additional headline logo
+  \ifx#1\empty\else
+  \pgfputat{\pgfpoint{\paperwidth-\factory*1.77cm-\factor*7.03cm}%
+                     {\paperheight-\factory*0.7cm}}{%
+    \pgfbox[right,top]{%
+      #1
+    }
+  }
+  \fi
       % Title
-      \pgfputat{\pgfpoint{\factorx*1.1cm}{\paperheight-\factor*3.88cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*5.88cm}}{%
         \pgfbox[left,top]{%
           \usebeamercolor[fg]{title}
           \pgfmathparse{\factorx*23.8cm}%
@@ -238,7 +229,7 @@
       \ifx#2\inserttitle%
 
       % Subtitle
-      \pgfputat{\pgfpoint{\factorx*1.1cm}{\paperheight-\factor*5.52cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*7.52cm}}{%
         \pgfbox[left,top]{%
           \usebeamercolor[fg]{title page}
           \pgfmathparse{\factorx*23.8cm}%
@@ -250,7 +241,7 @@
       }
 
       % Shortauthor, shortinstitute, and shortdate (all in single line)
-      \pgfputat{\pgfpoint{\factorx*1.1cm}{\paperheight-\factor*7.26cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*7.26cm}}{%
         \pgfbox[left,bottom]{%
           \usebeamercolor[fg]{title page}
           \pgfmathparse{\factorx*23.8cm}%
@@ -279,30 +270,6 @@
           }
         }
       }
-      \fi
-
-      \ifbeamer@image%
-        % Draw image
-        \pgfputat{\pgfpoint{\factor*.85cm}{\paperheight-\factor*7.36cm}}{%
-          \pgfbox[left,top]{%
-            \pgfuseimage{image-large}
-          }
-        }
-        \ifdefined\imagecopyrightlarge
-          \pgfputat{\pgfpoint{\paperwidth}{\paperheight-\factor*18.18cm}}{%
-            \pgfbox[right,bottom]{%
-              \parbox{\paperwidth}{%
-                \raggedleft\tiny%
-                \imagecopyrightlarge\\
-                \smallskip
-              }
-            }
-          }
-        \fi
-      \else%
-        % Lower box
-        \pgfrect[fill]{\pgfpoint{\factor*.85cm}{\paperheight-\factor*7.36cm}}%
-                      {\pgfpoint{\paperwidth-\factor*.85cm}{-\factor*10.82cm}}
       \fi
 
       \ifdefined\beamer@@tmpl@logo%

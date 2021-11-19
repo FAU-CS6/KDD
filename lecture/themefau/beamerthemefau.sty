@@ -111,10 +111,9 @@
 
 % Image path is set by institution files
 \ifdefined\imagepath
-  % Distinguish between languages
-  \def\faulogo{fau-logo-english}
-  \@ifpackageloaded{babel}{
-    \iflanguage{ngerman}{\def\faulogo{fau-logo-deutsch}}{}}{}
+
+\def\faulogowhite{fau-logo-white}
+  \def\faulogo{fau-logo}
 \else
   \def\imagepath{}
   \def\faulogo{fau-logo}
@@ -130,7 +129,8 @@
 \pgfmathsetmacro{\beamer@sixteentonine}{16/9}
 \ifdim \beamer@aspectratio pt=\beamer@fourtothree pt%
   % Aspect ratio 4:3
-  \pgfdeclareimage[width=3.18cm]{faulogo-large}{art/\imagepath/\faulogo}
+  \pgfdeclareimage[width=3.18cm]{faulogo-white}{art/\imagepath/\faulogowhite}
+\pgfdeclareimage[width=3.18cm]{faulogo-large}{art/\imagepath/\faulogo}
   \pgfdeclareimage[width=2.08cm]{faulogo-small}{art/\imagepath/\faulogo}
   \pgfdeclareimage[width=3.30cm,height=3.35cm]{seal-large}{art/\sealpath/fau-seal}
   \pgfdeclareimage[width=2.63cm,height=2.67cm]{seal-small}{art/\sealpath/fau-seal}
@@ -138,7 +138,10 @@
   \pgfdeclareimage[width=12.37cm,height=3.59cm]{image-small}{art/\imagepath/image-small-43}
 \else\ifdim \beamer@aspectratio pt=\beamer@sixteentonine pt%
   % Aspect ratio 16:9
-  \pgfdeclareimage[width=5.98cm]{faulogo-large}{art/\imagepath/\faulogo}
+\pgfdeclareimage[width=5.98cm]{faulogo-large}{art/\imagepath/\faulogo}
+\pgfdeclareimage[width=5.98cm]{faulogo-white}{art/\imagepath/\faulogowhite}
+\pgfdeclareimage[width=5.98cm]{faulogo-white}{art/\imagepath/\faulogowhite}
+\pgfdeclareimage[width=5.98cm]{fautext-white}{art/\imagepath/\faulogowhite}
   \pgfdeclareimage[width=3cm]{faulogo-small}{art/\imagepath/\faulogo}
   \pgfdeclareimage[width=4.12cm,height=4.18cm]{seal-large}{art/\sealpath/fau-seal}
   \pgfdeclareimage[width=2.27cm,height=2.31cm]{seal-small}{art/\sealpath/fau-seal}

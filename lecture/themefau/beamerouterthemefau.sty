@@ -33,16 +33,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Headline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\headlinebody}[1][\empty]{%
-  \def\paperheight{\factor*1.83cm}
+  \def\paperheight{\factor*2.75cm}
   \begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\paperheight}
-    \pgfputat{\pgfpoint{\paperwidth-\factor*.92cm}{\paperheight-\factor*.34cm}}{%
+    \pgfputat{\pgfpoint{\paperwidth-\factor*.92cm}{\paperheight-\factor*.54cm}}{%
       \pgfbox[right,top]{%
         \pgfuseimage{faulogo-small}
       }
     }
     % Additional headline logo
     \ifx#1\empty\else
-      \pgfputat{\pgfpoint{\paperwidth-\factor*.92cm-\factor*4.56cm}%
+      \pgfputat{\pgfpoint{\paperwidth-\factor*.92cm-\factor*4.86cm}%
                          {\paperheight-\factor*.335cm}}{%
         \pgfbox[right,top]{%
           #1%
@@ -59,32 +59,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sidebar left %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{sidebar left}{%
-  \def\canvasheight{\paperheight-\factor*1.83cm} % height minus headline
-  \begin{pgfpicture}{0cm}{0cm}{\factor*.82cm}{\canvasheight}
-    \color{maincolor}
-    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*3.66cm}}%
-                  {\pgfpoint{\factor*.73cm}{-\factor*1.79cm}}
-
-    \color{boxcolor1}
-    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*5.52cm}}%
-                  {\pgfpoint{\factor*.73cm}{-\factor*0.41cm}}
-
-    \color{boxcolor2}
-    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*5.88cm}}%
-                  {\pgfpoint{\factor*.73cm}{-\factor*0.41cm}}
-
-    \color{boxcolor3}
-    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*6.24cm}}%
-                  {\pgfpoint{\factor*.73cm}{-\factor*0.41cm}}
-
-    \color{boxcolor4}
-    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*6.6cm}}%
-                  {\pgfpoint{\factor*.73cm}{-\factor*0.41cm}}
-
-    \color{boxcolor5}
-    \pgfrect[fill]{\pgfpoint{0cm}{\paperheight-\factor*6.96cm}}%
-                  {\pgfpoint{\factor*.73cm}{-\factor*0.36cm}}
-  \end{pgfpicture}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sidebar left end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -98,10 +72,11 @@
 \setbeamertemplate{background}{%
   \ifbeamer@plainframe\else%
     \begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\paperheight}
-      \usebeamercolor[fg]{structure}
+      % \usebeamercolor[fg]{structure}
+      \color{faugraydark}
       \pgfsetlinewidth{\factor*.75pt}
-      \pgfrect[stroke]{\pgfpoint{\factor*.82cm}{\paperheight-\factor*1.83cm}}
-                      {\pgfpoint{\paperwidth-\factor*.82cm+\factor*.75pt}{-\factor*16.46cm}}
+      \pgfrect[fill]{\pgfpoint{\factor*1.5cm}{\factor*16.5cm}}
+                      {\pgfpoint{\paperwidth}{0.08cm}}
 
       \ifdefined\beamer@@tmpl@logo%
         % Draw logo
@@ -125,7 +100,9 @@
   \def\canvasheight{\paperheight-\factor*18.29cm}
   \begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\canvasheight}
     % shortauthor, shortinstitute, and shorttitle
-    \pgfputat{\pgfpoint{\factor*.82cm}{\factor*.64cm}}{%
+    \pgfrect[fill]{\pgfpoint{\factor*1.5cm}{\factor*1cm}}
+                      {\pgfpoint{\paperwidth}{0.01cm}}
+    \pgfputat{\pgfpoint{\factor*1.5cm}{\factor*.64cm}}{%
       \pgfbox[left,top]{%
         \pgfmathparse{\factorx*17cm}%
         \parbox[c]{\pgfmathresult pt}{%
