@@ -1,0 +1,127 @@
+\section{Data warehouse design and usage}
+
+\begin{frame}{Design of Data Warehouse: A Business-analysis Framework}
+  \begin{itemize}
+  \item \textbf{Four views regarding the design of a data warehouse:}
+    \begin{itemize}
+    \item \textbf{\color{airforceblue}Top-down view:}
+      \begin{itemize}
+      \item Allows selection of the relevant information necessary for the data warehouse.
+      \end{itemize}
+    \item \textbf{\color{airforceblue}Data-source view:}
+      \begin{itemize}
+      \item Exposes the information being captured, stored, and managed by operational systems.
+      \end{itemize}
+    \item \textbf{\color{airforceblue}Data warehouse view:}
+      \begin{itemize}
+      \item Consists of fact tables and dimension tables.
+      \end{itemize}
+    \item \textbf{\color{airforceblue}Business-query view:}
+      \begin{itemize}
+      \item Sees the perspectives of data in the warehouse from the view of the end-user.
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Data Warehouse Design Process}
+  \begin{itemize}
+  \item \textbf{Top-down, bottom-up approaches or a combination of both:}
+    \begin{itemize}
+    \item \textbf{\color{airforceblue}Top-down:} starts with overall design and planning (mature).
+    \item \textbf{\color{airforceblue}Bottom-up:} starts with experiments and prototypes (rapid).
+    \end{itemize}
+  \item \textbf{From software-engineering point of view:}
+    \begin{itemize}
+    \item \textbf{\color{airforceblue}Waterfall:} structured and systematic analysis at each step before proceeding to the next.
+    \item \textbf{\color{airforceblue}Spiral:} rapid generation of increasingly functional systems, short turn-around time.
+    \end{itemize}
+  \item \textbf{Typical Data warehouse design process:}
+    \begin{itemize}
+    \item Choose a \textbf{\color{airforceblue}business process} to model, e.g., orders, invoices, etc.
+    \item Choose a \textbf{\color{airforceblue}grain} (atomic level of data) of the business process.
+    \item Choose \textbf{\color{airforceblue}dimensions} that will apply to each fact-table record.
+    \item Choose a \textbf{\color{airforceblue}measure} that will populate each fact-table record.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Data Warehouse Development: A Recommended Approach}
+  \centering
+  \begin{tikzpicture}[>=latex']
+    \tikzset{block/.style= {draw, rectangle, align=center,minimum width=2cm,minimum height=1cm},
+      rblock/.style={draw, shape=rectangle,rounded corners=1.5em,align=center,minimum width=2cm,minimum height=1cm},
+      input/.style={ % requires library shapes.geometric
+        draw,
+        trapezium,
+        trapezium left angle=60,
+        trapezium right angle=120,
+        minimum width=2cm,
+        align=center,
+        minimum height=1cm
+      },
+    }
+    \node[block] at (2,2) (ddm) {Distributed data marts};
+    \node[block] at (8,3) (mtier) {Multi-tier data warehouse};
+
+    \node[block] at (0.5,0) (datamart1) {Data mart};
+    \node[block] at (3.5,0) (datamart2) {Data mart};
+    \node[block] at (8,0) (edw) {Enterprise data warehouse};
+    \node[block] at (5,-2) (hlw) {Define a high-level corporate data model};
+
+    \path[draw,->] (hlw) edge (datamart1);
+    \path[draw,->] (hlw) edge (datamart2);
+    \path[draw,->] (datamart1) edge [bend right=30] node[fill=white] {Model refinement} (hlw);
+    \path[draw,->] (datamart2) edge [bend left = 10] node[fill=white] {Model refinement} (hlw);
+    \path[draw,->] (ddm) edge [bend left = 50] node[fill=white] {Model refinement} (hlw);
+    \path[draw,->] (edw) edge [bend left = 40] node[fill=white] {Model refinement} (hlw);
+    \path[draw,->] (datamart1) edge (ddm);
+    \path[draw,->] (datamart2) edge (ddm);
+    \path[draw,->] (ddm) edge (mtier);
+    \path[draw,->] (edw) edge (mtier);
+    \path[draw,->] (hlw) edge (edw);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Data Warehouse Usage}
+  \begin{itemize}
+  \item \textbf{Three kinds of data warehouse applications.}
+    \begin{itemize}
+    \item \textbf{\color{airforceblue}Information processing.}
+      \begin{itemize}
+      \item Supports querying, basic statistical analysis, and \\ reporting using crosstabs, tables, charts and graphs.
+      \end{itemize}
+    \item \textbf{\color{airforceblue}Analytical processing.}
+      \begin{itemize}
+      \item Multidimensional analysis of data warehouse data.
+      \item Supports basic OLAP operations, slice-dice, drilling, pivoting.
+      \end{itemize}
+    \item \textbf{\color{airforceblue}Data mining.}
+      \begin{itemize}
+      \item Knowledge discovery from hidden patterns.
+      \item Supports associations, constructing analytical models, performing classification and prediction, and presenting the mining results using visualization tools.
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{From Online Analytical Processing (OLAP) To Online Analytical Mining (OLAM)}
+  \begin{itemize}
+  \item \textbf{Why online analytical mining?}
+    \begin{itemize}
+    \item DW contains integrated, consistent, cleaned data.
+    \item Available information-processing structure surrounding data warehouses.
+      \begin{itemize}
+      \item ODBC, OLEDB, Web access, service facilities, reporting, and OLAP tools.
+      \end{itemize}
+    \item OLAP-based exploratory data analysis.
+      \begin{itemize}
+      \item Mining with drilling, dicing, pivoting, etc.
+      \end{itemize}
+    \item Online selection of data-mining functions.
+      \begin{itemize}
+      \item Integration and swapping of multiple mining functions, algorithms, and tasks.
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}

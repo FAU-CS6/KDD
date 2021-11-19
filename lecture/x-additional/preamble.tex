@@ -36,7 +36,7 @@
 
 
 \lstset{%
-  language=C++,
+  language=Python,
   tabsize=2,
   basicstyle=\tt,
   keywordstyle=\color{blue},
@@ -61,41 +61,11 @@
 \usepackage{booktabs}
 \usepackage{calc}
 \usepackage{ifthen}
-\usepackage{tikz}
-\usepackage{tikz-cd}
-\usepackage{pgfplots,pgfplotstable,pgf-pie}
 
-\newcommand{\plots}{0.611201}
-\newcommand{\plotm}{2.19882}
-\pgfmathdeclarefunction{gauss}{2}{%
-  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
-}
+\usepackage{tabularx}
 
-\tikzset{
-  thick,
-  >=latex,
-  every edge/.style={draw=gray, thick, >=latex},
-  vertex/.style = {
-    circle,
-    fill            = black,
-    outer sep = 2pt,
-    inner sep = 1pt,
-  }
-}
-\usetikzlibrary{matrix,mindmap}
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,shapes.symbols,chains,intersections,snakes}
-\tikzset{level 1/.append style={sibling angle=50,level distance = 165mm}}
-\tikzset{level 2/.append style={sibling angle=20,level distance = 45mm}}
-\tikzset{every node/.append style={scale=1}}
-% read in data file
-\pgfplotstableread{data/iris.dat}\iris
-% get number of data points
-\pgfplotstablegetrowsof{\iris}
-\pgfmathsetmacro\NumRows{\pgfplotsretval-1}
-
-\usepgfplotslibrary{groupplots}
-\pgfplotsset{height=4cm,width=8cm,compat=1.14}
-\newcommand{\tikzmark}[1]{\tikz[remember picture] \node[coordinate] (#1) {#1};}
+\usepackage{xcolor}
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
 
 % English version
 \institute[CS6]{Chair of Computer Science 6 (Data Management), Friedrich-Alexander University Erlangen-N\"urnberg}
@@ -105,9 +75,11 @@
 \setbeamertemplate{section in toc}[sections numbered]
 
 \setbeamertemplate{section page}{%
-    \begingroup
-        \begin{beamercolorbox}[sep=10pt,center,rounded=true,shadow=true]{section title}
-        \usebeamerfont{section title}\thesection~\insertsection\par
-        \end{beamercolorbox}
-    \endgroup
-  }
+  \begingroup
+  \begin{beamercolorbox}[sep=10pt,center,rounded=true,shadow=true]{section title}
+    \usebeamerfont{section title}\thesection~\insertsection\par
+  \end{beamercolorbox}
+  \endgroup
+}
+
+\input{x-additional/tikzsetup}
