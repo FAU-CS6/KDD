@@ -47,7 +47,7 @@
     % Title
     \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*3.88cm}}{%
       \pgfbox[left,top]{%
-          \color{faugreen}%         \usebeamercolor[fg]{title}
+          \usebeamercolor[fg]{title}
         \pgfmathparse{\factorx*23.8cm}%
         \parbox{\pgfmathresult pt}{%
           \smallskip\raggedright%
@@ -105,7 +105,11 @@
     %%%%%%%%%%%%%%%% Title page %%%%%%%%%%%%
     % Upper box
       \pgfrect[fill]{\pgfpoint{0}{\paperheight}}%
-                    {\pgfpoint{\paperwidth}{-\factor*21cm}}
+      {\pgfpoint{\paperwidth}{-\factor*21cm}}
+
+      \color{faugraydark}
+        \pgfrect[fill]{\pgfpoint{\factorx*1.5cm}{\factor*15cm}}
+                      {\pgfpoint{\paperwidth}{0.08cm}}
 
       % Headline
   \pgfputat{\pgfpoint{\paperwidth-\factory*1.77cm}%
@@ -125,7 +129,7 @@
   \fi
 
       % Title
-      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*5.88cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*4.88cm}}{%
         \pgfbox[left,top]{%
           \usebeamercolor[fg]{title}
           \pgfmathparse{\factorx*23.8cm}%
@@ -140,7 +144,7 @@
       \ifx#2\inserttitle%
 
       % Subtitle
-      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*9.42cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*8.42cm}}{%
         \pgfbox[left,top]{%
           \usebeamercolor[fg]{title page}
           \pgfmathparse{\factorx*23.8cm}%
@@ -152,7 +156,7 @@
       }
 
       % Author, institute, and date
-      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*12.94cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*11.94cm}}{%
         \pgfbox[left,bottom]{%
           \usebeamercolor[fg]{title page}
           \pgfmathparse{\factorx*23.8cm}%
@@ -197,6 +201,10 @@
       \pgfrect[fill]{\pgfpoint{0}{\paperheight}}%
                     {\pgfpoint{\paperwidth}{-\factor*21cm}}
 
+                          \color{faugraydark}
+        \pgfrect[fill]{\pgfpoint{\factor*1.5cm}{\factor*15cm}}
+                      {\pgfpoint{\paperwidth}{0.08cm}}
+
                     % Headline
   \pgfputat{\pgfpoint{\paperwidth-\factory*1.77cm}%
                      {\paperheight-\factory*0.7cm}}{%
@@ -213,8 +221,9 @@
     }
   }
   \fi
+
       % Title
-      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*5.88cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*4.88cm}}{%
         \pgfbox[left,top]{%
           \usebeamercolor[fg]{title}
           \pgfmathparse{\factorx*23.8cm}%
@@ -229,7 +238,7 @@
       \ifx#2\inserttitle%
 
       % Subtitle
-      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*7.52cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*8.52cm}}{%
         \pgfbox[left,top]{%
           \usebeamercolor[fg]{title page}
           \pgfmathparse{\factorx*23.8cm}%
@@ -241,7 +250,7 @@
       }
 
       % Shortauthor, shortinstitute, and shortdate (all in single line)
-      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*7.26cm}}{%
+      \pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*11.26cm}}{%
         \pgfbox[left,bottom]{%
           \usebeamercolor[fg]{title page}
           \pgfmathparse{\factorx*23.8cm}%
