@@ -1,0 +1,104 @@
+\documentclass[a4paper,11pt,DIV=13,headinclude=true,footinclude=true]{scrartcl}
+\usepackage{hyperref}
+
+\usepackage[english]{babel}
+\usepackage[backend=biber,sorting=none,doi=true,style=ieee]{biblatex}
+\addbibresource{references.bib}
+\defbibheading{bibliography}{}
+
+\title{Knowledge Discovery in Databases}
+\subtitle{Literature References}
+\author{Dominik Probst, Melanie B. Sigl}
+
+\begin{document}
+
+\nocite{*}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+\section{Data}
+
+\printbibliography[%
+heading=none,
+title={},
+keyword=data]
+
+\section{Data Preprocessing}
+
+\section{Data Warehousing and Online Analytical Processing}
+
+\printbibliography[%
+heading=none,
+title={},
+keyword=OLAP]
+
+\section{Mining Frequent Patterns, Associations, and Correlations}
+
+\section{Classification}
+
+\printbibliography[%
+heading=subbibintoc,
+title={Books on Classification},
+keyword={classification},
+notkeyword={decision-trees, neural networks, svm, pattern, rule, knn, bayes, multi, genetic, ensemble}
+type=book]
+
+\printbibliography[%
+heading=subbibintoc,
+title={Decision Trees},
+keyword={decision-trees}]
+
+\printbibliography[%
+heading=subbibintoc,
+title={Neural Networks},
+keyword={neural networks}]
+
+\printbibliography[%
+heading=subbibintoc,
+title={Support Vector Machines},
+keyword={svm}]
+
+\printbibliography[%
+heading=subbibintoc,
+title={Pattern-based Classification},
+keyword={pattern}]
+
+\printbibliography[%
+heading=subbibintoc,
+title={Rule Induction},
+keyword={rule}]
+
+\printbibliography[%
+heading=subbibintoc,
+title={$k$-NN \& Case-based Reasoning},
+keyword={knn}]
+
+\printbibliography[%
+heading=subbibintoc,
+title={Bayesian Method \& Statistical Models},
+keyword={bayes}]
+
+\printbibliography[%
+heading=subbibintoc,
+title={Semi-Supervised \& Multi-Class Learning},
+keyword={multi}]
+
+\printbibliography[%
+heading=subbibintoc,
+title={Genetic Algorithms \& Rough/Fuzzy Sets},
+keyword={genetic}]
+
+\printbibliography[%
+heading=subbibintoc,
+title={Model Evaluation \& Ensemble Methods},
+keyword={ensemble}]
+
+\section{Cluster Analysis}
+
+\section{Outlier Analysis}
+
+\end{document}
