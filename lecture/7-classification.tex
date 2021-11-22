@@ -1,0 +1,39 @@
+\ifx\pdfminorversion\undefined\else\pdfminorversion=4\fi
+\documentclass[aspectratio=169,t]{beamer}
+%\documentclass[aspectratio=169,t,handout]{beamer}
+
+\input{x-additional/preamble}
+
+% Title, authors, and date
+\title[KDD~7.~Classification]{7. Classification} %
+\subtitle{Knowledge Discovery in Databases}
+\input{x-additional/mbs.tex}
+\input{x-additional/get_git_rev.tex}
+
+
+% Set additional logo (overwrites FAU seal)
+%\logo{\includegraphics[width=.15\textwidth]{themefau/art/xxx/xxx.pdf}}
+\input{data/q.tex}
+\begin{document}
+\input{data/qq.tex}
+  % Title
+  \maketitle
+
+  { % Outline
+    \setbeamertemplate{footline}{}
+    \begin{frame}[noframenumbering]{Outline}
+      \tableofcontents
+
+    \end{frame}
+  }
+
+  % Body
+  \input{7-classification/1-basic-concepts}
+  \input{7-classification/2-decision-tree}
+  \input{7-classification/3-bayes}
+  \input{7-classification/4-rule-based}
+  \input{7-classification/5-evaluation-selection}
+  \input{7-classification/6-ensemble}
+  \input{x-additional/x-contact}
+
+\end{document}
