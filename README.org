@@ -15,19 +15,34 @@
 * Sommersemester 2021
   Semester duration: 25 April 2022 – 29 July 2022
 
-  | *Calendar Week* | *Lecture Topic*                        | *Lecturer*      | *Exercise*                |
-  |-----------------+----------------------------------------+-----------------+---------------------------|
-  |              17 | Course Introduction + KDD Introduction | Dominik Probst  |                           |
-  |              18 | Data                                   | Melanie B. Sigl | Optional: Intro to Python |
-  |              19 | Preprocessing, Part 1                  | Dominik Probst  | Intro to Pandas/Numpy     |
-  |              20 | Preprocessing, Part 2                  | Dominik Probst  | Data Profiling            |
-  |              21 | OLAP                                   | Melanie B. Sigl | Data Cleaning w/Pandas    |
-  |              22 | Frequent Pattern, Part 1               | Dominik Probst  | Exploratory Data Analysis |
-  |              23 | Frequent Pattern, Part 2               | Dominik Probst  | Frequent Pattern          |
-  |              24 | Classification, Part 1                 | Melanie B. Sigl | Classification            |
-  |              25 | Classification, Part 2                 | Melanie B. Sigl | Classification            |
-  |              26 | Cluster Analysis, Part 1               | Dominik Probst  | Classification            |
-  |              27 | Cluster Analysis, Part 2               | Dominik Probst  | Clustering                |
-  |              28 | Outlier Analysis, Part 1               | Melanie B. Sigl | Clustering                |
-  |              29 | Outlier Analysis, Part 2               | Melanie B. Sigl | Outlier                   |
-  |              30 | Current Resarch at CS6 and Exam QnA    | Dominik Probst  |                           |
+  | *Calendar Week* | *Lecture Topic*                          | *Lecturer*        | *Exercise*                  |
+  |---------------+----------------------------------------+-----------------+---------------------------|
+  |            17 | Course Introduction + KDD Introduction | Dominik Probst  |                           |
+  |            18 | Data                                   | Melanie B. Sigl | Optional: Intro to Python |
+  |            19 | Preprocessing, Part 1                  | Dominik Probst  | Intro to Pandas/Numpy     |
+  |            20 | Preprocessing, Part 2                  | Dominik Probst  | Data Profiling            |
+  |            21 | OLAP                                   | Melanie B. Sigl | Data Cleaning w/Pandas    |
+  |            22 | Frequent Pattern, Part 1               | Dominik Probst  | Exploratory Data Analysis |
+  |            23 | Frequent Pattern, Part 2               | Dominik Probst  | Frequent Pattern          |
+  |            24 | Classification, Part 1                 | Melanie B. Sigl | Classification            |
+  |            25 | Classification, Part 2                 | Melanie B. Sigl | Classification            |
+  |            26 | Cluster Analysis, Part 1               | Dominik Probst  | Classification            |
+  |            27 | Cluster Analysis, Part 2               | Dominik Probst  | Clustering                |
+  |            28 | Outlier Analysis, Part 1               | Melanie B. Sigl | Clustering                |
+  |            29 | Outlier Analysis, Part 2               | Melanie B. Sigl | Outlier                   |
+  |            30 | Current Resarch at CS6 and Exam QnA    | Dominik Probst  |                           |
+
+* Setup for Building Lecture Slides Locally
+To build these lecture slides locally on your machine you'll need an up-to-date
+version of LaTeX such as [[https://www.tug.org/texlive/][texlive]] or [[https://miktex.org/][MikTex]].
+
+You may need to "install" FAU's custom beamer theme. To do so, simply copy or
+create a shortcut (symlink) to =<KDD location>/lecture/themefau= in the
+corresponding place depending on your operating system. For a standard
+installation this place is one of the following:
+- Linux: =~/texmf/tex/latex/local/=
+- Mac OS X: =//Users/<user name>/Library/texmf/tex/latex/local/=
+- Windows 10 (and MikTex): =C:\Users\<user
+  name>\Appdata\Local\MikTex\<number>\tex\latex\local\=
+
+For more information see this [[https://tex.stackexchange.com/questions/1137/where-do-i-place-my-own-sty-or-cls-files-to-make-them-available-to-all-my-te][entry]].
