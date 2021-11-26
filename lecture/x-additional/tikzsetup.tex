@@ -3,6 +3,21 @@
 \usepackage{pgfplots,pgfplotstable,pgf-pie}
 
 \newcommand{\tikzmark}[1]{\tikz[remember picture] \node[coordinate] (#1) {#1};}
+
+\tikzset{
+  every overlay node/.style={
+    %draw=black,fill=white,rounded corners,
+    anchor=north west, inner sep=0pt,
+  },
+}
+% Usage:
+% \tikzoverlay at (-1cm,-5cm) {content};
+% or
+% \tikzoverlay[text width=5cm] at (-1cm,-5cm) {content};
+\def\tikzoverlay{%
+   \tikz[remember picture, overlay]\node[every overlay node]
+}%
+
 \newcommand{\plots}{0.611201}
 \newcommand{\plotm}{2.19882}
 
