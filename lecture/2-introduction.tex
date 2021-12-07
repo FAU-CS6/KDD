@@ -1,0 +1,43 @@
+\ifx\pdfminorversion\undefined\else\pdfminorversion=4\fi
+\documentclass[aspectratio=169,t]{beamer}
+%\documentclass[aspectratio=169,t,handout]{beamer}
+
+\input{x-additional/preamble}
+
+% Title, authors, and date
+\title[KDD~2.~Introduction]{2. Introduction} %
+\subtitle{Knowledge Discovery in Databases}
+\input{x-additional/dp.tex}
+\input{x-additional/get_git_rev.tex}
+
+
+% Set additional logo (overwrites FAU seal)
+%\logo{\includegraphics[width=.15\textwidth]{themefau/art/xxx/xxx.pdf}}
+\input{data/q.tex}
+\begin{document}
+\input{data/qq.tex}
+  % Title
+  \maketitle
+
+  { % Outline
+    \setbeamertemplate{footline}{}
+    \begin{frame}[noframenumbering]{Outline}
+      \tableofcontents
+
+    \end{frame}
+  }
+
+  % Body
+  \input{2-introduction/1-why-data-mining}
+  \input{2-introduction/2-what-is-data-mining}
+  \input{2-introduction/3-multi-dimensional-view}
+  \input{2-introduction/4-what-kind-of-data}
+  \input{2-introduction/5-what-kind-of-patterns}
+  \input{2-introduction/6-what-technologies}
+  \input{2-introduction/7-what-applications}
+  \input{2-introduction/8-major-issues}
+  \input{2-introduction/9-brief-history-data-mining}
+  \input{2-introduction/10-summary}
+  \input{x-additional/x-contact}
+
+\end{document}

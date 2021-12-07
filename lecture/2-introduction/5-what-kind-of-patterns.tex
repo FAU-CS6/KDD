@@ -1,0 +1,138 @@
+\section{What kind of patterns can be mined?}
+
+\begin{frame}{Data Mining Function: I. Generalization}
+	\textbf{Information integration and data warehous construction:}
+	\begin{itemize}
+		\item Data cleaning.
+		\item Transformation.
+		\item Integration.
+		\item Multidimensional modeling.
+	\end{itemize}
+	\textbf{Data cube technology:}
+	\begin{itemize}
+		\item Characterization (contrast data characteristics).\\
+		E.g. dry vs. wet regions from numerical humidity values.
+		\item Discrimination.
+		\item Generalization.
+		\item Summary.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Data Mining Function: II. Association and Correlation Analysis}
+	\textbf{Frequent patterns or item sets:}\\
+	What items are frequently purchased together in your supermarket.\\[0.5cm]
+	
+	\textbf{Association, correlation vs. causality:}\\
+	A typical association rule: Diapers $\rightarrow$ Beer $[0.5\%,75\%]$ 
+	(support, confidence).\\
+	Are strongly associated items also strongly correlated?\\[0.5cm]
+	
+	\textbf{How to mine such patterns and rules efficiently in large 
+	datasets?}\\
+	\textbf{How to use such patterns for classification, clustering and other 
+	applications?}
+\end{frame}
+
+\begin{frame}{Data Mining Function: III. Classification}
+	\textbf{Classification and (class-)label prediction:}\\
+	Construct models (functions) based on training examples. \\
+	Hence: "supervised".\\
+	Describe and distinguish classes or concepts for future prediction.\\
+	E.g. classify countries based on climate or classify cars based on gas 
+	mileage.\\
+	Classifying something means to predict unknown class labels. \\[0.5cm]
+	
+	\textbf{Typical methods:}\\
+	Decision trees, naive Bayesian classification, support-vector machines, 
+	neural networks, rule-based classification, pattern-based classification, 
+	logistic regression \ldots\\[0.5cm]
+	
+	\textbf{Typical applications:}\\
+	Credit-card-fraud detection, direct marketing, classifying stars, diseases, 
+	web pages \ldots
+\end{frame}
+
+\begin{frame}{Data Mining Function: IV. Cluster Analysis}
+	\textbf{Unsupervised learning:} I.e. class labels are unknown.\\
+	\textbf{Group data:} I.e. cluster houses to find distribution 
+	patterns.\\[0.5cm]
+	
+	Principle:\\
+	Maximize intra class similarity and minimize inter class 
+	similarity.\\[0.5cm]
+	
+	What is \textbf{similarity?}
+\end{frame}
+
+\begin{frame}{Data Mining Function: V. Outlier Analysis}
+	\textbf{Outlier}: A data object that does not comply with the general 
+	behavior of the data.\\[0.5cm]
+	
+	Noise or exception?\\
+	One person's garbage could be another person's treasure.\\[0.5cm]
+	
+	\textbf{Methods:}\\
+	By-product of clustering or regression analysis \ldots \\
+	Useful in fraud detection or rare-events analysis.
+\end{frame}
+
+\begin{frame}{Time and Ordering: Sequential Pattern, Trend and Evolution 
+Analysis}
+	\textbf{Sequence, trend, and evolution analysis}.\\
+	\begin{itemize}
+		\item Trend, time-series and deviation analysis. \\
+		E.g., regression and value prediction (forecasting).
+		\item Sequential-pattern mining.\\
+		E.g. customers first buy digital camera, then buy large SD memory cards.
+		\item Periodicity analysis.
+		\item Motifs and biological-sequence analysis.\\
+		Approximate and consecutive motifs.
+		\item Similarity-based analysis.\\
+		\item Mining data streams.\\
+		Ordered, time-varying, potentially infinite (unbounded).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Structure and Network Analysis}
+	\textbf{Graph mining}:\\
+	Finding frequent subgraphs (e.g. chemical compounds), trees (XML), 
+	substructures (web fragments), information-network analysis.\\[0.2cm]
+	
+	\textbf{Social networks}:
+	\begin{itemize}
+		\item Social networks: Actors (objects, nodes) and relationships 
+		(edges).\\
+		E.g., author networks in CS, terrorist networks.
+		\item Multiple heterogeneous networks.\\
+		A person could be in multiple information networks: friends, family, 
+		classmates \ldots
+		\item Links carry a lot of semantical information: link mining.
+	\end{itemize}
+	
+	\textbf{Web mining}:
+	\begin{itemize}
+		\item Web is a big information network: from PageRank to Google.
+		\item Analysis of web information networks.
+		\item Web community discovery, opinion mining, usage mining \ldots
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluation of Knowledge}
+	\textbf{Is all mined knowledge interesting?}
+	\begin{itemize}
+		\item One can mine tremendous amounts of "patterns" and knowledge.
+		\item Some may fit only certain dimension space (time, location \ldots).
+		\item Some may not be representative, may be transient \ldots
+	\end{itemize}
+	
+	\textbf{Evaluation of mined knowledge $\rightarrow$ directly mine only 
+	interesting knowledge?}
+	\begin{itemize}
+		\item Descriptive vs. predictive.
+		\item Coverage.
+		\item Typically vs. predictive.
+		\item Accuracy.
+		\item Timeliness.
+		\item \ldots
+	\end{itemize}
+\end{frame}
