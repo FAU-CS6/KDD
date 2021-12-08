@@ -4,8 +4,8 @@
 	\textbf{Data mining or knowledge discovery from data}:
 	\begin{itemize}
 		\item Extraction of interesting (\textbf{non-trivial, implicit, 
-		previously unknown \\
-			and potentially useful}) patterns from huge amounts of data.
+		previously unknown and potentially useful}) patterns from huge amounts 
+		of data.
 		\item Is \textbf{data mining} a misnomer?
 	\end{itemize}
 	Alternative names:
@@ -13,85 +13,85 @@
 		\item Knowledge discovery/mining in databases (KDD).
 		\item Knowledge extraction.
 		\item Data/pattern analysis.
-		\item Data archeology.
-		\item Data dredging.
+		\item Data archeology/dredging.
 		\item Information harvesting.
 		\item Business intelligence.
 	\end{itemize}
-	Watch out: Is everything \textbf{data mining}?
+\end{frame}
+
+\begin{frame}{Examples: Is everything Data Mining?}
+	\textbf{NOT} considered to be data mining:
 	\begin{itemize}
-		\item Simple search and query processing is considered not to be.
-		\item Neither are deductive expert systems.
+		\item Simple search for females in a customer database.
+		\item Simple join of two database tables.
+		\item Simple deductive database validating a new tuple with regards to 
+		predefined constraints.
+	\end{itemize}
+	Considered to be data mining:
+	\begin{itemize}
+		\item Analysis of customer behavior for user-related advertising.
+		\item Analysis of payment histories for fraud detection.
+		\item Analysis of infection behavior for better understanding of a 
+		pandemic.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Knowledge Discovery Pipeline}
+\begin{frame}{Data Mining in the Database-Systems Community}
 	\begin{itemize}
-		\item This is a typical view from a typical database-systems and 
-		data-warehousing community.
+		\item The \textbf{knowledge discovery pipeline} is a typical view from 
+		the database-systems and data-warehousing community.
 		\item Data mining plays an essential role in the knowledge-discovery 
 		process.
 	\end{itemize}
-	
-	\begin{tikzpicture}
-		% Dialectics
-		\node[draw] (Database) at (0,0) {Database};
-		\node[draw,fill=black,text=white] (Data warehouse) at (2.8,1) {Data 
-		warehouse};
-		\node[draw] (Task-relevant data) at (6,2) {Task-relevant data};
-		\node[draw,fill=black,text=white] (Data mining) at (8.9,3) 
-		{Visualization};
-		\node[draw] (Knowledge discovery) at (11.9,4) {Knowledge discovery};
-		
-		\node (Data Integration) at (3,0.25) {Data Integration};
-		\node (Selection) at (5.3,1.3) {Selection};
-		\node (Data Mining) at (8.7,2.25) {Data Mining};
-		
-		\draw node[vertex] (Joint1) at (1.3,0.46) {};
-		\draw node[vertex] (Joint2) at (4.5,1.52) {};
-		
-		\draw node[vertex] (Joint3) at (4.5,0.46) {};
-		\draw node[vertex] (Joint7) at (4.5,0.46) {};
-		\draw node[vertex] (Joint8) at (7.6,0.46) {};
-		\draw node[vertex] (Joint9) at (10.3,0.46) {};
-		\draw node[vertex] (Joint10) at (10.3,-0.2) {};
-		\draw node[vertex] (Joint11) at (1.3,-0.2) {};
-		
-		\draw node[vertex] (Joint5) at (7.6,2.55) {};
-		\draw node[vertex] (Joint6) at (10.3,3.47) {};
-		
-		
-		\draw[->,draw=black] (Database) to (Data warehouse);
-		\draw[->,draw=black] (Data warehouse) to (Task-relevant data);
-		\draw[->,draw=black] (Task-relevant data) to (Data mining);
-		\draw[->,draw=black] (Data mining) to (Knowledge discovery);
-		\draw[-,draw=black, dashed] (Joint1) to (Joint3);
-		\draw[->,draw=black, dashed] (Joint3) to (Joint2);
-		\draw[->,draw=black] (Joint6) to (Joint9);
-		\draw[-,draw=black] (Joint9) to (Joint8);
-		\draw[->,draw=black] (Joint8) to (Joint7);
-		\draw[->,draw=black] (Joint8) to (Joint5);
-		\draw[->,draw=black,dashed] (Joint10) to (Joint11);
-		\draw[->,draw=black,dashed] (Joint9) to (Joint10);
-		\draw[->,draw=black,dashed] (Joint11) to (Joint1);
-	\end{tikzpicture}
+	\vspace{0.15cm}
+	\centering
+	\scalebox{0.95}{%
+		\begin{tikzpicture}
+			% Dialectics
+			\node[draw] (Database) at (0,0) {Database};
+			\node[draw,fill=black,text=white] (Data warehouse) at (2.8,1) {Data 
+			warehouse};
+			\node[draw] (Task-relevant data) at (6,2) {Task-relevant data};
+			\node[draw,fill=black,text=white] (Data mining) at (8.9,3) 
+			{Visualization};
+			\node[draw] (Knowledge discovery) at (11.9,4) {Knowledge discovery};
+			
+			\node (Data Integration) at (3,0.25) {Data Integration};
+			\node (Selection) at (5.3,1.3) {Selection};
+			\node (Data Mining) at (8.7,2.25) {Data Mining};
+			
+			\draw node[vertex] (Joint1) at (1.3,0.46) {};
+			\draw node[vertex] (Joint2) at (4.5,1.52) {};
+			
+			\draw node[vertex] (Joint3) at (4.5,0.46) {};
+			\draw node[vertex] (Joint7) at (4.5,0.46) {};
+			\draw node[vertex] (Joint8) at (7.6,0.46) {};
+			\draw node[vertex] (Joint9) at (10.3,0.46) {};
+			\draw node[vertex] (Joint10) at (10.3,-0.2) {};
+			\draw node[vertex] (Joint11) at (1.3,-0.2) {};
+			
+			\draw node[vertex] (Joint5) at (7.6,2.55) {};
+			\draw node[vertex] (Joint6) at (10.3,3.47) {};
+			
+			
+			\draw[->,draw=black] (Database) to (Data warehouse);
+			\draw[->,draw=black] (Data warehouse) to (Task-relevant data);
+			\draw[->,draw=black] (Task-relevant data) to (Data mining);
+			\draw[->,draw=black] (Data mining) to (Knowledge discovery);
+			\draw[-,draw=black, dashed] (Joint1) to (Joint3);
+			\draw[->,draw=black, dashed] (Joint3) to (Joint2);
+			\draw[->,draw=black] (Joint6) to (Joint9);
+			\draw[-,draw=black] (Joint9) to (Joint8);
+			\draw[->,draw=black] (Joint8) to (Joint7);
+			\draw[->,draw=black] (Joint8) to (Joint5);
+			\draw[->,draw=black,dashed] (Joint10) to (Joint11);
+			\draw[->,draw=black,dashed] (Joint9) to (Joint10);
+			\draw[->,draw=black,dashed] (Joint11) to (Joint1);
+		\end{tikzpicture}
+	}
 \end{frame}
 
-\begin{frame}{Example: A Web-mining Framework}
-	\textbf{Web mining usually involves:}
-	\begin{itemize}
-		\item Data cleaning.
-		\item Data integration from multiple sources.
-		\item Warehousing the data.
-		\item Data-cube construction.
-		\item Data selection for data mining.
-		\item Data mining.
-		\item Presentation of the mining results.
-		\item Patterns and knowledge to be used or stored in a knowledge base.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Data Mining in Business}
+\begin{frame}{Data Mining in the Business Community}
 	\centering
 	\begin{tikzpicture}
 		\coordinate (A) at (-6,0) {};
@@ -110,19 +110,44 @@
 		analyst.}};
 		\node (Data Integration) at (12.9,5.5) {\parbox{\linewidth}{End user.}};
 		
-		\foreach \y/\A in {0/{
-				\parbox{\linewidth}{\centering \textbf{Sources of data}: \\ 
-				\small{paper, files, web documents, scientific experiments, 
-				database system.}}},
-			1/\parbox{\linewidth}{\centering \textbf{Data 
-			preprocessing/integration,\\ data warehouses.}},
-			2/\parbox{\linewidth}{\centering \textbf{Data exploration:} \\ 
-			statistics, querying and reporting.},
-			3/\parbox{\linewidth}{\centering \textbf{Data mining:} \\ 
-			information discovery.},
-			4/\parbox{\linewidth}{\centering \textbf{Presentation:} \\ 
-			visualization techniques.},
-			5/\parbox{\linewidth}{\centering \textbf{Decision}.}} {
+		\foreach \y/\A in {
+			0/{
+				\parbox{\linewidth}{
+					\centering 
+					\textbf{Sources of data}: \\ 
+					\small{paper, files, web documents, scientific experiments, 
+					database system.}}
+			},
+			1/{
+				\parbox{\linewidth}{
+					\centering
+					\textbf{Data preprocessing/integration,\\
+						    data warehouses.}}
+			},
+			2/{
+				\parbox{\linewidth}{
+					\centering 
+					\textbf{Data exploration:} \\ 
+					\small{statistics, querying and reporting.}}
+			},
+			3/{
+				\parbox{\linewidth}{
+					\centering 
+					\textbf{Data mining:} \\ 
+					\small{information discovery.}}
+			},
+			4/{
+				\parbox{\linewidth}{
+					\centering 
+					\textbf{Presentation:} \\ 
+					\small{visualization techniques.}}
+			},
+			5/{
+				\parbox{\linewidth}{
+					\centering 
+					\textbf{Decision}}
+			}
+		} {
 			\path[name path=horiz] (A|-0,\y) -- (B|-0,\y);
 			\draw[name intersections={of=AC and horiz,by=P},
 			name intersections={of=BC and horiz,by=Q}] (P) -- (Q)
@@ -131,193 +156,171 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Example: Mining vs. Data Exploration}
+\begin{frame}{Data Mining in the Machine Learning and Statistics Community}
 	\begin{itemize}
-		\item Business intelligence view:
-		\begin{itemize}
-			\item Warehouse, data cube or reporting.
-			\item But not much mining.
-		\end{itemize}
-		\item Business objects vs. data mining tools.
-		\item Supply chain example: tools.
-		\item Data presentation.
-		\item Exploration.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{KDD Pipeline: A Typical View from Machine Learning and Statistics}
-	\begin{itemize}
-		\item This is a view from typical machine-learning and statistics 
-		communities.
+		\item The machine-learning and statistics communities usually classify 
+		data mining as \\ the central part of their pipeline: 
 	\end{itemize}
 	\vspace{0.5cm}
 	\centering
-	\begin{tikzpicture}
-		[node distance = 1cm, auto,font=\footnotesize,
-		% STYLES
-		every node/.style={node distance=1cm},
-		% The comment style is used to describe the characteristics of each 
-		%force
-		comment/.style={rectangle, inner sep= 5pt, text width=3.8cm, node 
-		distance=0.5cm, font=\scriptsize\sffamily},
-		% The force style is used to draw the forces' name
-		force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text 
-		width=1.8cm, text badly centered, minimum height=1cm, 
-		font=\bfseries\footnotesize\sffamily}]
-		
-		% Draw forces
-		\node [force, dashed] (a) {\parbox{\linewidth}{\centering Data \\ 
-		input.}};
-		\node [force, right=1cm of a] (b) {\parbox{\linewidth}{\centering Data 
-		\\ preprocessing.}};
-		\node [force, right=1cm of b] (c) {\parbox{\linewidth}{\centering Data 
-		\\ mining.}};
-		\node [force, right=1cm of c] (d) {\parbox{\linewidth}{\centering Post 
-		\\ processing.}};
-		\node [force, dashed, right=1cm of d] (e) 
-		{\parbox{\linewidth}{\centering Pattern, \\ information, \\ 
-		knowledge.}};
-		
-		%%%%%%%%%%%%%%%
-		% Change data from here
-		
-		% SUPPLIERS
-		\node [comment, below=0.25cm of b] {
-			\begin{itemize}
-				\item Data integration.
-				\item Normalization.
-				\item Feature selection.
-				\item Dimension reduction.
-			\end{itemize}
-		};
-		
-		% USERS
-		\node [comment, below=0.25 of c] {
-			\begin{itemize}
-				\item Pattern discovery.
-				\item Association/correlation.
-				\item Classification.
-				\item Clustering.
-				\item Outlier analysis.
-				\item \ldots
-			\end{itemize}
-		};
-		
-		% PUBLIC POLICIES
-		\node [comment, below=0.25 of d] {
-			\begin{itemize}
-				\item Pattern evaluation.
-				\item Pattern selection.
-				\item Pattern interpretation.
-				\item Pattern visualization.
-			\end{itemize}
-		};
-		
-		\path[->,thick]
-		(a) edge (b)
-		(b) edge (c)
-		(c) edge (d)
-		(d) edge (e);
-		
-	\end{tikzpicture}
+	\scalebox{0.95}{%
+		\begin{tikzpicture}
+			[node distance = 1cm, auto,font=\footnotesize,
+			% STYLES
+			every node/.style={node distance=1cm},
+			% The comment style is used to describe the characteristics of each 
+			%force
+			comment/.style={rectangle, inner sep= 5pt, text width=3.8cm, node 
+			distance=0.5cm, font=\scriptsize\sffamily},
+			% The force style is used to draw the forces' name
+			force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text 
+			width=1.8cm, text badly centered, minimum height=1cm, 
+			font=\bfseries\footnotesize\sffamily}]
+			
+			% Draw forces
+			\node [force, dashed] (a) {\parbox{\linewidth}{\centering Data \\ 
+			input.}};
+			\node [force, right=1cm of a] (b) {\parbox{\linewidth}{\centering 
+			Data 
+			\\ preprocessing.}};
+			\node [force, right=1cm of b] (c) {\parbox{\linewidth}{\centering 
+			Data 
+			\\ mining.}};
+			\node [force, right=1cm of c] (d) {\parbox{\linewidth}{\centering 
+			Post 
+			\\ processing.}};
+			\node [force, dashed, right=1cm of d] (e) 
+			{\parbox{\linewidth}{\centering Pattern, \\ information, \\ 
+			knowledge.}};
+			
+			%%%%%%%%%%%%%%%
+			% Change data from here
+			
+			% SUPPLIERS
+			\node [comment, below=0.25cm of b] {
+				\begin{itemize}
+					\item Data integration.
+					\item Normalization.
+					\item Feature selection.
+					\item Dimension reduction.
+				\end{itemize}
+			};
+			
+			% USERS
+			\node [comment, below=0.25 of c] {
+				\begin{itemize}
+					\item Pattern discovery.
+					\item Association/correlation.
+					\item Classification.
+					\item Clustering.
+					\item Outlier analysis.
+					\item \ldots
+				\end{itemize}
+			};
+			
+			% PUBLIC POLICIES
+			\node [comment, below=0.25 of d] {
+				\begin{itemize}
+					\item Pattern evaluation.
+					\item Pattern selection.
+					\item Pattern interpretation.
+					\item Pattern visualization.
+				\end{itemize}
+			};
+			
+			\path[->,thick]
+			(a) edge (b)
+			(b) edge (c)
+			(c) edge (d)
+			(d) edge (e);
+			
+		\end{tikzpicture}
+	}
 \end{frame}
 
-\begin{frame}{Example: Medical Data Mining}
-	\begin{itemize}
-		\item \textbf{Health care and medical data mining}:
-		\begin{itemize}
-			\item Often adopted such a view in statistics and machine learning.
-		\end{itemize}
-		\item \textbf{Preprocessing of data}:
-		\begin{itemize}
-			\item Includes feature extraction and dimension reduction.
-		\end{itemize}
-		\item \textbf{Classification and/or clustering processes.}
-		\item \textbf{Post processing for presentation}.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{CRISP-DM}
+\begin{frame}{The Data Mining Process: CRISP-DM}
 	\begin{itemize}
 		\item \textbf{CRoss-Industry Standard Process for Data Mining}:
 	\end{itemize}
 	\vspace{0.5cm}
 	\centering
-	\begin{tikzpicture}
-		[node distance = 2cm, auto,font=\footnotesize,
-		% STYLES
-		every node/.style={node distance=2cm},
-		% The comment style is used to describe the characteristics of each 
-		%force
-		comment/.style={rectangle, inner sep= 5pt, text width=5cm, node 
-		distance=0.5cm, font=\scriptsize\sffamily},
-		% The force style is used to draw the forces' name
-		force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text 
-		width=4cm, minimum height=2cm, font=\footnotesize\sffamily}]
-		
-		% Draw forces
-		\node [force] (a) {
-			\parbox{\linewidth}{
-				\textbf{Business understanding}.\\
-				- Determine business objectives.\\
-				- Assess situation.\\
-				- Determine data mining goals.\\
-				- Produce project plan.
-			}
-		};
-		\node [force, right=1cm of a] (b) {
-			\parbox{\linewidth}{
-				\textbf{Data understanding}.\\
-				- Collect initial data.\\
-				- Describe data.\\
-				- Explore data.\\
-				- Verify data quality.
-			}
-		};
-		\node [force, right=1cm of b] (c) {
-			\parbox{\linewidth}{
-				\textbf{Data preparation}.\\
-				- Select data.\\
-				- Clean data.\\
-				- Construct data.\\
-				- Integrate/format data.
-			}
-		};
-		\node [force, below=1cm of c] (d) {
-			\parbox{\linewidth}{
-				\textbf{Modeling}.\\
-				- Select modeling techniques.\\
-				- Generate test design.\\
-				- Build model.\\
-				- Assess model.
-			}
-		};
-		\node [force, below=1cm of a] (e) {
-			\parbox{\linewidth}{
-				\textbf{Deployment}.\\
-				- Plan deployment.\\
-				- Plan monitoring/maintenance.\\
-				- Produce final report.\\
-				- Review project.
-			}
-		};
-		\node [force, below=1cm of b] (f) {
-			\parbox{\linewidth}{
-				\textbf{Evaluation}.\\
-				- Evaluate results.\\
-				- Review process.\\
-				- Determine next steps.
-			}
-		};
-		
-		\path[->,thick]
-		(b) edge (c)
-		(d) edge (f)
-		(f) edge (e)
-		(f) edge (a);
-		
-		\path[<->,thick]
-		(a) edge (b)
-		(c) edge (d);
-	\end{tikzpicture}
+	\scalebox{0.95}{%
+		\begin{tikzpicture}
+			[node distance = 2cm, auto,font=\footnotesize,
+			% STYLES
+			every node/.style={node distance=2cm},
+			% The comment style is used to describe the characteristics of each 
+			%force
+			comment/.style={rectangle, inner sep= 5pt, text width=5cm, node 
+			distance=0.5cm, font=\scriptsize\sffamily},
+			% The force style is used to draw the forces' name
+			force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text 
+			width=4cm, minimum height=2cm, font=\footnotesize\sffamily}]
+			
+			% Draw forces
+			\node [force] (a) {
+				\parbox{\linewidth}{
+					\textbf{1. Business understanding}.\\
+					- Determine business objectives.\\
+					- Assess situation.\\
+					- Determine data mining goals.\\
+					- Produce project plan.
+				}
+			};
+			\node [force, right=1cm of a] (b) {
+				\parbox{\linewidth}{
+					\textbf{2. Data understanding}.\\
+					- Collect initial data.\\
+					- Describe data.\\
+					- Explore data.\\
+					- Verify data quality.
+				}
+			};
+			\node [force, right=1cm of b] (c) {
+				\parbox{\linewidth}{
+					\textbf{3. Data preparation}.\\
+					- Select data.\\
+					- Clean data.\\
+					- Construct data.\\
+					- Integrate/format data.
+				}
+			};
+			\node [force, below=1cm of c] (d) {
+				\parbox{\linewidth}{
+					\textbf{4. Modeling}.\\
+					- Select modeling techniques.\\
+					- Generate test design.\\
+					- Build model.\\
+					- Assess model.
+				}
+			};
+			\node [force, below=1cm of a] (e) {
+				\parbox{\linewidth}{
+					\textbf{6. Deployment}.\\
+					- Plan deployment.\\
+					- Plan monitoring/maintenance.\\
+					- Produce final report.\\
+					- Review project.
+				}
+			};
+			\node [force, below=1cm of b] (f) {
+				\parbox{\linewidth}{
+					\textbf{5. Evaluation}.\\
+					- Evaluate results.\\
+					- Review process.\\
+					- Determine next steps.
+				}
+			};
+			
+			\path[->,thick]
+			(b) edge (c)
+			(d) edge (f)
+			(f) edge (e)
+			(f) edge (a);
+			
+			\path[<->,thick]
+			(a) edge (b)
+			(c) edge (d);
+		\end{tikzpicture}
+	}
 \end{frame}
