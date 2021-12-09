@@ -17,9 +17,6 @@
 
 \def\beamer@inst{}
 
-\newif\ifbeamer@seal
-\beamer@sealtrue
-
 \newif\ifbeamer@image
 \beamer@imagefalse
 
@@ -36,7 +33,6 @@
 \DeclareOptionBeamer{plain}[true]{%
   \csname beamer@plain#1\endcsname%
   \ifbeamer@plain%
-    \beamer@sealfalse%
     \beamer@imagefalse%
   \fi
 }
@@ -45,7 +41,6 @@
   \csname beamer@image#1\endcsname%
   \ifbeamer@image%
     \beamer@plainfalse%
-    \beamer@sealfalse%
   \fi
 }
 
@@ -118,9 +113,6 @@
   \def\imagepath{}
   \def\faulogo{fau-logo}
 \fi
-\ifdefined\sealpath\else
-  \def\sealpath{}
-\fi
 
 
 % Graphics
@@ -132,8 +124,6 @@
   \pgfdeclareimage[width=3.18cm]{faulogo-white}{art/\imagepath/\faulogowhite}
 \pgfdeclareimage[width=3.18cm]{faulogo-large}{art/\imagepath/\faulogo}
   \pgfdeclareimage[width=2.08cm]{faulogo-small}{art/\imagepath/\faulogo}
-  \pgfdeclareimage[width=3.30cm,height=3.35cm]{seal-large}{art/\sealpath/fau-seal}
-  \pgfdeclareimage[width=2.63cm,height=2.67cm]{seal-small}{art/\sealpath/fau-seal}
   \pgfdeclareimage[width=12.37cm,height=5.44cm]{image-large}{art/\imagepath/image-large-43}
   \pgfdeclareimage[width=12.37cm,height=3.59cm]{image-small}{art/\imagepath/image-small-43}
 \else\ifdim \beamer@aspectratio pt=\beamer@sixteentonine pt%
@@ -143,8 +133,6 @@
 \pgfdeclareimage[width=6.98cm]{faulogo-white}{art/\imagepath/\faulogowhite}
 \pgfdeclareimage[width=6.98cm]{fautext-white}{art/\imagepath/\faulogowhite}
   \pgfdeclareimage[width=4cm]{faulogo-small}{art/\imagepath/\faulogo}
-  \pgfdeclareimage[width=4.12cm,height=4.18cm]{seal-large}{art/\sealpath/fau-seal}
-  \pgfdeclareimage[width=2.27cm,height=2.31cm]{seal-small}{art/\sealpath/fau-seal}
   \pgfdeclareimage[width=15.63cm,height=5.17cm]{image-large}{art/\imagepath/image-large-169}
   \pgfdeclareimage[width=15.63cm,height=3.39cm]{image-small}{art/\imagepath/image-small-169}
 \else%

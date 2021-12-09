@@ -177,24 +177,6 @@
       }
       \fi
 
-      \ifdefined\beamer@@tmpl@logo%
-        % Disable seal if beamer logo is set
-        \beamer@sealfalse
-      \else\ifx#2\inserttitle\else%
-        % Enable seal for non-title pages without logo
-        \beamer@sealtrue
-      \fi\fi
-
-      \ifbeamer@seal%
-        % Draw seal
-        \pgfputat{\pgfpoint{\paperwidth}%
-                           {\paperheight-\factor*7.36cm-\factor*10.82cm}}{%
-          \pgfbox[right,bottom]{%
-            \pgfuseimage{seal-small}
-          }
-        }
-      \fi
-
     \else % Not long title
      %%%%%%%%%%%%%%%% section page %%%%%%%%%%%%
         % Upper box
@@ -280,25 +262,6 @@
         }
       }
       \fi
-
-      \ifdefined\beamer@@tmpl@logo%
-        % Disable seal if beamer logo is set
-        \beamer@sealfalse
-      \else\ifx#2\inserttitle\else%
-        % Enable seal for non-title pages without logo
-        \beamer@sealtrue
-      \fi\fi
-
-      \ifbeamer@seal%
-        % Draw seal
-        \pgfputat{\pgfpoint{\paperwidth}%
-                           {\paperheight-\factor*7.36cm-\factor*10.82cm}}{%
-          \pgfbox[right,bottom]{%
-            \pgfuseimage{seal-large}
-          }
-        }
-      \fi
-    \fi % End long title
 
     \ifdefined\beamer@@tmpl@logo\ifbeamer@image\else%
       % Draw logo
