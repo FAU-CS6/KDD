@@ -14,21 +14,19 @@
 		\item \textbf{\color{airforceblue}Noisy:} containing noise, errors or 
 		outliers.
 		\begin{itemize}
-			\item Stochastic deviation, imprecision.
-			\item E.g. measurements.
+			\item E.g. salary = "-10" (error)
 		\end{itemize}
 		\item \textbf{\color{airforceblue}Inconsistencies:} containing 
 		discrepancies in codes or names.
 		\begin{itemize}
 			\item E.g. age = "42", birthday = "03/07/2010".
-			\item Was rating "1,2,3" and now it is "A,B,C".
-			\item Discrepancy between duplicate records (e.g. address old and 
-			new).
+			\item E.g. old rating = "1,2,3", new rating "A,B,C".
+			\item E.g. discrepancy between duplicate records (e.g. address).
 		\end{itemize}
 		\item \textbf{\color{airforceblue}Intentional} (only default value, 
 		e.g. disguised missing data):
 		\begin{itemize}
-			\item Jan. 1 as everyone's birthday?
+			\item E.g. "Doe" as everyone's surname
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -121,9 +119,9 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Data Cleaning as a Process}
+\begin{frame}{Data Cleaning as a Process (I)}
 	\begin{itemize}
-		\item \textbf{Data-discrepancy detection:}
+		\item \textbf{Data discrepancy detection:}
 		\begin{itemize}
 			\item Use \textbf{\color{airforceblue}metadata} (e.g. domain, 
 			range, dependency, distribution).
@@ -138,18 +136,25 @@
 				data to discover rules and relationsships to detect violators 
 				(e.g. correlation and clustering to find outliers).
 			\end{itemize}
-			\item \textbf{Data migration and integration:}
-			\begin{itemize}
-				\item Data-migration tools: allow transformations to be 
-				specified.
-				\item ETL (Extraction/Transformation/Loading) tools: allow 
-				users to specify transformations through a graphical user 
-				interface.
-			\end{itemize}
-			\item \textbf{Integration of the two processes.}
-			\begin{itemize}
-				\item Iterative and interactive (e.g. the Potter's Wheel tool).
-			\end{itemize}
 		\end{itemize}
 	\end{itemize}
 \end{frame}
+
+\begin{frame}{Data Cleaning as a Process (II)}
+	\begin{itemize}
+		\item \textbf{Data migration and integration:}
+		\begin{itemize}
+			\item Data-migration tools: allow transformations to be 
+			specified.
+			\item ETL (Extraction/Transformation/Loading) tools: allow 
+			users to specify transformations through a graphical user 
+			interface.
+		\end{itemize}
+		\item \textbf{Integration of the two processes.}
+		\begin{itemize}
+			\item Iterative and interactive (e.g. the Potter's Wheel tool).
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
