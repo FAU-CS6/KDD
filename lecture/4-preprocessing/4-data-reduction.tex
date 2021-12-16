@@ -1,13 +1,53 @@
 \section{Data reduction}
 
+\begin{frame}{Data Reduction (I)}
+	\begin{itemize}
+		\item \textbf{What is data reduction?}\\
+		\begin{itemize}
+			\item Obtain a reduced representation of the data set that is much 
+			smaller in volume but yet produces the same (or almost the same)  
+			results.
+		\end{itemize}
+		\item \textbf{Why data reduction?}\\
+		\begin{itemize}
+			\item A database/data warehouse may store terabytes of data.
+			\item Complex data analysis may take a very long time to run on the 
+			complete data set.
+		\end{itemize}
+		\item \textbf{Data reduction strategies:}
+		\begin{itemize}
+			\item Dimensionality reduction, i.e. remove unimportant attributes.
+			\begin{itemize}
+				\item Wavelet transforms.
+				\item Principal component analysis.
+				\item Attribute subset selection or attribute creation.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Data Reduction (II)}
+	\begin{itemize}
+		\item \textbf{Data reduction strategies (continued):}
+		\begin{itemize}
+			\item Numerosity reduction:
+			\begin{itemize}
+				\item Regression and log-linear models.
+				\item Histograms, clustering and sampling.
+				\item Data cube aggregation.
+			\end{itemize}
+			\item Data compression.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{Data Reduction (I): Dimensionality Reduction}
 	\begin{itemize}
 		\item \textbf{Curse of dimensionality:}
 		\begin{itemize}
 			\item When dimensionality increases data becomes increasingly 
 			sparse.
-			\item Density and distance between points, which are critical to 
-			clustering and outlier analysis become less meaningful.
+			\item Density and distance between points become less meaningful.
 			\item The possible combinations of subspaces will grow 
 			exponentially.
 		\end{itemize}
@@ -27,64 +67,11 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Data Reduction Strategies}
-	\begin{itemize}
-		\item Obtain a reduced representation of the data set that is much 
-		smaller in volume but yet produces the same (or almost the same)  
-		results.
-		\item \textbf{Why data reduction?}\\
-		\begin{itemize}
-			\item A database/data warehouse may store terabytes of data.
-			\item Complex data analysis may take a very long time to run on the 
-			complete data set.
-		\end{itemize}
-		\item \textbf{Data reduction strategies:}
-		\begin{itemize}
-			\item Dimensionality reduction, i.e. remove unimportant attributes.
-			\begin{itemize}
-				\item Wavelet transforms.
-				\item Principal component analysis.
-				\item Attribute subset selection or attribute creation.
-			\end{itemize}
-			\item Numerosity reduction:
-			\begin{itemize}
-				\item Regression and log-linear models.
-				\item Histograms, clustering and sampling.
-				\item Data cube aggregation.
-			\end{itemize}
-			\item Data compression.
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Mapping Data to a New Space}
-	\begin{itemize}
-		\item \textbf{Fourier transform}.
-		\item \textbf{Wavelet transform.}
-		
-		\begin{figure}
-			\centering
-			\begin{minipage}[b]{0.30\textwidth}
-				\includegraphics[width=5cm]{img/twosinewaves.png}
-				\caption{Two sine waves.}
-			\end{minipage}\hfill
-			\begin{minipage}[b]{0.30\textwidth}
-				\includegraphics[width=5cm]{img/twosinewaveswithnoise.png}
-				\caption{Two sine waves with noise.}
-			\end{minipage}\hfill
-			\begin{minipage}[b]{0.30\textwidth}
-				\includegraphics[width=5cm]{img/frequencies.png}
-				\caption{Frequencies.}
-			\end{minipage}
-		\end{figure}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{What is Wavelet Transform?}
-	\begin{minipage}[b]{0.55\textwidth}
+\begin{frame}{Wavelet Transform (I)}
+	\begin{minipage}[t]{0.55\textwidth}
 		\begin{itemize}
 			\item \textbf{Decomposes a signal into different frequency 
-			subbands.}\\
+				subbands.}\\
 			Applicable to $n$-dimensional signals.
 			\item Data transformed to preserve relative distance between 
 			objects at different levels of resolution.
@@ -92,12 +79,12 @@
 			\item Used for image compression.
 		\end{itemize}
 	\end{minipage}\hspace{1cm}
-	\begin{minipage}[b]{0.30\textwidth}
-		\includegraphics[width=5cm]{img/wavelettransform.png}
+	\begin{minipage}[t]{0.30\textwidth}
+		\raisebox{\dimexpr-\height+\ht\strutbox\relax}{\includegraphics[width=5cm]{img/wavelettransform.png}}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}{Wavelet Transform}
+\begin{frame}{Wavelet Transform (II)}
 	\begin{itemize}
 		\item \textbf{Discrete wavelet transform:}\\
 		Transforms a vector $X$ into a different vector $X'$ of wavelet 
@@ -120,16 +107,53 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Wavelet Decomposition}
+\begin{frame}{Example: Wavelet Transform (I)}
 	\begin{itemize}
-		\item \textbf{Example:}
-		\begin{align}
-			X  & = (2,2,0,2,3,5,4,4), \text{can be transformed to} \\
-			X' & = (2.75,-1.25,0.5,0,0,-1,-1,0).                   
-		\end{align}
-		\item \textbf{Compression:}\\
-		Many small detail coefficients can be replaced by $0$'s, \\
-		and only the significant coefficients are retained.
+		\item \textbf{Initial vector:}
+		\begin{itemize}
+			\item $X = (2,2,0,2,3,5,4,4)$                
+		\end{itemize}
+		\item \textbf{First step:}
+		\begin{itemize}
+			\item $(2,2) \rightarrow \text{Average: } 2, \text{Weighted 
+			difference: } 0$
+			\item $(0,2) \rightarrow \text{Average: } 1, \text{Weighted 
+			difference: } -1$ 
+			\item $(3,5) \rightarrow \text{Average: } 4, \text{Weighted 
+			difference: } -1$ 
+			\item $(4,4) \rightarrow \text{Average: } 4, \text{Weighted 
+			difference: } 0$ 
+			\item $A_1=(2,1,4,4), D_1=(0,-1,-1,0)$	            
+		\end{itemize}
+		\item \textbf{Second step:}
+		\begin{itemize}
+			\item $(2,1) \rightarrow \text{Average: } 1.5, \text{Weighted 
+				difference: } 0.5$
+			\item $(4,4) \rightarrow \text{Average: } 4, \text{Weighted 
+				difference: } 0$ 
+			\item $A_2=(1.5,4), D_2=(0.5,0)$	            
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Example: Wavelet Transform (II)}
+	\begin{itemize}
+		\item \textbf{Third step:}
+		\begin{itemize}
+			\item $(1.5,4) \rightarrow \text{Average: } 2.75, \text{Weighted 
+				difference: } -1.25$
+			\item $A_3=(2.75), D_3=(-1.25)$	            
+		\end{itemize}
+		\item \textbf{Resulting vector:}
+		\begin{itemize}
+			\item $X' = (2.75,-1.25,0.5,0,0,-1,-1,0)$                
+		\end{itemize}
+		\item \textbf{Possible compression:}\\
+		\begin{itemize}
+			\item Small detail coefficients ($D_{1,2,3}$) can be replaced by 
+			$0$'s, 
+			while retaining significant coefficients.
+		\end{itemize}
 	\end{itemize}
 	\vspace{0.2cm}
 	\centering
@@ -141,16 +165,16 @@
 		\\\hline
 		$4$               & $(2,1,4,4)$         & $(0,-1,-1,0)$              
 		\\\hline
-		$2$               & $(1 \frac{1}{2},4)$ & $(\frac{1}{2},0)$          
+		$2$               & $(1.5,4)$ & $(0.5,0)$          
 		\\\hline
-		$1$               & $(2 \frac{3}{4})$   & $(-1 \frac{1}{4})$         
+		$1$               & $(2.75)$   & $(-1.25)$         
 		\\\hline
 	\end{tabular}
 \end{frame}
 
 \begin{frame}{Why Wavelet Transform?}
 	\begin{itemize}
-		\item \textbf{Use hat-shaped filters:}
+		\item \textbf{Hat-shaped filters:}
 		\begin{itemize}
 			\item Emphasize region where points cluster.
 			\item Suppress weaker information in their boundaries.
@@ -167,339 +191,273 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Principal Component Analysis (I)}
+\begin{frame}{Principal Component Analysis (PCA)}
 	\begin{itemize}
-		\item Principal component analysis is a method of summarizing \\
-		the properties of a set of multivariate data samples.
-		\item It is a \textbf{linear transformation} method that is often used 
-		\\ for data analysis or data compression.
-		\item Principal component analysis is often also called 
-		\textbf{Karhunen-Loeve transformation}.
-		\item PCA is equivalent to maximization of the information \\ at the 
-		output of a neural network with linear neurons.
-	\end{itemize}
-	\vspace{0.5cm}
-	The goal of the principal component analysis (PCA) is the identification \\
-	of $m$ \textbf{normed orthogonal vectors} $\{x_i \in \mathbb{R}^n \; \vert 
-	\; i = 1,2, \ldots,m \}$ \\
-	within the input space, which \textbf{represent most of the variance} of 
-	the data.
-\end{frame}
-
-\begin{frame}{Principal Component Analysis: The Problem (II)}
-	\begin{itemize}
-		\item Consider a set of data points $\{\mathbf{x}_i = 
-		(x_{i1},x_{i2},\ldots,x_{in}) \; \vert \; \mathbf{x}_i \in \mathbb{R}^n 
-		\}$, where each dimension measures some physical quantity.
-		\item Consider an orthonormal system of $n$-vectors with dimension $n$: 
-		$\{\mathbf{b}_i = (b_{i1},b_{i2},\ldots,b_{in}) \; \vert \; 
-		\mathbf{b}_i \in \mathbb{R}^n \}$.
+		\item \textbf{Main idea:}
 		\begin{itemize}
-			\item The \textbf{orthonormal system} forms a basis of the vector 
-			space, where we have recorded our data. Thus our data can be 
-			expressed as a linear combination of $\{\mathbf{b}_i\}$.
+			\item Given a data set with $n$ dimensions containing.
+			\item Find $k \leq n$ orthogonal vectors that capture the largest 
+			amount of data.
+			\item Works only for numeric data.
 		\end{itemize}
-		\begin{align}
-			\mathbf{B} = \begin{bmatrix}
-				\mathbf{b}_1 \\
-				\mathbf{b}_2 \\
-				\vdots \\
-				\mathbf{b}_n
-			\end{bmatrix} = \begin{bmatrix}
-				1      & 0      & \cdots & 0      \\
-				0      & 1      & \cdots & 0      \\
-				\vdots & \vdots & \ddots & \vdots \\
-				0      & 0      & \cdots & 1      
-			\end{bmatrix}
-		\end{align}
-		\item Each row is an orthonormal basis vector $\mathbf{b}_i$ with 
-		$n$-components. Thus we have a $n \times n$-matrix.
+		\item \textbf{Example data set:}
+		\begin{itemize}
+			\item Used on the next few slides to explain the steps of a PCA:
+		\end{itemize}
+		\vspace{3mm}
+		\centering
+		\begin{tabular}{|c|c|c|}
+			\hline
+			$d_1$ 	& $d_2$ 	& $d_3$
+			\\\hline
+			$23$	& $6$ 		& $1$                   
+			\\\hline
+			$9$		& $9$ 		& $5$                
+			\\\hline
+			$17$	& $5$ 		& $1$         
+			\\\hline
+			$3$		& $6$ 		& $1$         
+			\\\hline
+		\end{tabular}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Principal Component Analysis: The Problem (III)}
+\begin{frame}{Principal Component Analysis - 1. Step: Standardization (I)}
 	\begin{itemize}
-		\item \textbf{Is there another basis, which is a linear combination of 
-		the initially chosen basis, \\
-			that best re-expresses our data set?}
-		\item Let $\mathbf{X}$ we the data matrix with $n \times m$ records.
-		\item Let $\mathbf{Y}$ be another $n \times m$-matrix, related by some 
-		linear transformation $\mathbf{U}$, such that
-		\begin{align}
-			\mathbf{U}\mathbf{X} &= \mathbf{Y},\\
-			\begin{bmatrix}
-				\mathbf{u}_1 \\
-				\mathbf{u}_2 \\
-				\vdots \\
-				\mathbf{u}_n
-			\end{bmatrix}
-			\begin{bmatrix}
-				\mathbf{x}_1             & \mathbf{x}_2             & \cdots & 
-				\mathbf{x}_m             
-			\end{bmatrix} &=
-			\begin{bmatrix}
-				\mathbf{u}_1\mathbf{x}_1 & \mathbf{u}_1\mathbf{x}_2 & \cdots & 
-				\mathbf{u}_1\mathbf{x}_m \\
-				\mathbf{u}_2\mathbf{x}_1 & \mathbf{u}_2\mathbf{x}_2 & \cdots & 
-				\mathbf{u}_2\mathbf{x}_m \\
-				\vdots                   & \vdots                   & \ddots & 
-				\vdots                   \\
-				\mathbf{u}_n\mathbf{x}_1 & \mathbf{u}_n\mathbf{x}_2 & \cdots & 
-				\mathbf{u}_n\mathbf{x}_m 
-			\end{bmatrix}.
-		\end{align}
-		\item Eq. 17 and 18 represent the \textbf{change of a basis} and can be 
-		interpreted as:
+		\item \textbf{Procedure:}
 		\begin{itemize}
-			\item[1.] $\mathbf{U}$ is a matrix that transforms $\mathbf{X}$ 
-			into $\mathbf{Y}$.
-			\item[2.] Geometrically, $\mathbf{U}$ is a rotation and stretch 
-			which again transforms $\mathbf{X}$ into $\mathbf{Y}$.
-			\item[3.] The rows of $\mathbf{U}$, 
-			$\{\mathbf{u}_1,\ldots,\mathbf{u}_n\}$, are a set of new basis 
-			vectors for expressing the columns of $\mathbf{X}$.
+			\item Each value $x$ within a dimension $d_n$ is standardized with 
+			the help of the mean ($\mu_{d_n}$) and standard deviation 
+			($\sigma_{d_n}$) of $d_n$:
+			\begin{align}
+				x = \frac{x - \mu_{d_n}}{\sigma_{d_n}}
+			\end{align}
+		\end{itemize}
+		\item \textbf{Reason:}
+		\begin{itemize}
+			\item Each dimension should be considered equally in the analysis.
+			\item Dimensions with a wider range of	values would dominate  
+			without this step.
 		\end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Principal Component Analysis: The Problem (IV)}
+\begin{frame}{Principal Component Analysis - 1. Step: Standardization (II)}
 	\begin{itemize}
-		\item \textbf{Questions we have to answer:}
+		\item \textbf{Example:}
 		\begin{itemize}
-			\item What is the best way to "re-express" $\mathbf{X}$?
-			\item What is a good choice of basis $\mathbf{U}$?
+			\item Mean and standard deviation per dimension: \\
+			\vspace{3mm}
+			\begin{center}
+				\centering
+				\begin{tabular}{|l|c|c|c|}
+					\hline
+								& $d_1$ 	& $d_2$ 	& $d_3$
+					\\\hline
+					$\mu$		& $13$		& $6.5$ 	& $3$                   
+					\\\hline
+					$\sigma$	& $8.79394$	& $1.73205$ & 
+					$2$                    
+					\\\hline
+				\end{tabular}
+			\end{center}
+			\vspace{3mm}
+			\item Standardized data set: \\
+			\vspace{3mm}
+			\begin{center}
+				\centering
+				\begin{tabular}{|c|c|c|}
+					\hline
+					$d_1$ 	& $d_2$ 	& $d_3$
+					\\\hline
+					$+1,13715$	& $-0,28868$ 		& $-1$                   
+					\\\hline
+					$-0,45486$		& $+1,44338$ 		& $+1$                
+					\\\hline
+					$+0,45486$	& $-0,86603$ 		& $-1$         
+					\\\hline
+					$-1,13715$		& $-0,28868$ 		& $-1$         
+					\\\hline
+				\end{tabular}
+			\end{center}
 		\end{itemize}
-		\item \textbf{Main assumptions:}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Principal Component Analysis - 2. Step: Covariance Matrix (I)}
+	\begin{itemize}
+		\item \textbf{Procedure:}
 		\begin{itemize}
-			\item Continuity of data space.
-			\item Linearity of the basis vectors.
-			\item Mean and variance are sufficient statistics.
-			\item Large variance have important dynamics in data.
-			\item Principal components are orthogonal.
+			\item A n x n covariance matrix is generated that contains the 
+			covariance between each possible attribute pairing. When the 
+			dimensions are compared with themselves, the variance always 
+			replaces the covariance:
+			\begin{align}
+				\begin{bmatrix}
+					\text{Var}(d_1) & ... & \text{Cov}(d_1, d_n) \\
+					... & ... & ... \\
+					\text{Cov}(d_n, d_1) & ... & \text{Var}(d_n) \\
+				\end{bmatrix}
+			\end{align}
 		\end{itemize}
-		\item PCA assumes that the basis vectors are orthonormal, i.e., 
-		$\mathbf{u}_i\cdot\mathbf{u}_j = \delta_{ij}$, \\
-		such that $\mathbf{U}$ is an orthonormal matrix.
-		\item PCA assumes that the directions with the largest variances are 
-		most \emph{principal}.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Principal Component Analysis: Solving the Problem}
-	\begin{itemize}
-		\item Find some orthonormal matrix $\mathbf{U}$ where 
-		$\mathbf{Y}=\mathbf{U}\mathbf{X}$ such that 
-		$\mathbf{Cov}(\mathbf{Y},\mathbf{Y}) \equiv \frac{1}{n-1} 
-		\mathbf{Y}\mathbf{Y}^T$ is diagonalized. The rows of $\mathbf{U}$ are 
-		the \emph{principal components} of $\mathbf{X}$.
-		\item Recall, high diagonal values of 
-		$\mathbf{Cov}(\mathbf{Y},\mathbf{Y})$ mean a covariance matrix with 
-		large variance, thus interesting dynamics. Large off-diagonal values 
-		mean high covariance, thus high redundancy.
-		\item We rewrite $\mathbf{Cov}(\mathbf{Y},\mathbf{Y})$ in terms of 
-		$\mathbf{U}$:
-		\begin{align}
-			\mathbf{Cov}(\mathbf{Y},\mathbf{Y}) & = \frac{1}{n-1} 
-			\mathbf{Y}\mathbf{Y}^T                         \\
-			& = \frac{1}{n-1} (\mathbf{U}\mathbf{X})(\mathbf{U}\mathbf{X})^T \\
-			& = \frac{1}{n-1} \mathbf{U}\mathbf{X}\mathbf{X}^T\mathbf{U}^T   \\
-			& = \frac{1}{n-1} \mathbf{U}\mathbf{A}\mathbf{U}^T.              
-		\end{align}
-		\item We have a new matrix $\mathbf{A} \equiv \mathbf{X}\mathbf{X}^T$, 
-		which is \textbf{symmetric}.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Principal Component Analysis: Diagonalization of Symmetric 
-Matrices (I)}
-	\begin{itemize}
-		\item The symmetric matrix $\mathbf{A}$ can be diagonalized by an 
-		orthogonal matrix of its eigenvectors.
-		\item Orthogonally diagonalizable means that there exists some 
-		$\mathbf{E}$, such that $\mathbf{A} = 
-		\mathbf{E}\mathbf{D}\mathbf{E}^T$, where $\mathbf{D}$ is a diagonal 
-		matrix and $\mathbf{E}$ is a matrix diagonalizing $\mathbf{A}$. Let's 
-		compute $\mathbf{A}^T$:
-		\begin{align}
-			\mathbf{A}^T = (\mathbf{E}\mathbf{D}\mathbf{E}^T)^T = 
-			\mathbf{E}^{TT}\mathbf{D}^T\mathbf{E}^T = \mathbf{EDE}^T = 
-			\mathbf{A}. 
-		\end{align}
-		Thus, if $\mathbf{A}$ is orthogonally diagonalizable, it must also be 
-		symmetric.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Principal Component Analysis: Diagonalization of Symmetric 
-Matrices (II)}
-	\begin{itemize}
-		\item Let $\mathbf{E} = [\mathbf{e}_1 \; \mathbf{e}_2 \; \cdots \; 
-		\mathbf{e}_m]$ be a matrix of normalized eigenvectors $\mathbf{e}_i$. 
-		We briefly cover, that a matrix can only be orthogonally diagonalized 
-		iff that matrix's eigenvectors are linearly independent. Further, we 
-		show that such a matrix has not only linearly independent, but 
-		orthogonal eigenvectors.
-		\item Let $\mathbf{A}$ be a matrix, not necessarily symmetric, with 
-		linearly independent eigenvectors. Let further $\mathbf{D}$ be a 
-		diagonal matrix where the $i$th eigenvalue is placed in 
-		$\mathbf{D}_{ii}$.
-		\item We show that $\mathbf{AE} = \mathbf{ED}$.
-		\begin{align}
-			\text{Left hand side:} \quad \mathbf{AE} = [\mathbf{Ae}_1 \; 
-			\mathbf{Ae}_2 \; \cdots \; \mathbf{Ae}_m],                    \\
-			\text{Right hand side:} \quad \mathbf{ED} = [\lambda\mathbf{e}_1 \; 
-			\lambda\mathbf{e}_2 \; \cdots \; \lambda\mathbf{e}_m]. 
-		\end{align}
-		\item Note, that if $\mathbf{AE} = \mathbf{ED}$ then $\mathbf{Ae}_i = 
-		\lambda_i\mathbf{e}_i$ for all $i$. \\
-		\item This is the definition of the eigenvalue equation, thus 
-		$\mathbf{AE} = \mathbf{ED}$ follows.
-		\item $\implies$ $\mathbf{A} = \mathbf{EDE}^{-1} = \mathbf{EDE}^{T}$.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Intermezzo: Inverse of Orthogonal Matrix is its Transposed}
-	\begin{itemize}
-		\item Let $\mathbf{E}$ be an orthogonal matrix, then $\mathbf{E}^{-1} = 
-		\mathbf{E}^T$.
-		\item Write $\mathbf{E}$ as $\mathbf{E} = [\mathbf{e}_1 \; \mathbf{e}_2 
-		\; \cdots \; \mathbf{e}_n]$, where $\mathbf{e}_i$ is the $i$th column 
-		vector. We now have to show that $\mathbf{E}^T\mathbf{E} = \mathbf{I}$, 
-		where $\mathbf{I}$ is the identity matrix.
-		\item Note that $(\mathbf{E}^T\mathbf{E})_{ij} = 
-		\mathbf{e}_i^T\mathbf{e}_j$. As $\mathbf{E}$ is orthogonal, the dot 
-		product is $0$ for any two column vectors. \item The only exception is 
-		the dot product of one particular column with itself, \\
-		which equals one:
-		\begin{align}
-			(\mathbf{E}^T\mathbf{E})_{ij} = \mathbf{e}_i^T\mathbf{e}_j =
-			\begin{cases}
-				1 & i=j,      \\
-				0 & i \neq j. 
-			\end{cases}
-		\end{align}
-		\item $\mathbf{E}^T\mathbf{E} = \mathbf{I}$ and by definition we have 
-		that $\mathbf{E}^{-1}\mathbf{E} = \mathbf{I}$.
-		\item Therefore, we conclude that $\mathbf{E}^{-1} = \mathbf{E}^T$.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Principal Component Analysis: Diagonalization of Symmetric 
-Matrices (III)}
-	\begin{itemize}
-		\item Now we show that a symmetric matrix has orthogonal eigenvectors.
-		\item Let $\lambda_1$ and $\lambda_2$ be distinct eigenvalues for 
-		eigenvectors $\mathbf{e}_1$ and $\mathbf{e}_2$, such that
-		\begin{align}
-			\lambda_1\mathbf{e}_1 \cdot \mathbf{e}_2 & = (\lambda_1 
-			\mathbf{e}_1)^{T} \mathbf{e}_2  \\
-			& = (\mathbf{Ae}_1)^{T}\mathbf{e}_2            \\
-			& = \mathbf{e}_1^T \mathbf{A}^T \mathbf{e}_2   \\
-			& = \mathbf{e}_1^T \mathbf{A}\mathbf{e}_2      \\
-			& = \mathbf{e}_1^T (\lambda_2 \mathbf{e}_2)    \\
-			\lambda_1\mathbf{e}_1 \cdot \mathbf{e}_2 & = \lambda_2 \mathbf{e}_1 
-			\cdot \mathbf{e}_2. 
-		\end{align}
-		\item By the last relation we can equate that $(\lambda_1 - \lambda_2) 
-		\mathbf{e}_1 \cdot \mathbf{e}_2 = 0$.
-		\item By conjecture, the eigenvalues are unique, thus it holds that 
-		$\mathbf{e}_1 \cdot \mathbf{e}_2 = 0$.
-		\item We conclude that the eigenvectors of a symmetric matrix are 
-		orthogonal.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Principal Component Analysis: Diagonalization of Symmetric 
-Matrices (IV)}
-	\begin{itemize}
-		\item We defined $\mathbf{A} \equiv \mathbf{X}\mathbf{X}^T$, where 
-		$\mathbf{A}$ is symmetric.
-		\item Further, we computed $\textbf{Cov}(\mathbf{Y},\mathbf{Y}) = 
-		\frac{1}{n-1} \mathbf{UAU}^T$.
-		\item By the intermezzo we know that $\mathbf{A} = \mathbf{EDE}^T$, \\
-		for some eigenvector matrix $\mathbf{E}$ of $\mathbf{A}$ and diagonal 
-		matrix $\mathbf{D}$.
-		\item \textbf{What if $\mathbf{A}$ is degenerated?}
+		\item \textbf{Reason:}
 		\begin{itemize}
-			\item $\mathbf{A}$ has $r \leq n$ orthonormal eigenvectors, where 
-			$r = \text{rank} \; \mathbf{A}$.
-			\item If $r < n$, then $\mathbf{A}$ is degenerated.
-			\begin{itemize}
-				\item All data occupy a subspace of dimension $r \leq n$.
-			\end{itemize}
-			\item We select $(n-r)$ additional orthonormal vectors to 
-			\emph{fill up} the matrix $\mathbf{E}$.
-			\begin{itemize}
-				\item These additional vectors do not effect the final solution 
+			\item Dimensions that are highly correlated contain redundant 
+			information.
+			\item This step helps to identify these correlations.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Principal Component Analysis - 2. Step: Covariance Matrix (II)}
+	\begin{itemize}
+		\item \textbf{Example:}
+		\begin{itemize}
+			\item The 3 x 3 covariance matrix of our example: \\
+			\vspace{3mm}
+			\begin{center}
+				\centering
+				\begin{tabular}{|l|c|c|c|}
+					\hline
+								& $d_1$ 	& $d_2$ 	& $d_3$
+					\\\hline
+					$d_1$		& $+0.75000$		& $-0.35015$ 	& 
+					$-0.30324$                   
+					\\\hline
+					$d_2$		& $-0.35015$		& $+0.75000$ 	& 
+					$+0.96225$                   
+					\\\hline
+					$d_3$		& $-0.30324$		& $+0.96225$ 	& 
+					$+0.75000$                   
+					\\\hline
+				\end{tabular}
+			\end{center}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Principal Component Analysis - 3. Step: Eigenvalues (I)}
+	\begin{itemize}
+		\item \textbf{Procedure:}
+		\begin{itemize}
+			\item The eigenvectors and eigenvalues of the covariance matrix 
+			($C$) are computed by solving the following equation:
+			\begin{align}
+				C \nu = \lambda \nu
+			\end{align}
+			\item If a n digit vector $\nu$ satisfies this equation for a 
+			$\lambda \in \mathbb{R}$, then $\nu$ is called an eigenvector with 
+			associated eigenvalue $\lambda$
+		\end{itemize}
+		\item \textbf{Reason:}
+		\begin{itemize}
+			\item The determined eigenvectors are called \textbf{prinicipal 
+			components} of the dataset. The eigenvalues indicate which of these 
+			prinicipal components has which importance for the significance of 
+			the dataset.
+			\item By sorting the eigenvectors in descending order according to 
+			their eigenvalues, the prinicipal components that contain the most 
+			information can be identified.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Principal Component Analysis - 3. Step: Eigenvalues (II)}
+	\begin{itemize}
+		\item \textbf{Example:}
+		\begin{itemize}
+			\item Eigenvalues and eigenvectors in our example: \\
+			\begin{align}
+				\lambda_1 = -0,21354, 
+				\nu_1 = \begin{bmatrix} -0,05553 \\ -1,01884 \\ +1 
+				\end{bmatrix} 
 				\\
-				because the variances associated with these directions are zero.
-			\end{itemize}
+				\lambda_2 = +0,56530, 
+				\nu_2 = \begin{bmatrix} +3,17456 \\ +0,80847 \\ +1 
+				\end{bmatrix} 
+				\\
+				\lambda_3 = +1,89823, 
+				\nu_3 = \begin{bmatrix} -0,57292 \\ +1,01273 \\ +1 \end{bmatrix}
+			\end{align}
+			\item Sorting these three eigenvectors by their significance, we 
+			arrive at the order $\nu_3$, $\nu_2$, $\nu_1$
 		\end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Principal Component Analysis: The Trick}
+\begin{frame}{Principal Component Analysis - 4. Step: Feature matrix (I)}
 	\begin{itemize}
-		\item Select $\mathbf{U}$ to be a matrix where each row $\mathbf{u}_i$ 
-		is ein eigenvector of $\mathbf{XX}^T$.
-		\item Thus, $\mathbf{U} \equiv \mathbf{E}^T$.
-		\item Substituting into the result from our intermezzo we get: 
-		$\mathbf{A} = \mathbf{U}^T\mathbf{DU}$. We rewrite the equation for 
-		$\mathbf{Cov}(\mathbf{Y},\mathbf{Y})$ as
-		\begin{align}
-			\mathbf{Cov}(\mathbf{Y},\mathbf{Y}) & = \frac{1}{n-1} 
-			\mathbf{UAU}^T                                  \\
-			& = \frac{1}{n-1} \mathbf{U}(\mathbf{U}^T\mathbf{DU})\mathbf{U}^T \\
-			& = \frac{1}{n-1} (\mathbf{UU}^T)\mathbf{D}(\mathbf{UU}^T)        \\
-			& = \frac{1}{n-1} (\mathbf{UU}^{-1})\mathbf{D}(\mathbf{UU}^{-1})  \\
-			\mathbf{Cov}(\mathbf{Y},\mathbf{Y}) & = \frac{1}{n-1} 
-			\mathbf{D}.                                     
-		\end{align}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Principal Component Analysis: Summary}
-	\begin{itemize}
-		\item We conclude, that our choice of $\mathbf{U}$ diagonalizes 
-		$\mathbf{Cov}(\mathbf{Y},\mathbf{Y})$.
-		\item \textbf{The results are summarized as follows:}
+		\item \textbf{Procedure:}
 		\begin{itemize}
-			\item The principal components of $\mathbf{X}$ are the eigenvectors 
-			of $\mathbf{XX}^T$; or the rows of $\mathbf{U}$.
-			\item The $i$th diagonal value of 
-			$\mathbf{Cov}(\mathbf{Y},\mathbf{Y})$ is the variance of 
-			$\mathbf{X}$ along $\mathbf{u}_i$.
-			\item The computation of PCA involves subtracting the mean of each 
-			measurement type.
-			\item The computation of PCA involves computing the eigenvectors of 
-			$\mathbf{XX}^T$.
+			\item The top N eigenvectors are selected to create a feature 
+			matrix from them.
+			\item There is no fixed rule exactly how many eigenvectors should 
+			be selected. 
+			\item The dimensionality reduction is larger the 
+			fewer eigenvectors are chosen.
+			\item The information loss increases with each eigenvector that is 
+			discarded.
+		\end{itemize}
+		\item \textbf{Reason:}
+		\begin{itemize}
+			\item It must be considered carefully how much information can be 
+			given up in favor of dimensionality reduction.
 		\end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Principal Component Analysis: Algorithm}
+\begin{frame}{Principal Component Analysis - 4. Step: Feature matrix (II)}
 	\begin{itemize}
-		\item \texttt{PCA}(data) \{
+		\item \textbf{Example:}
 		\begin{itemize}
-			\item $[\text{N,M}]$ = size(data); \emph{\color{gray}\# (N 
-			dimensions, M trials).}
-			\item means = \texttt{mean}(data,2);
-			\item data = data - \texttt{repmat}(means,1,M);
-			\item covariance = 1 / (N-1) $\ast$ data $\ast$ $\text{data}^T$;
-			\item $[\text{PC,V}]$ = \texttt{eig}(covariance); 
-			\emph{\color{gray}\# PC - each column is a PC. V - Nx1 matrix of 
-			variances.}
-			\item V = \texttt{diag}(V); \emph{\color{gray}\# Extract diagonal 
-			of matrix as vector.}
-			\item $[\text{junk, rindices}]$ = \texttt{sort}(-1 $\ast$ V); 
-			\emph{\color{gray}\# Sort the variances in decreasing order.}
-			\item V  = V(rindices);
-			\item PC = PC(:,rindices);
-			\item signals = $\text{PC}^T$ $\ast$ data;
-			\item \textbf{return} signals; \emph{\color{gray}\# Signals - NxM 
-			matrix of projected data.}
+			\item In our example $\nu_3$ carries approx. $71\%$ of the 
+			information: \\
+			\begin{align}
+				\frac{1,89823}{1,89823+0,5653+0,21354} = 0,70906
+			\end{align}
+			\item It might be interesting to keep only the eigenvector $\nu_3$ 
+			and discard the other two eigenvectors. Our feature matrix 
+			therefore looks as follows:
+			\begin{align}
+				\begin{bmatrix} -0,57292 \\ +1,01273 \\ +1\end{bmatrix}
+			\end{align}
 		\end{itemize}
-		\item \};
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Principal Component Analysis - 5. Step: Transformation (I)}
+	\begin{itemize}
+		\item \textbf{Procedure:}
+		\begin{itemize}
+			\item The original data set ($D$) gets multiplied with the feature 
+			matrix ($F$), to create a new data set ($N$) with lower 
+			dimensionality:
+			\begin{align}
+				N = D \cdot F
+			\end{align}
+		\end{itemize}
+		\item \textbf{Reason:}
+		\begin{itemize}
+			\item This step applies the dimensionality reduction to each tuple.
+			\item The PCA is completed with this step.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Principal Component Analysis - 5. Step: Transformation (II)}
+	\begin{itemize}
+		\item \textbf{Example:}
+		\begin{itemize}
+			\item Our dataset after the transformation and with the PCA 
+			completed looks like this: \\
+			\begin{align}
+				\begin{bmatrix} -6,10078 \\ +8,95829 \\ -3,67599 \\ +5,35762 
+				\end{bmatrix}
+			\end{align}
+			\item It is to be expected that this dataset still contains about 
+			$71\%$ of its original information, which can be further used for 
+			data mining, while haveing to deal with a lot less dimensions.
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -618,7 +576,7 @@ Matrices (IV)}
 		\end{itemize}
 	\end{itemize}
 	\centering
-	\includegraphics[width=10cm]{img/histogram.png}
+	\includegraphics[width=9.5cm]{img/histogram.png}
 \end{frame}
 
 \begin{frame}{Clustering}

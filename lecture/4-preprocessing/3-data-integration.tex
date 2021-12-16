@@ -172,20 +172,24 @@
 		\begin{itemize}
 			\item Also called Pearson's product-moment coefficient:
 			\begin{align}
-				\text{Cor}({X}) = \frac{\sum_{(a, b) \in X} 
+				\text{Cor}(X) = \frac{\sum_{(a, b) \in X} 
 				(a-\mu_{X_a})(b-\mu_{X_b})}{\#X\cdot\sigma_{X_a}\sigma_{X_b}} = 
 				\frac{\sum_{(a, b) \in X}(a 
 				b)-\#X\cdot\mu_{X_a}\mu_{X_b}}{\#X\cdot
 				\sigma_{X_a}\sigma_{X_b}}. 
 			\end{align}
-			where $\mu_{X_a}$ and $\mu_{X_b}$ are the mean values 
-			of the first ($\mu_{X_a}$) and the second ($\mu_{X_b}$) pair 
-			component in X. $\sigma_{X_a}$ and $\sigma_{X_b}$ 
-			denote the corresponding standard deviations.
+			where $X_a$ and $X_b$ are multisets containing all values of the 
+			first 
+			($X_a$) and the second ($X_b$) component of the pairs in $X$.  
+			$\mu_{X_a}$ and $\mu_{X_b}$ denote the mean values, while 
+			$\sigma_{X_a}$ and $\sigma_{X_b}$ denote the standard 
+			deviations of these multisets.
 		\end{itemize}
-		\item If $\text{Cor}({X}) > 0$: positively correlated.
-		\item If $\text{Cor}({X}) = 0$: independent.
-		\item If $\text{Cor}({X}) < 0$: negatively correlated.
+		\item If $\text{Cor}(X) > 0$: $X_a$ and $X_b$ are positively 
+		correlated.
+		\item If $\text{Cor}(X) = 0$: $X_a$ and $X_b$ are independent.
+		\item If $\text{Cor}(X) < 0$: $X_a$ and $X_b$ are negatively 
+		correlated.
 	\end{itemize}
 \end{frame}
 
@@ -260,7 +264,7 @@
 		\end{align}
 		\item \textbf{Computing the correlation based on the covariance:}\\
 		\begin{align}
-			\text{Cor}({X}) = \frac{\text{Cov}(X)}{\sigma_A\sigma_B}
+			\text{Cor}({X}) = \frac{\text{Cov}(X)}{\sigma_{X_a}\sigma_{X_b}}
 		\end{align}
 	\end{itemize}
 \end{frame}
@@ -288,8 +292,7 @@
 
 \begin{frame}{Covariance: An Example}
 	\begin{itemize}
-		\item Suppose two stocks $A$ and $B$ have the following values within 
-		some time:\\
+		\item Suppose two stocks being part of $X$ have the following values:\\
 		$(2,5), (3,8), (5,10), (4,11), (6,14).$
 		\item If the stocks are affected by the same industry trends, will 
 		their prices rise or fall together?
