@@ -118,33 +118,125 @@
   \item \textit{variable}: prefered by statisticians
   }
 
+  \begin{itemize}
+  \item \textit{Observations}: Observed or measured values of an attribute.
+  \item An \textit{attribute vector} or \textit{feature vector} describes a
+    data object by its set of attribtues.
+  \item Data sets with one attribute are referred to as \textit{univariate},
+    whereas a \textit{multivariate} data set consists of more than one
+    attribute.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Types of Attributes}
+  Two different views:
+
+  \vspace*{1em}
   \begin{columns}[t]
-    \begin{column}{0.7\columnwidth}
-      \begin{itemize}
-      \item \textit{Observations}: Observed or measured values of an attribute.
-      \item An \textit{attribute vector} or \textit{feature vector} descriibes a
-        data object by its set of attribtues.
-      \item Data sets with one attribute is referred to as \textit{univariate},
-        whereas a \textit{multivariate} data set consists of more than one
-        attributes.
-      \end{itemize}
+    \begin{column}{0.5\columnwidth}
+      \centering
+      \begin{tikzpicture}[
+        every path/.style={
+          thick,
+          >=latex,
+          rounded corners=5pt,
+          draw,
+          ->
+        },
+        every edge/.style={draw, thick, >=latex},
+        box/.style={
+          draw,
+          fill=white,
+          rounded corners=.25em,
+          % text height=.8em,
+          outer sep=0,
+          inner sep=.6em,
+          align=center
+        }
+        ]
+        \node[box] at (0,0) (root) {Types of Measurements};
+        \node[box, below left=2em and -3em of root] (qualitative) {Qualitative};
+        \node[box, below right=2em and -3em of root] (quantitative) {Quantitative};
+
+        \node[box, below left=2em and -2.5em of qualitative] (nominal) {Nominal};
+        \node[box, below right=2em and -2.5em of qualitative] (ordinal) {Ordinal};
+
+        \node[box, below left=2em and -2.5em of quantitative] (interval) {Interval};
+        \node[box, below right=2em and -2.5em of quantitative] (ratio) {Ratio};
+
+        \coordinate[below=1em of root.south] (root-below);
+        \coordinate[above=1em of quantitative.north] (quantitative-above);
+        \coordinate[above=1em of qualitative.north] (qualitative-above);
+        \path[faugray] (root.south) -- (root-below) -- (qualitative-above) -- (qualitative.north);
+        \path[faugray] (root.south) -- (root-below) -- (quantitative-above) -- (quantitative.north);
+
+        \coordinate[below=1em of quantitative.south] (quantitative-below);
+        \coordinate[above=1em of interval.north] (interval-above);
+        \coordinate[above=1em of ratio.north] (ratio-above);
+        \path[faugray] (quantitative.south) -- (quantitative-below) -- (interval-above) -- (interval.north);
+        \path[faugray] (quantitative.south) -- (quantitative-below) -- (ratio-above) -- (ratio.north);
+
+        \coordinate[below=1em of qualitative.south] (qualitative-below);
+        \coordinate[above=1em of nominal.north] (nominal-above);
+        \coordinate[above=1em of ordinal.north] (ordinal-above);
+        \path[faugray] (qualitative.south) -- (qualitative-below) -- (nominal-above) -- (nominal.north);
+        \path[faugray] (qualitative.south) -- (qualitative-below) -- (ordinal-above) -- (ordinal.north);
+      \end{tikzpicture}
     \end{column}
 
-    \begin{column}{0.3\columnwidth}
-      \textbf{Attribute Types}:
-      \begin{itemize}
-      \item Nominal.
-      \item Binary.
-      \item Ordinal.
-      \item Numerical:
-        \begin{itemize}
-        \item Interval scaled.
-        \item Ratio scaled.
-        \end{itemize}
-      \end{itemize}
-        \end{column}
+    \begin{column}{0.5\columnwidth}
+      \centering
+      \begin{tikzpicture}[
+        every path/.style={
+          thick,
+          >=latex,
+          rounded corners=5pt,
+          draw,
+          ->
+        },
+        every edge/.style={draw, thick, >=latex},
+        box/.style={
+          draw,
+          fill=white,
+          rounded corners=.25em,
+          % text height=.8em,
+          outer sep=0,
+          inner sep=.6em,
+          align=center
+        }
+        ]
+        \node[box] at (0,0) (root) {Types of Attributes};
+        \node[box, below left=2em and -2em of root] (categorical) {Categorical};
+        \node[box, below right=2em and -2em of root] (numerical) {Numerical};
+        \node[box, below left=2em and -2em of numerical] (continuous) {Continuous};
+        \node[box, below right=2em and -2em of numerical] (discrete) {Discrete};
+
+        \coordinate[below=1em of root.south] (root-below);
+        \coordinate[above=1em of categorical.north] (categorical-above);
+        \coordinate[above=1em of numerical.north] (numerical-above);
+        \path[faugray] (root.south) -- (root-below) -- (categorical-above) -- (categorical.north);
+        \path[faugray] (root.south) -- (root-below) -- (numerical-above) -- (numerical.north);
+
+        \coordinate[below=1em of numerical.south] (numerical-below);
+        \coordinate[above=1em of continuous.north] (continuous-above);
+        \coordinate[above=1em of discrete.north] (discrete-above);
+        \path[faugray] (numerical.south) -- (numerical-below) -- (continuous-above) -- (continuous.north);
+        \path[faugray] (numerical.south) -- (numerical-below) -- (discrete-above) -- (discrete.north);
+      \end{tikzpicture}
+    \end{column}
   \end{columns}
+  \vspace*{1em}
+  \begin{itemize}
+  \item \textit{Qualitative} measurements describe an attribute without
+    providing a size or quantity.
+
+  \item \textit{Quantitative} measurements, often also called \textit{numerical}
+    attributes, are quantitatively measured and often represented in integers or
+    real values.
+  \end{itemize}
 \end{frame}
+
+
 
 \begin{frame}{Attribute Types}
   \textbf{Nominal}:
@@ -172,10 +264,6 @@
 \end{frame}
 
 \begin{frame}{Numerical Attribute Types}
-  \textit{Numeric attributes} are quantitative attributes, i. e. they are
-  quantitatively measured and often represented in integers or real
-  values.\\\medskip
-
   \begin{columns}[t]
     \begin{column}{0.5\columnwidth}
       \centering \textbf{Interval-Scaled Attributes}
@@ -183,7 +271,7 @@
       \item Measured on a scale of \textbf{equally sized} units.
       \item No true zero-point.
       \item Values have order.
-        \item E.g. temperature in $C$ or $F$, calender dates.
+      \item E.g. temperature in $C$ or $F$, calender dates.
       \end{itemize}
     \end{column}
     \begin{column}{0.5\columnwidth}
@@ -192,82 +280,82 @@
       \item Inherent \textbf{zero point}.
       \item We can speak of values as being an order of magnitude larger
         than the unit of measurement.
-       \item E.g. temperature in Kelvin, length, counts, monetary quantities.
+      \item E.g. temperature in Kelvin, length, counts, monetary quantities.
       \end{itemize}
     \end{column}
   \end{columns}
 
-  \vspace{0.1em}
+  \vspace*{1em}
   \begin{tikzpicture}[xscale=0.032]
-  \def\Tzero{-273.15}  % absolute zero
-  \def\Tnitro{-195.79} % liquid nitrogen
-  \def\Tbody{36.8}     % body temperature
-  \def\Tboil{100}      % boiling temperature
-  \def\Tmax{140}       % maximum temperature on the scale
-  \def\h{0.5}         % axis off sets
-  \def\tick####1####2####3{\draw[thick,####3] (####1+.08) --++ (0,-.16) node[below=-.5pt,scale=1] {\scriptsize ####2};}
-  \def\Ts####1{{25+50/(\Tmax-\Tzero)*(####1-\Tzero)}} % convert temperature to [25,50] range
+    \def\Tzero{-273.15}  % absolute zero
+    \def\Tnitro{-195.79} % liquid nitrogen
+    \def\Tbody{36.8}     % body temperature
+    \def\Tboil{100}      % boiling temperature
+    \def\Tmax{140}       % maximum temperature on the scale
+    \def\h{0.5}         % axis off sets
+    \def\tick####1####2####3{\draw[thick,####3] (####1+.08) --++ (0,-.16) node[below=-.5pt,scale=1] {\scriptsize ####2};}
+    \def\Ts####1{{25+50/(\Tmax-\Tzero)*(####1-\Tzero)}} % convert temperature to [25,50] range
 
-  % AXIS
-  \draw[->,thick] % degrees Celsius
-  (1.02*\Tzero,0) -- (1.1*\Tmax,0) node[right] {$^\circ$C};
-  \draw[->,thick] % Kelvin
-  (1.02*\Tzero,-\h) -- (1.1*\Tmax,-\h) node[right] {K};
-  \draw[->,thick] % Fahrenheit
-  (1.02*\Tzero,-2*\h) -- (1.1*\Tmax,-2*\h) node[right] {$^\circ$F};
+    % AXIS
+    \draw[->,thick] % degrees Celsius
+    (1.02*\Tzero,0) -- (1.1*\Tmax,0) node[right] {$^\circ$C};
+    \draw[->,thick] % Kelvin
+    (1.02*\Tzero,-\h) -- (1.1*\Tmax,-\h) node[right] {K};
+    \draw[->,thick] % Fahrenheit
+    (1.02*\Tzero,-2*\h) -- (1.1*\Tmax,-2*\h) node[right] {$^\circ$F};
 
-  % LABEL
-  \node[above=-0.2em,align=center] at (\Tzero,0.1) {\scriptsize absolute\\[-2]\strut \scriptsize zero};
-  \node[above=-0.2em,align=center] at (\Tnitro,0.1) {\scriptsize liquid\\[-2]\strut \scriptsize nitrogen};
-  \node[left=4,above=-0.2em,align=center] at (0,0.1) {\scriptsize water\\[-2]\strut \scriptsize freezes};
-  \node[right=4,above=-0.2em,align=center] at (\Tbody,0.1) {\scriptsize human\\[-2]\strut \scriptsize body};
-  \node[above=-0.2em,align=center] at (\Tboil,0.1) {\scriptsize water\\[-2]\strut \scriptsize boils};
+    % LABEL
+    \node[above=-0.2em,align=center] at (\Tzero,0.1) {\scriptsize absolute\\[-2]\strut \scriptsize zero};
+    \node[above=-0.2em,align=center] at (\Tnitro,0.1) {\scriptsize liquid\\[-2]\strut \scriptsize nitrogen};
+    \node[left=4,above=-0.2em,align=center] at (0,0.1) {\scriptsize water\\[-2]\strut \scriptsize freezes};
+    \node[right=4,above=-0.2em,align=center] at (\Tbody,0.1) {\scriptsize human\\[-2]\strut \scriptsize body};
+    \node[above=-0.2em,align=center] at (\Tboil,0.1) {\scriptsize water\\[-2]\strut \scriptsize boils};
 
-  % CELSIUS
-  \tick{\Tzero,0}{$-273.15$}{faublue} % absolute zero
-  \tick{\Tnitro,0}{\hspace{6pt}$-195.79$}{faublue} % liquid nitrogen
-  \tick{0,0}{0}{faublue}              % freezing temperature
-  \tick{\Tbody,0}{36.8}{faugreendark}            % body temperature
-  \tick{\Tboil,0}{100}{faured}        % boiling temperature
+    % CELSIUS
+    \tick{\Tzero,0}{$-273.15$}{faublue} % absolute zero
+    \tick{\Tnitro,0}{\hspace{6pt}$-195.79$}{faublue} % liquid nitrogen
+    \tick{0,0}{0}{faublue}              % freezing temperature
+    \tick{\Tbody,0}{36.8}{faugreendark}            % body temperature
+    \tick{\Tboil,0}{100}{faured}        % boiling temperature
 
-  % KELVIN
-  \tick{\Tzero,-\h}{0}{faublue}   % absolute zero
-  \tick{\Tnitro,-\h}{77}{faublue}           % liquid nitrogen
-  \tick{0,-\h}{273.15}{faublue}       % freezing temperature
-  \tick{\Tbody,-\h}{310.0}{faugreendark}        % body temperature
-  \tick{\Tboil,-\h}{373.15}{faured}   % boiling temperature
+    % KELVIN
+    \tick{\Tzero,-\h}{0}{faublue}   % absolute zero
+    \tick{\Tnitro,-\h}{77}{faublue}           % liquid nitrogen
+    \tick{0,-\h}{273.15}{faublue}       % freezing temperature
+    \tick{\Tbody,-\h}{310.0}{faugreendark}        % body temperature
+    \tick{\Tboil,-\h}{373.15}{faured}   % boiling temperature
 
-  % FAHRENHEIT
-  \tick{\Tzero,-2*\h}{$-459.67$}{faublue} % absolute zero
-  \tick{\Tnitro,-2*\h}{$-320$}{faublue}      % liquid nitrogen
-  \tick{0,-2*\h}{32}{faublue}          % freezing temperature
-  \tick{\Tbody,-2*\h}{98.2}{faugreendark}         % body temperature
-  \tick{\Tboil,-2*\h}{212}{faured}     % boiling temperature
-\end{tikzpicture}
+    % FAHRENHEIT
+    \tick{\Tzero,-2*\h}{$-459.67$}{faublue} % absolute zero
+    \tick{\Tnitro,-2*\h}{$-320$}{faublue}      % liquid nitrogen
+    \tick{0,-2*\h}{32}{faublue}          % freezing temperature
+    \tick{\Tbody,-2*\h}{98.2}{faugreendark}         % body temperature
+    \tick{\Tboil,-2*\h}{212}{faured}     % boiling temperature
+  \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Continuous vs. Discrete Attributes}
+\begin{frame}[c]{Continuous vs. Discrete Attributes}
   \begin{columns}[t]
     \begin{column}{0.5\columnwidth}
       \centering \textbf{Continuous Attributes}
-    \begin{itemize}
-    \item Has real numbers as attribute values.\\
-      E.g. temperature, height, or weight.
-    \item Practically, real values can only be measured and represented using a finite number of digits.
-    \item Continuous attributes are typically represented as floating-point variables.
-    \end{itemize}
+      \begin{itemize}
+      \item Has real numbers as attribute values.\\
+        E.g. temperature, height, or weight.
+      \item Practically, real values can only be measured and represented using a finite number of digits.
+      \item Continuous attributes are typically represented as floating-point variables.
+      \end{itemize}
     \end{column}
     \begin{column}{0.5\columnwidth}
       \centering \textbf{Discrete Attributes}
       \begin{itemize}
-    \item Has finite or countably infinite elements.\\
-      E.g. ZIP code, profession, or the set of words in a collection of documents.
-    \item Sometimes represented as integer variables.
-    % \item Note: Binary attributes are a special case of discrete attributes.
-    \end{itemize}
-    \begin{alertblock}{Note}
-      Binary attributes are a special case of discrete attributes.
-    \end{alertblock}
+      \item Has finite or countably infinite elements.\\
+        E.g. ZIP code, profession, or the set of words in a collection of documents.
+      \item Sometimes represented as integer variables.
+        % \item Note: Binary attributes are a special case of discrete attributes.
+      \end{itemize}
+      \begin{alertblock}{Note}
+        Binary attributes are a special case of discrete attributes.
+      \end{alertblock}
     \end{column}
   \end{columns}
 \end{frame}
