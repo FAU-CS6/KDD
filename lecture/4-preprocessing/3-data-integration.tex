@@ -75,25 +75,19 @@
 			\end{itemize}
 		\end{itemize}
 		\item \textbf{Number of data points with value $(a_i,b_j)$:}
-		\begin{itemize}
-			\item \textbf{Actual value:}
-			\begin{align}
-				c_{ij} = \#\{(a,b) \in X \mid a = a_i, b= b_i\}
-			\end{align} 
-		\end{itemize}
+		\begin{align}
+			c_{ij} = \#\{(a,b) \in X \mid a = a_i, b= b_i\}
+		\end{align}
+		\item \textbf{Anticipated value (assuming equal distribution):}
+		\begin{align}
+			e_{ij} = \frac{\sum_{k=1}^{m} c_{ik} \cdot \sum_{l=1}^{n}c_{lj}}{\#X}
+		\end{align}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Correlation Analysis for Nominal Data (II)}
 	\begin{itemize}
-		\item \textbf{Number of data points with value $(a_i,b_j)$ (continued):}
-		\begin{itemize}
-			\item \textbf{Anticipated value (assuming equal distribution):}
-			\begin{align}
-				e_{ij} = \frac{\sum_{k=1}^{m} c_{ik}\sum_{l=1}^{n}c_{lj}}{\#X}
-			\end{align} 
-		\end{itemize}
-		\item \textbf{These values are often presented in a 
+		\item \textbf{The values $c_{ij}$ and $e_{ij}$ are often presented in a 
 		\color{airforceblue}contingency table:} \\
 		\centering
 		\vspace{5mm}
@@ -174,8 +168,7 @@
 			\begin{align}
 				\text{Cor}(X) = \frac{\sum_{(a, b) \in X} 
 				(a-\mu_{X_a})(b-\mu_{X_b})}{\#X\cdot\sigma_{X_a}\sigma_{X_b}} = 
-				\frac{\sum_{(a, b) \in X}(a 
-				b)-\#X\cdot\mu_{X_a}\mu_{X_b}}{\#X\cdot
+				\frac{\sum_{(a, b) \in X}ab -\#X\cdot\mu_{X_a}\mu_{X_b}}{\#X\cdot
 				\sigma_{X_a}\sigma_{X_b}}. 
 			\end{align}
 			where $X_a$ and $X_b$ are multisets containing all values of the 
@@ -260,7 +253,7 @@
 		\begin{align}
 			\text{Cov}(X) = 
 			\frac{\sum_{i=1}^{n}(a_i-\mu_{X_a})(b_i-\mu_{X_b})}{\#X} = 
-			\frac{\sum_{i=1}^{n}(a_i)(b_i)}{\#X}-\mu_{X_a}\mu_{X_b}
+			\frac{\sum_{i=1}^{n}a_ib_i}{\#X}-\mu_{X_a}\mu_{X_b}
 		\end{align}
 		\item \textbf{Computing the correlation based on the covariance:}\\
 		\begin{align}
