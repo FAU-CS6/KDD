@@ -32,9 +32,15 @@
 \end{frame}
 
 \begin{frame}{Laying Out Pixels in a Spiderweb Diagram}
-  To save space and show the connections among multiple dimensions, \\
-  space filling is often done in a spiderweb diagram.\\
-  \centering
+    \begin{columns}[t]
+      \begin{column}{0.5\textwidth}
+          To save space and show the connections among multiple dimensions,
+          space filling is often done in a spiderweb diagram.
+          \vspace*{1em}
+      \end{column}
+      \begin{column}{0.5\textwidth}
+        \centering
+
   \begin{tikzpicture}[scale=0.8]
     \pie[hide number]{17/Dim 1, 17/Dim 2, 17/Dim 3, 17/Dim 4, 17/Dim 5, 16/Dim 6}
     \node at (1.5, 1) (a) {\tikzmark{t1} $\circ$};
@@ -53,101 +59,25 @@
     \path[draw=black,thick,-]<1-> (n1) -- (t5);
     \path[draw=black,thick,-]<1-> (n1) -- (t6);
   \end{tikzpicture}
+      \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{Laying Out Pixels in Circle Segments}
-  To save space and show the connections among multiple dimensions, \\
-  space filling is often done in a circle segment.\\
-  \centering
-  \newcommand{\D}{7} % number of dimensions (config option)
-  \newcommand{\U}{7} % number of scale units (config option)
-
-  \newdimen\R % maximal diagram radius (config option)
-  \R=3.5cm
-  \newdimen\L % radius to put dimension labels (config option)
-  \L=4cm
-  \newcommand{\A}{360/\D} % calculated angle between dimension axes
-
-  \begin{tikzpicture}[scale=0.7]
-    \path (0:0cm) coordinate (O); % define coordinate for origin
-
-    % draw the spiderweb
-    \foreach \X in {1,...,\D}{
-      \draw (\X*\A:0) -- (\X*\A:\R);
-    }
-
-    \foreach \Y in {0,...,\U}{
-      \foreach \X in {1,...,\D}{
-        \path (\X*\A:\Y*\R/\U) coordinate (D\X-\Y);
-        \fill (D\X-\Y) circle (1pt);
-      }
-      \draw [opacity=0.3] (0:\Y*\R/\U) \foreach \X in {1,...,\D}{
-        -- (\X*\A:\Y*\R/\U)
-      } -- cycle;
-    }
-
-    % define labels for each dimension axis (names config option)
-    \path (1*\A:\L) node (L1) {Dim 1};
-    \path (2*\A:\L) node (L2) {Dim 2};
-    \path (3*\A:\L) node (L3) {Dim 3};
-    \path (4*\A:\L) node (L4) {Dim 4};
-    \path (5*\A:\L) node (L5) {Dim 5};
-    \path (6*\A:\L) node (L6) {Dim 6};
-    \path (7*\A:\L) node (L7) {Dim 7};
-
-    % for each sample case draw a path around the web along concrete values
-    % for the individual dimensions. Each node along the path is labeled
-    % with an identifier using the following scheme:
-    %
-    % D<d>-<v>, dimension <d> a number between 1 and \D (#dimensions) and
-    % value <v> a number between 0 and \U (#scale units)
-    %
-    % The paths will be drawn half-opaque, so that overlapping parts will be
-    % rendered in a composite color.
-
-    % Example Case 1 (red)
-    %
-    % D1 (Security): 0/7; D2 (Content Quality): 5/7; D3 (Performance): 0/7;
-    % D4 (Stability): 6/7; D5 (Usability): 0/7; D6 (Generality): 5/7;
-    % D7 (Popularity): 0/7
-    \draw [color=red,line width=1.5pt,opacity=0.5]
-    (D1-0) --
-    (D2-5) --
-    (D3-0) --
-    (D4-6) --
-    (D5-0) --
-    (D6-5) --
-    (D7-0) -- cycle;
-
-    % Example Case 2 (green)
-    %
-    % D1 (Security): 2/7; D2 (Content Quality): 2/7; D3 (Performance): 5/7;
-    % D4 (Stability): 1/7; D5 (Usability): 4/7; D6 (Generality): 1/7;
-    % D7 (Popularity): 7/7
-    \draw [color=green,line width=1.5pt,opacity=0.5]
-    (D1-2) --
-    (D2-2) --
-    (D3-5) --
-    (D4-1) --
-    (D5-4) --
-    (D6-1) --
-    (D7-7) -- cycle;
-
-    % Example Case 3 (blue)
-    %
-    % D1 (Security): 1/7; D2 (Content Quality): 7/7; D3 (Performance): 4/7;
-    % D4 (Stability): 4/7; D5 (Usability): 3/7; D6 (Generality): 5/7;
-    % D7 (Popularity): 2/7
-    \draw [color=blue,line width=1.5pt,opacity=0.5]
-    (D1-1) --
-    (D2-7) --
-    (D3-4) --
-    (D4-4) --
-    (D5-3) --
-    (D6-5) --
-    (D7-2) -- cycle;
-
-  \end{tikzpicture}
+\begin{frame}{Polar Plot}
+  \begin{columns}[t]
+    \begin{column}{0.4\textwidth}
+      \begin{itemize}
+      \item Saves space.
+        \item Shows connections among multiple dimensions.
+        \end{itemize}
+      \end{column}
+      \begin{column}{0.5\textwidth}
+        \vspace{-5em}
+        \begin{center}
+          \includegraphics[width=0.9\textwidth]{img/dimension-plot.pdf}
+        \end{center}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Geometric Projection Visualization Techniques}
@@ -186,6 +116,7 @@
       height=6cm,
       xmin=0,
       xmax=0.5,
+      cycle list name=faucolors,
       enlarge y limits,
       every axis plot/.append style={opacity=0}
       ]
@@ -265,6 +196,12 @@
     \item Tile bars: \emph{Use small icons to represent the relevant feature vectors in document retrieval.}
     \end{itemize}
   \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Icon Based Visualization: Example}
+  \centering
+  \includegraphics[width=0.9\textwidth,clip, trim=0cm 0cm 0cm 2.5cm]{img/fau-enrolled-students.pdf}
 \end{frame}
 
 \begin{frame}{Chernoff Faces}
