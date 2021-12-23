@@ -14,6 +14,10 @@ jobs:
           run: |
             apk add make
             apk add git
+            echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/main" > /etc/apk/repositories
+            echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories
+            apk --no-cache --update-cache add gcc gfortran python python-dev py-pip build-base wget freetype-dev libpng-dev openblas-dev
+            ln -s /usr/include/locale.h /usr/include/xlocale.h
             apk --no-cache add musl-dev linux-headers g++
             apk add py3-pip python3
             cd lecture
