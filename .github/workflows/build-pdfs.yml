@@ -14,6 +14,7 @@ jobs:
           run: |
             apk add make
             apk add git
+            apk --no-cache add musl-dev linux-headers g++
             apk add py3-pip python3
             cd lecture
             pip3 install -r src/requirements.txt
