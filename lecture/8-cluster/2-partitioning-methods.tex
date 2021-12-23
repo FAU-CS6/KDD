@@ -71,115 +71,118 @@
 \end{frame}
 
 \begin{frame}{An Example of $k$-means Clustering}
-	\begin{tikzpicture}
-		\node [black] at (3,2.5) {\Large\textbullet};
-		\node [black] at (4,3.5) {\Large\textbullet};
-		\node [black] at (2,2.5) {\Large\textbullet};
-		\node [black] at (2.5,3) {\Large\textbullet};
-		\node [black] at (3,1) {\Large\textbullet};
-		\node [black] at (3,1.2) {\Large\textbullet};
-		\node [black] at (1,1) {\Large\textbullet};
-		\node [black] at (1.5,1.5) {\Large\textbullet};
-		\node [black] at (2,2) {\Large\textbullet};
-		\node [black] at (2.5,2.5) {\Large\textbullet};
-		\node [black] at (3,3) {\Large\textbullet};
-		\node [black] at (3.5,3.5) {\Large\textbullet};
-		\node [black] at (4,3.5) {\Large\textbullet};
-		\node [black] at (4,2.3) {\Large\textbullet};
-		\node [black] at (4,2.5) {\Large\textbullet};
-		\node [black] at (2.5,3) {\Large\textbullet};
-		\node [black] at (2.7,0.5) {The initial data set.};
-		
-		\node [black] at (7,1) {\Large\textbullet};
-		\node [black] at (7.5,1.5) {\Large\textbullet};
-		\node [black] at (8,2) {\Large\textbullet};
-		\node [red] at (8,2.5) {\Large\textbullet};
-		\node [red] at (8.5,2.5) {\Large\textbullet};
-		\node [black] at (9,1) {\Large\textbullet};
-		\node [black] at (9,1.2) {\Large\textbullet};
-		\node [red] at (9,2.5) {\Large\textbullet};
-		\node [red] at (9,3) {\Large\textbullet};
-		\node [red] at (9.5,3.5) {\Large\textbullet};
-		\node [red] at (10,3.5) {\Large\textbullet};
-		\node [red] at (10,3.5) {\Large\textbullet};
-		\node [black] at (10,2.3) {\Large\textbullet};
-		\node [red] at (10,2.5) {\Large\textbullet};
-		
-		\node [black] at (12,1) {\Large\textbullet};
-		\node [black] at (12.5,1.5) {\Large\textbullet};
-		\node [black] at (13,2) {\Large\textbullet};
-		\node [red] at (13,2.5) {\Large\textbullet};
-		\node [red] at (13.5,2.5) {\Large\textbullet};
-		\node [black] at (14,1) {\Large\textbullet};
-		\node [black] at (14,1.2) {\Large\textbullet};
-		\node [red] at (14,2.5) {\Large\textbullet};
-		\node [red] at (14,3) {\Large\textbullet};
-		\node [red] at (14.5,3.5) {\Large\textbullet};
-		\node [red] at (15,3.5) {\Large\textbullet};
-		\node [red] at (15,3.5) {\Large\textbullet};
-		\node [black] at (15,2.3) {\Large\textbullet};
-		\node [red] at (15,2.5) {\Large\textbullet};
-		\node [orange] at (14.25,3.25) {\Huge\textbullet};
-		\node [blue] at (13.41,1.5) {\Huge\textbullet};
-		
-		\node [black] at (12,-2.5) {\Large\textbullet};
-		\node [black] at (12.5,-2) {\Large\textbullet};
-		\node [black] at (13,-1.5) {\Large\textbullet};
-		\node [red] at (13,-1) {\Large\textbullet};
-		\node [red] at (13.5,-1) {\Large\textbullet};
-		\draw[green] (13,-1) circle (0.2cm);
-		\draw[green] (13.5,-1) circle (0.2cm);
-		\node [black] at (14,-2.5) {\Large\textbullet};
-		\node [black] at (14,-2.3) {\Large\textbullet};
-		\node [red] at (14,-1) {\Large\textbullet};
-		\node [red] at (14,-0.5) {\Large\textbullet};
-		\node [red] at (14.5,0) {\Large\textbullet};
-		\node [red] at (15,0) {\Large\textbullet};
-		\node [red] at (15,0) {\Large\textbullet};
-		\node [black] at (15,-1.2) {\Large\textbullet};
-		\draw[green] (15,-1.2) circle (0.2cm);
-		\node [red] at (15,-1) {\Large\textbullet};
-		\node [orange] at (14.25,-0.25) {\Huge\textbullet};
-		\node [blue] at (13.41,-2) {\Huge\textbullet};
-		
-		\node [black] at (7,-2.5) {\Large\textbullet};
-		\node [black] at (7.5,-2) {\Large\textbullet};
-		\node [black] at (8,-1.5) {\Large\textbullet};
-		\node [black] at (8,-1) {\Large\textbullet};
-		\node [black] at (8.5,-1) {\Large\textbullet};
-		\node [black] at (9,-2.5) {\Large\textbullet};
-		\node [black] at (9,-2.3) {\Large\textbullet};
-		\node [red] at (9,-1) {\Large\textbullet};
-		\node [red] at (9,-0.5) {\Large\textbullet};
-		\node [red] at (9.5,0) {\Large\textbullet};
-		\node [red] at (10,0) {\Large\textbullet};
-		\node [red] at (10,0) {\Large\textbullet};
-		\node [red] at (10,-1.2) {\Large\textbullet};
-		\node [red] at (10,-1) {\Large\textbullet};
-		\node [orange] at (9.75,-0.53) {\Huge\textbullet};
-		\node [blue] at (8.14,-1.68) {\Huge\textbullet};
-		
-		\draw [->] (13.41,1) -- (13.41,-0.5);
-		\node [black] at (14.7,0.5) {Reassign objects.};
-		
-		\draw [->] (5,2) -- (6.5,2);
-		\node [black] at (5.8,3) {Arbitrarily partition};
-		\node [black] at (5.8,2.7) {objects into};
-		\node [black] at (5.8,2.4) {$k$ groups.};
-		\node [black] at (5.8,1.6) {Here $k = 2$.};
-		
-		\draw [->] (10.5,2) -- (12,2);
-		\node [black] at (11.3,3) {Calculate};
-		\node [black] at (11.3,2.7) {the cluster};
-		\node [black] at (11.3,2.4) {centroids.};
-		
-		\draw [->]  (12,-0.5) -- (10.5,-0.5);
-		\draw [->]  (10.5,0)--(11.7,0.8);
-		\node [black] at (9.5,0.5) {Loop if needed.};
-		\node [black] at (11.3,-1) {Update};
-		\node [black] at (11.3,-1.3) {the cluster};
-		\node [black] at (11.3,-1.6) {centroids.};
-	\end{tikzpicture}
+	\centering
+	\scalebox{0.9}{
+		\begin{tikzpicture}
+			\node [black] at (3,2.5) {\Large\textbullet};
+			\node [black] at (4,3.5) {\Large\textbullet};
+			\node [black] at (2,2.5) {\Large\textbullet};
+			\node [black] at (2.5,3) {\Large\textbullet};
+			\node [black] at (3,1) {\Large\textbullet};
+			\node [black] at (3,1.2) {\Large\textbullet};
+			\node [black] at (1,1) {\Large\textbullet};
+			\node [black] at (1.5,1.5) {\Large\textbullet};
+			\node [black] at (2,2) {\Large\textbullet};
+			\node [black] at (2.5,2.5) {\Large\textbullet};
+			\node [black] at (3,3) {\Large\textbullet};
+			\node [black] at (3.5,3.5) {\Large\textbullet};
+			\node [black] at (4,3.5) {\Large\textbullet};
+			\node [black] at (4,2.3) {\Large\textbullet};
+			\node [black] at (4,2.5) {\Large\textbullet};
+			\node [black] at (2.5,3) {\Large\textbullet};
+			\node [black] at (2.7,0.5) {The initial data set.};
+			
+			\node [black] at (7,1) {\Large\textbullet};
+			\node [black] at (7.5,1.5) {\Large\textbullet};
+			\node [black] at (8,2) {\Large\textbullet};
+			\node [red] at (8,2.5) {\Large\textbullet};
+			\node [red] at (8.5,2.5) {\Large\textbullet};
+			\node [black] at (9,1) {\Large\textbullet};
+			\node [black] at (9,1.2) {\Large\textbullet};
+			\node [red] at (9,2.5) {\Large\textbullet};
+			\node [red] at (9,3) {\Large\textbullet};
+			\node [red] at (9.5,3.5) {\Large\textbullet};
+			\node [red] at (10,3.5) {\Large\textbullet};
+			\node [red] at (10,3.5) {\Large\textbullet};
+			\node [black] at (10,2.3) {\Large\textbullet};
+			\node [red] at (10,2.5) {\Large\textbullet};
+			
+			\node [black] at (12,1) {\Large\textbullet};
+			\node [black] at (12.5,1.5) {\Large\textbullet};
+			\node [black] at (13,2) {\Large\textbullet};
+			\node [red] at (13,2.5) {\Large\textbullet};
+			\node [red] at (13.5,2.5) {\Large\textbullet};
+			\node [black] at (14,1) {\Large\textbullet};
+			\node [black] at (14,1.2) {\Large\textbullet};
+			\node [red] at (14,2.5) {\Large\textbullet};
+			\node [red] at (14,3) {\Large\textbullet};
+			\node [red] at (14.5,3.5) {\Large\textbullet};
+			\node [red] at (15,3.5) {\Large\textbullet};
+			\node [red] at (15,3.5) {\Large\textbullet};
+			\node [black] at (15,2.3) {\Large\textbullet};
+			\node [red] at (15,2.5) {\Large\textbullet};
+			\node [orange] at (14.25,3.25) {\Huge\textbullet};
+			\node [blue] at (13.41,1.5) {\Huge\textbullet};
+			
+			\node [black] at (12,-2.5) {\Large\textbullet};
+			\node [black] at (12.5,-2) {\Large\textbullet};
+			\node [black] at (13,-1.5) {\Large\textbullet};
+			\node [red] at (13,-1) {\Large\textbullet};
+			\node [red] at (13.5,-1) {\Large\textbullet};
+			\draw[green] (13,-1) circle (0.2cm);
+			\draw[green] (13.5,-1) circle (0.2cm);
+			\node [black] at (14,-2.5) {\Large\textbullet};
+			\node [black] at (14,-2.3) {\Large\textbullet};
+			\node [red] at (14,-1) {\Large\textbullet};
+			\node [red] at (14,-0.5) {\Large\textbullet};
+			\node [red] at (14.5,0) {\Large\textbullet};
+			\node [red] at (15,0) {\Large\textbullet};
+			\node [red] at (15,0) {\Large\textbullet};
+			\node [black] at (15,-1.2) {\Large\textbullet};
+			\draw[green] (15,-1.2) circle (0.2cm);
+			\node [red] at (15,-1) {\Large\textbullet};
+			\node [orange] at (14.25,-0.25) {\Huge\textbullet};
+			\node [blue] at (13.41,-2) {\Huge\textbullet};
+			
+			\node [black] at (7,-2.5) {\Large\textbullet};
+			\node [black] at (7.5,-2) {\Large\textbullet};
+			\node [black] at (8,-1.5) {\Large\textbullet};
+			\node [black] at (8,-1) {\Large\textbullet};
+			\node [black] at (8.5,-1) {\Large\textbullet};
+			\node [black] at (9,-2.5) {\Large\textbullet};
+			\node [black] at (9,-2.3) {\Large\textbullet};
+			\node [red] at (9,-1) {\Large\textbullet};
+			\node [red] at (9,-0.5) {\Large\textbullet};
+			\node [red] at (9.5,0) {\Large\textbullet};
+			\node [red] at (10,0) {\Large\textbullet};
+			\node [red] at (10,0) {\Large\textbullet};
+			\node [red] at (10,-1.2) {\Large\textbullet};
+			\node [red] at (10,-1) {\Large\textbullet};
+			\node [orange] at (9.75,-0.53) {\Huge\textbullet};
+			\node [blue] at (8.14,-1.68) {\Huge\textbullet};
+			
+			\draw [->] (13.41,1) -- (13.41,-0.5);
+			\node [black] at (14.7,0.5) {Reassign objects.};
+			
+			\draw [->] (5,2) -- (6.5,2);
+			\node [black] at (5.8,3) {Arbitrarily partition};
+			\node [black] at (5.8,2.7) {objects into};
+			\node [black] at (5.8,2.4) {$k$ groups.};
+			\node [black] at (5.8,1.6) {Here $k = 2$.};
+			
+			\draw [->] (10.5,2) -- (12,2);
+			\node [black] at (11.3,3) {Calculate};
+			\node [black] at (11.3,2.7) {the cluster};
+			\node [black] at (11.3,2.4) {centroids.};
+			
+			\draw [->]  (12,-0.5) -- (10.5,-0.5);
+			\draw [->]  (10.5,0)--(11.7,0.8);
+			\node [black] at (9.5,0.5) {Loop if needed.};
+			\node [black] at (11.3,-1) {Update};
+			\node [black] at (11.3,-1.3) {the cluster};
+			\node [black] at (11.3,-1.6) {centroids.};
+		\end{tikzpicture}
+	}
 \end{frame}
 
 \begin{frame}{Comments on the $k$-means Method}

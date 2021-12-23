@@ -116,7 +116,7 @@
 			\ldots, p_n$, $p_1 = p$, $p_n = q$ such that $p_i+1$ is directly 
 			density-reachable from $p_i$.\\[0.2cm]
 			\centering
-			\begin{tikzpicture}[scale=1.2]
+			\begin{tikzpicture}[scale=1.1]
 				\node[draw, circle, fill=red, scale=0.3] at (0.3,0.1) {};
 				\node[draw, circle, fill=red, scale=0.3] at (0.3,0.5) {};
 				\node[draw, circle, fill=red, scale=0.3] at (-0.3,0.4) {};
@@ -146,7 +146,7 @@
 			$\epsilon$, MinPts, if there is a point $o$ such that both $p$ and 
 			$q$ are density-reachable from $o$. \\[0.2cm]
 			\centering
-			\begin{tikzpicture}[scale=1.2]
+			\begin{tikzpicture}[scale=1.1]
 				\node[draw, circle, fill=red, scale=0.3] at (0.3,0.1) {};
 				\node[draw, circle, fill=red, scale=0.3] at (0.3,0.5) {};
 				\node[draw, circle, fill=red, scale=0.3] at (-0.3,0.4) {};
@@ -193,41 +193,43 @@ Noise}
 	\end{itemize}
 	\centering
 	\vspace{0.5cm}
-	\begin{tikzpicture}
-		\draw (0,0) rectangle (6,4);
-		\node[draw, circle, fill=airforceblue] at (1.6,0.55) {};
-		\node[draw, circle, fill=airforceblue] at (1.4,0.85) {};
-		\node[draw, circle, fill=airforceblue] at (1.75,0.95) {};
-		\node[draw, circle, fill=airforceblue] at (1.25,1.8) (core) {};
-		\draw[dashed] (1.25,1.8) circle (0.7cm);
-		
-		\node[draw, circle, fill=airforceblue] at (1.25,2.3) {};
-		\node[draw, circle, fill=airforceblue] at (0.8,1.75) {};
-		\node[draw, circle, fill=airforceblue] at (1.6,1.85) {};
-		\node[draw, circle, fill=airforceblue] at (1.1,1.25) {};
-		\node[draw, circle, fill=airforceblue] at (1.7,1.5) {};
-		\node[draw, circle, fill=airforceblue] at (1.2,3.2) (border) {};
-		\node[draw, circle, fill=airforceblue] at (0.8,2.8) {};
-		\node[draw, circle, fill=airforceblue] at (1.8,2.8) {};
-		\node[draw, circle, fill=airforceblue] at (1.8,3.2) {};
-		
-		\node[draw, circle, fill=airforceblue] at (4.3,1.5) {};
-		\node[draw, circle, fill=airforceblue] at (4.1,1.2) {};
-		\node[draw, circle, fill=airforceblue] at (3.8,1.8) {};
-		\node[draw, circle, fill=airforceblue] at (4,2.1) {};
-		\node[draw, circle, fill=airforceblue] at (4.1,1.2) {};
-		\draw[dashed] (0.8,3.2) circle (0.7cm);
-		\node[draw, circle, fill=airforceblue] at (4.8,3.2) (outlier) {};
-		\draw[dashed] (4.4,3) circle (0.7cm);
-		\node[draw, fill=white] at (6,3.2) (o) {Outlier};
-		\node[draw, fill=white] at (-1,1.2) (c) {Core};
-		\node[draw, fill=white] at (-1,2.2) (b) {Border};
-		\node at (7,2.2) {$\epsilon$ = 1cm};
-		\node at (7,1.7) {MinPts = 5};
-		\draw (outlier)--(o);
-		\draw (core)--(c);
-		\draw (border)--(b);
-	\end{tikzpicture}
+	\scalebox{0.85}{
+		\begin{tikzpicture}
+			\draw (0,0) rectangle (6,4);
+			\node[draw, circle, fill=airforceblue] at (1.6,0.55) {};
+			\node[draw, circle, fill=airforceblue] at (1.4,0.85) {};
+			\node[draw, circle, fill=airforceblue] at (1.75,0.95) {};
+			\node[draw, circle, fill=airforceblue] at (1.25,1.8) (core) {};
+			\draw[dashed] (1.25,1.8) circle (0.7cm);
+			
+			\node[draw, circle, fill=airforceblue] at (1.25,2.3) {};
+			\node[draw, circle, fill=airforceblue] at (0.8,1.75) {};
+			\node[draw, circle, fill=airforceblue] at (1.6,1.85) {};
+			\node[draw, circle, fill=airforceblue] at (1.1,1.25) {};
+			\node[draw, circle, fill=airforceblue] at (1.7,1.5) {};
+			\node[draw, circle, fill=airforceblue] at (1.2,3.2) (border) {};
+			\node[draw, circle, fill=airforceblue] at (0.8,2.8) {};
+			\node[draw, circle, fill=airforceblue] at (1.8,2.8) {};
+			\node[draw, circle, fill=airforceblue] at (1.8,3.2) {};
+			
+			\node[draw, circle, fill=airforceblue] at (4.3,1.5) {};
+			\node[draw, circle, fill=airforceblue] at (4.1,1.2) {};
+			\node[draw, circle, fill=airforceblue] at (3.8,1.8) {};
+			\node[draw, circle, fill=airforceblue] at (4,2.1) {};
+			\node[draw, circle, fill=airforceblue] at (4.1,1.2) {};
+			\draw[dashed] (0.8,3.2) circle (0.7cm);
+			\node[draw, circle, fill=airforceblue] at (4.8,3.2) (outlier) {};
+			\draw[dashed] (4.4,3) circle (0.7cm);
+			\node[draw, fill=white] at (6,3.2) (o) {Outlier};
+			\node[draw, fill=white] at (-1,1.2) (c) {Core};
+			\node[draw, fill=white] at (-1,2.2) (b) {Border};
+			\node at (7,2.2) {$\epsilon$ = 1cm};
+			\node at (7,1.7) {MinPts = 5};
+			\draw (outlier)--(o);
+			\draw (core)--(c);
+			\draw (border)--(b);
+		\end{tikzpicture}
+	}
 \end{frame}
 
 \begin{frame}{DBSCAN: The Algorithm}
@@ -261,9 +263,9 @@ Noise}
 
 \begin{frame}{DBSCAN: Sensitive to Parameters}
 	\centering
-	\includegraphics[width=14cm]{img/dbscan.png}\\
+	\includegraphics[width=12cm]{img/dbscan.png}\\
 	\includegraphics[width=2cm]{img/dbscan3.png}
-	\includegraphics[width=12cm]{img/dbscan2.png}
+	\includegraphics[width=10cm]{img/dbscan2.png}
 \end{frame}
 
 \begin{frame}{OPTICS: A Cluster-ordering Method}
@@ -373,7 +375,7 @@ Noise}
 
 \begin{frame}{OPTICS: Visualization}
 	\centering
-	\includegraphics[width=12cm]{img/clusterdensity.pdf}
+	\includegraphics[width=10.5cm]{img/clusterdensity.pdf}
 \end{frame}
 
 \begin{frame}{DENCLUE: Using Statistical Density Functions}
@@ -458,5 +460,5 @@ Noise}
 
 \begin{frame}{Density Attractor}
 	\centering
-	\includegraphics[width=12cm]{img/densities.png}
+	\includegraphics[width=11.5cm]{img/densities.png}
 \end{frame}
