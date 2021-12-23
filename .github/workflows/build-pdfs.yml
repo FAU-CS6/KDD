@@ -14,18 +14,16 @@ jobs:
           run: |
             apk add make
             apk add git
+            apk add python3
             cd lecture
-            for filename in *.tex; do
-            make vc.tex
-            make "${filename%.*}.pdf"
-            make "${filename%.*}.bbl"
-            done
+            pip install -r src/requirements.txt
+            make all
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: Lecture Slides
           path: |
-            lecture/*.pdf
-            lecture/*.log
+            lecture/output/*.pdf
+            lecture/output/*.log
           retention-days: 5
