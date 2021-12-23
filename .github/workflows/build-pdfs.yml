@@ -14,9 +14,9 @@ jobs:
           run: |
             apk add make
             apk add git
-            apk add pip python3
+            apk add pip3 python3
             cd lecture
-            pip install -r src/requirements.txt
+            pip3 install -r src/requirements.txt
             make all
 
       - name: Upload artifacts
