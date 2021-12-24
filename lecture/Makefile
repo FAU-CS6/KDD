@@ -6,7 +6,9 @@ allslides := $(patsubst %.tex, %.pdf, $(texfiles))
 figfiles := $(wildcard src/*.py)
 allfigures := $(patsubst %.py, %.pdf, $(figfiles))
 
-all: clean vc.tex slides
+all: clean vc.tex figures slides
+
+all-wo-figures: clean vc.tex slides
 
 clean:
 	rm -rf *.aux *.auxlock *.ind *.idx *.toc *.out *.log *.lot *.ilg *.dvi *.bbl \

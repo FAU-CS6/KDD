@@ -1,0 +1,5 @@
+name: 'Custom Python Environment'
+description: 'Build custom docker image with Python packages installed'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
