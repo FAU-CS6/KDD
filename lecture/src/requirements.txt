@@ -1,6 +1,7 @@
 pandas
 numpy
 sklearn
+seaborn
 matplotlib
 statsmodels
 pywaffle

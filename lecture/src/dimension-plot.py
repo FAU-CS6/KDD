@@ -36,10 +36,8 @@ def main():
     lines, labels = plt.thetagrids(range(0, 360, int(360 / len(stats))), (stats))
 
     for index, row in data.iterrows():
-        print(row["Pokemon"], row["Color"])
         cstats = row[stats].tolist()
         cstats = np.concatenate((cstats, [cstats[0]]))
-        print(cstats)
         angles = np.concatenate((theta, [theta[0]]))
         plt.plot(angles, cstats, label=row["Pokemon"], color=row["Color"])
         plt.fill(angles, cstats, row["Color"], alpha=0.1)
