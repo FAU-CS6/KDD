@@ -1,5 +1,14 @@
 name: 'Custom Python Environment'
 description: 'Build custom docker image with Python packages installed'
+inputs:
+  run:
+    description: Arbitrary bash codes to be executed
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - -eo
+    - pipefail
+    - -c
+    - ${{ inputs.run }}

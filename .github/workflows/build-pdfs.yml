@@ -10,9 +10,11 @@ jobs:
 
       - name: Build figures
         uses: ./lecture/
+        env:
+          WORKSPACE: ${{ github.workspace }}
         with:
           run: |
-            cd lecture
+            cd $WORKSPACE/lecture
             make figures
 
       - name: Compile LaTeX document
@@ -22,10 +24,12 @@ jobs:
             apk add make
             apk add git
             cd lecture
+            ls -la img
             make all-wo-figures
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
+        if: always()
         with:
           name: Lecture Slides
           path: |
