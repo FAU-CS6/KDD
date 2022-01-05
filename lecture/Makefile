@@ -17,11 +17,12 @@ clean:
 	  *.ist *.gls *.glo *.gli *.glg *.alg *.acr *.acn *.ps *.defn *.nlo *.satz \
 	  *.nav *.snm *.xml *.synctex.gz *.synctex *.vrb *.bcf *.makefile *.figlist \
 	  $$(ls figures/$(SLIDES)-figure[0-9]*.* 2>/dev/null | grep -v pdf) \
-	  $$(ls figures/$(HANDOUT)-figure[0-9]*.* 2>/dev/null | grep -v pdf)
+	  $$(ls figures/$(HANDOUT)-figure[0-9]*.* 2>/dev/null | grep -v pdf) \
+	  output
 
 %.pdf: %.tex FORCE
 	mkdir -p output
-	latexmk -pdf --interaction=nonstopmode -shell-escape -silent -output-directory=output/ $<
+	latexmk -pdf --interaction=nonstopmode -shell-escape -silent -f -output-directory=output/ $<
 
 src/%.pdf: src/%.py FORCE
 	python3 $<
