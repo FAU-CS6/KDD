@@ -132,7 +132,7 @@
   distribution. However, we can assume that the data is equally
   distributed. In this case we can approximate the median with the following
   steps:
-  \begin{itemize}[noitemsep]
+  \begin{itemize}
   \item Order data (in our example by age, not by frequencies!).
   \item Compute relative frequencies, that is: frequency divided by sum of all frequencies.
   \item Compute cummulative relative frequencies.
@@ -166,11 +166,9 @@
   In our example: $\tilde{x} \approx 21 +\left(\frac{\frac{3194}{2} - 950}{1500}\right)*29 \approx 33.51$, i. e. 33 years and 6 months
 \end{frame}
 
-
-
 \begin{frame}{Measuring the Central Tendency: Mode}
   \textbf{Mode}
-  \begin{itemize}[noitemsep]
+  \begin{itemize}
   \item Value that occurs most frequently within the data set.
   \item Can be unimodal, bimodal, multimodal.
   \item Also possible that no mode exists when each value is unique,
@@ -400,8 +398,6 @@
   \end{frame}
 
 \begin{frame}{Measuring the Dispersion of Data (II)}
-
-
   \begin{itemize}
   \item \textbf{Range} is the difference between the largest and smallest value.
   \item \textbf{Quartiles:} Also known as \textit{quantiles}. Generalization of the median. Median is the $50^{\text{th}}$ quartile.\\
@@ -418,9 +414,6 @@
   \end{itemize}
   \vspace*{1em}
   Visualization of choice of these measures: \textbf{boxplot}
-    % \item \textbf{Boxplot}: ends of the box are the quartiles; \\ median is marked; add whiskers and plot outliers individually.
-
-
 \end{frame}
 
 \begin{frame}{Boxplot Analysis}
@@ -480,9 +473,12 @@
   % Overview with pictures rather than text. Move explanation to corresponding slides
   \begin{itemize}
   \item \textbf{Histogram}: $x$-axis are values, $y$-axis represent frequencies.
-  \item \textbf{Quantile plot}: Each value $x_i$ is paired with some $q_i$ indicating that approximately $q_i \cdot 100 \%$ of data are $\leq x_i$.
-  \item \textbf{Quantile-quantile (q-q) plot}: Graphs the quantiles of one univariate distribution against the corresponding quantiles of another.
-  \item \textbf{Scatter plot}: Each pair of values is a pair of coordinates and plotted as points in the plane.
+  \item \textbf{Quantile plot}: Each value $x_i$ is paired with some $q_i$
+    indicating that approximately $q_i \cdot 100 \%$ of data are $\leq x_i$.
+  \item \textbf{Quantile-quantile (q-q) plot}: Graphs the quantiles of one
+    univariate distribution against the corresponding quantiles of another.
+  \item \textbf{Scatter plot}: Each pair of values is a pair of coordinates and
+    plotted as points in the plane.
   \end{itemize}
 \end{frame}
 
@@ -490,8 +486,11 @@
   \begin{itemize}
   \item \textbf{Histogram}: Visualization of tabulated frequencies, shown as bars.
   \item It shows what proportion of cases fall into each of several categories.
-  \item Differs from a $\textbf{bar chart}$ in that it is the \emph{area} of the bar that denotes the value, not the height as in bar charts, a crucial distinction when the categories are not of uniform width.
-  \item The categories are usually specified as non-overlapping intervals of some variable. The categories (bars) must be adjacent.
+  \item Differs from a $\textbf{bar chart}$ in that it is the \emph{area} of the
+    bar that denotes the value, not the height as in bar charts, a crucial
+    distinction when the categories are not of uniform width.
+  \item The categories are usually specified as non-overlapping intervals of
+    some variable. The categories (bars) must be adjacent.
   \end{itemize}\vspace{0.2cm}
   \centering
   \begin{tikzpicture}
@@ -583,7 +582,7 @@
 
 \begin{frame}{Data Profiling}
   \begin{block}{Data Profiling}
-    "Data profiling refers to the activity of collecting data about data, i.e., metadata."\footnote{\fullcite{abedjan2018b}}
+    "Data profiling refers to the activity of collecting data about data, i.e., metadata."\footnote{\fullcite{abedjan2018}}
   \end{block}
 
   \textbf{Derives metadata such as:}
