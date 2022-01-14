@@ -28,7 +28,7 @@ def main():
 
     sns.set_style("whitegrid")
     sns.set_context("poster")
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=(12, 12.5))
     plt.subplot(polar=True)
 
     stats = data.columns.values[1:-1]

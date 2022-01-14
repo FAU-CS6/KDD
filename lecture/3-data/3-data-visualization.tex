@@ -9,33 +9,49 @@
   \item \textbf{Help find interesting regions and suitable parameters} for further quantitative analysis.
   \item \textbf{Provide a visual proof} of computer representations derived.
   \end{itemize}
-  \textbf{Categorization of visualization methods:}
-  \begin{itemize}
+\end{frame}
+
+\begin{frame}{Categorization of Visualization Methods}
+  \begin{enumerate}
   \item Pixel-oriented.
   \item Geometric projection.
   \item Icon-based.
   \item Hierarchical.
   \item Visualizing complex data and relations.
-  \end{itemize}
+  \end{enumerate}
 \end{frame}
 
-\begin{frame}{Pixel Oriented Visualization Techniques}
+\begin{frame}{1. Pixel Oriented Visualization Techniques}
+  \vspace*{-0.5em}
+
   \begin{itemize}
+    \item Very simple visualization
   \item For a data set of $m$ dimensions create $m$ windows on the screen, one for each dimension.
   \item The values in dimension $m$ of a record are mapped to $m$ pixels at the corresponding \\ positions in the windows.
   \item The colors of the pixels reflect the corresponding values.
   \end{itemize}
-  \vspace{0.5cm}
-  \centering
-  \includegraphics[width=9cm]{img/pixel.jpg}\\
-  a) Income. \hspace{0.3cm} b) Credit limit. \hspace{0.2cm} c) Transaction volume. \hspace{0.2cm} (d) Age.
+
+  \vspace*{0.5em}
+  \textbf{Example:} Sort all customers by income in ascending-order.
+
+  \begin{center}
+    \includegraphics[width=9cm]{img/pixel.jpg}\\
+    \vspace*{-0.5em}
+    a) Income. \hspace{0.3cm} b) Credit limit. \hspace{0.1cm} c) Transaction volume. \hspace{0.2cm} (d) Age.
+  \end{center}
+
+  \note{\textbf{Drawback:} Do not help us to understand the data distribution in a multidimensional space.}
 \end{frame}
 
-\begin{frame}{Laying Out Pixels in a Spiderweb Diagram}
+\begin{frame}{Laying Out Pixels in a Circle Segment Diagram}
     \begin{columns}[t]
       \begin{column}{0.5\textwidth}
-          To save space and show the connections among multiple dimensions,
-          space filling is often done in a spiderweb diagram.
+        \begin{itemize}
+        \item Similar to previous slide but arranged in a circle.
+        \item Saves space.
+        \item Shows connection among multiple dimensions.
+        \item Optionally: Highlight one specific data record as shown opposite.
+        \end{itemize}
           \vspace*{1em}
       \end{column}
       \begin{column}{0.5\textwidth}
@@ -65,33 +81,38 @@
 
 \begin{frame}{Polar Plot}
   \begin{columns}[t]
-    \begin{column}{0.4\textwidth}
+    \begin{column}{0.5\textwidth}
       \begin{itemize}
+      \item Alternative to pixel-oriented or circle segment diagram.
       \item Saves space.
-        \item Shows connections among multiple dimensions.
-        \end{itemize}
-      \end{column}
-      \begin{column}{0.5\textwidth}
-        \vspace{-5em}
-        \begin{center}
-          \includegraphics[width=0.9\textwidth]{img/dimension-plot.pdf}
-        \end{center}
+      \item Shows connections among multiple dimensions for each data record.
+      \item Downside: Can get crowded with too much data records.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \vspace{-5em}
+      \begin{center}
+        \includegraphics[width=\textwidth,clip, trim=0cm 0cm 0cm 2.6cm]{img/dimension-plot.pdf}
+      \end{center}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Geometric Projection Visualization Techniques}
+\begin{frame}{2. Geometric Projection Visualization Techniques}
+  Visualization of geometric transformations and projections of data.
+
+  \textbf{General Methods:}
   \begin{itemize}
-  \item Visualization of geometric transformations and projections of data.
-  \item \textbf{Methods}:
-    \begin{itemize}
-    \item Scatter plot and scatter plot matrices.
-    \item Landscapes.
-    \item Projection pursuit technique: \emph{Help users find meaningful projections of multidimensional data.}
-    \item Prosection views.
-    \item Hyperslice.
-    \item Parallel coordinates.
-    \end{itemize}
+  \item Scatter plot and scatter-plot matrices.
+  \item Parallel coordinates.
+  \end{itemize}
+
+  \textbf{Additional Methods:}
+  \begin{itemize}
+  \item Projection pursuit\footnote{\fullcite{friedman1974}}.
+    Finds a linear projection (one- or two-dimensional) that are ``highly revealing''.
+  \item Prosection views\footnote{\fullcite{furnas1994}}.
+  \item Hyperslice\footnote{\fullcite{wijk1993}}.
   \end{itemize}
 \end{frame}
 
@@ -101,9 +122,8 @@
 \end{frame}
 
 \begin{frame}{Parallel Coordinate Plot}
-  \centering
-  \vspace{0.5cm}
-  \begin{tikzpicture}
+  \begin{center}
+      \begin{tikzpicture}
     \begin{groupplot}[
       group style={
         group name=iris,
@@ -177,9 +197,12 @@
     }
 
   \end{tikzpicture}
+
+  \end{center}
+  \textbf{Disadvantage:} Reduced readability when plotting an extensive amount of data records and/or dimensions.
 \end{frame}
 
-\begin{frame}{Icon Based Visualization}
+\begin{frame}{3. Icon Based Visualization}
   \centering
   \begin{itemize}
   \item \textbf{Visualization of the data values as features of icons.}
@@ -204,53 +227,51 @@
 \end{frame}
 
 \begin{frame}{Chernoff Faces}
-  \textbf{A way to display variables on a two-dimensional surface:}\\
-  E.g. let $x$ be eyebrow slant, $y$ be eye size, $z$ be nose length etc.\\
-  The figure shows faces produced using $10$ characteristics (head eccentricity, eye size, eye spacing, eye eccentricity, pupil size, eyebrow slant, nose size, mouth shape, mouth size, and mouth opening). Each assigned one of $10$ possible values, generated using \href{https://www.wolfram.com/mathematica/}{Mathematica} (S. Dickson).\\[0.5cm]
-  \centering
-  \includegraphics[width=4cm]{img/chernoff_faces_construction.pdf}
+  \textbf{Human mind is able to distinguish facial features.} Chernoff faces
+  encode multiple dimensions in one face.
+
+  E. g. head eccentricity, eye size, eye spacing, eye eccentricity, pupil size,
+  eyebrow slant, nose size, mouth shape, mouth size, and mouth opening.
+
+  \vspace*{1em}
+  \begin{columns}[t]
+    \hspace*{1.4em}
+    \begin{column}{0.6\textwidth}
+      \textbf{Disadvantages:}
+      \begin{itemize}
+      \item Limited power to relate multiple relationships.
+      \item Specific features are not shown.
+      \item Facial features vary in perceived importance.
+      \item Symmetric faces waste space $\rightarrow$ \textit{Asymmetrical } Chernoff
+        faces allows up to 36 dimenions in one face.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \vspace*{-2em}
+        \begin{figure}
+          \centering
+          \includegraphics[width=5cm]{img/chernoff_faces.png}
+        \end{figure}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{Stick Figure}
-  A census data figure showing age, income, gender, education etc. \\
-  A $5$-piece stick figure ($1$ body and $4$ limbs w. different angle/length).\\[0.1cm]
-  \centering
-  \includegraphics[width=8cm, height=5.2cm]{img/stick_figure.png}\\
-  \tiny{Used by permission of G. Grinstein, University of Massachusettes at Lowell.}
-\end{frame}
 
-\begin{frame}{Hierarchical Visualization Techniques}
+\begin{frame}{4. Hierarchical Visualization Techniques}
   \centering
   \begin{itemize}
   \item \textbf{Visualization of the data using a hierarchical partitioning into subspaces.}
   \item \textbf{Methods:}
     \begin{itemize}
-    \item Worlds within worlds.
     \item Tree maps.
     \item Cone trees.
-    \item Info cube.
     \end{itemize}
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Worlds Within World}
-  \begin{itemize}
-  \item Assign the function and two most important parameters to innermost world.
-  \item Fix all other parameters at constant values -- draw other (1,2 or 3) dimensional worlds choosing these as the axes.
-  \end{itemize}
-  \centering
-  \includegraphics[width=8cm,height=5.2cm]{img/www.jpg}
-\end{frame}
 
 \begin{frame}{Tree Maps}
   \centering
-  \begin{itemize}
-  \item \textbf{Screen filling method:}
-    \begin{itemize}
-    \item Uses a hierarchical partitioning of the screen into regions depending on the attribute values.
-    \item $x$ and $y$-coordinates of the screen partitioned alternately according to the attribute values.
-    \end{itemize}
-  \end{itemize}
   \begin{tikzpicture}[xscale = 1.35, yscale = 0.77,
     font=\sffamily,
     mystyle/.style={draw=white, very thick, text=white, font=\sffamily\bfseries},
@@ -263,49 +284,40 @@
   \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Tree Map of a File System}
-  \centering
-  \vspace{0.5cm}
-  \includegraphics[width=9cm, height=6cm]{img/treemap_filesystem.png}
-\end{frame}
-
-\begin{frame}{Info Cubes}
-  \begin{itemize}
-  \item $3$D visualization technique:
-    \begin{itemize}
-    \item Hierarchical information is displayed as nested semi-transparent cubes.
-    \item The outermost cubes correspond to the top level data, while the subnodes or the lower level data are represented as smaller cubes inside the outermost cubes, and so on.
-    \end{itemize}
-  \end{itemize}
-  \vspace{0.2cm}
-  \centering
-  \includegraphics[width=4cm,height=4cm]{img/infocube.png}
-\end{frame}
-
 \begin{frame}{Three Dimensional Cone Trees}
-  \centering
-  \begin{itemize}
-  \item $3$D cone-tree visualization technique:\\
-    works well for up to approx. a thousand nodes.
-  \item Build a $2$D circle tree that arranges its nodes in concentric circles centered on the root node.
-  \item Overlaps can't be avoided projecting onto $2$D.
-  \item G. Robertson, J. Mackinlay, S. Card. "Cone Trees: Animated 3D Visualizations of Hierarchical Information", ACM SIGCHI'91.
-  \end{itemize}
-  \vspace{0.2cm}
-  \includegraphics[width=3cm,height=3cm]{img/threedcone_one.jpg}\hspace{1cm}
-  \includegraphics[width=3cm,height=3cm]{img/threedcone_two.jpg}\\
-  \tiny{Acknowledgement: \href{ttp://nadeausoftware.com/articles/visualization}{http://nadeausoftware.com/articles/visualization}.}
-\end{frame}
+      \begin{itemize}
+      \item $3$D cone-tree visualization technique by \citeauthor{robertson1991}\footnote{\fullcite{robertson1991}}:\\
+        works well for up to approx. a thousand nodes.
+      \item Build a $2$D circle tree that arranges its nodes in concentric circles centered on the root node.
+      \item Overlaps can't be avoided projecting onto $2$D.
+      \end{itemize}
 
-\begin{frame}{Visualizing Complex Data and Relations}
-  \centering
+      \begin{columns}[b]
+        \begin{column}{0.7\textwidth}
+          \vspace*{-1em}
+          \begin{figure}
+            \centering
+        \includegraphics[width=3cm,height=3cm]{img/threedcone_one.jpg}\hspace{1cm}
+        \includegraphics[width=3cm,height=3cm]{img/threedcone_two.jpg}\\
+      \end{figure}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+            \tiny{Acknowledgement: \href{ttp://nadeausoftware.com/articles/visualization}{http://nadeausoftware.com/articles/visualization}.}
+    \end{column}
+      \end{columns}
+
+
+  \end{frame}
+
+\begin{frame}{5. Visualizing Complex Data and Relations}
+  \textbf{Visualizing non-numerical data}
   \begin{itemize}
-  \item \textbf{Visualizing non-numerical data: text and social networks.}
-  \item \textbf{Tag cloud: visualizing user-generated tags.}
+  \item \textbf{Text cloud}
     \begin{itemize}
     \item The importance of tag is represented by font size/color.
     \item Besides text data, there are also methods to visualize relationships, \\ such as visualizing social networks.
     \end{itemize}
+  \item \textbf{Networks}
   \end{itemize}
-  \includegraphics[width=7cm,height=4cm]{img/google_news.png}
+  % TODO: Add exemplary word cloud and some network
 \end{frame}
