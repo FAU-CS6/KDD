@@ -1,233 +1,283 @@
 \section{Measuring Data Similarity and Dissimilarity}
 
+\begin{frame}{Motivation}
+  Similarity and Dissimilarity is inherently important for applications like
+  \begin{itemize}
+  \item \textbf{Nearest-Neighbor Classification} (c.f. lecture 7).
 
-    \begin{frame}{Similarity and Dissimilarity}
-    \centering
-    \begin{itemize}
-        \item \textbf{Similarity.}
-        \begin{itemize}
-          \item Numerical measure of how alike two data objects are.
-          \item Value is higher when objects are more alike.
-          \item Often chosen within the range of $[0,1]$.
-        \end{itemize}
-        \item \textbf{Dissimilarity.}
-        \begin{itemize}
-          \item E.g. distance.
-          \item Numerical measure of how different two data objects are.
-          \item Lower when objects are more alike.
-          \item Minimum dissimilarity is often $0$.
-          \item Upper limit varies.
-        \end{itemize}
-        \item \textbf{Proximity.}
-        \begin{itemize}
-          \item Refers to similarity or dissimilarity.
-        \end{itemize}
+    Assign class label to similar objects.
+
+    Example: spam classification or patient diagnosis.
+  \item \textbf{Clustering} (c.f. lecture 8).
+
+    Cluster customers based on similar properties such as income, age, area of residence).
+
+    Useful for \textit{marketing} campaigns.
+
+  \item \textbf{Outlier Analysis} (c.f. lecture 9).
+
+    Cluster data objects to identify outliers.
+  \end{itemize}
+
+  \begin{block}{Cluster}
+    A \textit{cluster} subsumes data objects that are \underline{similar} to
+    each other yet \underline{dissimilar} to data objects of other clusters.
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}{Similarity and Dissimilarity}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{Similarity}
+      \begin{itemize}
+    \item Numerical measure of how alike two data objects are.
+    \item Value is higher when objects are more alike.
+    \item Often chosen within the range of $[0,1]$.
     \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Data Matrices and Dissimilarity Matrices}
-    \centering
-    \begin{itemize}
-      \item Data matrix:
-      \begin{itemize}
-        \item $n$ data points with dimension $m$. Two mode matrix.\\
-              {$\begin{Bmatrix}
-              x_{11} & x_{12} & \cdots & x_{1m}\\
-              x_{21} & x_{22} & \cdots & x_{2m}\\
-              \vdots & \vdots & \ddots & \vdots\\
-              x_{n1} & x_{n2} & \cdots & x_{nm}
-              \end{Bmatrix}$.}
-      \end{itemize}
-      \item Dissimilarity matrix:
-      \begin{itemize}
-        \item $n$ data points, but registers only the distance. A triangular one mode matrix.\\
-              {$\begin{Bmatrix}
-              0 & 0 & 0 & \cdots & 0\\
-              d(x_{1},x_{2}) & 0 & 0 & \cdots & 0\\
-              d(x_{1},x_{3}) & d(x_{2},x_{3}) & 0 & \cdots & 0\\
-              \vdots & \vdots & \vdots &\ddots & \vdots\\
-              d(x_{1},x_{m}) & d(x_{2},x_{m}) & d(x_{3},x_{m}) & \cdots & 0
-              \end{Bmatrix}$.}
-      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Dissimilarity}
+          \begin{itemize}
+    \item E.g. distance.
+    \item Numerical measure of how different two data objects are.
+    \item Lower when objects are more alike.
+    \item Minimum dissimilarity is often $0$.
+    \item Upper limit varies.
     \end{itemize}
-    \end{frame}
+    \end{column}
+  \end{columns}
 
-    \begin{frame}{Proximity Measures for Nominal Attributes}
-    \begin{itemize}
-      \item Can take two or more states.
-      \begin{itemize}
-        \item E.g. red, yellow, blue or green.
-        \item Generalization of a binary attribute.
-      \end{itemize}
-      \item Values can be the same (distance of $0$) or different (distance of $1$).
-      \item More options for sets of nominal attributes (variables).
-      \item (1) Method is the simple matching coefficient:
-      \begin{align}
-        \text{SMC} = \frac{\# \text{of matching attributes}}{\# \text{number of attributes}}.
-      \end{align}
-      \item (2) Method is to use a large number of binary attributes:
-      \begin{itemize}
-        \item Creating a new binary attribute for each of the nominal states.
-      \end{itemize}
-    \end{itemize}
-    \end{frame}
+  \begin{alertblock}{Proximity}
+    \textit{Proximity} can refer to similarity or dissimilarity.
+  \end{alertblock}
+\end{frame}
 
-    \begin{frame}{Proximity Measure for Binary Attributes (I)}
-    \begin{itemize}
-      \item A contingency table for binary data.
+\begin{frame}{Data Matrices and Dissimilarity Matrices}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{Data Matrix}
+
       \begin{itemize}
-        \item Counting matches.
+      \item Stores data objects.
+      \item Also called \textit{object-by-attribute structure}.
+      \item Each data object is desribed by $m$ attributes.
+      \item Having $n$ data objects we have a $n\times m$ data matrix.
+      \end{itemize}
+      \vspace*{1em}
+      \begin{center}
+      {$\begin{Bmatrix}
+          x_{11} & x_{12} & \cdots & x_{1m}\\
+          x_{21} & x_{22} & \cdots & x_{2m}\\
+          \vdots & \vdots & \ddots & \vdots\\
+          x_{n1} & x_{n2} & \cdots & x_{nm}
+        \end{Bmatrix}$ }
+      \end{center}
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      \textbf{Dissimilarity Matrix}
+
+      \begin{itemize}
+      \item Stores dissimilarity values of data object pairs.
+      \item Also called \textit{object-by-object structure}.
       \end{itemize}
       \begin{center}
-        \vspace{-0.2cm}
-        \[
-        \text{y}\underbrace{
-        \left\{\begin{tabular}{ c | c c c }
-         & $1$ & $0$ & $\sum$ \\ \hline
-         $1$ & $q$ & $r$ & $q+r$\\
-         $0$ & $s$ & $t$ & $s+t$\\
-         $\sum$ & $q+s$ & $r+t$ & $q+r+s+t$
-       \end{tabular}\right.}_{\let\scriptstyle\textstyle\substack{\text{x}}}
-       \]
-      \end{center}
-      \item Distance measure for symmetrical binary variables:
-      \begin{align}
-        d(x,y) = \frac{r+s}{q+r+s+t}.
-      \end{align}
-      \item Distance measure for asymmetrical binary variables:
-      \begin{align}
-        d(x,y) = \frac{r+s}{q+r+s}.
-      \end{align}
-    \end{itemize}
-    \end{frame}
+        {$\begin{Bmatrix}
+          0 & 0 & 0 & \cdots & 0\\
+          d(x_{1},x_{2}) & 0 & 0 & \cdots & 0\\
+          d(x_{1},x_{3}) & d(x_{2},x_{3}) & 0 & \cdots & 0\\
+          \vdots & \vdots & \vdots &\ddots & \vdots\\
+          d(x_{1},x_{m}) & d(x_{2},x_{m}) & d(x_{3},x_{m}) & \cdots & 0
+        \end{Bmatrix}$}
+    \end{center}
+    with $d(i, j)$ as the measured dissimilarity between two objects $i$ and $j$.
 
-    \begin{frame}{Proximity Measure for Binary Attributes (II)}
-    \begin{itemize}
-      \item A contingency table for binary data.
-      \begin{itemize}
-        \item Counting matches.
-      \end{itemize}
-      \begin{center}
-        \vspace{-0.2cm}
-        \[
-        \text{y}\underbrace{
-        \left\{\begin{tabular}{ c | c c c }
-         & $1$ & $0$ & $\sum$ \\ \hline
-         $1$ & $q$ & $r$ & $q+r$\\
-         $0$ & $s$ & $t$ & $t+s$\\
-         $\sum$ & $q+s$ & $r+t$ & $q+r+s+t$
-        \end{tabular}\right.}_{\let\scriptstyle\textstyle\substack{\text{x}}}
-        \]
-      \end{center}
-      \item Jaccard coefficient for asymmetrical binary variables:
-      \begin{align}
-        \text{Jaccard}(x,y) = \frac{q}{q+r+s}.
-      \end{align}
-      \item Jaccard coefficient corresponds to "coherence":
-      \begin{align}
-        d(x,y) = \frac{\sup(x,y)}{\sup(x) + \sup(y) - \sup(x,y)} = \frac{q}{(q+s)+(q+r)-q}.
-      \end{align}
-    \end{itemize}
-    \end{frame}
+    \textit{Similarity} expressed with $\text{sim}(i,j) = 1 - d(i, j)$.
+    \end{column}
+  \end{columns}
+\end{frame}
 
-    \begin{frame}{Dissimilarity Between Binary Variables}
-    \begin{itemize}
-        \item \textbf{Example:}\;
-        \begin{tabular}{| c | c | c | c | c | c | c | c |}
-        \hline
-        Name & Gender & Fever & Cough & Test-$1$ & Test-$2$ & Test-$3$ & Test-$4$\\\hline
-        Bob & M & Y & N & P & N & N & N \\
-        Alice & F & Y & N & P & N & P & N \\
-        Charlie & M & Y & P & N & N & N & N \\\hline
-        \end{tabular}
-        \item Gender is a symmetrical attribute.
-        \item The remaining attributes are asymmetrical binary.
-        \item Let the values $Y$ and $P$ be equal to $1$ and the value of $N$ be $0$, then
-        \begin{align}
-          d(\text{Bob}, \text{Alice}) = \frac{0+1}{2+0+1} \approx 0.33,\\
-          d(\text{Bob}, \text{Charlie}) = \frac{1+1}{1+1+1} \approx 0.67,\\
-          d(\text{Charlie}, \text{Alice}) = \frac{1+2}{1+1+2} = 0.75.
-        \end{align}
-    \end{itemize}
-    \end{frame}
+\begin{frame}{Proximity Measures for Nominal Attributes}
+  Recall: Nominal attributes can take two or more states and values do not follow an order.
+  \begin{itemize}
+  \item Values can be the same (distance of $0$) or different (distance of $1$).
+  \item More options for sets of nominal attributes (variables).
+    \begin{enumerate}
+    \item \textbf{Simple Matching Coefficient} (SMC).
+          \begin{align*}
+      \text{SMC} = \frac{\# \text{of matching attributes}}{\# \text{number of attributes}}
+          \end{align*}
+        \item \textbf{One-Hot Encoding.}
 
-    \begin{frame}{Standardizing Numerical Data}
-    \begin{itemize}
-      \item \textbf{$z$-Score:}
-            \begin{align}
-              z = \frac{x-\mu}{\sigma}.
-            \end{align}
-      \item $x$ is the score to be standardized; $\mu$ ist the population mean; $\sigma$ is the standard deviation.
-      \item The distance between the raw score and the population mean in units of the standard deviation.
-      \item Negative when the raw score is below the mean, positive else.
-      \item \textbf{An alternative way is to compute the average absolute deviation:}
-      \begin{align}
+          Convert nominal attributes to binary attributes,\\ i.e. create one
+          binary attribute for every unique nominal value.
+    \end{enumerate}
+  \end{itemize}
+
+  \vspace*{1em}
+  \begin{block}{Proximity Measure for Ordinal Attributes}
+    Perform \textbf{Integer Encoding}, where every unique value is assigned an integer value.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Proximity Measure for Binary Attributes}
+  \begin{itemize}
+  \item Contingency table for binary data that counts matches.
+    \begin{center}
+      \vspace{-2em}
+      \[
+        \text{dasta object}~i\underbrace{
+          \left\{\begin{tabular}{ c | c c c }
+                   & $1$ & $0$ & $\sum$ \\ \hline
+                   $1$ & $q$ & $r$ & $q+r$\\
+                   $0$ & $s$ & $t$ & $s+t$\\
+                   $\sum$ & $q+s$ & $r+t$ & $q+r+s+t$
+                 \end{tabular}\right.}_{\let\scriptstyle\textstyle\substack{\text{data object}~j}}
+           \]
+    \end{center}
+  \item Distance measure for \textit{symmetrical} binary variables: $d(x,y) = \frac{r+s}{q+r+s+t}$
+    \note{Symmetrical binary values: each unique value is equally important.}
+  \item Distance measure for \textit{asymmetrical} binary variables: $d(x,y) = \frac{r+s}{q+r+s}$
+    \note{Asymmetrical binary values: each unique value is not equally important. Example: Result of disease test.}
+  \item Similarity for asymmetrical binary values is called \textit{Jaccard} coefficient and calculated as follows:
+    \begin{align*}
+      \text{sim}(i,j)=\text{jaccard}(i,j)=1-d(i,j)=\frac{q}{q+r+s}
+    \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Dissimilarity Between Binary Variables: An Example}
+  \begin{center}
+    \begin{tabular}{c | c | c | c | c | c | c | c}
+      \textbf{Name} & \textbf{Sex} & \textbf{Fever} & \textbf{Cough} & \textbf{Test-$1$} & \textbf{Test-$2$} & \textbf{Test-$3$} & \textbf{Test-$4$}\\\hline
+      Bob & M & Y & N & P & N & N & N \\
+      Alice & F & Y & N & P & N & P & N \\
+      Charlie & M & Y & P & N & N & N & N \\
+    \end{tabular}
+  \end{center}
+
+  \begin{alertblock}{Note}
+    Attribute ``Sex'' is a symmetrical attribute (all values are of equal importance), whereas all remaining attributes are asymmetrical binary attributes.
+  \end{alertblock}
+
+  Let values $Y$ and $P$ be equal to $1$ and the value of $N$ be $0$, then we can compute:
+
+  \vspace*{-2em}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{align*}
+      d(\text{Bob}, \text{Alice}) = \frac{0+1}{2+0+1} \approx 0.33\\
+      d(\text{Bob}, \text{Charlie}) = \frac{1+1}{1+1+1} \approx 0.67
+    \end{align*}
+  \end{column}
+      \begin{column}{0.5\textwidth}
+      \begin{align*}
+      d(\text{Charlie}, \text{Alice}) = \frac{1+2}{1+1+2} = 0.75
+    \end{align*}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Standardizing Numerical Data}
+  \begin{itemize}
+  \item \textbf{$z$-Score:}
+    \begin{align*}
+      z = \frac{x-\mu}{\sigma}.
+    \end{align*}
+  \item $x$ is the score to be standardized; $\mu$ ist the population mean; $\sigma$ is the standard deviation.
+  \item The distance between the raw score and the population mean in units of the standard deviation.
+  \item Negative when the raw score is below the mean, positive else.
+  \item \textbf{An alternative way is to compute the mean absolute deviation (MAD):}
+    \begin{align*}
       \text{MAD}(X = \{x_1,x_2,\ldots,x_n\}) = \frac{1}{n} \sum_{i=1}^{n} \vert x_i - \bar{x} \vert,\\
       \text{where} \; \bar{x} = \frac{1}{n} \sum_{i=1}^{n}x_i, \; \text{thus} \; z_i = \frac{x_i-\bar{x}}{\sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2}}.
-      \end{align}
-    \end{itemize}
-    \end{frame}
+    \end{align*}
+  \end{itemize}
+\end{frame}
 
-    \begin{frame}{Example: Data Matrix and Dissimilarity Matrix}
-        \begin{itemize}
-          \item Data matrix: \\[0.1cm]
-        \begin{tabular}{| c | c | c |}
-        \hline
-        Point & Attribute $1$ & Attribute $2$\\\hline
-        $x_1$ & $1$ & $2$\\\hline
-        $x_2$ & $3$ & $5$\\\hline
-        $x_3$ & $2$ & $0$\\\hline
-        $x_4$ & $4$ & $5$\\\hline
-        \end{tabular}\\[0.5cm]
-        \item Dissimilarity matrix (with Euclidean distance): \\[0.1cm]
-        \begin{tabular}{| c | c | c | c | c |}
-        \hline
-         & $x_1$ & $x_2$ & $x_3$ & $x_4$\\\hline
-        $x_1$ & $0$ & & & \\\hline
-        $x_2$ & $3,61$ & $0$ & & \\\hline
-        $x_3$ & $2,24$ & $5,1$ & $0$ & \\\hline
-        $x_4$ & $4,24$ & $1$ & $5,39$ & $0$ \\\hline
-        \end{tabular}\\[0.2cm]
-        \end{itemize}
-    \end{frame}
+\begin{frame}{Example: Data Matrix and Dissimilarity Matrix}
+  \begin{itemize}
+  \item Data matrix: \\[0.1cm]
+    \begin{tabular}{| c | c | c |}
+      \hline
+      Point & Attribute $1$ & Attribute $2$\\\hline
+      $x_1$ & $1$ & $2$\\\hline
+      $x_2$ & $3$ & $5$\\\hline
+      $x_3$ & $2$ & $0$\\\hline
+      $x_4$ & $4$ & $5$\\\hline
+    \end{tabular}\\[0.5cm]
+  \item Dissimilarity matrix (with Euclidean distance): \\[0.1cm]
+    \begin{tabular}{| c | c | c | c | c |}
+      \hline
+      & $x_1$ & $x_2$ & $x_3$ & $x_4$\\\hline
+      $x_1$ & $0$ & & & \\\hline
+      $x_2$ & $3,61$ & $0$ & & \\\hline
+      $x_3$ & $2,24$ & $5,1$ & $0$ & \\\hline
+      $x_4$ & $4,24$ & $1$ & $5,39$ & $0$ \\\hline
+    \end{tabular}\\[0.2cm]
+  \end{itemize}
+\end{frame}
 
-    \begin{frame}{Distance on Numerical Data: Minkowski Distance}
+\begin{frame}{Distance on Numerical Data: Minkowski Distance}
+  \vspace{-1.5em}
+  \begin{align*}
+    d(x,y) = \sqrt[h]{\sum_{i=1}^{n} \vert x_i-y_i \vert^h}
+  \end{align*}
+
+  where $x = (x_1,x_2, \ldots, x_n)$ and $y = (y_1,y_2,\ldots,y_n)$ are two $n$-dimensional data objects.
+
+  In fact, this distance induces a norm over real vector space, called $L_n$-norm.
+
+  \begin{block}{Properties of a $L_n$-norm}
     \begin{itemize}
-      \item \textbf{Minkowski distance:} a popular distance measure, given by:
-            \begin{align}
-              d(x,y) = \sqrt[h]{\sum_{i=1}^{n} \vert x_i-y_i \vert^h},
-            \end{align}
-      \item where $x = (x_1,x_2, \ldots, x_n)$ and $y = (y_1,y_2,\ldots,y_n)$ \\ are two $n$-dimensional data objects and $n$ if the order.
-      \item In fact, this distance induces a norm over real vector space, called $L_n$-norm.
-      \item \textbf{Properties:}
-      \begin{itemize}
-          \item $d(x,y) \geq 0$, positive definiteness.
-          \item $d(x,y) = d(y,x)$, symmetry.
-          \item $d(x,y) \leq d(x,z) + d(z,y)$, triangle inequality.
-      \end{itemize}
-      \item A distance satisfying this properties is called \textbf{metric}.
+    \item $d(x,y) \geq 0$, positive definiteness.
+    \item $d(x,y) = d(y,x)$, symmetry.
+    \item $d(x,y) \leq d(x,z) + d(z,y)$, triangle inequality.
     \end{itemize}
-    \end{frame}
 
-    \begin{frame}{Special Cases of Minkowski Distance}
-    \begin{itemize}
-      \item $h=1$: \textbf{Manhattan} (city block, $L_1$-norm) distance:
+    A distance satisfying this properties is called \textbf{metric}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Special Cases of Minkowski Distance}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      $h=1$: \textbf{Manhattan Distance}
       \begin{itemize}
-        \item E.g. the Hamming distance: the number of bits that differ in two binary vectors, given by
-        \begin{align}
-          d(x,y) = \sum_{i=1}^{n} \vert x_i - y_i \vert.
-        \end{align}
+      \item Also known as city block, or $L_1$-norm.
+      \item E.g. Hamming distance: number of bits that differ in two binary
+        vectors.
       \end{itemize}
-      \item $h=2$: \textbf{Euclidean} ($L_2$-norm) distance:
-            \begin{align}
-              d(x,y) = \sqrt{\sum_{i=1}^{n} (x_i-y_i)^2}.
-            \end{align}
-      \item $h \rightarrow \infty:$ \textbf{Supremum} ($L_{\text{max}}$-norm, $L_\infty$-norm) distance:
+      \vspace*{-1.5em}
+      \begin{align*}
+        d(x,y) = \sum_{i=1}^{n} \vert x_i - y_i \vert
+      \end{align*}
+
+      $h=2$: \textbf{Euclidean}
       \begin{itemize}
-        \item This is the maximum difference between any component (attribute) of the vectors.
-        \begin{align}
-          d(x,y) = \lim_{h \rightarrow \infty} \left( \sum_{i=1}^{n} \vert x_i - y_i \vert^{h} \right)^{\frac{1}{h}} = \max_i \vert x_i-y_i \vert.
-        \end{align}
+      \item Also known as $L_2$-norm.
       \end{itemize}
-    \end{itemize}
-    \end{frame}
+      \vspace*{-1.5em}
+      \begin{align*}
+        d(x,y) = \sqrt{\sum_{i=1}^{n} (x_i-y_i)^2}.
+      \end{align*}
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      $h \rightarrow \infty:$ \textbf{Supremum}
+      \begin{itemize}
+      \item Also known as $L_{\text{max}}$-norm, or $L_\infty$-norm.
+      \item Maximum difference between any attribute of two vectors.
+      \end{itemize}
+      \vspace*{-1.5em}
+      \begin{align*}
+        d(x,y) = \lim_{h \rightarrow \infty} \left( \sum_{i=1}^{n} \vert x_i - y_i \vert^{h} \right)^{\frac{1}{h}} = \max_i \vert x_i-y_i \vert.
+      \end{align*}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% TODO: (Dis-)Similarity of data objects with mixed attribute types, c.f. chapter 2.4.6, page 75
+% TODO: Cosine Similarity, c.f. chapter 2.4.7, page 77
