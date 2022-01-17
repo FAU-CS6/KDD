@@ -19,5 +19,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install texlive-full
 
+      - name: Display debug information on what version of latexindent is installed
+        run: latexindent -v
+
       - name: Run the hooks again to validate they have run
         run: pre-commit run --all-files
