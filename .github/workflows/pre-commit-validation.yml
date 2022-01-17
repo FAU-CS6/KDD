@@ -17,7 +17,9 @@ jobs:
       - name: Install texlive as needed for latexindent
         run: |
           sudo apt-get update
-          sudo apt-get install texlive-full
+          sudo apt-get install texlive-base
+          sudo tlmgr update --all
+          tlmgr install latexindent
 
       - name: Display debug information on what version of latexindent is installed
         run: latexindent -v
