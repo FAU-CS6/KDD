@@ -45,9 +45,9 @@ installation on Linux or Mac OS this place is one of the following:
 
 For a MikTex installation under Windows, it is recommended to first create
 a new TEXMF root directory in the MikTex Console under Settings -> Directories.
-The recommended path is usually =C:\Users\[Username]\mytexmf= (Purpose: Generic
-- Attribute: User). The shortcut (symlink) to the theme must then be added
-under the specified path in the subfolder =\tex\latex=.
+The recommended path is usually =C:\Users\[Username]\mytexmf= (Purpose: Generic -
+Attribute: User). The shortcut (symlink) to the theme must then be added under
+the specified path in the subfolder =\tex\latex=.
 
 For more information see this [[https://tex.stackexchange.com/questions/1137/where-do-i-place-my-own-sty-or-cls-files-to-make-them-available-to-all-my-te][entry]].
 
