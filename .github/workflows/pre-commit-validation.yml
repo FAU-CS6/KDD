@@ -8,23 +8,10 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
 
-      - name: Setup Python
-        uses: actions/setup-python@v2
-
-      - name: Install the Pre-Commit framework
-        run: pip install pre-commit
-
-      - name: Install texlive as needed for latexindent
-        run: |
-          wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/install-tl-ubuntu
-          chmod +x ./install-tl-ubuntu
-          sudo ./install-tl-ubuntu
-          sudo tlmgr init-usertree
-          sudo tlmgr update --all
-          tlmgr install latexindent
-
-      - name: Display debug information on what version of latexindent is installed
-        run: latexindent -v
-
       - name: Run the hooks again to validate they have run
-        run: pre-commit run --all-files
+        uses: xu-cheng/texlive-action/full@v1
+        with:
+          run: |
+            apk add --no-cache python3 py3-pip
+            pip3 install pre-commit
+            pre-commit run --all-files
