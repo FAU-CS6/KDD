@@ -3,9 +3,9 @@
 \begin{frame}{What is Data Mining?}
 	\textbf{Data mining or knowledge discovery from data}:
 	\begin{itemize}
-		\item Extraction of interesting (\textbf{non-trivial, implicit, 
-		previously unknown and potentially useful}) patterns from huge amounts 
-		of data.
+		\item Extraction of interesting (\textbf{non-trivial, implicit,
+			      previously unknown and potentially useful}) patterns from huge amounts
+		      of data.
 		\item Is \textbf{data mining} a misnomer?
 	\end{itemize}
 	Alternative names:
@@ -24,24 +24,24 @@
 	\begin{itemize}
 		\item Simple search for females in a customer database.
 		\item Simple join of two database tables.
-		\item Simple deductive database validating a new tuple with regards to 
-		predefined constraints.
+		\item Simple deductive database validating a new tuple with regards to
+		      predefined constraints.
 	\end{itemize}
 	Considered to be data mining:
 	\begin{itemize}
 		\item Analysis of customer behavior for user-related advertising.
 		\item Analysis of payment histories for fraud detection.
-		\item Analysis of infection behavior for better understanding of a 
-		pandemic.
+		\item Analysis of infection behavior for better understanding of a
+		      pandemic.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Data Mining in the Database-Systems Community}
 	\begin{itemize}
-		\item The \textbf{knowledge discovery pipeline} is a typical view from 
-		the database-systems and data-warehousing community.
-		\item Data mining plays an essential role in the knowledge-discovery 
-		process.
+		\item The \textbf{knowledge discovery pipeline} is a typical view from
+		      the database-systems and data-warehousing community.
+		\item Data mining plays an essential role in the knowledge-discovery
+		      process.
 	\end{itemize}
 	\vspace{0.15cm}
 	\centering
@@ -49,31 +49,31 @@
 		\begin{tikzpicture}
 			% Dialectics
 			\node[draw] (Database) at (0,0) {Database};
-			\node[draw,fill=black,text=white] (Data warehouse) at (2.8,1) {Data 
-			warehouse};
+			\node[draw,fill=black,text=white] (Data warehouse) at (2.8,1) {Data
+				warehouse};
 			\node[draw] (Task-relevant data) at (6,2) {Task-relevant data};
-			\node[draw,fill=black,text=white] (Data mining) at (8.9,3) 
+			\node[draw,fill=black,text=white] (Data mining) at (8.9,3)
 			{Visualization};
 			\node[draw] (Knowledge discovery) at (11.9,4) {Knowledge discovery};
-			
+
 			\node (Data Integration) at (3,0.25) {Data Integration};
 			\node (Selection) at (5.3,1.3) {Selection};
 			\node (Data Mining) at (8.7,2.25) {Data Mining};
-			
+
 			\draw node[vertex] (Joint1) at (1.3,0.46) {};
 			\draw node[vertex] (Joint2) at (4.5,1.52) {};
-			
+
 			\draw node[vertex] (Joint3) at (4.5,0.46) {};
 			\draw node[vertex] (Joint7) at (4.5,0.46) {};
 			\draw node[vertex] (Joint8) at (7.6,0.46) {};
 			\draw node[vertex] (Joint9) at (10.3,0.46) {};
 			\draw node[vertex] (Joint10) at (10.3,-0.2) {};
 			\draw node[vertex] (Joint11) at (1.3,-0.2) {};
-			
+
 			\draw node[vertex] (Joint5) at (7.6,2.55) {};
 			\draw node[vertex] (Joint6) at (10.3,3.47) {};
-			
-			
+
+
 			\draw[->,draw=black] (Database) to (Data warehouse);
 			\draw[->,draw=black] (Data warehouse) to (Task-relevant data);
 			\draw[->,draw=black] (Task-relevant data) to (Data mining);
@@ -99,103 +99,103 @@
 		\coordinate (C) at (0,6) {};
 		\draw[name path=AC] (A) -- (C);
 		\draw[name path=BC] (B) -- (C);
-		
-		\node (Data Integration) at (1,5) {\parbox{\linewidth}{Increasing 
-		potential \\ to support decisions.}};
-		\node (Data Integration) at (12.9,1) {\parbox{\linewidth}{Database \\ 
-		administration.}};
-		\node (Data Integration) at (12.9,3) {\parbox{\linewidth}{Data \\ 
-		analyst.}};
-		\node (Data Integration) at (12.9,4.5) {\parbox{\linewidth}{Business \\ 
-		analyst.}};
+
+		\node (Data Integration) at (1,5) {\parbox{\linewidth}{Increasing
+				potential \\ to support decisions.}};
+		\node (Data Integration) at (12.9,1) {\parbox{\linewidth}{Database \\
+				administration.}};
+		\node (Data Integration) at (12.9,3) {\parbox{\linewidth}{Data \\
+				analyst.}};
+		\node (Data Integration) at (12.9,4.5) {\parbox{\linewidth}{Business \\
+				analyst.}};
 		\node (Data Integration) at (12.9,5.5) {\parbox{\linewidth}{End user.}};
-		
+
 		\foreach \y/\A in {
-			0/{
-				\parbox{\linewidth}{
-					\centering 
-					\textbf{Sources of data}: \\ 
-					\small{paper, files, web documents, scientific experiments, 
-					database system.}}
-			},
-			1/{
-				\parbox{\linewidth}{
-					\centering
-					\textbf{Data preprocessing/integration,\\
-						    data warehouses.}}
-			},
-			2/{
-				\parbox{\linewidth}{
-					\centering 
-					\textbf{Data exploration:} \\ 
-					\small{statistics, querying and reporting.}}
-			},
-			3/{
-				\parbox{\linewidth}{
-					\centering 
-					\textbf{Data mining:} \\ 
-					\small{information discovery.}}
-			},
-			4/{
-				\parbox{\linewidth}{
-					\centering 
-					\textbf{Presentation:} \\ 
-					\small{visualization techniques.}}
-			},
-			5/{
-				\parbox{\linewidth}{
-					\centering 
-					\textbf{Decision}}
-			}
+		0/{
+		\parbox{\linewidth}{
+			\centering
+			\textbf{Sources of data}: \\
+			\small{paper, files, web documents, scientific experiments,
+				database system.}}
+		},
+		1/{
+		\parbox{\linewidth}{
+			\centering
+			\textbf{Data preprocessing/integration,\\
+				data warehouses.}}
+		},
+		2/{
+		\parbox{\linewidth}{
+			\centering
+			\textbf{Data exploration:} \\
+			\small{statistics, querying and reporting.}}
+		},
+		3/{
+		\parbox{\linewidth}{
+			\centering
+			\textbf{Data mining:} \\
+			\small{information discovery.}}
+		},
+		4/{
+		\parbox{\linewidth}{
+			\centering
+			\textbf{Presentation:} \\
+			\small{visualization techniques.}}
+		},
+		5/{
+		\parbox{\linewidth}{
+			\centering
+			\textbf{Decision}}
+		}
 		} {
-			\path[name path=horiz] (A|-0,\y) -- (B|-0,\y);
-			\draw[name intersections={of=AC and horiz,by=P},
+		\path[name path=horiz] (A|-0,\y) -- (B|-0,\y);
+		\draw[name intersections={of=AC and horiz,by=P},
 			name intersections={of=BC and horiz,by=Q}] (P) -- (Q)
-			node[midway,above] {\A};
+		node[midway,above] {\A};
 		}
 	\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Data Mining in the Machine Learning and Statistics Community}
 	\begin{itemize}
-		\item The machine-learning and statistics communities usually classify 
-		data mining as \\ the central part of their pipeline: 
+		\item The machine-learning and statistics communities usually classify
+		      data mining as \\ the central part of their pipeline:
 	\end{itemize}
 	\vspace{0.5cm}
 	\centering
 	\scalebox{0.95}{%
 		\begin{tikzpicture}
 			[node distance = 1cm, auto,font=\footnotesize,
-			% STYLES
-			every node/.style={node distance=1cm},
-			% The comment style is used to describe the characteristics of each 
-			%force
-			comment/.style={rectangle, inner sep= 5pt, text width=3.8cm, node 
-			distance=0.5cm, font=\scriptsize\sffamily},
-			% The force style is used to draw the forces' name
-			force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text 
-			width=1.8cm, text badly centered, minimum height=1cm, 
-			font=\bfseries\footnotesize\sffamily}]
-			
+				% STYLES
+				every node/.style={node distance=1cm},
+				% The comment style is used to describe the characteristics of each
+				%force
+				comment/.style={rectangle, inner sep= 5pt, text width=3.8cm, node
+						distance=0.5cm, font=\scriptsize\sffamily},
+				% The force style is used to draw the forces' name
+				force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text
+						width=1.8cm, text badly centered, minimum height=1cm,
+						font=\bfseries\footnotesize\sffamily}]
+
 			% Draw forces
-			\node [force, dashed] (a) {\parbox{\linewidth}{\centering Data \\ 
-			input.}};
-			\node [force, right=1cm of a] (b) {\parbox{\linewidth}{\centering 
-			Data 
-			\\ preprocessing.}};
-			\node [force, right=1cm of b] (c) {\parbox{\linewidth}{\centering 
-			Data 
-			\\ mining.}};
-			\node [force, right=1cm of c] (d) {\parbox{\linewidth}{\centering 
-			Post 
-			\\ processing.}};
-			\node [force, dashed, right=1cm of d] (e) 
-			{\parbox{\linewidth}{\centering Pattern, \\ information, \\ 
-			knowledge.}};
-			
+			\node [force, dashed] (a) {\parbox{\linewidth}{\centering Data \\
+					input.}};
+			\node [force, right=1cm of a] (b) {\parbox{\linewidth}{\centering
+					Data
+					\\ preprocessing.}};
+			\node [force, right=1cm of b] (c) {\parbox{\linewidth}{\centering
+					Data
+					\\ mining.}};
+			\node [force, right=1cm of c] (d) {\parbox{\linewidth}{\centering
+					Post
+					\\ processing.}};
+			\node [force, dashed, right=1cm of d] (e)
+			{\parbox{\linewidth}{\centering Pattern, \\ information, \\
+					knowledge.}};
+
 			%%%%%%%%%%%%%%%
 			% Change data from here
-			
+
 			% SUPPLIERS
 			\node [comment, below=0.25cm of b] {
 				\begin{itemize}
@@ -205,7 +205,7 @@
 					\item Dimension reduction.
 				\end{itemize}
 			};
-			
+
 			% USERS
 			\node [comment, below=0.25 of c] {
 				\begin{itemize}
@@ -217,7 +217,7 @@
 					\item \ldots
 				\end{itemize}
 			};
-			
+
 			% PUBLIC POLICIES
 			\node [comment, below=0.25 of d] {
 				\begin{itemize}
@@ -227,13 +227,13 @@
 					\item Pattern visualization.
 				\end{itemize}
 			};
-			
+
 			\path[->,thick]
 			(a) edge (b)
 			(b) edge (c)
 			(c) edge (d)
 			(d) edge (e);
-			
+
 		\end{tikzpicture}
 	}
 \end{frame}
@@ -247,16 +247,16 @@
 	\scalebox{0.95}{%
 		\begin{tikzpicture}
 			[node distance = 2cm, auto,font=\footnotesize,
-			% STYLES
-			every node/.style={node distance=2cm},
-			% The comment style is used to describe the characteristics of each 
-			%force
-			comment/.style={rectangle, inner sep= 5pt, text width=5cm, node 
-			distance=0.5cm, font=\scriptsize\sffamily},
-			% The force style is used to draw the forces' name
-			force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text 
-			width=4cm, minimum height=2cm, font=\footnotesize\sffamily}]
-			
+				% STYLES
+				every node/.style={node distance=2cm},
+				% The comment style is used to describe the characteristics of each
+				%force
+				comment/.style={rectangle, inner sep= 5pt, text width=5cm, node
+						distance=0.5cm, font=\scriptsize\sffamily},
+				% The force style is used to draw the forces' name
+				force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text
+						width=4cm, minimum height=2cm, font=\footnotesize\sffamily}]
+
 			% Draw forces
 			\node [force] (a) {
 				\parbox{\linewidth}{
@@ -311,13 +311,13 @@
 					- Determine next steps.
 				}
 			};
-			
+
 			\path[->,thick]
 			(b) edge (c)
 			(d) edge (f)
 			(f) edge (e)
 			(f) edge (a);
-			
+
 			\path[<->,thick]
 			(a) edge (b)
 			(c) edge (d);

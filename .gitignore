@@ -20,4 +20,5 @@
 *.awk
 *.bat
 *.synctex.gz
+*.bak*
 vc.tex

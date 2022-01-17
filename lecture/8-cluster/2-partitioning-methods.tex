@@ -3,70 +3,70 @@
 \begin{frame}{Partitioning Algorithms: Basic Concept}
 	\begin{itemize}
 		\item \textbf{Partitioning method:}
-		\begin{itemize}
-			\item Partition a database $D$ of $n$ objects $o_j, j \in \{1, 
-			\ldots, n\}$ into a set of $k$-clusters $C_i$, $1 \leq i \leq k$ 
-			such that the sum of squared distances to $c_i$ is minimized \\ 
-			(where $c_i$ is the \textbf{\color{airforceblue}centroid} or 
-			\textbf{\color{airforceblue}medoid} of cluster $C_i$):
-			\begin{align}
-				\min \sum_{i=1}^{k} \sum_{j=1}^{n} d(o_j,c_i)^2. 
-			\end{align}
-		\end{itemize}
-		\item \textbf{Given $k$, find a partition of $k$ clusters that 
-		optimizes the chosen partitioning criterion.}
-		\begin{itemize}
-			\item Globally optimal: exhaustively enumerate all partitions.
-			\item Heuristic methods: k-means and k-medoids algorithms.
-			\item \textbf{\color{airforceblue}k-means} (MacQueen'67, 
-			Lloyd'57/'82):
-			\begin{itemize}
-				\item Each cluster is represented by the center of the cluster.
-			\end{itemize}
-			\item \textbf{\color{airforceblue}k-medoids} or PAM (Partition 
-			around medoids) (Kaufman \& Rousseeuw'87):
-			\begin{itemize}
-				\item Each cluster is represented by one of the objects in the 
-				cluster.
-			\end{itemize}
-		\end{itemize}
+		      \begin{itemize}
+			      \item Partition a database $D$ of $n$ objects $o_j, j \in \{1,
+				            \ldots, n\}$ into a set of $k$-clusters $C_i$, $1 \leq i \leq k$
+			            such that the sum of squared distances to $c_i$ is minimized \\
+			            (where $c_i$ is the \textbf{\color{airforceblue}centroid} or
+			            \textbf{\color{airforceblue}medoid} of cluster $C_i$):
+			            \begin{align}
+				            \min \sum_{i=1}^{k} \sum_{j=1}^{n} d(o_j,c_i)^2.
+			            \end{align}
+		      \end{itemize}
+		\item \textbf{Given $k$, find a partition of $k$ clusters that
+			      optimizes the chosen partitioning criterion.}
+		      \begin{itemize}
+			      \item Globally optimal: exhaustively enumerate all partitions.
+			      \item Heuristic methods: k-means and k-medoids algorithms.
+			      \item \textbf{\color{airforceblue}k-means} (MacQueen'67,
+			            Lloyd'57/'82):
+			            \begin{itemize}
+				            \item Each cluster is represented by the center of the cluster.
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}k-medoids} or PAM (Partition
+			            around medoids) (Kaufman \& Rousseeuw'87):
+			            \begin{itemize}
+				            \item Each cluster is represented by one of the objects in the
+				                  cluster.
+			            \end{itemize}
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{The $k$-means Clustering Method}
 	\begin{itemize}
-		\item \textbf{Given $k$, the $k$-means algorithm is implemented in four 
-		steps:}
-		\begin{itemize}
-			\item[1.] Partition the database into $k$ non-empty subsets.
-			\begin{itemize}
-				\item E.g. the first $\frac{n}{k}$ objects, then the next 
-				$\frac{n}{k}$ objects, $\ldots$
-			\end{itemize}
-			\item[2.] Compute the centroids of the \textbf{clusters} of the 
-			current partitioning.
-			\begin{itemize}
-				\item The centroid is the center, i.e. mean point, of the 
-				cluster.
-				\item For each attribute (or dimension), calculate the average 
-				value.
-			\end{itemize}
-			\item[3.] Assign each object to the cluster with the nearest 
-			centroid.
-			\begin{itemize}
-				\item That is, for each object calculate distance to each of 
-				the $k$\\
-				centroids and pick the one with the smallest distance.
-			\end{itemize}
-			\item[4.] If any object has changed its cluster, go back to step 2. 
-			Otherwise stop.
-		\end{itemize}
+		\item \textbf{Given $k$, the $k$-means algorithm is implemented in four
+			      steps:}
+		      \begin{itemize}
+			      \item[1.] Partition the database into $k$ non-empty subsets.
+				      \begin{itemize}
+					      \item E.g. the first $\frac{n}{k}$ objects, then the next
+					            $\frac{n}{k}$ objects, $\ldots$
+				      \end{itemize}
+			      \item[2.] Compute the centroids of the \textbf{clusters} of the
+				      current partitioning.
+				      \begin{itemize}
+					      \item The centroid is the center, i.e. mean point, of the
+					            cluster.
+					      \item For each attribute (or dimension), calculate the average
+					            value.
+				      \end{itemize}
+			      \item[3.] Assign each object to the cluster with the nearest
+				      centroid.
+				      \begin{itemize}
+					      \item That is, for each object calculate distance to each of
+					            the $k$\\
+					            centroids and pick the one with the smallest distance.
+				      \end{itemize}
+			      \item[4.] If any object has changed its cluster, go back to step 2.
+				      Otherwise stop.
+		      \end{itemize}
 		\item \textbf{Variant:}
-		\begin{itemize}
-			\item Start with arbitrarily chosen $k$ objects as initial 
-			centroids in step $1$.
-			\item Continue with step $3$.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Start with arbitrarily chosen $k$ objects as initial
+			            centroids in step $1$.
+			      \item Continue with step $3$.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -91,7 +91,7 @@
 			\node [black] at (4,2.5) {\Large\textbullet};
 			\node [black] at (2.5,3) {\Large\textbullet};
 			\node [black] at (2.7,0.5) {The initial data set.};
-			
+
 			\node [black] at (7,1) {\Large\textbullet};
 			\node [black] at (7.5,1.5) {\Large\textbullet};
 			\node [black] at (8,2) {\Large\textbullet};
@@ -106,7 +106,7 @@
 			\node [red] at (10,3.5) {\Large\textbullet};
 			\node [black] at (10,2.3) {\Large\textbullet};
 			\node [red] at (10,2.5) {\Large\textbullet};
-			
+
 			\node [black] at (12,1) {\Large\textbullet};
 			\node [black] at (12.5,1.5) {\Large\textbullet};
 			\node [black] at (13,2) {\Large\textbullet};
@@ -123,7 +123,7 @@
 			\node [red] at (15,2.5) {\Large\textbullet};
 			\node [orange] at (14.25,3.25) {\Huge\textbullet};
 			\node [blue] at (13.41,1.5) {\Huge\textbullet};
-			
+
 			\node [black] at (12,-2.5) {\Large\textbullet};
 			\node [black] at (12.5,-2) {\Large\textbullet};
 			\node [black] at (13,-1.5) {\Large\textbullet};
@@ -143,7 +143,7 @@
 			\node [red] at (15,-1) {\Large\textbullet};
 			\node [orange] at (14.25,-0.25) {\Huge\textbullet};
 			\node [blue] at (13.41,-2) {\Huge\textbullet};
-			
+
 			\node [black] at (7,-2.5) {\Large\textbullet};
 			\node [black] at (7.5,-2) {\Large\textbullet};
 			\node [black] at (8,-1.5) {\Large\textbullet};
@@ -160,21 +160,21 @@
 			\node [red] at (10,-1) {\Large\textbullet};
 			\node [orange] at (9.75,-0.53) {\Huge\textbullet};
 			\node [blue] at (8.14,-1.68) {\Huge\textbullet};
-			
+
 			\draw [->] (13.41,1) -- (13.41,-0.5);
 			\node [black] at (14.7,0.5) {Reassign objects.};
-			
+
 			\draw [->] (5,2) -- (6.5,2);
 			\node [black] at (5.8,3) {Arbitrarily partition};
 			\node [black] at (5.8,2.7) {objects into};
 			\node [black] at (5.8,2.4) {$k$ groups.};
 			\node [black] at (5.8,1.6) {Here $k = 2$.};
-			
+
 			\draw [->] (10.5,2) -- (12,2);
 			\node [black] at (11.3,3) {Calculate};
 			\node [black] at (11.3,2.7) {the cluster};
 			\node [black] at (11.3,2.4) {centroids.};
-			
+
 			\draw [->]  (12,-0.5) -- (10.5,-0.5);
 			\draw [->]  (10.5,0)--(11.7,0.8);
 			\node [black] at (9.5,0.5) {Loop if needed.};
@@ -188,74 +188,74 @@
 \begin{frame}{Comments on the $k$-means Method}
 	\begin{itemize}
 		\item \textbf{Strength:}
-		\begin{itemize}
-			\item Efficient: $\mathcal{O}(tkn)$, where $n$ is $\#$ objects, $k$ 
-			is $\#$ of clusters, and $t$ is the $\#$ of iterations. Normally, 
-			$k$, $t \ll n$.
-			\item Comparing: PAM: $\mathcal{O}(k(n-k)^2)$, CLARA: 
-			$\mathcal{O}(ks^2 + k(n-k))$.
-			\item Comment: Often terminates at a local optimum.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Efficient: $\mathcal{O}(tkn)$, where $n$ is $\#$ objects, $k$
+			            is $\#$ of clusters, and $t$ is the $\#$ of iterations. Normally,
+			            $k$, $t \ll n$.
+			      \item Comparing: PAM: $\mathcal{O}(k(n-k)^2)$, CLARA:
+			            $\mathcal{O}(ks^2 + k(n-k))$.
+			      \item Comment: Often terminates at a local optimum.
+		      \end{itemize}
 		\item \textbf{Weakness:}
-		\begin{itemize}
-			\item Applicable only to objects in a continuous n-dimensional 
-			space.
-			\begin{itemize}
-				\item Using the $k$-modes method for categorical data.
-				\item In comparison, $k$-medoids can be applied to a wide range 
-				of data.
-			\end{itemize}
-			\item Need to specify $k$, the number of clusters, in advance.
-			\begin{itemize}
-				\item There are ways to automatically determine the best $k$ 
-				(see Hastie et al., 2009).
-			\end{itemize}
-			\item Sensitive to noisy data and outliers.
-			\item Not suitable to discover clusters with non-convex shapes.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Applicable only to objects in a continuous n-dimensional
+			            space.
+			            \begin{itemize}
+				            \item Using the $k$-modes method for categorical data.
+				            \item In comparison, $k$-medoids can be applied to a wide range
+				                  of data.
+			            \end{itemize}
+			      \item Need to specify $k$, the number of clusters, in advance.
+			            \begin{itemize}
+				            \item There are ways to automatically determine the best $k$
+				                  (see Hastie et al., 2009).
+			            \end{itemize}
+			      \item Sensitive to noisy data and outliers.
+			      \item Not suitable to discover clusters with non-convex shapes.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Variations of the $k$-means Method}
 	\begin{itemize}
 		\item \textbf{Most of the variants of the $k$-means differ in:}
-		\begin{itemize}
-			\item Selection of the initial $k$ subsets (or centroids).
-			\item Dissimilarity calculations.
-			\item Strategies to calculate cluster centroids.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Selection of the initial $k$ subsets (or centroids).
+			      \item Dissimilarity calculations.
+			      \item Strategies to calculate cluster centroids.
+		      \end{itemize}
 		\item \textbf{Handling categorical data: $k$-modes:}
-		\begin{itemize}
-			\item Replacing centroids with modes.
-			\begin{itemize}
-				\item See Chapter 2: mode = value that occurs most frequently 
-				in the data.
-			\end{itemize}
-			\item Using new dissimilarity measures to deal with categorical 
-			objects.
-			\item Using a frequency-based method to update modes of clusters.
-			\item A mixture of categorical and numerical data: k-prototype 
-			method.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Replacing centroids with modes.
+			            \begin{itemize}
+				            \item See Chapter 2: mode = value that occurs most frequently
+				                  in the data.
+			            \end{itemize}
+			      \item Using new dissimilarity measures to deal with categorical
+			            objects.
+			      \item Using a frequency-based method to update modes of clusters.
+			      \item A mixture of categorical and numerical data: k-prototype
+			            method.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{What is the Problem of the $k$-means Method?}
 	\begin{itemize}
-		\item \textbf{The $k$-means algorithm is {\color{airforceblue}sensitive 
-		to outliers}!}
-		\begin{itemize}
-			\item Since an object with an extremely large value may 
-			substantially \\
-			distort the distribution of the data.
-		\end{itemize}
+		\item \textbf{The $k$-means algorithm is {\color{airforceblue}sensitive
+					      to outliers}!}
+		      \begin{itemize}
+			      \item Since an object with an extremely large value may
+			            substantially \\
+			            distort the distribution of the data.
+		      \end{itemize}
 		\item \textbf{$k$-medoids:}
-		\begin{itemize}
-			\item Instead of taking the mean value of the objects in a cluster 
-			as a reference point,\\
-			medoids can be used, which is the most centrally located object in 
-			a cluster.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Instead of taking the mean value of the objects in a cluster
+			            as a reference point,\\
+			            medoids can be used, which is the most centrally located object in
+			            a cluster.
+		      \end{itemize}
 	\end{itemize}
 	\centering
 	\newcommand*{\xMin}{0}%
@@ -264,13 +264,13 @@
 	\newcommand*{\yMax}{10}%
 	\begin{tikzpicture}[scale=0.3]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		\node[color=orange] at (4,3) {\Huge\textbullet};
 		\node[color=orange] at (3,6) {\Huge\textbullet};
 		\node[color=orange] at (3,8) {\Huge\textbullet};
@@ -285,13 +285,13 @@
 	\end{tikzpicture}
 	\begin{tikzpicture}[scale=0.3]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		\node[color=orange] at (4,3) {\Large\textbullet};
 		\node[color=red] at (3,6) {\Huge\textbullet};
 		\node[color=orange] at (3,8) {\Large\textbullet};
@@ -308,25 +308,25 @@
 \begin{frame}{The $k$-medoids Clustering Method}
 	\begin{itemize}
 		\item \textbf{$k$-medoids clustering:}
-		\begin{itemize}
-			\item Find representative objects (medoids) in clusters.
-			\item \textbf{PAM} (Partitioning Around Medoids, Kaufmann \& 
-			Rousseeuw, 1987):
-			\begin{itemize}
-				\item Starts from an initial set of $k$ medoids and iteratively 
-				replaces one of the medoids \\
-				by one of the non-medoids, if it improves the total distance of 
-				the resulting clustering.
-				\item PAM works effectively for small data sets, but does not 
-				scale well for large\\
-				data sets (due to the computational complexity).
-			\end{itemize}
-		\end{itemize}
+		      \begin{itemize}
+			      \item Find representative objects (medoids) in clusters.
+			      \item \textbf{PAM} (Partitioning Around Medoids, Kaufmann \&
+			            Rousseeuw, 1987):
+			            \begin{itemize}
+				            \item Starts from an initial set of $k$ medoids and iteratively
+				                  replaces one of the medoids \\
+				                  by one of the non-medoids, if it improves the total distance of
+				                  the resulting clustering.
+				            \item PAM works effectively for small data sets, but does not
+				                  scale well for large\\
+				                  data sets (due to the computational complexity).
+			            \end{itemize}
+		      \end{itemize}
 		\item \textbf{Efficiency improvement on PAM:}
-		\begin{itemize}
-			\item CLARA (Kaufmann \& Rousseeuw, 1990): PAM on samples.
-			\item CLARANS (Ng \& Han, 1994): Randomized re-sampling.
-		\end{itemize}
+		      \begin{itemize}
+			      \item CLARA (Kaufmann \& Rousseeuw, 1990): PAM on samples.
+			      \item CLARANS (Ng \& Han, 1994): Randomized re-sampling.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -338,13 +338,13 @@
 	\centering
 	\begin{tikzpicture}[scale=0.23]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		\node[color=orange] at (2,6) {\Large\textbullet};
 		\node[color=orange] at (3,4) {\Large\textbullet};
 		\node[color=orange] at (3,8) {\Large\textbullet};
@@ -365,13 +365,13 @@
 	\end{tikzpicture}
 	\begin{tikzpicture}[scale=0.23]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		\node[color=orange] at (2,6) {\Large\textbullet};
 		\node[color=orange] at (3,4) {\Large\textbullet};
 		\node[color=blue] at (3,8) {\Large\textbullet};
@@ -391,13 +391,13 @@
 	\end{tikzpicture}
 	\begin{tikzpicture}[scale=0.23]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		\node[color=orange] at (2,6) {\Large\textbullet};
 		\node[color=orange] at (3,4) {\Large\textbullet};
 		\node[color=blue] at (3,8) {\Large\textbullet};
@@ -420,13 +420,13 @@
 	\hspace{1.2cm}
 	\begin{tikzpicture}[scale=0.23]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		\node[color=orange] at (2,6) {\Large\textbullet};
 		\node[color=orange] at (3,4) {\Large\textbullet};
 		\node[color=blue] at (3,8) {\Large\textbullet};
@@ -450,13 +450,13 @@
 	\end{tikzpicture}
 	\begin{tikzpicture}[scale=0.23]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		\node[color=orange] at (2,6) {\Large\textbullet};
 		\node[color=orange] at (3,4) {\Large\textbullet};
 		\node[color=blue] at (3,8) {\Large\textbullet};
@@ -474,38 +474,38 @@
 	\begin{itemize}
 		\item \textbf{Use real objects to represent the clusters.}
 		\item \textbf{Algorithm:}
-		\begin{itemize}
-			\item[1.] Arbitrarily choose $k$ objects as the initial mediods.
-			\item[2.] Repeat.
-			\item[3.] \hspace{0.2cm} Assign each remaining object to the 
-			cluster with the nearest mediod $o_i$.
-			\item[4.] \hspace{0.2cm} Randomly select a non-medoid object $o_h$.
-			\item[5.] \hspace{0.2cm} Compute the total cost $\text{TC}_{ih}$ of 
-			swapping $o_i$ with $o_h$.
-			\item[6.] \hspace{0.2cm} If $\text{TC}_{ih} < 0$ then swap $o_i$ 
-			with $o_h$ to form the new set of $k$ medoids.
-			\item[7.] Until no change.
-		\end{itemize}
+		      \begin{itemize}
+			      \item[1.] Arbitrarily choose $k$ objects as the initial mediods.
+			      \item[2.] Repeat.
+			      \item[3.] \hspace{0.2cm} Assign each remaining object to the
+				      cluster with the nearest mediod $o_i$.
+			      \item[4.] \hspace{0.2cm} Randomly select a non-medoid object $o_h$.
+			      \item[5.] \hspace{0.2cm} Compute the total cost $\text{TC}_{ih}$ of
+				      swapping $o_i$ with $o_h$.
+			      \item[6.] \hspace{0.2cm} If $\text{TC}_{ih} < 0$ then swap $o_i$
+				      with $o_h$ to form the new set of $k$ medoids.
+			      \item[7.] Until no change.
+		      \end{itemize}
 		\item $\text{TC}_{ih} = \sum\limits_{j}C_{jih}$
-		\begin{itemize}
-			\item with $C_{jih}$ as the cost for object $o_j$ if $o_i$ is 
-			swapped with $o_h$.
-			\item That is, distance to new medoid minus distance to old medoid.
-		\end{itemize}
+		      \begin{itemize}
+			      \item with $C_{jih}$ as the cost for object $o_j$ if $o_i$ is
+			            swapped with $o_h$.
+			      \item That is, distance to new medoid minus distance to old medoid.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{PAM Clustering (II)}
 	\begin{itemize}
 		\item \textbf{Case 1:}
-		\begin{itemize}
-			\item $o_j$ currently belongs to medoid $o_i$. If $o_i$ is replaced 
-			with $o_h$ as a medoid, and $o_j$ is closest to $o_h$, then $o_j$ 
-			is reassigned to $o_h$ (same cluster, different distance).
-			\begin{align}
-				C_{jih} = d(o_j,o_h) - d(o_j,o_i). 
-			\end{align}
-		\end{itemize}
+		      \begin{itemize}
+			      \item $o_j$ currently belongs to medoid $o_i$. If $o_i$ is replaced
+			            with $o_h$ as a medoid, and $o_j$ is closest to $o_h$, then $o_j$
+			            is reassigned to $o_h$ (same cluster, different distance).
+			            \begin{align}
+				            C_{jih} = d(o_j,o_h) - d(o_j,o_i).
+			            \end{align}
+		      \end{itemize}
 	\end{itemize}
 	\newcommand*{\xMin}{0}%
 	\newcommand*{\xMax}{10}%
@@ -514,13 +514,13 @@
 	\centering
 	\begin{tikzpicture}[scale=0.3]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		\draw[thick] (7,6)--(6,4);
 		\draw[thick] (7,6)--(7,4);
 		\node[color=orange] at (3,4) {\Huge\textbullet};
@@ -545,14 +545,14 @@
 \begin{frame}{PAM Clustering (III)}
 	\begin{itemize}
 		\item \textbf{Case 2:}
-		\begin{itemize}
-			\item $o_j$ currently belongs to medoid $o_t$, $t \neq j$. If $o_i$ 
-			is replaced with $o_h$ as a medoid, and $o_j$ is still closest to 
-			$o_t$, then the assignment does not change.
-			\begin{align}
-				C_{jih} = d(o_j,o_h) - d(o_j,o_t) \geq 0. 
-			\end{align}
-		\end{itemize}
+		      \begin{itemize}
+			      \item $o_j$ currently belongs to medoid $o_t$, $t \neq j$. If $o_i$
+			            is replaced with $o_h$ as a medoid, and $o_j$ is still closest to
+			            $o_t$, then the assignment does not change.
+			            \begin{align}
+				            C_{jih} = d(o_j,o_h) - d(o_j,o_t) \geq 0.
+			            \end{align}
+		      \end{itemize}
 	\end{itemize}
 	\newcommand*{\xMin}{0}%
 	\newcommand*{\xMax}{10}%
@@ -561,13 +561,13 @@
 	\centering
 	\begin{tikzpicture}[scale=0.3]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		%\draw[thick] (7,6)--(6,4);
 		%\draw[thick] (7,6)--(7,4);
 		\node[color=orange] at (3,4) {\Huge\textbullet};
@@ -592,15 +592,15 @@
 \begin{frame}{PAM Clustering (IV)}
 	\begin{itemize}
 		\item \textbf{Case 3:}
-		\begin{itemize}
-			\item $o_j$ currently belongs to medoid $o_i$. If $o_i$ is replaced 
-			with $o_h$ as a medoid, and $o_j$ is closest to medoid $o_t$ of one 
-			of the other clusters, then $o_j$ is reassigned to $o_t$ (new 
-			cluster, different distance).
-			\begin{align}
-				C_{jih} = d(o_j,o_t) - d(o_j,o_h) < 0. 
-			\end{align}
-		\end{itemize}
+		      \begin{itemize}
+			      \item $o_j$ currently belongs to medoid $o_i$. If $o_i$ is replaced
+			            with $o_h$ as a medoid, and $o_j$ is closest to medoid $o_t$ of one
+			            of the other clusters, then $o_j$ is reassigned to $o_t$ (new
+			            cluster, different distance).
+			            \begin{align}
+				            C_{jih} = d(o_j,o_t) - d(o_j,o_h) < 0.
+			            \end{align}
+		      \end{itemize}
 	\end{itemize}
 	\newcommand*{\xMin}{0}%
 	\newcommand*{\xMax}{10}%
@@ -609,13 +609,13 @@
 	\centering
 	\begin{tikzpicture}[scale=0.3]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		\draw[thick] (5,6)--(3,8);
 		\draw[thick] (5,6)--(4,5);
 		\node[color=orange] at (2,6) {\Huge\textbullet};
@@ -640,15 +640,15 @@
 \begin{frame}{PAM Clustering (V)}
 	\begin{itemize}
 		\item \textbf{Case 4:}
-		\begin{itemize}
-			\item $o_j$ currently belongs to medoid $o_t$, $t \neq j$. If $o_i$ 
-			is replaced with $o_h$ as a medoid (from a different cluster!), and 
-			$o_j$ is closest to $o_h$, then $o_j$ is reassigned to $o_h$ (new 
-			cluster, different distance).
-			\begin{align}
-				C_{jih} = d(o_j,o_h) - d(o_j,o_t) < 0. 
-			\end{align}
-		\end{itemize}
+		      \begin{itemize}
+			      \item $o_j$ currently belongs to medoid $o_t$, $t \neq j$. If $o_i$
+			            is replaced with $o_h$ as a medoid (from a different cluster!), and
+			            $o_j$ is closest to $o_h$, then $o_j$ is reassigned to $o_h$ (new
+			            cluster, different distance).
+			            \begin{align}
+				            C_{jih} = d(o_j,o_h) - d(o_j,o_t) < 0.
+			            \end{align}
+		      \end{itemize}
 	\end{itemize}
 	\newcommand*{\xMin}{0}%
 	\newcommand*{\xMax}{10}%
@@ -657,13 +657,13 @@
 	\centering
 	\begin{tikzpicture}[scale=0.3]
 		\foreach \i in {\xMin,...,\xMax} {
-			\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at 
-			(\i,\yMin) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+				(\i,\yMin) {\tiny$\i$};
+			}
 		\foreach \i in {\yMin,...,\yMax} {
-			\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at 
-			(\xMin,\i) {\tiny$\i$};
-		}
+				\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+				(\xMin,\i) {\tiny$\i$};
+			}
 		\node[color=orange] at (2,6) {\Huge\textbullet};
 		\node[color=orange] at (3,8) {\Huge\textbullet};
 		\node[color=orange] at (4,7) {\Huge\textbullet};
@@ -687,45 +687,45 @@
 	\begin{itemize}
 		\item \textbf{(Kaufmann and Rousseeuw, 1990)}
 		\item \textbf{Built in statistical-analysis packages, such as S+.}
-		\item \textbf{Draws multiple samples of the data set, applies PAM on 
-		each sample,\\
-			and gives the best clustering as the output.}
+		\item \textbf{Draws multiple samples of the data set, applies PAM on
+			      each sample,\\
+			      and gives the best clustering as the output.}
 		\item \textbf{Strength:}
-		\begin{itemize}
-			\item Deals with larger data sets than PAM.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Deals with larger data sets than PAM.
+		      \end{itemize}
 		\item \textbf{Weakness:}
-		\begin{itemize}
-			\item Efficiency depends on the sample size.
-			\item A good clustering based on samples will not necessarily 
-			represent \\
-			a good clustering of the whole data set if the sample is biased.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Efficiency depends on the sample size.
+			      \item A good clustering based on samples will not necessarily
+			            represent \\
+			            a good clustering of the whole data set if the sample is biased.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{CLARANS ("Randomized" CLARA)}
 	\begin{itemize}
-		\item \textbf{A Clustering Algorithm based on Randomized Search} (Ng \& 
-		Han, 1994)
+		\item \textbf{A Clustering Algorithm based on Randomized Search} (Ng \&
+		      Han, 1994)
 		\item \textbf{Samples:}
-		\begin{itemize}
-			\item Drawn dynamically with some randomness in each step of the 
-			search.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Drawn dynamically with some randomness in each step of the
+			            search.
+		      \end{itemize}
 		\item \textbf{Clustering process:}
-		\begin{itemize}
-			\item Can be presented as searching a graph where each node is a 
-			potential solution,\\
-			that is, a set of $k$ medoids.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Can be presented as searching a graph where each node is a
+			            potential solution,\\
+			            that is, a set of $k$ medoids.
+		      \end{itemize}
 		\item \textbf{If local optimum found,}
-		\begin{itemize}
-			\item start with new randomly selected node in search for a new 
-			local optimum.
-		\end{itemize}
+		      \begin{itemize}
+			      \item start with new randomly selected node in search for a new
+			            local optimum.
+		      \end{itemize}
 		\item \textbf{More efficient and scalable than both PAM and CLARA.}
-		\item \textbf{Focusing techniques and spatial access structures may 
-		further improve its performance.} (Ester et al., 1995)
+		\item \textbf{Focusing techniques and spatial access structures may
+			      further improve its performance.} (Ester et al., 1995)
 	\end{itemize}
 \end{frame}

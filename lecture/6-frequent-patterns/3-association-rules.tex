@@ -2,29 +2,29 @@
 
 \begin{frame}{Generating Association Rules from Frequent Itemsets}
 	\begin{itemize}
-		\item \textbf{Once frequent itemsets from transactions in 
-			database $D$ found:}
-		\begin{itemize}
-			\item Generate strong association rules from them,\\
-			Where "strong" = satisfying both minimum support and 
-			minimum confidence.
-			\begin{align}
-				\text{confidence}(A \implies B) & = 
-				P(B|A)                          \\
-				& = \frac{\text{support}(A \implies 
-					B)}{\text{support}(A)}.
-			\end{align}
-		\end{itemize}
+		\item \textbf{Once frequent itemsets from transactions in
+			      database $D$ found:}
+		      \begin{itemize}
+			      \item Generate strong association rules from them,\\
+			            Where "strong" = satisfying both minimum support and
+			            minimum confidence.
+			            \begin{align}
+				            \text{confidence}(A \implies B) & =
+				            P(B|A)                                                              \\
+				                                            & = \frac{\text{support}(A \implies
+					            B)}{\text{support}(A)}.
+			            \end{align}
+		      \end{itemize}
 		\item \textbf{For each frequent itemset $l$:}
-		\begin{itemize}
-			\item Generate all \textbf{nonempty subsets} of $l$.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Generate all \textbf{nonempty subsets} of $l$.
+		      \end{itemize}
 		\item \textbf{For every $s$ in $l$:}
-		\begin{itemize}
-			\item Output the rule $s \implies (l - s)$, if
-			\item min\_sup is satisfied, because only frequent itemsets 
-			used.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Output the rule $s \implies (l - s)$, if
+			      \item min\_sup is satisfied, because only frequent itemsets
+			            used.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 

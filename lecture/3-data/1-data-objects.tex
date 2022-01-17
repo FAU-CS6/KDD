@@ -1,184 +1,184 @@
 \section{Data Objects and Attribute Types}
 
 \begin{frame}{Types of Data Sets}
-  \begin{columns}
-    \begin{column}{0.45\textwidth}
-      \textbf{Records:}
-      \begin{itemize}[noitemsep]
-      \item Relational records.
-      \item Data matrix, e.g. numerical matrix, crosstabs.
-      \item Document data: text documents, \textbf{term-frequency vectors}. \tikzmark{n1}
-      \item \textbf{Transaction data}. \tikzmark{n2}
-      \end{itemize}
-      \textbf{Graph and network:}
-      \begin{itemize}[noitemsep]
-      \item World wide web.
-      \item Social of information networks.
-      \item Molecular structures.
-      \end{itemize}
-    \end{column}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\textbf{Records:}
+			\begin{itemize}[noitemsep]
+				\item Relational records.
+				\item Data matrix, e.g. numerical matrix, crosstabs.
+				\item Document data: text documents, \textbf{term-frequency vectors}. \tikzmark{n1}
+				\item \textbf{Transaction data}. \tikzmark{n2}
+			\end{itemize}
+			\textbf{Graph and network:}
+			\begin{itemize}[noitemsep]
+				\item World wide web.
+				\item Social of information networks.
+				\item Molecular structures.
+			\end{itemize}
+		\end{column}
 
-    \begin{column}{0.45\textwidth}  %%<--- here
-      \begin{table}
-        \begin{tabular}{|c|c|c|c|c|c|c|}
-          \multicolumn{1}{c|}{} & \rotatebox[origin=c]{270}{team} & \rotatebox[origin=c]{270}{couch} & \rotatebox[origin=c]{270}{play} & \rotatebox[origin=c]{270}{ball} & \rotatebox[origin=c]{270}{score} & \rotatebox[origin=c]{270}{game} \\ \hline
-          \tikzmark{t1} Document1 & 3 & 0 & 5 & 0 & 2 & 6 \\ \hline
-          Document2 & 0 & 7 & 0 & 2 & 1 & 0 \\ \hline
-          Document3 & 0 & 1 & 0 & 0 & 1 & 2 \\
-          \hline
-        \end{tabular}\\[0.5cm]
-        \begin{tabular} { | c | l |}
-          \hline
-          \textbf{TID} & \textbf{Items} \\
-          \hline
-          \tikzmark{t2} 1 & Bread, Coke, Milk\\
-          2 & Beer, Bread\\
-          3 & Beer, Coke, Diapers, Milk\\
-          4 & Beer, Bread, Diapers, Milk\\
-          5 & Coke, Diapers, Milk \\
-          \hline
-        \end{tabular}
-      \end{table}
-      \begin{tikzpicture}[remember picture,overlay]
-        \path[draw=blue,thick,->]<1-> ([yshift=1mm]n1) -- (t1);
-        \path[draw=blue,thick,->]<1-> ([yshift=1mm]n2) -- (t2);
-      \end{tikzpicture}
-    \end{column}
-  \end{columns}
+		\begin{column}{0.45\textwidth}  %%<--- here
+			\begin{table}
+				\begin{tabular}{|c|c|c|c|c|c|c|}
+					\multicolumn{1}{c|}{}   & \rotatebox[origin=c]{270}{team} & \rotatebox[origin=c]{270}{couch} & \rotatebox[origin=c]{270}{play} & \rotatebox[origin=c]{270}{ball} & \rotatebox[origin=c]{270}{score} & \rotatebox[origin=c]{270}{game} \\ \hline
+					\tikzmark{t1} Document1 & 3                               & 0                                & 5                               & 0                               & 2                                & 6                               \\ \hline
+					Document2               & 0                               & 7                                & 0                               & 2                               & 1                                & 0                               \\ \hline
+					Document3               & 0                               & 1                                & 0                               & 0                               & 1                                & 2                               \\
+					\hline
+				\end{tabular}\\[0.5cm]
+				\begin{tabular} { | c | l |}
+					\hline
+					\textbf{TID}    & \textbf{Items}             \\
+					\hline
+					\tikzmark{t2} 1 & Bread, Coke, Milk          \\
+					2               & Beer, Bread                \\
+					3               & Beer, Coke, Diapers, Milk  \\
+					4               & Beer, Bread, Diapers, Milk \\
+					5               & Coke, Diapers, Milk        \\
+					\hline
+				\end{tabular}
+			\end{table}
+			\begin{tikzpicture}[remember picture,overlay]
+				\path[draw=blue,thick,->]<1-> ([yshift=1mm]n1) -- (t1);
+				\path[draw=blue,thick,->]<1-> ([yshift=1mm]n2) -- (t2);
+			\end{tikzpicture}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Types of Data Sets}
-  \textbf{Ordered data:}
-  \begin{itemize}[noitemsep]
-  \item Video data: sequences of images.
-  \item Temporal data: time series.
-  \item Sequential data: transaction sequences.
-  \item Genetic sequence data.
-  \end{itemize}
-  \textbf{Spatial, image and multimedia:}
-  \begin{itemize}[noitemsep]
-  \item Spatial data: maps.
-  \item Image data.
-  \item Video data.
-  \end{itemize}
+	\textbf{Ordered data:}
+	\begin{itemize}[noitemsep]
+		\item Video data: sequences of images.
+		\item Temporal data: time series.
+		\item Sequential data: transaction sequences.
+		\item Genetic sequence data.
+	\end{itemize}
+	\textbf{Spatial, image and multimedia:}
+	\begin{itemize}[noitemsep]
+		\item Spatial data: maps.
+		\item Image data.
+		\item Video data.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Important Characteristics of Structured Data}
-  \textbf{Dimensionality}:\\
-  Curse of dimensionality (sparse high-dimensional data spaces).\\[0.2cm]
-  % make the example with the volume of a cube
+	\textbf{Dimensionality}:\\
+	Curse of dimensionality (sparse high-dimensional data spaces).\\[0.2cm]
+	% make the example with the volume of a cube
 
-  \textbf{Sparsity}:\\
-  Only presence counts.\\[0.2cm]
+	\textbf{Sparsity}:\\
+	Only presence counts.\\[0.2cm]
 
-  \textbf{Resolution}:\\
-  Patterns depend on the scale.\\[0.2cm]
+	\textbf{Resolution}:\\
+	Patterns depend on the scale.\\[0.2cm]
 
-  \textbf{Distribution}:\\
-  Centrality and dispersion.
+	\textbf{Distribution}:\\
+	Centrality and dispersion.
 \end{frame}
 
 \begin{frame}{Data Objects}
-  \textbf{Data sets are made up of data objects}.\\
-  \textbf{A data object represents an entity}.\\[0.2cm]
+	\textbf{Data sets are made up of data objects}.\\
+	\textbf{A data object represents an entity}.\\[0.2cm]
 
-  Examples:
-  \begin{itemize}
-  \item Sales database: customers, store items, sales.
-  \item Medical database: patients, treatments.
-  \item University database: students, professors, courses.
-  \end{itemize}
+	Examples:
+	\begin{itemize}
+		\item Sales database: customers, store items, sales.
+		\item Medical database: patients, treatments.
+		\item University database: students, professors, courses.
+	\end{itemize}
 
-  They are also called:\\
-  Sampels, examples, instances, data points, objects, tuples, \ldots\\[0.2cm]
+	They are also called:\\
+	Sampels, examples, instances, data points, objects, tuples, \ldots\\[0.2cm]
 
-  \textbf{Data objects are described by attributes}:
-  \begin{itemize}
-  \item Database rows $\rightarrow$ data objects.
-  \item Columns $\rightarrow$ attributes.
-  \end{itemize}
+	\textbf{Data objects are described by attributes}:
+	\begin{itemize}
+		\item Database rows $\rightarrow$ data objects.
+		\item Columns $\rightarrow$ attributes.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Attributes}
-  \textbf{Attribute}:\\
-  Sometimes also in other context: field, dimension, feature, variable, \ldots\\[0.2cm]
-  A data field encodes the property of an entity or feature of a data object.\\
-  E.g. \texttt{customer\_ID}, \texttt{name}, \texttt{address}.\\[0.5cm]
+	\textbf{Attribute}:\\
+	Sometimes also in other context: field, dimension, feature, variable, \ldots\\[0.2cm]
+	A data field encodes the property of an entity or feature of a data object.\\
+	E.g. \texttt{customer\_ID}, \texttt{name}, \texttt{address}.\\[0.5cm]
 
-  \textbf{Types}:
-  \begin{itemize}
-  \item Nominal.
-  \item Binary.
-  \item Ordinal.
-  \item Numerical:
-    \begin{itemize}
-    \item Interval scaled.
-    \item Ratio scaled.
-    \end{itemize}
-  \end{itemize}
+	\textbf{Types}:
+	\begin{itemize}
+		\item Nominal.
+		\item Binary.
+		\item Ordinal.
+		\item Numerical:
+		      \begin{itemize}
+			      \item Interval scaled.
+			      \item Ratio scaled.
+		      \end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Attribute Types}
-  \begin{itemize}
-  \item \textbf{Nominal}:
-    \begin{itemize}
-    \item Categories, states, or "names of things".\\
-      E.g. \texttt{hair\_color} $= \{\text{auburn, black, blond, brown, grey, red, white}\}$.\\
-      Other examples: \texttt{marital\_status}, \texttt{occupation}, \texttt{ID}, \texttt{ZIP code}.
-    \end{itemize}
-  \item \textbf{Binary}:
-    \begin{itemize}
-    \item Nominal attribute with only two states ($0$ and $1$).
-    \item \textbf{Symmetric binaries}: both outcomes equally important, such as \texttt{gender}.
-    \item \textbf{Asymmetric binary}: outcomes not equally important. \\
-      E.g. medical test (positive vs. negative).\\
-      Convention: assign 1 to most important outcome (e.g. HIV positive).
-    \end{itemize}
-  \item \textbf{Ordinal}:
-    \begin{itemize}
-    \item Values have a meaningful order (ranking),\\
-      but magnitude between successive values is not known.\\
-      E.g. \texttt{size} $= \{\text{small, medium, large}\}$, grades, army rankings.
-    \end{itemize}
-  \end{itemize}
+	\begin{itemize}
+		\item \textbf{Nominal}:
+		      \begin{itemize}
+			      \item Categories, states, or "names of things".\\
+			            E.g. \texttt{hair\_color} $= \{\text{auburn, black, blond, brown, grey, red, white}\}$.\\
+			            Other examples: \texttt{marital\_status}, \texttt{occupation}, \texttt{ID}, \texttt{ZIP code}.
+		      \end{itemize}
+		\item \textbf{Binary}:
+		      \begin{itemize}
+			      \item Nominal attribute with only two states ($0$ and $1$).
+			      \item \textbf{Symmetric binaries}: both outcomes equally important, such as \texttt{gender}.
+			      \item \textbf{Asymmetric binary}: outcomes not equally important. \\
+			            E.g. medical test (positive vs. negative).\\
+			            Convention: assign 1 to most important outcome (e.g. HIV positive).
+		      \end{itemize}
+		\item \textbf{Ordinal}:
+		      \begin{itemize}
+			      \item Values have a meaningful order (ranking),\\
+			            but magnitude between successive values is not known.\\
+			            E.g. \texttt{size} $= \{\text{small, medium, large}\}$, grades, army rankings.
+		      \end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Numerical Attribute Types}
-  \begin{itemize}
-  \item \textbf{Numerical: Quantity (integer- or real-valued)}.
-  \item \textbf{Interval scaled}:
-    \begin{itemize}
-    \item Measured on a scale of \textbf{equally sized} units.
-    \item Values have order.\\
-      E.g. temperature in $C$ or $F$, calender dates.
-    \item No true zero-point.
-    \end{itemize}
-  \item \textbf{Ratio scaled}:
-    \begin{itemize}
-    \item Inherent \textbf{zero point}.
-    \item We can speak of values as being an order of magnitude larger \\
-      than the unit of measurement.\\
-      E.g. $10 K$ is twice as high as $5 K$.\\
-      E.g. temperature in Kelvin, length, counts, monetary quantities.
-    \end{itemize}
-  \end{itemize}
+	\begin{itemize}
+		\item \textbf{Numerical: Quantity (integer- or real-valued)}.
+		\item \textbf{Interval scaled}:
+		      \begin{itemize}
+			      \item Measured on a scale of \textbf{equally sized} units.
+			      \item Values have order.\\
+			            E.g. temperature in $C$ or $F$, calender dates.
+			      \item No true zero-point.
+		      \end{itemize}
+		\item \textbf{Ratio scaled}:
+		      \begin{itemize}
+			      \item Inherent \textbf{zero point}.
+			      \item We can speak of values as being an order of magnitude larger \\
+			            than the unit of measurement.\\
+			            E.g. $10 K$ is twice as high as $5 K$.\\
+			            E.g. temperature in Kelvin, length, counts, monetary quantities.
+		      \end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Discrete vs. Continuous Attributes }
-  \begin{itemize}
-  \item \textbf{Discrete attribute}:
-    \begin{itemize}
-    \item Has finite or countably infinite elements.\\
-      E.g. ZIP code, profession, or the set of words in a collection of documents.
-    \item Sometimes represented as integer variables.
-    \item Note: Binary attributes are a special case of discrete attributes.
-    \end{itemize}
-  \item \textbf{Continuous attribute}:
-    \begin{itemize}
-    \item Has real numbers as attribute values.\\
-      E.g. temperature, height, or weight.
-    \item Practically, real values can only be measured and represented using a finite number of digits.
-    \item Continuous attributes are typically represented as floating-point variables.
-    \end{itemize}
-  \end{itemize}
+	\begin{itemize}
+		\item \textbf{Discrete attribute}:
+		      \begin{itemize}
+			      \item Has finite or countably infinite elements.\\
+			            E.g. ZIP code, profession, or the set of words in a collection of documents.
+			      \item Sometimes represented as integer variables.
+			      \item Note: Binary attributes are a special case of discrete attributes.
+		      \end{itemize}
+		\item \textbf{Continuous attribute}:
+		      \begin{itemize}
+			      \item Has real numbers as attribute values.\\
+			            E.g. temperature, height, or weight.
+			      \item Practically, real values can only be measured and represented using a finite number of digits.
+			      \item Continuous attributes are typically represented as floating-point variables.
+		      \end{itemize}
+	\end{itemize}
 \end{frame}

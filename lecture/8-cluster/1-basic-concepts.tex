@@ -2,224 +2,224 @@
 
 \begin{frame}{What is Cluster Analysis?}
 	\begin{itemize}
-		\item \textbf{{\color{airforceblue}Cluster}: A collection of data 
-		objects within a larger set that are:}
-		\begin{itemize}
-			\item {\color{airforceblue}Similar (or related)} to one another 
-			within the same group and,
-			\item dissimilar (or unrelated) to the objects outside the group.
-		\end{itemize}
-		\item \textbf{{\color{airforceblue}Cluster analysis} (or clustering, 
-		data segmentation, $\ldots$):}
-		\begin{itemize}
-			\item {\color{airforceblue}Define similarities} among data based on 
-			the characteristics found in the data (input from user!).
-			\item Group similar data objects into clusters.
-		\end{itemize}
+		\item \textbf{{\color{airforceblue}Cluster}: A collection of data
+			      objects within a larger set that are:}
+		      \begin{itemize}
+			      \item {\color{airforceblue}Similar (or related)} to one another
+			            within the same group and,
+			      \item dissimilar (or unrelated) to the objects outside the group.
+		      \end{itemize}
+		\item \textbf{{\color{airforceblue}Cluster analysis} (or clustering,
+			      data segmentation, $\ldots$):}
+		      \begin{itemize}
+			      \item {\color{airforceblue}Define similarities} among data based on
+			            the characteristics found in the data (input from user!).
+			      \item Group similar data objects into clusters.
+		      \end{itemize}
 		\item \textbf{Unsupervised learning:}
-		\begin{itemize}
-			\item No predefined classes.
-			\item I.e., learning by observation (vs. learning by examples: 
-			supervised).
-		\end{itemize}
+		      \begin{itemize}
+			      \item No predefined classes.
+			      \item I.e., learning by observation (vs. learning by examples:
+			            supervised).
+		      \end{itemize}
 		\item \textbf{Typical applications:}
-		\begin{itemize}
-			\item As a stand-alone tool to get insight into data distribution.
-			\item As a preprocessing step for other algorithms.
-		\end{itemize}
+		      \begin{itemize}
+			      \item As a stand-alone tool to get insight into data distribution.
+			      \item As a preprocessing step for other algorithms.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Clustering for Data Understanding and Applications}
 	\begin{itemize}
 		\item \textbf{Biology:}
-		\begin{itemize}
-			\item Taxonomy of living things: kingdom, phylum, class, order, 
-			family, genus, and species.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Taxonomy of living things: kingdom, phylum, class, order,
+			            family, genus, and species.
+		      \end{itemize}
 		\item \textbf{Land use:}
-		\begin{itemize}
-			\item Identification of areas of similar land use in an 
-			earth-observation database.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Identification of areas of similar land use in an
+			            earth-observation database.
+		      \end{itemize}
 		\item \textbf{Marketing:}
-		\begin{itemize}
-			\item Help marketers discover distinct groups in their customer 
-			bases, and then use this knowledge to develop targeted marketing 
-			programs.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Help marketers discover distinct groups in their customer
+			            bases, and then use this knowledge to develop targeted marketing
+			            programs.
+		      \end{itemize}
 		\item \textbf{City planning:}
-		\begin{itemize}
-			\item Identifying groups of houses according to their house type, 
-			value, and geographical location.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Identifying groups of houses according to their house type,
+			            value, and geographical location.
+		      \end{itemize}
 		\item \textbf{Earthquake studies:}
-		\begin{itemize}
-			\item Observed earthquake epicenters should be clustered along 
-			continent faults.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Observed earthquake epicenters should be clustered along
+			            continent faults.
+		      \end{itemize}
 		\item \textbf{Climate:}
-		\begin{itemize}
-			\item Understanding earth climate, find patterns of atmosphere and 
-			ocean.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Understanding earth climate, find patterns of atmosphere and
+			            ocean.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Quality: What is Good Clustering?}
 	\begin{itemize}
-		\item \textbf{A good clustering method will produce high-quality 
-		clusters.}
-		\begin{itemize}
-			\item \textbf{\color{airforceblue}High intra-class similarity:}
-			\begin{itemize}
-				\item Cohesive within clusters.
-			\end{itemize}
-			\item \textbf{\color{airforceblue}Low inter-class similarity:}
-			\begin{itemize}
-				\item Distinctive between clusters.
-			\end{itemize}
-		\end{itemize}
-		\item \textbf{The {\color{airforceblue}quality} of a clustering method 
-		depends on:}
-		\begin{itemize}
-			\item the \textbf{\color{airforceblue}similarity measure} used by 
-			the method,
-			\item its implementation, and
-			\item its ability to discover some or all of the hidden patterns.
-		\end{itemize}
+		\item \textbf{A good clustering method will produce high-quality
+			      clusters.}
+		      \begin{itemize}
+			      \item \textbf{\color{airforceblue}High intra-class similarity:}
+			            \begin{itemize}
+				            \item Cohesive within clusters.
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}Low inter-class similarity:}
+			            \begin{itemize}
+				            \item Distinctive between clusters.
+			            \end{itemize}
+		      \end{itemize}
+		\item \textbf{The {\color{airforceblue}quality} of a clustering method
+			      depends on:}
+		      \begin{itemize}
+			      \item the \textbf{\color{airforceblue}similarity measure} used by
+			            the method,
+			      \item its implementation, and
+			      \item its ability to discover some or all of the hidden patterns.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Measure the Quality of Clustering}
 	\begin{itemize}
 		\item \textbf{Dissimilarity/similarity metric:}
-		\begin{itemize}
-			\item Similarity is expressed in terms of a distance function, 
-			typically a metric: $d(x,y)$.
-			\item The definitions of distance functions are usually rather 
-			different for interval-scaled, boolean, categorical, ordinal, 
-			ratio, and vector variables (see chapter 2).
-			\item \textbf{\color{airforceblue}Weights} should be associated 
-			with different variables \\
-			based on applications and data semantics.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Similarity is expressed in terms of a distance function,
+			            typically a metric: $d(x,y)$.
+			      \item The definitions of distance functions are usually rather
+			            different for interval-scaled, boolean, categorical, ordinal,
+			            ratio, and vector variables (see chapter 2).
+			      \item \textbf{\color{airforceblue}Weights} should be associated
+			            with different variables \\
+			            based on applications and data semantics.
+		      \end{itemize}
 		\item \textbf{Quality of clustering:}
-		\begin{itemize}
-			\item There is usually a separate 
-			\textbf{\color{airforceblue}"quality" function} that measures the 
-			"goodness" of a cluster.
-			\item It is hard to define "similar enough" or "good enough."
-			\item The answer is typically highly subjective.
-		\end{itemize}
+		      \begin{itemize}
+			      \item There is usually a separate
+			            \textbf{\color{airforceblue}"quality" function} that measures the
+			            "goodness" of a cluster.
+			      \item It is hard to define "similar enough" or "good enough."
+			      \item The answer is typically highly subjective.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Considerations for Cluster Analysis}
 	\begin{itemize}
 		\item \textbf{Partitioning criteria:}
-		\begin{itemize}
-			\item Single level vs. hierarchical partitioning.
-			\item Often, multi-level hierarchical partitioning is desirable.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Single level vs. hierarchical partitioning.
+			      \item Often, multi-level hierarchical partitioning is desirable.
+		      \end{itemize}
 		\item \textbf{Separation of clusters:}
-		\begin{itemize}
-			\item Exclusive (e.g., one customer belongs to only one region) vs.
-			\item Non-exclusive (e.g., one document may belong to more than one 
-			class).
-		\end{itemize}
+		      \begin{itemize}
+			      \item Exclusive (e.g., one customer belongs to only one region) vs.
+			      \item Non-exclusive (e.g., one document may belong to more than one
+			            class).
+		      \end{itemize}
 		\item \textbf{Similarity measure:}
-		\begin{itemize}
-			\item Distance-based (e.g., Euclidean, road network, vector) vs.
-			\item Connectivity-based (e.g., density or contiguity).
-		\end{itemize}
+		      \begin{itemize}
+			      \item Distance-based (e.g., Euclidean, road network, vector) vs.
+			      \item Connectivity-based (e.g., density or contiguity).
+		      \end{itemize}
 		\item \textbf{Clustering space:}
-		\begin{itemize}
-			\item Full space (often when low-dimensional) vs.
-			\item Subspaces (often in high-dimensional clustering).
-		\end{itemize}
+		      \begin{itemize}
+			      \item Full space (often when low-dimensional) vs.
+			      \item Subspaces (often in high-dimensional clustering).
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Requirements and Challenges}
 	\begin{itemize}
 		\item \textbf{Scalability:}
-		\begin{itemize}
-			\item Clustering all the data instead of only the samples.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Clustering all the data instead of only the samples.
+		      \end{itemize}
 		\item \textbf{Ability to deal with different types of attributes:}
-		\begin{itemize}
-			\item Numerical, binary, categorical, ordinal, linked, and mixture 
-			of these.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Numerical, binary, categorical, ordinal, linked, and mixture
+			            of these.
+		      \end{itemize}
 		\item \textbf{Constraint-based clustering:}
-		\begin{itemize}
-			\item User may give inputs on constraints.
-			\item Use domain knowledge to determine input parameters.
-		\end{itemize}
+		      \begin{itemize}
+			      \item User may give inputs on constraints.
+			      \item Use domain knowledge to determine input parameters.
+		      \end{itemize}
 		\item \textbf{Interpretability and usability.}
 		\item \textbf{Others:}
-		\begin{itemize}
-			\item Discovery of clusters with arbitrary shape.
-			\item Ability to deal with noisy data.
-			\item Incremental clustering and insensitivity to input order.
-			\item High dimensionality.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Discovery of clusters with arbitrary shape.
+			      \item Ability to deal with noisy data.
+			      \item Incremental clustering and insensitivity to input order.
+			      \item High dimensionality.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Major Clustering Approaches}
 	\begin{itemize}
 		\item \textbf{Partitioning approach:}
-		\begin{itemize}
-			\item Construct various partitions and then evaluate them by some 
-			criterion.
-			\item E.g., minimizing the sum of square errors.
-			\item Typical methods: k-means, k-medoids, CLARA, CLARANS.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Construct various partitions and then evaluate them by some
+			            criterion.
+			      \item E.g., minimizing the sum of square errors.
+			      \item Typical methods: k-means, k-medoids, CLARA, CLARANS.
+		      \end{itemize}
 		\item \textbf{Hierarchical approach:}
-		\begin{itemize}
-			\item Create a hierarchical decomposition of the set of data (or 
-			objects) using some criterion.
-			\item Typical methods: AGNES, DIANA, BIRCH, CHAMELEON.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Create a hierarchical decomposition of the set of data (or
+			            objects) using some criterion.
+			      \item Typical methods: AGNES, DIANA, BIRCH, CHAMELEON.
+		      \end{itemize}
 		\item \textbf{Density-based approach:}
-		\begin{itemize}
-			\item Based on connectivity and density functions.
-			\item Typical methods: DBSCAN, OPTICS, DENCLUE.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Based on connectivity and density functions.
+			      \item Typical methods: DBSCAN, OPTICS, DENCLUE.
+		      \end{itemize}
 		\item \textbf{Grid-based approach:}
-		\begin{itemize}
-			\item Based on a multiple-level granularity structure.
-			\item Typical methods: STING, WaveCluster, CLIQUE.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Based on a multiple-level granularity structure.
+			      \item Typical methods: STING, WaveCluster, CLIQUE.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Major Clustering Approaches (II)}
 	\begin{itemize}
 		\item \textbf{Model-based approach:}
-		\begin{itemize}
-			\item A model is hypothesized for each of the clusters and tries to 
-			find the best fit of that model to each other.
-			\item Typical methods: EM, SOM, COBWEB.
-		\end{itemize}
+		      \begin{itemize}
+			      \item A model is hypothesized for each of the clusters and tries to
+			            find the best fit of that model to each other.
+			      \item Typical methods: EM, SOM, COBWEB.
+		      \end{itemize}
 		\item \textbf{Frequent-pattern-based approach:}
-		\begin{itemize}
-			\item Based on the analysis of frequent patterns.
-			\item Typical methods: p-Cluster.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Based on the analysis of frequent patterns.
+			      \item Typical methods: p-Cluster.
+		      \end{itemize}
 		\item \textbf{User-guided or constraint-based approach:}
-		\begin{itemize}
-			\item Clustering by considering user-specified or 
-			application-specific constraints.
-			\item Typical methods: COD (obstacles), constrained clustering.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Clustering by considering user-specified or
+			            application-specific constraints.
+			      \item Typical methods: COD (obstacles), constrained clustering.
+		      \end{itemize}
 		\item \textbf{Link-based clustering:}
-		\begin{itemize}
-			\item Objects are often linked together in various ways.
-			\item Massive links can be used to cluster objects: SimRank, 
-			LinkClus.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Objects are often linked together in various ways.
+			      \item Massive links can be used to cluster objects: SimRank,
+			            LinkClus.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}

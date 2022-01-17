@@ -1,159 +1,159 @@
 \section{Ensemble Methods: Increasing the Accuracy}
 
 \begin{frame}{Ensemble Methods: Increasing the Accuracy}
-  \begin{columns}
-    \begin{column}{0.4\textwidth}
-      \centering
-      \begin{itemize}
-      \item \textbf{{\color{airforceblue}Ensemble} methods:}
-        \begin{itemize}
-        \item Use a combination of models to increase accuracy.
-        \item Combine a series of $k$ learned models, $M_1$, $M_2$, $\ldots$, $M_k$, with the aim of creating an improved model $M^*$.
-        \end{itemize}
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \centering
-      \begin{itemize}
-      \item \textbf{Popular ensemble methods:}
-        \begin{itemize}
-        \item Bagging:
-          \begin{itemize}
-          \item Averaging the prediction over a collection of classifiers.
-          \end{itemize}
-        \item Boosting:
-          \begin{itemize}
-          \item Weighted vote with a collection of classifiers.
-          \end{itemize}
-        \item Ensemble:
-          \begin{itemize}
-          \item Combining a set of heterogeneous classifiers.
-          \end{itemize}
-        \end{itemize}
-      \end{itemize}
-    \end{column}
-  \end{columns}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\centering
+			\begin{itemize}
+				\item \textbf{{\color{airforceblue}Ensemble} methods:}
+				      \begin{itemize}
+					      \item Use a combination of models to increase accuracy.
+					      \item Combine a series of $k$ learned models, $M_1$, $M_2$, $\ldots$, $M_k$, with the aim of creating an improved model $M^*$.
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\centering
+			\begin{itemize}
+				\item \textbf{Popular ensemble methods:}
+				      \begin{itemize}
+					      \item Bagging:
+					            \begin{itemize}
+						            \item Averaging the prediction over a collection of classifiers.
+					            \end{itemize}
+					      \item Boosting:
+					            \begin{itemize}
+						            \item Weighted vote with a collection of classifiers.
+					            \end{itemize}
+					      \item Ensemble:
+					            \begin{itemize}
+						            \item Combining a set of heterogeneous classifiers.
+					            \end{itemize}
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Bagging: Boostrap Aggregation}
-  \begin{itemize}
-  \item \textbf{Analogy:}
-    \begin{itemize}
-    \item Diagnosis based on multiple doctors' majority vote.
-    \end{itemize}
-  \item \textbf{Training:}
-    \begin{itemize}
-    \item Given a set $D$ of d tuples, at each iteration $i$, a training set $D_i$ of $d$ tuples is sampled with replacement from $D$ (i.e., bootstrap).
-    \item A classifier model $M_i$ is learned for each training set $D_i$.
-    \end{itemize}
-  \item \textbf{Classification: classify an unknown sample $X$.}
-    \begin{itemize}
-    \item Each classifier $M_i$ returns its class prediction.
-    \item The bagged classifier $M^*$ counts the votes and assigns the class with the most votes to $X$.
-    \end{itemize}
-  \item \textbf{Prediction:}
-    \begin{itemize}
-    \item Can be applied to the prediction of continuous values by taking the average value of each prediction for a given test tuple.
-    \end{itemize}
-  \item \textbf{Accuracy:}
-    \begin{itemize}
-    \item Often significantly better than a single classifier derived from $D$.
-    \item For noisy data: not considerably worse, more robust.
-    \item Proved improved accuracy in prediction.
-    \end{itemize}
-  \end{itemize}
+	\begin{itemize}
+		\item \textbf{Analogy:}
+		      \begin{itemize}
+			      \item Diagnosis based on multiple doctors' majority vote.
+		      \end{itemize}
+		\item \textbf{Training:}
+		      \begin{itemize}
+			      \item Given a set $D$ of d tuples, at each iteration $i$, a training set $D_i$ of $d$ tuples is sampled with replacement from $D$ (i.e., bootstrap).
+			      \item A classifier model $M_i$ is learned for each training set $D_i$.
+		      \end{itemize}
+		\item \textbf{Classification: classify an unknown sample $X$.}
+		      \begin{itemize}
+			      \item Each classifier $M_i$ returns its class prediction.
+			      \item The bagged classifier $M^*$ counts the votes and assigns the class with the most votes to $X$.
+		      \end{itemize}
+		\item \textbf{Prediction:}
+		      \begin{itemize}
+			      \item Can be applied to the prediction of continuous values by taking the average value of each prediction for a given test tuple.
+		      \end{itemize}
+		\item \textbf{Accuracy:}
+		      \begin{itemize}
+			      \item Often significantly better than a single classifier derived from $D$.
+			      \item For noisy data: not considerably worse, more robust.
+			      \item Proved improved accuracy in prediction.
+		      \end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Boosting}
-  \begin{itemize}
-  \item \textbf{Analogy:}
-    \begin{itemize}
-    \item Consult several doctors, based on a combination of weighted diagnoses -- weight assigned based on the previous diagnosis accuracy
-    \end{itemize}
-  \item \textbf{How boosting works:}
-    \begin{itemize}
-    \item Weights are assigned to each training tuple.
-    \item A series of $k$ classifiers is iteratively learned.
-    \item After a classifier $M_i$ is learned, the weights are updated to allow the subsequent classifier, $M_{i+1}$ to pay more attention to the training tuples that were misclassified by $M_i$.
-    \item The final $M^*$ combines the votes of each individual classifier, where the weight of each classifier's vote is a function of its accuracy.
-    \end{itemize}
-  \item \textbf{Boosting algorithm can be extended for numeric prediction.}
-    \begin{itemize}
-    \item Each classifier $M_i$ returns its class prediction.
-    \item The bagged classifier $M^*$ counts the votes and assigns the class with the most votes to $X$.
-    \end{itemize}
-  \end{itemize}
+	\begin{itemize}
+		\item \textbf{Analogy:}
+		      \begin{itemize}
+			      \item Consult several doctors, based on a combination of weighted diagnoses -- weight assigned based on the previous diagnosis accuracy
+		      \end{itemize}
+		\item \textbf{How boosting works:}
+		      \begin{itemize}
+			      \item Weights are assigned to each training tuple.
+			      \item A series of $k$ classifiers is iteratively learned.
+			      \item After a classifier $M_i$ is learned, the weights are updated to allow the subsequent classifier, $M_{i+1}$ to pay more attention to the training tuples that were misclassified by $M_i$.
+			      \item The final $M^*$ combines the votes of each individual classifier, where the weight of each classifier's vote is a function of its accuracy.
+		      \end{itemize}
+		\item \textbf{Boosting algorithm can be extended for numeric prediction.}
+		      \begin{itemize}
+			      \item Each classifier $M_i$ returns its class prediction.
+			      \item The bagged classifier $M^*$ counts the votes and assigns the class with the most votes to $X$.
+		      \end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{AdaBoost ("Adaptive Boosting" (Freund and Schapire, 1997))}
-  \begin{itemize}
-  \item \textbf{Given a set of d class-labeled tuples: $(x_1 , y_1), \ldots, (x_d, y_d)$.}
-  \item \textbf{Initially, all the weights of tuples are set the same: $\frac{1}{d}$.}
-  \item \textbf{Generate $k$ classifiers in $k$ rounds. At round $i$,}
-    \begin{itemize}
-    \item Tuples from $D$ are sampled (with replacement) to form a training set $D_i$ of the same size.
-    \item Each tuple's chance of being selected is based on its weight.
-    \item A classification model $M_i$ is derived from $D_i$.
-    \item Its error rate is calculated using $D_i$ as a test set.
-    \item If a tuple is misclassified, its weight is increased, otherwise it is decreased.
-    \end{itemize}
-  \item \textbf{Error rate: $\text{err}(x_j)$ is the misclassification error of tuple $x_j$. Classifier $M_i$ error rate is the sum of the weights of the misclassified tuples:}
-    \begin{align}
-      \text{error}(M_i) = \sum_{j=1}^{d} w_j \cdot \text{err}(x_j).
-    \end{align}
-    \textbf{The weight of classifier $M_i$'s vote is: $\log \frac{1-\text{error}(M_i)}{\text{error}(M_i)}$.}
-  \end{itemize}
+	\begin{itemize}
+		\item \textbf{Given a set of d class-labeled tuples: $(x_1 , y_1), \ldots, (x_d, y_d)$.}
+		\item \textbf{Initially, all the weights of tuples are set the same: $\frac{1}{d}$.}
+		\item \textbf{Generate $k$ classifiers in $k$ rounds. At round $i$,}
+		      \begin{itemize}
+			      \item Tuples from $D$ are sampled (with replacement) to form a training set $D_i$ of the same size.
+			      \item Each tuple's chance of being selected is based on its weight.
+			      \item A classification model $M_i$ is derived from $D_i$.
+			      \item Its error rate is calculated using $D_i$ as a test set.
+			      \item If a tuple is misclassified, its weight is increased, otherwise it is decreased.
+		      \end{itemize}
+		\item \textbf{Error rate: $\text{err}(x_j)$ is the misclassification error of tuple $x_j$. Classifier $M_i$ error rate is the sum of the weights of the misclassified tuples:}
+		      \begin{align}
+			      \text{error}(M_i) = \sum_{j=1}^{d} w_j \cdot \text{err}(x_j).
+		      \end{align}
+		      \textbf{The weight of classifier $M_i$'s vote is: $\log \frac{1-\text{error}(M_i)}{\text{error}(M_i)}$.}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Random Forest (Breiman, 2001)}
-  \begin{itemize}
-  \item \textbf{Random forest:}
-    \begin{itemize}
-    \item Each classifier in the ensemble is a decision-tree classifier and is generated using a random selection of attributes at each node to determine the split.
-    \item During classification, each tree votes and the most popular class is returned.
-    \end{itemize}
-  \item \textbf{Two methods to construct random forests:}
-    \begin{itemize}
-    \item Forest-RI (random input selection):
-      \begin{itemize}
-      \item Randomly select, at each node, F attributes as candidates for the split at the node. The CART methodology is used to grow the trees to maximum size.
-      \end{itemize}
-    \item Creates new attributes (or features) that are a linear combination of the existing attributes (reduces the correlation between individual classifiers).
-    \end{itemize}
-  \item \textbf{Comparable in accuracy to AdaBoost, but more robust to errors and outliers.}
-  \item \textbf{Insensitive to the number of attributes selected for consideration at each split, and faster than bagging or boosting.}
-  \end{itemize}
+	\begin{itemize}
+		\item \textbf{Random forest:}
+		      \begin{itemize}
+			      \item Each classifier in the ensemble is a decision-tree classifier and is generated using a random selection of attributes at each node to determine the split.
+			      \item During classification, each tree votes and the most popular class is returned.
+		      \end{itemize}
+		\item \textbf{Two methods to construct random forests:}
+		      \begin{itemize}
+			      \item Forest-RI (random input selection):
+			            \begin{itemize}
+				            \item Randomly select, at each node, F attributes as candidates for the split at the node. The CART methodology is used to grow the trees to maximum size.
+			            \end{itemize}
+			      \item Creates new attributes (or features) that are a linear combination of the existing attributes (reduces the correlation between individual classifiers).
+		      \end{itemize}
+		\item \textbf{Comparable in accuracy to AdaBoost, but more robust to errors and outliers.}
+		\item \textbf{Insensitive to the number of attributes selected for consideration at each split, and faster than bagging or boosting.}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Classification of Class-imbalanced Data Sets}
-  \begin{itemize}
-  \item \textbf{Class-imbalance problem:}
-    \begin{itemize}
-    \item Rare positive example but numerous negative ones.
-      \begin{itemize}
-      \item E.g., medical diagnosis, fraud, oil-spill, fault, etc.
-      \end{itemize}
-    \item Traditional methods assume a balanced distribution of classes and equal error costs: not suitable for class-imbalanced data.
-    \end{itemize}
-  \item \textbf{Typical methods for imbalanced data in 2-class classification:}
-    \begin{itemize}
-    \item \textbf{\color{airforceblue}Oversampling:}
-      \begin{itemize}
-      \item Re-sampling of data from positive class.
-      \end{itemize}
-    \item \textbf{\color{airforceblue}Undersampling:}
-      \begin{itemize}
-      \item Randomly eliminate tuples from negative class.
-      \end{itemize}
-    \item \textbf{\color{airforceblue}Threshold-moving:}
-      \begin{itemize}
-      \item Moves the decision threshold, $t$, so that the rare-class tuples are easier to classify, and hence, less chance of costly false-negative errors
-      \end{itemize}
-    \item \textbf{\color{airforceblue}Ensemble techniques:}
-      \begin{itemize}
-      \item Ensemble multiple classifiers introduced above.
-      \end{itemize}
-    \end{itemize}
-  \item \textbf{Still difficult on multi-class tasks.}
-  \end{itemize}
+	\begin{itemize}
+		\item \textbf{Class-imbalance problem:}
+		      \begin{itemize}
+			      \item Rare positive example but numerous negative ones.
+			            \begin{itemize}
+				            \item E.g., medical diagnosis, fraud, oil-spill, fault, etc.
+			            \end{itemize}
+			      \item Traditional methods assume a balanced distribution of classes and equal error costs: not suitable for class-imbalanced data.
+		      \end{itemize}
+		\item \textbf{Typical methods for imbalanced data in 2-class classification:}
+		      \begin{itemize}
+			      \item \textbf{\color{airforceblue}Oversampling:}
+			            \begin{itemize}
+				            \item Re-sampling of data from positive class.
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}Undersampling:}
+			            \begin{itemize}
+				            \item Randomly eliminate tuples from negative class.
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}Threshold-moving:}
+			            \begin{itemize}
+				            \item Moves the decision threshold, $t$, so that the rare-class tuples are easier to classify, and hence, less chance of costly false-negative errors
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}Ensemble techniques:}
+			            \begin{itemize}
+				            \item Ensemble multiple classifiers introduced above.
+			            \end{itemize}
+		      \end{itemize}
+		\item \textbf{Still difficult on multi-class tasks.}
+	\end{itemize}
 \end{frame}
