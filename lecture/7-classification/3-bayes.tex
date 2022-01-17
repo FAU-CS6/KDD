@@ -226,29 +226,26 @@
 \end{frame}
 
 \begin{frame}{Naïve Bayesian Classifier: Comments}
+  \textbf{Advantages}
   \begin{itemize}
-  \item \textbf{Advantages:}
+  \item Easy to implement.
+  \item Good results obtained in most of the cases.
+  \end{itemize}
+
+  \textbf{Disadvantages}
+  \begin{itemize}
+  \item Assumption: class conditional independence, therefore loss of accuracy.
+  \item Practically, \textbf{dependencies} exist among variables.
     \begin{itemize}
-    \item Easy to implement.
-    \item Good results obtained in most of the cases.
-    \end{itemize}
-  \item \textbf{Disadvantages:}
-    \begin{itemize}
-    \item Assumption: class conditional independence, therefore loss of accuracy.
-    \item Practically, \textbf{dependencies} exist among variables.
+    \item E.g., hospital patients:
       \begin{itemize}
-      \item E.g., hospital patients:
-        \begin{itemize}
-        \item Profile: age, family history, etc.
-        \item Symptoms: fever, cough, etc.
-        \item Disease: lung cancer, diabetes, etc.
-        \end{itemize}
-      \item Cannot be modeled by naïve Bayesian classifier.
+      \item Profile: age, family history, etc.
+      \item Symptoms: fever, cough, etc.
+      \item Disease: lung cancer, diabetes, etc.
       \end{itemize}
-    \end{itemize}
-  \item \textbf{How to deal with these dependencies?}
-    \begin{itemize}
-    \item Bayesian belief networks (see textbook).
+    \item Cannot be modeled by naïve Bayesian classifier.
     \end{itemize}
   \end{itemize}
+
+  \textbf{How to deal with these dependencies?} $\rightarrow$ Bayesian belief networks (see textbook).
 \end{frame}
