@@ -14,5 +14,10 @@ jobs:
       - name: Install the Pre-Commit framework
         run: pip install pre-commit
 
+      - name: Install texlive as needed for latexindent
+        run: |
+          apt-get update
+          apt-get install texlive-full
+
       - name: Run the hooks again to validate they have run
         run: pre-commit run --all-files
