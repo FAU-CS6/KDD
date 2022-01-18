@@ -12,6 +12,7 @@ jobs:
         uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
+            ls -a
             apk add --no-cache python3 py3-pip
             pip3 install pre-commit
             pre-commit run --all-files
