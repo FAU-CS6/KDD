@@ -360,41 +360,38 @@
 
 \begin{frame}{BIRCH (Balanced Iterative Reducing and Clustering Using
 		Hierarchies)}
+	(Zhang, Ramakrishnan \& Livny, SIGMOD'96)
+
+	\textbf{Incrementally construct a CF (Clustering Feature) tree:}
 	\begin{itemize}
-		\item (Zhang, Ramakrishnan \& Livny, SIGMOD'96)
-		\item \textbf{Incrementally construct a CF (Clustering Feature) tree:}
+		\item A hierarchical data structure for multiphase clustering.
+		\item Phase 1: Scan DB to build an initial in-memory CF-tree.
 		      \begin{itemize}
-			      \item A hierarchical data structure for multiphase clustering.
-			      \item Phase 1: Scan DB to build an initial in-memory CF-tree.
-			            \begin{itemize}
-				            \item A multi-level compression of the data that tries to
-				                  preserve the inherent clustering structure of the data.
-			            \end{itemize}
-			      \item Phase 2: Use an arbitrary clustering algorithm to cluster the
-			            leaf nodes of the CF-tree.
+			      \item A multi-level compression of the data that tries to
+			            preserve the inherent clustering structure of the data.
 		      \end{itemize}
-		\item \textbf{Scales linearly:}
-		      \begin{itemize}
-			      \item Finds a good clustering with a single scan and improves the
-			            quality with a few additional scans.
-		      \end{itemize}
-		\item \textbf{Weakness:}
-		      \begin{itemize}
-			      \item Handles only numerical data, and sensitive to the order of
-			            the data records.
-		      \end{itemize}
+		\item Phase 2: Use an arbitrary clustering algorithm to cluster the
+		      leaf nodes of the CF-tree.
+	\end{itemize}
+	\textbf{Scales linearly:}
+	\begin{itemize}
+		\item Finds a good clustering with a single scan and improves the
+		      quality with a few additional scans.
+	\end{itemize}
+	\textbf{Weakness:}
+	\begin{itemize}
+		\item Handles only numerical data, and sensitive to the order of
+		      the data records.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Clustering Feature in BIRCH}
+	\textbf{Clustering Feature CF = (n, LS, SS)}:
 	\begin{itemize}
-		\item \textbf{Clustering Feature CF = (n, LS, SS)}:
-		      \begin{itemize}
-			      \item $3$D vector summarizing statistics about clusters.
-			      \item $n$: number of data points.
-			      \item LS: linear sum of $N$ points $\sum_{i=1}^{n} x_i$.
-			      \item SS: square sum of $N$ points $\sum_{i=1}^{n} x_i^2$.
-		      \end{itemize}
+		\item $3$D vector summarizing statistics about clusters.
+		\item $n$: number of data points.
+		\item LS: linear sum of $N$ points $\sum_{i=1}^{n} x_i$.
+		\item SS: square sum of $N$ points $\sum_{i=1}^{n} x_i^2$.
 	\end{itemize}
 	\newcommand*{\xMin}{0}%
 	\newcommand*{\xMax}{10}%
@@ -473,15 +470,15 @@
 			            children.
 			      \item \textbf{\color{airforceblue}Threshold $T$}: maximum diameter
 			            of sub-clusters stored at leaf nodes.
-			            \begin{itemize}
-				            \item Diameter $D$: average pairwise distance within a cluster,
-				                  \\
-				                  reflects the tightness of the cluster around the centroid:
-				                  \begin{align}
-					                  D = \sqrt{\frac{\sum_{i=1}^{n} \sum_{j=1}^{n}
-							                  (o_i-o_j)^2}{n(n-1)}} = \sqrt{\frac{2nSS - 2LS^2}{n(n-1)}}.
-				                  \end{align}
-			            \end{itemize}
+
+			            Diameter $D$: average pairwise distance within a cluster,
+			            \\
+			            reflects the tightness of the cluster around the centroid:
+			            \begin{align}
+				            D = \sqrt{\frac{\sum_{i=1}^{n} \sum_{j=1}^{n}
+						            (o_i-o_j)^2}{n(n-1)}} = \sqrt{\frac{2nSS - 2LS^2}{n(n-1)}}.
+			            \end{align}
+
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -542,57 +539,55 @@
 \end{frame}
 
 \begin{frame}{The BIRCH algorithm}
+	\textbf{Phase 1:}
 	\begin{itemize}
-		\item \textbf{Phase 1:}
+		\item \textbf{For each point in the input:}
 		      \begin{itemize}
-			      \item \textbf{For each point in the input:}
-			            \begin{itemize}
-				            \item Find closest leaf-node entry.
-				            \item Add point to leaf-node entry and update CF.
-				            \item If $entry\_diameter > max\_diameter$, then split leaf
-				                  node, and possibly parents.
-				            \item Information about new point is passed toward the root of
-				                  the tree.
-			            \end{itemize}
-			      \item \textbf{Algorithm is $\mathcal{O}(n)$ and incremental.}
-			      \item \textbf{Concerns:}
-			            \begin{itemize}
-				            \item Sensitive to insertion order of data points.
-				            \item Since we fix the size of leaf nodes, clusters may not be
-				                  so natural.
-				            \item Clusters tend to be spherical given the radius and
-				                  diameter measures.
-			            \end{itemize}
+			      \item Find closest leaf-node entry.
+			      \item Add point to leaf-node entry and update CF.
+			      \item If $entry\_diameter > max\_diameter$, then split leaf
+			            node, and possibly parents.
+			      \item Information about new point is passed toward the root of
+			            the tree.
+		      \end{itemize}
+		\item \textbf{Algorithm is $\mathcal{O}(n)$ and incremental.}
+		\item \textbf{Concerns:}
+		      \begin{itemize}
+			      \item Sensitive to insertion order of data points.
+			      \item Since we fix the size of leaf nodes, clusters may not be
+			            so natural.
+			      \item Clusters tend to be spherical given the radius and
+			            diameter measures.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{CHAMELEON: Hierarchical Clustering using Dynamic Modeling}
+
+	(Karypis, Han \& Kumar, 1999)
 	\begin{itemize}
-		\item (Karypis, Han \& Kumar, 1999)
+		\item \textbf{Measures the similarity based on a dynamic model:}
 		      \begin{itemize}
-			      \item \textbf{Measures the similarity based on a dynamic model:}
+			      \item Two clusters are merged only if the
+			            \textbf{interconnectivity} and \textbf{closeness (proximity)}
+			            between two clusters are high relative to the intraconnectivity
+			            of the clusters and the closeness of items within the clusters.
+		      \end{itemize}
+		\item \textbf{Graph-based, and a two-phase algorithm.}
+		      \begin{itemize}
+			      \item Use a graph-partitioning algorithm:
 			            \begin{itemize}
-				            \item Two clusters are merged only if the
-				                  \textbf{interconnectivity} and \textbf{closeness (proximity)}
-				                  between two clusters are high relative to the intraconnectivity
-				                  of the clusters and the closeness of items within the clusters.
+				            \item Cluster objects into a large number of relatively
+				                  small sub-clusters.
 			            \end{itemize}
-			      \item \textbf{Graph-based, and a two-phase algorithm.}
+			      \item Use an agglomerative hierarchical clustering algorithm:
 			            \begin{itemize}
-				            \item Use a graph-partitioning algorithm:
-				                  \begin{itemize}
-					                  \item Cluster objects into a large number of relatively
-					                        small sub-clusters.
-				                  \end{itemize}
-				            \item Use an agglomerative hierarchical clustering algorithm:
-				                  \begin{itemize}
-					                  \item Find the genuine clusters by repeatedly combining
-					                        these sub-clusters.
-				                  \end{itemize}
+				            \item Find the genuine clusters by repeatedly combining
+				                  these sub-clusters.
 			            \end{itemize}
 		      \end{itemize}
 	\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Overall Framework of CHAMELEON}
@@ -867,32 +862,30 @@
 \end{frame}
 
 \begin{frame}{Probabilistic Hierarchical Clustering}
-	\centering
+	\textbf{Algorithmic hierarchical clustering.}
 	\begin{itemize}
-		\item \textbf{Algorithmic hierarchical clustering.}
-		      \begin{itemize}
-			      \item Nontrivial to choose a good distance measure.
-			      \item Hard to handle missing attribute values.
-			      \item Optimization goal not clear: heuristic, local search.
-		      \end{itemize}
-		\item \textbf{Probabilistic hierarchical clustering.}
-		      \begin{itemize}
-			      \item Use probabilistic models to measure distances between
-			            clusters.
-			      \item \textbf{\color{airforceblue}Generative model:}
-			            \begin{itemize}
-				            \item Regard the set of data objects to be clustered as a
-				                  sample of the underlying data-generation mechanism to be
-				                  analyzed.
-			            \end{itemize}
-			      \item Easy to understand, same efficiency as algorithmic
-			            agglomerative clustering method, can handle partially observed data.
-			      \item In practice, assume the generative models adopt
-			            \textbf{\color{airforceblue}common distribution functions}, e.g.,
-			            Gaussian distribution or Bernoulli distribution, governed by
-			            parameters.
-		      \end{itemize}
+		\item Nontrivial to choose a good distance measure.
+		\item Hard to handle missing attribute values.
+		\item Optimization goal not clear: heuristic, local search.
 	\end{itemize}
+	\textbf{Probabilistic hierarchical clustering.}
+	\begin{itemize}
+		\item Use probabilistic models to measure distances between
+		      clusters.
+		\item \textbf{\color{airforceblue}Generative model:}
+		      \begin{itemize}
+			      \item Regard the set of data objects to be clustered as a
+			            sample of the underlying data-generation mechanism to be
+			            analyzed.
+		      \end{itemize}
+		\item Easy to understand, same efficiency as algorithmic
+		      agglomerative clustering method, can handle partially observed data.
+		\item In practice, assume the generative models adopt
+		      \textbf{\color{airforceblue}common distribution functions}, e.g.,
+		      Gaussian distribution or Bernoulli distribution, governed by
+		      parameters.
+	\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Generative Model (I)}
@@ -951,28 +944,25 @@
 \end{frame}
 
 \begin{frame}{A Probabilistic Hierarchical Clustering Algorithm (II)}
-	\centering
+	\textbf{Algorithm: Progressively merge points and clusters}
 	\begin{itemize}
-		\item \textbf{Algorithm: Progressively merge points and clusters}
+		\item Input: $D = \{o_1, \ldots, o_n\}$: a dataset containing $n$
+		      objects.
+		\item Output: A hierarchy of clusters.
+		\item Method:
 		      \begin{itemize}
-			      \item Input: $D = \{o_1, \ldots, o_n\}$: a dataset containing $n$
-			            objects.
-			      \item Output: A hierarchy of clusters.
-			      \item Method:
+			      \item \texttt{Create cluster for each object $C_i = \{o_i\}$,
+				            for $1 \leq i \leq n$}.
+			      \item \textbf{For $i=1$ to $n$:}
 			            \begin{itemize}
-				            \item \texttt{Create cluster for each object $C_i = \{o_i\}$,
-					                  for $1 \leq i \leq n$}.
-				            \item \textbf{For $i=1$ to $n$:}
-				                  \begin{itemize}
-					                  \item \texttt{Find a pair of clusters $C_i$ and $C_j$, such
-						                        that}\\
-					                        $C_i, C_j = \text{arg max}_{i \neq j} \left( \log\left(
-							                        \frac{P(C_i \cup C_j)}{P(C_i)P(C_j)} \right) \right)$.
-					                  \item \textbf{If $\log\left( \frac{P(C_i \cup
-								                        C_j)}{P(C_i)P(C_j)}\right) > 0$ then} \texttt{merge $C_i$
-						                        and $C_j$},
-					                  \item \textbf{Else stop.}
-				                  \end{itemize}
+				            \item \texttt{Find a pair of clusters $C_i$ and $C_j$, such
+					                  that}\\
+				                  $C_i, C_j = \text{arg max}_{i \neq j} \left( \log\left(
+						                  \frac{P(C_i \cup C_j)}{P(C_i)P(C_j)} \right) \right)$.
+				            \item \textbf{If $\log\left( \frac{P(C_i \cup
+							                  C_j)}{P(C_i)P(C_j)}\right) > 0$ then} \texttt{merge $C_i$
+					                  and $C_j$},
+				            \item \textbf{Else stop.}
 			            \end{itemize}
 		      \end{itemize}
 	\end{itemize}

@@ -268,28 +268,27 @@
 \end{frame}
 
 \begin{frame}{Estimating Confidence Intervals: Statistical Significance}
+	\textbf{Are $M_1$ and $M_2$ {\color{airforceblue} significantly different}?}
 	\begin{itemize}
-		\item \textbf{Are $M_1$ and $M_2$ {\color{airforceblue} significantly different}?}
+		\item Compute $t$. Select significance level (E.g., sig = $5 \%$).
+		\item Consult table for $t$-distribution:
 		      \begin{itemize}
-			      \item Compute $t$. Select significance level (E.g., sig = $5 \%$).
-			      \item Consult table for $t$-distribution:
+			      \item $t$-distribution is symmetrical:
 			            \begin{itemize}
-				            \item $t$-distribution is symmetrical:
-				                  \begin{itemize}
-					                  \item Typically upper $\%$ points of distribution shown.
-				                  \end{itemize}
-				            \item Find critical value $c$ corresponding to $k-1$ degrees of freedom (here, $9$)
-				            \item and for confidence limit $z = \frac{\text{sig}}{2}$ (here, $0.025$).
-				            \item $\implies$ Here, critical value $c = 2.262$
+				            \item Typically upper $\%$ points of distribution shown.
 			            \end{itemize}
-			      \item If $t > c$ or $t < -c$, then $t$ value lies in rejection region:
-			            \begin{itemize}
-				            \item \textbf{Reject null hypothesis} that mean error rates of $M_1$ and $M_2$ are equal.
-				            \item Conclude: \textbf{statistically significant difference} between $M_1$ and $M_2$.
-			            \end{itemize}
-			      \item Otherwise, conclude that any difference is chance.
+			      \item Find critical value $c$ corresponding to $k-1$ degrees of freedom (here, $9$)
+			      \item and for confidence limit $z = \frac{\text{sig}}{2}$ (here, $0.025$).
+			      \item $\implies$ Here, critical value $c = 2.262$
 		      \end{itemize}
+		\item If $t > c$ or $t < -c$, then $t$ value lies in rejection region:
+		      \begin{itemize}
+			      \item \textbf{Reject null hypothesis} that mean error rates of $M_1$ and $M_2$ are equal.
+			      \item Conclude: \textbf{statistically significant difference} between $M_1$ and $M_2$.
+		      \end{itemize}
+		\item Otherwise, conclude that any difference is chance.
 	\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Model Selection: ROC-Curves}

@@ -87,12 +87,11 @@
 			      \item Divide a given data set into $m$ parts.
 			      \item Use $m-1$ parts to obtain a clustering model.
 			      \item Use the remaining part to test the quality of the clustering.
-			            \begin{itemize}
-				            \item E.g., for each point in the test set, find the closest
-				                  centroid, and use the sum of squared distances between all
-				                  points in the test set and the closest centroids to measure how
-				                  well the model fits the test set.
-			            \end{itemize}
+
+			            E.g., for each point in the test set, find the closest centroid,
+			            and use the sum of squared distances between all points in the
+			            test set and the closest centroids to measure how well the model
+			            fits the test set.
 			      \item For any $k > 0$, repeat it $m$ times, compare the overall
 			            quality measure w.r.t. different $k$'s, and find $\#$ of clusters
 			            that fits the data the best.
@@ -101,30 +100,28 @@
 \end{frame}
 
 \begin{frame}{Measuring Clustering Quality}
-	\begin{itemize}
-		\item \textbf{Two methods:}
+	\textbf{Two methods:}
+	\begin{enumerate}
+		\item \textbf{{\color{airforceblue}Extrinsic}: supervised, i.e.,
+			      the ground truth is available.}
 		      \begin{itemize}
-			      \item \textbf{{\color{airforceblue}Extrinsic}: supervised, i.e.,
-				            the ground truth is available.}
+			      \item Compare a clustering against the ground truth using
+			            certain clustering quality measure.
 			            \begin{itemize}
-				            \item Compare a clustering against the ground truth using
-				                  certain clustering quality measure.
-				                  \begin{itemize}
-					                  \item Ex. BCubed precision and recall metrics.
-				                  \end{itemize}
-			            \end{itemize}
-			      \item \textbf{{\color{airforceblue}Intrinsic}: unsupervised, i.e.,
-				            the ground truth is unavailable.}
-			            \begin{itemize}
-				            \item Evaluate the goodness of a clustering by considering how
-				                  well the clusters are separated, and how compact the clusters
-				                  are.
-				                  \begin{itemize}
-					                  \item Ex. silhouette coefficient.
-				                  \end{itemize}
+				            \item Ex. BCubed precision and recall metrics.
 			            \end{itemize}
 		      \end{itemize}
-	\end{itemize}
+		\item \textbf{{\color{airforceblue}Intrinsic}: unsupervised, i.e.,
+			      the ground truth is unavailable.}
+		      \begin{itemize}
+			      \item Evaluate the goodness of a clustering by considering how
+			            well the clusters are separated, and how compact the clusters
+			            are.
+			            \begin{itemize}
+				            \item Ex. silhouette coefficient.
+			            \end{itemize}
+		      \end{itemize}
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Measuring Clustering Quality: Extrinsic Methods}

@@ -4,16 +4,17 @@
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
 			\textbf{Records:}
-			\begin{itemize}[noitemsep]
+			\begin{itemize}
 				\item Relational records.
 				\item Data matrix, e.g. numerical matrix, crosstabs.
-				\item Document data: text documents, \textbf{term-frequency vectors}. \tikzmark{n1}
-				\item \textbf{Transaction data}. \tikzmark{n2}
+				\item Document data: text documents, typically represented as
+				      \textit{term-frequency vectors}. \tikzmark{n1}
+				\item \textit{Transaction data}. \tikzmark{n2}
 			\end{itemize}
 			\textbf{Graph and network:}
-			\begin{itemize}[noitemsep]
+			\begin{itemize}
 				\item World wide web.
-				\item Social of information networks.
+				\item Social information networks.
 				\item Molecular structures.
 			\end{itemize}
 		\end{column}
@@ -21,27 +22,27 @@
 		\begin{column}{0.45\textwidth}  %%<--- here
 			\begin{table}
 				\begin{tabular}{|c|c|c|c|c|c|c|}
-					\multicolumn{1}{c|}{}   & \rotatebox[origin=c]{270}{team} & \rotatebox[origin=c]{270}{couch} & \rotatebox[origin=c]{270}{play} & \rotatebox[origin=c]{270}{ball} & \rotatebox[origin=c]{270}{score} & \rotatebox[origin=c]{270}{game} \\ \hline
-					\tikzmark{t1} Document1 & 3                               & 0                                & 5                               & 0                               & 2                                & 6                               \\ \hline
-					Document2               & 0                               & 7                                & 0                               & 2                               & 1                                & 0                               \\ \hline
-					Document3               & 0                               & 1                                & 0                               & 0                               & 1                                & 2                               \\
+					\multicolumn{1}{c|}{}  & \rotatebox[origin=c]{270}{team} & \rotatebox[origin=c]{270}{couch} & \rotatebox[origin=c]{270}{play} & \rotatebox[origin=c]{270}{ball} & \rotatebox[origin=c]{270}{score} & \rotatebox[origin=c]{270}{game} \\ \hline
+					\tikzmark{t1}Document1 & 3                               & 0                                & 5                               & 0                               & 2                                & 6                               \\ \hline
+					Document2              & 0                               & 7                                & 0                               & 2                               & 1                                & 0                               \\ \hline
+					Document3              & 0                               & 1                                & 0                               & 0                               & 1                                & 2                               \\
 					\hline
 				\end{tabular}\\[0.5cm]
 				\begin{tabular} { | c | l |}
 					\hline
-					\textbf{TID}    & \textbf{Items}             \\
+					\textbf{TID}   & \textbf{Items}             \\
 					\hline
-					\tikzmark{t2} 1 & Bread, Coke, Milk          \\
-					2               & Beer, Bread                \\
-					3               & Beer, Coke, Diapers, Milk  \\
-					4               & Beer, Bread, Diapers, Milk \\
-					5               & Coke, Diapers, Milk        \\
+					\tikzmark{t2}1 & Bread, Coke, Milk          \\\hline
+					2              & Beer, Bread                \\\hline
+					3              & Beer, Coke, Diapers, Milk  \\\hline
+					4              & Beer, Bread, Diapers, Milk \\\hline
+					5              & Coke, Diapers, Milk        \\
 					\hline
 				\end{tabular}
 			\end{table}
 			\begin{tikzpicture}[remember picture,overlay]
-				\path[draw=blue,thick,->]<1-> ([yshift=1mm]n1) -- (t1);
-				\path[draw=blue,thick,->]<1-> ([yshift=1mm]n2) -- (t2);
+				\draw[faucyan,thick,->] ([yshift=1mm]n1) to[out=0,in=180] ([yshift=1mm]t1);
+				\draw[faucyan,thick,->] ([yshift=1mm]n2) to[out=0,in=180] ([yshift=1mm]t2);
 			\end{tikzpicture}
 		\end{column}
 	\end{columns}
@@ -49,18 +50,21 @@
 
 \begin{frame}{Types of Data Sets}
 	\textbf{Ordered data:}
-	\begin{itemize}[noitemsep]
+	\begin{itemize}
 		\item Video data: sequences of images.
 		\item Temporal data: time series.
 		\item Sequential data: transaction sequences.
 		\item Genetic sequence data.
 	\end{itemize}
 	\textbf{Spatial, image and multimedia:}
-	\begin{itemize}[noitemsep]
+	\begin{itemize}
 		\item Spatial data: maps.
 		\item Image data.
 		\item Video data.
 	\end{itemize}
+	% TODO: Add example visualizations:
+	% - time series: studends enrolled at FAU (https://www.erlangen.de/desktopdefault.aspx/tabid-1917/4223_read-7988/)
+	% - image data: pictures of FAU headquarters and tech fak building as an example for landmarks
 \end{frame}
 
 \begin{frame}{Important Characteristics of Structured Data}
@@ -79,8 +83,11 @@
 \end{frame}
 
 \begin{frame}{Data Objects}
-	\textbf{Data sets are made up of data objects}.\\
-	\textbf{A data object represents an entity}.\\[0.2cm]
+	\begin{block}{Data Object}
+		A data set consists of data objects. A single \textit{data object} represents an entity.
+	\end{block}
+
+	Also known as: Sampels, examples, instances, data points, objects, tuples.\\\medskip
 
 	Examples:
 	\begin{itemize}
@@ -88,9 +95,6 @@
 		\item Medical database: patients, treatments.
 		\item University database: students, professors, courses.
 	\end{itemize}
-
-	They are also called:\\
-	Sampels, examples, instances, data points, objects, tuples, \ldots\\[0.2cm]
 
 	\textbf{Data objects are described by attributes}:
 	\begin{itemize}
@@ -100,85 +104,258 @@
 \end{frame}
 
 \begin{frame}{Attributes}
-	\textbf{Attribute}:\\
-	Sometimes also in other context: field, dimension, feature, variable, \ldots\\[0.2cm]
-	A data field encodes the property of an entity or feature of a data object.\\
-	E.g. \texttt{customer\_ID}, \texttt{name}, \texttt{address}.\\[0.5cm]
+	\begin{block}{Attribute}
+		An \textit{attribute} represents a specific characteristic such as customer
+		unique identifier, customer name, and customer address.
+	\end{block}
 
-	\textbf{Types}:
+	Also known as: variable, feature, field, dimension.\\\medskip
+
+	\note[itemize]{
+		\item \textit{dimension}: used in DWH, but also in statistics: number of
+		observations not number of attributes/variables
+		\item \textit{feature}: common in Machine Learning
+		\item \textit{variable}: prefered by statisticians
+	}
+
 	\begin{itemize}
-		\item Nominal.
-		\item Binary.
-		\item Ordinal.
-		\item Numerical:
-		      \begin{itemize}
-			      \item Interval scaled.
-			      \item Ratio scaled.
-		      \end{itemize}
+		\item \textit{Observations}: Observed or measured values of an attribute.
+		\item An \textit{attribute vector} or \textit{feature vector} describes a
+		      data object by its set of attribtues.
+		\item Data sets with one attribute are referred to as \textit{univariate},
+		      whereas a \textit{multivariate} data set consists of more than one
+		      attribute.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Attribute Types}
+\begin{frame}{Types of Attributes}
+	Two different views:
+
+	\vspace*{1em}
+	\begin{columns}[t]
+		\begin{column}{0.5\columnwidth}
+			\centering
+			\begin{tikzpicture}[
+					every path/.style={
+							thick,
+							>=latex,
+							rounded corners=5pt,
+							draw,
+							->
+						},
+					every edge/.style={draw, thick, >=latex},
+					box/.style={
+							draw,
+							fill=white,
+							rounded corners=.25em,
+							% text height=.8em,
+							outer sep=0,
+							inner sep=.6em,
+							align=center
+						}
+				]
+				\node[box] at (0,0) (root) {Types of Measurements};
+				\node[box, below left=2em and -3em of root] (qualitative) {Qualitative};
+				\node[box, below right=2em and -3em of root] (quantitative) {Quantitative};
+
+				\node[box, below left=2em and -2.5em of qualitative] (nominal) {Nominal};
+				\node[box, below right=2em and -2.5em of qualitative] (ordinal) {Ordinal};
+
+				\node[box, below left=2em and -2.5em of quantitative] (interval) {Interval};
+				\node[box, below right=2em and -2.5em of quantitative] (ratio) {Ratio};
+
+				\coordinate[below=1em of root.south] (root-below);
+				\coordinate[above=1em of quantitative.north] (quantitative-above);
+				\coordinate[above=1em of qualitative.north] (qualitative-above);
+				\path[faugray] (root.south) -- (root-below) -- (qualitative-above) -- (qualitative.north);
+				\path[faugray] (root.south) -- (root-below) -- (quantitative-above) -- (quantitative.north);
+
+				\coordinate[below=1em of quantitative.south] (quantitative-below);
+				\coordinate[above=1em of interval.north] (interval-above);
+				\coordinate[above=1em of ratio.north] (ratio-above);
+				\path[faugray] (quantitative.south) -- (quantitative-below) -- (interval-above) -- (interval.north);
+				\path[faugray] (quantitative.south) -- (quantitative-below) -- (ratio-above) -- (ratio.north);
+
+				\coordinate[below=1em of qualitative.south] (qualitative-below);
+				\coordinate[above=1em of nominal.north] (nominal-above);
+				\coordinate[above=1em of ordinal.north] (ordinal-above);
+				\path[faugray] (qualitative.south) -- (qualitative-below) -- (nominal-above) -- (nominal.north);
+				\path[faugray] (qualitative.south) -- (qualitative-below) -- (ordinal-above) -- (ordinal.north);
+			\end{tikzpicture}
+		\end{column}
+
+		\begin{column}{0.5\columnwidth}
+			\centering
+			\begin{tikzpicture}[
+					every path/.style={
+							thick,
+							>=latex,
+							rounded corners=5pt,
+							draw,
+							->
+						},
+					every edge/.style={draw, thick, >=latex},
+					box/.style={
+							draw,
+							fill=white,
+							rounded corners=.25em,
+							% text height=.8em,
+							outer sep=0,
+							inner sep=.6em,
+							align=center
+						}
+				]
+				\node[box] at (0,0) (root) {Types of Attributes};
+				\node[box, below left=2em and -2em of root] (categorical) {Categorical};
+				\node[box, below right=2em and -2em of root] (numerical) {Numerical};
+				\node[box, below left=2em and -2em of numerical] (continuous) {Continuous};
+				\node[box, below right=2em and -2em of numerical] (discrete) {Discrete};
+
+				\coordinate[below=1em of root.south] (root-below);
+				\coordinate[above=1em of categorical.north] (categorical-above);
+				\coordinate[above=1em of numerical.north] (numerical-above);
+				\path[faugray] (root.south) -- (root-below) -- (categorical-above) -- (categorical.north);
+				\path[faugray] (root.south) -- (root-below) -- (numerical-above) -- (numerical.north);
+
+				\coordinate[below=1em of numerical.south] (numerical-below);
+				\coordinate[above=1em of continuous.north] (continuous-above);
+				\coordinate[above=1em of discrete.north] (discrete-above);
+				\path[faugray] (numerical.south) -- (numerical-below) -- (continuous-above) -- (continuous.north);
+				\path[faugray] (numerical.south) -- (numerical-below) -- (discrete-above) -- (discrete.north);
+			\end{tikzpicture}
+		\end{column}
+	\end{columns}
+	\vspace*{1em}
 	\begin{itemize}
-		\item \textbf{Nominal}:
-		      \begin{itemize}
-			      \item Categories, states, or "names of things".\\
-			            E.g. \texttt{hair\_color} $= \{\text{auburn, black, blond, brown, grey, red, white}\}$.\\
-			            Other examples: \texttt{marital\_status}, \texttt{occupation}, \texttt{ID}, \texttt{ZIP code}.
-		      \end{itemize}
-		\item \textbf{Binary}:
-		      \begin{itemize}
-			      \item Nominal attribute with only two states ($0$ and $1$).
-			      \item \textbf{Symmetric binaries}: both outcomes equally important, such as \texttt{gender}.
-			      \item \textbf{Asymmetric binary}: outcomes not equally important. \\
-			            E.g. medical test (positive vs. negative).\\
-			            Convention: assign 1 to most important outcome (e.g. HIV positive).
-		      \end{itemize}
-		\item \textbf{Ordinal}:
-		      \begin{itemize}
-			      \item Values have a meaningful order (ranking),\\
-			            but magnitude between successive values is not known.\\
-			            E.g. \texttt{size} $= \{\text{small, medium, large}\}$, grades, army rankings.
-		      \end{itemize}
+		\item \textit{Qualitative} measurements describe an attribute without
+		      providing a size or quantity.
+
+		\item \textit{Quantitative} measurements, often also called \textit{numerical}
+		      attributes, are quantitatively measured and often represented in integers or
+		      real values.
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Attribute Types}
+	\textbf{Nominal}:
+	\begin{itemize}
+		\item Categories, states, or "names of things".
+		\item E.g. \texttt{hair\_color} $= \{\text{auburn, black, blond, brown, grey, red, white}\}$.
+		\item Other examples: \texttt{marital\_status}, \texttt{occupation}, \texttt{ID}, \texttt{ZIP code}.
+	\end{itemize}
+
+	\textbf{Binary}:
+	\begin{itemize}
+		\item Nominal attribute with only two states ($0$ and $1$).
+		\item \textbf{Symmetric binaries}: both outcomes equally important, such as \texttt{sex}.
+		\item \textbf{Asymmetric binary}: outcomes not equally important. \\
+		      E.g. medical test (positive vs. negative).\\
+		      Convention: assign 1 to most important outcome (e.g. diabetes, HIV positive).
+	\end{itemize}
+
+	\textbf{Ordinal}:
+	\begin{itemize}
+		\item Values have a meaningful order (ranking), but magnitude between
+		      successive values is not known.
+		\item E.g. \texttt{size} $= \{\text{small, medium, large}\}$, grades, army rankings.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Numerical Attribute Types}
-	\begin{itemize}
-		\item \textbf{Numerical: Quantity (integer- or real-valued)}.
-		\item \textbf{Interval scaled}:
-		      \begin{itemize}
-			      \item Measured on a scale of \textbf{equally sized} units.
-			      \item Values have order.\\
-			            E.g. temperature in $C$ or $F$, calender dates.
-			      \item No true zero-point.
-		      \end{itemize}
-		\item \textbf{Ratio scaled}:
-		      \begin{itemize}
-			      \item Inherent \textbf{zero point}.
-			      \item We can speak of values as being an order of magnitude larger \\
-			            than the unit of measurement.\\
-			            E.g. $10 K$ is twice as high as $5 K$.\\
-			            E.g. temperature in Kelvin, length, counts, monetary quantities.
-		      \end{itemize}
-	\end{itemize}
+	\begin{columns}[t]
+		\begin{column}{0.5\columnwidth}
+			\centering \textbf{Interval-Scaled Attributes}
+			\begin{itemize}
+				\item Measured on a scale of \textbf{equally sized} units.
+				\item No true zero-point.
+				\item Values have order.
+				\item E.g. temperature in $C$ or $F$, calender dates.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\columnwidth}
+			\centering \textbf{Ratio-Scaled Attributes}
+			\begin{itemize}
+				\item Inherent \textbf{zero point}.
+				\item We can speak of values as being an order of magnitude larger
+				      than the unit of measurement.
+				\item E.g. temperature in Kelvin, length, counts, monetary quantities.
+			\end{itemize}
+		\end{column}
+	\end{columns}
+
+	\vspace*{1em}
+	\begin{tikzpicture}[xscale=0.032]
+		\def\Tzero{-273.15}  % absolute zero
+		\def\Tnitro{-195.79} % liquid nitrogen
+		\def\Tbody{36.8}     % body temperature
+		\def\Tboil{100}      % boiling temperature
+		\def\Tmax{140}       % maximum temperature on the scale
+		\def\h{0.5}         % axis off sets
+		\def\tick####1####2####3{\draw[thick,####3] (####1+.08) --++ (0,-.16) node[below=-.5pt,scale=1] {\scriptsize ####2};}
+		\def\Ts####1{{25+50/(\Tmax-\Tzero)*(####1-\Tzero)}} % convert temperature to [25,50] range
+
+		% AXIS
+		\draw[->,thick] % degrees Celsius
+		(1.02*\Tzero,0) -- (1.1*\Tmax,0) node[right] {$^\circ$C};
+		\draw[->,thick] % Kelvin
+		(1.02*\Tzero,-\h) -- (1.1*\Tmax,-\h) node[right] {K};
+		\draw[->,thick] % Fahrenheit
+		(1.02*\Tzero,-2*\h) -- (1.1*\Tmax,-2*\h) node[right] {$^\circ$F};
+
+		% LABEL
+		\node[above=-0.2em,align=center] at (\Tzero,0.1) {\scriptsize absolute\\[-2]\strut \scriptsize zero};
+		\node[above=-0.2em,align=center] at (\Tnitro,0.1) {\scriptsize liquid\\[-2]\strut \scriptsize nitrogen};
+		\node[left=4,above=-0.2em,align=center] at (0,0.1) {\scriptsize water\\[-2]\strut \scriptsize freezes};
+		\node[right=4,above=-0.2em,align=center] at (\Tbody,0.1) {\scriptsize human\\[-2]\strut \scriptsize body};
+		\node[above=-0.2em,align=center] at (\Tboil,0.1) {\scriptsize water\\[-2]\strut \scriptsize boils};
+
+		% CELSIUS
+		\tick{\Tzero,0}{$-273.15$}{faublue} % absolute zero
+		\tick{\Tnitro,0}{\hspace{6pt}$-195.79$}{faublue} % liquid nitrogen
+		\tick{0,0}{0}{faublue}              % freezing temperature
+		\tick{\Tbody,0}{36.8}{faugreendark}            % body temperature
+		\tick{\Tboil,0}{100}{faured}        % boiling temperature
+
+		% KELVIN
+		\tick{\Tzero,-\h}{0}{faublue}   % absolute zero
+		\tick{\Tnitro,-\h}{77}{faublue}           % liquid nitrogen
+		\tick{0,-\h}{273.15}{faublue}       % freezing temperature
+		\tick{\Tbody,-\h}{310.0}{faugreendark}        % body temperature
+		\tick{\Tboil,-\h}{373.15}{faured}   % boiling temperature
+
+		% FAHRENHEIT
+		\tick{\Tzero,-2*\h}{$-459.67$}{faublue} % absolute zero
+		\tick{\Tnitro,-2*\h}{$-320$}{faublue}      % liquid nitrogen
+		\tick{0,-2*\h}{32}{faublue}          % freezing temperature
+		\tick{\Tbody,-2*\h}{98.2}{faugreendark}         % body temperature
+		\tick{\Tboil,-2*\h}{212}{faured}     % boiling temperature
+	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Discrete vs. Continuous Attributes }
-	\begin{itemize}
-		\item \textbf{Discrete attribute}:
-		      \begin{itemize}
-			      \item Has finite or countably infinite elements.\\
-			            E.g. ZIP code, profession, or the set of words in a collection of documents.
-			      \item Sometimes represented as integer variables.
-			      \item Note: Binary attributes are a special case of discrete attributes.
-		      \end{itemize}
-		\item \textbf{Continuous attribute}:
-		      \begin{itemize}
-			      \item Has real numbers as attribute values.\\
-			            E.g. temperature, height, or weight.
-			      \item Practically, real values can only be measured and represented using a finite number of digits.
-			      \item Continuous attributes are typically represented as floating-point variables.
-		      \end{itemize}
-	\end{itemize}
+\begin{frame}[c]{Continuous vs. Discrete Attributes}
+	\begin{columns}[t]
+		\begin{column}{0.5\columnwidth}
+			\centering \textbf{Continuous Attributes}
+			\begin{itemize}
+				\item Has real numbers as attribute values.\\
+				      E.g. temperature, height, or weight.
+				\item Practically, real values can only be measured and represented using a finite number of digits.
+				\item Continuous attributes are typically represented as floating-point variables.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\columnwidth}
+			\centering \textbf{Discrete Attributes}
+			\begin{itemize}
+				\item Has finite or countably infinite elements.\\
+				      E.g. ZIP code, profession, or the set of words in a collection of documents.
+				\item Sometimes represented as integer variables.
+				      % \item Note: Binary attributes are a special case of discrete attributes.
+			\end{itemize}
+			\begin{alertblock}{Note}
+				Binary attributes are a special case of discrete attributes.
+			\end{alertblock}
+		\end{column}
+	\end{columns}
 \end{frame}

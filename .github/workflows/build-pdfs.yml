@@ -8,6 +8,15 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
 
+      - name: Build figures
+        uses: ./lecture/
+        env:
+          WORKSPACE: ${{ github.workspace }}
+        with:
+          run: |
+            cd $WORKSPACE/lecture
+            make figures
+
       - name: Compile LaTeX document
         uses: xu-cheng/texlive-action/full@v1
         with:
@@ -15,17 +24,15 @@ jobs:
             apk add make
             apk add git
             cd lecture
-            for filename in *.tex; do
-            make vc.tex
-            make "${filename%.*}.pdf"
-            make "${filename%.*}.bbl"
-            done
+            ls -la img
+            make all-wo-figures
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
+        if: always()
         with:
           name: Lecture Slides
           path: |
-            lecture/*.pdf
-            lecture/*.log
+            lecture/output/*.pdf
+            lecture/output/*.log
           retention-days: 5
