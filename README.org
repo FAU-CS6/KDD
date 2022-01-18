@@ -67,9 +67,9 @@ directory of this project.
 
 We assume that each commit has been validated with these pre-commit hooks
 and will not accept pull requests that contain unvalidated commits
-(checked manually by us).
+(the pre-commit hooks are also checked again on the server side by a GitHub action).
 
-*(Current) other prerequisites*
+*(Current) other prerequisites:*
 - The latex package [[latexindent][https://ctan.org/pkg/latexindent]]
 - Nodejs and npm
 
