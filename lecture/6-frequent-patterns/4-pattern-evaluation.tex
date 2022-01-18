@@ -2,60 +2,60 @@
 
 \begin{frame}{Interestingness Measure: Correlation (Lift) (I)}
 	\begin{itemize}
-		\item \textbf{(play) basketball $\implies$ (eat) cereal 
-			($40\%$, $66.7\%$)  misleading:}
-		\begin{itemize}
-			\item The overall $\%$ of students eating cereal is $75\% > 
-			66.7\%$.
-		\end{itemize}
-		\item \textbf{basketball $\implies$ no cereal ($20\%$, 
-			$33.3\%$)  more accurate:}
-		\begin{itemize}
-			\item Although with lower support and confidence.
-		\end{itemize}
+		\item \textbf{(play) basketball $\implies$ (eat) cereal
+			      ($40\%$, $66.7\%$)  misleading:}
+		      \begin{itemize}
+			      \item The overall $\%$ of students eating cereal is $75\% >
+				            66.7\%$.
+		      \end{itemize}
+		\item \textbf{basketball $\implies$ no cereal ($20\%$,
+			      $33.3\%$)  more accurate:}
+		      \begin{itemize}
+			      \item Although with lower support and confidence.
+		      \end{itemize}
 		\item \textbf{Reason: negative correlation.}
-		\begin{itemize}
-			\item Choice of one item decreases likelihood of choosing 
-			the other.
-		\end{itemize}
+		      \begin{itemize}
+			      \item Choice of one item decreases likelihood of choosing
+			            the other.
+		      \end{itemize}
 		\item \textbf{Measure of dependent/correlated events: lift.}
-		\begin{itemize}
-			\item value $1$: independence; value $< 1$: negatively 
-			correlated.
-		\end{itemize}
+		      \begin{itemize}
+			      \item value $1$: independence; value $< 1$: negatively
+			            correlated.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Interestingness Measure: Correlation (Lift) (II)}
 	\begin{itemize}
 		\item \textbf{Values:} \\
-			\begin{center}
-				\begin{tabular}{|c|c|c|c|}
-					\hline
-					& basketball & no basketball & sum (row) \\\hline
-					cereal     & 2000       & 1750          & 3750      \\\hline
-					no cereal  & 1000       & 250           & 1250      \\\hline
-					sum (col.) & 3000       & 2000          & 5000      \\\hline
-				\end{tabular}
-			\end{center}
+		      \begin{center}
+			      \begin{tabular}{|c|c|c|c|}
+				      \hline
+				                 & basketball & no basketball & sum (row) \\\hline
+				      cereal     & 2000       & 1750          & 3750      \\\hline
+				      no cereal  & 1000       & 250           & 1250      \\\hline
+				      sum (col.) & 3000       & 2000          & 5000      \\\hline
+			      \end{tabular}
+		      \end{center}
 		\item \textbf{Computation:} \\
-			\begin{align}
-				\text{lift}(A,B)      & = \frac{P(A \cup B)}{P(A) P(B)}   \\
-				\text{lift}(B,C)      & = \frac{2000/5000}{3000/5000 \cdot 3750 
-					/ 5000} = 0.89,\\
-				\text{lift}(B,\neg C) & = \frac{1000 / 5000}{3000 / 5000   
-					\cdot 1250 / 5000} =1.33.
-			\end{align}
+		      \begin{align}
+			      \text{lift}(A,B)      & = \frac{P(A \cup B)}{P(A) P(B)}         \\
+			      \text{lift}(B,C)      & = \frac{2000/5000}{3000/5000 \cdot 3750
+			      / 5000} = 0.89,                                                 \\
+			      \text{lift}(B,\neg C) & = \frac{1000 / 5000}{3000 / 5000
+				      \cdot 1250 / 5000} =1.33.
+		      \end{align}
 	\end{itemize}
 \end{frame}
 
 
 \begin{frame}{Are Lift and $\chi^2$ Good Measures of Correlation? (I)}
 	\begin{itemize}
-		\item Support and confidence are not good to indicate 
-		correlation.
-		\item Over 20 interestingness measures have been proposed. 
-		(Tan, Kumar \& Sritastava, KDD'02)
+		\item Support and confidence are not good to indicate
+		      correlation.
+		\item Over 20 interestingness measures have been proposed.
+		      (Tan, Kumar \& Sritastava, KDD'02)
 		\item Which are good ones?
 	\end{itemize}
 	\vspace{0.2cm}
@@ -63,37 +63,37 @@
 	\resizebox{12cm}{!}{%
 		\begin{tabular}{|c|l|l|l|}
 			\hline
-			\textbf{symbol} & \textbf{name}      & \textbf{range} 
-			&                              
-			\textbf{formula} \\
-			$\psi$          & $\psi$-coefficient & $[-1,1]$       
-			&                              
-			$\frac{P(A,B)-P(A)P(B)}{\sqrt{P(A)P(B)(1-P(A))(1-P(B))}}$\\
-			$Q$             & Yule's $Q$         & $[-1,1]$       & 
-			$\frac{P(A,B)P(\neg A, \neg  
-				B)-P(A,\neg B)P(\neg A,B)}{P(A,B)P(\neg A,\neg B) + P(A, 
-				\neg B) P(\neg A ,B)}$\\
-			$Y$             & Yule's $Y$         & $[-1,1]$       & 
-			$\frac{\sqrt{P(A,B)P(\neg A, 
-					\neq B)}-\sqrt{P(A,\neg B)P(\neg A,B)}}{\sqrt{P(A,B)P(\neg 
-					A,\neg B)} + \sqrt{P(A, \neg B) P(\neg A ,B)}}$\\
-			$k$             & Cohen's $k$        & $[-1,1]$       & 
-			$\frac{P(A,B)+P(\neg A, \neg 
-				B)-P(A)P(B)-P(\neg A)P(\neg B)}{1-P(A)P(B)-P(\neg A)P(\neg 
-				B)}$ \\
-			$PS$            & Patetsky-Shapiro's & $[-0.25,0.25]$ 
-			&                              
-			$P(A,B)-P(A)P(B)$ \\
-			$F$             & Certainty factor   & $[-1,1]$       
-			&                              
+			\textbf{symbol} & \textbf{name}      & \textbf{range}
+			                &
+			\textbf{formula}                                          \\
+			$\psi$          & $\psi$-coefficient & $[-1,1]$
+			                &
+			$\frac{P(A,B)-P(A)P(B)}{\sqrt{P(A)P(B)(1-P(A))(1-P(B))}}$ \\
+			$Q$             & Yule's $Q$         & $[-1,1]$       &
+			$\frac{P(A,B)P(\neg A, \neg
+					B)-P(A,\neg B)P(\neg A,B)}{P(A,B)P(\neg A,\neg B) + P(A,
+			\neg B) P(\neg A ,B)}$                                    \\
+			$Y$             & Yule's $Y$         & $[-1,1]$       &
+			$\frac{\sqrt{P(A,B)P(\neg A,
+						\neq B)}-\sqrt{P(A,\neg B)P(\neg A,B)}}{\sqrt{P(A,B)P(\neg
+			A,\neg B)} + \sqrt{P(A, \neg B) P(\neg A ,B)}}$           \\
+			$k$             & Cohen's $k$        & $[-1,1]$       &
+			$\frac{P(A,B)+P(\neg A, \neg
+					B)-P(A)P(B)-P(\neg A)P(\neg B)}{1-P(A)P(B)-P(\neg A)P(\neg
+			B)}$                                                      \\
+			$PS$            & Patetsky-Shapiro's & $[-0.25,0.25]$
+			                &
+			$P(A,B)-P(A)P(B)$                                         \\
+			$F$             & Certainty factor   & $[-1,1]$
+			                &
 			$\max(\frac{P(B|A)-P(B)}{1-P(B)},\frac{P(A|B)-P(A)}{1-P(A)})$
 			\\
-			$AV$            & Added Value        & $[-0.5,1]$     
-			&                              
-			$\max(P(B|A)-P(B),P(A|B)-P(A))$ \\
-			$K$             & Klosgen's Q        & $[-0.33,0.38]$ 
-			&                              
-			$\sqrt{P(A,B)}\max(P(B|A)-P(B),P(A|B)-P(A))$ \\\hline
+			$AV$            & Added Value        & $[-0.5,1]$
+			                &
+			$\max(P(B|A)-P(B),P(A|B)-P(A))$                           \\
+			$K$             & Klosgen's Q        & $[-0.33,0.38]$
+			                &
+			$\sqrt{P(A,B)}\max(P(B|A)-P(B),P(A|B)-P(A))$              \\\hline
 		\end{tabular}
 	}
 \end{frame}
@@ -103,41 +103,41 @@
 	\resizebox{0.9\textwidth}{!}{%
 		\begin{tabular}{|c|l|l|l|}
 			\hline
-			\textbf{symbol} & \textbf{name}       & \textbf{range} 
-			&                               
-			\textbf{formula} \\
-			$g$             & Goodman-kruskal's   & $[0,1]$        & 
-			$\frac{\sum_j \max_k          
-				P(A_j,B_k) + \sum_k \max_j P(A_j,B_k)-\max_j P(A_j) - 
-				\max_k P(B_k)}{2 - \max_j P(A_j) - \max_k P(B_k)}$\\
-			$M$             & Mutual information  & $[0,1]$        & 
-			$\frac{\sum_i \sum_j          
-				P(A_i,B_j) \log 
-				\frac{P(A_i,B_j)}{P(A_i)P(B_j)}}{\min(-\sum_i P(A_i) \log 
-				P(A_i)\log P(A_i),-\sum_i P(B_i)\log P(B_i) \log P(B_i))}$ 
+			\textbf{symbol} & \textbf{name}      & \textbf{range}
+			                &
+			\textbf{formula}                                        \\
+			$g$             & Goodman-kruskal's  & $[0,1]$        &
+			$\frac{\sum_j \max_k
+					P(A_j,B_k) + \sum_k \max_j P(A_j,B_k)-\max_j P(A_j) -
+			\max_k P(B_k)}{2 - \max_j P(A_j) - \max_k P(B_k)}$      \\
+			$M$             & Mutual information & $[0,1]$        &
+			$\frac{\sum_i \sum_j
+					P(A_i,B_j) \log
+					\frac{P(A_i,B_j)}{P(A_i)P(B_j)}}{\min(-\sum_i P(A_i) \log
+					P(A_i)\log P(A_i),-\sum_i P(B_i)\log P(B_i) \log P(B_i))}$
 			\\
-			$J$             & J-Measure           & $[0,1]$        & 
-			$\max(P(A,B)\log              
-			\frac{P(B|A)}{P(B)} + P(\neg A,B)\log \frac{P(\neg 
-				A,B)}{P(\neg A)}, P(A,B) \log \frac{P(B|A)}{P(A)} + P(\neg 
-			A,B) \log \frac{P(\neg A | B)}{P(\neg B)})$\\
-			$G$             & Gini index          & $[0,1]$        & 
-			\makecell{$\max(P(A)[P(B|A)^2 
-				+ P(\neg B | A)^2]+P(\neg A)[P(B|\neg A)^2 + P(\neg B | 
-				\neg A)^2]P(B)^2-P(\neg B)^2,$ \\ $P(B)[P(A|B)^2+P(\neg A | 
-				B)^2]+P(\neg B) [P(A|\neg B)^2+P(\neg A| \neg 
-				B)^2]-P(A)^2-P(\neg A)^2)$} \\
-			$s$             & Support             & $[0,1]$        & 
-			$P(A,B)$                      \\
-			$c$             & Confidence          & $[0,1]$        & 
-			$\max(P(B|A),P(A|B))$         \\
-			$L$             & Laplace             & $[0,1]$        
-			&                               
-			$\max(\frac{NP(A,B)+1}{NP(A)+2},\frac{NP(A,B)+1}{NP(B)+2})$ 
+			$J$             & J-Measure          & $[0,1]$        &
+			$\max(P(A,B)\log
+				\frac{P(B|A)}{P(B)} + P(\neg A,B)\log \frac{P(\neg
+					A,B)}{P(\neg A)}, P(A,B) \log \frac{P(B|A)}{P(A)} + P(\neg
+			A,B) \log \frac{P(\neg A | B)}{P(\neg B)})$             \\
+			$G$             & Gini index         & $[0,1]$        &
+			\makecell{$\max(P(A)[P(B|A)^2
+							+ P(\neg B | A)^2]+P(\neg A)[P(B|\neg A)^2 + P(\neg B |
+			\neg A)^2]P(B)^2-P(\neg B)^2,$                          \\ $P(B)[P(A|B)^2+P(\neg A |
+							B)^2]+P(\neg B) [P(A|\neg B)^2+P(\neg A| \neg
+			B)^2]-P(A)^2-P(\neg A)^2)$}                             \\
+			$s$             & Support            & $[0,1]$        &
+			$P(A,B)$                                                \\
+			$c$             & Confidence         & $[0,1]$        &
+			$\max(P(B|A),P(A|B))$                                   \\
+			$L$             & Laplace            & $[0,1]$
+			                &
+			$\max(\frac{NP(A,B)+1}{NP(A)+2},\frac{NP(A,B)+1}{NP(B)+2})$
 			\\
-			$\cos$          & Cosine              & $[0,1]$        
-			&                               
-			$\frac{P(A,B)}{\sqrt{P(A)P(B)}}$ \\\hline
+			$\cos$          & Cosine             & $[0,1]$
+			                &
+			$\frac{P(A,B)}{\sqrt{P(A)P(B)}}$                        \\\hline
 		\end{tabular}
 	}
 \end{frame}
@@ -147,32 +147,32 @@
 	\resizebox{0.9\textwidth}{!}{%
 		\begin{tabular}{|c|l|l|l|}
 			\hline
-			\textbf{symbol} & \textbf{name}       & \textbf{range} 
-			&                               
-			\textbf{formula} \\
-			$\gamma$        & coherence(Jaccard)  & $[0,1]$        
-			&                               
-			$\frac{P(A,B)}{P(A)+P(B)-P(A,B)}$ \\
-			$\alpha$        & all\_confidence     & $[0,1]$        
-			&                               
-			$\frac{P(A,B)}{\max(P(A),P(B))}$ \\
-			$o$             & Odds ratio          & $[0,\infty)$   & 
-			$\frac{P(A,B)P(\neg A,        
-				\neg B)}{P(\neg A,B) P(A,\neg B)}$ \\
-			$V$             & Conviction          & $[0.5,\infty)$ & 
-			$\max(\frac{P(A)P(\neg        
-				B)}{P(A,\neg B)},\frac{P(B)P(\neg A)}{P(B,\neg A)})$ \\
-			$\lambda$       & Lift                & $[0, \infty)$  
-			&                               
-			$\frac{P(A,B)}{P(A)P(B)}$ \\
-			$S$             & Collective strength & $[0,\infty)$   & 
-			$\frac{P(A,B) +               
-				P(\neg A, \neg B)}{P(A)P(B) + P(\neg A) P(\neg B)} \cdot 
-			\frac{1-P(A)P(B)-P(\neg A) P(\neg B)}{1-P(A,B)-P(\neg A, 
-				\neg B)}$ \\
-			$\chi^2$        & $\chi^2$            & $[0,\infty)$   & 
-			$\sum_i                       
-			\frac{(P(A_i)-E_i)^2}{E_i}$ \\\hline
+			\textbf{symbol} & \textbf{name}       & \textbf{range}
+			                &
+			\textbf{formula}                                         \\
+			$\gamma$        & coherence(Jaccard)  & $[0,1]$
+			                &
+			$\frac{P(A,B)}{P(A)+P(B)-P(A,B)}$                        \\
+			$\alpha$        & all\_confidence     & $[0,1]$
+			                &
+			$\frac{P(A,B)}{\max(P(A),P(B))}$                         \\
+			$o$             & Odds ratio          & $[0,\infty)$   &
+			$\frac{P(A,B)P(\neg A,
+			\neg B)}{P(\neg A,B) P(A,\neg B)}$                       \\
+			$V$             & Conviction          & $[0.5,\infty)$ &
+			$\max(\frac{P(A)P(\neg
+			B)}{P(A,\neg B)},\frac{P(B)P(\neg A)}{P(B,\neg A)})$     \\
+			$\lambda$       & Lift                & $[0, \infty)$
+			                &
+			$\frac{P(A,B)}{P(A)P(B)}$                                \\
+			$S$             & Collective strength & $[0,\infty)$   &
+			$\frac{P(A,B) +
+					P(\neg A, \neg B)}{P(A)P(B) + P(\neg A) P(\neg B)} \cdot
+				\frac{1-P(A)P(B)-P(\neg A) P(\neg B)}{1-P(A,B)-P(\neg A,
+			\neg B)}$                                                \\
+			$\chi^2$        & $\chi^2$            & $[0,\infty)$   &
+			$\sum_i
+			\frac{(P(A_i)-E_i)^2}{E_i}$                              \\\hline
 		\end{tabular}
 	}
 \end{frame}
@@ -180,17 +180,17 @@
 \begin{frame}{Null-invariant Measures (I)}
 	\begin{itemize}
 		\item \textbf{\color{airforceblue}Null-transaction:}
-		\begin{itemize}
-			\item A transaction that does not contain any of the 
-			itemsets being examined.
-			\item Can outweigh the number of individual itemsets.
-		\end{itemize}
+		      \begin{itemize}
+			      \item A transaction that does not contain any of the
+			            itemsets being examined.
+			      \item Can outweigh the number of individual itemsets.
+		      \end{itemize}
 		\item \textbf{\color{airforceblue}A measure is null-invariant,}
-		\begin{itemize}
-			\item if its value is free from the influence of 
-			null-transactions.
-			\item Lift and $\chi^2$ are not null-invariant.
-		\end{itemize}
+		      \begin{itemize}
+			      \item if its value is free from the influence of
+			            null-transactions.
+			      \item Lift and $\chi^2$ are not null-invariant.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -198,31 +198,31 @@
 	\centering
 	\begin{tabular}{|c|l|l|c|c|c|c|c|c|c|c|}
 		\hline
-		\textbf{Symbol} & \textbf{Measure} & \textbf{Range} & 
-		\textbf{O1} & \textbf{O2} & \textbf{O3} & \textbf{O3'} & 
-		\textbf{O4} \\\hline
-		$\varphi$ & $\varphi$-coefficient & $[-1,1]$       & Y   & N & Y  & 
-		Y 
-		&   
-		N \\
-		$\lambda$ & Goodman-Kruskal's     & $[0,1]$        & Y   & N & N* & 
-		Y & 
-		N \\
-		$\alpha$  & Odds ratio            & $[0,\infty)$   & Y   & Y & Y* & 
-		Y & 
-		N \\
-		$Q$       & Yule's $Q$            & $[-1,1]$       & Y   & Y & Y  & 
-		Y & 
-		N \\
-		$Y$       & Yule's $Y$            & $[-1,1]$       & Y   & Y & Y  & 
-		Y & 
-		N \\
-		$\kappa$  & Cohen's               & $[-1,1]$       & Y   & N & N  & 
-		Y & 
-		N \\
-		$M$       & Mutual information    & $[0,1]$        & N** & N & N* & 
-		Y & 
-		N \\\hline
+		\textbf{Symbol} & \textbf{Measure}      & \textbf{Range} &
+		\textbf{O1}     & \textbf{O2}           & \textbf{O3}    & \textbf{O3'} &
+		\textbf{O4}                                                                        \\\hline
+		$\varphi$       & $\varphi$-coefficient & $[-1,1]$       & Y            & N & Y  &
+		Y
+		                &
+		N                                                                                  \\
+		$\lambda$       & Goodman-Kruskal's     & $[0,1]$        & Y            & N & N* &
+		Y               &
+		N                                                                                  \\
+		$\alpha$        & Odds ratio            & $[0,\infty)$   & Y            & Y & Y* &
+		Y               &
+		N                                                                                  \\
+		$Q$             & Yule's $Q$            & $[-1,1]$       & Y            & Y & Y  &
+		Y               &
+		N                                                                                  \\
+		$Y$             & Yule's $Y$            & $[-1,1]$       & Y            & Y & Y  &
+		Y               &
+		N                                                                                  \\
+		$\kappa$        & Cohen's               & $[-1,1]$       & Y            & N & N  &
+		Y               &
+		N                                                                                  \\
+		$M$             & Mutual information    & $[0,1]$        & N**          & N & N* &
+		Y               &
+		N                                                                                  \\\hline
 	\end{tabular}
 \end{frame}
 
@@ -230,33 +230,33 @@
 	\centering
 	\begin{tabular}{|c|l|l|c|c|c|c|c|c|c|c|}
 		\hline
-		\textbf{Symbol} & \textbf{Measure} & \textbf{Range} & 
-		\textbf{O1} & \textbf{O2} & \textbf{O3} & \textbf{O3'} & 
-		\textbf{O4} \\\hline
-		$J$       & $J$-Measure           & $[0,1]$        & N** & N & N  & 
-		N & 
-		N \\
-		$G$       & Gini index            & $[0,1]$        & N** & N & N* & 
-		Y & 
-		N \\
-		$s$       & Support               & $[0,1]$        & Y   & N & N  & 
-		N & 
-		N \\
-		{\color{red}$c$} & {\color{red}Confidence} & 
-		{\color{red}$[0,1]$} & {\color{red}N**} & {\color{red}N} & 
-		{\color{red}N} & {\color{red}Y} & {\color{red}N} \\
-		$L$       & Laplace               & $[0,1]$        & N** & N & N  & 
-		Y & 
-		N \\
-		$V$       & Conviction            & $[0.5,\infty)$ & N** & N & N  & 
-		Y & 
-		N \\
-		$I$       & Interest              & $[0,\infty)$   & Y   & N & N  & 
-		N & 
-		N \\
-		{\color{red}$\cos$} & {\color{red}Cosine} & 
-		{\color{red}$[0,1]$} & {\color{red}Y} & {\color{red}N} & 
-		{\color{red}N} & {\color{red}N} & {\color{red}Y} \\\hline
+		\textbf{Symbol}      & \textbf{Measure}        & \textbf{Range} &
+		\textbf{O1}          & \textbf{O2}             & \textbf{O3}    & \textbf{O3'} &
+		\textbf{O4}                                                                               \\\hline
+		$J$                  & $J$-Measure             & $[0,1]$        & N**          & N & N  &
+		N                    &
+		N                                                                                         \\
+		$G$                  & Gini index              & $[0,1]$        & N**          & N & N* &
+		Y                    &
+		N                                                                                         \\
+		$s$                  & Support                 & $[0,1]$        & Y            & N & N  &
+		N                    &
+		N                                                                                         \\
+		{\color{red}$c$}     & {\color{red}Confidence} &
+		{\color{red}$[0,1]$} & {\color{red}N**}        & {\color{red}N} &
+		{\color{red}N}       & {\color{red}Y}          & {\color{red}N}                           \\
+		$L$                  & Laplace                 & $[0,1]$        & N**          & N & N  &
+		Y                    &
+		N                                                                                         \\
+		$V$                  & Conviction              & $[0.5,\infty)$ & N**          & N & N  &
+		Y                    &
+		N                                                                                         \\
+		$I$                  & Interest                & $[0,\infty)$   & Y            & N & N  &
+		N                    &
+		N                                                                                         \\
+		{\color{red}$\cos$}  & {\color{red}Cosine}     &
+		{\color{red}$[0,1]$} & {\color{red}Y}          & {\color{red}N} &
+		{\color{red}N}       & {\color{red}N}          & {\color{red}Y}                           \\\hline
 	\end{tabular}
 \end{frame}
 
@@ -265,21 +265,21 @@
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{|c|l|l|c|c|c|c|c|}
 			\hline
-			\textbf{Symbol} & \textbf{Measure} & \textbf{Range} & 
-			\textbf{O1} & \textbf{O2} & \textbf{O3} & \textbf{O3'} & 
-			\textbf{O4} \\\hline
-			$PS$ & Piatetsky-Shapiro's & $[-0.25,0.25]$ & Y & N & Y & Y 
-			& N \\
-			$F$  & Certainty factor & $[-1,1]$   & N** & N & N & Y & N \\
-			$AV$ & Added value      & $[-0.5,1]$ & N** & N & N & N & N \\
-			$S$ & Collective strength & $[0,\infty]$  & Y & N & Y* & Y 
-			& N \\
-			{\color{red}$\theta$} & {\color{red}Jaccard} & 
-			{\color{red}$[0,1]$} & {\color{red}Y} & {\color{red}N} & 
-			{\color{red}N} & {\color{red}N} & {\color{red}Y} \\
-			$K$ & Klosgen's & 
+			\textbf{Symbol}       & \textbf{Measure}     & \textbf{Range} &
+			\textbf{O1}           & \textbf{O2}          & \textbf{O3}    & \textbf{O3'} &
+			\textbf{O4}                                                                                   \\\hline
+			$PS$                  & Piatetsky-Shapiro's  & $[-0.25,0.25]$ & Y            & N & Y  & Y
+			                      & N                                                                     \\
+			$F$                   & Certainty factor     & $[-1,1]$       & N**          & N & N  & Y & N \\
+			$AV$                  & Added value          & $[-0.5,1]$     & N**          & N & N  & N & N \\
+			$S$                   & Collective strength  & $[0,\infty]$   & Y            & N & Y* & Y
+			                      & N                                                                     \\
+			{\color{red}$\theta$} & {\color{red}Jaccard} &
+			{\color{red}$[0,1]$}  & {\color{red}Y}       & {\color{red}N} &
+			{\color{red}N}        & {\color{red}N}       & {\color{red}Y}                                 \\
+			$K$                   & Klosgen's            &
 			$[(\frac{2}{\sqrt{3}}-1)^{\frac{1}{2}}[2-\sqrt{3}-\frac{1}{\sqrt{3}}],\frac{2}{3\sqrt{3}}]$
-			& N** & N & N & N & N \\\hline
+			                      & N**                  & N              & N            & N & N          \\\hline
 		\end{tabular}
 	}
 	\begin{itemize}
@@ -289,16 +289,16 @@
 		\item O4: Null invariance.
 		\item Y*: Yes if measure is normalized.
 		\item N*: Symmetry under row or column permutation.
-		\item N**: No unless the measure is symmetrized by taking 
-		$\max(M(A,B),M(B,A))$.
+		\item N**: No unless the measure is symmetrized by taking
+		      $\max(M(A,B),M(B,A))$.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Comparison of Interestingness Measures}
 	\centering
 	\begin{itemize}
-		\item \textbf{Null-(transaction) invariance is crucial for 
-			correlation analysis.}
+		\item \textbf{Null-(transaction) invariance is crucial for
+			      correlation analysis.}
 		\item \textbf{5 null-invariant measures:}
 	\end{itemize}
 	\begin{columns}
@@ -306,154 +306,154 @@
 			\resizebox{\textwidth}{!}{%
 				\begin{tabular}{|c|l|l|l|}
 					\hline
-					& Milk      & No milk         & Sum (row) \\\hline
+					          & Milk      & No milk         & Sum (row) \\\hline
 					Coffee    & m,c       & $\neg$m,c       & c         \\\hline
-					No coffee & m,$\neg$c & $\neg$m,$\neg$c & $\neg$c   
+					No coffee & m,$\neg$c & $\neg$m,$\neg$c & $\neg$c
 					\\\hline
 					Sum (col) & m         & $\neg$m         &           \\\hline
-			\end{tabular}}
+				\end{tabular}}
 		\end{column}
 		\begin{column}{0.5\textwidth}
 			\resizebox{\textwidth}{!}{%
 				\begin{tabular}{|c|c|c|c|}
 					\hline
-					Measure & Definition & Range & Null-invariant 
+					Measure                   & Definition                & Range & Null-invariant
 					\\\hline
-					$\text{Allconf}(a,b)$ & 
+					$\text{Allconf}(a,b)$     &
 					$\frac{\text{sup}(ab)}{\max(\text{sup}(a)\text{sup}(b))}$
-					& $[0,1]$ & Y \\
-					$\text{Coherence}(a,b)$ & 
+					                          & $[0,1]$                   & Y                      \\
+					$\text{Coherence}(a,b)$   &
 					$\frac{\text{sup}(ab)}{\text{sup}(a)+\text{sup}(b)-\text{sup}(ab)}$
-					& $[0,1]$ & Y \\
-					$\text{Cosine}(a,b)$ & 
+					                          & $[0,1]$                   & Y                      \\
+					$\text{Cosine}(a,b)$      &
 					$\frac{\text{sup}(ab)}{\sqrt{\text{sup}(a)\text{sup}(b)}}$
-					& $[0,1]$ & Y \\
-					$\text{Kulc}(a,b)$ & $\frac{\text{sup}(ab)}{2} 
-					(\frac{1}{\text{sup}(a)} + 
-					\frac{1}{\text{sup}(b)})$ & $[0,1]$ & Y \\
-					$\text{maxconf}(a,b)$ & 
+					                          & $[0,1]$                   & Y                      \\
+					$\text{Kulc}(a,b)$        & $\frac{\text{sup}(ab)}{2}
+						(\frac{1}{\text{sup}(a)} +
+					\frac{1}{\text{sup}(b)})$ & $[0,1]$                   & Y                      \\
+					$\text{maxconf}(a,b)$     &
 					$\max(\frac{\text{sup}(ab)}{\text{sup}(a)},\frac{\text{sup}(ab)}{\text{sup}(b)})$
-					& $[0,1]$ & Y \\\hline
-			\end{tabular}}
+					                          & $[0,1]$                   & Y                      \\\hline
+				\end{tabular}}
 		\end{column}
 	\end{columns}
 	\vspace{0.2cm}
 	\resizebox{0.7\textwidth}{!}{%
 		\begin{tabular}{|c|c|c|c|c||c|c|c|c|c|}
 			\hline
-			Data set & mc & $\neg$mc & m$\neg$c & $\neg$m$\neg$c & 
-			AllConf & Coherence & Cosine & Kulc & MaxConf \\\hline
-			\color{red}D1 & \color{red}10,000 & \color{red}1,000 & 
-			\color{red}1,000 & \color{red}100,000 & \color{red}0.91 & 
-			\color{red}0.83 & \color{red}0.91 & \color{red}0.91 & 
-			\color{red}0.91 \\\hline
-			\color{red}D2 & \color{red}10,000 & \color{red}1,000 & 
-			\color{red}1,000 & \color{red}100 & \color{red}0.91 & 
-			\color{red}0.83 & \color{red}0.91 & \color{red}0.91 & 
-			\color{red}0.91 \\\hline
-			D3 & 100 & 1,000 & 1,000 & 100,000 & 0.09 & 0.05 & 0.09 &   
-			0.09 & 0.09 \\\hline
-			\color{blue} D4 & \color{blue}1,000 & \color{blue}1,000 & 
-			\color{blue}1,000 & \color{blue}100,000 & \color{blue}0.5 & 
-			\color{blue}0.33 & \color{blue}0.5 & \color{blue}0.5 & 
-			\color{blue}0.5 \\\hline
-			\color{blue}D5 & \color{blue}1,000 & \color{blue}100 & 
-			\color{blue}10,000 & \color{blue}100,000 & \color{blue}0.09 
-			& \color{blue}0.09 & \color{blue}0.29 & \color{blue}0.5 & 
-			\color{blue}0.91 \\\hline
-			\color{blue}D6 & \color{blue}1,000 & \color{blue}10 & 
-			\color{blue}100,000 & \color{blue}100,000 & 
-			\color{blue}0.01 & \color{blue}0.01 & \color{blue}0.10 & 
-			\color{blue}0.5 & \color{blue}0.99 \\\hline
-	\end{tabular}}
+			Data set            & mc                  & $\neg$mc          & m$\neg$c        & $\neg$m$\neg$c &
+			AllConf             & Coherence           & Cosine            & Kulc            & MaxConf                               \\\hline
+			\color{red}D1       & \color{red}10,000   & \color{red}1,000  &
+			\color{red}1,000    & \color{red}100,000  & \color{red}0.91   &
+			\color{red}0.83     & \color{red}0.91     & \color{red}0.91   &
+			\color{red}0.91                                                                                                         \\\hline
+			\color{red}D2       & \color{red}10,000   & \color{red}1,000  &
+			\color{red}1,000    & \color{red}100      & \color{red}0.91   &
+			\color{red}0.83     & \color{red}0.91     & \color{red}0.91   &
+			\color{red}0.91                                                                                                         \\\hline
+			D3                  & 100                 & 1,000             & 1,000           & 100,000        & 0.09 & 0.05 & 0.09 &
+			0.09                & 0.09                                                                                              \\\hline
+			\color{blue} D4     & \color{blue}1,000   & \color{blue}1,000 &
+			\color{blue}1,000   & \color{blue}100,000 & \color{blue}0.5   &
+			\color{blue}0.33    & \color{blue}0.5     & \color{blue}0.5   &
+			\color{blue}0.5                                                                                                         \\\hline
+			\color{blue}D5      & \color{blue}1,000   & \color{blue}100   &
+			\color{blue}10,000  & \color{blue}100,000 & \color{blue}0.09
+			                    & \color{blue}0.09    & \color{blue}0.29  & \color{blue}0.5 &
+			\color{blue}0.91                                                                                                        \\\hline
+			\color{blue}D6      & \color{blue}1,000   & \color{blue}10    &
+			\color{blue}100,000 & \color{blue}100,000 &
+			\color{blue}0.01    & \color{blue}0.01    & \color{blue}0.10  &
+			\color{blue}0.5     & \color{blue}0.99                                                                                  \\\hline
+		\end{tabular}}
 \end{frame}
 
 \begin{frame}{Analysis of DBLP Coauthor Relationsships}
 	\begin{itemize}
-		\item \textbf{Recent DB conferences, removing balanced 
-			associations, low sup, etc.}
-		\item Advisor-advisee relation: Kulc: high, coherence: low, 
-		cosine: middle.
+		\item \textbf{Recent DB conferences, removing balanced
+			      associations, low sup, etc.}
+		\item Advisor-advisee relation: Kulc: high, coherence: low,
+		      cosine: middle.
 	\end{itemize}
 	\vspace{0.2cm}
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{|c|c|c|c|c|c||c|c|c|}
 			\hline
-			ID & Author $a$ & Author $b$ & $\text{sup}(ab)$ & 
-			$\text{sup}(a)$ & $\text{sup}(b)$ & Coherence & Cosine & 
-			Kulc \\\hline
-			1  & Hans-Peter Kriegel   & Martin Ester    & 28 & 146 & 54 
-			&           
-			0.163 (2) & 0.315 (7) & 0.355 (9) \\\hline
-			2  & Michael Carey        & Miron Livny     & 26 & 104 & 58 & 0.191 
-			(1) 
-			& 0.335 (4) & 0.349 (10) \\\hline
-			3  & Hans-Peter Kriegel   & Joerg Sander    & 24 & 146 & 36 
-			&           
-			0.152 (3) & 0.331 (5) & 0.416 (8) \\\hline
-			4 & Christos Faloutsos & Spiros Papadimitriou & 20 & 162 & 
-			26 & 0.119 (7) & 0.308 (10) & 0.446 (7) \\\hline
-			\color{red}5 & \color{red}Hans-Peter Kriegel & 
-			\color{red}Martin Pfeifle & \color{red}18 & \color{red}146 
-			& \color{red}18 & \color{red}0.123 (6) & \color{red}0.351 
-			(2) & \color{red}0.562 (2) \\\hline
-			6  & Hector Garcia-Molina & Wilburt Labio   & 16 & 144 & 18 
-			&           
-			0.110 (9) & 0.314 (8) & 0.500 (4) \\\hline
-			\color{red}7 & \color{red}Divyakant Agrawal & 
-			\color{red}Wang Hsiung & \color{red}16 & \color{red}120 & 
-			\color{red}16 & \color{red}0.133 (5) & \color{red}0.365 (1) 
-			& \color{red}0.567 (1) \\\hline
-			8  & Elke Rundensteiner   & Murali Mani     & 16 & 104 & 20 
-			&           
-			0.148 (4) & 0.351 (3) & 0.477 (6) \\\hline
-			\color{red}9 & \color{red}Divyakant Agrawal & 
-			\color{red}Oliver Po & \color{red}12 & \color{red}120 & 
-			\color{red}12 & \color{red}0.100 (10) & \color{red}0.316 
-			(6) & \color{red}0.550 (3) \\\hline
-			10 & Gerhard Weikum       & Martin Theobald & 12 & 106 & 14 
-			&           
-			0.111 (8) & 0.312 (9) & 0.485 (5) \\\hline
-	\end{tabular}}
+			ID                        & Author $a$                    & Author $b$           & $\text{sup}(ab)$ &
+			$\text{sup}(a)$           & $\text{sup}(b)$               & Coherence            & Cosine           &
+			Kulc                                                                                                                   \\\hline
+			1                         & Hans-Peter Kriegel            & Martin Ester         & 28               & 146 & 54
+			                          &
+			0.163 (2)                 & 0.315 (7)                     & 0.355 (9)                                                  \\\hline
+			2                         & Michael Carey                 & Miron Livny          & 26               & 104 & 58 & 0.191
+			(1)
+			                          & 0.335 (4)                     & 0.349 (10)                                                 \\\hline
+			3                         & Hans-Peter Kriegel            & Joerg Sander         & 24               & 146 & 36
+			                          &
+			0.152 (3)                 & 0.331 (5)                     & 0.416 (8)                                                  \\\hline
+			4                         & Christos Faloutsos            & Spiros Papadimitriou & 20               & 162 &
+			26                        & 0.119 (7)                     & 0.308 (10)           & 0.446 (7)                           \\\hline
+			\color{red}5              & \color{red}Hans-Peter Kriegel &
+			\color{red}Martin Pfeifle & \color{red}18                 & \color{red}146
+			                          & \color{red}18                 & \color{red}0.123 (6) & \color{red}0.351
+			(2)                       & \color{red}0.562 (2)                                                                       \\\hline
+			6                         & Hector Garcia-Molina          & Wilburt Labio        & 16               & 144 & 18
+			                          &
+			0.110 (9)                 & 0.314 (8)                     & 0.500 (4)                                                  \\\hline
+			\color{red}7              & \color{red}Divyakant Agrawal  &
+			\color{red}Wang Hsiung    & \color{red}16                 & \color{red}120       &
+			\color{red}16             & \color{red}0.133 (5)          & \color{red}0.365 (1)
+			                          & \color{red}0.567 (1)                                                                       \\\hline
+			8                         & Elke Rundensteiner            & Murali Mani          & 16               & 104 & 20
+			                          &
+			0.148 (4)                 & 0.351 (3)                     & 0.477 (6)                                                  \\\hline
+			\color{red}9              & \color{red}Divyakant Agrawal  &
+			\color{red}Oliver Po      & \color{red}12                 & \color{red}120       &
+			\color{red}12             & \color{red}0.100 (10)         & \color{red}0.316
+			(6)                       & \color{red}0.550 (3)                                                                       \\\hline
+			10                        & Gerhard Weikum                & Martin Theobald      & 12               & 106 & 14
+			                          &
+			0.111 (8)                 & 0.312 (9)                     & 0.485 (5)                                                  \\\hline
+		\end{tabular}}
 \end{frame}
 
 \begin{frame}{Which Null-invariant Measure is Better?}
 	\begin{itemize}
 		\item \textbf{Imbalance Ratio (IR):}
-		\begin{itemize}
-			\item Measure the imbalance of two itemsets A and B in rule 
-			implications
-			\begin{align}
-				\text{IR}(A,B) = \frac{|\text{sup}(A) -         
-					\text{sup}(B)|}{\text{sup}(A) + \text{sup}(B) - 
-					\text{sup}(A \cup B)}.                          
-			\end{align}
-			\item \textbf{Kulczynski and IR together present a clear 
-				picture \\ for all the three datasets D4 through D6.}
-			\begin{itemize}
-				\item D4  is balanced \& neutral.
-				\item D5  is imbalanced \& neutral.
-				\item D6  is very imbalanced \& neutral.
-			\end{itemize}
-		\end{itemize}
+		      \begin{itemize}
+			      \item Measure the imbalance of two itemsets A and B in rule
+			            implications
+			            \begin{align}
+				            \text{IR}(A,B) = \frac{|\text{sup}(A) -
+					            \text{sup}(B)|}{\text{sup}(A) + \text{sup}(B) -
+					            \text{sup}(A \cup B)}.
+			            \end{align}
+			      \item \textbf{Kulczynski and IR together present a clear
+				            picture \\ for all the three datasets D4 through D6.}
+			            \begin{itemize}
+				            \item D4  is balanced \& neutral.
+				            \item D5  is imbalanced \& neutral.
+				            \item D6  is very imbalanced \& neutral.
+			            \end{itemize}
+		      \end{itemize}
 	\end{itemize}
 	\centering
 	\resizebox{0.55\textwidth}{!}{%
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 			\hline
-			Data & mc & $\neg$mc & m$\neg$c & $\neg$m$\neg$c & 
-			all\_conf. & max\_conf. & Kulc & Cosine & IR \\\hline
-			D1 & 10,000 & 1,000 & 1,000 & 100,000 & 0.91 & 0.91 & 0.91 
-			& 0.91 & 0.0 \\
-			D2 & 10,000 & 1,000 & 1,000   & 100     & 0.91 & 0.91 & 0.91 &   
-			0.91 & 0.0 \\
-			D3 & 100    & 1,000 & 1,000   & 100,000 & 0.09 & 0.09 & 0.09 &   
-			0.09 & 0.0 \\
-			D4 & 1,000  & 1,000 & 1,000   & 100,000 & 0.5  & 0.5  & 0.5  &   
-			0.5 & 0.0 \\
-			D5 & 1,000  & 100   & 10,000  & 100,000 & 0.09 & 0.91 & 0.5  &   
-			0.29 & 0.89 \\
-			D6 & 1,000  & 10    & 100,000 & 100,000 & 0.01 & 0.99 & 0.5  &   
-			0.10 & 0.99 \\\hline
-	\end{tabular}}
+			Data       & mc         & $\neg$mc & m$\neg$c & $\neg$m$\neg$c &
+			all\_conf. & max\_conf. & Kulc     & Cosine   & IR                                    \\\hline
+			D1         & 10,000     & 1,000    & 1,000    & 100,000        & 0.91 & 0.91 & 0.91
+			           & 0.91       & 0.0                                                         \\
+			D2         & 10,000     & 1,000    & 1,000    & 100            & 0.91 & 0.91 & 0.91 &
+			0.91       & 0.0                                                                      \\
+			D3         & 100        & 1,000    & 1,000    & 100,000        & 0.09 & 0.09 & 0.09 &
+			0.09       & 0.0                                                                      \\
+			D4         & 1,000      & 1,000    & 1,000    & 100,000        & 0.5  & 0.5  & 0.5  &
+			0.5        & 0.0                                                                      \\
+			D5         & 1,000      & 100      & 10,000   & 100,000        & 0.09 & 0.91 & 0.5  &
+			0.29       & 0.89                                                                     \\
+			D6         & 1,000      & 10       & 100,000  & 100,000        & 0.01 & 0.99 & 0.5  &
+			0.10       & 0.99                                                                     \\\hline
+		\end{tabular}}
 \end{frame}

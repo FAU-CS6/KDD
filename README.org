@@ -39,10 +39,43 @@ version of LaTeX such as [[https://www.tug.org/texlive/][texlive]] or [[https://
 You may need to "install" FAU's custom beamer theme. To do so, simply copy or
 create a shortcut (symlink) to =<KDD location>/lecture/themefau= in the
 corresponding place depending on your operating system. For a standard
-installation this place is one of the following:
+installation on Linux or Mac OS this place is one of the following:
 - Linux: =~/texmf/tex/latex/local/=
 - Mac OS X: =//Users/<user name>/Library/texmf/tex/latex/local/=
-- Windows 10 (and MikTex): =C:\Users\<user
-  name>\Appdata\Local\MikTex\<number>\tex\latex\local\=
+
+For a MikTex installation under Windows, it is recommended to first create
+a new TEXMF root directory in the MikTex Console under Settings -> Directories.
+The recommended path is usually =C:\Users\[Username]\mytexmf= (Purpose: Generic -
+Attribute: User). The shortcut (symlink) to the theme must then be added under
+the specified path in the subfolder =\tex\latex=.
 
 For more information see this [[https://tex.stackexchange.com/questions/1137/where-do-i-place-my-own-sty-or-cls-files-to-make-them-available-to-all-my-te][entry]].
+
+* Setup for Commiting
+
+We use the framework [[https://pre-commit.com/][pre-commit]] to manage our
+pre-commit hooks. This simplifies the maintenance of the hooks - especially
+on heterogeneous systems - but requires an initial installation process
+of the individual users.
+
+First, the framework itself must be installed. This process is explained on
+the framework's website under [[https://pre-commit.com/#install]["Installation"]].
+
+The second thing that needs to be done is to install the pre-commit hooks themselves.
+This can be achieved by running the command =pre-commit install= in the root
+directory of this project.
+
+We assume that each commit has been validated with these pre-commit hooks
+and will not accept pull requests that contain unvalidated commits
+(the pre-commit hooks are also checked again on the server side by a GitHub action).
+
+*(Current) other prerequisites:*
+- The latex package [[latexindent][https://ctan.org/pkg/latexindent]]
+- Nodejs and npm
+
+*Note for Windows users:*
+One of the hooks uses [[https://github.com/cmhughes/latexindent.pl][latexindent.pl]].
+This is usually not installed correctly by MikTex and other package managers.
+Instead, download the ZIP archive of the [[https://github.com/cmhughes/latexindent.pl/releases][latest release]]
+and copy the latexindent.exe and the defaultSettings.yaml into a directory
+that you then specify in the Windows $PATH environment variable.
