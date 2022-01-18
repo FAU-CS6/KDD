@@ -13,6 +13,6 @@ jobs:
         with:
           run: |
             ls -a
-            apk add --no-cache python3 py3-pip
+            apk add --no-cache python3 py3-pip git
             pip3 install pre-commit
             pre-commit run --all-files
