@@ -69,6 +69,10 @@ We assume that each commit has been validated with these pre-commit hooks
 and will not accept pull requests that contain unvalidated commits
 (checked manually by us).
 
+*(Current) other prerequisites*
+- The latex package [[latexindent][https://ctan.org/pkg/latexindent]]
+- Nodejs and npm
+
 *Note for Windows users:*
 One of the hooks uses [[https://github.com/cmhughes/latexindent.pl][latexindent.pl]].
 This is usually not installed correctly by MikTex and other package managers.
