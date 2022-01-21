@@ -1,5 +1,7 @@
 \section{Data Warehouse Modeling: Data Cube and OLAP}
 
+% TODO: Example ERM for sales
+
 \begin{frame}{From Tables and Spreadsheets to Data Cubes}
 	\begin{itemize}
 		\item Data warehouse:
@@ -533,58 +535,4 @@
 			      \item \textbf{{\color{airforceblue}Drill through}:} through the bottom level of the cube \\ to its back-end relational tables (using SQL).
 		      \end{itemize}
 	\end{itemize}
-\end{frame}
-
-\begin{frame}{A Star-net Query Model}
-	\centering
-	\begin{tikzpicture}[scale=0.65]
-		\node[draw, circle, fill=black] at (0,-1.5) (dot1) {};
-		\node[draw, circle, fill=black] at (0,-3) (dot2) {};
-		\node at (0,-4) (promotion) {Promotion};
-		\node[draw, circle, fill=black, label=below:{\texttt{ORDER}}] at (0,1.5) (order) {};
-		\node[draw, circle, fill=black, label=below:{\texttt{CONTRACTS}}] at (0,3) (contracts) {};
-		\node at (0,4) (customerorders) {Customer orders};
-
-		\node at (-8,0) (time) {Time};
-		\node[draw, circle, fill=black, label=below:{\texttt{ANNUALY}}] at (-6,0) (annualy) {};
-		\node[draw, circle, fill=black, label=below:{\texttt{QTRL}}] at (-4,0) (qtrl) {};
-		\node[draw, circle, fill=black, label=below:{\texttt{DAILY}}] at (-2,0) (daily) {};
-
-		\node[draw, circle, fill=black] at (0,0) (c) {};
-
-		\node[draw, circle, fill=black, label=below:{\texttt{PRODUCT ITEM}}] at (2,0) (productitem) {};
-		\node[draw, circle, fill=black, label=above:{\texttt{PRODUCT LINE}}] at (4,0) (productline) {};
-		\node[draw, circle, fill=black, label=below:{\texttt{PRODUCT GROUP}}] at (6,0) (productgroup) {};
-		\node at (8,0) (product) {Product};
-
-		\node[draw, circle, fill=black] at (2,1.5) (dot4) {};
-		\node at (3.5,2.63) (customer) {Customer};
-
-		\node[draw, circle, fill=black, label=below:{\texttt{TRUCK}}] at (-2,1.5) (truck) {};
-		\node[draw, circle, fill=black, label=below:{\texttt{AIR-EXPRESS}}] at (-3.5,2.63) (airexpress) {};
-		\node at (-6,4.5) (shippingmethod) {Shipping method};
-
-
-		\node[draw, circle, fill=black, label=below:{\texttt{CITY}}] at (-2,-1.5) (city) {};
-		\node[draw, circle, fill=black, label=below:{\texttt{COUNTRY}}] at (-3.5,-2.63) (country) {};
-		\node[draw, circle, fill=black, label=below:{\texttt{REGION}}] at (-5,-3.75) (region) {};
-		\node at (-7,-5) (location) {Location};
-
-		\node[draw, circle, fill=black, label=below:{\texttt{SALES PERSON}}] at (2,-1.5) (salesperson) {};
-		\node[draw, circle, fill=black, label=below:{\texttt{DISTRICT}}] at (3.5,-2.63) (district) {};
-		\node[draw, circle, fill=black, label=below:{\texttt{DIVISION}}] at (5,-3.75) (division) {};
-		\node at (7,-5) (organization) {Organization};
-		\node at (6,4) (note) {Each circle is called a \textbf{\color{airforceblue}footprint}.};
-
-		\draw (c) -- (productitem) -- (productline) -- (productitem) -- (product);
-		\draw (c) -- (dot1) -- (dot2) -- (promotion);
-		\draw (c) -- (city) -- (country) -- (region) -- (location);
-		\draw (c) -- (daily) -- (qtrl) -- (annualy) -- (time);
-		\draw (c) -- (truck) -- (airexpress) -- (shippingmethod);
-		\draw (c) -- (order) -- (contracts) -- (customerorders);
-		\draw (c) -- (dot4) -- (customer);
-		\draw (c) -- (salesperson) -- (district) -- (division) -- (organization);
-
-		\draw[very thick, green] (district) -- (productgroup) -- (contracts) -- (qtrl) -- (country) -- (district);
-	\end{tikzpicture}
 \end{frame}

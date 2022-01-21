@@ -1,34 +1,35 @@
 \section{Data Warehouse: Basic Concepts}
 
 \begin{frame}{What is a Data Warehouse?}
+	William ``Bill'' H.  Inmon is commonly refered to as the ``father of the data warehouse''.
+	\begin{block}{Data Warehouse\footnote{\fullcite{inmon2005}}}
+		A data warehouse is a \textbf{subject-oriented}, \textbf{integrated}, \textbf{time-variant}, and \textbf{nonvolatile} collection of data in support of management's decision-making process.
+	\end{block}
+
+	\small
+	\textbf{Other definitions exist:}
 	\begin{itemize}
-		\item \textbf{Defined in many different ways, but not rigorously:}
-		      \begin{itemize}
-			      \item A \textbf{\color{airforceblue}decision-support} database that is \textbf{\color{airforceblue}maintained separately} from the organization's operational database.
-			      \item Supports information processing by providing a solid platform of \textbf{\color{airforceblue}consolidated, historical data} for analysis.
-		      \end{itemize}
-		\item \textbf{Famous:} \\
-		      \begin{itemize}
-			      \item \emph{A data warehouse is a {\color{airforceblue}subject-oriented, integrated, time-variant, and nonvolatile} collection of data in support of management's decision-making process.}\\-- W. H. Inmon.
-		      \end{itemize}
-		\item \textbf{\color{airforceblue}Data warehousing:} The process of constructing and using data warehouses.
+		\item ``A data warehouse is a system that extracts, cleans, conforms, and delivers source data into a dimensional data store and then supports and implements querying and analysis for the purpose of decision making.''\footnote{\fullcite{kimball2004}}
+		\item A \textbf{\color{airforceblue}decision-support} database that is
+		      \textbf{\color{airforceblue}maintained separately} from the organization's
+		      operational database.
+		\item Supports information processing by providing a solid platform of
+		      \textbf{\color{airforceblue}consolidated, historical data} for analysis.
 	\end{itemize}
+
+	\textbf{\color{airforceblue}Data warehousing:} The process of constructing and using data warehouses.
 \end{frame}
 
 \begin{frame}{Data Warehouse -- Subject-oriented}
 	\begin{itemize}
-		\item \textbf{Organized around major subjects.}
-		      \begin{itemize}
-			      \item Such as customer, product, sales.
-		      \end{itemize}
-		\item \textbf{Focusing on the modeling and analysis of data for {\color{airforceblue}decision makers}.}
-		      \begin{itemize}
-			      \item Not on daily operations or transaction processing.
-		      \end{itemize}
-		\item \textbf{Provide a simple and concise view around particular subject issues.}
-		      \begin{itemize}
-			      \item By excluding data that are not useful in the decision-support process.
-		      \end{itemize}
+		\item \textbf{Organized around major subjects.} Such as customer, product,
+		      sales.
+		\item \textbf{Focusing on the modeling and analysis of data for
+				      {\color{airforceblue}decision makers}.} Not on daily operations or
+		      transaction processing.
+		\item \textbf{Provide a simple and concise view around particular
+			      subject issues.} By excluding data that are not useful in the
+		      decision-support process.
 	\end{itemize}
 \end{frame}
 
@@ -48,16 +49,17 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Data Warehouse -- Time Variant}
+\begin{frame}{Data Warehouse -- Time-Variant}
 	\begin{itemize}
-		\item \textbf{The {\color{airforceblue}time horizon} for a data warehouse is {\color{airforceblue}significantly longer} \\
-			      than that of operational systems.}
+		\item \textbf{The {\color{airforceblue}time horizon} for a data warehouse is
+				      {\color{airforceblue}significantly longer} than that of operational
+			      systems.}
 		      \begin{itemize}
 			      \item Operational database: current-value data.
 			      \item Data warehouse: provide information from a historical perspective, e.g. past $5-10$ years.
 		      \end{itemize}
-		\item \textbf{Every key structure in the data warehouse contains \\
-			      an element of time, explicitly or implicitly.}
+		\item \textbf{Every key structure in the data warehouse contains an
+			      element of time, explicitly or implicitly.}
 		\item The key of operational data may or may not contain a "time element."
 	\end{itemize}
 \end{frame}
@@ -74,57 +76,83 @@
 			      \item Hence, does not require transaction processing, \\
 			            i.e. no logging, recovery, concurrency control, etc.
 			      \item Requires only three operations:
-			            \begin{itemize}
+			            \begin{enumerate}
 				            \item Initial loading of data.
 				            \item Refresh (update, often periodically, e.g. over night).
 				            \item Access of data.
-			            \end{itemize}
+			            \end{enumerate}
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Data Warehouse Usage}
+	\textbf{Three kinds of data warehouse applications.}
+	\begin{itemize}
+		\item \textbf{\color{airforceblue}Information processing.}
+		      \begin{itemize}
+			      \item Supports querying, basic statistical analysis, and \\ reporting using crosstabs, tables, charts and graphs.
+		      \end{itemize}
+		\item \textbf{\color{airforceblue}Analytical processing.}
+		      \begin{itemize}
+			      \item Multidimensional analysis of data warehouse data.
+			      \item Supports basic OLAP operations, slice-dice, drilling, pivoting.
+		      \end{itemize}
+		\item \textbf{\color{airforceblue}Data mining.}
+		      \begin{itemize}
+			      \item Knowledge discovery from hidden patterns.
+			      \item Supports associations, constructing analytical models, performing classification and prediction, and presenting the mining results using visualization tools.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+
 \begin{frame}{OLTP vs. OLAP}
-	\begin{tabularx}{\textwidth}{|l|X|X|}
-		                               & \textbf{OLTP}                                            & \textbf{OLAP}                                                      \\\hline
-		\textbf{Users}                 & clerk, IT professional                                   & knowledge worker                                                   \\
-		\textbf{Function}              & day-to-day operations                                    & decision support                                                   \\
-		\textbf{DB Design}             & application-oriented                                     & decision support                                                   \\
-		\textbf{Data}                  & current, up-to-date; detailed, flat relational; isolated & historical; summarized, multidimensional, integrated, consolidated \\
-		\textbf{Usage}                 & repetitive                                               & ad-hoc                                                             \\
-		\textbf{Access}                & read/write; index/hash on primary key                    & lots of scans                                                      \\
-		\textbf{Unit of Work}          & short, simple transaction                                & complex query                                                      \\
-		\textbf{$\#$-Records Accessed} & $~ 10$                                                   & $~ 10^6$                                                           \\
-		\textbf{$\#$-Users}            & $~ 1000$                                                 & $~ 100$                                                            \\
-		\textbf{DB Size}               & $~ 100$ MB to GB                                         & $~ 100$ GB to TB                                                   \\
-		\textbf{Quantification}        & transaction throughput                                   & query throughput, response                                         \\
+	\begin{tabularx}{\textwidth}{|b|X|X|}
+		\rowcolor{faugray!62}          & \textbf{OLTP}                                            & \textbf{OLAP}                                                      \\\hline
+		\textbf{Users}                 & clerk, IT professional                                   & knowledge worker                                                   \\ \hline
+		\textbf{Function}              & day-to-day operations                                    & decision support                                                   \\ \hline
+		\textbf{DB Design}             & application-oriented                                     & decision support                                                   \\ \hline
+		\textbf{Data}                  & current, up-to-date; detailed, flat relational; isolated & historical; summarized, multidimensional, integrated, consolidated \\ \hline
+		\textbf{Usage}                 & repetitive                                               & ad-hoc                                                             \\ \hline
+		\textbf{Access}                & read/write; index/hash on primary key                    & lots of scans                                                      \\ \hline
+		\textbf{Unit of Work}          & short, simple transaction                                & complex query                                                      \\ \hline
+		\textbf{$\#$-Records Accessed} & $~ 10$                                                   & $~ 10^6$                                                           \\ \hline
+		\textbf{$\#$-Users}            & $~ 1000$                                                 & $~ 100$                                                            \\ \hline
+		\textbf{DB Size}               & $~ 100$ MB to GB                                         & $~ 100$ GB to TB                                                   \\ \hline
+		\textbf{Quantification}        & transaction throughput                                   & query throughput, response                                         \\ \hline
 	\end{tabularx}
 \end{frame}
 
 \begin{frame}{Why a Separate Data Warehouse?}
+	\textbf{High performance for both systems:}
 	\begin{itemize}
-		\item \textbf{High performance for both systems:}
-		      \begin{itemize}
-			      \item \textbf{\color{airforceblue}DBMS}: tuned for OLTP; Access methods, indexing concurreny control, recovery.
-			      \item \textbf{\color{airforceblue}Warehouse}: tuned for OLAP; Complex OLAP queries, multidimensional view, consolidation.
-		      \end{itemize}
-		\item \textbf{Different functions and different data:}
-		      \begin{itemize}
-			      \item Missing data (DBMS):
-			            \begin{itemize}
-				            \item Decision support (DS) requires \textbf{\color{airforceblue}historical data} \\ which operational DBs do not typically maintain.
-			            \end{itemize}
-			      \item Data consolidation (warehouse):
-			            \begin{itemize}
-				            \item DS requires \textbf{\color{airforceblue}consolidation} (aggregation, summarization) \\
-				                  of data from heterogeneous sources.
-			            \end{itemize}
-			      \item Data quality (warehouse):
-			            \begin{itemize}
-				            \item Different sources typically use inconsistent data representations, \\ codes and formats which have to be reconciled.
-			            \end{itemize}
-		      \end{itemize}
-		\item \textbf{Note: There are more and more systems which perform OLAP\\ analysis directly on relational databases.}
+		\item \textbf{\color{airforceblue}DBMS}: tuned for OLTP; Access methods,
+		      indexing concurreny control, recovery.
+		\item \textbf{\color{airforceblue}Warehouse}: tuned for OLAP; Complex OLAP
+		      queries, multidimensional view, consolidation.
 	\end{itemize}
+	\textbf{Different functions and different data:}
+	\begin{itemize}
+		\item Missing data (DBMS):
+		      \begin{itemize}
+			      \item Decision support (DS) requires
+			            \textbf{\color{airforceblue}historical data} which operational DBs do
+			            not typically maintain.
+		      \end{itemize}
+		\item Data consolidation (warehouse):
+		      \begin{itemize}
+			      \item DS requires \textbf{\color{airforceblue}consolidation} (aggregation,
+			            summarization) of data from heterogeneous sources.
+		      \end{itemize}
+		\item Data quality (warehouse):
+		      \begin{itemize}
+			      \item Different sources typically use inconsistent data representations,
+			            codes and formats which have to be reconciled.
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{Note: There are more and more systems which perform OLAP analysis
+		directly on relational databases.}
 \end{frame}
 
 \begin{frame}{Three Data Warehouse Models}
@@ -136,7 +164,7 @@
 		\item \textbf{\color{airforceblue}Data mart:}
 		      \begin{itemize}
 			      \item A \textbf{\color{airforceblue}subset} of corporate-wide data that is of value to a \textbf{\color{airforceblue}specific group of users}.
-			      \item Its scope is confined to specific, selected groups, such as marketing data mart.
+			      \item Typically contains (highly) summarized data.
 			      \item Independent vs. dependent (directly from warehouse) data mart.
 		      \end{itemize}
 		\item \textbf{\color{airforceblue}Virtual warehouse:}
@@ -172,35 +200,50 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Metadata Repository (I)}
-	\begin{itemize}
-		\item \textbf{Metadata: the data defining data warehouse objects.}
-		\item \textbf{Description of the {\color{airforceblue}structure} of the data warehouse:}
-		      \begin{itemize}
-			      \item Schema, view, dimensions, hierarchies, derived-data definition, \\
-			            data-mart locations and contents.
-		      \end{itemize}
+\begin{frame}{Metadata\footnote{C.f. chapter 9 of \fullcite{kimball2004}} Repository}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			Generally speaking:
 
-	\end{itemize}
+			\begin{block}{Metadata}
+				Data about data.
+			\end{block}
+
+			Three types: \textit{business}, \textit{process execution}, and
+			\textit{technical} metadata.
+
+			\vspace*{0.8em}
+			\textbf{Business Metadata}
+			\begin{itemize}
+				\item Business terms and definitions.
+				\item Logical data mapping.
+				\item Data ownership.
+				\item Charging policies.
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.5\textwidth}
+			\textbf{Process Execution Metadata}
+			\begin{itemize}
+				\item Data acquisition schedule.
+				\item Data-cleaning specifications.
+				\item Aggregate specifications.
+				\item Slowly changing dimensions policies.
+				\item Duration of ETL, rows rejected and successfull.
+			\end{itemize}
+			\textbf{Technical Metadata}
+			\begin{itemize}
+				\item Table structures and table attributes.
+				\item Derived data definitions.
+				\item Results from data profiling.
+				\item Data lineage.
+			\end{itemize}
+
+			\note{Data lineage = mapping of data and their tranformation process back
+				to their originated source.}
+		\end{column}
+	\end{columns}
 \end{frame}
 
-\begin{frame}{Metadata Repository: Contents (II)}
-	\begin{itemize}
-		\item \textbf{{\color{airforceblue}Operational} metadata:}
-		      \begin{itemize}
-			      \item \textbf{\color{airforceblue}Data lineage} (history of migrated data and transformation path).
-			      \item Currency of data (active, archived, or purged).
-			      \item Monitoring information (warehouse-usage statistics, error reports, audit trails).
-		      \end{itemize}
-		\item \textbf{{\color{airforceblue}Algorithms} used for summarization.}
-		\item \textbf{{\color{airforceblue}Mapping} from operational environment to data warehouse.}
-		\item \textbf{Data related to system performance:}
-		      \begin{itemize}
-			      \item Warehouse schema, view and derived-data definitions.
-		      \end{itemize}
-		\item \textbf{Business data:}
-		      \begin{itemize}
-			      \item Business terms and definitions, ownership of data, charging policies.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
+% TODO: Insert (reference) architecture for data warehouse systems
+% TODO: Insert requirements for data warehouse systems
