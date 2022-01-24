@@ -25,15 +25,15 @@
 \beamer@longtitlefalse
 
 \DeclareOptionBeamer{image}[true]{%
-  \csname beamer@image#1\endcsname%
+	\csname beamer@image#1\endcsname%
 }
 
 \DeclareOptionBeamer{plain}[true]{%
-  \csname beamer@plain#1\endcsname%
+	\csname beamer@plain#1\endcsname%
 }
 
 \DeclareOptionBeamer{longtitle}[true]{%
-  \csname beamer@longtitle#1\endcsname%
+	\csname beamer@longtitle#1\endcsname%
 }
 
 \ProcessOptionsBeamer
@@ -41,18 +41,18 @@
 
 % Set paths for TechFak images
 \ifdefined\imagepath\else
-  \def\imagepath{tf}
+	\def\imagepath{tf}
 \fi
 \def\imagecopyrightsmall{\color{black}Bilder: TF / Malter}
 
 
 \ifdefined\beamer@inst\else%
-  % Include FAU theme
-  \usetheme[
-    image=\ifbeamer@image true\else false\fi,
-    plain=\ifbeamer@plain true\else false\fi,
-    longtitle=\ifbeamer@longtitle true\else false\fi
-  ]{fau}
+	% Include FAU theme
+	\usetheme[
+		image=\ifbeamer@image true\else false\fi,
+		plain=\ifbeamer@plain true\else false\fi,
+		longtitle=\ifbeamer@longtitle true\else false\fi
+	]{fau}
 \fi
 
 

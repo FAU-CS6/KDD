@@ -27,25 +27,25 @@
 \beamer@longtitlefalse
 
 \DeclareOptionBeamer{inst}[]{%
-  \def\beamer@inst{#1}%
+	\def\beamer@inst{#1}%
 }
 
 \DeclareOptionBeamer{plain}[true]{%
-  \csname beamer@plain#1\endcsname%
-  \ifbeamer@plain%
-    \beamer@imagefalse%
-  \fi
+	\csname beamer@plain#1\endcsname%
+	\ifbeamer@plain%
+		\beamer@imagefalse%
+	\fi
 }
 
 \DeclareOptionBeamer{image}[true]{%
-  \csname beamer@image#1\endcsname%
-  \ifbeamer@image%
-    \beamer@plainfalse%
-  \fi
+	\csname beamer@image#1\endcsname%
+	\ifbeamer@image%
+		\beamer@plainfalse%
+	\fi
 }
 
 \DeclareOptionBeamer{longtitle}[true]{%
-  \csname beamer@longtitle#1\endcsname%
+	\csname beamer@longtitle#1\endcsname%
 }
 
 \ProcessOptionsBeamer
@@ -60,18 +60,18 @@
 \pgfmathsetmacro{\beamer@fourtothree}{4/3}
 \pgfmathsetmacro{\beamer@sixteentonine}{16/9}
 \ifdim \beamer@aspectratio pt=\beamer@fourtothree pt%
-  % Convert 4:3 pptx dimensions to 4:3 beamer
-  \def\factor{.503937}
-  \def\factorx{.503937}
-  \def\factory{.503937}
+	% Convert 4:3 pptx dimensions to 4:3 beamer
+	\def\factor{.503937}
+	\def\factorx{.503937}
+	\def\factory{.503937}
 \else\ifdim \beamer@aspectratio pt=\beamer@sixteentonine pt%
-  % Convert 4:3 pptx dimensions to 16:9 beamer
-  \def\factor{0.9375*.503937}
-  \def\factorx{1.25*.503937}
-  \def\factory{0.75*.503937}
-\else%
-  \errmessage{Any layout other than aspect ratio 4:3 or 16:9 is not supported}
-\fi\fi%
+		% Convert 4:3 pptx dimensions to 16:9 beamer
+		\def\factor{0.9375*.503937}
+		\def\factorx{1.25*.503937}
+		\def\factory{0.75*.503937}
+	\else%
+		\errmessage{Any layout other than aspect ratio 4:3 or 16:9 is not supported}
+	\fi\fi%
 
 
 % Include each single theme file
@@ -95,23 +95,23 @@
 
 
 \ifx\beamer@inst\empty\else%
-  % Load institution theme
-  \usetheme[%
-    image=\ifbeamer@image true\else false\fi,%
-    plain=\ifbeamer@plain true\else false\fi,%
-    longtitle=\ifbeamer@longtitle true\else false\fi%
-  ]{fau-\beamer@inst}
+	% Load institution theme
+	\usetheme[%
+		image=\ifbeamer@image true\else false\fi,%
+		plain=\ifbeamer@plain true\else false\fi,%
+		longtitle=\ifbeamer@longtitle true\else false\fi%
+	]{fau-\beamer@inst}
 \fi
 
 
 % Image path is set by institution files
 \ifdefined\imagepath
 
-\def\faulogowhite{fau-logo-white}
-  \def\faulogo{fau-logo}
+	\def\faulogowhite{fau-logo-white}
+	\def\faulogo{fau-logo}
 \else
-  \def\imagepath{}
-  \def\faulogo{fau-logo}
+	\def\imagepath{}
+	\def\faulogo{fau-logo}
 \fi
 
 
@@ -120,24 +120,24 @@
 \pgfmathsetmacro{\beamer@fourtothree}{4/3}
 \pgfmathsetmacro{\beamer@sixteentonine}{16/9}
 \ifdim \beamer@aspectratio pt=\beamer@fourtothree pt%
-  % Aspect ratio 4:3
-  \pgfdeclareimage[width=3.18cm]{faulogo-white}{art/\imagepath/\faulogowhite}
-\pgfdeclareimage[width=3.18cm]{faulogo-large}{art/\imagepath/\faulogo}
-  \pgfdeclareimage[width=2.08cm]{faulogo-small}{art/\imagepath/\faulogo}
-  \pgfdeclareimage[width=12.37cm,height=5.44cm]{image-large}{art/\imagepath/image-large-43}
-  \pgfdeclareimage[width=12.37cm,height=3.59cm]{image-small}{art/\imagepath/image-small-43}
+	% Aspect ratio 4:3
+	\pgfdeclareimage[width=3.18cm]{faulogo-white}{art/\imagepath/\faulogowhite}
+	\pgfdeclareimage[width=3.18cm]{faulogo-large}{art/\imagepath/\faulogo}
+	\pgfdeclareimage[width=2.08cm]{faulogo-small}{art/\imagepath/\faulogo}
+	\pgfdeclareimage[width=12.37cm,height=5.44cm]{image-large}{art/\imagepath/image-large-43}
+	\pgfdeclareimage[width=12.37cm,height=3.59cm]{image-small}{art/\imagepath/image-small-43}
 \else\ifdim \beamer@aspectratio pt=\beamer@sixteentonine pt%
-  % Aspect ratio 16:9
-\pgfdeclareimage[width=6.98cm]{faulogo-large}{art/\imagepath/\faulogo}
-\pgfdeclareimage[width=6.98cm]{faulogo-white}{art/\imagepath/\faulogowhite}
-\pgfdeclareimage[width=6.98cm]{faulogo-white}{art/\imagepath/\faulogowhite}
-\pgfdeclareimage[width=6.98cm]{fautext-white}{art/\imagepath/\faulogowhite}
-  \pgfdeclareimage[width=4cm]{faulogo-small}{art/\imagepath/\faulogo}
-  \pgfdeclareimage[width=15.63cm,height=5.17cm]{image-large}{art/\imagepath/image-large-169}
-  \pgfdeclareimage[width=15.63cm,height=3.39cm]{image-small}{art/\imagepath/image-small-169}
-\else%
-  \errmessage{Any layout other than aspect ratio 4:3 or 16:9 is not supported}
-\fi\fi%
+		% Aspect ratio 16:9
+		\pgfdeclareimage[width=6.98cm]{faulogo-large}{art/\imagepath/\faulogo}
+		\pgfdeclareimage[width=6.98cm]{faulogo-white}{art/\imagepath/\faulogowhite}
+		\pgfdeclareimage[width=6.98cm]{faulogo-white}{art/\imagepath/\faulogowhite}
+		\pgfdeclareimage[width=6.98cm]{fautext-white}{art/\imagepath/\faulogowhite}
+		\pgfdeclareimage[width=4cm]{faulogo-small}{art/\imagepath/\faulogo}
+		\pgfdeclareimage[width=15.63cm,height=5.17cm]{image-large}{art/\imagepath/image-large-169}
+		\pgfdeclareimage[width=15.63cm,height=3.39cm]{image-small}{art/\imagepath/image-small-169}
+	\else%
+		\errmessage{Any layout other than aspect ratio 4:3 or 16:9 is not supported}
+	\fi\fi%
 
 
 \mode
