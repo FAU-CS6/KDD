@@ -26,4 +26,4 @@ jobs:
   call_build_pdfs:
     needs: [validate-commit]
     if: contains(needs.*.result, 'success')
-    uses:  FAU-CS6/KDD/.github/workflows/build_pdfs.yml
+    uses:  FAU-CS6/KDD/.github/workflows/build_pdfs.yml@8ace76e
