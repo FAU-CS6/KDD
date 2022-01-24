@@ -3,6 +3,7 @@ on: [push]
 jobs:
   pre_commit_validation:
     name: Validate that the pre-commit hooks have run
+    id: validate-commit
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
@@ -14,4 +15,15 @@ jobs:
           run: |
             apk add --no-cache python3 py3-pip git nodejs npm
             pip3 install pre-commit
-            pre-commit run --all-files
+            if pre-commit run --all-files | grep "exit code: 1" || true;
+            then
+              echo "Pre-commit run did not run on local machine."
+              exit 1
+            else
+              echo "Pre-commit did run on local machine."
+            fi
+
+  call_build_pdfs:
+    needs: [validate-commit]
+    if: contains(needs.*.result, 'success')
+    uses:  FAU-CS6/KDD/.github/workflows/build_pdfs.yml

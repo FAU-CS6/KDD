@@ -1,4 +1,5 @@
-on: [push]
+on:
+  workfow_call:
 
 jobs:
   build_latex:
