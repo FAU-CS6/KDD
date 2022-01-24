@@ -14,6 +14,7 @@ jobs:
           run: |
             apk add --no-cache python3 py3-pip git nodejs npm
             pip3 install pre-commit
+            pre-commit run --all-files
             if pre-commit run --all-files | grep "exit code: 1" || true;
             then
               echo "Pre-commit run did not run on local machine."
