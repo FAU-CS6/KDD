@@ -3,7 +3,6 @@ on: [push]
 jobs:
   pre_commit_validation:
     name: Validate that the pre-commit hooks have run
-    id: validate-commit
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
@@ -24,6 +23,6 @@ jobs:
             fi
 
   call_build_pdfs:
-    needs: [validate-commit]
+    needs: [pre_commit_validation]
     if: contains(needs.*.result, 'success')
     uses:  FAU-CS6/KDD/.github/workflows/build-pdfs.yml@a5dce91e44d70307a496191ca7bd28a64190f333
