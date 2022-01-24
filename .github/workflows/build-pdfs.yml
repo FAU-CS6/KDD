@@ -1,5 +1,4 @@
-on:
-  workfow_call:
+on: workflow_call
 
 jobs:
   build_latex:
