@@ -16,7 +16,7 @@ jobs:
             pip3 install pre-commit
             pre-commit run --all-files > pre-commit-validation.txt
             cat pre-commit-validation.txt
-            if cat pre-commit-validation.txt | grep Failed || true;
+            if cat pre-commit-validation.txt | grep -q Failed;
             then
               echo "Pre-commit run did not run on local machine."
               exit 1
