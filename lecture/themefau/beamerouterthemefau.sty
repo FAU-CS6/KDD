@@ -26,33 +26,33 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frametitle %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{frametitle}{%
-  \insertframetitle\\
+	\insertframetitle\\
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frametitle end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Headline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\headlinebody}[1][\empty]{%
-  \def\paperheight{\factor*2.75cm}
-  \begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\paperheight}
-    \pgfputat{\pgfpoint{\paperwidth-\factor*.92cm}{\paperheight-\factor*.54cm}}{%
-      \pgfbox[right,top]{%
-        \pgfuseimage{faulogo-small}
-      }
-    }
-    % Additional headline logo
-    \ifx#1\empty\else
-      \pgfputat{\pgfpoint{\paperwidth-\factor*.92cm-\factor*4.86cm}%
-                         {\paperheight-\factor*.335cm}}{%
-        \pgfbox[right,top]{%
-          #1%
-        }
-      }
-    \fi
-  \end{pgfpicture}
+	\def\paperheight{\factor*2.75cm}
+	\begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\paperheight}
+		\pgfputat{\pgfpoint{\paperwidth-\factor*.92cm}{\paperheight-\factor*.54cm}}{%
+			\pgfbox[right,top]{%
+				\pgfuseimage{faulogo-small}
+			}
+		}
+		% Additional headline logo
+		\ifx#1\empty\else
+			\pgfputat{\pgfpoint{\paperwidth-\factor*.92cm-\factor*4.86cm}%
+				{\paperheight-\factor*.335cm}}{%
+				\pgfbox[right,top]{%
+					#1%
+				}
+			}
+		\fi
+	\end{pgfpicture}
 }
 \setbeamertemplate{headline}{%
-  \headlinebody
+	\headlinebody
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Headline end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -70,79 +70,79 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{background}{%
-  \ifbeamer@plainframe\else%
-    \begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\paperheight}
-      % \usebeamercolor[fg]{structure}
-      \color{faugraydark}
-      \pgfsetlinewidth{\factor*.75pt}
-      \pgfrect[fill]{\pgfpoint{\factor*1.5cm}{\factor*16.5cm}}
-                      {\pgfpoint{\paperwidth}{0.08cm}}
+	\ifbeamer@plainframe\else%
+		\begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\paperheight}
+			% \usebeamercolor[fg]{structure}
+			\color{faugraydark}
+			\pgfsetlinewidth{\factor*.75pt}
+			\pgfrect[fill]{\pgfpoint{\factor*1.5cm}{\factor*16.5cm}}
+			{\pgfpoint{\paperwidth}{0.08cm}}
 
-      \ifdefined\beamer@@tmpl@logo%
-        % Draw logo
-        \pgfputat{\pgfpoint{\paperwidth-\factorx*1.24cm}%
-                           {\paperheight-\factor*17.1cm}}{%
-          \pgfbox[right,bottom]{%
-            \scalebox{0.65}{% Same scale factor as FAU logo
-              \insertlogo
-            }
-          }
-        }
-      \fi
-    \end{pgfpicture}
-  \fi
+			\ifdefined\beamer@@tmpl@logo%
+				% Draw logo
+				\pgfputat{\pgfpoint{\paperwidth-\factorx*1.24cm}%
+					{\paperheight-\factor*17.1cm}}{%
+					\pgfbox[right,bottom]{%
+						\scalebox{0.65}{% Same scale factor as FAU logo
+							\insertlogo
+						}
+					}
+				}
+			\fi
+		\end{pgfpicture}
+	\fi
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Background end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Footline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{footline}{%
-  \def\canvasheight{\paperheight-\factor*18.29cm}
-  \begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\canvasheight}
-    % shortauthor, shortinstitute, and shorttitle
-    \pgfrect[fill]{\pgfpoint{\factor*1.5cm}{\factor*1cm}}
-                      {\pgfpoint{\paperwidth}{0.01cm}}
-    \pgfputat{\pgfpoint{\factor*1.5cm}{\factor*.64cm}}{%
-      \pgfbox[left,top]{%
-        \pgfmathparse{\factorx*17cm}%
-        \parbox[c]{\pgfmathresult pt}{%
-          \vspace{.33ex}%
-          \setbox0=\hbox{\insertshortauthor\unskip}\ifdim\wd0=0pt\else%
-            \mbox{\insertshortauthor}\quad|\quad%
-          \fi%
-          \setbox0=\hbox{\insertshortinstitute\unskip}\ifdim\wd0=0pt\else%
-            \mbox{\insertshortinstitute}\quad|\quad%
-          \fi%
-          \mbox{\insertshorttitle}
-        }
-      }
-    }
+	\def\canvasheight{\paperheight-\factor*18.29cm}
+	\begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\canvasheight}
+		% shortauthor, shortinstitute, and shorttitle
+		\pgfrect[fill]{\pgfpoint{\factor*1.5cm}{\factor*1cm}}
+		{\pgfpoint{\paperwidth}{0.01cm}}
+		\pgfputat{\pgfpoint{\factor*1.5cm}{\factor*.64cm}}{%
+			\pgfbox[left,top]{%
+				\pgfmathparse{\factorx*17cm}%
+				\parbox[c]{\pgfmathresult pt}{%
+					\vspace{.33ex}%
+					\setbox0=\hbox{\insertshortauthor\unskip}\ifdim\wd0=0pt\else%
+						\mbox{\insertshortauthor}\quad|\quad%
+					\fi%
+					\setbox0=\hbox{\insertshortinstitute\unskip}\ifdim\wd0=0pt\else%
+						\mbox{\insertshortinstitute}\quad|\quad%
+					\fi%
+					\mbox{\insertshorttitle}
+				}
+			}
+		}
 
-    % shortdate
-    \pgfputat{\pgfpoint{\factorx*18.92cm}{\factor*.64cm}}{%
-      \pgfbox[left,top]{%
-        \pgfmathparse{\factorx*3cm}
-        \parbox{\pgfmathresult pt}{%
-          \vspace{.33ex}%
-          \setbox0=\hbox{\insertshortdate\unskip}\ifdim\wd0=0pt\else%
-            \insertshortdate%
-          \fi%
-        }
-      }
-    }
+		% shortdate
+		\pgfputat{\pgfpoint{\factorx*18.92cm}{\factor*.64cm}}{%
+			\pgfbox[left,top]{%
+				\pgfmathparse{\factorx*3cm}
+				\parbox{\pgfmathresult pt}{%
+					\vspace{.33ex}%
+					\setbox0=\hbox{\insertshortdate\unskip}\ifdim\wd0=0pt\else%
+						\insertshortdate%
+					\fi%
+				}
+			}
+		}
 
-    % frame number
-    \pgfputat{\pgfpoint{\factorx*22.85cm}{\factor*.64cm}}{%
-      \pgfbox[left,top]{%
-        \pgfmathparse{\factorx*2cm}
-        \parbox{\pgfmathresult pt}{%
-          \vspace{.33ex}%
-          \raggedleft%
-          \insertframenumber
-        }
-      }
-    }
-  \end{pgfpicture}
+		% frame number
+		\pgfputat{\pgfpoint{\factorx*22.85cm}{\factor*.64cm}}{%
+			\pgfbox[left,top]{%
+				\pgfmathparse{\factorx*2cm}
+				\parbox{\pgfmathresult pt}{%
+					\vspace{.33ex}%
+					\raggedleft%
+					\insertframenumber
+				}
+			}
+		}
+	\end{pgfpicture}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Footline end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

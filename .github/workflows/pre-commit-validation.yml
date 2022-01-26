@@ -14,4 +14,17 @@ jobs:
           run: |
             apk add --no-cache python3 py3-pip git nodejs npm
             pip3 install pre-commit
-            pre-commit run --all-files
+            pre-commit run --all-files > pre-commit-validation.txt
+            cat pre-commit-validation.txt
+            if cat pre-commit-validation.txt | grep -q Failed;
+            then
+              echo "Pre-commit run did not run on local machine."
+              exit 1
+            else
+              echo "Pre-commit did run on local machine."
+            fi
+
+  call_build_pdfs:
+    needs: [pre_commit_validation]
+    if: contains(needs.*.result, 'success')
+    uses:  FAU-CS6/KDD/.github/workflows/build-pdfs.yml@a5dce91e44d70307a496191ca7bd28a64190f333
