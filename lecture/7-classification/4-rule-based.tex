@@ -66,38 +66,7 @@
 		\end{column}
 		\begin{column}{0.55\textwidth}
 			\centering
-			\begin{tikzpicture}
-				\node[draw, fill=blue!20] at (0,0) (a) {age?};
-				\node[fill=yellow!20] at (-1.5,-0.7) (b) {<=30};
-				\node[fill=yellow!20] at (0,-0.7) (c) {$31\ldots40$};
-				\node[fill=yellow!20] at (1.5,-0.7) (d) {$>40$};
-				\node[draw, fill=blue!20] at (-1.5,-1.4) (e) {student?};
-				\node[fill=yellow!20] at (-2,-2.1) (eno1) {no};
-				\node[fill=yellow!20] at (-1,-2.1) (eyes1) {yes};
-				\node[fill=orange!20] at (-2,-2.8) (eno2) {no};
-				\node[fill=green!20] at (-1,-2.8) (eyes2) {yes};
-				\node[draw, fill=blue!20] at (1.5,-1.4) (g) {credit rating?};
-				\node[fill=yellow!20] at (2,-2.1) (gf) {fair};
-				\node[fill=yellow!20] at (1,-2.1) (gex) {excellent};
-				\node[fill=orange!20] at (1,-2.8) (gno) {no};
-				\node[fill=green!20] at (2,-2.8) (gyes) {yes};
-				\node[fill=green!20] at (0,-1.4) (f) {yes};
-
-				\draw (a)--(b);
-				\draw (a)--(c);
-				\draw (a)--(d);
-				\draw (b)--(e);
-				\draw (c)--(f);
-				\draw (d)--(g);
-				\draw (e)--(eno1);
-				\draw (e)--(eyes1);
-				\draw (eno1)--(eno2);
-				\draw (eyes1)--(eyes2);
-				\draw (g)--(gex);
-				\draw (g)--(gf);
-				\draw (gex)--(gno);
-				\draw (gf)--(gyes);
-			\end{tikzpicture}
+			\input{7-classification/tree-example.tex}
 		\end{column}
 	\end{columns}
 \end{frame}

@@ -1,0 +1,32 @@
+\begin{tikzpicture}
+	\node[rounded corners=.25em,draw, fill=faugray!62] at (0,0) (a) {age?};
+	\node[rounded corners=.25em,draw] at (-1.5,-0.7) (b) {<=30};
+	\node[rounded corners=.25em,draw] at (0,-0.7) (c) {$31\ldots40$};
+	\node[rounded corners=.25em,draw] at (1.5,-0.7) (d) {$>40$};
+	\node[rounded corners=.25em,draw, fill=faugray!62] at (-1.5,-1.4) (e) {student?};
+	\node[rounded corners=.25em,draw] at (-2,-2.1) (eno1) {no};
+	\node[rounded corners=.25em,draw] at (-1,-2.1) (eyes1) {yes};
+	\node[text=faured] at (-2,-2.8) (eno2) {no};
+	\node[text=faugreen] at (-1,-2.8) (eyes2) {yes};
+	\node[rounded corners=.25em,draw,fill=faugray!62] at (1.5,-1.4) (g) {credit rating?};
+	\node[rounded corners=.25em,draw] at (2.2,-2.1) (gf) {fair};
+	\node[rounded corners=.25em,draw] at (1,-2.1) (gex) {excellent};
+	\node[text=faured] at (1,-2.8) (gno) {no};
+	\node[text=faugreen] at (2.2,-2.8) (gyes) {yes};
+	\node[text=faugreen] at (0,-2.8) (f) {yes};
+
+	\draw (a)--(b);
+	\draw (a)--(c);
+	\draw (a)--(d);
+	\draw (b)--(e);
+	\draw (c)--(f);
+	\draw (d)--(g);
+	\draw (e)--(eno1);
+	\draw (e)--(eyes1);
+	\draw (eno1)--(eno2);
+	\draw (eyes1)--(eyes2);
+	\draw (g)--(gex);
+	\draw (g)--(gf);
+	\draw (gex)--(gno);
+	\draw (gf)--(gyes);
+\end{tikzpicture}
