@@ -10,9 +10,9 @@
 					      \item The dataset follows an example of Quinlan's ID3 (playing tennis).
 				      \end{itemize}
 				\item \textbf{Resulting tree:}\\[0.1cm]
-				      \centering
-				      \input{7-classification/tree-example.tex}
 			\end{itemize}
+			\centering
+			\input{7-classification/tree-example.tex}
 		\end{column}
 		\begin{column}{0.62\textwidth}
 			\small
@@ -20,6 +20,37 @@
 		\end{column}
 	\end{columns}
 \end{frame}
+
+
+\begin{frame}{Decision-tree Induction: An Example}
+	\begin{columns}[t]
+		\begin{column}{0.45\textwidth}
+			\begin{figure}[h]
+				\centering
+				\input{7-classification/tree-example.tex}
+			\end{figure}
+
+		\end{column}
+		\begin{column}{0.55\textwidth}
+			\textbf{Components of a decision tree}
+			\begin{itemize}
+				\item \tikzmark{root} \textbf{Root}: topmost node.
+				\item \tikzmark{internal} \textbf{Internal node}: test on an attribute.
+				\item \tikzmark{leaf-node} \textbf{Leaf node}: holds a class label, also called \textit{terminal node}.
+				\item \tikzmark{branch} \textbf{Branch}: outcome of a leaf node's test coupled with a text. In this example: \texttt{excellent}.
+			\end{itemize}
+		\end{column}
+	\end{columns}
+
+	\begin{tikzpicture}[remember picture,overlay]
+		\draw[faucyan,thick,->] ([yshift=1.5mm,xshift=-4mm]root) to[out=170,in=0] (age.east);
+		\draw[faucyan,thick,->] ([yshift=1.5mm,xshift=-4mm]internal) to[out=180,in=10] (credit-rating.east);
+		\draw[faucyan,thick,->] ([yshift=1.5mm,xshift=-4mm]leaf-node) to[out=190,in=30] (credit-yes.east);
+		\draw[faucyan,thick,->] ([,xshift=-2.6mm]branch) to[out=-90,in=-90] ([xshift=1mm]$(credit-no.north east) + (.1em,.7em));
+	\end{tikzpicture}
+\end{frame}
+
+
 
 \begin{frame}{Algorithm for Decision-tree Induction}
 	\begin{itemize}
