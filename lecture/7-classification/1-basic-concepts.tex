@@ -75,8 +75,20 @@
 
 \begin{frame}{Classification -- A Two-step Process: 1. Model Construction}
 	\centering
-	\begin{tikzpicture}
-		\node at (0,0.6) {
+	\begin{tikzpicture}[
+			>=latex,
+			database/.style={
+					cylinder,
+					cylinder uses custom fill,
+					cylinder body fill=faublue!12,
+					cylinder end fill=faublue!12,
+					shape border rotate=90,
+					aspect=0.25,
+					draw
+				}
+		]
+		\node[database] (data) at (0,0) {Training data};
+		\node[below=2em of data] (data-example) {
 			\begin{tabular}{|l|l|c|c|}
 				\hline
 				\cellcolor{faugray!62}\textbf{\uppercase{name}} & \cellcolor{faugray!62}\textbf{\uppercase{rank}} & \cellcolor{faugray!62}\textbf{\uppercase{years}} & \cellcolor{fauorange!25}\textbf{\uppercase{tenured}} \\\hline
@@ -88,88 +100,68 @@
 				\cellcolor{fauyellow!25}Anne                    & \cellcolor{fauyellow!25}Associate Prof          & \cellcolor{fauyellow!25}3                        & {\color{faured}no}                                   \\\hline
 			\end{tabular}
 		};
-		\node[fill=fauorange!62, text width = 3cm, align=center] at (7.5,5) {Classification};
-		\node[fill=fauorange!62, text width = 3cm, align=center] at (7.5,4.6) {algorithms};
+		\node[rounded corners=5pt,draw=fauorange,fill=fauorange!62, text width = 3cm, align=center,right=15em of data.east] (class-algo) {Classification\\algorithm};
+		\node[database,below=3em of class-algo] (class-rules) {Classification rules};
+		\node[draw=faucyan,fill=faucyan!25,text=black,rounded corners=5pt,text width=3cm,below=2em of class-rules] (rules) {\texttt{if RANK =}'Professor'\\\texttt{or YEARS >}6\\\texttt{then TENURED =}'yes'};
 
-		\node[fill=faugreen!62, text width = 3cm, align=left] at (7.5,0.1) {\texttt{if RANK =}'Professor'};
-		\node[fill=faugreen!62, text width = 3cm, align=left] at (7.5,-0.3) {\texttt{or YEARS >}6};
-		\node[fill=faugreen!62, text width = 3cm, align=left] at (7.5,-0.7) {\texttt{then TENURED =}'yes'};
+		\draw[->,thick] (data) -- (class-algo);
+		\draw[->,thick] (class-algo) -- (class-rules);
 
-		\node[text width = 3cm, align=center] at (0.05,3.7) {Training};
-		\node[text width = 3cm, align=center] at (0.05,3.3) {data};
+		\draw[thick,rounded corners=5pt]
+		(data-example.north west) -- ($(data-example.north west) + (0,.15)) --
+			($(data-example.north) + (0,.15)) -- ($(data-example.north) + (0,.15)) --
+			($(data-example.north east) + (0,.15)) -- (data-example.north east);
 
-		\node[text width = 3cm, align=center] at (7.6,2.2) {Classifier};
-		\node[text width = 3cm, align=center] at (7.6,1.8) {(model)};
-
-		% training data icon
-		\draw [thick](-1.5,3.15) -- (-1.5,4.65);
-		\draw [thick](1.5,3.15) -- (1.5,4.65);
-		\draw [thick](-1.5,3.15) arc (180:360:1.5 and 0.5);
-		\draw [thick](-1.5,4.65) arc (180:360:1.5 and 0.5);
-		\draw [thick](1.5,4.65) arc (-1.5:180:1.5 and 0.5);
-
-		% training data -> classification algorithms
-		\draw [thick, ->] (2,4.7) -- (5.5,4.7);
-
-		% classification algorithms -> classifier (model)
-		\draw [thick, ->] (7.5,4.2) -- (7.5,3.8);
-
-		% lines from "classifier (model)" to "if RANK..."
-		\draw [thick] (6.05,1.5) -- (5.9,0.2);
-		\draw [thick] (8.95,1.5) -- (9.1,0.2);
-
-		% classifier (model) icon
-		\draw [thick](6,1.65) -- (6,3.15);
-		\draw [thick](9,1.65) -- (9,3.15);
-		\draw [thick](6,1.65) arc (180:360:1.5 and 0.5);
-		\draw [thick](6,3.15) arc (180:360:1.5 and 0.5);
-		\draw [thick](9,3.15) arc (-1.5:180:1.5 and 0.5);
-
-		% lines from "training data" to table
-		\draw [thick] (-3.7,2.15) -- (-1.5,3);
-		\draw [thick] (1.5,3) -- (3.7,2.15);
+		\draw[thick,rounded corners=5pt]
+		($(rules.north west) + (-.1,.05)) -- ($(rules.north west) + (-.1,.25)) --
+		($(rules.north) + (0,.25)) -- ($(rules.north) + (0,.25)) --
+		($(rules.north east) + (.1,.25)) -- ($(rules.north east) + (.1,.05));
 	\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Classification -- A Two-step Process: 2. Model Usage}
 	\centering
-	\begin{tikzpicture}
-		\draw [thick](-1.5,3.15) -- (-1.5,4.65);
-		\draw [thick](1.5,3.15) -- (1.5,4.65);
-		\draw [thick](-1.5,3.15) arc (180:360:1.5 and 0.5);
-		\draw [thick](-1.5,4.65) arc (180:360:1.5 and 0.5);
-		\draw [thick](1.5,4.65) arc (-1.5:180:1.5 and 0.5);
-		\draw [thick, ->] (2,4.7) -- (5.5,4.7);
-		\draw [thick, ->] (7.5,4.2) -- (7.5,3.8);
-		\draw [thick] (6.05,1.5) -- (5.9,0.2);
-		\draw [thick] (8.95,1.5) -- (9.1,0.2);
-		\node[text width = 3cm, align=center] at (0.05,3.7) {Training};
-		\node[text width = 3cm, align=center] at (0.05,3.3) {data};
-
-		\node[text width = 3cm, align=center] at (7.6,2.2) {Unseen};
-		\node[text width = 3cm, align=center] at (7.6,1.8) {data};
-
-		\node at (0,0.4){
+	\begin{tikzpicture}[
+			>=latex,
+			database/.style={
+					cylinder,
+					cylinder uses custom fill,
+					cylinder body fill=faublue!12,
+					cylinder end fill=faublue!12,
+					shape border rotate=90,
+					aspect=0.25,
+					draw
+				}
+		]
+		\node[database] (data) at (0,0) {Test data};
+		\node[below=2em of data] (data-example) {
 			\begin{tabular}{|l|l|c|c|}
 				\hline
 				\cellcolor{faugray!62}\textbf{\uppercase{name}} & \cellcolor{faugray!62}\textbf{\uppercase{rank}} & \cellcolor{faugray!62}\textbf{\uppercase{years}} & \cellcolor{fauorange!25}\textbf{\uppercase{tenured}} \\\hline
-				Tom                                             & Assistant Prof                                  & 2                                                & no                                                   \\\hline
-				\cellcolor{faugreen!62}Merlisa                  & \cellcolor{faugreen!62}Associate Prof           & \cellcolor{faugreen!62}7                         & \cellcolor{faugreen!62}no                            \\\hline
-				George                                          & Professor                                       & 5                                                & yes                                                  \\\hline
-				Joseph                                          & Assistant Prof                                  & 7                                                & yes                                                  \\\hline
+				Tom                                             & Assistant Prof                                  & 2                                                & {\color{faured}no}                                   \\\hline
+				Merlisa                                         & Associate Prof                                  & 7                                                & {\color{faured}no}                                   \\\hline
+				George                                          & Professor                                       & 5                                                & {\color{faugreen}yes}                                \\\hline
+				Joseph                                          & Assistant Prof                                  & 7                                                & {\color{faugreen}yes}                                \\\hline
 			\end{tabular}
 		};
-		\node[fill=fauorange!62, text width = 3cm, align=center] at (7.5,5) {Classification};
-		\node[fill=fauorange!62, text width = 3cm, align=center] at (7.5,4.6) {algorithms};
-		\node[fill=faugreen!62, text width = 3cm, align=center] at (7.5,0) {(Jeff, Professor,4)};
-		\draw [thick] (6.05,1.5) -- (5.9,0.2);
-		\draw [thick] (8.95,1.5) -- (9.1,0.2);
-		\draw [thick](6,1.65) -- (6,3.15);
-		\draw [thick](9,1.65) -- (9,3.15);
-		\draw [thick](6,1.65) arc (180:360:1.5 and 0.5);
-		\draw [thick](6,3.15) arc (180:360:1.5 and 0.5);
-		\draw [thick](9,3.15) arc (-1.5:180:1.5 and 0.5);
-		\draw [thick] (-3.7,1.5) -- (-1.5,3);
-		\draw [thick] (1.5,3) -- (3.7,1.5);
+		\node[draw=faucyan,fill=faucyan!25,rounded corners=5pt,text width = 3cm, align=center,right=15em of data.east] (class-algo) {Classification\\rules};
+		\node[database,below=3em of class-algo] (new-data) {Unseen data};
+		\node[rounded corners=5pt,fill=faugray!12,text width=3.5cm,below=2em of new-data,align=center] (new-data-example) {\texttt{(Jeff, Professor, 4)}};
+
+		\node[draw=faugreen,fill=faugreen!25,text=black,rounded corners=5pt,below=2em of new-data-example] (classification) {yes};
+
+		\draw[latex-latex,,thick] (data) -- (class-algo);
+		\draw[latex-latex,thick] (class-algo) -- (new-data);
+		\draw[-latex,thick] (new-data-example) -- (classification);
+
+		\draw[thick,rounded corners=5pt]
+		(data-example.north west) -- ($(data-example.north west) + (0,.15)) --
+			($(data-example.north) + (0,.15)) -- ($(data-example.north) + (0,.15)) --
+			($(data-example.north east) + (0,.15)) -- (data-example.north east);
+
+		\draw[thick,rounded corners=5pt]
+		($(new-data-example.north west) + (-.1,.05)) -- ($(new-data-example.north west) + (-.1,.25)) --
+		($(new-data-example.north) + (0,.25)) -- ($(new-data-example.north) + (0,.25)) --
+		($(new-data-example.north east) + (.1,.25)) -- ($(new-data-example.north east) + (.1,.05));
 	\end{tikzpicture}
 \end{frame}
