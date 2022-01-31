@@ -1,6 +1,6 @@
 \section{Decision-Tree Induction}
 
-\begin{frame}{Decision-tree Induction: An Example}
+\begin{frame}{Decision-tree: An Example}
 	\begin{columns}
 		\begin{column}{0.38\textwidth}
 			\vspace{-3cm}
@@ -22,17 +22,27 @@
 \end{frame}
 
 
-\begin{frame}{Decision-tree Induction: An Example}
+\begin{frame}{Decision-Tree}
+	\vspace*{-0.6em}
+	\begin{block}{Decision-Tree Induction}
+		\textit{Decision-Tree induction} refers to the learning of a decision-tree based on labeled training data.
+	\end{block}
+
+	\begin{block}{Decision Tree}
+		A \textit{decision tree} is a flowchart-like structure consisting of interconnected internal and leaf nodes.
+	\end{block}
+
 	\begin{columns}[t]
 		\begin{column}{0.45\textwidth}
-			\begin{figure}[h]
+			\vspace*{-2em}
+			\begin{figure}[t]
 				\centering
 				\input{7-classification/tree-example.tex}
 			\end{figure}
 
 		\end{column}
 		\begin{column}{0.55\textwidth}
-			\textbf{Components of a decision tree}
+			\textbf{Components of a Decision-tree}
 			\begin{itemize}
 				\item \tikzmark{root} \textbf{Root}: topmost node.
 				\item \tikzmark{internal} \textbf{Internal node}: test on an attribute.
@@ -46,7 +56,7 @@
 		\draw[faucyan,thick,->] ([yshift=1.5mm,xshift=-4mm]root) to[out=170,in=0] (age.east);
 		\draw[faucyan,thick,->] ([yshift=1.5mm,xshift=-4mm]internal) to[out=180,in=10] (credit-rating.east);
 		\draw[faucyan,thick,->] ([yshift=1.5mm,xshift=-4mm]leaf-node) to[out=190,in=30] (credit-yes.east);
-		\draw[faucyan,thick,->] ([,xshift=-2.6mm]branch) to[out=-90,in=-90] ([xshift=1mm]$(credit-no.north east) + (.1em,.7em));
+		\draw[faucyan,thick,->] ([xshift=-3mm]branch) to[out=-120,in=-90] ([xshift=1mm]$(credit-no.north east) + (.1em,.7em));
 	\end{tikzpicture}
 \end{frame}
 
