@@ -195,7 +195,7 @@
 	\begin{itemize}
 		\item \textbf{Main idea:}
 		      \begin{itemize}
-			      \item Given a data set with $n$ dimensions containing.
+			      \item Given a data set with $n$ dimensions.
 			      \item Find $k \leq n$ orthogonal vectors that capture the largest
 			            amount of data.
 			      \item Works only for numeric data.
@@ -230,7 +230,7 @@
 			            the help of the mean ($\mu_{d_n}$) and standard deviation
 			            ($\sigma_{d_n}$) of $d_n$:
 			            \begin{align}
-				            x = \frac{x - \mu_{d_n}}{\sigma_{d_n}}
+				            x' = \frac{x - \mu_{d_n}}{\sigma_{d_n}}
 			            \end{align}
 		      \end{itemize}
 		\item \textbf{Reason:}
@@ -345,7 +345,7 @@
 			            \begin{align}
 				            C \nu = \lambda \nu
 			            \end{align}
-			      \item If a n digit vector $\nu$ satisfies this equation for a
+			      \item If an n digit vector $\nu$ satisfies this equation for a
 			            $\lambda \in \mathbb{R}$, then $\nu$ is called an eigenvector with
 			            associated eigenvalue $\lambda$
 		      \end{itemize}
@@ -453,8 +453,9 @@
 				            \end{bmatrix}
 			            \end{align}
 			      \item It is to be expected that this dataset still contains about
-			            $71\%$ of its original information, which can be further used for
-			            data mining, while haveing to deal with a lot less dimensions.
+			            $71\%$ of its original information, which can be
+			            further used for data mining, while having to deal with
+			            a lot less dimensions.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -651,8 +652,8 @@
 		      \end{itemize}
 		\item \textbf{Reference appropriate levels.}
 		      \begin{itemize}
-			      \item Use the smallest representation which is enough to solve the
-			            task.
+			      \item Use the smallest representation that is enough to solve
+			            the task.
 		      \end{itemize}
 		\item \textbf{Queries regarding aggregated information should be
 			      answered using the data cube, if possible.}
