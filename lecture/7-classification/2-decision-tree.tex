@@ -483,8 +483,10 @@
 			      \item Too many branches, some may reflect anomalies due to noise or outliers.
 			      \item Poor accuracy for unseen samples.
 		      \end{itemize}
+		\item Pruned trees are typically smaller, less complex, easier to
+		      comprehend, faster and better at classifying unseen data.
 		\item \textbf{Two approaches to avoid overfitting:}
-		      \begin{itemize}
+		      \begin{enumerate}
 			      \item \textbf{\color{airforceblue}Prepruning:}
 			            \begin{itemize}
 				            \item Halt tree construction early.\\
@@ -497,7 +499,7 @@
 				                  Get a sequence of progressively pruned trees.
 				            \item Use a set of data different from the training data to decide which is the "best pruned tree."
 			            \end{itemize}
-		      \end{itemize}
+		      \end{enumerate}
 	\end{itemize}
 \end{frame}
 
@@ -522,7 +524,7 @@
 
 \begin{frame}{Classification in Large Databases}
 	\begin{itemize}
-		\item \textbf{Classification -- a classical problem extensively \\ studied by statisticians and machine-learning researchers.}
+		\item ID3, C4.5, and CART have been developed with the assumption that data fits into memory.\\With Big Data that's not possible anymore.
 		\item \textbf{Scalability:}
 		      \begin{itemize}
 			      \item Classifying datasets with millions of examples and \\ hundreds of attributes with reasonable speed.
@@ -534,20 +536,19 @@
 			      \item Can use SQL queries for accessing databases.
 			      \item Classification accuracy comparable with other methods.
 		      \end{itemize}
-		\item \textbf{RainForest (Gehrke, Ramakrishnan \& Ganti, VLDB'98).}
-		      \begin{itemize}
-			      \item Builds an AVC-list (attribute, value, class\_label).
-		      \end{itemize}
+		\item Two scalable methods:
+		      \begin{enumerate}
+			      \item RainForest
+			      \item BOAT
+		      \end{enumerate}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Scalability Framework for RainForest}
+\begin{frame}{Scalable Decision Tree: RainForest}
 	\begin{itemize}
+		\item Applicable to any decision tree algorithm.
 		\item \textbf{Separates the scalability aspects from the criteria that determine the quality of the tree.}
-		\item \textbf{Builds an} \textbf{\color{airforceblue}AVC-list:}.
-		      \begin{itemize}
-			      \item AVC (Attribute, Value, Class\_label).
-		      \end{itemize}
+		\item \textbf{Builds an} \textbf{\color{airforceblue}AVC-list:} (Attribute, Value, Class\_label).
 		\item \textbf{\color{airforceblue}AVC-set} \textbf{(of an attribute X):}
 		      \begin{itemize}
 			      \item Projection of training dataset onto the attribute $X$ and class label where counts of individual class label are aggregated.
@@ -617,8 +618,9 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{BOAT (Bootstrapped Optimistic Algorithm for Tree Construction)}
+\begin{frame}{Scalable Decision Tree: BOAT}
 	\begin{itemize}
+		\item BOAT = Bootstrapped Optimistic Algorithm for Tree Construction
 		\item \textbf{Use a statistical technique called bootstrapping to create several smaller samples (subsets), each fitting in memory.}
 		      \begin{itemize}
 			      \item See on the subsequent slides.
