@@ -110,10 +110,12 @@
 					            \end{itemize}
 					      \item \textbf{The multi set Y of all tuples:}
 					            \begin{itemize}
-						            \item $Y$ is defined by its
-						                  support: \\
-						                  $supp(Y) := \{x \in X  \; \vert \; M(x) \geq
-							                  0\}$.
+						            \item The multiset $Y$ over the set $X$
+						                  is a mapping of $X$ to the set of natural
+						                  numbers $\mathbb{N}_{0}$.
+						                  The number $Y(x), x \in X$ tells
+						                  how often $x$ is contained in the multiset
+						                  $Y$.
 					            \end{itemize}
 				      \end{itemize}
 			\end{itemize}
@@ -147,24 +149,34 @@
 \end{frame}
 
 \begin{frame}{Correlation Analysis for Nominal Data (III)}
-
 	\begin{itemize}
-		\item \textbf{To determine the correlation between the attributes A and
-			      B, the following two values must be calculated for each $(a_i,b_j)$,
-			      where $0 < i \leq n$ and $0 < j \leq m$ :}
-		      \begin{itemize}
-			      \item \textbf{Actual quantity in $Y$:}
-			            \begin{align*}
-				            c_{ij} = \#\{(a,b) \in Y \; \vert \; a = a_i, b= b_i\}
-			            \end{align*}
-			      \item \textbf{Expected quantity (assuming equal distribution):}
-			            \begin{align*}
-				            e_{ij} = \frac{\sum_{k=1}^{m} c_{ik} \cdot
-				            \sum_{l=1}^{n}c_{lj}}{\#X}
-			            \end{align*}
-		      \end{itemize}
+		\item \textbf{Actual quantity in $Y$:}
+		      \begin{align*}
+			      c_{ij} = \#\{(a,b) \in Y \; \vert \; a = a_i, b= b_i\}
+			      = Y((a_i, b_j))
+		      \end{align*}
+		\item \textbf{Expected quantity (value of $c_{ij}$) in case of
+			      independence, i.\,e.\ no correlation:}
+		      \begin{align*}
+			      e_{ij} = \frac{\sum_{k=1}^{m} c_{ik}}{\#Y} \cdot
+			      \frac{\sum_{l=1}^{n}c_{lj}}{\#Y} \cdot \#Y
+			      = \frac{\sum_{k=1}^{m} c_{ik} \cdot \sum_{l=1}^{n}c_{lj}}{\#Y}
+		      \end{align*}
 	\end{itemize}
+
+	\begin{block}{Please note that:}
+		\begin{itemize}
+			\item The sum of all $c_{ij}$ over an attribute $a_i$ (or $b_j$) is
+			      identical to the sum of all $e_{ij}$ over $a_i$ (or $b_j$):
+			      \vspace{-2mm}
+			      \begin{align*}
+				      \sum_{k=1}^{m} e_{ik} = \sum_{k=1}^{m} c_{ik} \textit{ and }
+				      \sum_{l=1}^{n} e_{lj} = \sum_{l=1}^{n} c_{lj}
+			      \end{align*}
+		\end{itemize}
+	\end{block}
 \end{frame}
+
 
 \begin{frame}{Correlation Analysis for Nominal Data (IV)}
 	\begin{itemize}
@@ -212,7 +224,8 @@
 \begin{frame}{Correlation Analysis for Nominal Data (V)}
 	\begin{itemize}
 		\item \textbf{To determine the correlation the
-				      {\color{airforceblue}$\chi^2$-test} is applied:}
+				      {\color{airforceblue}$\chi^2$-test} (Chi-squared test) is
+			      applied:}
 		      \begin{align*}
 			      \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m}
 			      \frac{(c_{ij}-e_{ij})^2}{e_{ij}}.
@@ -241,7 +254,7 @@
 			      \chi^2 = \frac{(250-90)^2}{90} + \frac{(50-210)^2}{210} +
 			      \frac{(200-360)^2}{360} + \frac{(1000-840)^2}{840} = 507.93.
 		      \end{align*}
-		\item \textbf{It shows that "Reads Books" and "Plays Cheese" are
+		\item \textbf{It shows that "Reads Books" and "Plays Chess" are
 			      correlated (in our example)}
 		      \vspace{5mm}
 		      \begin{alertblock}{Important: Correlation does not imply causality!}
@@ -261,8 +274,8 @@
 				      {\color{airforceblue}Pearson's product-moment coefficient}:}
 		      \begin{align*}
 			      \text{Cor}(A, B) = \frac{\sum_{i=1}^{n}
-				      (a-\mu_{A})(b-\mu_{B})}{n\cdot\sigma_{A}\sigma_{B}} =
-			      \frac{\sum_{i=1}^{n} ab -n\cdot\mu_{A}\mu_{B}}{n\cdot
+				      (a_i-\mu_{A})(b_i-\mu_{B})}{n\cdot\sigma_{A}\sigma_{B}} =
+			      \frac{\sum_{i=1}^{n} a_i b_i -n\cdot\mu_{A}\mu_{B}}{n\cdot
 				      \sigma_{A}\sigma_{B}}.
 		      \end{align*}
 		      where $n$ is the number of tuples, $a_i$ and $b_i$ are the
