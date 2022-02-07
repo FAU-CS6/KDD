@@ -195,7 +195,7 @@
 	\begin{itemize}
 		\item \textbf{Main idea:}
 		      \begin{itemize}
-			      \item Given a data set with $n$ dimensions containing.
+			      \item Given a data set with $n$ dimensions.
 			      \item Find $k \leq n$ orthogonal vectors that capture the largest
 			            amount of data.
 			      \item Works only for numeric data.
@@ -229,9 +229,9 @@
 			      \item Each value $x$ within a dimension $d_n$ is standardized with
 			            the help of the mean ($\mu_{d_n}$) and standard deviation
 			            ($\sigma_{d_n}$) of $d_n$:
-			            \begin{align}
-				            x = \frac{x - \mu_{d_n}}{\sigma_{d_n}}
-			            \end{align}
+			            \begin{align*}
+				            x' = \frac{x - \mu_{d_n}}{\sigma_{d_n}}
+			            \end{align*}
 		      \end{itemize}
 		\item \textbf{Reason:}
 		      \begin{itemize}
@@ -292,13 +292,13 @@
 			            covariance between each possible attribute pairing. When the
 			            dimensions are compared with themselves, the variance always
 			            replaces the covariance:
-			            \begin{align}
+			            \begin{align*}
 				            \begin{bmatrix}
 					            \text{Var}(d_1)      & ... & \text{Cov}(d_1, d_n) \\
 					            ...                  & ... & ...                  \\
 					            \text{Cov}(d_n, d_1) & ... & \text{Var}(d_n)      \\
 				            \end{bmatrix}
-			            \end{align}
+			            \end{align*}
 		      \end{itemize}
 		\item \textbf{Reason:}
 		      \begin{itemize}
@@ -342,10 +342,10 @@
 		      \begin{itemize}
 			      \item The eigenvectors and eigenvalues of the covariance matrix
 			            ($C$) are computed by solving the following equation:
-			            \begin{align}
+			            \begin{align*}
 				            C \nu = \lambda \nu
-			            \end{align}
-			      \item If a n digit vector $\nu$ satisfies this equation for a
+			            \end{align*}
+			      \item If an n digit vector $\nu$ satisfies this equation for a
 			            $\lambda \in \mathbb{R}$, then $\nu$ is called an eigenvector with
 			            associated eigenvalue $\lambda$
 		      \end{itemize}
@@ -367,7 +367,7 @@
 		\item \textbf{Example:}
 		      \begin{itemize}
 			      \item Eigenvalues and eigenvectors in our example: \\
-			            \begin{align}
+			            \begin{align*}
 				            \lambda_1 = -0,21354,
 				            \nu_1 = \begin{bmatrix} -0,05553 \\ -1,01884 \\ +1 \end{bmatrix}
 				            \\
@@ -376,7 +376,7 @@
 				            \\
 				            \lambda_3 = +1,89823,
 				            \nu_3 = \begin{bmatrix} -0,57292 \\ +1,01273 \\ +1 \end{bmatrix}
-			            \end{align}
+			            \end{align*}
 			      \item Sorting these three eigenvectors by their significance, we
 			            arrive at the order $\nu_3$, $\nu_2$, $\nu_1$
 		      \end{itemize}
@@ -410,15 +410,15 @@
 		      \begin{itemize}
 			      \item In our example $\nu_3$ carries approx. $71\%$ of the
 			            information: \\
-			            \begin{align}
+			            \begin{align*}
 				            \frac{1,89823}{1,89823+0,5653+0,21354} = 0,70906
-			            \end{align}
+			            \end{align*}
 			      \item It might be interesting to keep only the eigenvector $\nu_3$
 			            and discard the other two eigenvectors. Our feature matrix
 			            therefore looks as follows:
-			            \begin{align}
+			            \begin{align*}
 				            \begin{bmatrix} -0,57292 \\ +1,01273 \\ +1\end{bmatrix}
-			            \end{align}
+			            \end{align*}
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -430,9 +430,9 @@
 			      \item The original data set ($D$) gets multiplied with the feature
 			            matrix ($F$), to create a new data set ($N$) with lower
 			            dimensionality:
-			            \begin{align}
+			            \begin{align*}
 				            N = D \cdot F
-			            \end{align}
+			            \end{align*}
 		      \end{itemize}
 		\item \textbf{Reason:}
 		      \begin{itemize}
@@ -448,13 +448,14 @@
 		      \begin{itemize}
 			      \item Our dataset after the transformation and with the PCA
 			            completed looks like this: \\
-			            \begin{align}
+			            \begin{align*}
 				            \begin{bmatrix} -6,10078 \\ +8,95829 \\ -3,67599 \\ +5,35762
 				            \end{bmatrix}
-			            \end{align}
+			            \end{align*}
 			      \item It is to be expected that this dataset still contains about
-			            $71\%$ of its original information, which can be further used for
-			            data mining, while haveing to deal with a lot less dimensions.
+			            $71\%$ of its original information, which can be
+			            further used for data mining, while having to deal with
+			            a lot less dimensions.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -651,8 +652,8 @@
 		      \end{itemize}
 		\item \textbf{Reference appropriate levels.}
 		      \begin{itemize}
-			      \item Use the smallest representation which is enough to solve the
-			            task.
+			      \item Use the smallest representation that is enough to solve
+			            the task.
 		      \end{itemize}
 		\item \textbf{Queries regarding aggregated information should be
 			      answered using the data cube, if possible.}

@@ -11,16 +11,22 @@
 		      \begin{itemize}
 			      \item E.g. occupation = "" (missing data).
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Noisy:} containing noise, errors or
-		      outliers.
+		\item \textbf{\color{airforceblue}Noisy:} containing noise.
 		      \begin{itemize}
+			      \item E.g. small measurement inaccuracies with a sensor
+			            (noise)
+		      \end{itemize}
+		\item \textbf{\color{airforceblue}Errors/Outliers:} containing errors
+		      or outliers.
+		      \begin{itemize}
+			      \item E.g. scores = "2,3,0,6,1,9,95" (outlier = "95")
 			      \item E.g. salary = "-10" (error)
 		      \end{itemize}
 		\item \textbf{\color{airforceblue}Inconsistencies:} containing
 		      discrepancies in codes or names.
 		      \begin{itemize}
 			      \item E.g. age = "42", birthday = "03/07/2010".
-			      \item E.g. old rating = "1,2,3", new rating "A,B,C".
+			      \item E.g. old rating = "1,2,3", new rating = "A,B,C".
 			      \item E.g. discrepancy between duplicate records (e.g. address).
 		      \end{itemize}
 		\item \textbf{\color{airforceblue}Intentional} (only default value,
