@@ -27,6 +27,15 @@ jobs:
               echo "Pre-commit did run on local machine."
             fi
 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Pre-commit logs
+          path: |
+            /github/home/.cache/pre-commit/pre-commit.log
+          retention-days: 5
+
   build_latex:
     name: Build the lecture PDFs
     runs-on: ubuntu-latest
