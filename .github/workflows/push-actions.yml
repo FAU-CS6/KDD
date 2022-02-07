@@ -14,7 +14,10 @@ jobs:
           run: |
             apk add --no-cache python3 py3-pip git nodejs npm
             pip3 install pre-commit
-            pre-commit run --all-files > pre-commit-validation.txt
+            echo "Test"
+            pre-commit run --verbose --all-files
+            pre-commit run --verbose --all-files > pre-commit-validation.txt
+            echo "Test2"
             cat pre-commit-validation.txt
             if cat pre-commit-validation.txt | grep -q Failed;
             then
