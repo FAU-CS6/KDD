@@ -12,7 +12,7 @@ jobs:
         uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
-            apk add --no-cache python3 py3-pip git nodejs npm build-essential
+            apk add --no-cache python3 py3-pip git nodejs npm build-base
             pip3 install pre-commit
             echo "Test"
             pre-commit run --verbose --all-files
@@ -26,15 +26,6 @@ jobs:
             else
               echo "Pre-commit did run on local machine."
             fi
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: Pre-commit logs
-          path: |
-            /github/home/.cache/pre-commit/pre-commit.log
-          retention-days: 5
 
   build_latex:
     name: Build the lecture PDFs
