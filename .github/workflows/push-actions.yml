@@ -12,10 +12,12 @@ jobs:
         uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
-            apk add --no-cache python3 py3-pip git nodejs npm
+            apk update
+            apk upgrade
+            apk add --virtual build-dependencies build-base gcc wget git
+            apk add --no-cache python3 python3-dev py3-pip nodejs npm
             pip3 install pre-commit
-            pre-commit run --all-files > pre-commit-validation.txt
-            cat pre-commit-validation.txt
+            pre-commit run --verbose --all-files > pre-commit-validation.txt & cat pre-commit-validation.txt
             if cat pre-commit-validation.txt | grep -q Failed;
             then
               echo "Pre-commit run did not run on local machine."
