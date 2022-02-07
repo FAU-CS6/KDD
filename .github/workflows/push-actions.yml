@@ -12,7 +12,7 @@ jobs:
         uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
-            apk add --no-cache python3 py3-pip git nodejs npm
+            apk add --no-cache python3 py3-pip git nodejs npm build-essential
             pip3 install pre-commit
             echo "Test"
             pre-commit run --verbose --all-files
