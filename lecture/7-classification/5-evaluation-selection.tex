@@ -22,92 +22,108 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Model Evaluation and Selection (II)}
-	\begin{itemize}
-		\item \textbf{Confusion Matrix:}\\[0.2cm]
-		      \begin{tabular}{|c|c|c|}
-			      \hline
-			      Actual class/predicted class: & $C_1$                         & $\neg C_1$                    \\\hline
-			      $C_1$                         & \textbf{True positives (TP)}  & \textbf{False negatives (FN)} \\\hline
-			      $\neg C_1$                    & \textbf{False positives (FP)} & \textbf{True negatives (TN)}  \\\hline
-		      \end{tabular}
-		\item \textbf{Example:}\\[0.2cm]
-		      \begin{tabular}{|c|c|c|c|}
-			      \hline
-			      Actual class/predicted class: & buys\_computer = yes & buys\_computer = no & Total \\\hline
-			      buys\_computer = yes          & \textbf{6954}        & \textbf{46}         & 7000  \\\hline
-			      buys\_computer = no           & \textbf{412}         & \textbf{2588}       & 3000  \\\hline
-			      Total                         & 7366                 & 2634                & 10000 \\\hline
-		      \end{tabular}
-		\item Given $M$ classes, an entry $C^{(m)}_{ij}$ in an $M \times M$ confusion matrix indicates \# of tuples in class $i$ that were labeled by the classifier as class $j$.
-		\item May have extra rows/columns to provide totals.
-	\end{itemize}
-\end{frame}
+\begin{frame}{Confusion Matrix and Evaluation Metrics}
+	Given $M$ classes, an entry $C^{(m)}_{ij}$ in an $M \times M$ confusion matrix
+	indicates the number of tuples in class $i$ that were labeled by the
+	classifier as class $j$.
+	\input{7-classification/confusion-matrix.tex}
 
-\begin{frame}{Classifier-evaluation Metrics: Accuracy, Error Rate, Sensitivity and Specificity}
+	\textbf{Accuracy:}
+	\vspace*{-1em}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\centering
-			\begin{tabular}{|c|c|c|c|}
-				\hline
-				A/P      & C           & $\neg$ C    &              \\\hline
-				C        & \textbf{TP} & \textbf{FN} & \textbf{P}   \\\hline
-				$\neg$ C & \textbf{FP} & \textbf{TN} & \textbf{N}   \\\hline
-				         & \textbf{P}' & \textbf{N}' & \textbf{All} \\\hline
-			\end{tabular}
+		\begin{column}{0.55\textwidth}
 			\begin{itemize}
-				\item \textbf{Classifier accuracy, or recognition rate:}
-				      \begin{itemize}
-					      \item Percentage of test set tuples that are correctly classified.
-					      \item $\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{All}}.$
-					      \item \textbf{Error rate:}
-					            \begin{itemize}
-						            \item $1-\text{accuracy}$, or
-						            \item $\text{Error rate} = \frac{\text{FP}+\text{FN}}{\text{All}}.$
-					            \end{itemize}
-				      \end{itemize}
+				\item Percentage of correctly classified tuples.
+				\item Also known as the (overall) recognition rate.
+				\item Most effective with a \textit{balanced dataset}.
+				\item Inverse: \textbf{Error rate} as the misclassification rate.
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.4\textwidth}
+			\vspace*{-1.2em}
+			\begin{align}
+				\text{Accuracy}   & = \frac{\text{TP} + \text{TN}}{\text{P} +  \text{N}} \\
+				\text{Error Rate} & = 1 - \text{Accuracy}                                \\
+				                  & = \frac{\text{FP} + \text{FN}}{\text{P} + \text{N}}
+			\end{align}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Confusion Matrix and Evaluation Metrics (II)}
+	\input{7-classification/confusion-matrix.tex}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
 			\begin{itemize}
-				\item \textbf{Class-imbalance problem:}
-				      \begin{itemize}
-					      \item One class may be rare e.g., fraud, or HIV-positive.
-					      \item Significant majority of the negative class and minority of the positive class
-					      \item \textbf{Sensitivity:} True-positive recognition rate. $\text{Sensitivity} = \frac{TP}{P}$.
-					      \item \textbf{Specificity:} False-negative recognition rate. $\text{Specificity} = \frac{TN}{N}$.
-				      \end{itemize}
+				\item \textbf{Sensitivity} = True positive rate.
+				\item \textbf{Specificity} = True negative rate.
+				\item \textbf{Precision} = Measure of exactness.
+				\item \textbf{Recall} = Measure of completeness.\\
+				      Perfect score is 1.0.\\
+				      Inverse relationship with precision.
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.6\textwidth}
+			\begin{align}
+				\text{Sensitivity} & = \frac{\text{TP}}{\text{P}}              & = \frac{\text{TP}}{\text{TP} + \text{FN}} & = \text{Recall} \\
+				\text{Specificity} & = \frac{\text{TN}}{\text{N}}                                                                            \\
+				\text{Precision}   & = \frac{\text{TP}}{\text{TP} + \text{FP}}
+			\end{align}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Confusion Matrix and Evaluation Metrics (III)}
+	\textbf{F-Measure}: Combines precision and recall in one single measure.
+
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				\textbf{$\text{\textbf{F}}_1$ Measure}
+			\end{center}
+			\begin{align}
+				\text{F}_1 = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+			\end{align}
+
+			\begin{itemize}
+				\item Harmonic mean between precision and recall.
+				\item Equal weight to both measures.
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				\textbf{$\text{\textbf{F}}_\beta$ Measure}
+			\end{center}
+			\vspace*{-.5em}
+			\begin{align}
+				\text{F}_\beta = \frac{(1 + \beta^2) \times \text{Precision} \times \text{Recall}}{\beta^2 \times \text{Precision} + \text{Recall}}
+			\end{align}
+
+			\begin{itemize}
+				\item Weighted measure.
+				\item Gives $\beta$-times more weight to precision.
 			\end{itemize}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Classifier-evaluation Metrics: Precision, Recall, and F-measures}
+% TODO: Update example with confusion matrix
+\begin{frame}{Example: Confusion Matrix and Evaluation Metrics (I)}
 	\begin{itemize}
-		\item \textbf{Precision:}
-		      \begin{itemize}
-			      \item Exactness -- the $\%$ of tuples that are actually positive \\
-			            in those that the classifier labeled as positive: $\frac{\text{TP}}{\text{TP} + \text{FP}}$.
-		      \end{itemize}
-		\item \textbf{Recall:}
-		      \begin{itemize}
-			      \item Completeness -- the $\%$ of tuples that the classifier labeled \\
-			            as positive in all positive tuples: $\frac{\text{TP}}{\text{TP} + \text{FN}}$.
-			      \item Perfect score is $1.0$.
-		      \end{itemize}
-		\item \textbf{Inverse relationship between precision and recall.}% TODO: bezeichnung inverse evtl verwirrend
-		\item \textbf{F-measure ($F_1$ or $F$-score):}
-		      \begin{itemize}
-			      \item Gives equal weight to precision and recall: $F = \frac{2\cdot\text{precision}\cdot \text{recall}}{\text{precision} + \text{recall}}$.
-		      \end{itemize}
-		\item \textbf{$F_\beta$ weighted measure of precision and recall:}
-		      \begin{itemize}
-			      \item Assigns $\beta$ times as much weight to recall as to precision: $F_\beta = \frac{(1+\beta^2) \cdot \text{precision} \cdot \text{recall}}{\beta^2 \cdot \text{precision} + \text{recall}}$.
-		      \end{itemize}
-	\end{itemize} % TODO: (1+beta)^2 oder (1+beta^2) - wie ist F-beta measure definiert
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			Actual class/predicted class: & buys\_computer = yes & buys\_computer = no & Total \\\hline
+			buys\_computer = yes          & \textbf{6954}        & \textbf{46}         & 7000  \\\hline
+			buys\_computer = no           & \textbf{412}         & \textbf{2588}       & 3000  \\\hline
+			Total                         & 7366                 & 2634                & 10000 \\\hline
+		\end{tabular}
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Classifier-evaluation Metrics: Precision, Recall, and F-measures (II)}
+
+\begin{frame}{Example: Confusion Matrix and Evaluation Metrics (II)}
 	\centering
 	\begin{tabular}{|c|c|c|c|c|}
 		\hline
