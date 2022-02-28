@@ -1,4 +1,4 @@
-\section{Model Evaluation and Selection}
+\section{Model Evaluation and Selection}\label{class:evaluation}
 
 \begin{frame}{Model Evaluation and Selection}
 	\begin{itemize}
@@ -22,92 +22,106 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Model Evaluation and Selection (II)}
-	\begin{itemize}
-		\item \textbf{Confusion Matrix:}\\[0.2cm]
-		      \begin{tabular}{|c|c|c|}
-			      \hline
-			      Actual class/predicted class: & $C_1$                         & $\neg C_1$                    \\\hline
-			      $C_1$                         & \textbf{True positives (TP)}  & \textbf{False negatives (FN)} \\\hline
-			      $\neg C_1$                    & \textbf{False positives (FP)} & \textbf{True negatives (TN)}  \\\hline
-		      \end{tabular}
-		\item \textbf{Example:}\\[0.2cm]
-		      \begin{tabular}{|c|c|c|c|}
-			      \hline
-			      Actual class/predicted class: & buys\_computer = yes & buys\_computer = no & Total \\\hline
-			      buys\_computer = yes          & \textbf{6954}        & \textbf{46}         & 7000  \\\hline
-			      buys\_computer = no           & \textbf{412}         & \textbf{2588}       & 3000  \\\hline
-			      Total                         & 7366                 & 2634                & 10000 \\\hline
-		      \end{tabular}
-		\item Given $M$ classes, an entry $C^{(m)}_{ij}$ in an $M \times M$ confusion matrix indicates \# of tuples in class $i$ that were labeled by the classifier as class $j$.
-		\item May have extra rows/columns to provide totals.
-	\end{itemize}
-\end{frame}
+\begin{frame}{Confusion Matrix and Evaluation Metrics}
+	Given $M$ classes, an entry $C^{(m)}_{ij}$ in an $M \times M$ confusion matrix
+	indicates the number of tuples in class $i$ that were labeled by the
+	classifier as class $j$.
+	\input{7-classification/confusion-matrix.tex}
 
-\begin{frame}{Classifier-evaluation Metrics: Accuracy, Error Rate, Sensitivity and Specificity}
+	\textbf{Accuracy:}
+	\vspace*{-1em}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\centering
-			\begin{tabular}{|c|c|c|c|}
-				\hline
-				A/P      & C           & $\neg$ C    &              \\\hline
-				C        & \textbf{TP} & \textbf{FN} & \textbf{P}   \\\hline
-				$\neg$ C & \textbf{FP} & \textbf{TN} & \textbf{N}   \\\hline
-				         & \textbf{P}' & \textbf{N}' & \textbf{All} \\\hline
-			\end{tabular}
+		\begin{column}{0.55\textwidth}
 			\begin{itemize}
-				\item \textbf{Classifier accuracy, or recognition rate:}
-				      \begin{itemize}
-					      \item Percentage of test set tuples that are correctly classified.
-					      \item $\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{All}}.$
-					      \item \textbf{Error rate:}
-					            \begin{itemize}
-						            \item $1-\text{accuracy}$, or
-						            \item $\text{Error rate} = \frac{\text{FP}+\text{FN}}{\text{All}}.$
-					            \end{itemize}
-				      \end{itemize}
+				\item Percentage of correctly classified tuples.
+				\item Also known as the (overall) recognition rate.
+				\item Most effective with a \textit{balanced dataset}.
+				\item Inverse: \textbf{Error rate} as the misclassification rate.
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.4\textwidth}
+			\vspace*{-1.2em}
+			\begin{align}
+				\text{Accuracy}   & = \frac{\text{TP} + \text{TN}}{\text{P} +  \text{N}} \\
+				\text{Error Rate} & = 1 - \text{Accuracy}                                \\
+				                  & = \frac{\text{FP} + \text{FN}}{\text{P} + \text{N}}
+			\end{align}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Confusion Matrix and Evaluation Metrics (II)}
+	\input{7-classification/confusion-matrix.tex}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
 			\begin{itemize}
-				\item \textbf{Class-imbalance problem:}
-				      \begin{itemize}
-					      \item One class may be rare e.g., fraud, or HIV-positive.
-					      \item Significant majority of the negative class and minority of the positive class
-					      \item \textbf{Sensitivity:} True-positive recognition rate. $\text{Sensitivity} = \frac{TP}{P}$.
-					      \item \textbf{Specificity:} False-negative recognition rate. $\text{Specificity} = \frac{TN}{N}$.
-				      \end{itemize}
+				\item \textbf{Sensitivity} = True positive rate.
+				\item \textbf{Specificity} = True negative rate.
+				\item \textbf{Precision} = Measure of exactness.
+				\item \textbf{Recall} = Measure of completeness.\\
+				      Perfect score is 1.0.\\
+				      Inverse relationship with precision.
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.6\textwidth}
+			\begin{align}
+				\text{Sensitivity} & = \frac{\text{TP}}{\text{P}}              & = \frac{\text{TP}}{\text{TP} + \text{FN}} & = \text{Recall} \\
+				\text{Specificity} & = \frac{\text{TN}}{\text{N}}                                                                            \\
+				\text{Precision}   & = \frac{\text{TP}}{\text{TP} + \text{FP}}
+			\end{align}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Confusion Matrix and Evaluation Metrics (III)}
+	\textbf{F-Measure}: Combines precision and recall in one single measure.
+
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				\textbf{$\text{\textbf{F}}_1$ Measure}
+			\end{center}
+			\begin{align}
+				\text{F}_1 = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+			\end{align}
+
+			\begin{itemize}
+				\item Harmonic mean between precision and recall.
+				\item Equal weight to both measures.
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				\textbf{$\text{\textbf{F}}_\beta$ Measure}
+			\end{center}
+			\vspace*{-.5em}
+			\begin{align}
+				\text{F}_\beta = \frac{(1 + \beta^2) \times \text{Precision} \times \text{Recall}}{\beta^2 \times \text{Precision} + \text{Recall}}
+			\end{align}
+
+			\begin{itemize}
+				\item Weighted measure.
+				\item Gives $\beta$-times more weight to precision.
 			\end{itemize}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Classifier-evaluation Metrics: Precision, Recall, and F-measures}
-	\begin{itemize}
-		\item \textbf{Precision:}
-		      \begin{itemize}
-			      \item Exactness -- the $\%$ of tuples that are actually positive \\
-			            in those that the classifier labeled as positive: $\frac{\text{TP}}{\text{TP} + \text{FP}}$.
-		      \end{itemize}
-		\item \textbf{Recall:}
-		      \begin{itemize}
-			      \item Completeness -- the $\%$ of tuples that the classifier labeled \\
-			            as positive in all positive tuples: $\frac{\text{TP}}{\text{TP} + \text{FN}}$.
-			      \item Perfect score is $1.0$.
-		      \end{itemize}
-		\item \textbf{Inverse relationship between precision and recall.}% TODO: bezeichnung inverse evtl verwirrend
-		\item \textbf{F-measure ($F_1$ or $F$-score):}
-		      \begin{itemize}
-			      \item Gives equal weight to precision and recall: $F = \frac{2\cdot\text{precision}\cdot \text{recall}}{\text{precision} + \text{recall}}$.
-		      \end{itemize}
-		\item \textbf{$F_\beta$ weighted measure of precision and recall:}
-		      \begin{itemize}
-			      \item Assigns $\beta$ times as much weight to recall as to precision: $F_\beta = \frac{(1+\beta^2) \cdot \text{precision} \cdot \text{recall}}{\beta^2 \cdot \text{precision} + \text{recall}}$.
-		      \end{itemize}
-	\end{itemize} % TODO: (1+beta)^2 oder (1+beta^2) - wie ist F-beta measure definiert
+% TODO: Update example with confusion matrix
+\begin{frame}{Example: Confusion Matrix and Evaluation Metrics (I)}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		Actual class/predicted class: & buys\_computer = yes & buys\_computer = no & Total \\\hline
+		buys\_computer = yes          & \textbf{6954}        & \textbf{46}         & 7000  \\\hline
+		buys\_computer = no           & \textbf{412}         & \textbf{2588}       & 3000  \\\hline
+		Total                         & 7366                 & 2634                & 10000 \\\hline
+	\end{tabular}
 \end{frame}
 
-\begin{frame}{Classifier-evaluation Metrics: Precision, Recall, and F-measures (II)}
+
+\begin{frame}{Example: Confusion Matrix and Evaluation Metrics (II)}
 	\centering
 	\begin{tabular}{|c|c|c|c|c|}
 		\hline
@@ -123,54 +137,80 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Classifier-evaluation Metrics: Holdout \& Cross-validation Methods}
+\begin{frame}{Evaluation Strategies: Holdout Method}
+	\textbf{Holdout method.}
 	\begin{itemize}
-		\item \textbf{Holdout method.}
+		\item Randomly assign tuples into two independent sets:
 		      \begin{itemize}
-			      \item Given data is randomly partitioned into two independent sets:
-			            \begin{itemize}
-				            \item \textbf{\color{airforceblue}Training set} (E.g., $2/3$) for model construction.
-				            \item \textbf{\color{airforceblue}Test set} (E.g., $1/3$) for accuracy estimation.
-			            \end{itemize}
-			      \item Random sampling: a variation of holdout.
-			            \begin{itemize}
-				            \item Repeat holdout $k$ times, accuracy = avg. of the accuracies obtained.
-			            \end{itemize}
+			      \item \textbf{\color{airforceblue}Training set} (E.g., $2/3$) for model construction.
+			      \item \textbf{\color{airforceblue}Test set} (E.g., $1/3$) for accuracy estimation.
 		      \end{itemize}
-		\item \textbf{{\color{airforceblue}Cross-validation} ($k$-fold, where $k = 10$ is most popular).}
+		\item Random sampling: a variation of holdout.
 		      \begin{itemize}
-			      \item Randomly partition the data into $k$ mutually exclusive subsets, each approximately equal size.
-			      \item At $i$-th iteration, use $D_i$ as test set and the others as training set.
-			      \item Leave-one-out: $k$ folds, where $k = \#$ of tuples; for small-sized data.
-			      \item Stratified cross-validation: Folds are stratified so that class distribution in each fold is approx. the same as that in the initial data.
+			      \item Repeat holdout $k$ times, i. e. create multiple random splits and
+			            multiple model construction and accuracy estimation.
+			      \item Create an average accuracy over all experiments.
 		      \end{itemize}
 	\end{itemize}
+
 \end{frame}
 
-\begin{frame}{Evaluating Classifier Accuracy: Bootstrap}
+\begin{frame}{Evaluation Strategies: Cross Validation}
+	Also known as $k$-fold cross validation. ($k=10$ is popular)
+	\begin{columns}[T]
+		\begin{column}[T]{0.5\textwidth}
+			\begin{itemize}
+				\item Randomly partition the data into $k$ mutually exclusive subsets (folds), each approximately equal size.
+				\item At $i$-th iteration, use $D_i$ as test set and the others as training set.
+				\item Average accuracy of all iterations.
+				\item \textbf{Leave-one-out}: $k$ folds, on $i$-th iteration leave out $i$-th fold; for small-sized data.
+				\item \textbf{Stratified cross-validation}: For every class select a simple random sample of tuples. Results in subsets with approximately the same distribution.
+			\end{itemize}
+
+		\end{column}
+
+		\begin{column}[T]{0.5\textwidth}
+			\centering
+			\vspace{.3em}
+			\textbf{Example:} $k$-fold cross validation with $k=5$\\\medskip
+
+			\small
+			\begin{tabular}[c]{l *5{|p{2em}}|}
+				            & \multicolumn{5}{c|}{$\leftarrow$ Total Number of Tuples $\longrightarrow$}                                                                                                         \\\cline{2-6}\revealcline
+				Iteration 1 & \cellcolor{faugreen!25}                                                    &                         &                         &                         &                         \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
+				Iteration 2 &                                                                            & \cellcolor{faugreen!25} &                         &                         &                         \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
+				Iteration 3 &                                                                            &                         & \cellcolor{faugreen!25} &                         &                         \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
+				Iteration 4 &                                                                            &                         &                         & \cellcolor{faugreen!25} &                         \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
+				Iteration 5 &                                                                            &                         &                         &                         & \cellcolor{faugreen!25} \\\cline{2-6}\noalign{\vskip1ex}
+			\end{tabular}
+
+			\begin{tabular}[c]{|p{2em}|l|p{2em}|l}
+				\cline{1-1}\cline{3-3}
+				 & Training & \cellcolor{faugreen!25} & Validation \\
+				\cline{1-1}\cline{3-3}
+			\end{tabular}
+		\end{column}
+	\end{columns}
+
+\end{frame}
+
+\begin{frame}{Evaluation Strategy: Bootstrap}
+	\textbf{Bootstrap} samples training data uniformly with replacement.
+
+	\textbf{Several bootstrap methods exists, yet a common one is $.632$ bootstrap.}
 	\begin{itemize}
-		\item \textbf{Bootstrap.}
-		      \begin{itemize}
-			      \item Works well with small data sets.
-			      \item Samples the given training tuples uniformly with replacement.
-			            \begin{itemize}
-				            \item I.e. each time a tuple is selected, it is equally likely \\
-				                  to be selected again and re-added to the training set.
-			            \end{itemize}
-		      \end{itemize}
-		\item \textbf{Several bootstrap methods, and a common one is $.632$ bootstrap.}
-		      \begin{itemize}
-			      \item Data set with $d$ tuples sampled d times, with replacement, \\
-			            resulting in a training set of $d$ samples.
-			      \item The data tuples that did not make it into the training set end up forming the test set.
-			            \begin{itemize}
-				            \item About $63.2\%$ of the original data end up in the bootstrap, and the remaining $36.8\%$ form the test set (since $(1-\frac{1}{d})^d \approx e^{-1} = 0.368)$.
-			            \end{itemize}
-			      \item Repeat the sampling procedure $k$ times; overall accuracy of the model:
-			            \begin{align}
-				            \text{Acc}(M) = \frac{1}{k} \sum_{i=1}^{k} 0.632 \cdot \text{Acc}(M_i)_{\text{test\_set}} + 0.368 \cdot \text{Acc}(M_i)_{\text{train\_set}}.
-			            \end{align}
-		      \end{itemize}
+		\item Data set with $d$ tuples is sampled $d$ times - uniformly with replacement.
+		\item Uniformly = every tuple has the same probability ($\frac{1}{d}$) for selection.
+		\item With replacement = High change a tuple is selected more than once.
+		\item Not selected tuples will form the test set.
+		\item Probability of not being chosen is $1-\frac{1}{d}$. Selecting $d$ times: $(1-\frac{1}{d})^d$.\\
+		      With a large data set it approaches $e^-1=0.368$.
+		\item Thus, on average 63.2\% of tuples are selected as the training set.
+		\item Sampling procedure is repeated $k$ times.\\
+		      Calculate accuracy in every iteration as follows:
+		      \begin{align}
+			      \text{Acc}(M) = \frac{1}{k} \sum_{i=1}^{k} 0.632 \cdot \text{Acc}(M_i)_{\text{test\_set}} + 0.368 \cdot \text{Acc}(M_i)_{\text{train\_set}}.
+		      \end{align}
 	\end{itemize}
 \end{frame}
 
@@ -288,67 +328,65 @@
 		      \end{itemize}
 		\item Otherwise, conclude that any difference is chance.
 	\end{itemize}
-
 \end{frame}
 
-\begin{frame}{Model Selection: ROC-Curves}
+\begin{frame}{Model Selection: Receiver Operating Characteristics (ROC) Curves}
+	\vspace*{-1.5em}
 	\begin{columns}
 		\begin{column}{0.6\textwidth}
 			\begin{itemize}
-				\item \textbf{ROC (Receiver Operating Characteristics) curves:}
+				\item Visual comparison of classification models.
+				\item Compares and shows \textit{trade-off} between TPR and FPR:
 				      \begin{itemize}
-					      \item For visual comparison of classification models.
-					      \item Originated from signal-detection theory.
-					      \item Shows the trade-off between the true-positive rate and the false-positive rate.
+					      \item True Positive Rate (\textbf{TPR}): Proportion of positive tuples correctly classified as positive.\\
+					            $\rightarrow$ sensitivity or recall $= \frac{\text{TP}}{\text{P}}$
+					      \item False Positive Rate (\textbf{FPR}:) Proportion of negative tuples correctly classified as negative.\\
+					            $\rightarrow \text{FPR} = \frac{\text{FP}}{\text{N}} = 1 - \text{Specificity}$
 				      \end{itemize}
-				\item \textbf{The area under the ROC curve is a {\color{airforceblue}measure of the accuracy} of the model.}
-				\item \textbf{{\color{airforceblue}Rank the test tuples} in decreasing order:}
-				      \begin{itemize}
-					      \item The one that is most likely to belong to the positive class appears at the top of the list.
-				      \end{itemize}
-				\item \textbf{The closer to the diagonal line (i.e. the closer the area is to $0.5$), the less accurate is the model.}
+
+				\item \textbf{The area under the ROC curve is a
+						      {\color{airforceblue}measure of the accuracy} of the model.}
+				      Maximum area of $1.0$ for a perfect classifier.
+				\item \textbf{The closer to the diagonal line (i.e. the closer the
+					      area is to $0.5$), the less accurate is the model.}
+
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.4\textwidth}
-			\vspace{-1cm}
-			\centering
-			\includegraphics[width=\textwidth]{img/roc-curve.png}
+			\vspace*{-1.5em}
+			\begin{figure}
+				\centering
+				\includegraphics[width=\textwidth]{img/roc-curve.png}
+			\end{figure}
+			\vspace*{-0.5em}
+			\scriptsize
+			How to draw: Order tuples in decreasing order of probability.
 			\begin{itemize}
-				\item Vertical axis represents TP.
-				\item Horizontal axis repr. the FP.
-				\item The plot also shows a diagonal line.
-				\item A model with perfect accuracy will have an area of $1.0$.
+				\item If TP move up TPR and plot point.
+				\item If negative tuple classified as positive: move both FPR and FPR.
 			\end{itemize}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Issues after Model Selection}
+\begin{frame}{Other Aspects of Model Selection}
 	\begin{itemize}
-		\item \textbf{Accuracy.}
+		\item \textbf{Speed}
 		      \begin{itemize}
-			      \item Classifier accuracy: predicting class label.
+			      \item Computational cost to train a classifier.
+			      \item Time to use model (prediction time).
 		      \end{itemize}
-		\item \textbf{Speed.}
+		\item \textbf{Robustness}, i. e. the ability to make accurate predictions.
 		      \begin{itemize}
-			      \item Time to construct the model (training time).
-			      \item Time to use the model (classification/prediction time).
+			      \item Noisy data.
+			      \item Missing values.
 		      \end{itemize}
-		\item \textbf{Robustness.}
+		\item \textbf{Scalability}, i . e. efficient construction of classifiers on an abundant amount of training tuples.
+		\item \textbf{Interpretability}, refers to understanding and insight
 		      \begin{itemize}
-			      \item Handling noise and missing values.
+			      \item Typically subjective and difficult to access.
+			      \item Decision trees and classification rules are easy to interpret, but interpretability degrades with the size.
 		      \end{itemize}
-		\item \textbf{Scalability.}
-		      \begin{itemize}
-			      \item Efficiency in disk-resident databases.
-		      \end{itemize}
-		\item \textbf{Interpretability.}
-		      \begin{itemize}
-			      \item Understanding and insight provided by the model.
-		      \end{itemize}
-		\item \textbf{Other measures.}
-		      \begin{itemize}
-			      \item E.g., goodness of rules, such as decision-tree size or compactness of classification rules.
-		      \end{itemize}
+		\item \textit{Other measures} such as goodness of rules, decision-tree size or compactness of classification rules.
 	\end{itemize}
 \end{frame}

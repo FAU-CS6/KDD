@@ -18,25 +18,41 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Using \uppercase{if-then} Rules for Classification (II)}
-	\begin{itemize}
-		\item \textbf{If more than one rule are triggered, need {\color{airforceblue}conflict resolution}.}
+\begin{frame}[c]{Potential Problems of Rule-based Classification}
+	\centering
+	\huge
+	\begin{enumerate}
+		\item More than one rule is triggered.
+		\item No rule is triggered.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Potential Problems of Rule-based Classification: Solutions}
+	\begin{enumerate}
+		\item \textbf{More than one rule is triggered: {\color{airforceblue}conflict resolution}.}
 		      \begin{itemize}
 			      \item \textbf{\color{airforceblue}Size ordering:}
 			            \begin{itemize}
-				            \item Assign the highest priority to the triggered rule that has the "toughest" requirement \\ (i.e., the most attribute tests).
+				            \item Assign the highest priority to the triggered rule that has the "toughest" requirement \\ (i.e., rule with most used attribute in condition).
 			            \end{itemize}
 			      \item \textbf{\color{airforceblue}Class-based ordering:}
 			            \begin{itemize}
 				            \item Decreasing order of prevalence or misclassification cost per class.
+				            \item No order of rules within class $\rightarrow$ disjunction (logical \texttt{OR}) between rules.
 			            \end{itemize}
 			      \item \textbf{\color{airforceblue}Rule-based ordering} (decision list):
 			            \begin{itemize}
 				            \item Rules are organized into one long priority list,\\
 				                  according to some measure of rule quality, or by experts.
+				            \item Rules \underline{must} be applied in this particular order to avoid conflict.
 			            \end{itemize}
 		      \end{itemize}
-	\end{itemize}
+		\item \textbf{No rule is triggered.}
+		      \begin{itemize}
+			      \item Use a fallback/default rule.
+			      \item Always evaluated as the last rule, if and only if other rules are not covered by some tuple, i. e. no rules have been triggered.
+		      \end{itemize}
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Rule Extraction from a Decision Tree}
@@ -48,56 +64,24 @@
 		      \end{itemize}
 		\item \textbf{Each attribute-value pair along the path forms a conjunction:}
 	\end{itemize}
+	\vspace*{1em}
 	\begin{columns}
-		\begin{column}{0.45\textwidth}
-			\vspace{-3.3cm}
-			\begin{itemize}
-				\item \textbf{Example:}
-				      \begin{itemize}
-					      \item IF \texttt{age} $\leq$ 30 AND \texttt{student} = "no" \\
-					            THEN \texttt{buys\_computer} = "no".
-					      \item IF \texttt{age} $\leq$ 30 AND \texttt{student} = "yes" \\
-					            THEN \texttt{buys\_computer} = "yes".
-					      \item IF \texttt{age} $31\ldots40$ THEN \texttt{buys\_computer} = "yes".
-					      \item
-					      \item
-				      \end{itemize}
-			\end{itemize}
+		\begin{column}{0.7\textwidth}
+			\textbf{Example:}
+			\begin{enumerate}
+				\item IF \texttt{age} $\leq$ 30 AND \texttt{student} = "no" \\
+				      THEN \texttt{buys\_computer} = "no".
+				\item IF \texttt{age} $\leq$ 30 AND \texttt{student} = "yes" \\
+				      THEN \texttt{buys\_computer} = "yes".
+				\item IF \texttt{age}== $31\ldots40$ THEN \texttt{buys\_computer} = "yes".
+				\item \dots
+			\end{enumerate}
 		\end{column}
-		\begin{column}{0.55\textwidth}
-			\centering
-			\begin{tikzpicture}
-				\node[draw, fill=blue!20] at (0,0) (a) {age?};
-				\node[fill=yellow!20] at (-1.5,-0.7) (b) {<=30};
-				\node[fill=yellow!20] at (0,-0.7) (c) {$31\ldots40$};
-				\node[fill=yellow!20] at (1.5,-0.7) (d) {$>40$};
-				\node[draw, fill=blue!20] at (-1.5,-1.4) (e) {student?};
-				\node[fill=yellow!20] at (-2,-2.1) (eno1) {no};
-				\node[fill=yellow!20] at (-1,-2.1) (eyes1) {yes};
-				\node[fill=orange!20] at (-2,-2.8) (eno2) {no};
-				\node[fill=green!20] at (-1,-2.8) (eyes2) {yes};
-				\node[draw, fill=blue!20] at (1.5,-1.4) (g) {credit rating?};
-				\node[fill=yellow!20] at (2,-2.1) (gf) {fair};
-				\node[fill=yellow!20] at (1,-2.1) (gex) {excellent};
-				\node[fill=orange!20] at (1,-2.8) (gno) {no};
-				\node[fill=green!20] at (2,-2.8) (gyes) {yes};
-				\node[fill=green!20] at (0,-1.4) (f) {yes};
-
-				\draw (a)--(b);
-				\draw (a)--(c);
-				\draw (a)--(d);
-				\draw (b)--(e);
-				\draw (c)--(f);
-				\draw (d)--(g);
-				\draw (e)--(eno1);
-				\draw (e)--(eyes1);
-				\draw (eno1)--(eno2);
-				\draw (eyes1)--(eyes2);
-				\draw (g)--(gex);
-				\draw (g)--(gf);
-				\draw (gex)--(gno);
-				\draw (gf)--(gyes);
-			\end{tikzpicture}
+		\begin{column}{0.3\textwidth}
+			\begin{figure}[h]
+				\centering
+				\input{7-classification/tree-example.tex}
+			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -116,7 +100,7 @@
 		      \begin{itemize}
 			      \item Each rule for a given class $C_i$ will cover many tuples of $C_i$, but none (or few) of the tuples of other classes.
 		      \end{itemize}
-		\item \textbf{Steps:}
+		\item \textbf{Algorithm sketch:}
 		      \begin{itemize}
 			      \item Rules are learned one at a time.
 			      \item Each time a rule is learned, the tuples covered by the rule are removed.
@@ -183,6 +167,7 @@
 	\end{tikzpicture}
 \end{frame}
 
+% TODO: Review again and cosmetics
 \begin{frame}{Sequential Covering Algorithm (III)}
 	\begin{itemize}
 		\item \textbf{Start with the most general rule possible:}

@@ -1,0 +1,45 @@
+\begin{tikzpicture}[
+		overlay,
+		remember picture,
+		>=latex,
+		thick,
+		node/.style={
+				draw=faugray,
+				rounded corners=.25em,
+				fill=faugray!62,
+				text depth=0.2em
+			},
+		leaf/.style={
+				draw,
+				rounded corners=.7em,
+				text depth=0.2em
+			},
+		branch/.style={
+				fill=white,
+				font=\ttfamily\scriptsize,
+				rounded corners=.7em,
+				text depth=0.2em
+			}
+	]
+	\node[node] at (0,0) (root) {$A$?};
+
+	\node[below left=3em and 3.6em of root.south] (student) {};
+	\node[below=3em of root.south] (a2) {};
+	\node[below right=3em and 3.6em of root.south] (credit-rating) {};
+
+
+	\draw
+	(root.south) -- (a2.north);
+
+	\draw[rounded corners=5pt]
+	(root.south) -- ($(root.south) + (0,-1em)$) --
+	($(student.north) + (0,2em)$) -- (student.north);
+	\node[branch,above=.3em of student.north] {$a_1$};
+
+	\path[draw,rounded corners=5pt]
+	(root.south) -- ($(root.south) + (0,-1em)$) --
+	($(credit-rating.north) + (0,2em)$) -- (credit-rating.north);
+	\node[branch,above=.3em of credit-rating.north] {$a_v$};
+
+	\node[branch,above=.3em of a2.north] {$\dots$};
+\end{tikzpicture}

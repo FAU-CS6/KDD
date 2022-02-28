@@ -1,0 +1,69 @@
+\begin{tikzpicture}[
+		overlay,
+		remember picture,
+		>=latex,
+		thick,
+		node/.style={
+				draw=faugray,
+				rounded corners=.25em,
+				fill=faugray!62,
+				text depth=0.2em
+			},
+		leaf/.style={
+				draw,
+				rounded corners=.7em,
+				text depth=0.2em
+			},
+		branch/.style={
+				fill=white,
+				font=\ttfamily\scriptsize,
+				rounded corners=.7em,
+				text depth=0.2em
+			}
+	]
+	\node[node] at (0,0) (age) {age?};
+	\node[leaf,text=faugreen,below=6.2em of age] (age-yes) {yes};
+
+	\node[node,below left=2em and 1.5em of age] (student) {student?};
+	\node[leaf,text=faured,below right=2.5em and -1em of student] (student-no) {no};
+	\node[leaf,text=faugreen,below left=2.5em and -1em of student] (student-yes) {yes};
+
+	\node[node,below right=2em and .6em of age] (credit-rating) {credit rating?};
+	\node[leaf,text=faured,below left=2.5em and -2em of credit-rating] (credit-no) {no};
+	\node[leaf,text=faugreen,below right=2.5em and -2em of credit-rating] (credit-yes) {yes};
+
+	\draw (age.south) -- (age-yes.north);
+	\node[branch,below=4em of age.north] {31\dots 40};
+
+	\draw[rounded corners=5pt]
+	(age.south) -- ($(age.south) + (0,-1em)$) --
+	($(student.north) + (0,1em)$) -- (student.north);
+	\node[branch,above=1em of student.north] {$\leq$30};
+
+	\path[draw,rounded corners=5pt]
+	(age.south) -- ($(age.south) + (0,-1em)$) --
+	($(credit-rating.north) + (0,1em)$) -- (credit-rating.north);
+	\node[branch,above=1em of credit-rating.north] {>40};
+
+	% student labels
+	\draw[rounded corners=5pt]
+	(student.south) -- ($(student.south) + (0,-1.5em)$) --
+	($(student-no.north) + (0,1em)$) -- (student-no.north);
+	\node[branch,above=1em of student-no.north] {no};
+
+	\draw[rounded corners=5pt]
+	(student.south) -- ($(student.south) + (0,-1.5em)$) --
+	($(student-yes.north) + (0,1em)$) -- (student-yes.north);
+	\node[branch,above=1em of student-yes.north] {yes};
+
+	% credit-rating labels
+	\draw[rounded corners=5pt]
+	(credit-rating.south) -- ($(credit-rating.south) + (0,-1.5em)$) --
+	($(credit-no.north) + (0,1em)$) -- (credit-no.north);
+	\node[branch,above=1em of credit-no.north] {excellent};
+
+	\draw[rounded corners=5pt]
+	(credit-rating.south) -- ($(credit-rating.south) + (0,-1.5em)$) --
+	($(credit-yes.north) + (0,1em)$) -- (credit-yes.north);
+	\node[branch,above=1em of credit-yes.north] {fair};
+\end{tikzpicture}

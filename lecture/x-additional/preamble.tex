@@ -85,3 +85,6 @@
 }
 
 \input{x-additional/tikzsetup}
+
+\usepackage{cleveref}
+\newcommand*{\fullref}[1]{\underline{\hyperref[{#1}]{\cref{#1} (\nameref*{#1})}}}
