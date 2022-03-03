@@ -8,12 +8,9 @@
 			      \item Generate strong association rules from them,\\
 			            Where "strong" = satisfying both minimum support and
 			            minimum confidence.
-			            \begin{align}
-				            \text{confidence}(A \implies B) & =
-				            P(B|A)                                                              \\
-				                                            & = \frac{\text{support}(A \implies
-					            B)}{\text{support}(A)}.
-			            \end{align}
+			            \begin{align*}
+				            \text{confidence}(A \implies B) = P(B|A) = \frac{\text{support}(A \implies B)}{\text{support}(A)}.
+			            \end{align*}
 		      \end{itemize}
 		\item \textbf{For each frequent itemset $l$:}
 		      \begin{itemize}
@@ -33,18 +30,14 @@
 	\scalebox{0.9}{
 		\includegraphics[width=0.6\textwidth]{img/assoc_rules1.jpg}
 	}
+	% In fact, these two illustrations are still the best visualization of assocaition rules I could find. Alternatives would % be the visualizations from e.g. this Jupyter Notebook experiment:
+	% https://goldinlocks.github.io/Market-Basket-Analysis-in-Python/.
+	% It may also be useful to revisit these graphics once we have completed our exercise sheets.
 \end{frame}
 
 \begin{frame}{Visualization of Association Rules: Plane Graph}
 	\centering
 	\scalebox{0.9}{
 		\includegraphics[width=0.6\textwidth]{img/assoc_rules2.jpg}
-	}
-\end{frame}
-
-\begin{frame}{Visualization of Association Rules: SGI/MineSet 3.0}
-	\centering
-	\scalebox{0.9}{
-		\includegraphics[width=0.6\textwidth]{img/assoc_rules3.png}
 	}
 \end{frame}

@@ -210,13 +210,11 @@
 		\item \textbf{Strong rule:}
 		      \begin{itemize}
 			      \item Satisfies both $\text{min\_sup}$ and $\text{min\_conf}$
-			            \begin{align}
-				            \text{support}(A \implies B)    & = P(A \cup
-				            B),                                                                                     \\
-				            \text{confidence}(A \implies B) & = P(B |
-				            A)                                                                                      \\
+			            \begin{align*}
+				            \text{support}(A \implies B)    & = P(A \cup B),                                        \\
+				            \text{confidence}(A \implies B) & = P(B | A)                                            \\
 				                                            & = \frac{\text{support}(A \cup B)}{\text{support}(A)}.
-			            \end{align}
+			            \end{align*}
 			      \item I.e. confidence of rule can be easily derived from the
 			            support counts of $A$ and $A \cup B$.
 		      \end{itemize}
@@ -234,10 +232,10 @@
 			      sub-itemsets.}
 		      \begin{itemize}
 			      \item E.g. $\{a_1,a_2,\ldots,a_{100}\}$ contains
-			            \begin{align}
+			            \begin{align*}
 				            {100\choose 1} + {100 \choose 2} + \cdots + {100 \choose 100} =
 				            2^{100}-1 \approx 1.27 \cdot 10^{30} \; \text{sub-itemsets!}
-			            \end{align}
+			            \end{align*}
 			      \item \textbf{Solution:}
 			            \begin{itemize}
 				            \item Mine closed itemsets and max-itemsets instead.
