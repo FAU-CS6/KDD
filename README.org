@@ -14,10 +14,10 @@
   10. *Current Research at CS6* - Dominik
 
 ** Exercise
-  1. *Introduction to Python* - Melanie
-  2. *Data* - Dominik
+  1. *Introduction to Pandas & scikit-learn* - Melanie
+  2. *Data analysis & data preprocessing* - Dominik
   3. *Frequent Patterns* - Dominik
-  4. *Classifictation* - Melanie
+  4. *Classification* - Melanie
   5. *Clustering* - Dominik
   6. *Outlier* - Melanie
 
