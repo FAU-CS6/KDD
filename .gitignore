@@ -1,5 +1,8 @@
+# Temporary Files
 *#
 *~
+
+# LaTeX
 *.aux
 *.bcf
 *.log
@@ -23,3 +26,17 @@
 *.bak*
 vc.tex
 output
+
+# IDEs
+.idea
+.vscode
+
+# Python
+.venv
+.cache
+.ipynb_checkpoints
+.config
+.local
+.jupyter
+.ipython
+.npm
