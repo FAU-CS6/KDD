@@ -62,7 +62,7 @@
 			\begin{itemize}
 				\item Stores data objects.
 				\item Also called \textit{object-by-attribute structure}.
-				\item Each data object is desribed by $m$ attributes.
+				\item Each data object is described by $m$ attributes.
 				\item Having $n$ data objects we have a $n\times m$ data matrix.
 			\end{itemize}
 			\vspace*{1em}
@@ -128,7 +128,7 @@
 		      \begin{center}
 			      \vspace{-2em}
 			      \[
-				      \text{dasta object}~i\underbrace{
+				      \text{data object}~i\underbrace{
 					      \left\{\begin{tabular}{ c | c c c }
 						             & $1$   & $0$   & $\sum$    \\ \hline
 						      $1$    & $q$   & $r$   & $q+r$     \\
@@ -186,7 +186,7 @@
 		      \begin{align*}
 			      z = \frac{x-\mu}{\sigma}.
 		      \end{align*}
-		\item $x$ is the score to be standardized; $\mu$ ist the population mean; $\sigma$ is the standard deviation.
+		\item $x$ is the score to be standardized; $\mu$ is the population mean; $\sigma$ is the standard deviation.
 		\item The distance between the raw score and the population mean in units of the standard deviation.
 		\item Negative when the raw score is below the mean, positive else.
 		\item \textbf{An alternative way is to compute the mean absolute deviation (MAD):}
@@ -200,23 +200,27 @@
 \begin{frame}{Example: Data Matrix and Dissimilarity Matrix}
 	\begin{itemize}
 		\item Data matrix: \\[0.1cm]
-		      \begin{tabular}{| c | c | c |}
-			      \hline
-			      Point & Attribute $1$ & Attribute $2$ \\\hline
-			      $x_1$ & $1$           & $2$           \\\hline
-			      $x_2$ & $3$           & $5$           \\\hline
-			      $x_3$ & $2$           & $0$           \\\hline
-			      $x_4$ & $4$           & $5$           \\\hline
-		      \end{tabular}\\[0.5cm]
+		      \begin{center}
+			      \begin{tabular}{| c | c | c |}
+				      \hline
+				      Point & Attribute $1$ & Attribute $2$ \\\hline
+				      $x_1$ & $1$           & $2$           \\\hline
+				      $x_2$ & $3$           & $5$           \\\hline
+				      $x_3$ & $2$           & $0$           \\\hline
+				      $x_4$ & $4$           & $5$           \\\hline
+			      \end{tabular}\\[0.5cm]
+		      \end{center}
 		\item Dissimilarity matrix (with Euclidean distance): \\[0.1cm]
-		      \begin{tabular}{| c | c | c | c | c |}
-			      \hline
-			            & $x_1$  & $x_2$ & $x_3$  & $x_4$ \\\hline
-			      $x_1$ & $0$    &       &        &       \\\hline
-			      $x_2$ & $3,61$ & $0$   &        &       \\\hline
-			      $x_3$ & $2,24$ & $5,1$ & $0$    &       \\\hline
-			      $x_4$ & $4,24$ & $1$   & $5,39$ & $0$   \\\hline
-		      \end{tabular}\\[0.2cm]
+		      \begin{center}
+			      \begin{tabular}{| c | c | c | c | c |}
+				      \hline
+				            & $x_1$  & $x_2$ & $x_3$  & $x_4$ \\\hline
+				      $x_1$ & $0$    &       &        &       \\\hline
+				      $x_2$ & $3,61$ & $0$   &        &       \\\hline
+				      $x_3$ & $2,24$ & $5,1$ & $0$    &       \\\hline
+				      $x_4$ & $4,24$ & $1$   & $5,39$ & $0$   \\\hline
+			      \end{tabular}\\[0.2cm]
+		      \end{center}
 	\end{itemize}
 \end{frame}
 
@@ -237,7 +241,7 @@
 			\item $d(x,y) \leq d(x,z) + d(z,y)$, triangle inequality.
 		\end{itemize}
 
-		A distance satisfying this properties is called \textbf{metric}.
+		A distance satisfying these properties is called \textbf{metric}.
 	\end{block}
 \end{frame}
 
