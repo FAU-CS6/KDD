@@ -112,18 +112,19 @@
 	\textbf{Median for interval grouped data} (An Example)
 	\begin{table}
 		\begin{tabularx}{\textwidth}{|c|c|p{4.5em}|X|X|X|}
-			\rowcolor{faugray!62}\textbf{Class $i$} & \textbf{Age $x_i$} ($x_i^l$ - $x_i^u$) & \textbf{Class Width $\Delta_i$} & \textbf{Absolute\newline Frequency $n_i$} & \textbf{Relative\newline Frequency $f_i$} & \textbf{Cummulative rel.\newline Frequency $F_i$} \\ \hline
-			$1$                                     & $1-5$                                  & 4                               & $200$                                     & 0.06262                                   & 0.06262                                           \\
-			$2$                                     & $6-15$                                 & 9                               & $450$                                     & 0.14089                                   & 0.20351                                           \\
-			$3$                                     & $16-20$                                & 4                               & $300$                                     & 0.09393                                   & 0.29743                                           \\
-			\rowcolor{fauyellow!62} $4$             & $21-50$                                & 29                              & $1500$                                    & 0.46963                                   & 0.76706                                           \\
-			$5$                                     & $51-80$                                & 29                              & $700$                                     & 0.21916                                   & 0.98622                                           \\
-			$6$                                     & $81-110$                               & 29                              & $44$                                      & 0.01378                                   & 1.00000                                           \\ \hline
-			$\sum$                                  &                                        &                                 & 3194                                      & 1.00000                                   &                                                   \\ \hline
+			\hline
+			\rowcolor{faugray!62}\textbf{Class $i$} & \textbf{Age $x_i$} ($x_i^l$ - $x_i^u$) & \textbf{Class Width $\Delta_i$} & \textbf{Absolute\newline Frequency $n_i$} & \textbf{Relative\newline Frequency $f_i$} & \textbf{Cumulative rel.\newline Frequency $F_i$} \\ \hline
+			$1$                                     & $1-5$                                  & 4                               & $200$                                     & 0.06262                                   & 0.06262                                          \\
+			$2$                                     & $6-15$                                 & 9                               & $450$                                     & 0.14089                                   & 0.20351                                          \\
+			$3$                                     & $16-20$                                & 4                               & $300$                                     & 0.09393                                   & 0.29743                                          \\
+			\rowcolor{fauyellow!62} $4$             & $21-50$                                & 29                              & $1500$                                    & 0.46963                                   & 0.76706                                          \\
+			$5$                                     & $51-80$                                & 29                              & $700$                                     & 0.21916                                   & 0.98622                                          \\
+			$6$                                     & $81-110$                               & 29                              & $44$                                      & 0.01378                                   & 1.00000                                          \\ \hline
+			$\sum$                                  &                                        &                                 & 3194                                      & 1.00000                                   &                                                  \\ \hline
 		\end{tabularx}
 	\end{table}
 
-	Median lies between the fourth group, that is within the age group of 21 to 50 years.
+	The median lies within the fourth group, i.e. in the age group from 21 to 50 years
 \end{frame}
 
 \begin{frame}{Measuring the Central Tendency: Median (III)}
@@ -136,13 +137,13 @@
 	\begin{itemize}
 		\item Order data (in our example by age, not by frequencies!).
 		\item Compute relative frequencies, that is: frequency divided by sum of all frequencies.
-		\item Compute cummulative relative frequencies.
+		\item Compute cumulative relative frequencies.
 	\end{itemize}
 
 	Determine median with these considerations:
 	\begin{itemize}
 		\item $F_i=0.5$: We have no clear median. Therefore: Take this class ($F_i=0.5$) and the next one ($F_i > 0.5$) to obtain the median.
-		\item $F_i>0.5$: Median lies within the class where the cummulative
+		\item $F_i>0.5$: Median lies within the class where the cumulative
 		      relative frequency exceeds 50\% for the first time. Compute the approximate median with:
 	\end{itemize}
 \end{frame}
@@ -150,7 +151,7 @@
 \begin{frame}{Measuring the Central Tendency: Median (IV)}
 	\textbf{Median for interval grouped data}
 
-	$F_i>0.5$: Median lies within the class where the cummulative
+	$F_i>0.5$: Median lies within the class where the cumulative
 	relative frequency exceeds 50\% for the first time. Compute the approximate median with:
 	\begin{align*}
 		\tilde{x} \approx x_i^l +\left(\frac{\frac{1}{2}\sum_{i=1}^{N}n_i - \sum_{k=1}^{N-1} n_k}{n_i}\right)\Delta_i
@@ -160,7 +161,7 @@
 		\item $i$ denotes the class number in which the median lies,
 		\item $x_i^l$ is the lower boundary,
 		\item $\sum_{i=1}^{N}n_i$ is the sum of all absolute frequencies,
-		\item $\sum_{k=1}^{N-1} n_k$ is the cummulative sum of absolute frequencies below class $i$, and
+		\item $\sum_{k=1}^{N-1} n_k$ is the cumulative sum of absolute frequencies below class $i$, and
 		\item $\Delta_i=x_i^u - x_i^l$ the class width.
 	\end{itemize}
 
@@ -175,9 +176,9 @@
 		\item Also possible that no mode exists when each value is unique,
 		      i. e. occurs only once.
 		\item Empirical formula for unimodal modes:
-		      \begin{align}
+		      \begin{align*}
 			      \overline{x} - \text{mode} \approx 3(\overline{x}- \tilde{x}).
-		      \end{align}
+		      \end{align*}
 	\end{itemize}
 \end{frame}
 
@@ -402,7 +403,7 @@
 	\begin{itemize}
 		\item \textbf{Range} is the difference between the largest and smallest value.
 		\item \textbf{Quartiles:} Also known as \textit{quantiles}. Generalization of the median. Median is the $50^{\text{th}}$ quartile.\\
-		      Other comon quartiles include $Q_1$ ($25^{\text{th}}$ percentile) and $Q_3$
+		      Other common quartiles include $Q_1$ ($25^{\text{th}}$ percentile) and $Q_3$
 		      ($75^{\text{th}}$ percentile).\\\smallskip Quartile with order $p$ with
 		      ($0 < p < 1$) have following characteristics:
 		      \begin{itemize}
@@ -456,7 +457,7 @@
 		\item Data is represented with a box vertically or horizontally.
 		\item The ends of the box are at the first and third quartiles, i.e. the width of the box is IQR. \\
 		      The median $\tilde{x}$ is marked by a line within the box.
-		\item Whiskers: two lines outside the box extended to minimum and maximum.
+		\item Whiskers: two lines outside the box, reaching the minimum and the maximum.
 		\item Outliers: points beyond a specified outlier threshold, plotted individually.
 	\end{itemize}
 \end{frame}
