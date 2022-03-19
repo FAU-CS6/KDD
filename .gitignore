@@ -40,3 +40,7 @@ output
 .jupyter
 .ipython
 .npm
+__pycache__
+
+# Other files
+*.db
