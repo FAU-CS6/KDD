@@ -1,0 +1,3 @@
+[submodule "exercise/databases"]
+	path = exercise/databases
+	url = https://github.com/FAU-CS6/KDD-Databases.git
