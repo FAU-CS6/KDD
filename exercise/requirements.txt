@@ -2,7 +2,6 @@ pandas
 numpy
 scikit-learn
 sqlalchemy
-gitpython
 
 ipython
 jupyterlab
