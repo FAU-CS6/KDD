@@ -86,7 +86,7 @@ jobs:
       - name: Build notebooks
         run: |
             cd exercise
-            make figures
+            make all
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
