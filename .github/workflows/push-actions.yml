@@ -63,3 +63,39 @@ jobs:
             lecture/output/*.pdf
             lecture/output/*.log
           retention-days: 5
+
+  build_notebooks:
+    name: Build the student and solution version of the notebooks
+    runs-on: ubuntu-latest
+    needs: [pre_commit_validation]
+    if: contains(needs.*.result, 'success')
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+
+      - name: Initialize Python 3.7
+        uses: actions/setup-python@v1
+        with:
+            python-version: 3.7
+
+      - name: Install dependencies
+        uses: ./exercise/
+        run: |
+            python -m pip install --upgrade pip
+            pip install -r exercise/requirements.txt
+
+      - name: Build notebooks
+        uses: ./exercise/
+        with:
+          run: |
+            cd exercise
+            make figures
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Exercise Notebooks
+          path: |
+            exercise/output/*.ipynb
+          retention-days: 5
