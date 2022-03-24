@@ -84,8 +84,7 @@ jobs:
             pip install -r exercise/requirements.txt
 
       - name: Build notebooks
-        with:
-          run: |
+        run: |
             cd exercise
             make figures
 
