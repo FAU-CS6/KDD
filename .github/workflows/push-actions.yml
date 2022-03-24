@@ -65,7 +65,7 @@ jobs:
           retention-days: 5
 
   build_notebooks:
-    name: Build the student and solution version of the notebooks
+    name: Build the exercise notebooks
     runs-on: ubuntu-latest
     needs: [pre_commit_validation]
     if: contains(needs.*.result, 'success')
