@@ -23,3 +23,4 @@
 *.bak*
 vc.tex
 output
+.ipynb_checkpoints
