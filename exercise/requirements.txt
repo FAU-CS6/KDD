@@ -3,6 +3,10 @@ numpy
 scikit-learn
 sqlalchemy
 matplotlib
+squarify
+plotly
+seaborn
+pywaffle
 
 ipython
 jupyterlab
