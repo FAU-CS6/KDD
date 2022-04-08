@@ -39,7 +39,7 @@
   |            27 | Cluster Analysis, Part 2               | Dominik Probst  | Clustering                |
   |            28 | Outlier Analysis, Part 1               | Melanie B. Sigl | Outlier                   |
   |            29 | Outlier Analysis, Part 2               | Melanie B. Sigl |                           |
-  |            30 | Current Resarch at CS6 and Exam QnA    | Dominik Probst  |                           |
+  |            30 | Current Research at CS6 and Exam QnA   | Dominik Probst  |                           |
 
 * Setup for Building Lecture Slides Locally
 To build these lecture slides locally on your machine you'll need an up-to-date
