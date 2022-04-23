@@ -12,7 +12,7 @@ clean:
 %-student: %.ipynb FORCE
 	mkdir -p output
 	jupyter nbconvert $< --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags={\"solution\"} --to notebook --output output/$@
-	
+
 %-solution: %.ipynb FORCE
 	mkdir -p output
 	jupyter nbconvert $< --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags={\"student\"} --to notebook --output output/$@
@@ -22,4 +22,3 @@ students: $(ipynbstudents)
 solutions: $(ipynbsolutions)
 
 FORCE: ;
-
