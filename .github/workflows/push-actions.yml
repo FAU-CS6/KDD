@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.0.1
 
       - name: Run hooks again to validate they have run
         uses: xu-cheng/texlive-action/full@v1
@@ -17,6 +17,7 @@ jobs:
             apk add --virtual build-dependencies build-base gcc wget git
             apk add --no-cache python3 python3-dev py3-pip nodejs npm
             pip3 install pre-commit
+            git config --global --add safe.directory /github/workspace
             pre-commit run --verbose --all-files > pre-commit-validation.txt & cat pre-commit-validation.txt
             if cat pre-commit-validation.txt | grep -q Failed;
             then
@@ -33,7 +34,7 @@ jobs:
     if: contains(needs.*.result, 'success')
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.0.1
 
       - name: Build figures
         uses: ./lecture/
@@ -50,12 +51,13 @@ jobs:
           run: |
             apk add make
             apk add git
+            git config --global --add safe.directory /github/workspace
             cd lecture
             ls -la img
             make all-wo-figures
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Lecture Slides
