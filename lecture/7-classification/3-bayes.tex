@@ -1,0 +1,236 @@
+\section{Bayes Classification Methods}
+
+\begin{frame}{Bayesian Classification: Why?}
+	\begin{itemize}
+		\item \textbf{A statistical classifier:}
+		      \begin{itemize}
+			      \item Performs probabilistic prediction, i.e. predicts class-membership probabilities.
+		      \end{itemize}
+		\item \textbf{Foundation:} \textbf{\color{airforceblue}Bayes' Theorem.}
+		\item \textbf{Performance:}
+		      \begin{itemize}
+			      \item A simple Bayesian classifier (naïve Bayesian classifier) has performance comparable with decision tree and selected neural-network classifiers.
+		      \end{itemize}
+		\item \textbf{Incremental:}
+		      \begin{itemize}
+			      \item Each training example can incrementally increase/decrease the probability that a hypothesis is correct -- prior knowledge can be combined with observed data.
+		      \end{itemize}
+		\item \textbf{Standard:}
+		      \begin{itemize}
+			      \item Even when Bayesian methods are computationally intractable, they can provide a standard of optimal decision making against which other methods can be measured.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Bayes' Theorem: Basics}
+	\begin{itemize}
+		\item \textbf{Let $X$ be a data sample ("evidence").}
+		      \begin{itemize}
+			      \item The class label shall be unknown.
+		      \end{itemize}
+		\item \textbf{Let $C_i$ be the hypothesis that $X$ belongs to class $i$.}
+		\item \textbf{Classification is to determine $P(C_i|X)$:}
+		      \begin{itemize}
+			      \item \textbf{\color{airforceblue}Posteriori probability:} the probability that the hypothesis \\ holds given the observed data sample $X$.
+		      \end{itemize}
+		\item $P(C_i)$:
+		      \begin{itemize}
+			      \item \textbf{\color{airforceblue}Prior probability:} the initial probability.
+			      \item E.g., $X$ will buy computer, regardless of age, income, $\ldots$
+		      \end{itemize}
+		\item $P(X)$:
+		      \begin{itemize}
+			      \item Probability that sample data is observed.
+		      \end{itemize}
+		\item $P(X|C_j)$:
+		      \begin{itemize}
+			      \item \textbf{\color{airforceblue}Likelihood:} the probability of observing the sample $X$ given that the hypothesis holds.
+			      \item E.g., given that $X$ buys computer, the probability that $X$ is $31\ldots40$, medium income.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Bayes' Theorem (II)}
+	\begin{itemize}
+		\item \textbf{Given training data $X$, the posteriori probability $P(C_i|X)$\\
+			      of a hypothesis $C_i$ follows from the Bayes' Theorem:}
+		      \begin{align}
+			      P(C_i|X) = \frac{P(X|C_i)P(C_i)}{P(X)}.
+		      \end{align}
+		\item \textbf{Predicts that $X$ belongs to $C_i$ if the probability $P(C_i|X)$\\
+			      is {\color{airforceblue}the highest} among all the $P(C_k|X)$ for all $k$ classes.}
+		\item \textbf{Practical difficulty:}
+		      \begin{itemize}
+			      \item Requires initial knowledge of many probabilities.
+			      \item Significant computational cost.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Towards Naïve Bayesian Classifier}
+	\begin{itemize}
+		\item \textbf{Let $D$ be a training set of tuples and their associated class labels.}
+		      \begin{itemize}
+			      \item Each tuple is represented by an $n$-dimensional attribute $X = (x_1,x_2,\ldots,x_n)$.
+		      \end{itemize}
+		\item \textbf{Supose there are $m$ classes $C_1,C_2, \ldots, C_m$.}
+		\item \textbf{Classification is to derive the {\color{airforceblue}maximum posteriori probability}.}
+		      \begin{itemize}
+			      \item i.e. the maximal $P(C_i|X)$.
+		      \end{itemize}
+		\item \textbf{This can be derived from Bayes' Theorem:}
+		      \begin{align}
+			      P(C_i|X) = \frac{P(X|C_i)P(C_i)}{P(X)}.
+		      \end{align}
+		\item \textbf{Since $P(X)$ is constant for all classes, we must maximize only:}
+		      \begin{align}
+			      P(X|C_i)P(C_i).
+		      \end{align}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Derivation of Naïve Bayes Classifier}
+	\begin{itemize}
+		\item \textbf{A simplifying assumption: attributes are {\color{airforceblue}conditionally independent}.}
+		      \begin{itemize}
+			      \item I.e. no dependence relation between attributes (which is "naïve").
+			            \begin{align*}
+				            \resizebox{7cm}{!}{%
+					            $P(X|C_i) = \prod_{k=1}^{n} P(x_k|C_i) = P(x_1|C_i)P(x_2|C_i)\cdots P(x_n|C_i).$}
+			            \end{align*}
+			      \item This greatly reduces the computation cost:\\
+			            Only count the class distribution.
+			      \item If $A_k$ is categorical,
+			            \begin{itemize}
+				            \item $P(x_k|C_i)$is the number of tuples in $C_i$ having value $x_k$ for $A_k$ \\
+				                  divided by $|C_{i,D}|$ (the number of tuples of $C_i$ in $D$).
+			            \end{itemize}
+			      \item If $A_k$ is continuous-valued,
+			            \begin{itemize}
+				            \item $P(x_k|C_i)$ is usually computed based on Gaussian distribution with a mean $\mu$ and standard deviation $\sigma$:
+				                  \begin{align*}
+					                  \resizebox{4cm}{!}{%
+					                  $G(x,\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma}e^{\frac{(x-\mu)^2}{2\sigma^2}},$}
+				                  \end{align*}
+				            \item and $P(x_k|C_i) = G(x_k,\mu_{C_i},\sigma_{C_i})$.
+			            \end{itemize}
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Naïve Bayesian Cellcolormake Dataset}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\vspace{-2cm}
+			\begin{itemize}
+				\item \textbf{Classes:}
+				      \begin{itemize}
+					      \item $C_1$: \texttt{buys\_computer} = "yes".
+					      \item $C_2$: \texttt{buys\_computer} = "no".
+				      \end{itemize}
+				\item \textbf{Data sample:}
+				      \begin{itemize}
+					      \item $X = (\texttt{age} \leq 30,$ \\
+					            $\texttt{income} = "medium",$ \\
+					            $\texttt{student} = "yes",$\\
+					            $\texttt{credit\_rating} = "fair")$.
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\resizebox{\columnwidth}{!}{%
+				\input{7-classification/table-example.tex}
+			}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Naïve Bayesian Classifier: An Example}
+	\begin{itemize}
+		\item $P(C_i)$:
+		      \begin{itemize}
+			      \item $P(\texttt{buys\_computer} = "yes") = \frac{9}{14} = 0.643$.
+			      \item $P(\texttt{buys\_computer} = "no") = \frac{5}{14} = 0.357$.
+		      \end{itemize}
+		\item $X = (\texttt{age} \leq 30 , \texttt{income} = "medium", \texttt{student} = "yes", \texttt{credit\_rating} = "fair")$.
+		\item \textbf{Compute $P(X|C_i)$ for each class:}
+		      \begin{itemize}
+			      \item $P(\texttt{age} \leq 30 | \texttt{buys\_computer} = "yes") = \frac{2}{9} = 0.222$.
+			      \item $P(\texttt{age} \leq 30 | \texttt{buys\_computer} = "no") = \frac{3}{5} = 0.6$.
+			      \item $P(\texttt{income} = "medium" | \texttt{buys\_computer} = "yes") = \frac{4}{9} = 0.444$.
+			      \item $P(\texttt{income} = "medium" | \texttt{buys\_computer} = "no") = \frac{2}{5} = 0.4$.
+			      \item $P(\texttt{student} = "yes" | \texttt{buys\_computer} = "yes") = \frac{6}{9} = 0.667$.
+			      \item $P(\texttt{student} = "yes" | \texttt{buys\_computer} = "no") = \frac{1}{5} = 0.2$.
+			      \item $P(\texttt{credit\_rating} = "fair" | \texttt{buys\_computer} = "yes") = \frac{6}{9} = 0.667$.
+			      \item $P(\texttt{credit\_rating} = "fair" | \texttt{buys\_computer} = "no") = \frac{2}{5} = 0.4$.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Naïve Bayesian Classifier: An Example (II)}
+	\begin{itemize}
+		\item $P(C_i)$:
+		      \begin{itemize}
+			      \item $P(X | \texttt{buys\_computer} = "yes") = 0.222 \cdot 0.444 \cdot 0.667 \cdot 0.667 = 0.044$.
+			      \item $P(X | \texttt{buys\_computer} = "no") = 0.6 \cdot 0.4 \cdot 0.2 \cdot 0.4 = 0.019$.
+		      \end{itemize}
+		\item $P(X | C_i) \cdot P(C_i)$:
+		      \begin{itemize}
+			      \item $P(X | \texttt{buys\_computer} = "yes") \cdot  P(\texttt{buys\_computer} = "yes") = 0.028$.
+			      \item $P(X | \texttt{buys\_computer} = "no") \cdot  P(\texttt{buys\_computer} = "no") = 0.007$.
+		      \end{itemize}
+		\item \textbf{Therefore, $X$ belongs to class $C_1$ (\texttt{buys\_computer} = "yes")}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Avoiding the Zero-probability Problem}
+	\begin{itemize}
+		\item \textbf{Naïve Bayesian prediction requires each conditional probability to be non-zero.}
+		      \begin{itemize}
+			      \item Otherwise, the predicted probability will be zero.
+			            \begin{align}
+				            \resizebox{4cm}{!}{
+					            $P(X|C_i) = \prod_{k=1}^{n} P(x_k|C_i).$}
+			            \end{align}
+		      \end{itemize}
+		\item \textbf{Example:}
+		      \begin{itemize}
+			      \item Suppose a dataset with $1000$ tuples, \texttt{income} = "low" $(0)$, \texttt{income} = "medium" $(990)$, and \texttt{income} = "high" $(10)$.
+		      \end{itemize}
+		\item \textbf{Use {\color{airforceblue}Laplacian correction} (or Laplacian estimator):}
+		      \begin{itemize}
+			      \item Add $1$ to each case:
+			            \begin{itemize}
+				            \item $P(\texttt{income} = "low") = \frac{1}{1003}$.
+				            \item $P(\texttt{income} = "medium") = \frac{991}{1003}$.
+				            \item $P(\texttt{income} = "high") = \frac{11}{1003}$.
+			            \end{itemize}
+			      \item The "corrected" probability estimates are close to their "uncorrected" counterparts.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Naïve Bayesian Classifier: Comments}
+	\textbf{Advantages}
+	\begin{itemize}
+		\item Easy to implement.
+		\item Good results obtained in most of the cases.
+	\end{itemize}
+
+	\textbf{Disadvantages}
+	\begin{itemize}
+		\item Assumption: class conditional independence, therefore loss of accuracy.
+		\item Practically, \textbf{dependencies} exist among variables.
+		      \begin{itemize}
+			      \item E.g., hospital patients:
+			            \begin{itemize}
+				            \item Profile: age, family history, etc.
+				            \item Symptoms: fever, cough, etc.
+				            \item Disease: lung cancer, diabetes, etc.
+			            \end{itemize}
+			      \item Cannot be modeled by naïve Bayesian classifier.
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{How to deal with these dependencies?} $\rightarrow$ Bayesian belief networks (see textbook).
+\end{frame}

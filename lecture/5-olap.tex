@@ -1,0 +1,38 @@
+\ifx\pdfminorversion\undefined\else\pdfminorversion=4\fi
+\documentclass[aspectratio=169,t]{beamer}
+%\documentclass[aspectratio=169,t,handout]{beamer}
+
+\input{x-additional/preamble}
+
+% Title, authors, and date
+\title[KDD~5.~OLAP]{5. Data Warehousing and Online Analytical Processing} %
+\subtitle{Knowledge Discovery in Databases}
+\input{x-additional/mbs.tex}
+\input{x-additional/get_git_rev.tex}
+
+% Set additional logo (overwrites FAU seal)
+% \logo{}
+
+\begin{document}
+
+% Title
+\maketitle
+
+{ % Outline
+	\setbeamertemplate{footline}{}
+	\begin{frame}[noframenumbering]{Outline}
+		\tableofcontents
+
+	\end{frame}
+}
+
+% Body
+\input{5-olap/1-dwh-basics}
+\input{5-olap/2-cube-olap}
+\input{5-olap/3-design}
+\input{5-olap/4-implementation}
+\input{5-olap/5-data-generalization}
+\input{5-olap/6-summary}
+\input{x-additional/x-contact}
+
+\end{document}

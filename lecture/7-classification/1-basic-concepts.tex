@@ -1,0 +1,167 @@
+\section{Basic Concepts}
+
+\begin{frame}{Supervised vs. Unsupervised Learning}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\textbf{Supervised Learning}
+			\begin{itemize}
+				\item The \textbf{training data} (observations, measurements, etc.) are accompanied by \textbf{labels} indicating the \textbf{class} of the observations.
+				\item New data is classified based on a \textbf{model} created from the training data.
+			\end{itemize}
+
+		\end{column}
+
+		\begin{column}{0.5\textwidth}
+			\textbf{Unsupervised Learning}
+
+			\begin{itemize}
+				\item Class labels of training data are unknown.
+
+				      Or rather, there are no training data.
+			\end{itemize}
+			\begin{itemize}
+				\item Given a set of measurements, observations, etc., the goal is to find classes or clusters in the data.
+
+				      $\rightarrow$ See next chapter (Lecture/Chapter 8: Clustering).
+			\end{itemize}
+
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Prediction Problems: Classification vs. Numerical Prediction}
+	\begin{itemize}
+		\item \textbf{Classification:}
+		      \begin{itemize}
+			      \item Predicts \textbf{\color{airforceblue}categorical class labels} (discrete, nominal).
+			      \item Constructs a model based on the training set and the values (class labels) in a classifying attribute and uses it in classifying new data.
+		      \end{itemize}
+		\item \textbf{Numerical prediction:}
+		      \begin{itemize}
+			      \item Models \textbf{\color{airforceblue}continuous-valued functions}.
+			      \item I.e. predicts missing or unknown (future) values.
+		      \end{itemize}
+		\item \textbf{Typical applications of classification:}
+		      \begin{itemize}
+			      \item Credit/loan approval: Will it be paid back?
+			      \item Medical diagnosis: Is a tumor cancerous or benign?
+			      \item Fraud detection: Is a transaction fraudulent or not?
+			      \item Web-page categorization: Which category is it?
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Classification -- A Two-step Process}
+	\begin{enumerate}
+		\item \textbf{Model construction: describing a set of predetermined classes:}
+		      \begin{itemize}
+			      \item Each tuple/sample is assumed to belong to a predefined class, as determined by the \textbf{\color{airforceblue}class-label attribute}.
+			      \item The set of tuples used for model construction is the \textbf{\color{airforceblue}training set}.
+			      \item The \textbf{\color{airforceblue}model} is represented as classification rules, decision trees, or mathematical formulae.
+		      \end{itemize}
+		\item \textbf{Model usage, for classifying future or unknown objects:}
+		      \begin{itemize}
+			      \item Estimate \textbf{\color{airforceblue}accuracy} of the model:
+			            \begin{itemize}
+				            \item The known label of \textbf{test samples} is compared with the result from the model.
+				            \item \textbf{Accuracy rate} is the percentage of test-set samples that are correctly classified by the model.
+				            \item Test set is independent of training set (otherwise overfitting).
+				            \item More on evaluation metrics later in \fullref{class:evaluation}
+			            \end{itemize}
+			      \item If the accuracy is acceptable, \textbf{\color{airforceblue}use the model} to classify data tuples whose class labels are not known.
+		      \end{itemize}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Classification -- A Two-step Process: 1. Model Construction}
+	\centering
+	\begin{tikzpicture}[
+			>=latex,
+			database/.style={
+					cylinder,
+					cylinder uses custom fill,
+					cylinder body fill=faublue!12,
+					cylinder end fill=faublue!12,
+					shape border rotate=90,
+					aspect=0.25,
+					draw
+				}
+		]
+		\node[database] (data) at (0,0) {Training data};
+		\node[below=2em of data] (data-example) {
+			\begin{tabular}{|l|l|c|c|}
+				\hline
+				\cellcolor{faugray!62}\textbf{\uppercase{name}} & \cellcolor{faugray!62}\textbf{\uppercase{rank}} & \cellcolor{faugray!62}\textbf{\uppercase{years}} & \cellcolor{fauorange!25}\textbf{\uppercase{tenured}} \\\hline
+				\cellcolor{fauyellow!25}Mike                    & \cellcolor{fauyellow!25}Assistant Prof          & \cellcolor{fauyellow!25}3                        & {\color{faured}no}                                   \\\hline
+				\cellcolor{fauyellow!25}Mary                    & \cellcolor{fauyellow!25}Assistant Prof          & \cellcolor{fauyellow!25}7                        & {\color{faugreen}yes}                                \\\hline
+				\cellcolor{fauyellow!25}Bill                    & \cellcolor{fauyellow!25}Professor               & \cellcolor{fauyellow!25}2                        & {\color{faugreen}yes}                                \\\hline
+				\cellcolor{fauyellow!25}Jim                     & \cellcolor{fauyellow!25}Associate Prof          & \cellcolor{fauyellow!25}7                        & {\color{faugreen}yes}                                \\\hline
+				\cellcolor{fauyellow!25}Dave                    & \cellcolor{fauyellow!25}Assistant Prof          & \cellcolor{fauyellow!25}6                        & {\color{faured}no}                                   \\\hline
+				\cellcolor{fauyellow!25}Anne                    & \cellcolor{fauyellow!25}Associate Prof          & \cellcolor{fauyellow!25}3                        & {\color{faured}no}                                   \\\hline
+			\end{tabular}
+		};
+		\node[rounded corners=5pt,draw=fauorange,fill=fauorange!62, text width = 3cm, align=center,right=15em of data.east] (class-algo) {Classification\\algorithm};
+		\node[database,below=3em of class-algo] (class-rules) {Classification rules};
+		\node[draw=faucyan,fill=faucyan!25,text=black,rounded corners=5pt,text width=3cm,below=2em of class-rules] (rules) {\texttt{if RANK =}'Professor'\\\texttt{or YEARS >}6\\\texttt{then TENURED =}'yes'};
+
+		\draw[->,thick] (data) -- (class-algo);
+		\draw[->,thick] (class-algo) -- (class-rules);
+
+		\draw[thick,rounded corners=5pt]
+		(data-example.north west) -- ($(data-example.north west) + (0,.15)$) --
+		($(data-example.north) + (0,.15)$) -- ($(data-example.north) + (0,.15)$) --
+		($(data-example.north east) + (0,.15)$) -- (data-example.north east);
+
+		\draw[thick,rounded corners=5pt]
+		($(rules.north west) + (-.1,.05)$) -- ($(rules.north west) + (-.1,.25)$) --
+		($(rules.north) + (0,.25)$) -- ($(rules.north) + (0,.25)$) --
+		($(rules.north east) + (.1,.25)$) -- ($(rules.north east) + (.1,.05)$);
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Classification -- A Two-step Process: 2. Model Usage}
+	\centering
+	\begin{tikzpicture}[
+			>=latex,
+			database/.style={
+					cylinder,
+					cylinder uses custom fill,
+					cylinder body fill=faublue!12,
+					cylinder end fill=faublue!12,
+					shape border rotate=90,
+					aspect=0.25,
+					draw
+				}
+		]
+		\node[database] (data) at (0,0) {Test data};
+		\node[below=2em of data] (data-example) {
+			\begin{tabular}{|l|l|c|c|}
+				\hline
+				\cellcolor{faugray!62}\textbf{\uppercase{name}} & \cellcolor{faugray!62}\textbf{\uppercase{rank}} & \cellcolor{faugray!62}\textbf{\uppercase{years}} & \cellcolor{fauorange!25}\textbf{\uppercase{tenured}} \\\hline
+				Tom                                             & Assistant Prof                                  & 2                                                & {\color{faured}no}                                   \\\hline
+				Merlisa                                         & Associate Prof                                  & 7                                                & {\color{faured}no}                                   \\\hline
+				George                                          & Professor                                       & 5                                                & {\color{faugreen}yes}                                \\\hline
+				Joseph                                          & Assistant Prof                                  & 7                                                & {\color{faugreen}yes}                                \\\hline
+			\end{tabular}
+		};
+		\node[draw=faucyan,fill=faucyan!25,rounded corners=5pt,text width = 3cm, align=center,right=15em of data.east] (class-algo) {Classification\\rules};
+		\node[database,below=3em of class-algo] (new-data) {Unseen data};
+		\node[rounded corners=5pt,fill=faugray!12,text width=3.5cm,below=2em of new-data,align=center] (new-data-example) {\texttt{(Jeff, Professor, 4)}};
+
+		\node[draw=faugreen,fill=faugreen!25,text=black,rounded corners=5pt,below=2em of new-data-example] (classification) {yes};
+
+		\draw[latex-latex,,thick] (data) -- (class-algo);
+		\draw[latex-latex,thick] (class-algo) -- (new-data);
+		\draw[-latex,thick] (new-data-example) -- (classification);
+
+		\draw[thick,rounded corners=5pt]
+		(data-example.north west) -- ($(data-example.north west) + (0,.15)$) --
+		($(data-example.north) + (0,.15)$) -- ($(data-example.north) + (0,.15)$) --
+		($(data-example.north east) + (0,.15)$) -- (data-example.north east);
+
+		\draw[thick,rounded corners=5pt]
+		($(new-data-example.north west) + (-.1,.05)$) -- ($(new-data-example.north west) + (-.1,.25)$) --
+		($(new-data-example.north) + (0,.25)$) -- ($(new-data-example.north) + (0,.25)$) --
+		($(new-data-example.north east) + (.1,.25)$) -- ($(new-data-example.north east) + (.1,.05)$);
+	\end{tikzpicture}
+\end{frame}

@@ -1,0 +1,134 @@
+\section{Ensemble Methods: Increasing the Accuracy}
+
+\begin{frame}{Ensemble Methods}
+	\begin{block}{Ensemble Method}
+		An \textit{Ensemble Method} is a composite model that consits of several models such as to form one model.
+	\end{block}
+	\begin{itemize}
+		\item Most of the time \textit{weak} learners are combined to mitigate their respective individual shortcomings.
+		\item Data set is partitioned into $k$ training sets.
+		\item Train a classifier on each training set.
+		\item Every individual classifier returns its prediction.
+		\item Overall prediction is determined for instance by \textit{majority voting}.
+		\item Prediction typically more accurate than each individual model.\\
+		      $\rightarrow$ Returns better results when diversity among models is great.
+		\item \textit{Each classifier should perform better than random guessing.}
+		\item \textbf{Popular methods} include Bagging, Boosting, and Random Forests.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Bagging: Boostrap Aggregation}
+	\begin{itemize}
+		\item \textbf{Analogy:}
+		      \begin{itemize}
+			      \item Diagnosis based on multiple doctors' majority vote.
+		      \end{itemize}
+		\item \textbf{Training:}
+		      \begin{itemize}
+			      \item Given a set $D$ of d tuples, at each iteration $i$, a training set $D_i$ of $d$ tuples is sampled with replacement from $D$ (i.e., bootstrap).
+			      \item A classifier model $M_i$ is learned for each training set $D_i$.
+		      \end{itemize}
+		\item \textbf{Predicton in the case of classification: classify an unknown sample $X$.}
+		      \begin{itemize}
+			      \item Each classifier $M_i$ returns its class prediction.
+			      \item The bagged classifier $M^*$ counts the votes and assigns the class with the most votes to $X$.
+		      \end{itemize}
+		\item \textbf{Prediction of a real number} (i. e. regression or time series forecast):
+		      \begin{itemize}
+			      \item Can be applied to the prediction of continuous values by taking the average value of each prediction for a given test tuple.
+		      \end{itemize}
+		\item \textbf{Accuracy:}
+		      \begin{itemize}
+			      \item Often significantly better than a single classifier derived from $D$.
+			      \item For noisy data: not considerably worse, more robust.
+			      \item Proved improved accuracy in prediction.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Boosting}
+	\begin{itemize}
+		\item \textbf{Analogy:}
+		      \begin{itemize}
+			      \item Consult several doctors, based on a combination of weighted diagnoses -- weight assigned based on the previous diagnosis accuracy
+		      \end{itemize}
+		\item \textbf{How boosting works:}
+		      \begin{itemize}
+			      \item Weights are assigned to each training tuple.
+			      \item A series of $k$ classifiers is iteratively learned.
+			      \item After a classifier $M_i$ is learned, the weights are updated to allow the subsequent classifier, $M_{i+1}$ to pay more attention to the training tuples that were misclassified by $M_i$.
+			      \item The final $M^*$ combines the votes of each individual classifier, where the weight of each classifier's vote is a function of its accuracy.
+		      \end{itemize}
+		\item \textbf{Classification:}
+		      \begin{itemize}
+			      \item Each classifier $M_i$ returns its class prediction.
+			      \item The bagged classifier $M^*$ counts the votes and assigns the class with the most votes to $X$.
+		      \end{itemize}
+		\item \textbf{Boosting algorithm can be extended for numeric prediction.}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{AdaBoost ("Adaptive Boosting" (Freund and Schapire, 1997))}
+	\begin{itemize}
+		\item \textbf{Given a data set $D$ of $d$ class-labeled tuples: $(x_1 , y_1), \ldots, (x_d, y_d)$.} with $y_d \in Y = \{1, \dots, c\}$.
+		\item \textbf{Initialize weights for each tuple to the same probability, i. e.: $w_j \leftarrow \frac{1}{d}$.}
+		\item \textbf{Generate $k$ classifiers in $k$ iterations. At iteration $i$,}
+		      \begin{enumerate}
+			      \item Sample dataset with replacement according to previously assigned weights to form training set $D_i$.
+			      \item Derive classification model $M_i$ from $D_i$.
+			      \item Calculate error by using $D_i$ as a test set as follows: $\text{error}(M_i) = \sum_{j=1}^{d} w_j \cdot \text{err}(x_j)$.\\
+			            $\text{err}(x_j)$ refers to the missclassification error on tuple $x_j$. If missclassified $\text{err}(x_j)=1$, else $0$.
+			      \item If $\text{error}(M_i)>0.5$: abandon this classifier and go back to step 1.
+			      \item Update weights: If a tuple has been correctly classified, multiply its weight by calculating $\beta_k = \frac{\text{error}(M_i)}{1-\text{error}(M_i)}$ and then z-normalize. \textit{If a tuple is misclassified, its weight is increased, otherwise it is decreased.}
+		      \end{enumerate}
+		\item \textbf{Obtain classification of AdaBoost using classifier weight $\beta_k$:}
+		      \begin{align}
+			      \textstyle H(X)= \arg \max_{y\in Y} \sum_{k=1}^K (\log \frac{1}{\beta_k})h_k(X)
+		      \end{align}
+
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Random Forest (Breiman, 2001)}
+	\begin{itemize}
+		\item Ensemble method consisting only of decision trees where each tree has been generated using random selection of attributes at each node.
+		\item Classification: Each tree votes and the most popular class is returned.
+		\item \textbf{Two methods to construct random forests:} (each builds $k$ trees)
+		      \begin{enumerate}
+			      \item \underline{Forest-RI} (random input selection):
+			            \begin{itemize}
+				            \item Random sampling with replacement to obtain training data from $D$.
+				            \item Set $F$ as the number of attributes to determine split at each node. $F$ is smaller than the number of available attributes.
+				            \item Construct decision tree $M_i$ by randomly select candidates at each node. Use CART to grow tree to maximum size without pruning.
+			            \end{itemize}
+			      \item \underline{Forest-RC}: Similar to Forest-RI but new attributes (features) are generated by linear combinations of existing attributes to reduce correlation between individual classifiers. At each node, attributes are randomly selected.
+
+		      \end{enumerate}
+		\item \textbf{Comparable in accuracy to AdaBoost, but more robust to errors and outliers.}
+		\item \textbf{Insensitive to the number of attributes selected for consideration at each split, and faster than bagging or boosting.}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Classification of Class-imbalanced Data Sets}
+	\vspace*{-0.5em}
+	\begin{block}{Class-Imbalanced Data}
+		\textit{Class-Imbalanced Data} refers to data where the main class of interest (positive labeled) is only represented by a small number of tuples. E.g., medical diagnosis and fraud detection.
+	\end{block}
+	\begin{itemize}
+		\item Problem because traditional methods assume \textit{equality between
+			      classes},\\ i. e. a balanced distribution of classes and equal error
+		      costs.
+		\item \textbf{Typical methods for imbalanced data in binary classification:}
+		      \begin{enumerate}
+			      \item \textbf{\color{airforceblue}Undersampling/Oversampling:} Changes distribution of tuples in training data.
+			            \begin{itemize}
+				            \item \textit{Undersampling:} Randomly eliminate tuples from negative class.
+				            \item \textit{Oversampling:} Re-samples data from positive class.\\ For instance, method SMOTE generates synthetic data that is similar to existing data using nearest neighbor.
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}Threshold-moving:} Moves the decision threshold, $t$, so that the rare-class tuples are easier to classify, and hence, less chance of costly false-negative errors. Works when class returns a probability.
+			      \item \textbf{\color{airforceblue}Ensemble techniques}.
+		      \end{enumerate}
+		      Threshold-moving and ensemble methods work well on extremely imbalanced data.
+		\item \textbf{Still difficult on multi-class tasks.}
+	\end{itemize}
+\end{frame}

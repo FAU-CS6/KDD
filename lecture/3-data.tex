@@ -1,0 +1,38 @@
+\ifx\pdfminorversion\undefined\else\pdfminorversion=4\fi
+\documentclass[aspectratio=169,t,table]{beamer}
+%\documentclass[aspectratio=169,t,handout]{beamer}
+
+\input{x-additional/preamble}
+
+% Title, authors, and date
+\title[KDD~3.~Data]{3. Getting to Know Your Data} %
+\subtitle{Knowledge Discovery in Databases}
+\input{x-additional/mbs.tex}
+\input{x-additional/get_git_rev.tex}
+
+
+% Set additional logo (overwrites FAU seal)
+%\logo{\includegraphics[width=.15\textwidth]{themefau/art/xxx/xxx.pdf}}
+\input{data/q.tex}
+\begin{document}
+\input{data/qq.tex}
+% Title
+\maketitle
+
+{ % Outline
+	\setbeamertemplate{footline}{}
+	\begin{frame}[noframenumbering]{Outline}
+		\tableofcontents
+
+	\end{frame}
+}
+
+% Body
+\input{3-data/1-data-objects}
+\input{3-data/2-statistical-description}
+\input{3-data/3-data-visualization}
+\input{3-data/4-data-similarity}
+\input{3-data/5-summary}
+\input{x-additional/x-contact}
+
+\end{document}

@@ -1,0 +1,95 @@
+% English version FAU Logo
+\usepackage[english]{babel}
+% German version FAU Logo
+%\usepackage[ngerman]{babel}
+
+\usepackage[utf8]{inputenc}
+\usepackage[sfdefault]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[backend=biber,sorting=none,doi=true,style=ieee]{biblatex}
+
+% Options:
+%  - inst:      Institute
+%                 med:      MedFak FAU theme
+%                 nat:      NatFak FAU theme
+%                 phil:     PhilFak FAU theme
+%                 rw:       RWFak FAU theme
+%                 rw-jura:  RWFak FB Jura FAU theme
+%                 rw-wiso:  RWFak FB WISO FAU theme
+%                 tf:       TechFak FAU theme
+%  - image:     Cover image on title page
+%  - plain:     Plain title page
+%  - longtitle: Title page layout for long title
+\usetheme[%
+	image,%
+	longtitle,%
+	inst=tf%
+]{fau}
+
+% Enable semi-transparent animation preview
+\setbeamercovered{transparent}
+
+% Enable frame numbering
+%\setbeamertemplate{footline}[frame number]
+
+
+\lstset{%
+	language=Python,
+	tabsize=2,
+	basicstyle=\tt,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green!50!black},
+	stringstyle=\color{red},
+	numbers=left,
+	numbersep=0.5em,
+	xleftmargin=1em,
+	numberstyle=\tt
+}
+
+\defbibheading{bibliography}{}
+\addbibresource{references.bib}
+
+\input{x-additional/date}
+
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{calc}
+\usepackage{ifthen}
+
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{makecell}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{qrcode}
+
+\usepackage{xcolor}
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{ForestGreen}{rgb}{0.34, 0.139, 0.34}
+
+% English version
+\institute[CS6]{Chair of Computer Science 6 (Data Management), Friedrich-Alexander University Erlangen-N\"urnberg}
+% German version
+% \institute[Lehrstuhl]{Lehrstuhl, Friedrich-Alexander-Universit\"at Erlangen-N\"urnberg}
+
+\setbeamertemplate{section in toc}[sections numbered]
+
+\setbeamertemplate{section page}{%
+	\begingroup
+	\begin{beamercolorbox}[sep=10pt,center,rounded=true,shadow=true]{section title}
+		\usebeamerfont{section title}\thesection~\insertsection\par
+	\end{beamercolorbox}
+	\endgroup
+}
+
+\input{x-additional/tikzsetup}
+
+\usepackage{cleveref}
+\newcommand*{\fullref}[1]{\underline{\hyperref[{#1}]{\cref{#1} (\nameref*{#1})}}}

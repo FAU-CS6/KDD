@@ -1,0 +1,164 @@
+\section{Data cleaning}
+
+\begin{frame}{Data Cleaning}
+	\textbf{Data in the real world is {\color{airforceblue}dirty}. Lots of
+		potentially incorrect data:}
+	\begin{itemize}
+		\item E.g. instrument faulty, human or computer error, transmission
+		      error.
+		\item \textbf{\color{airforceblue}Incomplete:} lacking attributes,
+		      lacking certain attributes of interest or containing aggregate data.
+		      \begin{itemize}
+			      \item E.g. occupation = "" (missing data).
+		      \end{itemize}
+		\item \textbf{\color{airforceblue}Noisy:} containing noise.
+		      \begin{itemize}
+			      \item E.g. small measurement inaccuracies with a sensor
+			            (noise)
+		      \end{itemize}
+		\item \textbf{\color{airforceblue}Errors/Outliers:} containing errors
+		      or outliers.
+		      \begin{itemize}
+			      \item E.g. scores = "2,3,0,6,1,9,95" (outlier = "95")
+			      \item E.g. salary = "-10" (error)
+		      \end{itemize}
+		\item \textbf{\color{airforceblue}Inconsistencies:} containing
+		      discrepancies in codes or names.
+		      \begin{itemize}
+			      \item E.g. age = "42", birthday = "03/07/2010".
+			      \item E.g. old rating = "1,2,3", new rating = "A,B,C".
+			      \item E.g. discrepancy between duplicate records (e.g. address).
+		      \end{itemize}
+		\item \textbf{\color{airforceblue}Intentional} (only default value,
+		      e.g. disguised missing data):
+		      \begin{itemize}
+			      \item E.g. "Doe" as everyone's surname
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Incomplete (Missing) Data}
+	\begin{itemize}
+		\item \textbf{Data is not always available.}
+		      \begin{itemize}
+			      \item E.g. many tuples have no recorded value for several
+			            attributes.
+			      \item Examples are customer income in sales data.
+		      \end{itemize}
+		\item \textbf{Missing data may be due to:}
+		      \begin{itemize}
+			      \item Equipment malfunction.
+			      \item Inconsistency with other recorded data and thus deleted.
+			      \item Data not entered due to misunderstanding.
+			      \item Certain data may not be considered important at the time of
+			            entry.
+			      \item Not registered history or changes of the data.
+		      \end{itemize}
+		\item \textbf{Missing data may need to be inferred.}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{How to Handle Missing Data?}
+	\begin{itemize}
+		\item \textbf{Ignore the tuple:}
+		      \begin{itemize}
+			      \item Usually done when class label is missing (when doing
+			            classification).
+			      \item Not effective when the percentage of missing values per
+			            attribute varies considerably.
+		      \end{itemize}
+		\item \textbf{Fill in the missing value manually.}
+		      \begin{itemize}
+			      \item Tedious or infeasible.
+		      \end{itemize}
+		\item \textbf{Fill in automatically with:}
+		      \begin{itemize}
+			      \item A global constant, e.g. "unkown", maybe a new class.
+			      \item The attribute mean.
+			      \item The attribute mean for all samples belonging to the same
+			            class.
+			      \item \textbf{\color{airforceblue} The most probable value:}
+			            Inference-based such as Bayesian formula or decision tree.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Noisy Data}
+	\begin{itemize}
+		\item \textbf{\color{airforceblue}Noise:}
+		      \begin{itemize}
+			      \item Random error or variance in a measured variable.
+			      \item Stored value a little bit off the real value, up or down.
+			      \item Leads to (slightly) incorrect attribute values.
+		      \end{itemize}
+		\item \textbf{May be due to:}
+		      \begin{itemize}
+			      \item Faulty or imprecise data-collection instruments.
+			      \item Data-entry problems.
+			      \item Data-transmission problems.
+			      \item Technology limitation.
+			      \item Inconsistency in naming conventions.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{How to Handle Noisy Data?}
+	\begin{itemize}
+		\item \textbf{Binning:}
+		      \begin{itemize}
+			      \item First sort data and partition into (equal-frequency) bins.
+			      \item Then smooth by bin mean, by bin median or by bin boundaries.
+		      \end{itemize}
+		\item \textbf{Regression:}
+		      \begin{itemize}
+			      \item Smooth by fitting the data to regression functions.
+		      \end{itemize}
+		\item \textbf{Clustering:}
+		      \begin{itemize}
+			      \item Detect and remove outliers.
+		      \end{itemize}
+		\item \textbf{Combined computer and human inspection:}
+		      \begin{itemize}
+			      \item Detect suspicious values and check by human.
+			      \item E.g. deal with possible outliers.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Data Cleaning as a Process (I)}
+	\begin{itemize}
+		\item \textbf{Data discrepancy detection:}
+		      \begin{itemize}
+			      \item Use \textbf{\color{airforceblue}metadata} (e.g. domain,
+			            range, dependency, distribution).
+			      \item Check field overloading.
+			      \item Check uniqueness rule, consecutive rule and null rule.
+			      \item Use commercial tools:
+			            \begin{itemize}
+				            \item \textbf{\color{airforceblue}Data scrubbing:} use simple
+				                  domain knowledge (e.g. postal code, spell-check) to detect
+				                  errors and make corrections.
+				            \item \textbf{\color{airforceblue}Data auditing:} by analyzing
+				                  data to discover rules and relationsships to detect violators
+				                  (e.g. correlation and clustering to find outliers).
+			            \end{itemize}
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Data Cleaning as a Process (II)}
+	\begin{itemize}
+		\item \textbf{Data migration and integration:}
+		      \begin{itemize}
+			      \item Data-migration tools: allow transformations to be
+			            specified.
+			      \item ETL (Extraction/Transformation/Loading) tools: allow
+			            users to specify transformations through a graphical user
+			            interface.
+		      \end{itemize}
+		\item \textbf{Integration of the two processes.}
+		      \begin{itemize}
+			      \item Iterative and interactive (e.g. the Potter's Wheel tool).
+		      \end{itemize}
+	\end{itemize}
+\end{frame}

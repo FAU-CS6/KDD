@@ -1,6 +1,7 @@
 #+title: KDD - Knowledge Discovery in Databases
 
-* Aufteilung
+* Responsibilities
+** Lecture
   1. *Course Intro* - Dominik
   2. *Introduction* - Dominik
   3. *Data* - Melanie
@@ -12,22 +13,78 @@
   9. *Outlier Analysis* - Melanie
   10. *Current Research at CS6* - Dominik
 
-* Sommersemester 2021
+** Exercise
+  1. *Introduction to Python & Pandas* - Melanie
+  2. *Data analysis & data preprocessing* - Dominik
+  3. *Frequent Patterns* - Dominik
+  4. *Classification* - Melanie
+  5. *Clustering* - Dominik
+  6. *Outlier* - Melanie
+
+* Summer semester 2021
   Semester duration: 25 April 2022 – 29 July 2022
 
-  | *Calendar Week* | *Lecture Topic*                        | *Lecturer*      | *Exercise*                |
-  |-----------------+----------------------------------------+-----------------+---------------------------|
-  |              17 | Course Introduction + KDD Introduction | Dominik Probst  |                           |
-  |              18 | Data                                   | Melanie B. Sigl | Optional: Intro to Python |
-  |              19 | Preprocessing, Part 1                  | Dominik Probst  | Intro to Pandas/Numpy     |
-  |              20 | Preprocessing, Part 2                  | Dominik Probst  | Data Profiling            |
-  |              21 | OLAP                                   | Melanie B. Sigl | Data Cleaning w/Pandas    |
-  |              22 | Frequent Pattern, Part 1               | Dominik Probst  | Exploratory Data Analysis |
-  |              23 | Frequent Pattern, Part 2               | Dominik Probst  | Frequent Pattern          |
-  |              24 | Classification, Part 1                 | Melanie B. Sigl | Classification            |
-  |              25 | Classification, Part 2                 | Melanie B. Sigl | Classification            |
-  |              26 | Cluster Analysis, Part 1               | Dominik Probst  | Classification            |
-  |              27 | Cluster Analysis, Part 2               | Dominik Probst  | Clustering                |
-  |              28 | Outlier Analysis, Part 1               | Melanie B. Sigl | Clustering                |
-  |              29 | Outlier Analysis, Part 2               | Melanie B. Sigl | Outlier                   |
-  |              30 | Current Resarch at CS6 and Exam QnA    | Dominik Probst  |                           |
+  | *Calendar Week* | *Lecture Topic*                          | *Lecturer*        | *Exercise*                  |
+  |---------------+----------------------------------------+-----------------+---------------------------|
+  |            17 | Course Introduction + KDD Introduction | Dominik Probst  |                           |
+  |            18 | Data                                   | Melanie B. Sigl | Introduction to Python & Pandas |
+  |            19 | Preprocessing, Part 1                  | Dominik Probst  | Data analysis & data preprocessing |
+  |            20 | Preprocessing, Part 2                  | Dominik Probst  | Data analysis & data preprocessing |
+  |            21 | OLAP                                   | Melanie B. Sigl | Data analysis & data preprocessing |
+  |            22 | Frequent Pattern, Part 1               | Dominik Probst  | Frequent Pattern          |
+  |            23 | -                                      | -               | -                         |
+  |            24 | Frequent Pattern, Part 2               | Dominik Probst  | Frequent Pattern          |
+  |            25 | Classification, Part 1                 | Melanie B. Sigl | Classification            |
+  |            26 | Classification, Part 2                 | Melanie B. Sigl | Classification            |
+  |            27 | Cluster Analysis, Part 1               | Dominik Probst  | Clustering                |
+  |            28 | Cluster Analysis, Part 2               | Dominik Probst  | Clustering                |
+  |            29 | Outlier Analysis, Part 1               | Melanie B. Sigl | Outlier                   |
+  |            30 | Outlier Analysis, Part 2 + Current Research at CS6 and Exam QnA | Melanie B. Sigl + Dominik Probst |                           |
+
+* Setup for Building Lecture Slides Locally
+To build these lecture slides locally on your machine you'll need an up-to-date
+version of LaTeX such as [[https://www.tug.org/texlive/][texlive]] or [[https://miktex.org/][MikTex]].
+
+You may need to "install" FAU's custom beamer theme. To do so, simply copy or
+create a shortcut (symlink) to =<KDD location>/lecture/themefau= in the
+corresponding place depending on your operating system. For a standard
+installation on Linux or Mac OS this place is one of the following:
+- Linux: =~/texmf/tex/latex/local/=
+- Mac OS X: =//Users/<user name>/Library/texmf/tex/latex/local/=
+
+For a MikTex installation under Windows, it is recommended to first create
+a new TEXMF root directory in the MikTex Console under Settings -> Directories.
+The recommended path is usually =C:\Users\[Username]\mytexmf= (Purpose: Generic -
+Attribute: User). The shortcut (symlink) to the theme must then be added under
+the specified path in the subfolder =\tex\latex=.
+
+For more information see this [[https://tex.stackexchange.com/questions/1137/where-do-i-place-my-own-sty-or-cls-files-to-make-them-available-to-all-my-te][entry]].
+
+* Setup for Commiting
+
+We use the framework [[https://pre-commit.com/][pre-commit]] to manage our
+pre-commit hooks. This simplifies the maintenance of the hooks - especially
+on heterogeneous systems - but requires an initial installation process
+of the individual users.
+
+First, the framework itself must be installed. This process is explained on
+the framework's website under [[https://pre-commit.com/#install]["Installation"]].
+
+The second thing that needs to be done is to install the pre-commit hooks themselves.
+This can be achieved by running the command =pre-commit install= in the root
+directory of this project.
+
+We assume that each commit has been validated with these pre-commit hooks
+and will not accept pull requests that contain unvalidated commits
+(the pre-commit hooks are also checked again on the server side by a GitHub action).
+
+*(Current) other prerequisites:*
+- The latex package [[latexindent][https://ctan.org/pkg/latexindent]]
+- Nodejs and npm
+
+*Note for Windows users:*
+One of the hooks uses [[https://github.com/cmhughes/latexindent.pl][latexindent.pl]].
+This is usually not installed correctly by MikTex and other package managers.
+Instead, download the ZIP archive of the [[https://github.com/cmhughes/latexindent.pl/releases][latest release]]
+and copy the latexindent.exe and the defaultSettings.yaml into a directory
+that you then specify in the Windows $PATH environment variable.

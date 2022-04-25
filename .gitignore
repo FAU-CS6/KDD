@@ -1,0 +1,46 @@
+# Temporary Files
+*#
+*~
+
+# LaTeX
+*.aux
+*.bcf
+*.log
+*.nav
+*.out
+*.pdf
+*.run.xml
+*.snm
+*.toc
+*.vrb
+*.pdf
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*-blx.bib
+*.xdv
+*.awk
+*.bat
+*.synctex.gz
+*.bak*
+vc.tex
+output
+
+# IDEs
+.idea
+.vscode
+
+# Python
+.venv
+.cache
+.ipynb_checkpoints
+.config
+.local
+.jupyter
+.ipython
+.npm
+__pycache__
+
+# Other files
+*.db

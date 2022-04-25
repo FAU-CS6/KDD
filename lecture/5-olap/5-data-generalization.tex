@@ -1,0 +1,206 @@
+\section{Data Generalization by Attribute-Oriented Induction}
+
+\begin{frame}{Data Generalization}
+	\begin{itemize}
+		\item \textbf{Summarize data:}
+		      \begin{itemize}
+			      \item \textbf{By replacing relatively low-level values} \\
+			            e.g. numerical values for the attribute \texttt{age} \\
+			            \textbf{with higher-level concepts}\\
+			            e.g. \texttt{young}, \texttt{middle-aged} and \texttt{senior}.
+			      \item \textbf{By reducing the number of dimensions}\\
+			            e.g. removing \texttt{birth\_date} and \texttt{telephone\_number} \\ when summarizing the behavior of a group of students.
+			      \item Describe concepts in concise and succinct terms at generalized (rather than low) levels of abstractions:
+			            \begin{itemize}
+				            \item Facilitates users in examining the general behavior of the data.
+				            \item Makes dimensions of a data cube easier to grasp.
+			            \end{itemize}
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Attribute-Oriented Induction}
+	\begin{itemize}
+		\item \textbf{Proposed in 1989} (KDD'89 workshop).
+		\item \textbf{Not confined to categorical data nor to particular measures.}
+		\item \textbf{How is it done?}
+		      \begin{itemize}
+			      \item Collect the \textbf{\color{airforceblue}task-relevant data} (initial relation) using a relational database query.
+			      \item Perform \textbf{\color{airforceblue}generalization} by attribute removal or attribute generalization.
+			      \item Apply \textbf{\color{airforceblue}aggregation} by merging identical, generalized tuples and \\ accumulating their respective counts.
+			      \item Interaction with users for knowledge presentation.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Attribute-Oriented Induction: An Example}
+	\begin{itemize}
+		\item \textbf{Example:} Describe general characteristics of graduate students in a university database.
+		\item \textbf{Step 1:} Fetch relevant set of data using an SQL statement, e.g.\\[0.1cm]
+		      \texttt{SELECT name, gender, major, birth\_place, birth\_date, residence, phone\#, gpa}\\
+		      \texttt{FROM student}\\
+		      \texttt{WHERE student\_status IN {"Msc", "MBA", "PhD"};}\\[0.1cm]
+		\item \textbf{Step 2:} Perform attribute-oriented induction.
+		\item \textbf{Step 3:} Present results in generalized-relation, cross-tab, or rule forms.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Class Characterization: An Initial Relation (I)}
+	\begin{table}
+		\small
+		\begin{tabularx}{\textwidth}{|X|X|X|X|X|X|X|X|}
+			\hline
+			\textbf{Name}        & \textbf{Gender}       & \textbf{Major}             & \textbf{Birth place}         & \textbf{Birth date}    & \textbf{Residence}       & \textbf{Phone number} & \textbf{GPA}                 \\\hline
+			Jim                  & M                     & CS                         & Vancouver, BC, Canada        & 08-21-76               & 3511 Main St., Richmond  & 687-4598              & 3.67                         \\\hline
+			Scott Lachance       & M                     & CS                         & Montreal, Que, Canada        & 28-07-75               & 345 1st Ave., Richmond   & 253-9106              & 3.70                         \\\hline
+			Laura Lee            & F                     & Physics                    & Seattle, WA, USA             & 25-08-70               & 125 Austin Ave., Burnaby & 420-5232              & 3.83                         \\\hline
+			{\color{red}Removed} & {\color{red}Retained} & {\color{red}Sci, Eng, Bus} & {\color{red}Canada, Foreign} & {\color{red}Age range} & {\color{red}City}        & {\color{red}Removed}  & {\color{red}Excl, Vg,\ldots} \\\hline
+		\end{tabularx}
+	\end{table}
+\end{frame}
+
+\begin{frame}{Class Characterization: Prime Generalized Relation (II)}
+	\begin{table}
+		\begin{tabularx}{\textwidth}{|X|X|X|X|X|X|X|}
+			\hline
+			\textbf{Gender} & \textbf{Major} & \textbf{Birth region} & \textbf{Age range} & \textbf{Residence} & \textbf{GPA} & \textbf{Count} \\\hline
+			M               & Science        & Canada                & 20-25              & Richmond           & Very good    & 16             \\\hline
+			F               & Science        & Foreign               & 25-30              & Burnaby            & Excellent    & 22             \\\hline
+			\ldots          & \ldots         & \ldots                & \ldots             & \ldots             & \ldots       & \ldots         \\
+			\hline
+		\end{tabularx}
+	\end{table}
+\end{frame}
+
+\begin{frame}{Class Characterization: An Example (III)}
+	\centering
+	Cross-table of birth region and gender:\\[0.5cm]
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		      & Canada & Foreign & Total \\\hline
+		M     & 16     & 14      & 30    \\\hline
+		F     & 10     & 22      & 32    \\\hline
+		Total & 26     & 36      & 62    \\\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{Basic Principles of Attribute-Oriented Induction}
+	\begin{itemize}
+		\item \textbf{Data focusing:}
+		      \begin{itemize}
+			      \item Task-relevant data, including dimensions.
+			      \item The result is the \textbf{\color{airforceblue}initial relation}.
+		      \end{itemize}
+		\item \textbf{\color{airforceblue}Attribute removal:}
+		      \begin{itemize}
+			      \item Remove attribute A, if there is a large set of distinct values for A,\\
+			            but (1) there is no generalization operator on A,\\
+			            or (2) A's higher-level concepts are expressed in terms of other attributes.
+		      \end{itemize}
+		\item \textbf{\color{airforceblue}Attribute generalization:}
+		      \begin{itemize}
+			      \item If there is a large set of distinct values for A,\\
+			            and there exists a \textbf{\color{airforceblue}set of generalization operators} on A,\\
+			            then select an operator and generalize A.
+		      \end{itemize}
+		\item \textbf{Attribute-threshold control:}
+		      \begin{itemize}
+			      \item Typical 2-8, specified/default.
+		      \end{itemize}
+		\item \textbf{Generalized-relation-threshold control:}
+		      \begin{itemize}
+			      \item Control the final relation/rule size.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Attribute-Oriented Induction: Basic Algorithm}
+	\begin{itemize}
+		\item \textbf{InitialRel:}
+		      \begin{itemize}
+			      \item Query processing of task-relevant data, deriving the initial relation.
+		      \end{itemize}
+		\item \textbf{PreGen:}
+		      \begin{itemize}
+			      \item Based on the analysis of the number of distinct values in each attribute, determine generalization plan for each attribute: removal? Or how high to generalize?
+		      \end{itemize}
+		\item \textbf{PrimeGen:}
+		      \begin{itemize}
+			      \item Based on the PreGen plan, perform generalization to the right level to derive a "prime generalized relation", accumulating the counts.
+		      \end{itemize}
+		\item \textbf{Presentation:}
+		      \begin{itemize}
+			      \item User interaction:
+			            \begin{itemize}
+				            \item[1.] Adjust levels by drilling.
+				            \item[2.] Pivoting.
+				            \item[3.] Mapping into rules, cross tabs, visualization presentations.
+			            \end{itemize}
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Presentation of Generalized Results}
+	\begin{itemize}
+		\item \textbf{Generalized relation:}
+		      \begin{itemize}
+			      \item Relations where some or all attributes are generalized, with counts or other aggregation values accumulated.
+		      \end{itemize}
+		\item \textbf{Cross tabulation:}
+		      \begin{itemize}
+			      \item Mapping results into cross-tabulation form (similar to contingency tables).
+			      \item Visualization techniques: pie charts, bar charts, curves, cubes, and other visual forms.
+		      \end{itemize}
+		\item \textbf{Quantitative characteristic rules:}
+		      \begin{itemize}
+			      \item Mapping generalized results into characteristic rules with quantitative information associated with it, e.g.
+			            \begin{align}
+				            \text{grad}(x) \wedge \text{male}(x) & \implies                       \\
+				            \text{birth\_region}(x)              & = \text{"Canada"}[t:53\%] \lor \\
+				            \text{birth\_region}(x)              & = \text{"foreign"}[t:47\%].
+			            \end{align}
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Mining-Class Comparisons}
+	\begin{itemize}
+		\item \textbf{Comparison: Comparing two or more classes.}
+		\item \textbf{Method:}
+		      \begin{itemize}
+			      \item Partition the set of relevant data into the \textbf{\color{airforceblue}target class} and the \textbf{\color{airforceblue}contrasting class(es)}.
+			      \item Generalize both classes to the same high-level concepts (i.e. AOI).
+			            \begin{itemize}
+				            \item Including aggregation.
+			            \end{itemize}
+			      \item Compare tuples with the same high-level concepts.
+			      \item Present for each tuple its description and two measures.
+			            \begin{itemize}
+				            \item Support -- distribution within single class (counts, percentage).
+				            \item Comparison -- distribution between classes.
+			            \end{itemize}
+			      \item Highlight the tuples with strong discriminant features.
+		      \end{itemize}
+		\item \textbf{Relevance Analysis:}
+		      \begin{itemize}
+			      \item Find attributes (features) which best distinguish different classes.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Attribute-Oriented Induction vs. Cube-based OLAP}
+	\begin{itemize}
+		\item \textbf{Similarity:}
+		      \begin{itemize}
+			      \item Data generalization.
+			      \item Presentation of data summarization at multiple levels of abstraction.
+			      \item Interactive drilling, pivoting, slicing and dicing.
+		      \end{itemize}
+		\item \textbf{Differences:}
+		      \begin{itemize}
+			      \item OLAP has systematic preprocessing, query independent, and can drill down to rather low level.
+			      \item AOI has automated desired-level allocation and may perform dimension-relevance analysis/ranking when there are many relevant dimensions.
+			      \item AOI works on data which are not in relational forms.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}

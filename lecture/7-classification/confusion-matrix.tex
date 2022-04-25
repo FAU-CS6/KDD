@@ -1,0 +1,23 @@
+\begin{columns}[T]
+	\begin{column}[T]{0.45\textwidth}
+		\begin{tabular}{c|c|p{1cm}|p{1cm}|c|}
+
+			\multicolumn{2}{c|}{\multirow{2}{*}{}} & \multicolumn{2}{c|}{Predicted Class} &                                           \\\cline{3-4}
+			\multicolumn{2}{c|}{}                  & $C_1$                                & $\neg C_1$  & Total                       \\\hline
+			\multirow{2}{*}{True Class}            & $C_1$                                & \textbf{TP} & \textbf{FN}    & \textbf{P} \\\cline{2-4}
+			                                       & $\neg C_1$                           & \textbf{FP} & \textbf{TN}    & \textbf{N} \\\hline
+			\multicolumn{2}{r|}{Total}             & \textbf{P'}                          & \textbf{N'} & \textbf{P + N}
+		\end{tabular}
+
+	\end{column}
+
+	\begin{column}[T]{0.5\textwidth}
+		\footnotesize
+		\begin{itemize}
+			\item \textbf{True Positives} = correctly classified tuples.
+			\item \textbf{True Negatives} = correctly classified tuples.
+			\item \textbf{False Positives} = negative tuples incorrectly classified as positive.
+			\item \textbf{False Negatives} = positive tuples incorrectly classified as negative.
+		\end{itemize}
+	\end{column}
+\end{columns}

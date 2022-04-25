@@ -1,0 +1,111 @@
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{pgfplots,pgfplotstable,pgf-pie}
+
+\newcommand{\tikzmark}[1]{\tikz[remember picture] \node[coordinate] (#1) {#1};}
+
+\tikzset{
+	every overlay node/.style={
+			%draw=black,fill=white,rounded corners,
+			anchor=north west, inner sep=0pt,
+		},
+}
+% Usage:
+% \tikzoverlay at (-1cm,-5cm) {content};
+% or
+% \tikzoverlay[text width=5cm] at (-1cm,-5cm) {content};
+\def\tikzoverlay{%
+	\tikz[remember picture, overlay]\node[every overlay node]
+}%
+
+\newcommand{\plots}{0.611201}
+\newcommand{\plotm}{2.19882}
+
+\newcommand{\MaxNumberX}{3}
+\newcommand{\MaxNumberY}{5}
+
+\pgfmathdeclarefunction{gauss}{2}{%
+	\pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+
+\tikzset{
+	thick,
+	>=latex,
+	every edge/.style={draw=gray, thick, >=latex},
+	vertex/.style = {
+			circle,
+			fill            = black,
+			outer sep = 2pt,
+			inner sep = 1pt,
+		}
+}
+\usetikzlibrary{matrix,mindmap}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,shapes.symbols,chains,intersections,snakes}
+\tikzset{level 1/.append style={sibling angle=50,level distance = 165mm}}
+\tikzset{level 2/.append style={sibling angle=20,level distance = 45mm}}
+\tikzset{every node/.append style={scale=1}}
+% read in data file
+\pgfplotstableread{data/iris.dat}\iris
+% get number of data points
+\pgfplotstablegetrowsof{\iris}
+\pgfmathsetmacro\NumRows{\pgfplotsretval-1}
+
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{height=4cm,width=8cm,compat=1.14}
+
+\tikzset{
+	vertex/.style = {
+			circle,
+			fill            = black,
+			outer sep = 2pt,
+			inner sep = 1pt,
+		}
+}
+
+\tikzset{
+	mynode/.style={
+			draw,
+			thick,
+			anchor=south west,
+			minimum width=2cm,
+			minimum height=1.3cm,
+			align=center,
+			inner sep=0.2cm,
+			outer sep=0,
+			rectangle split,
+			rectangle split parts=2,
+			rectangle split draw splits=false},
+	reverseclip/.style={
+			insert path={(current page.north east) --
+					(current page.south east) --
+					(current page.south west) --
+					(current page.north west) --
+					(current page.north east)}
+		}
+}
+
+\tikzset{basic/.style={
+			draw,
+			rectangle split,
+			rectangle split parts=2,
+			rectangle split part fill={blue!20,white},
+			minimum width=2.5cm,
+			text width=2cm,
+			align=left,
+			font=\itshape
+		},
+	Diamond/.style={ diamond,
+			draw,
+			shape aspect=2,
+			inner sep = 2pt,
+			text centered,
+			fill=blue!10!white,
+			font=\itshape
+		}}
+
+
+\tikzset{level 1/.append style={sibling angle=50,level distance = 165mm}}
+\tikzset{level 2/.append style={sibling angle=20,level distance = 45mm}}
+\tikzset{every node/.append style={scale=1}}
+
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,shapes.symbols,chains,intersections,snakes,positioning,matrix,mindmap,shapes.multipart,shapes,calc,shapes.geometric}

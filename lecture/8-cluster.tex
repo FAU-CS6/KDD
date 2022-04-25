@@ -1,0 +1,40 @@
+\ifx\pdfminorversion\undefined\else\pdfminorversion=4\fi
+\documentclass[aspectratio=169,t]{beamer}
+%\documentclass[aspectratio=169,t,handout]{beamer}
+
+\input{x-additional/preamble}
+
+% Title, authors, and date
+\title[KDD~8.~Cluster Analysis]{8. Cluster Analysis} %
+\subtitle{Knowledge Discovery in Databases}
+\input{x-additional/dp.tex}
+\input{x-additional/get_git_rev.tex}
+
+
+% Set additional logo (overwrites FAU seal)
+%\logo{\includegraphics[width=.15\textwidth]{themefau/art/xxx/xxx.pdf}}
+\input{data/q.tex}
+\begin{document}
+\input{data/qq.tex}
+% Title
+\maketitle
+
+{ % Outline
+	\setbeamertemplate{footline}{}
+	\begin{frame}[noframenumbering]{Outline}
+		\tableofcontents
+
+	\end{frame}
+}
+
+% Body
+\input{8-cluster/1-basic-concepts}
+\input{8-cluster/2-partitioning-methods}
+\input{8-cluster/3-hierarchical-methods}
+\input{8-cluster/4-density-based-methods}
+\input{8-cluster/5-grid-based-methods}
+\input{8-cluster/6-evaluation}
+\input{8-cluster/7-summary}
+\input{x-additional/x-contact}
+
+\end{document}
