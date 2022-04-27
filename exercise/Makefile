@@ -1,24 +1,24 @@
 .PHONY: all clean students solutions
 
-ipynbfiles := $(wildcard *.ipynb)
-ipynbstudents := $(patsubst %.ipynb, %-student, $(ipynbfiles))
-ipynbsolutions := $(patsubst %.ipynb, %-solution, $(ipynbfiles))
+folders := $(wildcard */)
+foldersstudents := $(patsubst %/, %-Student, $(folders))
+folderssolutions := $(patsubst %/, %-Solution, $(folders))
 
 all: clean students solutions
 
 clean:
 	rm -rf output
 
-%-student: %.ipynb FORCE
+%-Student: %/ FORCE
 	mkdir -p output
-	jupyter nbconvert $< --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags={\"solution\"} --to notebook --output output/$@
+	python3 create_exercise_archive.py -o output/$@.zip -s student $<
 
-%-solution: %.ipynb FORCE
+%-Solution: %/ FORCE
 	mkdir -p output
-	jupyter nbconvert $< --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags={\"student\"} --to notebook --output output/$@
+	python3 create_exercise_archive.py -o output/$@.zip -s solution $<
 
-students: $(ipynbstudents)
+students: $(foldersstudents)
 
-solutions: $(ipynbsolutions)
+solutions: $(folderssolutions)
 
 FORCE: ;

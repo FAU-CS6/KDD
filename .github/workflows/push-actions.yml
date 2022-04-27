@@ -66,8 +66,8 @@ jobs:
             lecture/output/*.log
           retention-days: 5
 
-  build_notebooks:
-    name: Build the exercise notebooks
+  build_exercise:
+    name: Build the exercise archives
     runs-on: ubuntu-latest
     needs: [pre_commit_validation]
     if: contains(needs.*.result, 'success')
@@ -85,7 +85,7 @@ jobs:
             python -m pip install --upgrade pip
             pip install -r exercise/requirements.txt
 
-      - name: Build notebooks
+      - name: Build archives
         run: |
             cd exercise
             make all
@@ -94,7 +94,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Exercise Notebooks
+          name: Exercise Archives
           path: |
-            exercise/output/*.ipynb
+            exercise/output/*.zip
           retention-days: 5

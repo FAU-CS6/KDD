@@ -1,14 +1,1 @@
-pandas
-numpy
-scikit-learn
-sqlalchemy
-matplotlib
-squarify
-plotly
-seaborn
-pywaffle
-sklearn
-
-ipython
-jupyterlab
 nbconvert
