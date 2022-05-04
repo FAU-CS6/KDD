@@ -72,10 +72,11 @@ To report an error via GitHub, please follow these steps:
 - Open a new [Issue](/issues/new).
 - Describe the error in detail by providing information on:
   - Name of the document containing the error.
-  - Describtion of the error.
+  - Description of the error.
   - Proof of it being an error (see previous section).
   - _Optional:_ Suggestion for improvement
-- Label the issue as `error-report`.
+- Label the issue as `error-report` and depending on the scope as `lecture`, `exercise` or `documentation`.
+- _Optional:_ Assign the person responsible for files you found the error in (see [README](README.org))
 
 ### Fixing Errors
 
@@ -97,9 +98,11 @@ scientific source for a content error).
 To fix an error, please follow these steps:
 
 - Fork our repository.
-- Make sure that your fork is on the latest version of the `dev` branch.
-- Commit your fixes based on your fork of the `dev` branch while complying to the [Styleguides](#styleguides).
-- Open a new [Pull Requests](/pulls) requesting to merge your fixes into the `dev` branch of our repository.
+- Make sure that your fork is on the latest version of our `dev` branch.
+- Commit your fixes based on your fork of the `dev` branch while complying to the [Styleguides](#styleguides) (we recommend using a feature branch).
+- Open a new [Pull Requests](/pulls) (PR) requesting to merge your fixes into our `dev` branch.
+- Make sure that there are no merge commits included in your PR.
+- _Optional:_ Request a review by the person responsible for files you changed (see [README](README.org))
 
 ### Suggesting Enhancements
 
@@ -119,7 +122,8 @@ To submit an enhancement suggestion via GitHub, please follow these steps:
 
 - Open a new [Issue](/issues/new).
 - Describe the suggestion in detail.
-- Label the issue as `enhancement-suggestion`.
+- Label the issue as `enhancement-suggestion` and depending on the scope as `lecture`, `exercise` or `documentation`.
+- _Optional:_ Assign the person responsible for the topics that your proposed change concerns (see [README](README.org))
 
 ## Styleguides
 ### Commit Messages
