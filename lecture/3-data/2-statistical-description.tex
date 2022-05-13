@@ -101,8 +101,8 @@
 	\begin{align*}
 		\tilde{x} = %
 		\begin{cases}
-			x_{\frac{N}{2}}                               & \text{if $N$ mod $2 = 0$,}    \\
-			\frac{x_{\frac{N-1}{2}}+x_{\frac{N+1}{2}}}{2} & \text{if $N$ mod $2 \neq 0$.}
+			x_{\frac{N}{2}}                               & \text{if $N$ mod $2 \neq 0$,} \\
+			\frac{x_{\frac{N-1}{2}}+x_{\frac{N+1}{2}}}{2} & \text{if $N$ mod $2 = 0$.}
 		\end{cases}
 	\end{align*}
 	More robust compared to mean as extreme values does not have such drastic affects.
@@ -265,8 +265,8 @@
 					% \draw[line width=1.5pt,dashed, black] (0.4,0) -- (0.4,{Gauss(0.4,0.4,0.6,-0.4)});
 					% \draw[line width=1.5pt,dashdotdotted, fauorange] (0.8,0) -- (0.8,{Gauss(0.8,0.4,0.6,-0.4)});
 					% \draw[line width=1.5pt,dotted, faugreendark] (1.2,0) -- (1.2,{Gauss(1.2,0.4,0.6,-0.4)});
-					\addlegendentry{Median}
 					\addlegendentry{Mode}
+					\addlegendentry{Median}
 					\addlegendentry{Mean}
 				\end{axis}
 			\end{tikzpicture}
