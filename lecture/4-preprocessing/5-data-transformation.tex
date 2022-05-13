@@ -25,26 +25,26 @@
 	\begin{itemize}
 		\item \textbf{Min-max normalization (to some interval
 			      $[\text{min},\text{max}]$):}
-		      \begin{align}
+		      \begin{align*}
 			      a_{\text{new}} = \frac{a - \text{min}_A}{\text{max}_A-\min_{A}}
 			      (\max - \min) + \min.
-		      \end{align}
+		      \end{align*}
 		      Example: let income range from $\$12,000$ to $\$98,000$ normalized to
 		      $[0,1]$.\\
 		      Then $\$73,600$ is mapped to $\frac{73,600-12,000}{98,000-12,000} (1-0)
 			      + 0 = 0.716$.
 		\item \textbf{Z-score normalization:}
-		      \begin{align}
+		      \begin{align*}
 			      a_{\text{new}} := z(a) = \frac{a-\mu_{A}}{\sigma_A}, \; \text{with
 				      $\mu$ being the mean and $\sigma$ the standard deviation.}
-		      \end{align}
+		      \end{align*}
 		      Example: let $\mu = 54,000$ and $\sigma = 16,000$. Then
 		      $\frac{73,000-54,000}{16,000} = 1.188$.
 		\item \textbf{Normalization by decimal scaling:}
-		      \begin{align}
+		      \begin{align*}
 			      a_{\text{new}} = \frac{a}{10^k}, \; \text{where $k$ is the smallest
 				      integer such that} \; \max(\vert a_{\text{new}} \vert) < 1.
-		      \end{align}
+		      \end{align*}
 	\end{itemize}
 \end{frame}
 
@@ -249,13 +249,13 @@
 			      \item Exceptions, e.g. weekday, month, quarter, year.
 		      \end{itemize}
 		\item Example:
-		      \begin{align}
+		      \begin{align*}
 			      \#(\text{streets})           & = 674.339 > \#(\text{city}) =
 			      3567,                                                         \\
 			      \#(\text{city})              & =  3567 > \#(\text{province or
 			      state}) =  356,                                               \\
 			      \#(\text{province or state}) & =  356 > \#(\text{country}) =
 			      15.
-		      \end{align}
+		      \end{align*}
 	\end{itemize}
 \end{frame}

@@ -1,0 +1,39 @@
+\begin{tikzpicture}[
+		overlay,
+		remember picture,
+		>=latex,
+		thick,
+		node/.style={
+				draw=faugray,
+				rounded corners=.25em,
+				fill=faugray!62,
+				text depth=0.2em
+			},
+		leaf/.style={
+				draw,
+				rounded corners=.7em,
+				text depth=0.2em
+			},
+		branch/.style={
+				fill=white,
+				font=\ttfamily\scriptsize,
+				rounded corners=.7em,
+				text depth=0.2em
+			}
+	]
+	\node[node] at (0,0) (root) {$A\in S_A$?};
+
+	\node[below left=2em and 3.6em of root.south] (student) {};
+
+	\node[below right=2em and 3.6em of root.south] (credit-rating) {};
+
+	\draw[rounded corners=5pt]
+	(root.south) -- ($(root.south) + (0,-1em)$) --
+	($(student.north) + (0,1em)$) -- (student.north);
+	\node[branch,above=1em of student.north] {yes};
+
+	\path[draw,rounded corners=5pt]
+	(root.south) -- ($(root.south) + (0,-1em)$) --
+	($(credit-rating.north) + (0,1em)$) -- (credit-rating.north);
+	\node[branch,above=1em of credit-rating.north] {no};
+\end{tikzpicture}

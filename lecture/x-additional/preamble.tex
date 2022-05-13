@@ -63,7 +63,12 @@
 \usepackage{ifthen}
 
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{makecell}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{qrcode}
 
 \usepackage{xcolor}
 \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
@@ -85,3 +90,6 @@
 }
 
 \input{x-additional/tikzsetup}
+
+\usepackage{cleveref}
+\newcommand*{\fullref}[1]{\underline{\hyperref[{#1}]{\cref{#1} (\nameref*{#1})}}}
