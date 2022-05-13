@@ -87,7 +87,7 @@
 
 \begin{frame}{Data Warehouse Usage}
 	\textbf{Three kinds of data warehouse applications.}
-	\begin{itemize}
+	\begin{enumerate}
 		\item \textbf{\color{airforceblue}Information processing.}
 		      \begin{itemize}
 			      \item Supports querying, basic statistical analysis, and \\ reporting using crosstabs, tables, charts and graphs.
@@ -102,7 +102,7 @@
 			      \item Knowledge discovery from hidden patterns.
 			      \item Supports associations, constructing analytical models, performing classification and prediction, and presenting the mining results using visualization tools.
 		      \end{itemize}
-	\end{itemize}
+	\end{enumerate}
 \end{frame}
 
 
@@ -121,6 +121,8 @@
 		\textbf{DB Size}               & $~ 100$ MB to GB                                         & $~ 100$ GB to TB                                                   \\ \hline
 		\textbf{Quantification}        & transaction throughput                                   & query throughput, response                                         \\ \hline
 	\end{tabularx}
+
+	{\tiny OLTP = Online Transaction Processing, OLAP = Online Analytical Processing}
 \end{frame}
 
 \begin{frame}{Why a Separate Data Warehouse?}
@@ -133,30 +135,18 @@
 	\end{itemize}
 	\textbf{Different functions and different data:}
 	\begin{itemize}
-		\item Missing data (DBMS):
-		      \begin{itemize}
-			      \item Decision support (DS) requires
-			            \textbf{\color{airforceblue}historical data} which operational DBs do
-			            not typically maintain.
-		      \end{itemize}
-		\item Data consolidation (warehouse):
-		      \begin{itemize}
-			      \item DS requires \textbf{\color{airforceblue}consolidation} (aggregation,
-			            summarization) of data from heterogeneous sources.
-		      \end{itemize}
-		\item Data quality (warehouse):
-		      \begin{itemize}
-			      \item Different sources typically use inconsistent data representations,
-			            codes and formats which have to be reconciled.
-		      \end{itemize}
+		\item \textit{Missing data (DBMS):} Decision support (DS) requires \textbf{\color{airforceblue}historical data} which operational DBs do not typically maintain.
+		\item \textit{Data consolidation (warehouse):} DS requires \textbf{\color{airforceblue}consolidation} (aggregation, summarization) of data from heterogeneous sources.
+		\item \textit{Data quality (warehouse):} Different sources typically use inconsistent data representations, codes and formats which have to be reconciled.
 	\end{itemize}
 
-	\textbf{Note: There are more and more systems which perform OLAP analysis
-		directly on relational databases.}
+	\begin{alertblock}{Note}
+		There are more and more systems which perform OLAP analysis directly on relational databases.
+	\end{alertblock}
 \end{frame}
 
 \begin{frame}{Three Data Warehouse Models}
-	\begin{itemize}
+	\begin{enumerate}
 		\item \textbf{\color{airforceblue}Enterprise warehouse:}
 		      \begin{itemize}
 			      \item Collects all of the information about subjects spanning the entire organization.
@@ -172,7 +162,7 @@
 			      \item A set of \textbf{\color{airforceblue}views} over operational databases.
 			      \item Only some of the possible summary views may be materialized.
 		      \end{itemize}
-	\end{itemize}
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Extraction, Transformation, and Loading (ETL)}
@@ -246,4 +236,6 @@
 \end{frame}
 
 % TODO: Insert (reference) architecture for data warehouse systems
-% TODO: Insert requirements for data warehouse systems
+\begin{frame}{Data Warehouse Reference Overview}
+	\input{5-olap/dwh-architecture.tex}
+\end{frame}

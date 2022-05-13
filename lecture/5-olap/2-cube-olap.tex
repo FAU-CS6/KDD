@@ -31,7 +31,10 @@
 \end{frame}
 
 \begin{frame}{Cube: A Lattice of Cuboids}
-	\begin{tikzpicture}
+	\begin{tikzpicture}[
+			scale=0.9,
+			every node/.style={transform shape},
+		]
 		\node[draw, circle, fill=black, label=below:{all}] at (2,6) {};
 		\draw (2,6) -- (-0.5,4.5);
 		\draw (2,6) -- (1,4.5);
@@ -42,6 +45,7 @@
 		\node[draw, circle, fill=black, label=below:{item}] at (1,4.5) {};
 		\node[draw, circle, fill=black, label=below:{location}] at (2.5,4.5) {};
 		\node[draw, circle, fill=black, label=below:{supplier}] at (4,4.5) {};
+
 		\draw (-0.5,4.5) -- (-2,3);
 		\draw (-0.5,4.5) -- (-0.5,3);
 		\draw (-0.5,4.5) -- (1,3);
@@ -95,7 +99,7 @@
 \end{frame}
 
 \begin{frame}{Conceptual Modeling of Data Warehouses}
-	\begin{itemize}
+	\begin{enumerate}
 		\item \textbf{Star schema:}.
 		      \begin{itemize}
 			      \item A fact table in the middle connected to a set of dimension tables.
@@ -112,10 +116,10 @@
 			            viewed as a collection of stars, therefore called \\
 			            \textbf{galaxy schema} or fact constellation.
 		      \end{itemize}
-	\end{itemize}
+	\end{enumerate}
 \end{frame}
 
-\begin{frame}{Example of Star Schema}
+\begin{frame}{Example of a Star Schema}
 	\begin{tikzpicture}
 		\node[basic, rectangle split part fill={green!20,white}] at (2,2) (time) {time
 			\nodepart{second}
@@ -126,7 +130,7 @@
 			quarter\\
 			year};
 
-		\node[basic] at (2,-2) (branch) {branch
+		\node[basic] at (2,-1.5) (branch) {branch
 			\nodepart{second}
 			\underline{branch\_key}\\
 			branch\_name\\
@@ -140,7 +144,7 @@
 			type\\
 			supplier\_type};
 
-		\node[basic, rectangle split part fill={yellow!20,white}] at (12,-1.5) (location) {location
+		\node[basic, rectangle split part fill={yellow!20,white}] at (12,-1.25) (location) {location
 			\nodepart{second}
 			\underline{location\_key}\\
 			street\\
@@ -156,15 +160,15 @@
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (7,0.5) (units) {units\_sold};
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (7,0) (dollars) {dollars\_sold};
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (7,-0.5) (sales) {avg\_sales};
-		\draw[->, dashed] (a) -- (time) ;
-		\draw[->, dashed] (b) -- (item) ;
-		\draw[->, dashed] (c) -- (branch) ;
-		\draw[->, dashed] (d) -- (location) ;
+		\draw[->, dashed] (a.west) -- (time);
+		\draw[->, dashed] (b) -- (item);
+		\draw[->, dashed] (c.west) -- (branch);
+		\draw[->, dashed] (d.east) -- (location);
 
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (5,-1.5) (e) {Measures};
-		\draw[-] (e) -- (units) ;
-		\draw[-] (e) -- (dollars) ;
-		\draw[-] (e) -- (sales) ;
+		\draw[-] (e) -- (units.west);
+		\draw[-] (e) -- (dollars.west);
+		\draw[-] (e) -- (sales.west);
 	\end{tikzpicture}
 \end{frame}
 
@@ -179,7 +183,7 @@
 			quarter\\
 			year};
 
-		\node[basic] at (2,-2) (branch) {branch
+		\node[basic] at (2,-1.5) (branch) {branch
 			\nodepart{second}
 			\underline{branch\_key}\\
 			branch\_name\\
@@ -198,7 +202,7 @@
 			\underline{supplier\_key}\\
 			supplier\_type};
 
-		\node[basic, rectangle split part fill={yellow!20,white}] at (10,-1.5) (location) {location
+		\node[basic, rectangle split part fill={yellow!20,white}] at (10,-1.25) (location) {location
 			\nodepart{second}
 			\underline{location\_key}\\
 			street\\
@@ -219,21 +223,22 @@
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (6,0.5) (units) {units\_sold};
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (6,0) (dollars) {dollars\_sold};
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (6,-0.5) (sales) {avg\_sales};
-		\draw[->, dashed] (a) -- (time) ;
+		\draw[->, dashed] (a.west) -- (time) ;
 		\draw[->, dashed] (b) -- (item) ;
-		\draw[->, dashed] (c) -- (branch) ;
-		\draw[->, dashed] (d) -- (location) ;
+		\draw[->, dashed] (c.west) -- (branch) ;
+		\draw[->, dashed] (d.east) -- (location) ;
 		\draw[->, dashed] (10,-2) -- (city) ;
 		\draw[->, dashed] (11,1) -- (supplier) ;
 
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (5,-1.5) (e) {Measures};
-		\draw[-] (e) -- (units) ;
-		\draw[-] (e) -- (dollars) ;
-		\draw[-] (e) -- (sales) ;
+		\draw[-] (e.north west) -- (units.west);
+		\draw[-] (e.north west) -- (dollars.west);
+		\draw[-] (e.north west) -- (sales.west);
 	\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Example of Fact Constellation}
+	\vspace{-2.2em}
 	\tikzset{basic/.style={
 				draw,
 				rectangle split,
@@ -252,7 +257,7 @@
 				fill=blue!10!white,
 				font=\itshape
 			}}
-	\begin{tikzpicture}
+	\begin{tikzpicture}[scale=0.9,every node/.style={transform shape}]
 		\node[basic, rectangle split part fill={green!20,white}] at (2,2) (time) {time
 			\nodepart{second}
 			\underline{time\_key}\\
@@ -262,7 +267,7 @@
 			quarter\\
 			year};
 
-		\node[basic] at (2,-2) (branch) {branch
+		\node[basic] at (2,-1.5) (branch) {branch
 			\nodepart{second}
 			\underline{branch\_key}\\
 			branch\_name\\
@@ -276,7 +281,7 @@
 			type\\
 			supplier\_type};
 
-		\node[basic, rectangle split part fill={yellow!20,white}] at (10,-1.5) (location) {location
+		\node[basic, rectangle split part fill={yellow!20,white}] at (10,-1.25) (location) {location
 			\nodepart{second}
 			\underline{location\_key}\\
 			street\\
@@ -299,10 +304,10 @@
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (6,0.5) (units) {units\_sold};
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (6,0) (dollars) {dollars\_sold};
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (6,-0.5) (sales) {avg\_sales};
-		\draw[->, dashed] (a) -- (time) ;
+		\draw[->, dashed] (a.west) -- (time) ;
 		\draw[->, dashed] (b) -- (item) ;
-		\draw[->, dashed] (c) -- (branch) ;
-		\draw[->, dashed] (d) -- (location) ;
+		\draw[->, dashed] (c.west) -- (branch) ;
+		\draw[->, dashed] (d.east) -- (location) ;
 
 
 		\node[] at (13.5,3) {Shipping fact table:};
@@ -313,22 +318,22 @@
 		\node[fill=yellow!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (13.5,0.5) (t) {to\_location};
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (13.5,0) (z) {dollars\_cost};
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (13.5,-0.5) (u) {units\_shipped};
-		\draw[->, dashed] (q) -- (time) ;
+		\draw[->, dashed] (q) to [out=160,in=30] (time) ;
 		\draw[->, dashed] (w) -- (item) ;
-		\draw[->, dashed] (e) to [out=30,in=30] (shipper) ;
-		\draw[->, dashed] (r) -- (location) ;
-		\draw[->, dashed] (t) -- (location) ;
-		\draw[->, dashed] (shipper) -- (location) ;
+		\draw[->, dashed] (e.east) to [out=0,in=30] (shipper) ;
+		\draw[->, dashed] (r.west) -- (location);
+		\draw[->, dashed] (t.west) -- (location);
+		\draw[->, dashed] (shipper) -- (location);
 
 		\node[fill=red!20, minimum width = 3cm, minimum height=0.5cm, align=right] at (5,-1.5) (e) {Measures};
-		\draw[-] (e) -- (units) ;
-		\draw[-] (e) -- (dollars) ;
-		\draw[-] (e) -- (sales) ;
+		\draw[-] (e.north west) -- (units.west);
+		\draw[-] (e.north west) -- (dollars.west);
+		\draw[-] (e.north west) -- (sales.west);
 	\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{A Concept Hierarchy: Dimension (Location)}
-	\begin{tikzpicture}
+	\begin{tikzpicture}[scale=0.9,every node/.style={transform shape}]
 		\node at (2,6) (all) {all};
 
 		\node at (-0.5,4.5) (europe) {Europe};
@@ -385,7 +390,7 @@
 \end{frame}
 
 \begin{frame}{Data-Cube Measures: Three Categories}
-	\begin{itemize}
+	\begin{enumerate}
 		\item \textbf{Distributive:}
 		      \begin{itemize}
 			      \item If the result derived by applying the function to the $n$ aggregate values obtained for $n$ partitions of the dataset is the same as that derived by applying the function on all the data without partitioning.\\
@@ -401,7 +406,7 @@
 			      \item If there is no constant bound on the storage size needed to describe a subaggregate.\\
 			            E.g. \texttt{MEDIAN, MODE, RANK}.
 		      \end{itemize}
-	\end{itemize}
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Aggregation Type}
