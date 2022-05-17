@@ -106,9 +106,10 @@
 		      \end{itemize}
 		\item \textbf{Snowflake schema:}.
 		      \begin{itemize}
-			      \item A refinement of the star schema where some dimensional hierarchy \\
-			            is \textbf{normalized} into a set of smaller dimension tables,\\
+			      \item A refinement of the star schema where some dimensional hierarchies \\
+			            are \textbf{normalized} into a set of smaller dimension tables,\\
 			            forming a shape similar to a snowflake.
+			      \item I. e. dimension tables of a star schema are split into multiple (dimension) tables\\ along their respective granularity level, but not split/normalized for every granularity.
 		      \end{itemize}
 		\item \textbf{Fact constellations:}.
 		      \begin{itemize}
@@ -238,7 +239,7 @@
 \end{frame}
 
 \begin{frame}{Example of Fact Constellation}
-	\vspace{-2.2em}
+	\vspace{-2.4em}
 	\tikzset{basic/.style={
 				draw,
 				rectangle split,

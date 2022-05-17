@@ -2,8 +2,8 @@
 
 \begin{frame}{What is a Data Warehouse?}
 	William ``Bill'' H.  Inmon is commonly refered to as the ``father of the data warehouse''.
-	\begin{block}{Data Warehouse\footnote{\fullcite{inmon2005}}}
-		A data warehouse is a \textbf{subject-oriented}, \textbf{integrated}, \textbf{time-variant}, and \textbf{nonvolatile} collection of data in support of management's decision-making process.
+	\begin{block}{Data Warehouse}
+		A data warehouse is a \textbf{subject-oriented}, \textbf{integrated}, \textbf{time-variant}, and \textbf{nonvolatile} collection of data in support of management's decision-making process.\footnote{\fullcite{inmon2005}} Common abbreviations: DW or DWH.
 	\end{block}
 
 	\small
@@ -42,9 +42,9 @@
 		\item \textbf{Data-cleaning and data-integration techniques are applied.}
 		      \begin{itemize}
 			      \item Ensure consistency in naming conventions, encoding structures, attribute measures, etc. among different data sources.
-			      \item E.g., hotel price: currency, tax, breakfast covered, etc.
-			      \item When data is moved to the warehouse, it is converted.
-			      \item ETL -- Extraction, Transformation, Loading, see below.
+			      \item E.g., hotel price: currency, tax, breakfast covered.
+			      \item When data is moved to the data warehouse, it is converted.
+			      \item ETL -- Extract, Transform, Load.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -95,7 +95,7 @@
 		\item \textbf{\color{airforceblue}Analytical processing.}
 		      \begin{itemize}
 			      \item Multidimensional analysis of data warehouse data.
-			      \item Supports basic OLAP operations, slice-dice, drilling, pivoting.
+			      \item Supports basic OLAP operations such as slicing, dicing, drilling, and pivoting.
 		      \end{itemize}
 		\item \textbf{\color{airforceblue}Data mining.}
 		      \begin{itemize}
@@ -106,7 +106,8 @@
 \end{frame}
 
 
-\begin{frame}{OLTP vs. OLAP}
+\begin{frame}{Online Transaction Processing vs. Online Analytical Processing}
+	\vspace{-0.5em}
 	\begin{tabularx}{\textwidth}{|b|X|X|}
 		\rowcolor{faugray!62}          & \textbf{OLTP}                                            & \textbf{OLAP}                                                      \\\hline
 		\textbf{Users}                 & clerk, IT professional                                   & knowledge worker                                                   \\ \hline
@@ -130,7 +131,7 @@
 	\begin{itemize}
 		\item \textbf{\color{airforceblue}DBMS}: tuned for OLTP; Access methods,
 		      indexing concurreny control, recovery.
-		\item \textbf{\color{airforceblue}Warehouse}: tuned for OLAP; Complex OLAP
+		\item \textbf{\color{airforceblue}Data Warehouse}: tuned for OLAP; Complex OLAP
 		      queries, multidimensional view, consolidation.
 	\end{itemize}
 	\textbf{Different functions and different data:}
@@ -147,43 +148,45 @@
 
 \begin{frame}{Three Data Warehouse Models}
 	\begin{enumerate}
-		\item \textbf{\color{airforceblue}Enterprise warehouse:}
+		\item \textbf{\color{airforceblue}Enterprise Warehouse:}
 		      \begin{itemize}
 			      \item Collects all of the information about subjects spanning the entire organization.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Data mart:}
+		\item \textbf{\color{airforceblue}Data Mart:}
 		      \begin{itemize}
 			      \item A \textbf{\color{airforceblue}subset} of corporate-wide data that is of value to a \textbf{\color{airforceblue}specific group of users}.
 			      \item Typically contains (highly) summarized data.
 			      \item Independent vs. dependent (directly from warehouse) data mart.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Virtual warehouse:}
+		\item \textbf{\color{airforceblue}Virtual Warehouse:}
 		      \begin{itemize}
-			      \item A set of \textbf{\color{airforceblue}views} over operational databases.
+			      \item Also known as \textit{data virtualization}.
+			      \item A set of \textbf{\color{airforceblue}views} over operational databases.\\
+			            {\scriptsize As an \textit{operational database} are all data sources considered that summarize, serve, and access up-to-date and real-time data. Generally, these are OLTP systems that provide ACID properties. These systems include, but are not limited to relational databases, NoSQL datbases, but also unstructured data.}
 			      \item Only some of the possible summary views may be materialized.
 		      \end{itemize}
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}{Extraction, Transformation, and Loading (ETL)}
+\begin{frame}{Extract, Transform, and Load (ETL)}
 	\begin{itemize}
-		\item \textbf{\color{airforceblue}Extraction:}
+		\item \textbf{\color{airforceblue}Extract} Data:
 		      \begin{itemize}
 			      \item Get data from multiple, heterogeneous, and external sources.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Cleaning:}
+		\item \textbf{Clean} Data:
 		      \begin{itemize}
 			      \item Detect errors in the data and rectify them if possible.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Transformation:}
+		\item \textbf{\color{airforceblue}Transform} Data:
 		      \begin{itemize}
 			      \item Convert data from legacy or host format to warehouse format.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Loading:}
+		\item \textbf{\color{airforceblue}Load} Data:
 		      \begin{itemize}
 			      \item Sort, summarize, consolidate, compute views, check integrity, and build indexes and partitions.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Refresh:}
+		\item \textbf{Refresh} Data:
 		      \begin{itemize}
 			      \item Propagate only the updates from the data sources to the warehouse.
 		      \end{itemize}
