@@ -4,18 +4,13 @@
 
 \begin{frame}{From Tables and Spreadsheets to Data Cubes}
 	\begin{itemize}
-		\item Data warehouse:
+		\item Data warehouse is based on a \textbf{\color{airforceblue}multidimensional data model} which views data in the form of a \textbf{data cube}.
+		\item A {\color{faugray}\textbf{data cube}} allows data (example: sales) to be modeled and viewed in multiple dimensions.
 		      \begin{itemize}
-			      \item Based on a \textbf{\color{airforceblue}multidimensional data model} which views data in the form of a \textbf{data cube}.
-		      \end{itemize}
-		\item \textbf{Data cube.}
-		      \begin{itemize}
-			      \item Allows data (here: sales) to be modeled and viewed in multiple dimensions.
-			            \begin{itemize}
-				            \item \textbf{Dimension tables:} such as: \texttt{item (item\_name, brand, type)},\\
-				                  or: \texttt{time (day, week, month, quarter, year)}.
-				            \item \textbf{Fact table:} Contains \textbf{measures} (such as \texttt{dollars\_sold}) and references (\texttt{foreign keys}) to each of the related dimension tables.
-			            \end{itemize}
+			      \item Defined by dimension and facts.
+			      \item \textbf{Dimension tables:} such as: \texttt{item (item\_name, brand, type)},\\
+			            or: \texttt{time (day, week, month, quarter, year)}.
+			      \item \textbf{Fact table:} Contains \textbf{measures} (such as \texttt{dollars\_sold}) and references (\texttt{foreign keys}) to each of the related dimension tables.
 		      \end{itemize}
 		\item \textbf{$n$-dimensional base cube.}
 		      \begin{itemize}
@@ -390,19 +385,25 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Data-Cube Measures: Three Categories}
+\begin{frame}{Data-Cube Measures}
+	\begin{block}{Data-Cube Measure}
+		A \textit{data-cube measure}, also called a \textit{fact}, is a numeric
+		function that can be evaluated at each point in the data cube space.
+	\end{block}
+
+	\textbf{Three Categories:}
 	\begin{enumerate}
-		\item \textbf{Distributive:}
+		\item {\color{faugray}\textbf{Distributive:}}
 		      \begin{itemize}
 			      \item If the result derived by applying the function to the $n$ aggregate values obtained for $n$ partitions of the dataset is the same as that derived by applying the function on all the data without partitioning.\\
 			            E.g. \texttt{COUNT, SUM, MIN, MAX}.
 		      \end{itemize}
-		\item \textbf{Algebraic:}
+		\item {\color{faugray}\textbf{Algebraic:}}
 		      \begin{itemize}
 			      \item If it can be computed by an algebraic function with $M$ arguments, each of which is obtained by applying a distributive aggregate function.\\
 			            E.g. \texttt{AVG, MIN$_N$, STD}.
 		      \end{itemize}
-		\item \textbf{Holistic:}
+		\item {\color{faugray}\textbf{Holistic:}}
 		      \begin{itemize}
 			      \item If there is no constant bound on the storage size needed to describe a subaggregate.\\
 			            E.g. \texttt{MEDIAN, MODE, RANK}.
@@ -417,32 +418,29 @@
 			      \item Next to name and value range.
 		      \end{itemize}
 		\item \textbf{Defines the set of aggregation operations that can be executed on a measure (a fact).}
-		\item \textbf{\color{airforceblue}FLOW:}
+		\item \textbf{\color{airforceblue}FLOW:} Measure at a specific point in time.
 		      \begin{itemize}
-			      \item Any aggregation.
-			      \item E.g. sales turnover.
+			      \item Aggregated as desired.
+			      \item E.g. sales turnover, quantity of an item ordered per day.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}STOCK:}
+		\item \textbf{\color{airforceblue}STOCK:} Measure over a period of time.
 		      \begin{itemize}
-			      \item No temporal aggregation.
-			      \item E.g. stock, inventory.
+			      \item Aggregated as desired, but temporal aggregation not permitted.
+			      \item E.g. total stock and total inventory. Yet, summarization of article stock over multiple days makes no sense!
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}VPU (Value per Unit):}
+		\item \textbf{\color{airforceblue}VPU (Value per Unit):} Measures that cannot be summed.
 		      \begin{itemize}
-			      \item No summarization.
-			      \item E.g. price, tax, in general factors.
+			      \item E.g. unit price, tax rates, exchange rates.
 		      \end{itemize}
-		\item \textbf{(Always applicable: \texttt{MIN}, \texttt{MAX} and \texttt{AVG}).}
+		\item \textbf{Always applicable: \texttt{MIN}, \texttt{MAX} and \texttt{AVG}.}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Aggregation Type}
+	\textbf{Sales volume as a function of product, month, and region.}
 	\begin{itemize}
-		\item \textbf{Sales volume as a function of product, month, and region.}
-		      \begin{itemize}
-			      \item Dimensions: \texttt{Product, Location, Time.}
-			      \item Hierarchical summarization paths.
-		      \end{itemize}
+		\item Dimensions: \texttt{Product, Location, Time.}
+		\item Hierarchical summarization paths.
 	\end{itemize}
 	\vspace{0.5cm}
 	\hspace{0.5cm}

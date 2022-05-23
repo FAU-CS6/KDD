@@ -23,6 +23,7 @@
 \end{frame}
 
 \begin{frame}{Data Warehouse Design Process}
+	\vspace{-0.5em}
 	\begin{itemize}
 		\item \textbf{Top-down, bottom-up approaches or a combination of both:}
 		      \begin{itemize}
@@ -35,13 +36,17 @@
 			      \item \textbf{\color{airforceblue}Spiral:} rapid generation of increasingly functional systems, short turn-around time.
 		      \end{itemize}
 		\item \textbf{Typical Data warehouse design process:}
-		      \begin{itemize}
+		      \begin{enumerate}
 			      \item Choose a \textbf{\color{airforceblue}business process} to model, e.g., orders, invoices, etc.
 			      \item Choose a \textbf{\color{airforceblue}grain} (atomic level of data) of the business process.
 			      \item Choose \textbf{\color{airforceblue}dimensions} that will apply to each fact-table record.
 			      \item Choose a \textbf{\color{airforceblue}measure} that will populate each fact-table record.
-		      \end{itemize}
+		      \end{enumerate}
 	\end{itemize}
+
+	\begin{alertblock}{DWH Construction is No Easy Feat}
+		Construction of a data warehouse is a difficult long-term task. It is absolutely necessary that its implementation scope is clearly defined at the beginning. Goals and tasks should be \textit{SMART} (specific, measurable, achievable, relevant, and time-related).
+	\end{alertblock}
 \end{frame}
 
 \begin{frame}{Data Warehouse Development: A Recommended Approach}
@@ -79,25 +84,4 @@
 		\path[draw,->] (edw) edge (mtier);
 		\path[draw,->] (hlw) edge (edw);
 	\end{tikzpicture}
-\end{frame}
-
-\begin{frame}{From Online Analytical Processing (OLAP) To Online Analytical Mining (OLAM)}
-	\begin{itemize}
-		\item \textbf{Why online analytical mining?}
-		      \begin{itemize}
-			      \item DW contains integrated, consistent, cleaned data.
-			      \item Available information-processing structure surrounding data warehouses.
-			            \begin{itemize}
-				            \item ODBC, OLEDB, Web access, service facilities, reporting, and OLAP tools.
-			            \end{itemize}
-			      \item OLAP-based exploratory data analysis.
-			            \begin{itemize}
-				            \item Mining with drilling, dicing, pivoting, etc.
-			            \end{itemize}
-			      \item Online selection of data-mining functions.
-			            \begin{itemize}
-				            \item Integration and swapping of multiple mining functions, algorithms, and tasks.
-			            \end{itemize}
-		      \end{itemize}
-	\end{itemize}
 \end{frame}
