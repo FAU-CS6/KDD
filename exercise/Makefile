@@ -11,11 +11,11 @@ clean:
 
 %-Student: %/ FORCE
 	mkdir -p output
-	python3 create_exercise_archive.py -o output/$@.zip -s student $<
+	python3 create_exercise_archive.py -o output/$@ -s student $<
 
 %-Solution: %/ FORCE
 	mkdir -p output
-	python3 create_exercise_archive.py -o output/$@.zip -s solution $<
+	python3 create_exercise_archive.py -o output/$@ -s solution $<
 
 students: $(foldersstudents)
 
