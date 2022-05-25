@@ -27,7 +27,7 @@ def valid_style(string):
 # Handle the command line input
 parser = ArgumentParser()
 parser.add_argument("input", type=valid_dir)
-parser.add_argument("-o", "--output", dest="output", required=True, type=valid_zip_path)
+parser.add_argument("-o", "--output", dest="output", required=True)
 parser.add_argument("-s", "--style", dest="style", default="original", type=valid_style)
 args = parser.parse_args()
 
