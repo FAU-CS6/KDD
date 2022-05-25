@@ -16,13 +16,6 @@ def valid_dir(string):
         raise NotADirectoryError(string)
 
 
-def valid_zip_path(string):
-    if os.path.splitext(string)[1] == ".zip":
-        return string
-    else:
-        raise Exception(str(string) + " is not a valid zip path")
-
-
 def valid_style(string):
     if string == "original" or string == "student" or string == "solution":
         return string
