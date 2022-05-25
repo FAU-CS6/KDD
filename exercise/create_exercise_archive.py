@@ -16,13 +16,6 @@ def valid_dir(string):
         raise NotADirectoryError(string)
 
 
-def valid_zip_path(string):
-    if os.path.splitext(string)[1] == ".zip":
-        return string
-    else:
-        raise Exception(str(string) + " is not a valid zip path")
-
-
 def valid_style(string):
     if string == "original" or string == "student" or string == "solution":
         return string
@@ -34,7 +27,7 @@ def valid_style(string):
 # Handle the command line input
 parser = ArgumentParser()
 parser.add_argument("input", type=valid_dir)
-parser.add_argument("-o", "--output", dest="output", required=True, type=valid_zip_path)
+parser.add_argument("-o", "--output", dest="output", required=True)
 parser.add_argument("-s", "--style", dest="style", default="original", type=valid_style)
 args = parser.parse_args()
 
