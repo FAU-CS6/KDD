@@ -2,6 +2,7 @@
 
 \begin{frame}{Supervised vs. Unsupervised Learning}
 	\begin{columns}
+		% REVIEW: After comparing with Luciano's version, I saw that you removed the information "Supervised Learning (Classification) - Unsupervised Learning (Clustering)" yourself, so I didn't add it back. I think the original hint that supervised learning is represented in our lecture mainly by classification and unsupervised learning by clustering was actually good thing. I'm sure you'll talk about it, but as a little reminder when you go back over the slides before the exam, I think it's actually appropriate if it's on the slide as well.
 		\begin{column}{0.5\textwidth}
 			\textbf{Supervised Learning}
 			\begin{itemize}
@@ -47,6 +48,7 @@
 			      \item Medical diagnosis: Is a tumor cancerous or benign?
 			      \item Fraud detection: Is a transaction fraudulent or not?
 			      \item Web-page categorization: Which category is it?
+			            % REVIEW: I would delete/adapt the last example as it is too general for me (classification simply becomes categorization and classes become categories). In every other example the categories/classes are described a lot more precise.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -67,6 +69,7 @@
 				            \item \textbf{Accuracy rate} is the percentage of test-set samples that are correctly classified by the model.
 				            \item Test set is independent of training set (otherwise overfitting).
 				            \item More on evaluation metrics later in \fullref{class:evaluation}
+				                  % REVIEW: Whether I try it directly in my self-built version of the slides or in the GitHub CI version, the link to the evalution keeps sending me to the beginning of the presentation instead of the section.
 			            \end{itemize}
 			      \item If the accuracy is acceptable, \textbf{\color{airforceblue}use the model} to classify data tuples whose class labels are not known.
 		      \end{itemize}
@@ -120,6 +123,11 @@
 \end{frame}
 
 \begin{frame}{Classification -- A Two-step Process: 2. Model Usage}
+	% REVIEW: I took the liberty of making two changes here that I wasn't 100% sure would work for you. Therefore let me add a short explanation:
+	% 1) Test data => Testing data
+	% This change is simply because "ing"-form was used for the data set on slide 5. I find it more consistent to choose it here as well.
+	% 2) New highlighted tuple
+	% The tuple is the only one of the tuples that contradicts the classification rule defined on slide 5. It should therefore also be recognized as "special" right away
 	\centering
 	\begin{tikzpicture}[
 			>=latex,
@@ -133,13 +141,15 @@
 					draw
 				}
 		]
-		\node[database] (data) at (0,0) {Test data};
+		\node[database] (data) at (0,0) {Testing data};
 		\node[below=2em of data] (data-example) {
 			\begin{tabular}{|l|l|c|c|}
 				\hline
 				\cellcolor{faugray!62}\textbf{\uppercase{name}} & \cellcolor{faugray!62}\textbf{\uppercase{rank}} & \cellcolor{faugray!62}\textbf{\uppercase{years}} & \cellcolor{fauorange!25}\textbf{\uppercase{tenured}} \\\hline
 				Tom                                             & Assistant Prof                                  & 2                                                & {\color{faured}no}                                   \\\hline
-				Merlisa                                         & Associate Prof                                  & 7                                                & {\color{faured}no}                                   \\\hline
+				\cellcolor{fauyellow!25}Merlisa                 & \cellcolor{fauyellow!25}Associate               &
+				\cellcolor{fauyellow!25}7                       & \cellcolor{fauyellow!25}{\color{faured}no}
+				\\\hline
 				George                                          & Professor                                       & 5                                                & {\color{faugreen}yes}                                \\\hline
 				Joseph                                          & Assistant Prof                                  & 7                                                & {\color{faugreen}yes}                                \\\hline
 			\end{tabular}

@@ -1,6 +1,6 @@
 \section{Decision-Tree Induction}
 
-\begin{frame}{Decision-tree: An Example}
+\begin{frame}{Decision-Tree: An Example}
 	\begin{columns}
 		\begin{column}{0.38\textwidth}
 			\vspace{-3cm}
@@ -23,13 +23,14 @@
 
 
 \begin{frame}{Decision-Tree}
+	% REVIEW: I would move this slide in front of the example. After all, the individual components of a decision tree are explained here. This explanation is currently either too late, because good students have already understood these components, or because not as good students have failed to understand the example without this explanation.
 	\vspace*{-0.6em}
 	\begin{block}{Decision-Tree Induction}
-		\textit{Decision-Tree induction} refers to the learning of a decision-tree based on labeled training data.
+		\textit{Decision-Tree Induction} refers to the learning of a decision-tree based on labeled training data.
 	\end{block}
 
-	\begin{block}{Decision Tree}
-		A \textit{decision tree} is a flowchart-like structure consisting of interconnected internal and leaf nodes.
+	\begin{block}{Decision-Tree}
+		A \textit{Decision-Tree} is a flowchart-like structure consisting of interconnected internal and leaf nodes.
 	\end{block}
 
 	\begin{columns}[t]
@@ -42,7 +43,7 @@
 
 		\end{column}
 		\begin{column}{0.55\textwidth}
-			\textbf{Components of a Decision-tree}
+			\textbf{Components of a Decision-Tree}
 			\begin{itemize}
 				\item \tikzmark{root} \textbf{Root}: topmost node.
 				\item \tikzmark{internal} \textbf{Internal node}: test on an attribute.
@@ -60,10 +61,12 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Algorithm for Decision-Tree Induction}
+% REVIEW: I have replaced the (cont'd) with (I) and (II) on this and the next slide, as this is the variant used mostly in the rest of the presentation. (Same replacement is done for slide 12/13 and 19/20)
+\begin{frame}{Algorithm for Decision-Tree Induction (I)}
 	\begin{columns}
 		\begin{column}{0.75\textwidth}
 			\textbf{Construction in general} follows a greedy algorithm,
+			% REVIEW: I find the mention that the algorithm is nonbacktracking extremely confusing at this point. Everyone who understands greedy should implicitly assume that and someone who doesn't understand greedy won't understand non-backtracking either. Even though it might not be the best example, since it's not 100% compatible, but to me it feels like someone saying "He's a man, i.e. a non-woman."
 			i. e. nonbacktracking. Thus, it is done in a \textit{top-down recursive in a
 				divide-and-conquer manner}.\\\medskip
 			\textbf{Input:} data partition $D$, \texttt{attribute\_list}, \texttt{attribute\_selection\_method}.\\\medskip
@@ -74,8 +77,13 @@
 				\item Create node $N$.
 				\item Determine splitting attribute $A$ according to the splitting criterion
 				      obtained by applying \texttt{attribute\_selection\_method}.
+				      % REVIEW: The attribute_selection_method is in my opinion the real interesting point of this algorithm. The rest is more or less obvious. For this reason I would like to suggest two things:
+				      % 1) (Written) reference to the upcoming slides, so you also know that this interesting point is about to be explained.
+				      % 2) Instead of attribute_selection_method, refer to it as attribute_selection_measure (also in the input list of course). Thus, it is clear that exactly the methods, which will be mentioned on the coming slides. are referenced here.
 				\item Label $N$ with splitting criterion.
 				\item Delete attribute from \texttt{attribute\_list} if attribute is discrete and binary tree construction).
+				      % REVIEW: Here is the logical question to ask: What if the attribute is not discrete? Does the attribute list then remain untouched? Does the termination criterion still work then?
+				      % I also find "[...] and binary tree construction" a bit choppy, since in the rest of the bullet point verbs are used while nounification is used in that part.
 				\item Partition $D$ accordingly (depends on attribute type, binary tree).
 				\item Grow branches (subtrees, start at 1.) on $N$ for each partition.
 			\end{enumerate}
@@ -120,10 +128,11 @@
 
 \end{frame}
 
-\begin{frame}{Algorithm for Decision-Tree Induction (cont'd)}
+\begin{frame}{Algorithm for Decision-Tree Induction (II)}
 	\textbf{Stopping criteria:}
 	\begin{itemize}
 		\item All samples in $D$ belong to the same class. $N$ becomes a leaf.
+		      % REVIEW: When will this be tested for the termination criterion? If before step 1, then the node N does not yet exist. If after step 3, then N already has a labeling that does not match a leaf node.
 		\item \texttt{attribute\_list} is empty. If multiple classes: use majority class.
 		\item Partition $D$ is empty, thus create leaf with majority class.
 	\end{itemize}
@@ -131,17 +140,18 @@
 
 \begin{frame}{Attribute Selection Measures}
 	\begin{block}{Attribute Selection Measure}
-		An \textit{attribute selection measure} is a heuristic to determine the ``best'' splitting criterion to partition data.
+		An \textit{Attribute Selection Measure} is a heuristic to determine the ``best'' splitting criterion to partition data.
 	\end{block}
 
 	\begin{itemize}
 		\item Also known as \textit{splitting rules}.
 		\item Provides ranking for each attribute.
 		\item Partition data based on attribute with best score. \textit{Best score} minimize/maximize depends on measure used.
+		      % REVIEW: Is it intended that there is a "minimize/maximize" in "Best score minimize/maximize depends on measure used."? I guess you meant "Best score depends on measure used.", but I am not sure.
 		\item Tree node is labeled with splitting criterion (attribute). Sub tree results from partitions of splitting criterion.
 	\end{itemize}
 
-	Popular mearues include:
+	Popular measures include:
 	\begin{enumerate}
 		\item Information Gain
 		\item Gain Ratio
@@ -149,14 +159,15 @@
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}{Attribute Selection Measures: Information Gain (ID3)}
+\begin{frame}{Attribute Selection Measures: Information Gain (ID3) (I)}
 	\begin{itemize}
 		\item \textbf{Select the attribute with the highest information gain.}
 		\item Partitions reflect least randomness, i. e. impurity.
 		\item \textbf{Expected information} (entropy) needed to classify a tuple in $D$:
-		      \begin{align}
+		      % REVIEW: During the creation of the lectures on Data and Preprocessing, we had once briefly discussed numbering and especially examples (see slide 21). At that time we had agreed to omit this numbering completely. I have therefore deleted the numbering everywhere everywhere where I noticed it.
+		      \begin{align*}
 			      \text{Info}(D) = -\sum_{i=1}^{m}p_i \log_2(p_i)
-		      \end{align}
+		      \end{align*}
 
 		      \begin{itemize}
 			      \item $p_i$ is the probability that tuple in $D$ belongs to class $C_i$,\\
@@ -166,7 +177,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Attribute Selection Measures: Information Gain (ID3) (cont'd)}
+\begin{frame}{Attribute Selection Measures: Information Gain (ID3) (II)}
 	Calculate information for every attribute in \texttt{attribute\_list} and data partition $D$:
 	\vspace*{-1.5em}
 	\begin{columns}
@@ -179,9 +190,9 @@
 				\item Attribute $A$ with $v$ distinct values.
 				\item Expected information required to classify tuple in $D$ based on partitioning by $A$:
 			\end{itemize}
-			\begin{align}
+			\begin{align*}
 				\text{Info}_A(D) = \sum_{j=1}^v \frac{|D_j|}{|D|} \text{Info}(D_j)
-			\end{align}
+			\end{align*}
 		\end{column}
 
 		\begin{column}{0.5\textwidth}
@@ -202,9 +213,9 @@
 	\end{columns}
 	\vspace*{1.5em}
 	Given $\text{Info}_A(D)$ and $\text{Info}_A(D)$, Information Gain is defines as:
-	\begin{align}
+	\begin{align*}
 		\text{Gain}(A) = \text{Info}(D) - \text{Info}_A(D)
-	\end{align}
+	\end{align*}
 \end{frame}
 
 \begin{frame}{Example: Information Gain}
@@ -249,6 +260,8 @@
 				\text{Gain}(\texttt{age}) = \text{Info}(D)-\text{Info}_{\texttt{age}}(D) = 0.246.
 			\end{align*}
 
+			% REVIEW: Regarding those tables and images that go over the edge of the slide, you had already informed me that you are aware of those and will fix them. But since I've looked at every slide in detail anyway, I'll just mark this case and any others I've noticed with a quick "REVIEW: PICTURE-NOT-IN-FRAME" comment. Then you can easily find affected slides via the search.
+			% REVIEW: PICTURE-NOT-IN-FRAME
 			\resizebox{6cm}{!}{%
 				\centering
 				\input{7-classification/table-example.tex}
@@ -259,6 +272,7 @@
 
 \begin{frame}{Partitioning in the Example}
 	\centering
+	% REVIEW: PICTURE-NOT-IN-FRAME
 	\begin{tikzpicture}
 		\node[rounded corners=0.25em,draw, fill=faugray!62] at (0,0) (r) {age?};
 		\node[rounded corners=0.25em,draw] at (-2,-1) (a) {$\leq 30$};
@@ -309,10 +323,10 @@
 	\begin{itemize}
 		\item Extension to Information Gain as this measure is biased towards attributes with large amount of values.
 		\item \textbf{C4.5 (a successor of ID3) uses gain ratio to overcome the problem (normalization to information gain):}
-		      \begin{align}
+		      \begin{align*}
 			      \text{SplitInfo}_A(D) = - \sum_{j=1}^{v} \frac{|D_j|}{|D|} \log_2\left( \frac{|D_j|}{|D|} \right), \\
 			      \text{GainRatio}(A) = \frac{\text{Gain}(A)}{\text{SplitInfo}_A(D)}.
-		      \end{align}
+		      \end{align*}
 
 		\item The attribute with the maximum gain ratio is selected as the splitting attribute.
 		\item \textbf{Disadvantage:} Becomes unstable as $\text{SplitInfo}_A(D)$
@@ -345,6 +359,7 @@
 \end{frame}
 
 \begin{frame}{Gini Index (II)} % TODO: plot anpassen, sodass cumulative income nur steigt und nie faellt
+	% REVIEW: The most important issue I intended to mention here, is already mentioned in the TODO above. I will therefore limit myself to suggesting the possible improvement of marking the areas between the curves and the line. After all, the Gini Index and thus also this image is exactly about this area. This should be recognizable in a Gini Index image.
 	\centering
 	Example: Distribution of incomes.\\[0.5cm]
 	\begin{tikzpicture}
@@ -368,19 +383,19 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner)}
+\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (I)}
 	\begin{itemize}
 		\item Measured impurity of partition $D$ is defined as the sum over $n$ classes:
-		      \begin{align}
+		      \begin{align*}
 			      \text{Gini}(D) = 1-\sum_{j=1}^{n} p_j^2,
-		      \end{align}
+		      \end{align*}
 		      where $p_j$ is the non-zero probability that sample in $D$ belongs to class $C_j$ as estimated by $\frac{|C_{j,D}|}{|D|}$
 		\item If \textbf{attribute $A$ is discrete-valued} with $v$ distinct values
 		      compute all possible subsets of values $2^v - 2$. Compute weighted sum of
 		      each partition tuble ($D_1$ and $D_2$) as follows:
-		      \begin{align}
+		      \begin{align*}
 			      \text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2).
-		      \end{align}
+		      \end{align*}
 		\item If \textbf{attribute $A$ is continuous-valued} proceed similarly as in
 		      calculating Information Gain for continuous-valued attributes (order values,
 		      calculate midpoint of value pairs) and then calculate $\text{Gini}_A(D)$ for
@@ -388,13 +403,13 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (cont'd)}
+\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (II)}
 	\begin{itemize}
 		\item Gini Index as the \textbf{reduction in impurity} is then given as
 		      follows:
-		      \begin{align}
+		      \begin{align*}
 			      \Delta\text{Gini}_A(D) = \text{Gini}(D)-\text{Gini}_A(D).
-		      \end{align}
+		      \end{align*}
 		\item Attribute with minimum Gini Index is used as the splitting attribute.
 	\end{itemize}
 
@@ -403,17 +418,17 @@
 \begin{frame}{Example: Gini Index (I)}
 	\begin{itemize}
 		\item $D$ has $9$ tuples in $\text{buys\_computer} =$ "yes" and 5 in "no", thus
-		      \begin{align}
+		      \begin{align*}
 			      \text{Gini}(D) = 1 - \left( \frac{9}{14} \right)^2 - \left( \frac{5}{14} \right)^2 = 0.459.
-		      \end{align}
+		      \end{align*}
 		\item Suppose the attribute $\texttt{income}$ partitions $D$ \\ into $10$ in
 		      $D_1:\{\texttt{low,medium}\}$ and $4$ in $D_2: \{\texttt{high}\}$:
-		      \begin{align}
+		      \begin{align*}
 			       & \text{Gini}(D\vert_{D[\texttt{income}]="medium", "low"})                                                                                                                                   \\
 			       & = \frac{10}{14} \text{Gini}(D_1) + \frac{4}{14} \text{Gini}(D_2)                                                                                                                           \\
 			       & =\frac{10}{14} \left(1-\left( \frac{7}{10} \right)^2 - \left( \frac{3}{10} \right)^2 \right) + \frac{4}{14} \left( 1-\left( \frac{2}{4} \right)^2 - \left( \frac{2}{4} \right)^2 \right) = \\
 			       & = 0.443 = \text{gini}(D\vert_{D[\texttt{income}]="high"}).
-		      \end{align}
+		      \end{align*}
 	\end{itemize}
 \end{frame}
 
@@ -428,15 +443,15 @@
 \begin{frame}{Attribute Selection Measures Overview}
 	\textbf{The three measures, in general, return good results, but}
 	\begin{itemize}
-		\item \textbf{\color{airforceblue}Information gain:}
+		\item \textbf{\color{airforceblue}Information Gain:}
 		      \begin{itemize}
 			      \item Biased towards multi-valued attributes.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Gain ratio:}
+		\item \textbf{\color{airforceblue}Gain Ratio:}
 		      \begin{itemize}
 			      \item Tends to prefer unbalanced splits in which one partition is much smaller than the others.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Gini index:}
+		\item \textbf{\color{airforceblue}Gini Index:}
 		      \begin{itemize}
 			      \item Biased to multi-valued attributes.
 			      \item Has difficulty when number of classes is large.
@@ -445,15 +460,15 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Other Attribute-selection Measures}
+\begin{frame}{Other Attribute Selection Measures}
 	\begin{itemize}
 		\item \textbf{CHAID:}
 		      \begin{itemize}
-			      \item A popular decision-tree algorithm, measure based on $\chi^2$ test for independence.
+			      \item A popular Decision-Tree algorithm, measure based on $\chi^2$ test for independence.
 		      \end{itemize}
 		\item \textbf{C-SEP:}
 		      \begin{itemize}
-			      \item Performs better than information gain and Gini index in certain cases.
+			      \item Performs better than Information Gain and Gini Index in certain cases.
 		      \end{itemize}
 		\item \textbf{G-statistic:}
 		      \begin{itemize}
@@ -469,7 +484,7 @@
 			      \item Partitioning based on multiple variable combinations.
 			      \item CART: finds multivariate splits based on a linear combination of attributes.
 		      \end{itemize}
-		\item \textbf{Which attribute-selection measure is the best?}
+		\item \textbf{Which Attribute Selection Measures is the best?}
 		      \begin{itemize}
 			      \item Most give good results, none is significantly superior to others.
 		      \end{itemize}
@@ -537,6 +552,7 @@
 			      \item Classification accuracy comparable with other methods.
 		      \end{itemize}
 		\item Two scalable methods:
+		      % REVIEW: I would phrase that differently, since there are certainly more than two methods.
 		      \begin{enumerate}
 			      \item RainForest
 			      \item BOAT

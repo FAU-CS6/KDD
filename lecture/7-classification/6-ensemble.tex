@@ -2,7 +2,10 @@
 
 \begin{frame}{Ensemble Methods}
 	\begin{block}{Ensemble Method}
-		An \textit{Ensemble Method} is a composite model that consits of several models such as to form one model.
+		An \textit{Ensemble Method} is a composite model that consists of several models such as to form one model.
+		% REVIEW: I disagree with this definition on one important point:
+		% In my opinion, Ensemble Methods are, as the name suggests, the methodology to create a composite model from multiple models and not the composite model itself.
+		% All definitions I could find during a quick internet search seem to confirm this. I have to admit that I have not found the source of the definition above.
 	\end{block}
 	\begin{itemize}
 		\item Most of the time \textit{weak} learners are combined to mitigate their respective individual shortcomings.
@@ -28,7 +31,7 @@
 			      \item Given a set $D$ of d tuples, at each iteration $i$, a training set $D_i$ of $d$ tuples is sampled with replacement from $D$ (i.e., bootstrap).
 			      \item A classifier model $M_i$ is learned for each training set $D_i$.
 		      \end{itemize}
-		\item \textbf{Predicton in the case of classification: classify an unknown sample $X$.}
+		\item \textbf{Prediction in the case of classification: classify an unknown sample $X$.}
 		      \begin{itemize}
 			      \item Each classifier $M_i$ returns its class prediction.
 			      \item The bagged classifier $M^*$ counts the votes and assigns the class with the most votes to $X$.
@@ -82,9 +85,9 @@
 			      \item Update weights: If a tuple has been correctly classified, multiply its weight by calculating $\beta_k = \frac{\text{error}(M_i)}{1-\text{error}(M_i)}$ and then z-normalize. \textit{If a tuple is misclassified, its weight is increased, otherwise it is decreased.}
 		      \end{enumerate}
 		\item \textbf{Obtain classification of AdaBoost using classifier weight $\beta_k$:}
-		      \begin{align}
+		      \begin{align*}
 			      \textstyle H(X)= \arg \max_{y\in Y} \sum_{k=1}^K (\log \frac{1}{\beta_k})h_k(X)
-		      \end{align}
+		      \end{align*}
 
 	\end{itemize}
 \end{frame}
