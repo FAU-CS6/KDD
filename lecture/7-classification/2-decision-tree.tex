@@ -58,7 +58,6 @@
 	\end{tikzpicture}
 \end{frame}
 
-% REVIEW: I have replaced the (cont'd) with (I) and (II) on this and the next slide, as this is the variant used mostly in the rest of the presentation. (Same replacement is done for slide 12/13 and 19/20)
 \begin{frame}{Algorithm for Decision-Tree Induction (I)}
 	\begin{columns}
 		\begin{column}{0.75\textwidth}
@@ -144,7 +143,6 @@
 		\item Also known as \textit{splitting rules}.
 		\item Provides ranking for each attribute.
 		\item Partition data based on attribute with best score. \textit{Best score} minimize/maximize depends on measure used.
-		      % REVIEW: Is it intended that there is a "minimize/maximize" in "Best score minimize/maximize depends on measure used."? I guess you meant "Best score depends on measure used.", but I am not sure.
 		\item Tree node is labeled with splitting criterion (attribute). Sub tree results from partitions of splitting criterion.
 	\end{itemize}
 
@@ -161,7 +159,6 @@
 		\item \textbf{Select the attribute with the highest information gain.}
 		\item Partitions reflect least randomness, i. e. impurity.
 		\item \textbf{Expected information} (entropy) needed to classify a tuple in $D$:
-		      % REVIEW: During the creation of the lectures on Data and Preprocessing, we had once briefly discussed numbering and especially examples (see slide 21). At that time we had agreed to omit this numbering completely. I have therefore deleted the numbering everywhere everywhere where I noticed it.
 		      \begin{align*}
 			      \text{Info}(D) = -\sum_{i=1}^{m}p_i \log_2(p_i)
 		      \end{align*}
@@ -257,7 +254,6 @@
 				\text{Gain}(\texttt{age}) = \text{Info}(D)-\text{Info}_{\texttt{age}}(D) = 0.246.
 			\end{align*}
 
-			% REVIEW: Regarding those tables and images that go over the edge of the slide, you had already informed me that you are aware of those and will fix them. But since I've looked at every slide in detail anyway, I'll just mark this case and any others I've noticed with a quick "REVIEW: PICTURE-NOT-IN-FRAME" comment. Then you can easily find affected slides via the search.
 			% REVIEW: PICTURE-NOT-IN-FRAME
 			\resizebox{6cm}{!}{%
 				\centering
@@ -356,7 +352,7 @@
 \end{frame}
 
 \begin{frame}{Gini Index (II)} % TODO: plot anpassen, sodass cumulative income nur steigt und nie faellt
-	% REVIEW: The most important issue I intended to mention here, is already mentioned in the TODO above. I will therefore limit myself to suggesting the possible improvement of marking the areas between the curves and the line. After all, the Gini Index and thus also this image is exactly about this area. This should be recognizable in a Gini Index image.
+	% TODO: Mark the areas between the curves and the diagonal line. After all, the Gini Index and thus also this image is exactly about this area. This should be recognizable in a Gini Index image.
 	\centering
 	Example: Distribution of incomes.\\[0.5cm]
 	\begin{tikzpicture}
@@ -548,8 +544,7 @@
 			      \item Can use SQL queries for accessing databases.
 			      \item Classification accuracy comparable with other methods.
 		      \end{itemize}
-		\item Two scalable methods:
-		      % REVIEW: I would phrase that differently, since there are certainly more than two methods.
+		\item Two scalable methods, among others:
 		      \begin{enumerate}
 			      \item RainForest
 			      \item BOAT
