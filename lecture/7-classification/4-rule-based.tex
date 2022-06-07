@@ -1,6 +1,4 @@
 \section{Rule-Based Classification}
-% REVIEW: Because compliments are also part of a good review: Very good change to talk about Rule-Based Classification before talking about Bayes.
-% However, I noticed that the numbering of the files is not yet adjusted. I did not want to do this myself, because in the end the diff of my review would have become more confusing.
 
 \begin{frame}{Using \uppercase{if-then} Rules for Classification}
 	\begin{itemize}
@@ -70,7 +68,7 @@
 	\end{itemize}
 	\vspace*{1em}
 	\begin{columns}
-		\begin{column}{0.7\textwidth}
+		\begin{column}{0.55\textwidth}
 			\textbf{Example:}
 			\begin{enumerate}
 				\item IF \texttt{age} $\leq$ 30 AND \texttt{student} = "no" \\
@@ -81,8 +79,8 @@
 				\item \dots
 			\end{enumerate}
 		\end{column}
-		% REVIEW: PICTURE-NOT-IN-FRAME
-		\begin{column}{0.3\textwidth}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-1em}
 			\begin{figure}[h]
 				\centering
 				\input{7-classification/tree-example.tex}
@@ -127,8 +125,6 @@
 			      \item remove positive target tuples satisfying this rule;
 		      \end{itemize}
 		      \centering
-		      % REVIEW: PICTURE-NOT-IN-FRAME
-		      % (Even if only minimal)
 		      \begin{tikzpicture}
 			      \draw[fill=airforceblue] (0,0) ellipse (5.2 and 2.5) (0,0) node [text=black] {};
 			      \draw[fill=white] (0,1) ellipse (2 and 1.2) (0,0) node [text=black] {};

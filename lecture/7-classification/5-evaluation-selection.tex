@@ -109,21 +109,7 @@
 	\end{columns}
 \end{frame}
 
-% TODO: Update example with confusion matrix
-
-% REVIEW: I'm not sure if the TODO might even be related to the point I noticed. I'll just mention it anyway: I'm a bit confused here why two different confusion matrices are shown. Isn't one enough? I would choose only the version from (II), since more information is added there.
-\begin{frame}{Example: Confusion Matrix and Evaluation Metrics (I)}
-	\centering
-	\begin{tabular}{|c|c|c|c|}
-		\hline
-		Actual class/predicted class: & buys\_computer = yes & buys\_computer = no & Total \\\hline
-		buys\_computer = yes          & \textbf{6954}        & \textbf{46}         & 7000  \\\hline
-		buys\_computer = no           & \textbf{412}         & \textbf{2588}       & 3000  \\\hline
-		Total                         & 7366                 & 2634                & 10000 \\\hline
-	\end{tabular}
-\end{frame}
-
-\begin{frame}{Example: Confusion Matrix and Evaluation Metrics (II)}
+\begin{frame}{Example: Confusion Matrix and Evaluation Metrics}
 	\centering
 	\begin{tabular}{|c|c|c|c|c|}
 		\hline
@@ -159,8 +145,8 @@
 \end{frame}
 
 \begin{frame}{Evaluation Strategies: Cross Validation}
-	Also known as $k$-fold cross validation. ($k=10$ is popular)
-	% REVIEW: In my opinion, cross validation is an umbrella term for a mass of methods (e.g. rolling cross validation, Monte Carlo cross validation or k-fold cross validation). For this reason, I think it is wrong to present k-fold Cross Validation as a synonym for the umbrella term Cross Validation here, even though it is certainly one of the best known variants.
+	Most common: $k$-fold cross validation ($k=10$ is popular).
+
 	\begin{columns}[T]
 		\begin{column}[T]{0.5\textwidth}
 			\begin{itemize}
@@ -239,15 +225,8 @@
 
 \begin{frame}{Evaluating Classifier Accuracy: Null Hypothesis}
 	\begin{itemize}
-		\item \textbf{Perform $10$-fold cross-validation.}
-		      \begin{itemize}
-			      \item $10$ times.
-		      \end{itemize}
+		\item \textbf{Perform $k$-fold cross-validation} with $k=10$.
 		\item \textbf{Assume samples follow a $t$-distribution with $k-1$ degrees of freedom.}
-		      \begin{itemize}
-			      \item Here, $k = 10$.
-			            % REVIEW: Even though this k = 10 was already listed in earlier versions of KDD, I have my doubts how useful this is here. I for my part was extremely confused here. I asked myself: Does k stand for something else in this case or why is something so obvious mentioned twice?
-		      \end{itemize}
 		\item \textbf{Use $t$-test}
 		      \begin{itemize}
 			      \item Student's $t$-test.
@@ -305,13 +284,11 @@
 				\item Confidence limit: $z = \frac{\text{sig}}{2}$.
 			\end{itemize}
 		\end{column}
-		% REVIEW: PICTURE-NOT-IN-FRAME
-		% (Only minimal)
 		\begin{column}{0.5\textwidth}
 			\centering
 			\includegraphics[width=0.7\textwidth]{img/ttest2.jpeg}
 		\end{column}
-		% REVIEW: I realize that this is probably something for upcoming semesters, but I think this graph and the t-distribution table are two things that we could definitely recreate in latex at some point.
+		% TODO: Recreate plot in tikz.
 	\end{columns}
 \end{frame}
 
