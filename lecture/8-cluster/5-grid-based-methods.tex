@@ -11,7 +11,7 @@
 			            \begin{itemize}
 				            \item A multi-resolution clustering approach using wavelet
 				                  method.
-				            \item Not shown here.
+				            \item Not part of this lecture.
 			            \end{itemize}
 			      \item CLIQUE (Agrawal et al., SIGMOD'98):
 			            \begin{itemize}
@@ -43,9 +43,8 @@
 		\item \textbf{Statistical info of each cell:}
 		      \begin{itemize}
 			      \item Calculated and stored beforehand and used to answer queries.
-			      \item Count, plus for each attribute: mean, standard dev, min, max
-			            and \\
-			            type of distribution: normal, uniform, etc.
+			      \item Count, plus for each attribute: mean, standard dev, min, max \\
+			            and type of distribution: normal, uniform, etc.
 		      \end{itemize}
 		\item \textbf{Parameters of higher-level cells:}
 		      \begin{itemize}
@@ -139,7 +138,7 @@
 		\item \textbf{Monotonicity of dense cells w.r.t. dimensionality:}
 		      \begin{itemize}
 			      \item Based on the a priori property used in frequent-pattern and
-			            association-rule mining (see Chapter 5).
+			            association-rule mining.
 			      \item $k$-dimensional cell $c$ can have at least $l$ points only,
 			            if every $(k-1)$-dimensional projection of $c$ (which is a cell in
 			            a $(k-1)$-dimensional subspace) has at least $l$ points, too.
@@ -149,23 +148,16 @@
 			      \item Partition each dimension into intervals, identify intervals
 			            containing at least $l$ points.
 			      \item Iteratively join $k$-dimensional dense cells $c_1$ and $c_2$
-			            in subspaces $(D_{i1}, \ldots, D_{ik})$ and $(D_{j1}, \ldots,
-				            D_{jk})$ with $D_{i1} = D_{j1}$ and $D_{i2} = D_{j2}$ and $\ldots
-				            D_{i(k-1)} = D_{j(k-1)}$ and $c_1$ and $c_2$ share the same
+			            in subspaces $(D_{i1}, \ldots, D_{ik})$ and $(D_{j1}, \ldots,D_{jk})$ with $D_{i1} = D_{j1}$ and $D_{i2} = D_{j2}$ and $\ldots D_{i(k-1)} = D_{j(k-1)}$ and $c_1$ and $c_2$ share the same
 			            intervals to those dimensions.
-			      \item New $(k+1)$-dimensional candidate cell $c$ in space $(D_{i1},
-				            \ldots, D_{ik}, D_{jk})$ tested for density.
+			      \item New $(k+1)$-dimensional candidate cell $c$ in space $(D_{i1}, \ldots, D_{ik}, D_{jk})$ tested for density.
+			      \item Iteration terminates when no more candidate cells can be generated or no candidate cells are dense.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{CLIQUE: The Major Steps (II)}
 	\begin{itemize}
-		\item \textbf{Clustering step 1 (cont.):}
-		      \begin{itemize}
-			      \item Iteration terminates when no more candidate cells can be
-			            generated or no candidate cells are dense.
-		      \end{itemize}
 		\item \textbf{Clustering step 2:}
 		      \begin{itemize}
 			      \item Use dense cells in each subspace to assemble clusters.
