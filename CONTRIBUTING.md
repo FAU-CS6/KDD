@@ -100,6 +100,7 @@ To fix an error, please follow these steps:
 - Fork our repository.
 - Make sure that your fork is on the latest version of our `dev` branch.
 - Commit your fixes based on your fork of the `dev` branch while complying to the [Styleguides](#styleguides) (we recommend using a feature branch).
+- Ideally, your PR contains only *one commit*.
 - Open a new [Pull Requests](/pulls) (PR) requesting to merge your fixes into our `dev` branch.
 - Make sure that there are no merge commits included in your PR.
 - _Optional:_ Request a review by the person responsible for files you changed (see [README](README.org))
