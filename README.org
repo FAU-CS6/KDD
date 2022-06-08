@@ -2,24 +2,24 @@
 
 * Responsibilities
 ** Lecture
-  1. *Course Intro* - Dominik Probst
-  2. *Introduction* - Dominik Probst
-  3. *Data* - Melanie B. Sigl
-  4. *Preprocessing* - Dominik Probst
-  5. *OLAP* - Melanie B. Sigl
-  6. *Mining Frequent Patterns, Associations and Correlations* - Dominik Probst
-  7. *Classification* - Melanie B. Sigl
-  8. *Cluster Analysis* - Dominik Probst
-  9. *Outlier Analysis* - Melanie B. Sigl
-  10. *Current Research at CS6* - Dominik Probst
+  1. *Course Intro* - Dominik
+  2. *Introduction* - Dominik
+  3. *Data* - Melanie
+  4. *Preprocessing* - Dominik
+  5. *OLAP* - Melanie
+  6. *Mining Frequent Patterns, Associations and Correlations* - Dominik
+  7. *Classification* - Melanie
+  8. *Cluster Analysis* - Dominik
+  9. *Outlier Analysis* - Melanie
+  10. *Current Research at CS6* - Dominik
 
 ** Exercise
-  1. *Introduction to Python & Pandas* - Melanie B. Sigl
-  2. *Data analysis & data preprocessing* - Dominik Probst
-  3. *Frequent Patterns* - Dominik Probst
-  4. *Classification* - Melanie B. Sigl
-  5. *Clustering* - Dominik Probst
-  6. *Outlier* - Melanie B. Sigl
+  1. *Introduction to Python & Pandas* - Melanie
+  2. *Data analysis & data preprocessing* - Dominik
+  3. *Frequent Patterns* - Dominik
+  4. *Classification* - Melanie
+  5. *Clustering* - Dominik
+  6. *Outlier* - Melanie
 
 * Summer semester 2021
   Semester duration: 25 April 2022 – 29 July 2022
