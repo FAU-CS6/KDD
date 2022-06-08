@@ -23,15 +23,15 @@
 			\draw (9,0)--(9,0.25);
 			\node at (9,0.5) {Step 4};
 			\draw (1,-4)--(1,-4.25);
-			\node at (1,-4.5) {Step 0};
+			\node at (1,-4.5) {Step 4};
 			\draw (3,-4)--(3,-4.25);
-			\node at (3,-4.5) {Step 1};
+			\node at (3,-4.5) {Step 3};
 			\draw (5,-4)--(5,-4.25);
 			\node at (5,-4.5) {Step 2};
 			\draw (7,-4)--(7,-4.25);
-			\node at (7,-4.5) {Step 3};
+			\node at (7,-4.5) {Step 1};
 			\draw (9,-4)--(9,-4.25);
-			\node at (9,-4.5) {Step 4};
+			\node at (9,-4.5) {Step 0};
 			\node[main node] at (1,-0.5) (a) {a};
 			\node[main node] at (1,-1.25) (b) {b};
 			\node[main node] at (1,-2) (c) {c};
@@ -58,7 +58,6 @@
 \begin{frame}{AGNES (Agglomerative Nesting)}
 	\begin{itemize}
 		\item \textbf{Introduced in (Kaufmann \& Rousseeuw, 1990)}
-		\item \textbf{Implemented in statistical packages, e.g., S+.}
 		\item \textbf{Use the single-link method.} (see below)
 		\item \textbf{Merge nodes that have the least dissimilarity.}
 		\item \textbf{Go on in a non-descending fashion.}
@@ -180,7 +179,6 @@
 \begin{frame}{DIANA (Divisive Analysis)}
 	\begin{itemize}
 		\item \textbf{Introduced in (Kaufmann \& Rousseeuw, 1990)}
-		\item \textbf{Implemented in statistical analysis packages, e.g., S+.}
 		\item \textbf{Inverse order of AGNES.}
 		\item \textbf{Eventually each node forms a cluster of its own.}
 	\end{itemize}
@@ -266,7 +264,7 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Distance Between Clusters}
+\begin{frame}{Distance Between Clusters (I)}
 	\begin{itemize}
 		\item \textbf{Minimum distance:}
 		      \begin{itemize}
@@ -388,10 +386,12 @@
 \begin{frame}{Clustering Feature in BIRCH}
 	\textbf{Clustering Feature CF = (n, LS, SS)}:
 	\begin{itemize}
-		\item $3$D vector summarizing statistics about clusters.
-		\item $n$: number of data points.
-		\item LS: linear sum of $N$ points $\sum_{i=1}^{n} x_i$.
-		\item SS: square sum of $N$ points $\sum_{i=1}^{n} x_i^2$.
+		\item $3$D vector summarizing statistics about clusters:
+		      \begin{itemize}
+			      \item $n$: number of data points.
+			      \item LS: linear sum of $N$ points $\sum_{i=1}^{n} x_i$.
+			      \item SS: square sum of $N$ points $\sum_{i=1}^{n} x_i^2$.
+		      \end{itemize}
 	\end{itemize}
 	\newcommand*{\xMin}{0}%
 	\newcommand*{\xMax}{10}%
@@ -422,11 +422,8 @@
 			\draw[dashed] (3,6) ellipse (2cm and 3cm);
 			\draw[dashed] (7,4) ellipse (2cm and 3cm);
 			\node[draw] at (18,9) {CF = $(5,(16,30),(54,190))$};
-			\node at (18,7) {(3,4)};
-			\node at (18,5.7) {(2,6)};
-			\node at (18,4.4) {(4,5)};
-			\node at (18,3.1) {(4,7)};
-			\node at (18,1.8) {(3,8)};
+			\node at (18,7) {\small as the data points contained are:};
+			\node at (18,5.7) {(3,4),(2,6),(4,5),(4,7),(3,8)};
 			\draw[->] (16,10) to [out=30,in=30] (3.3,9.5);
 		\end{tikzpicture}
 	}
@@ -434,24 +431,18 @@
 
 \begin{frame}{Clustering Feature in BIRCH (II)}
 	\begin{itemize}
-		\item \textbf{Allows to derive many useful statistics of a cluster:}
+		\item \textbf{Allows to derive many useful statistics of a cluster. E.g.:}
 		      \begin{itemize}
-			      \item E.g. centroid: $c_i = \frac{\sum_{i=1}^{n}o_i}{n} =
-				            \frac{LS}{n}$,
-			      \item radius: $R =
-				            \sqrt{\frac{\sum_{i=1}^{n}(\mathbf{x}_i-\mathbf{c})^2}{n}} =
-				            \sqrt{\frac{nSS-2LS^2+nLS}{n^2}}$,
-			      \item diameter: $D =
-				            \sqrt{\frac{\sum_{i=1}^{n}\sum_{j=1}^{n}(\mathbf{x}_i-\mathbf{x}_j)^2}{n(n-1)}}
-				            = \sqrt{\frac{2nSS-2LS^2}{n(n-1)}}$, etc.
+			      \item centroid: $c = \frac{\sum_{i=1}^{n}o_i}{n} = \frac{LS}{n}$,
+			      \item radius: $R = \sqrt{\frac{\sum_{i=1}^{n}(x_i-c)^2}{n}} = \sqrt{\frac{nSS-2LS^2+nLS}{n^2}}$,
+			      \item diameter: $D = \sqrt{\frac{\sum_{i=1}^{n}\sum_{j=1}^{n}(x_i-x_j)^2}{n(n-1)}} = \sqrt{\frac{2nSS-2LS^2}{n(n-1)}}$
 		      \end{itemize}
 		\item \textbf{Additive:}
 		      \begin{itemize}
 			      \item For two disjoint clusters $C_1$ and $C_2$ with clustering
 			            features $CF_1 = (n_1, LS_1, SS_1)$ and $CF_2 = (n_2, LS_2, SS_2)$,
 			            the clustering feature of the cluster that is formed by merging
-			            $C_1$ and $C_2$ is simply: $CF_1 + CF_2 = (n_1 + n_2, LS_1 + LS_2,
-				            SS_1 + SS_2)$.
+			            $C_1$ and $C_2$ is simply: $CF_1 + CF_2 = (n_1 + n_2, LS_1 + LS_2, SS_1 + SS_2)$.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -471,13 +462,16 @@
 			      \item \textbf{\color{airforceblue}Threshold $T$}: maximum diameter
 			            of sub-clusters stored at leaf nodes.
 
-			            Diameter $D$: average pairwise distance within a cluster,
-			            \\
-			            reflects the tightness of the cluster around the centroid:
-			            \begin{align}
-				            D = \sqrt{\frac{\sum_{i=1}^{n} \sum_{j=1}^{n}
-						            (o_i-o_j)^2}{n(n-1)}} = \sqrt{\frac{2nSS - 2LS^2}{n(n-1)}}.
-			            \end{align}
+			            \begin{itemize}
+
+				            \item Diameter $D$: average pairwise distance within a cluster, \\
+				                  reflects the tightness of the cluster around the centroid:
+				                  \begin{align*}
+					                  D = \sqrt{\frac{\sum_{i=1}^{n} \sum_{j=1}^{n}
+							                  (o_i-o_j)^2}{n(n-1)}} = \sqrt{\frac{2nSS - 2LS^2}{n(n-1)}}.
+				                  \end{align*}
+
+			            \end{itemize}
 
 		      \end{itemize}
 	\end{itemize}
@@ -527,8 +521,8 @@
 		\draw[thick,->] (-2.2,-0.45)--(-4.3,-1.5);
 		\draw[thick,->] (-1.2,-0.45)--(2.3,-1.5);
 		\draw[thick,->] (0.2,-0.45)--(4.3,-1.5);
-		\draw[thick,->] (-3,-2.45)--(4.6,-3.8);
-		\draw[thick,->] (-4.3,-2.45)--(-5.2,-3.8);
+		\draw[thick,->] (-3,-2.45)--(2.3,-3.7);
+		\draw[thick,->] (-4.3,-2.45)--(-5.2,-3.7);
 		\draw[thick,->] (0.1,-3.6)--(0.9,-3.6);
 		\draw[thick,->] (0.9,-4.4)--(0.1,-4.4);
 		\draw[thick,->] (7.1,-3.6)--(7.9,-3.6);
@@ -893,16 +887,16 @@
 		\item Given a set of $1$-D points $X = \{x_1, \ldots, x_n\}$ for
 		      clustering analysis and assuming they are generated by a Gaussian
 		      distribution:
-		      \begin{align}
+		      \begin{align*}
 			      N(\mu,\sigma) = \frac{1}{\sqrt{2 \pi \sigma^2}}
-			      \text{exp}\left({\frac{(x-\mu)^2}{2\sigma^2}}\right).
-		      \end{align}
+			      \exp\left({\frac{(\mathbf{x}-\mu)^2}{2\sigma^2}}\right).
+		      \end{align*}
 		\item The probability that a point $x_i \in X$ is generated by the
 		      model:
-		      \begin{align}
+		      \begin{align*}
 			      P(x_i \vert \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(
-			      \frac{(x_i-\mu)^2}{2\sigma^2}\right).
-		      \end{align}
+			      \frac{(\mathbf{x_i}-\mu)^2}{2\sigma^2}\right).
+		      \end{align*}
 	\end{itemize}
 \end{frame}
 
@@ -910,17 +904,17 @@
 	\centering
 	\begin{itemize}
 		\item The likelihood that $X$ is generated by the model:
-		      \begin{align}
+		      \begin{align*}
 			      L(N(\mu,\sigma) \vert X) := P(X \vert \mu, \sigma) =
 			      \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(
 			      \frac{(x_i-\mu)^2}{2\sigma^2}\right).
-		      \end{align}
+		      \end{align*}
 		\item The task of learning the generative model: find the parameters
 		      $\mu$ and $\sigma$, such that
-		      \begin{align}
+		      \begin{align*}
 			      N(\mu_0,\sigma_0) = \text{arg max}\left( L(N(\mu,\sigma)\vert X)
 			      \right).
-		      \end{align}
+		      \end{align*}
 	\end{itemize}
 \end{frame}
 
@@ -930,15 +924,15 @@
 		\item For a set of objects partitioned into $m$ clusters $C_1, \ldots,
 			      C_m$,
 		      the quality can be measured by:
-		      \begin{align}
+		      \begin{align*}
 			      Q(\{C_1, \ldots, C_m\}) = \prod_{i=1}^{m} P(C_i),
-		      \end{align}
+		      \end{align*}
 		      where $P(C_i)$ is the maximum likelihood of $C_i$.
 		\item Distance between clusters $C_i$ and $C_j$ can be computed as a
 		      proximity measure:
-		      \begin{align}
+		      \begin{align*}
 			      d(C_i,C_j) = - \log \frac{P(C_i \cup C_j)}{P(C_i)P(C_j)}.
-		      \end{align}
+		      \end{align*}
 	\end{itemize}
 \end{frame}
 
