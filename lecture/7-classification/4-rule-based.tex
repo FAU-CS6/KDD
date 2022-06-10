@@ -21,8 +21,6 @@
 \begin{frame}[c]{Potential Problems of Rule-Based Classification}
 	\centering
 	\huge
-	% REVIEW: Even though I understand that you probably made these bullet points so huge because otherwise the slide would be too empty, this slide doesn't fit the rest of the presentation layout like this. Even "potential problems" of other methods are shown everywhere else in normal font size.
-	% My suggestion here would be to take the positions and font sizes of the two bullet points on the next slide. Then you could explain the emptiness of the slides with a "fade-in effect" regarding the solutions.
 	\begin{enumerate}
 		\item More than one rule is triggered.
 		\item No rule is triggered.
@@ -161,13 +159,19 @@
 		\draw[fill=airforceblue!20] (6,0) rectangle (0,4) (0,0) node [text=black] {};
 		\node at (3,0.5) (a1) {Negative examples};
 		\node at (-1.5,0.5) (a1) {Positive examples};
-		\draw[fill=yellow!20, opacity=0.5] (-0.7,2.5) ellipse (2 and 1.2) (0,0) node [text=black] {};
-		\node[opacity=0.5] at (-0.7,3) {$A3=1$};
-		\draw[fill=yellow!20, opacity=0.5] (-0.7,2.5) ellipse (1.8 and 1) (0,0) node [text=black] {};
-		\node[opacity=0.5] at (-0.7,2.7) {$A3=1 \&\& A1=2$};
-		\draw[fill=yellow!20, opacity=0.5] (-0.7,2.5) ellipse (1.6 and 0.8) (0,0) node [text=black] {};
-		\node[opacity=0.5] at (-0.7,2.4) {$A3=1 \&\& A1=2$};
-		\node[opacity=0.5] at (-0.7,2.1) {$\&\& A8=5$};
+		\uncover<2->{
+			\draw[fill=yellow!20,fill opacity=0.7] (-0.7,2.5) ellipse (2 and 1.2) (0,0) node [text=black] {};
+			\node at (-0.7,3) {$A3=1$};
+		}
+		\uncover<3->{
+			\draw[fill=yellow!20,fill opacity=0.7] (-0.7,2.5) ellipse (1.8 and 1) (0,0) node [text=black] {};
+			\node at (-0.7,2.7) {$A3=1 \&\& A1=2$};
+		}
+		\uncover<4->{
+			\draw[fill=yellow!20,fill opacity=0.7] (-0.7,2.5) ellipse (1.6 and 0.8) (0,0) node [text=black] {};
+			\node at (-0.7,2.4) {$A3=1 \&\& A1=2$};
+			\node at (-0.7,2.1) {$\&\& A8=5$};
+		}
 	\end{tikzpicture}
 \end{frame}
 
