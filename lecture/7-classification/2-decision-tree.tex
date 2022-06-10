@@ -61,21 +61,14 @@
 \begin{frame}{Algorithm for Decision Tree Induction (I)}
 	\begin{columns}
 		\begin{column}{0.75\textwidth}
-			\textbf{Construction in general} follows a greedy algorithm,
-			% REVIEW: I find the mention that the algorithm is nonbacktracking extremely confusing at this point. Everyone who understands greedy should implicitly assume that and someone who doesn't understand greedy won't understand non-backtracking either. Even though it might not be the best example, since it's not 100% compatible, but to me it feels like someone saying "He's a man, i.e. a non-woman."
-			i. e. nonbacktracking. Thus, it is done in a \textit{top-down recursive in a
-				divide-and-conquer manner}.\\\medskip
+			\textbf{Construction in general} follows a greedy algorithm, i. e. nonbacktracking. Thus, it is done in a \textit{top-down recursive in a divide-and-conquer manner}.\\\medskip
 			\textbf{Input:} data partition $D$, \texttt{attribute\_list}, \texttt{attribute\_selection\_method}.\\\medskip
 
 			\textbf{Algorithm Sketch:}
-			% TODO: This is not really an algorithms. Insert algorithm environment and update following points.
 			\begin{enumerate}
 				\item Create node $N$.
 				\item Determine splitting attribute $A$ according to the splitting criterion
 				      obtained by applying \texttt{attribute\_selection\_method}.
-				      % REVIEW: The attribute_selection_method is in my opinion the real interesting point of this algorithm. The rest is more or less obvious. For this reason I would like to suggest two things:
-				      % 1) (Written) reference to the upcoming slides, so you also know that this interesting point is about to be explained.
-				      % 2) Instead of attribute_selection_method, refer to it as attribute_selection_measure (also in the input list of course). Thus, it is clear that exactly the methods, which will be mentioned on the coming slides. are referenced here.
 				\item Label $N$ with splitting criterion.
 				\item Delete attribute from \texttt{attribute\_list} if attribute is discrete and binary tree construction).
 				      % REVIEW: Here is the logical question to ask: What if the attribute is not discrete? Does the attribute list then remain untouched? Does the termination criterion still work then?
