@@ -1,6 +1,6 @@
-\section{Decision-Tree Induction}
+\section{Decision Tree Induction}
 
-\begin{frame}{Decision-Tree: An Example}
+\begin{frame}{Decision Tree: An Example}
 	\begin{columns}
 		\begin{column}{0.38\textwidth}
 			\vspace{-3cm}
@@ -20,14 +20,14 @@
 \end{frame}
 
 
-\begin{frame}{Decision-Tree}
+\begin{frame}{Decision Tree}
 	\vspace*{-0.6em}
-	\begin{block}{Decision-Tree Induction}
-		\textit{Decision-Tree Induction} refers to the learning of a decision-tree based on labeled training data.
+	\begin{block}{Decision Tree Induction}
+		\textit{Decision tree induction} refers to the learning of a decision-tree based on labeled training data.
 	\end{block}
 
-	\begin{block}{Decision-Tree}
-		A \textit{Decision-Tree} is a flowchart-like structure consisting of interconnected internal and leaf nodes.
+	\begin{block}{Decision Tree}
+		A \textit{decision tree} is a flowchart-like structure consisting of interconnected internal and leaf nodes.
 	\end{block}
 
 	\begin{columns}[t]
@@ -40,7 +40,7 @@
 
 		\end{column}
 		\begin{column}{0.55\textwidth}
-			\textbf{Components of a Decision-Tree}
+			\textbf{Components of a Decision Tree}
 			\begin{itemize}
 				\item \tikzmark{root} \textbf{Root}: topmost node.
 				\item \tikzmark{internal} \textbf{Internal node}: test on an attribute.
@@ -58,7 +58,7 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Algorithm for Decision-Tree Induction (I)}
+\begin{frame}{Algorithm for Decision Tree Induction (I)}
 	\begin{columns}
 		\begin{column}{0.75\textwidth}
 			\textbf{Construction in general} follows a greedy algorithm,
@@ -124,11 +124,10 @@
 
 \end{frame}
 
-\begin{frame}{Algorithm for Decision-Tree Induction (II)}
+\begin{frame}{Algorithm for Decision Tree Induction (II)}
 	\textbf{Stopping criteria:}
 	\begin{itemize}
 		\item All samples in $D$ belong to the same class. $N$ becomes a leaf.
-		      % REVIEW: When will this be tested for the termination criterion? If before step 1, then the node N does not yet exist. If after step 3, then N already has a labeling that does not match a leaf node.
 		\item \texttt{attribute\_list} is empty. If multiple classes: use majority class.
 		\item Partition $D$ is empty, thus create leaf with majority class.
 	\end{itemize}
@@ -136,7 +135,7 @@
 
 \begin{frame}{Attribute Selection Measures}
 	\begin{block}{Attribute Selection Measure}
-		An \textit{Attribute Selection Measure} is a heuristic to determine the ``best'' splitting criterion to partition data.
+		An \textit{attribute selection measure} is a heuristic to determine the ``best'' splitting criterion to partition data.
 	\end{block}
 
 	\begin{itemize}
@@ -250,11 +249,12 @@
 				}
 			\end{align*}
 			$\frac{5}{14} I(2,3)$ means "$\texttt{age} \leq 30$" has $5$ out of $14$ samples, with $2$ yes'es and $3$ no's. Hence,
+			\vspace*{-.5em}
 			\begin{align*}
 				\text{Gain}(\texttt{age}) = \text{Info}(D)-\text{Info}_{\texttt{age}}(D) = 0.246.
 			\end{align*}
 
-			% REVIEW: PICTURE-NOT-IN-FRAME
+			\vspace*{-.5em}
 			\resizebox{6cm}{!}{%
 				\centering
 				\input{7-classification/table-example.tex}
@@ -266,49 +266,83 @@
 \begin{frame}{Partitioning in the Example}
 	\centering
 	% REVIEW: PICTURE-NOT-IN-FRAME
-	\begin{tikzpicture}
-		\node[rounded corners=0.25em,draw, fill=faugray!62] at (0,0) (r) {age?};
-		\node[rounded corners=0.25em,draw] at (-2,-1) (a) {$\leq 30$};
-		\node[rounded corners=0.25em,draw] at (0,-1) (b) {$31\ldots40$};
-		\node[rounded corners=0.25em,draw] at (2,-1) (c) {$>40$};
-		\draw (r)--(a);
-		\draw (r)--(b);
-		\draw (r)--(c);
-		\node at (-4,-3) (t1) {
-			\begin{tabular}{|l|l|l|l|}
-				\hline
-				\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
-				\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faured}no}                 \\\hline
-				\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faured}no}                 \\\hline
-				\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
-			\end{tabular}
+	\begin{tikzpicture}[
+			overlay,
+			remember picture,
+			>=latex,
+			thick,
+			node/.style={
+					draw=faugray,
+					rounded corners=.25em,
+					fill=faugray!62,
+					text depth=0.2em
+				},
+			leaf/.style={
+					draw,
+					rounded corners=.7em,
+					text depth=0.2em
+				},
+			branch/.style={
+					fill=white,
+					font=\ttfamily\scriptsize,
+					rounded corners=.7em,
+					text depth=0.2em
+				}
+		]
+		\node[node] at (0,0) (age) {age?};
+
+		\node[draw=none,below left=3em and 1.5em of age,text width=3.8em] (student) {};
+		\node[draw=none,below right=3em and .6em of age,text width=6em] (credit-rating) {};
+
+		\draw[rounded corners=5pt]
+		(age.south) -- ($(age.south) + (0,-1em)$) --
+		($(student.north) + (0,2em)$) -- (student.north);
+		\node[branch,above=2em of student.north] {$\leq$30};
+
+		\path[draw,rounded corners=5pt]
+		(age.south) -- ($(age.south) + (0,-1em)$) --
+		($(credit-rating.north) + (0,2em)$) -- (credit-rating.north);
+		\node[branch,above=2em of credit-rating.north] {>40};
+		\node at (-4,-2.4) (t1) {
+			\resizebox{6.5cm}{!}{%
+				\begin{tabular}{|l|l|l|l|}
+					\hline
+					\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
+					\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faured}no}                 \\\hline
+					\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faured}no}                 \\\hline
+					\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
+				\end{tabular}
+			}
 		};
-		\node at (-2.5,-5.2) (t3) {
-			\begin{tabular}{|l|l|l|l|}
-				\hline
-				\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
-				\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}high        & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-			\end{tabular}
+		\node[below=10.5em of age] (t3) {
+			\resizebox{6.5cm}{!}{%
+				\begin{tabular}{|l|l|l|l|}
+					\hline
+					\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
+					\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}high        & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+				\end{tabular}
+			}
 		};
-		\node at (2.8,-3.8) (t2) {
-			\begin{tabular}{|l|l|l|l|}
-				\hline
-				\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
-			\end{tabular}
+		\draw (age.south) -- (t3.north);
+		\node[branch,below=3em of age.north] {31\dots 40};
+		\node at (4,-2.4) (t2) {
+			\resizebox{6.5cm}{!}{%
+				\begin{tabular}{|l|l|l|l|}
+					\hline
+					\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
+				\end{tabular}
+			}
 		};
-		\draw (a)--(t1);
-		\draw (c)--(t2);
-		\draw (b)--(t3);
 	\end{tikzpicture}
 \end{frame}
 
@@ -457,7 +491,7 @@
 	\begin{itemize}
 		\item \textbf{CHAID:}
 		      \begin{itemize}
-			      \item A popular Decision-Tree algorithm, measure based on $\chi^2$ test for independence.
+			      \item A popular decision tree algorithm, measure based on $\chi^2$ test for independence.
 		      \end{itemize}
 		\item \textbf{C-SEP:}
 		      \begin{itemize}
@@ -511,7 +545,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Enhancements to Basic Decision-Tree Induction}
+\begin{frame}{Enhancements to Basic Decision Tree Induction}
 	\begin{itemize}
 		\item \textbf{Allow for} \textbf{\color{airforceblue}continuous-valued attributes.}
 		      \begin{itemize}
@@ -537,7 +571,7 @@
 		      \begin{itemize}
 			      \item Classifying datasets with millions of examples and \\ hundreds of attributes with reasonable speed.
 		      \end{itemize}
-		\item \textbf{Why is decision-tree induction popular?}
+		\item \textbf{Why is decision tree induction popular?}
 		      \begin{itemize}
 			      \item Relatively fast learning speed (compared to other classification methods).
 			      \item Convertible to simple and easy-to-understand classification rules.
