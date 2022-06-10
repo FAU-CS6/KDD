@@ -133,11 +133,8 @@
 			      \item \textbf{\color{airforceblue}Training set} (E.g., $2/3$) for model construction.
 			      \item \textbf{\color{airforceblue}Test set} (E.g., $1/3$) for accuracy estimation.
 		      \end{itemize}
-		\item Random sampling: a variation of holdout.
+		\item Random sampling: a variation of holdout that repeats holdout $k$ times.
 		      \begin{itemize}
-			      \item Repeat holdout $k$ times, i. e. create multiple random splits and
-			            multiple model construction and accuracy estimation.
-			            % REVIEW: The text after the i.e. is very confusing in my opinion. Is this supposed to be a description of a single holdout iteration? If so, I would introduce this iteration in a separate bullet point(s). "Repeat Holdout k times" is enough for this one.
 			      \item Create an average accuracy over all experiments.
 		      \end{itemize}
 	\end{itemize}
