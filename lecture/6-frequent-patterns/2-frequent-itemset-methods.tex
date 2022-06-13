@@ -937,15 +937,16 @@
 			\draw (c1) -- (b13) -- (p1);
 			\node at (5.5,-3.5) {\textbf{All frequent patterns related to
 					$m$:}};
-			\node at (5.5,-4) {m, fm, cm, am, fcm, fam, cam, fcam;};
+			\node at (5.5,-4) {m, fm, cm, am, fcm, fam, cam, fcam};
 			\node at (10,-1) (10) {$\{\}$};
-			\node at (10,-2) (11) {$f:3$};
-			\node at (10,-3) (12) {$c:3$};
-			\node at (10,-4) (13) {$a:3$};
-			\node at (10,0.5) {$m$'s conditional pattern base:};
-			\node at (10,0) {fca:3, fcab:1;};
-			\node at (10,-0.5) {$m$'s conditional FP-tree:};
-			\draw (10) -- (11) -- (12) -- (13);
+			\node at (10,-1.75) (11) {$f:3$};
+			\node at (10,-2.5) (12) {$c:3$};
+			\node at (10,-3.25) (13) {$a:3$};
+			\node at (10.5,-4) (14) {$b:1$};
+			\node at (10,0.5) {$m$\textbf{'s conditional pattern base:}};
+			\node at (10,0) {fca:2, fcab:1};
+			\node at (10,-0.5) {$m$\textbf{'s conditional FP-tree:}};
+			\draw (10) -- (11) -- (12) -- (13) -- (14);
 			\node at (5.5,0.5) {\textbf{Header table:}};
 			\node at (5.5,-1.5) {
 				\begin{tabular}{|c|c|}
@@ -972,11 +973,12 @@
 			\node at (0,-1) (f3) {f:3};
 			\node at (0,-2) (c3) {c:3};
 			\node at (0,-3) (a3) {a:3};
-			\draw (0)--(f3)--(c3)--(a3);
+			\node at (1,-4) (b1) {b:1};
+			\draw (0)--(f3)--(c3)--(a3)--(b1);
 
-			\node at (6,-0) (r0) {Cond. pattern base of "am": (fc:3)};
-			\node at (6,-2.5) (r0) {Cond. pattern base of "cm": (f:3)};
-			\node at (6,-4.5) (r0) {Cond. pattern base of "cam": (f:3)};
+			\node at (6,-0) (r0) {$am$\textbf{'s conditional pattern base:} fc:3};
+			\node at (6,-2.5) (r0) {$cm$\textbf{'s conditional pattern base:} f:3};
+			\node at (6,-4.5) (r0) {$cam$\textbf{'s conditional pattern base:} f:3};
 
 			\node at (10,1.5) (0) {\textbf{$am$'s conditional FP-tree:}};
 			\node at (10,1) (r0) {$\{\}$};
