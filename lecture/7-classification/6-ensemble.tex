@@ -68,9 +68,10 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{AdaBoost ("Adaptive Boosting" (Freund and Schapire, 1997))}
+\begin{frame}{AdaBoost ("Adaptive Boosting" \footfullcite[Algorithm AdaBoost.M1 on p. 131]{freund1997}, \footfullcite{freund1996})}
+	\vspace*{-.5em}
 	\begin{itemize}
-		\item \textbf{Given a data set $D$ of $d$ class-labeled tuples: $(x_1 , y_1), \ldots, (x_d, y_d)$.} with $y_d \in Y = \{1, \dots, c\}$.
+		\item \textbf{Given a data set $D$ of $d$ class-labeled tuples: $(x_1 , y_1), \ldots, (x_d, y_d)$} with $y_d \in Y = \{1, \dots, c\}$.
 		\item \textbf{Initialize weights for each tuple to the same probability, i. e.: $w_j \leftarrow \frac{1}{d}$.}
 		\item \textbf{Generate $k$ classifiers in $k$ iterations. At iteration $i$,}
 		      \begin{enumerate}
@@ -83,13 +84,13 @@
 		      \end{enumerate}
 		\item \textbf{Obtain classification of AdaBoost using classifier weight $\beta_k$:}
 		      \begin{align*}
-			      \textstyle H(X)= \arg \max_{y\in Y} \sum_{k=1}^K (\log \frac{1}{\beta_k})h_k(X)
+			      \textstyle M(X)= \arg \max_{y\in Y} \sum_{i=1}^k (\log \frac{1}{\beta_i})M_i(X)
 		      \end{align*}
 
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Random Forest (Breiman, 2001)}
+\begin{frame}{Random Forest\footfullcite{breiman2001}}
 	\begin{itemize}
 		\item Ensemble method consisting only of decision trees where each tree has been generated using random selection of attributes at each node.
 		\item Classification: Each tree votes and the most popular class is returned.
