@@ -1,0 +1,55 @@
+\begin{frame}{\vspace*{-2em}Basic Decision Tree Algorithm}\label{algo:decision-tree}
+	\vspace*{-2em}
+	\scriptsize
+	\begin{algorithm}[H]
+		\caption{\texttt{build\_decision\_tree}. Generate a decision tree from training tuples in data partition $D$.}
+		\SetAlgoVlined
+		\begin{multicols}{2}
+			\KwData{
+				\begin{itemize}
+					\item Training dataset $D$ containing tuples with their associated class labels;
+					\item \texttt{attribute\_list}, the set of candidate attributes;
+					\item \texttt{attribute\_selection\_method}, a method to determine the splitting criterion that ``best'' partitions the data tuples into individual classes. The criterion consists of a \texttt{splitting\_attribute}, and possibly, either a \texttt{split\_point} or \texttt{splitting\_subset}.
+				\end{itemize}
+			}
+			\KwResult{A decision tree.}
+			\BlankLine
+			create a node $N$\;
+			\If{tuples in $D$ are all of the same class $C$}{
+				\KwRet{
+					$N$ as a leaf node labeled with the class $C$\;
+				}
+			}
+			\If{\texttt{attribute\_list} is empty}{
+				\tcc{Majority voting}
+				\texttt{majority\_class} $\leftarrow$ determine majority class in $D$\;
+				\KwRet{
+					$N$ as a leaf node labeled with \texttt{majority\_class}\;
+				}
+			}
+			\tcc{apply \texttt{attribute\_selection\_method} to find the ``best'' \texttt{splitting\_criterion}}
+			\texttt{splitting\_criterion} $\leftarrow$ \texttt{attribute\_selection\_method}($D$, \texttt{attribute\_list})\;
+			label node $N$ with \texttt{splitting\_criterion}\;
+
+			\If{(\texttt{splitting\_attribute} is discrete-valued \textbf{and} multiway splits allowed) \textbf{or} attribute value has only one unique value}{
+				\tcp{remove \texttt{splitting\_attribute}}
+				\texttt{attribute\_list} $\leftarrow$ \texttt{attribute\_list} - \texttt{splitting\_attribute}\;
+
+			}
+			\ForEach{outcome $j$ of \texttt{splitting\_criterion}}{
+				\tcc{partition the tuples and grow subtrees for each partition}
+				$D_j$ $\leftarrow$ partition $D$ to satisfy outcome $j$\;
+				\If{$D_j$ is empty}{
+					attach a leaf labeled with the majority class in $D$ to node $N$\;
+				}
+				\Else{
+					attach the node return by \texttt{build\_decision\_tree}($D_j$, \texttt{attribute\_list}) to node $N$\;
+				}
+			}
+			\BlankLine
+			\KwRet{
+				$N$\;
+			}
+		\end{multicols}
+	\end{algorithm}
+\end{frame}
