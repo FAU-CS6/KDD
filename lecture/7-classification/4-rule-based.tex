@@ -18,7 +18,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[c]{Potential Problems of Rule-based Classification}
+\begin{frame}[c]{Potential Problems of Rule-Based Classification}
 	\centering
 	\huge
 	\begin{enumerate}
@@ -66,7 +66,7 @@
 	\end{itemize}
 	\vspace*{1em}
 	\begin{columns}
-		\begin{column}{0.7\textwidth}
+		\begin{column}{0.55\textwidth}
 			\textbf{Example:}
 			\begin{enumerate}
 				\item IF \texttt{age} $\leq$ 30 AND \texttt{student} = "no" \\
@@ -77,7 +77,8 @@
 				\item \dots
 			\end{enumerate}
 		\end{column}
-		\begin{column}{0.3\textwidth}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-1em}
 			\begin{figure}[h]
 				\centering
 				\input{7-classification/tree-example.tex}
@@ -113,7 +114,8 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Sequential Covering Algorithm}
+\begin{frame}{Sequential Covering Algorithm (I)}
+	% REVIEW: This header is a bit confusing after concrete Sequential Covering Algortihms are presented on the previous slide. One wonders which of the algorithms is being outlined here. Since "FOIL_Gain" is mentioned on the next slide, I assume that the algorithm outlined here is supposed to be FOIL. Accordingly, I would then also mention this in the three headers.
 	\begin{itemize}
 		\item \textbf{While (enough target tuples left):}
 		      \begin{itemize}
@@ -157,13 +159,19 @@
 		\draw[fill=airforceblue!20] (6,0) rectangle (0,4) (0,0) node [text=black] {};
 		\node at (3,0.5) (a1) {Negative examples};
 		\node at (-1.5,0.5) (a1) {Positive examples};
-		\draw[fill=yellow!20, opacity=0.5] (-0.7,2.5) ellipse (2 and 1.2) (0,0) node [text=black] {};
-		\node[opacity=0.5] at (-0.7,3) {$A3=1$};
-		\draw[fill=yellow!20, opacity=0.5] (-0.7,2.5) ellipse (1.8 and 1) (0,0) node [text=black] {};
-		\node[opacity=0.5] at (-0.7,2.7) {$A3=1 \&\& A1=2$};
-		\draw[fill=yellow!20, opacity=0.5] (-0.7,2.5) ellipse (1.6 and 0.8) (0,0) node [text=black] {};
-		\node[opacity=0.5] at (-0.7,2.4) {$A3=1 \&\& A1=2$};
-		\node[opacity=0.5] at (-0.7,2.1) {$\&\& A8=5$};
+		\uncover<2->{
+			\draw[fill=yellow!20,fill opacity=0.7] (-0.7,2.5) ellipse (2 and 1.2) (0,0) node [text=black] {};
+			\node at (-0.7,3) {$A3=1$};
+		}
+		\uncover<3->{
+			\draw[fill=yellow!20,fill opacity=0.7] (-0.7,2.5) ellipse (1.8 and 1) (0,0) node [text=black] {};
+			\node at (-0.7,2.7) {$A3=1 \&\& A1=2$};
+		}
+		\uncover<4->{
+			\draw[fill=yellow!20,fill opacity=0.7] (-0.7,2.5) ellipse (1.6 and 0.8) (0,0) node [text=black] {};
+			\node at (-0.7,2.4) {$A3=1 \&\& A1=2$};
+			\node at (-0.7,2.1) {$\&\& A8=5$};
+		}
 	\end{tikzpicture}
 \end{frame}
 
@@ -185,9 +193,9 @@
 		      \begin{itemize}
 			      \item Must consider both coverage and accuracy.
 			      \item \texttt{FOIL\_Gain} (from \texttt{FOIL} - First-Order Inductive Learner):
-			            \begin{align}
+			            \begin{align*}
 				            \text{FOIL\_Gain} = \text{pos}' \left( \log_2 \frac{\text{pos}'}{\text{pos}' + \text{neg}'} - \log_2 \frac{\text{pos}}{\text{pos}+\text{neg}} \right).
-			            \end{align}
+			            \end{align*}
 			      \item Favors rules that have high accuracy and cover many positive tuples.
 		      \end{itemize}
 	\end{itemize}
@@ -202,9 +210,9 @@
 			            assessed on an independent set of test tuples (called "pruning set").
 		      \end{itemize}
 		\item \textbf{FOIL uses:}
-		      \begin{align}
+		      \begin{align*}
 			      \text{FOIL\_Prune}(R) = \frac{\text{pos}-\text{neg}}{\text{pos}+\text{neg}}.
-		      \end{align}
+		      \end{align*}
 		\item If $\text{FOIL\_Prune}$ is higher for the pruned version of $R$, prune $R$.
 	\end{itemize}
 \end{frame}

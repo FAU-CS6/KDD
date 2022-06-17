@@ -54,9 +54,9 @@
 	\begin{itemize}
 		\item \textbf{Given training data $X$, the posteriori probability $P(C_i|X)$\\
 			      of a hypothesis $C_i$ follows from the Bayes' Theorem:}
-		      \begin{align}
+		      \begin{align*}
 			      P(C_i|X) = \frac{P(X|C_i)P(C_i)}{P(X)}.
-		      \end{align}
+		      \end{align*}
 		\item \textbf{Predicts that $X$ belongs to $C_i$ if the probability $P(C_i|X)$\\
 			      is {\color{airforceblue}the highest} among all the $P(C_k|X)$ for all $k$ classes.}
 		\item \textbf{Practical difficulty:}
@@ -73,19 +73,19 @@
 		      \begin{itemize}
 			      \item Each tuple is represented by an $n$-dimensional attribute $X = (x_1,x_2,\ldots,x_n)$.
 		      \end{itemize}
-		\item \textbf{Supose there are $m$ classes $C_1,C_2, \ldots, C_m$.}
+		\item \textbf{Suppose there are $m$ classes $C_1,C_2, \ldots, C_m$.}
 		\item \textbf{Classification is to derive the {\color{airforceblue}maximum posteriori probability}.}
 		      \begin{itemize}
 			      \item i.e. the maximal $P(C_i|X)$.
 		      \end{itemize}
 		\item \textbf{This can be derived from Bayes' Theorem:}
-		      \begin{align}
+		      \begin{align*}
 			      P(C_i|X) = \frac{P(X|C_i)P(C_i)}{P(X)}.
-		      \end{align}
+		      \end{align*}
 		\item \textbf{Since $P(X)$ is constant for all classes, we must maximize only:}
-		      \begin{align}
+		      \begin{align*}
 			      P(X|C_i)P(C_i).
-		      \end{align}
+		      \end{align*}
 	\end{itemize}
 \end{frame}
 
@@ -183,15 +183,15 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Avoiding the Zero-probability Problem}
+\begin{frame}{Avoiding the Zero-Probability Problem}
 	\begin{itemize}
 		\item \textbf{Naïve Bayesian prediction requires each conditional probability to be non-zero.}
 		      \begin{itemize}
 			      \item Otherwise, the predicted probability will be zero.
-			            \begin{align}
+			            \begin{align*}
 				            \resizebox{4cm}{!}{
 					            $P(X|C_i) = \prod_{k=1}^{n} P(x_k|C_i).$}
-			            \end{align}
+			            \end{align*}
 		      \end{itemize}
 		\item \textbf{Example:}
 		      \begin{itemize}
