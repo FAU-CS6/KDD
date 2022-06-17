@@ -46,7 +46,7 @@
 			      \item Credit/loan approval: Will it be paid back?
 			      \item Medical diagnosis: Is a tumor cancerous or benign?
 			      \item Fraud detection: Is a transaction fraudulent or not?
-			      \item Web-page categorization: Which category is it?
+			      \item Web-page categorization: Which category is it such as to categorize it by topic.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -66,7 +66,7 @@
 				            \item The known label of \textbf{test samples} is compared with the result from the model.
 				            \item \textbf{Accuracy rate} is the percentage of test-set samples that are correctly classified by the model.
 				            \item Test set is independent of training set (otherwise overfitting).
-				            \item More on evaluation metrics later in \fullref{class:evaluation}
+				            \item More on evaluation metrics later in \hyperlink{section:evaluation}{\beamergotobutton{section ``Model Evaluation and Selection''}}.
 			            \end{itemize}
 			      \item If the accuracy is acceptable, \textbf{\color{airforceblue}use the model} to classify data tuples whose class labels are not known.
 		      \end{itemize}
@@ -133,13 +133,15 @@
 					draw
 				}
 		]
-		\node[database] (data) at (0,0) {Test data};
+		\node[database] (data) at (0,0) {Testing data};
 		\node[below=2em of data] (data-example) {
 			\begin{tabular}{|l|l|c|c|}
 				\hline
 				\cellcolor{faugray!62}\textbf{\uppercase{name}} & \cellcolor{faugray!62}\textbf{\uppercase{rank}} & \cellcolor{faugray!62}\textbf{\uppercase{years}} & \cellcolor{fauorange!25}\textbf{\uppercase{tenured}} \\\hline
 				Tom                                             & Assistant Prof                                  & 2                                                & {\color{faured}no}                                   \\\hline
-				Merlisa                                         & Associate Prof                                  & 7                                                & {\color{faured}no}                                   \\\hline
+				\cellcolor{fauyellow!25}Merlisa                 & \cellcolor{fauyellow!25}Associate               &
+				\cellcolor{fauyellow!25}7                       & \cellcolor{fauyellow!25}{\color{faured}no}
+				\\\hline
 				George                                          & Professor                                       & 5                                                & {\color{faugreen}yes}                                \\\hline
 				Joseph                                          & Assistant Prof                                  & 7                                                & {\color{faugreen}yes}                                \\\hline
 			\end{tabular}

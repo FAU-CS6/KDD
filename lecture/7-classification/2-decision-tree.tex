@@ -1,14 +1,12 @@
-\section{Decision-Tree Induction}
+\section{Decision Tree Induction}
 
-\begin{frame}{Decision-tree: An Example}
+\begin{frame}{Decision Tree: An Example}
 	\begin{columns}
 		\begin{column}{0.38\textwidth}
 			\vspace{-3cm}
 			\begin{itemize}
-				\item \textbf{Training dataset: buys\_computer.}
-				      \begin{itemize}
-					      \item The dataset follows an example of Quinlan's ID3 (playing tennis).
-				      \end{itemize}
+				\item \textbf{Training dataset: buys\_computer.}\newline
+				      The dataset follows an example of Quinlan's ID3.
 				\item \textbf{Resulting tree:}\\[0.1cm]
 			\end{itemize}
 			\centering
@@ -22,10 +20,10 @@
 \end{frame}
 
 
-\begin{frame}{Decision-Tree}
+\begin{frame}{Decision Tree}
 	\vspace*{-0.6em}
-	\begin{block}{Decision-Tree Induction}
-		\textit{Decision-Tree induction} refers to the learning of a decision-tree based on labeled training data.
+	\begin{block}{Decision Tree Induction}
+		\textit{Decision tree induction} refers to the learning of a decision-tree based on labeled training data.
 	\end{block}
 
 	\begin{block}{Decision Tree}
@@ -42,7 +40,7 @@
 
 		\end{column}
 		\begin{column}{0.55\textwidth}
-			\textbf{Components of a Decision-tree}
+			\textbf{Components of a Decision Tree}
 			\begin{itemize}
 				\item \tikzmark{root} \textbf{Root}: topmost node.
 				\item \tikzmark{internal} \textbf{Internal node}: test on an attribute.
@@ -60,24 +58,28 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Algorithm for Decision-Tree Induction}
+\begin{frame}{Algorithm for Decision Tree Induction (I)}
+	\vspace*{-1em}
 	\begin{columns}
 		\begin{column}{0.75\textwidth}
-			\textbf{Construction in general} follows a greedy algorithm,
-			i. e. nonbacktracking. Thus, it is done in a \textit{top-down recursive in a
-				divide-and-conquer manner}.\\\medskip
+			\textbf{Construction in general} follows a greedy algorithm, i. e. nonbacktracking. Thus, it is done in a \textit{top-down recursive in a divide-and-conquer manner}.\\\medskip
 			\textbf{Input:} data partition $D$, \texttt{attribute\_list}, \texttt{attribute\_selection\_method}.\\\medskip
 
-			\textbf{Algorithm Sketch:}
-			% TODO: This is not really an algorithms. Insert algorithm environment and update following points.
+			\textbf{Algorithm Sketch \texttt{build\_decision\_tree}:}
+			\footnotesize
 			\begin{enumerate}
 				\item Create node $N$.
 				\item Determine splitting attribute $A$ according to the splitting criterion
-				      obtained by applying \texttt{attribute\_selection\_method}.
+				      obtained by applying \texttt{attribute\_selection\_method}.  May also return a \textit{split point} or \textit{splitting subset}.
 				\item Label $N$ with splitting criterion.
-				\item Delete attribute from \texttt{attribute\_list} if attribute is discrete and binary tree construction).
-				\item Partition $D$ accordingly (depends on attribute type, binary tree).
-				\item Grow branches (subtrees, start at 1.) on $N$ for each partition.
+				\item If splitting attribute is discrete-valued and multiway split is allowed, or attribute has only one unique value: Remove attribute from \texttt{attribute\_list}.
+				\item For each outcome of splitting criterion:
+				      \begin{itemize}
+					      \footnotesize
+					      \item Partition $D$ according to outcome of splitting criterion.
+					      \item Grow branches (subtrees, call \texttt{build\_decision\_tree}) on $N$ for each partition.
+				      \end{itemize}
+				\item Return node $N$
 			\end{enumerate}
 
 
@@ -120,28 +122,33 @@
 
 \end{frame}
 
-\begin{frame}{Algorithm for Decision-Tree Induction (cont'd)}
+\begin{frame}{Algorithm for Decision Tree Induction (II)}
 	\textbf{Stopping criteria:}
 	\begin{itemize}
 		\item All samples in $D$ belong to the same class. $N$ becomes a leaf.
 		\item \texttt{attribute\_list} is empty. If multiple classes: use majority class.
 		\item Partition $D$ is empty, thus create leaf with majority class.
 	\end{itemize}
+	\vfill
+	\begin{alertblock}{Decision Tree Algorithm}
+		We merely discussed the gist to build a decision tree. A detailed algorithm to construct a decision tree is covered in the appendix under \hyperlink{algo:decision-tree}{\beamergotobutton{section ``Basic Decision Tree Algorithm''}}, as well as in our reference book\footfullcite[pp. 332 -- 335]{han2011}.
+	\end{alertblock}
 \end{frame}
 
-\begin{frame}{Attribute Selection Measures}
-	\begin{block}{Attribute Selection Measure}
-		An \textit{attribute selection measure} is a heuristic to determine the ``best'' splitting criterion to partition data.
+
+\begin{frame}{Attribute Selection Methods}
+	\begin{block}{Attribute Selection Methods}
+		An \textit{attribute selection method} is a heuristic to determine the ``best'' splitting criterion to partition data.
 	\end{block}
 
 	\begin{itemize}
 		\item Also known as \textit{splitting rules}.
 		\item Provides ranking for each attribute.
-		\item Partition data based on attribute with best score. \textit{Best score} minimize/maximize depends on measure used.
+		\item Partition data based on attribute with best score. \textit{Best score} depends on method used (some seek to minimize whereas others maximize).
 		\item Tree node is labeled with splitting criterion (attribute). Sub tree results from partitions of splitting criterion.
 	\end{itemize}
 
-	Popular mearues include:
+	Popular methods include:
 	\begin{enumerate}
 		\item Information Gain
 		\item Gain Ratio
@@ -149,14 +156,14 @@
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}{Attribute Selection Measures: Information Gain (ID3)}
+\begin{frame}{Attribute Selection Methods: Information Gain (ID3) (I)}
 	\begin{itemize}
 		\item \textbf{Select the attribute with the highest information gain.}
 		\item Partitions reflect least randomness, i. e. impurity.
 		\item \textbf{Expected information} (entropy) needed to classify a tuple in $D$:
-		      \begin{align}
+		      \begin{align*}
 			      \text{Info}(D) = -\sum_{i=1}^{m}p_i \log_2(p_i)
-		      \end{align}
+		      \end{align*}
 
 		      \begin{itemize}
 			      \item $p_i$ is the probability that tuple in $D$ belongs to class $C_i$,\\
@@ -166,7 +173,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Attribute Selection Measures: Information Gain (ID3) (cont'd)}
+\begin{frame}{Attribute Selection Methods: Information Gain (ID3) (II)}
 	Calculate information for every attribute in \texttt{attribute\_list} and data partition $D$:
 	\vspace*{-1.5em}
 	\begin{columns}
@@ -179,9 +186,9 @@
 				\item Attribute $A$ with $v$ distinct values.
 				\item Expected information required to classify tuple in $D$ based on partitioning by $A$:
 			\end{itemize}
-			\begin{align}
+			\begin{align*}
 				\text{Info}_A(D) = \sum_{j=1}^v \frac{|D_j|}{|D|} \text{Info}(D_j)
-			\end{align}
+			\end{align*}
 		\end{column}
 
 		\begin{column}{0.5\textwidth}
@@ -202,9 +209,9 @@
 	\end{columns}
 	\vspace*{1.5em}
 	Given $\text{Info}_A(D)$ and $\text{Info}_A(D)$, Information Gain is defines as:
-	\begin{align}
+	\begin{align*}
 		\text{Gain}(A) = \text{Info}(D) - \text{Info}_A(D)
-	\end{align}
+	\end{align*}
 \end{frame}
 
 \begin{frame}{Example: Information Gain}
@@ -245,10 +252,12 @@
 				}
 			\end{align*}
 			$\frac{5}{14} I(2,3)$ means "$\texttt{age} \leq 30$" has $5$ out of $14$ samples, with $2$ yes'es and $3$ no's. Hence,
+			\vspace*{-.5em}
 			\begin{align*}
 				\text{Gain}(\texttt{age}) = \text{Info}(D)-\text{Info}_{\texttt{age}}(D) = 0.246.
 			\end{align*}
 
+			\vspace*{-.5em}
 			\resizebox{6cm}{!}{%
 				\centering
 				\input{7-classification/table-example.tex}
@@ -259,60 +268,95 @@
 
 \begin{frame}{Partitioning in the Example}
 	\centering
-	\begin{tikzpicture}
-		\node[rounded corners=0.25em,draw, fill=faugray!62] at (0,0) (r) {age?};
-		\node[rounded corners=0.25em,draw] at (-2,-1) (a) {$\leq 30$};
-		\node[rounded corners=0.25em,draw] at (0,-1) (b) {$31\ldots40$};
-		\node[rounded corners=0.25em,draw] at (2,-1) (c) {$>40$};
-		\draw (r)--(a);
-		\draw (r)--(b);
-		\draw (r)--(c);
-		\node at (-4,-3) (t1) {
-			\begin{tabular}{|l|l|l|l|}
-				\hline
-				\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
-				\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faured}no}                 \\\hline
-				\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faured}no}                 \\\hline
-				\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
-			\end{tabular}
+	% REVIEW: PICTURE-NOT-IN-FRAME
+	\begin{tikzpicture}[
+			overlay,
+			remember picture,
+			>=latex,
+			thick,
+			node/.style={
+					draw=faugray,
+					rounded corners=.25em,
+					fill=faugray!62,
+					text depth=0.2em
+				},
+			leaf/.style={
+					draw,
+					rounded corners=.7em,
+					text depth=0.2em
+				},
+			branch/.style={
+					fill=white,
+					font=\ttfamily\scriptsize,
+					rounded corners=.7em,
+					text depth=0.2em
+				}
+		]
+		\node[node] at (0,0) (age) {age?};
+
+		\node[draw=none,below left=3em and 1.5em of age,text width=3.8em] (student) {};
+		\node[draw=none,below right=3em and .6em of age,text width=6em] (credit-rating) {};
+
+		\draw[rounded corners=5pt]
+		(age.south) -- ($(age.south) + (0,-1em)$) --
+		($(student.north) + (0,2em)$) -- (student.north);
+		\node[branch,above=2em of student.north] {$\leq$30};
+
+		\path[draw,rounded corners=5pt]
+		(age.south) -- ($(age.south) + (0,-1em)$) --
+		($(credit-rating.north) + (0,2em)$) -- (credit-rating.north);
+		\node[branch,above=2em of credit-rating.north] {>40};
+		\node at (-4,-2.4) (t1) {
+			\resizebox{6.5cm}{!}{%
+				\begin{tabular}{|l|l|l|l|}
+					\hline
+					\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
+					\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faured}no}                 \\\hline
+					\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faured}no}                 \\\hline
+					\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
+				\end{tabular}
+			}
 		};
-		\node at (-2.5,-5.2) (t3) {
-			\begin{tabular}{|l|l|l|l|}
-				\hline
-				\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
-				\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}high        & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-			\end{tabular}
+		\node[below=10.5em of age] (t3) {
+			\resizebox{6.5cm}{!}{%
+				\begin{tabular}{|l|l|l|l|}
+					\hline
+					\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
+					\cellcolor{white}high        & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}high        & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+				\end{tabular}
+			}
 		};
-		\node at (2.8,-3.8) (t2) {
-			\begin{tabular}{|l|l|l|l|}
-				\hline
-				\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
-				\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
-			\end{tabular}
+		\draw (age.south) -- (t3.north);
+		\node[branch,below=3em of age.north] {31\dots 40};
+		\node at (4,-2.4) (t2) {
+			\resizebox{6.5cm}{!}{%
+				\begin{tabular}{|l|l|l|l|}
+					\hline
+					\cellcolor{faugray!62}income & \cellcolor{faugray!62}student & \cellcolor{faugray!62}credit\_rating & \cellcolor{brown!20}buys\_computer \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}low         & \cellcolor{white}yes          & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}yes          & \cellcolor{white}fair                & {\color{faugreen}yes}              \\\hline
+					\cellcolor{white}medium      & \cellcolor{white}no           & \cellcolor{white}excellent           & {\color{faured}no}                 \\\hline
+				\end{tabular}
+			}
 		};
-		\draw (a)--(t1);
-		\draw (c)--(t2);
-		\draw (b)--(t3);
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Attribute Selection Measure: Gain Ratio (C4.5)}
+\begin{frame}{Attribute Selection Methods: Gain Ratio (C4.5)}
 	\begin{itemize}
-		\item Extension to Information Gain as this measure is biased towards attributes with large amount of values.
+		\item Extension to Information Gain as this method is biased towards attributes with large amount of values.
 		\item \textbf{C4.5 (a successor of ID3) uses gain ratio to overcome the problem (normalization to information gain):}
-		      \begin{align}
+		      \begin{align*}
 			      \text{SplitInfo}_A(D) = - \sum_{j=1}^{v} \frac{|D_j|}{|D|} \log_2\left( \frac{|D_j|}{|D|} \right), \\
 			      \text{GainRatio}(A) = \frac{\text{Gain}(A)}{\text{SplitInfo}_A(D)}.
-		      \end{align}
+		      \end{align*}
 
 		\item The attribute with the maximum gain ratio is selected as the splitting attribute.
 		\item \textbf{Disadvantage:} Becomes unstable as $\text{SplitInfo}_A(D)$
@@ -345,6 +389,7 @@
 \end{frame}
 
 \begin{frame}{Gini Index (II)} % TODO: plot anpassen, sodass cumulative income nur steigt und nie faellt
+	% TODO: Mark the areas between the curves and the diagonal line. After all, the Gini Index and thus also this image is exactly about this area. This should be recognizable in a Gini Index image.
 	\centering
 	Example: Distribution of incomes.\\[0.5cm]
 	\begin{tikzpicture}
@@ -368,19 +413,19 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner)}
+\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (I)}
 	\begin{itemize}
 		\item Measured impurity of partition $D$ is defined as the sum over $n$ classes:
-		      \begin{align}
+		      \begin{align*}
 			      \text{Gini}(D) = 1-\sum_{j=1}^{n} p_j^2,
-		      \end{align}
+		      \end{align*}
 		      where $p_j$ is the non-zero probability that sample in $D$ belongs to class $C_j$ as estimated by $\frac{|C_{j,D}|}{|D|}$
 		\item If \textbf{attribute $A$ is discrete-valued} with $v$ distinct values
 		      compute all possible subsets of values $2^v - 2$. Compute weighted sum of
 		      each partition tuble ($D_1$ and $D_2$) as follows:
-		      \begin{align}
+		      \begin{align*}
 			      \text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2).
-		      \end{align}
+		      \end{align*}
 		\item If \textbf{attribute $A$ is continuous-valued} proceed similarly as in
 		      calculating Information Gain for continuous-valued attributes (order values,
 		      calculate midpoint of value pairs) and then calculate $\text{Gini}_A(D)$ for
@@ -388,13 +433,13 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (cont'd)}
+\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (II)}
 	\begin{itemize}
 		\item Gini Index as the \textbf{reduction in impurity} is then given as
 		      follows:
-		      \begin{align}
+		      \begin{align*}
 			      \Delta\text{Gini}_A(D) = \text{Gini}(D)-\text{Gini}_A(D).
-		      \end{align}
+		      \end{align*}
 		\item Attribute with minimum Gini Index is used as the splitting attribute.
 	\end{itemize}
 
@@ -403,17 +448,17 @@
 \begin{frame}{Example: Gini Index (I)}
 	\begin{itemize}
 		\item $D$ has $9$ tuples in $\text{buys\_computer} =$ "yes" and 5 in "no", thus
-		      \begin{align}
+		      \begin{align*}
 			      \text{Gini}(D) = 1 - \left( \frac{9}{14} \right)^2 - \left( \frac{5}{14} \right)^2 = 0.459.
-		      \end{align}
+		      \end{align*}
 		\item Suppose the attribute $\texttt{income}$ partitions $D$ \\ into $10$ in
 		      $D_1:\{\texttt{low,medium}\}$ and $4$ in $D_2: \{\texttt{high}\}$:
-		      \begin{align}
+		      \begin{align*}
 			       & \text{Gini}(D\vert_{D[\texttt{income}]="medium", "low"})                                                                                                                                   \\
 			       & = \frac{10}{14} \text{Gini}(D_1) + \frac{4}{14} \text{Gini}(D_2)                                                                                                                           \\
 			       & =\frac{10}{14} \left(1-\left( \frac{7}{10} \right)^2 - \left( \frac{3}{10} \right)^2 \right) + \frac{4}{14} \left( 1-\left( \frac{2}{4} \right)^2 - \left( \frac{2}{4} \right)^2 \right) = \\
 			       & = 0.443 = \text{gini}(D\vert_{D[\texttt{income}]="high"}).
-		      \end{align}
+		      \end{align*}
 	\end{itemize}
 \end{frame}
 
@@ -425,8 +470,8 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Attribute Selection Measures Overview}
-	\textbf{The three measures, in general, return good results, but}
+\begin{frame}{Attribute Selection Methods Overview}
+	\textbf{The three methods, in general, return good results, but}
 	\begin{itemize}
 		\item \textbf{\color{airforceblue}Information gain:}
 		      \begin{itemize}
@@ -445,15 +490,15 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Other Attribute-selection Measures}
+\begin{frame}{Other Attribute Selection Methods}
 	\begin{itemize}
 		\item \textbf{CHAID:}
 		      \begin{itemize}
-			      \item A popular decision-tree algorithm, measure based on $\chi^2$ test for independence.
+			      \item A popular decision tree algorithm, measure based on $\chi^2$ test for independence.
 		      \end{itemize}
 		\item \textbf{C-SEP:}
 		      \begin{itemize}
-			      \item Performs better than information gain and Gini index in certain cases.
+			      \item Performs better than Information Gain and Gini Index in certain cases.
 		      \end{itemize}
 		\item \textbf{G-statistic:}
 		      \begin{itemize}
@@ -469,7 +514,7 @@
 			      \item Partitioning based on multiple variable combinations.
 			      \item CART: finds multivariate splits based on a linear combination of attributes.
 		      \end{itemize}
-		\item \textbf{Which attribute-selection measure is the best?}
+		\item \textbf{Which Attribute Selection Method is the best?}
 		      \begin{itemize}
 			      \item Most give good results, none is significantly superior to others.
 		      \end{itemize}
@@ -503,7 +548,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Enhancements to Basic Decision-Tree Induction}
+\begin{frame}{Enhancements to Basic Decision Tree Induction}
 	\begin{itemize}
 		\item \textbf{Allow for} \textbf{\color{airforceblue}continuous-valued attributes.}
 		      \begin{itemize}
@@ -529,14 +574,14 @@
 		      \begin{itemize}
 			      \item Classifying datasets with millions of examples and \\ hundreds of attributes with reasonable speed.
 		      \end{itemize}
-		\item \textbf{Why is decision-tree induction popular?}
+		\item \textbf{Why is decision tree induction popular?}
 		      \begin{itemize}
 			      \item Relatively fast learning speed (compared to other classification methods).
 			      \item Convertible to simple and easy-to-understand classification rules.
 			      \item Can use SQL queries for accessing databases.
 			      \item Classification accuracy comparable with other methods.
 		      \end{itemize}
-		\item Two scalable methods:
+		\item Two scalable methods, among others:
 		      \begin{enumerate}
 			      \item RainForest
 			      \item BOAT
