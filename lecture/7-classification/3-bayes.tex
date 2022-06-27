@@ -50,7 +50,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Bayes' Theorem (II)}
+\begin{frame}{Bayes' Theorem: Basics (II)}
 	\begin{itemize}
 		\item \textbf{Given training data $X$, the posteriori probability $P(C_i|X)$\\
 			      of a hypothesis $C_i$ follows from the Bayes' Theorem:}
@@ -118,7 +118,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Naïve Bayesian Cellcolormake Dataset}
+\begin{frame}{Naïve Bayesian Dataset}
 	\begin{columns}
 		\begin{column}{0.4\textwidth}
 			\vspace{-2cm}
@@ -147,13 +147,13 @@
 
 \begin{frame}{Naïve Bayesian Classifier: An Example}
 	\begin{itemize}
-		\item $P(C_i)$:
+		\item Prior probability $P(C_i)$:
 		      \begin{itemize}
 			      \item $P(\texttt{buys\_computer} = "yes") = \frac{9}{14} = 0.643$.
 			      \item $P(\texttt{buys\_computer} = "no") = \frac{5}{14} = 0.357$.
 		      \end{itemize}
-		\item $X = (\texttt{age} \leq 30 , \texttt{income} = "medium", \texttt{student} = "yes", \texttt{credit\_rating} = "fair")$.
-		\item \textbf{Compute $P(X|C_i)$ for each class:}
+		\item New tuple $X = (\texttt{age} \leq 30 , \texttt{income} = "medium", \texttt{student} = "yes", \texttt{credit\_rating} = "fair")$.
+		\item \textbf{Compute likelihood $P(X|C_i)$ for each class:}
 		      \begin{itemize}
 			      \item $P(\texttt{age} \leq 30 | \texttt{buys\_computer} = "yes") = \frac{2}{9} = 0.222$.
 			      \item $P(\texttt{age} \leq 30 | \texttt{buys\_computer} = "no") = \frac{3}{5} = 0.6$.
@@ -169,17 +169,18 @@
 
 \begin{frame}{Naïve Bayesian Classifier: An Example (II)}
 	\begin{itemize}
-		\item $P(C_i)$:
+		\item Compute likelihood $P(X|C_i)$ for this new tuple $X$:
 		      \begin{itemize}
+			      \item Recall: $P(X|C_i) = \prod_{k=1}^{n} P(x_k|C_i) = P(x_1|C_i)P(x_2|C_i)\cdots P(x_n|C_i).$
 			      \item $P(X | \texttt{buys\_computer} = "yes") = 0.222 \cdot 0.444 \cdot 0.556 \cdot 0.667 = 0.037$.
 			      \item $P(X | \texttt{buys\_computer} = "no") = 0.6 \cdot 0.4 \cdot 0.2 \cdot 0.4 = 0.019$.
 		      \end{itemize}
-		\item $P(X | C_i) \cdot P(C_i)$:
+		\item Compute $P(X | C_i) \cdot P(C_i)$ for each class outcome:
 		      \begin{itemize}
 			      \item $P(X | \texttt{buys\_computer} = "yes") \cdot  P(\texttt{buys\_computer} = "yes") = 0.024$.
 			      \item $P(X | \texttt{buys\_computer} = "no") \cdot  P(\texttt{buys\_computer} = "no") = 0.007$.
 		      \end{itemize}
-		\item \textbf{Therefore, $X$ belongs to class $C_1$ (\texttt{buys\_computer} = "yes")}.
+		\item \textbf{Therefore, $X$ belongs to class $C_1$ (\texttt{buys\_computer} = "yes") with probability of 2.4\%}.
 	\end{itemize}
 \end{frame}
 
@@ -205,6 +206,7 @@
 				            \item $P(\texttt{income} = "medium") = \frac{991}{1003}$.
 				            \item $P(\texttt{income} = "high") = \frac{11}{1003}$.
 			            \end{itemize}
+			      \item Additionally, add 1 to \textit{each} other attribute and value combination as well!
 			      \item The "corrected" probability estimates are close to their "uncorrected" counterparts.
 		      \end{itemize}
 	\end{itemize}

@@ -76,7 +76,7 @@
 
 \begin{frame}{Confusion Matrix and Evaluation Metrics (III)}
 	\textbf{F-Measure}: Combines precision and recall in one single measure.
-
+	\vspace*{-1em}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\begin{center}
@@ -104,6 +104,8 @@
 			\begin{itemize}
 				\item Weighted measure.
 				\item Gives $\beta$-times more weight to precision.
+				\item $\beta > 1$: More weight on precision. E.g. important to minimize false positives.
+				\item $\beta < 1$: More weight on recall. E.g. important to minimize false negatives.
 			\end{itemize}
 		\end{column}
 	\end{columns}
@@ -249,7 +251,7 @@
 			      \item $t$-test computes $t$-statistic with $k-1$ degrees of freedom:
 			            \begin{align*}
 				            \resizebox{3cm}{!}{%
-					            $t = \frac{\overline{\text{err}}(M_1)- \overline{\text{err}}(M_2)}{\sqrt{\frac{\text{var}(M_1-M_2)}{k}}},$}
+					            $t = \frac{\overline{\text{err}}(M_1)- \overline{\text{err}}(M_2)}{\frac{\text{var}(M_1-M_2)}{\sqrt{k}}},$}
 			            \end{align*}
 			      \item where
 			            \begin{align*}
