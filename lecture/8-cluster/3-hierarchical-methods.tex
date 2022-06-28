@@ -57,7 +57,7 @@
 
 \begin{frame}{AGNES (Agglomerative Nesting)}
 	\begin{itemize}
-		\item \textbf{Introduced in (Kaufmann \& Rousseeuw, 1990)}
+		\item \textbf{Introduced by Kaufman et al.\footfullcite{kaufman1990}}
 		\item \textbf{Use the single-link method.} (see below)
 		\item \textbf{Merge nodes that have the least dissimilarity.}
 		\item \textbf{Go on in a non-descending fashion.}
@@ -178,7 +178,7 @@
 
 \begin{frame}{DIANA (Divisive Analysis)}
 	\begin{itemize}
-		\item \textbf{Introduced in (Kaufmann \& Rousseeuw, 1990)}
+		\item \textbf{Introduced by Kaufman et al.\footfullcite{kaufman1990}}
 		\item \textbf{Inverse order of AGNES.}
 		\item \textbf{Eventually each node forms a cluster of its own.}
 	\end{itemize}
@@ -348,17 +348,16 @@
 		\item \textbf{Integration of hierarchical and distance-based
 			      clustering:}
 		      \begin{itemize}
-			      \item BIRCH (1996): Uses CF-tree and incrementally adjusts the
+			      \item BIRCH: Uses CF-tree and incrementally adjusts the
 			            quality of sub-clusters.
-			      \item CHAMELEON (1999): Hierarchical clustering using dynamic
+			      \item CHAMELEON: Hierarchical clustering using dynamic
 			            modeling.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{BIRCH (Balanced Iterative Reducing and Clustering Using
-		Hierarchies)}
-	(Zhang, Ramakrishnan \& Livny, SIGMOD'96)
+		Hierarchies)\footfullcite{zhang1996}}
 
 	\textbf{Incrementally construct a CF (Clustering Feature) tree:}
 	\begin{itemize}
@@ -556,9 +555,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{CHAMELEON: Hierarchical Clustering using Dynamic Modeling}
-
-	(Karypis, Han \& Kumar, 1999)
+\begin{frame}{CHAMELEON: Hierarchical Clustering using Dynamic Modeling\footfullcite{karypis1999}}
 	\begin{itemize}
 		\item \textbf{Measures the similarity based on a dynamic model:}
 		      \begin{itemize}
