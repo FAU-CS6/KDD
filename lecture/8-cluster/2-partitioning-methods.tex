@@ -18,13 +18,12 @@
 		      \begin{itemize}
 			      \item Globally optimal: exhaustively enumerate all partitions.
 			      \item Heuristic methods: k-means and k-medoids algorithms.
-			      \item \textbf{\color{airforceblue}k-means} (MacQueen'67,
-			            Lloyd'57/'82):
+			      \item \textbf{\color{airforceblue}k-means}\footfullcite{macqueen1967}:
 			            \begin{itemize}
 				            \item Each cluster is represented by the center of the cluster.
 			            \end{itemize}
 			      \item \textbf{\color{airforceblue}k-medoids} or PAM (Partition
-			            around medoids) (Kaufman \& Rousseeuw'87):
+			            around medoids)\footfullcite{kaufman1990}:
 			            \begin{itemize}
 				            \item Each cluster is represented by one of the objects in the
 				                  cluster.
@@ -246,8 +245,7 @@
 			            \end{itemize}
 			      \item Need to specify $k$, the number of clusters, in advance.
 			            \begin{itemize}
-				            \item There are ways to automatically determine the best $k$
-				                  (see Hastie et al., 2009).
+				            \item There are ways to automatically determine the best $k$\footfullcite{hastie2009}.
 			            \end{itemize}
 			      \item Sensitive to noisy data and outliers.
 			      \item Not suitable to discover clusters with non-convex shapes.
@@ -348,9 +346,8 @@
 	\begin{itemize}
 		\item \textbf{$k$-medoids clustering:}
 		      \begin{itemize}
-			      \item Find representative objects ( \textbf{\color{airforceblue}medoids}) in clusters.
-			      \item \textbf{PAM} (Partitioning Around Medoids, Kaufmann \&
-			            Rousseeuw, 1987):
+			      \item Find representative objects (\textbf{\color{airforceblue}medoids}) in clusters.
+			      \item \textbf{PAM}:
 			            \begin{itemize}
 				            \item Starts from an initial set of $k$ medoids and iteratively
 				                  replaces one of the medoids \\
@@ -363,8 +360,8 @@
 		      \end{itemize}
 		\item \textbf{Efficiency improvement on PAM:}
 		      \begin{itemize}
-			      \item CLARA (Kaufmann \& Rousseeuw, 1990): PAM on samples.
-			      \item CLARANS (Ng \& Han, 1994): Randomized re-sampling.
+			      \item CLARA\footfullcite{kaufman1990}: PAM on samples.
+			      \item CLARANS\footfullcite{ng1994}: Randomized re-sampling.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -726,7 +723,6 @@
 
 \begin{frame}{CLARA (Clustering Large Applications)}
 	\begin{itemize}
-		\item \textbf{(Kaufmann and Rousseeuw, 1990)}
 		\item \textbf{Draws multiple samples of the data set, applies PAM on
 			      each sample,\\
 			      and gives the best clustering as the output.}
@@ -746,8 +742,7 @@
 
 \begin{frame}{CLARANS ("Randomized" CLARA)}
 	\begin{itemize}
-		\item \textbf{A Clustering Algorithm based on Randomized Search} (Ng \&
-		      Han, 1994)
+		\item \textbf{A Clustering Algorithm based on Randomized Search}
 		\item \textbf{Samples:}
 		      \begin{itemize}
 			      \item Drawn dynamically with some randomness in each step of the
@@ -766,6 +761,6 @@
 		      \end{itemize}
 		\item \textbf{More efficient and scalable than both PAM and CLARA.}
 		\item \textbf{Focusing techniques and spatial access structures may
-			      further improve its performance.} (Ester et al., 1995)
+			      further improve its performance.}\footfullcite{ester1995}
 	\end{itemize}
 \end{frame}
