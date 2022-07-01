@@ -93,3 +93,8 @@
 
 \usepackage{cleveref}
 \newcommand*{\fullref}[1]{\underline{\hyperref[{#1}]{\cref{#1} (\nameref*{#1})}}}
+
+% Reduce the spacing in the footnotes
+% (Especially targeted at our \footfullcite)
+\setlength{\skip\footins}{0.2cm}
+\setlength{\footnotesep}{0.1cm}
