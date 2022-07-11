@@ -2,7 +2,7 @@
 
 \begin{frame}{Ensemble Methods}
 	\begin{block}{Ensemble Method}
-		An \textit{Ensemble Method} is a composite model that consits of several models such as to form one model.
+		An \textit{ensemble method} creates a composite model that consists of several models such as to form one model.
 	\end{block}
 	\begin{itemize}
 		\item Most of the time \textit{weak} learners are combined to mitigate their respective individual shortcomings.
@@ -28,7 +28,7 @@
 			      \item Given a set $D$ of d tuples, at each iteration $i$, a training set $D_i$ of $d$ tuples is sampled with replacement from $D$ (i.e., bootstrap).
 			      \item A classifier model $M_i$ is learned for each training set $D_i$.
 		      \end{itemize}
-		\item \textbf{Predicton in the case of classification: classify an unknown sample $X$.}
+		\item \textbf{Prediction in the case of classification: classify an unknown sample $X$.}
 		      \begin{itemize}
 			      \item Each classifier $M_i$ returns its class prediction.
 			      \item The bagged classifier $M^*$ counts the votes and assigns the class with the most votes to $X$.
@@ -45,6 +45,7 @@
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
+
 
 \begin{frame}{Boosting}
 	\begin{itemize}
@@ -68,28 +69,46 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{AdaBoost ("Adaptive Boosting" (Freund and Schapire, 1997))}
+
+\begin{frame}{AdaBoost ("Adaptive Boosting" \footfullcite[Algorithm AdaBoost.M1 on p. 131]{freund1997}): Training}
+	\vspace*{-1em}
 	\begin{itemize}
-		\item \textbf{Given a data set $D$ of $d$ class-labeled tuples: $(x_1 , y_1), \ldots, (x_d, y_d)$.} with $y_d \in Y = \{1, \dots, c\}$.
-		\item \textbf{Initialize weights for each tuple to the same probability, i. e.: $w_j \leftarrow \frac{1}{d}$.}
+		\item \textbf{Given a data set $D$ of $d$ class-labeled tuples: $(x_1 , y_1), \ldots, (x_d, y_d)$} with $y_d \in Y = \{1, \dots, c\}$.
+		\item \textbf{Initialize emtpy lists to hold information per classifier:} $\textbf{w}, \boldsymbol{\beta}, \textbf{M} \leftarrow $ empty list.
+		\item \textbf{Initialize weights for first classifier to hold same probability for each tuple:} $w_i^1 \leftarrow \frac{1}{d}$
 		\item \textbf{Generate $k$ classifiers in $k$ iterations. At iteration $i$,}
 		      \begin{enumerate}
+			      \item Calculate ``normalized'' weights: $p^i = \frac{\textbf{w}^i}{\sum_{j=1}^N w_j^i}$
 			      \item Sample dataset with replacement according to previously assigned weights to form training set $D_i$.
 			      \item Derive classification model $M_i$ from $D_i$.
-			      \item Calculate error by using $D_i$ as a test set as follows: $\text{error}(M_i) = \sum_{j=1}^{d} w_j \cdot \text{err}(x_j)$.\\
+			      \item Calculate error by using $D_i$ as a test set as follows: $\varepsilon_i = \text{error}(M_i) = \sum_{j=1}^{d} w_j \cdot \text{err}(x_j)$.\\
 			            $\text{err}(x_j)$ refers to the missclassification error on tuple $x_j$. If missclassified $\text{err}(x_j)=1$, else $0$.
-			      \item If $\text{error}(M_i)>0.5$: abandon this classifier and go back to step 1.
-			      \item Update weights: If a tuple has been correctly classified, multiply its weight by calculating $\beta_k = \frac{\text{error}(M_i)}{1-\text{error}(M_i)}$ and then z-normalize. \textit{If a tuple is misclassified, its weight is increased, otherwise it is decreased.}
+			      \item If $\text{error}(M_i)>0.5$: Abandon this classifier and go back to step 1.
+			      \item Calculate $\beta_i = \frac{\varepsilon_i}{1 - \varepsilon_i}$.
+			      \item Update weights for next iteration: If a tuple has been correctly classified, multiply its ``normalized'' weight with $\beta_i$:  $w^{i+1}_i=w^i_j \beta^{1-\text{err}(x_j)}_i$. \textit{If a tuple is misclassified, its weight is increased, otherwise it is decreased.}
+			      \item Add $w^{i+1}$, $M_i$, and $\beta_i$ to their respective lists.
 		      \end{enumerate}
-		\item \textbf{Obtain classification of AdaBoost using classifier weight $\beta_k$:}
-		      \begin{align}
-			      \textstyle H(X)= \arg \max_{y\in Y} \sum_{k=1}^K (\log \frac{1}{\beta_k})h_k(X)
-		      \end{align}
-
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Random Forest (Breiman, 2001)}
+\begin{frame}{AdaBoost ("Adaptive Boosting" \footfullcite[Algorithm AdaBoost.M1 on p. 131]{freund1997}): Prediction}
+	\begin{itemize}
+		\item \textbf{Initialize weight of each class to zero.}
+		\item \textbf{For each classifier $i$ in $k$ classifiers:}
+		      \begin{enumerate}
+			      \item Calculate the weight of this classifier's vote: $w_i = \log(\frac{1}{\beta_i})$.
+			      \item Get class prediction $c$ for (single) tuple $x$ from current weak classifier $M_i$: $c = M_i(x)$.
+			      \item Add $w_i$ to weight for class $c$.
+		      \end{enumerate}
+		\item \textbf{Return predicted class with the largest weight.}
+		\item Mathematically, this can be formulated as:
+		      \begin{align*}
+			      \textstyle M(x)= \arg \max_{y\in Y} \sum_{i=1}^k (\log \frac{1}{\beta_i})M_i(x)
+		      \end{align*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Random Forest\footfullcite{breiman2001}}
 	\begin{itemize}
 		\item Ensemble method consisting only of decision trees where each tree has been generated using random selection of attributes at each node.
 		\item Classification: Each tree votes and the most popular class is returned.

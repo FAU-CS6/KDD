@@ -252,13 +252,12 @@
 				            \centering
 				            \begin{tabular}{|l|c|c|c|}
 					            \hline
-					                     & $d_1$     & $d_2$     & $d_3$
-					            \\\hline
-					            $\mu$    & $13$      & $6.5$     & $3$
-					            \\\hline
-					            $\sigma$ & $8.79394$ & $1.73205$ &
-					            $2$
-					            \\\hline
+					                     & $d_1$       & $d_2$      & $d_3$ \\
+					            \hline
+					            $\mu$    & $13.000000$ & $6.500000$ & $2.0$ \\
+					            \hline
+					            $\sigma$ & $8.793937$  & $1.732051$ & $2.0$ \\
+					            \hline
 				            \end{tabular}
 			            \end{center}
 			            \vspace{3mm}
@@ -268,15 +267,15 @@
 				            \centering
 				            \begin{tabular}{|c|c|c|}
 					            \hline
-					            $d_1$      & $d_2$      & $d_3$
+					            $d_1$       & $d_2$       & $d_3$
 					            \\\hline
-					            $+1,13715$ & $-0,28868$ & $-1$
+					            $+1.137147$ & $-0.288675$ & $-0.5$
 					            \\\hline
-					            $-0,45486$ & $+1,44338$ & $+1$
+					            $-0.454859$ & $+1.443376$ & $+1.5$
 					            \\\hline
-					            $+0,45486$ & $-0,86603$ & $-1$
+					            $+0.454859$ & $-0.866025$ & $-0.5$
 					            \\\hline
-					            $-1,13715$ & $-0,28868$ & $-1$
+					            $-1.137147$ & $-0.288675$ & $-0.5$
 					            \\\hline
 				            \end{tabular}
 			            \end{center}
@@ -319,16 +318,13 @@
 				            \centering
 				            \begin{tabular}{|l|c|c|c|}
 					            \hline
-					                  & $d_1$      & $d_2$      & $d_3$
+					                  & $d_1$       & $d_2$       & $d_3$
 					            \\\hline
-					            $d_1$ & $+0.75000$ & $-0.35015$ &
-					            $-0.30324$
+					            $d_1$ & $+1.000000$ & $-0.350150$ & $-0.303239$
 					            \\\hline
-					            $d_2$ & $-0.35015$ & $+0.75000$ &
-					            $+0.96225$
+					            $d_2$ & $-0.350150$ & $+1.000000$ & $+0.962250$
 					            \\\hline
-					            $d_3$ & $-0.30324$ & $+0.96225$ &
-					            $+0.75000$
+					            $d_3$ & $-0.303239$ & $+0.962250$ & $+1.000000$
 					            \\\hline
 				            \end{tabular}
 			            \end{center}
@@ -368,17 +364,17 @@
 		      \begin{itemize}
 			      \item Eigenvalues and eigenvectors in our example: \\
 			            \begin{align*}
-				            \lambda_1 = -0,21354,
-				            \nu_1 = \begin{bmatrix} -0,05553 \\ -1,01884 \\ +1 \end{bmatrix}
+				            \lambda_1 = +2.14823654,
+				            \nu_1 = \begin{bmatrix} +0.37342507 \\ -0.92684562 \\ -0.03887043 \end{bmatrix}
 				            \\
-				            \lambda_2 = +0,56530,
-				            \nu_2 = \begin{bmatrix} +3,17456 \\ +0,80847 \\ +1 \end{bmatrix}
+				            \lambda_2 = +0.81530433,
+				            \nu_2 = \begin{bmatrix} -0.66009198 \\ -0.23604255 \\ -0.71313568 \end{bmatrix}
 				            \\
-				            \lambda_3 = +1,89823,
-				            \nu_3 = \begin{bmatrix} -0,57292 \\ +1,01273 \\ +1 \end{bmatrix}
+				            \lambda_3 = +0.03645914,
+				            \nu_3 = \begin{bmatrix} -0.6517916 \\ -0.2919608 \\ +0.69994757 \end{bmatrix}
 			            \end{align*}
 			      \item Sorting these three eigenvectors by their significance, we
-			            arrive at the order $\nu_3$, $\nu_2$, $\nu_1$
+			            arrive at the order $\nu_1$, $\nu_2$, $\nu_3$
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -408,16 +404,16 @@
 	\begin{itemize}
 		\item \textbf{Example:}
 		      \begin{itemize}
-			      \item In our example $\nu_3$ carries approx. $71\%$ of the
+			      \item In our example $\nu_1$ carries approx. $72\%$ of the
 			            information: \\
 			            \begin{align*}
-				            \frac{1,89823}{1,89823+0,5653+0,21354} = 0,70906
+				            \frac{2.14823654}{2.14823654+2.14823654+0.03645914} = 0.71607885
 			            \end{align*}
-			      \item It might be interesting to keep only the eigenvector $\nu_3$
+			      \item It might be interesting to keep only the eigenvector $\nu_1$
 			            and discard the other two eigenvectors. Our feature matrix
 			            therefore looks as follows:
 			            \begin{align*}
-				            \begin{bmatrix} -0,57292 \\ +1,01273 \\ +1\end{bmatrix}
+				            \begin{bmatrix} +0.37342507 \\ -0.92684562 \\ -0.03887043 \end{bmatrix}
 			            \end{align*}
 		      \end{itemize}
 	\end{itemize}
@@ -449,11 +445,11 @@
 			      \item Our dataset after the transformation and with the PCA
 			            completed looks like this: \\
 			            \begin{align*}
-				            \begin{bmatrix} -6,10078 \\ +8,95829 \\ -3,67599 \\ +5,35762
+				            \begin{bmatrix} +0.711632 \\ -1.565948 \\ +0.991963 \\ -0.137647
 				            \end{bmatrix}
 			            \end{align*}
 			      \item It is to be expected that this dataset still contains about
-			            $71\%$ of its original information, which can be
+			            $72\%$ of its original information, which can be
 			            further used for data mining, while having to deal with
 			            a lot less dimensions.
 		      \end{itemize}

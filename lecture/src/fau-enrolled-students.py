@@ -27,7 +27,7 @@ def main():
         rows=5,
         values=[int(n / 500) for n in data["Students"].tolist()],
         colors=data["Color"].tolist(),
-        icons="male",
+        icons="person",
         block_arranging_style="snake",
         interval_ratio_x=0.1,
         interval_ratio_y=0.2,

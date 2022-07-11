@@ -13,10 +13,10 @@
 		      \end{itemize}
 		\item \textbf{Several interesting studies:}
 		      \begin{itemize}
-			      \item DBSCAN (Ester et al., KDD'96).
-			      \item OPTICS (Ankerst et al., SIGMOD'99).
-			      \item DENCLUE (Hinneburg \& Keim, KDD'98).
-			      \item CLIQUE (Agrawal et al., SIGMOD'98) (more grid-based).
+			      \item DBSCAN\footfullcite{ester1996}.
+			      \item OPTICS\footfullcite{ankerst1999-2}.
+			      \item DENCLUE\footfullcite{hinneburg1998}.
+			      \item CLIQUE\footfullcite{agarwal1998}(more grid-based).
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -271,9 +271,8 @@
 \begin{frame}{OPTICS: A Cluster-ordering Method}
 	\begin{itemize}
 		\item \textbf{OPTICS: Ordering Points To Identify the Clustering
-			      Structure.}
+			      Structure.}\footfullcite{ankerst1999-2}
 		      \begin{itemize}
-			      \item (Ankerst, Breunig, Kriegel \& Sander, SIGMOD'99)
 			      \item Avoid difficulty of finding the right parameters:
 			            \begin{itemize}
 				            \item Only MinPts must be given, $\epsilon$ remains open.
@@ -380,7 +379,7 @@
 
 \begin{frame}{DENCLUE: Using Statistical Density Functions}
 	\begin{itemize}
-		\item \textbf{DENsity-based CLUstEring} (Hinneburg \& Keim, KDD'98)
+		\item \textbf{DENsity-based CLUstEring}\footfullcite{hinneburg1998}
 		\item \textbf{Using statistical density functions:}
 		      \begin{itemize}
 			      \item $f_{\text{Gaussian}}(x,y)=

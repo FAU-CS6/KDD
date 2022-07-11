@@ -1,0 +1,13 @@
+pandas==1.4.2
+numpy==1.22.4
+scikit-learn==1.1.1
+sqlalchemy==1.4.37
+matplotlib==3.5.2
+squarify==0.4.3
+plotly==5.8.2
+seaborn==0.11.2
+pywaffle==1.1.0
+sklearn==0.0
+
+ipython==8.4.0
+jupyterlab==3.4.3

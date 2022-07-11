@@ -1,4 +1,4 @@
-\section{Model Evaluation and Selection}\label{class:evaluation}
+\section{Model Evaluation and Selection}\label{section:evaluation}
 
 \begin{frame}{Model Evaluation and Selection}
 	\begin{itemize}
@@ -41,11 +41,11 @@
 		\end{column}
 		\begin{column}{0.4\textwidth}
 			\vspace*{-1.2em}
-			\begin{align}
+			\begin{align*}
 				\text{Accuracy}   & = \frac{\text{TP} + \text{TN}}{\text{P} +  \text{N}} \\
 				\text{Error Rate} & = 1 - \text{Accuracy}                                \\
 				                  & = \frac{\text{FP} + \text{FN}}{\text{P} + \text{N}}
-			\end{align}
+			\end{align*}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -65,26 +65,26 @@
 		\end{column}
 
 		\begin{column}{0.6\textwidth}
-			\begin{align}
+			\begin{align*}
 				\text{Sensitivity} & = \frac{\text{TP}}{\text{P}}              & = \frac{\text{TP}}{\text{TP} + \text{FN}} & = \text{Recall} \\
 				\text{Specificity} & = \frac{\text{TN}}{\text{N}}                                                                            \\
 				\text{Precision}   & = \frac{\text{TP}}{\text{TP} + \text{FP}}
-			\end{align}
+			\end{align*}
 		\end{column}
 	\end{columns}
 \end{frame}
 
 \begin{frame}{Confusion Matrix and Evaluation Metrics (III)}
 	\textbf{F-Measure}: Combines precision and recall in one single measure.
-
+	\vspace*{-1em}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\begin{center}
 				\textbf{$\text{\textbf{F}}_1$ Measure}
 			\end{center}
-			\begin{align}
+			\begin{align*}
 				\text{F}_1 = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
-			\end{align}
+			\end{align*}
 
 			\begin{itemize}
 				\item Harmonic mean between precision and recall.
@@ -97,31 +97,21 @@
 				\textbf{$\text{\textbf{F}}_\beta$ Measure}
 			\end{center}
 			\vspace*{-.5em}
-			\begin{align}
+			\begin{align*}
 				\text{F}_\beta = \frac{(1 + \beta^2) \times \text{Precision} \times \text{Recall}}{\beta^2 \times \text{Precision} + \text{Recall}}
-			\end{align}
+			\end{align*}
 
 			\begin{itemize}
 				\item Weighted measure.
 				\item Gives $\beta$-times more weight to precision.
+				\item $\beta > 1$: More weight on precision. E.g. important to minimize false positives.
+				\item $\beta < 1$: More weight on recall. E.g. important to minimize false negatives.
 			\end{itemize}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-% TODO: Update example with confusion matrix
-\begin{frame}{Example: Confusion Matrix and Evaluation Metrics (I)}
-	\begin{tabular}{|c|c|c|c|}
-		\hline
-		Actual class/predicted class: & buys\_computer = yes & buys\_computer = no & Total \\\hline
-		buys\_computer = yes          & \textbf{6954}        & \textbf{46}         & 7000  \\\hline
-		buys\_computer = no           & \textbf{412}         & \textbf{2588}       & 3000  \\\hline
-		Total                         & 7366                 & 2634                & 10000 \\\hline
-	\end{tabular}
-\end{frame}
-
-
-\begin{frame}{Example: Confusion Matrix and Evaluation Metrics (II)}
+\begin{frame}{Example: Confusion Matrix and Evaluation Metrics}
 	\centering
 	\begin{tabular}{|c|c|c|c|c|}
 		\hline
@@ -145,10 +135,8 @@
 			      \item \textbf{\color{airforceblue}Training set} (E.g., $2/3$) for model construction.
 			      \item \textbf{\color{airforceblue}Test set} (E.g., $1/3$) for accuracy estimation.
 		      \end{itemize}
-		\item Random sampling: a variation of holdout.
+		\item Random sampling: a variation of holdout that repeats holdout $k$ times.
 		      \begin{itemize}
-			      \item Repeat holdout $k$ times, i. e. create multiple random splits and
-			            multiple model construction and accuracy estimation.
 			      \item Create an average accuracy over all experiments.
 		      \end{itemize}
 	\end{itemize}
@@ -156,7 +144,8 @@
 \end{frame}
 
 \begin{frame}{Evaluation Strategies: Cross Validation}
-	Also known as $k$-fold cross validation. ($k=10$ is popular)
+	Most common: $k$-fold cross validation ($k=10$ is popular).
+
 	\begin{columns}[T]
 		\begin{column}[T]{0.5\textwidth}
 			\begin{itemize}
@@ -208,9 +197,9 @@
 		\item Thus, on average 63.2\% of tuples are selected as the training set.
 		\item Sampling procedure is repeated $k$ times.\\
 		      Calculate accuracy in every iteration as follows:
-		      \begin{align}
+		      \begin{align*}
 			      \text{Acc}(M) = \frac{1}{k} \sum_{i=1}^{k} 0.632 \cdot \text{Acc}(M_i)_{\text{test\_set}} + 0.368 \cdot \text{Acc}(M_i)_{\text{train\_set}}.
-		      \end{align}
+		      \end{align*}
 	\end{itemize}
 \end{frame}
 
@@ -235,14 +224,8 @@
 
 \begin{frame}{Evaluating Classifier Accuracy: Null Hypothesis}
 	\begin{itemize}
-		\item \textbf{Perform $10$-fold cross-validation.}
-		      \begin{itemize}
-			      \item $10$ times.
-		      \end{itemize}
+		\item \textbf{Perform $k$-fold cross-validation} with $k=10$.
 		\item \textbf{Assume samples follow a $t$-distribution with $k-1$ degrees of freedom.}
-		      \begin{itemize}
-			      \item Here, $k = 10$.
-		      \end{itemize}
 		\item \textbf{Use $t$-test}
 		      \begin{itemize}
 			      \item Student's $t$-test.
@@ -266,21 +249,21 @@
 			      \item For $i$-th round of $10$-fold cross-validation, the same cross partitioning is used to obtain $\text{err}(M_1)_i$ and $\text{err}(M_2)_i$.
 			      \item Average over $10$ rounds to get $\overline{\text{err}}(M_1)$ and $\overline{\text{err}}(M_2)$.
 			      \item $t$-test computes $t$-statistic with $k-1$ degrees of freedom:
-			            \begin{align}
+			            \begin{align*}
 				            \resizebox{3cm}{!}{%
-					            $t = \frac{\overline{\text{err}}(M_1)- \overline{\text{err}}(M_2)}{\sqrt{\frac{\text{var}(M_1-M_2)}{k}}},$}
-			            \end{align}
+					            $t = \frac{\overline{\text{err}}(M_1)- \overline{\text{err}}(M_2)}{\frac{\text{var}(M_1-M_2)}{\sqrt{k}}},$}
+			            \end{align*}
 			      \item where
-			            \begin{align}
+			            \begin{align*}
 				            \resizebox{10cm}{!}{%
 					            $\text{var}(M_1-M_2) = \frac{1}{k} \sum_{i=1}^{k} \left[ \text{err}(M_1)_i - \text{err}(M_2)_i - (\overline{\text{err}}(M_1) - \overline{\text{err}}(M_2))\right]^2.$}
-			            \end{align}
+			            \end{align*}
 		      \end{itemize}
 		\item \textbf{If two test sets available: use nonpaired $t$-test:}
-		      \begin{align}
+		      \begin{align*}
 			      \resizebox{5cm}{!}{%
 				      $\text{var}(M_1-M_2) = \sqrt{\frac{\text{var}(M_1)}{k_1} + \frac{\text{var}(M_2)}{k_2}},$}
-		      \end{align}
+		      \end{align*}
 		      where $k_1$ \& $k_2$ are $\#$ of cross-validation samples used for $M_1$ \& $M_2$, respectively.
 	\end{itemize}
 \end{frame}
@@ -304,6 +287,7 @@
 			\centering
 			\includegraphics[width=0.7\textwidth]{img/ttest2.jpeg}
 		\end{column}
+		% TODO: Recreate plot in tikz.
 	\end{columns}
 \end{frame}
 

@@ -50,13 +50,13 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Bayes' Theorem (II)}
+\begin{frame}{Bayes' Theorem: Basics (II)}
 	\begin{itemize}
 		\item \textbf{Given training data $X$, the posteriori probability $P(C_i|X)$\\
 			      of a hypothesis $C_i$ follows from the Bayes' Theorem:}
-		      \begin{align}
+		      \begin{align*}
 			      P(C_i|X) = \frac{P(X|C_i)P(C_i)}{P(X)}.
-		      \end{align}
+		      \end{align*}
 		\item \textbf{Predicts that $X$ belongs to $C_i$ if the probability $P(C_i|X)$\\
 			      is {\color{airforceblue}the highest} among all the $P(C_k|X)$ for all $k$ classes.}
 		\item \textbf{Practical difficulty:}
@@ -73,19 +73,19 @@
 		      \begin{itemize}
 			      \item Each tuple is represented by an $n$-dimensional attribute $X = (x_1,x_2,\ldots,x_n)$.
 		      \end{itemize}
-		\item \textbf{Supose there are $m$ classes $C_1,C_2, \ldots, C_m$.}
+		\item \textbf{Suppose there are $m$ classes $C_1,C_2, \ldots, C_m$.}
 		\item \textbf{Classification is to derive the {\color{airforceblue}maximum posteriori probability}.}
 		      \begin{itemize}
 			      \item i.e. the maximal $P(C_i|X)$.
 		      \end{itemize}
 		\item \textbf{This can be derived from Bayes' Theorem:}
-		      \begin{align}
+		      \begin{align*}
 			      P(C_i|X) = \frac{P(X|C_i)P(C_i)}{P(X)}.
-		      \end{align}
+		      \end{align*}
 		\item \textbf{Since $P(X)$ is constant for all classes, we must maximize only:}
-		      \begin{align}
+		      \begin{align*}
 			      P(X|C_i)P(C_i).
-		      \end{align}
+		      \end{align*}
 	\end{itemize}
 \end{frame}
 
@@ -118,7 +118,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Naïve Bayesian Cellcolormake Dataset}
+\begin{frame}{Naïve Bayesian Dataset}
 	\begin{columns}
 		\begin{column}{0.4\textwidth}
 			\vspace{-2cm}
@@ -147,19 +147,19 @@
 
 \begin{frame}{Naïve Bayesian Classifier: An Example}
 	\begin{itemize}
-		\item $P(C_i)$:
+		\item Prior probability $P(C_i)$:
 		      \begin{itemize}
 			      \item $P(\texttt{buys\_computer} = "yes") = \frac{9}{14} = 0.643$.
 			      \item $P(\texttt{buys\_computer} = "no") = \frac{5}{14} = 0.357$.
 		      \end{itemize}
-		\item $X = (\texttt{age} \leq 30 , \texttt{income} = "medium", \texttt{student} = "yes", \texttt{credit\_rating} = "fair")$.
-		\item \textbf{Compute $P(X|C_i)$ for each class:}
+		\item New tuple $X = (\texttt{age} \leq 30 , \texttt{income} = "medium", \texttt{student} = "yes", \texttt{credit\_rating} = "fair")$.
+		\item \textbf{Compute likelihood $P(X|C_i)$ for each class:}
 		      \begin{itemize}
 			      \item $P(\texttt{age} \leq 30 | \texttt{buys\_computer} = "yes") = \frac{2}{9} = 0.222$.
 			      \item $P(\texttt{age} \leq 30 | \texttt{buys\_computer} = "no") = \frac{3}{5} = 0.6$.
 			      \item $P(\texttt{income} = "medium" | \texttt{buys\_computer} = "yes") = \frac{4}{9} = 0.444$.
 			      \item $P(\texttt{income} = "medium" | \texttt{buys\_computer} = "no") = \frac{2}{5} = 0.4$.
-			      \item $P(\texttt{student} = "yes" | \texttt{buys\_computer} = "yes") = \frac{6}{9} = 0.667$.
+			      \item $P(\texttt{student} = "yes" | \texttt{buys\_computer} = "yes") = \frac{5}{9} = 0.556$.
 			      \item $P(\texttt{student} = "yes" | \texttt{buys\_computer} = "no") = \frac{1}{5} = 0.2$.
 			      \item $P(\texttt{credit\_rating} = "fair" | \texttt{buys\_computer} = "yes") = \frac{6}{9} = 0.667$.
 			      \item $P(\texttt{credit\_rating} = "fair" | \texttt{buys\_computer} = "no") = \frac{2}{5} = 0.4$.
@@ -169,29 +169,30 @@
 
 \begin{frame}{Naïve Bayesian Classifier: An Example (II)}
 	\begin{itemize}
-		\item $P(C_i)$:
+		\item Compute likelihood $P(X|C_i)$ for this new tuple $X$:
 		      \begin{itemize}
-			      \item $P(X | \texttt{buys\_computer} = "yes") = 0.222 \cdot 0.444 \cdot 0.667 \cdot 0.667 = 0.044$.
+			      \item Recall: $P(X|C_i) = \prod_{k=1}^{n} P(x_k|C_i) = P(x_1|C_i)P(x_2|C_i)\cdots P(x_n|C_i).$
+			      \item $P(X | \texttt{buys\_computer} = "yes") = 0.222 \cdot 0.444 \cdot 0.556 \cdot 0.667 = 0.037$.
 			      \item $P(X | \texttt{buys\_computer} = "no") = 0.6 \cdot 0.4 \cdot 0.2 \cdot 0.4 = 0.019$.
 		      \end{itemize}
-		\item $P(X | C_i) \cdot P(C_i)$:
+		\item Compute $P(X | C_i) \cdot P(C_i)$ for each class outcome:
 		      \begin{itemize}
-			      \item $P(X | \texttt{buys\_computer} = "yes") \cdot  P(\texttt{buys\_computer} = "yes") = 0.028$.
+			      \item $P(X | \texttt{buys\_computer} = "yes") \cdot  P(\texttt{buys\_computer} = "yes") = 0.024$.
 			      \item $P(X | \texttt{buys\_computer} = "no") \cdot  P(\texttt{buys\_computer} = "no") = 0.007$.
 		      \end{itemize}
-		\item \textbf{Therefore, $X$ belongs to class $C_1$ (\texttt{buys\_computer} = "yes")}.
+		\item \textbf{Therefore, $X$ belongs to class $C_1$ (\texttt{buys\_computer} = "yes") with probability of 2.4\%}.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Avoiding the Zero-probability Problem}
+\begin{frame}{Avoiding the Zero-Probability Problem}
 	\begin{itemize}
 		\item \textbf{Naïve Bayesian prediction requires each conditional probability to be non-zero.}
 		      \begin{itemize}
 			      \item Otherwise, the predicted probability will be zero.
-			            \begin{align}
+			            \begin{align*}
 				            \resizebox{4cm}{!}{
 					            $P(X|C_i) = \prod_{k=1}^{n} P(x_k|C_i).$}
-			            \end{align}
+			            \end{align*}
 		      \end{itemize}
 		\item \textbf{Example:}
 		      \begin{itemize}
@@ -205,6 +206,7 @@
 				            \item $P(\texttt{income} = "medium") = \frac{991}{1003}$.
 				            \item $P(\texttt{income} = "high") = \frac{11}{1003}$.
 			            \end{itemize}
+			      \item Additionally, add 1 to \textit{each} other attribute and value combination as well!
 			      \item The "corrected" probability estimates are close to their "uncorrected" counterparts.
 		      \end{itemize}
 	\end{itemize}

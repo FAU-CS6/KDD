@@ -723,8 +723,8 @@
 					\textbf{item} & \textbf{pattern base} \\\hline
 					c             & f:3                   \\
 					a             & fc:3                  \\
-					b             & fca:1, f:2, c:1       \\
-					m             & fca:3, fcab:1         \\
+					b             & fca:1, f:1, c:1       \\
+					m             & fca:2, fcab:1         \\
 					p             & fcam:2, cb:1          \\
 					\hline
 				\end{tabular}
@@ -737,9 +737,9 @@
 	\centering
 	\begin{tikzpicture}
 		\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-		\node[draw, fill=ForestGreen] at (-1,-0.7) (f2) {\color{white}$f:2$};
-		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c2) {\color{white}$c:2$};
-		\node[draw, fill=ForestGreen] at (-1.5,-2.1) (a2) {\color{white}$a:2$};
+		\node[draw, fill=ForestGreen] at (-1,-0.7) (f4) {\color{white}$f:4$};
+		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c3) {\color{white}$c:3$};
+		\node[draw, fill=ForestGreen] at (-1.5,-2.1) (a3) {\color{white}$a:3$};
 		\node[draw, fill=ForestGreen] at (-2,-2.7) (m2) {\color{white}$m:2$};
 		\node[draw, fill=red] at (-2,-3.3) (p2) {\color{white}$p:2$};
 		\node[draw, fill=airforceblue] at (-1,-2.7) (b12) {\color{white}$b:1$};
@@ -777,9 +777,9 @@
 	\centering
 	\begin{tikzpicture}
 		\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-		\node[draw, fill=ForestGreen] at (-1,-0.7) (f2) {\color{white}$f:3$};
-		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c2) {\color{white}$c:3$};
-		\node[draw, fill=ForestGreen] at (-1.5,-2.1) (a2) {\color{white}$a:3$};
+		\node[draw, fill=ForestGreen] at (-1,-0.7) (f4) {\color{white}$f:4$};
+		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c3) {\color{white}$c:3$};
+		\node[draw, fill=ForestGreen] at (-1.5,-2.1) (a3) {\color{white}$a:3$};
 		\node[draw, fill=red] at (-2,-2.7) (m2) {\color{white}$m:2$};
 		\node[draw, fill=airforceblue] at (-2,-3.3) (p2) {\color{white}$p:2$};
 		\node[draw, fill=ForestGreen] at (-1,-2.7) (b12) {\color{white}$b:1$};
@@ -809,17 +809,17 @@
 		};
 	\end{tikzpicture}\\[0.2cm]
 	Hence, $m$'s conditional pattern base is\\
-	fca:3, fcab:1\\
-	{\color{ForestGreen}fca has min\_sup.}
+	fca:2, fcab:1\\
+	both below min\_sup.
 \end{frame}
 
 \begin{frame}{$b$'s Conditional Pattern Base}
 	\centering
 	\begin{tikzpicture}
 		\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-		\node[draw, fill=ForestGreen] at (-1,-0.7) (f2) {\color{white}$f:2$};
-		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c2) {\color{white}$c:1$};
-		\node[draw, fill=ForestGreen] at (-1.5,-2.1) (a2) {\color{white}$a:1$};
+		\node[draw, fill=ForestGreen] at (-1,-0.7) (f4) {\color{white}$f:4$};
+		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c3) {\color{white}$c:3$};
+		\node[draw, fill=ForestGreen] at (-1.5,-2.1) (a3) {\color{white}$a:3$};
 		\node[draw, fill=airforceblue] at (-2,-2.7) (m2) {\color{white}$m:2$};
 		\node[draw, fill=airforceblue] at (-2,-3.3) (p2) {\color{white}$p:2$};
 		\node[draw, fill=red] at (-1,-2.7) (b12) {\color{white}$b:1$};
@@ -849,7 +849,7 @@
 		};
 	\end{tikzpicture}\\[0.2cm]
 	Hence, $b$'s conditional pattern base is\\
-	fca:1, f:2, c:1\\
+	fca:1, f:1, c:1\\
 	{all below min\_sup.}
 \end{frame}
 
@@ -857,10 +857,10 @@
 	\centering
 	\begin{tikzpicture}
 		\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-		\node[draw, fill=ForestGreen] at (-1,-0.7) (f2) {\color{white}$f:3$};
-		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c2) {\color{white}$c:3$};
+		\node[draw, fill=ForestGreen] at (-1,-0.7) (f4) {\color{white}$f:4$};
+		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c3) {\color{white}$c:3$};
 		\node[draw, fill=red] at (-1.5,-2.1) (a2) {\color{white}$a:3$};
-		\node[draw, fill=airforceblue] at (-2,-2.7) (m2) {\color{white}$m:2$};
+		\node[draw, fill=airforceblue] at (-2,-2.7) (m3) {\color{white}$m:3$};
 		\node[draw, fill=airforceblue] at (-2,-3.3) (p2) {\color{white}$p:2$};
 		\node[draw, fill=airforceblue] at (-1,-2.7) (b12) {\color{white}$b:1$};
 		\node[draw, fill=airforceblue] at (-1,-3.3) (m1) {\color{white}$m:1$};
@@ -907,8 +907,8 @@
 	\scalebox{0.9}{
 		\begin{tikzpicture}
 			\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-			\node[draw, fill=airforceblue] at (-1,-0.7) (f2)
-			{\color{white}$f:3$};
+			\node[draw, fill=airforceblue] at (-1,-0.7) (f4)
+			{\color{white}$f:4$};
 			\node[draw, fill=airforceblue] at (-1.5,-1.4) (c2)
 			{\color{white}$c:3$};
 			\node[draw, fill=airforceblue] at (-1.5,-2.1) (a2)
@@ -937,15 +937,16 @@
 			\draw (c1) -- (b13) -- (p1);
 			\node at (5.5,-3.5) {\textbf{All frequent patterns related to
 					$m$:}};
-			\node at (5.5,-4) {m, fm, cm, am, fcm, fam, cam, fcam;};
+			\node at (5.5,-4) {m, fm, cm, am, fcm, fam, cam, fcam};
 			\node at (10,-1) (10) {$\{\}$};
-			\node at (10,-2) (11) {$f:3$};
-			\node at (10,-3) (12) {$c:3$};
-			\node at (10,-4) (13) {$a:3$};
-			\node at (10,0.5) {$m$'s conditional pattern base:};
-			\node at (10,0) {fca:3, fcab:1;};
-			\node at (10,-0.5) {$m$'s conditional FP-tree:};
-			\draw (10) -- (11) -- (12) -- (13);
+			\node at (10,-1.75) (11) {$f:3$};
+			\node at (10,-2.5) (12) {$c:3$};
+			\node at (10,-3.25) (13) {$a:3$};
+			\node at (10.5,-4) (14) {$b:1$};
+			\node at (10,0.5) {$m$\textbf{'s conditional pattern base:}};
+			\node at (10,0) {fca:2, fcab:1};
+			\node at (10,-0.5) {$m$\textbf{'s conditional FP-tree:}};
+			\draw (10) -- (11) -- (12) -- (13) -- (14);
 			\node at (5.5,0.5) {\textbf{Header table:}};
 			\node at (5.5,-1.5) {
 				\begin{tabular}{|c|c|}
@@ -972,11 +973,12 @@
 			\node at (0,-1) (f3) {f:3};
 			\node at (0,-2) (c3) {c:3};
 			\node at (0,-3) (a3) {a:3};
-			\draw (0)--(f3)--(c3)--(a3);
+			\node at (1,-4) (b1) {b:1};
+			\draw (0)--(f3)--(c3)--(a3)--(b1);
 
-			\node at (6,-0) (r0) {Cond. pattern base of "am": (fc:3)};
-			\node at (6,-2.5) (r0) {Cond. pattern base of "cm": (f:3)};
-			\node at (6,-4.5) (r0) {Cond. pattern base of "cam": (f:3)};
+			\node at (6,-0) (r0) {$am$\textbf{'s conditional pattern base:} fc:3};
+			\node at (6,-2.5) (r0) {$cm$\textbf{'s conditional pattern base:} f:3};
+			\node at (6,-4.5) (r0) {$cam$\textbf{'s conditional pattern base:} f:3};
 
 			\node at (10,1.5) (0) {\textbf{$am$'s conditional FP-tree:}};
 			\node at (10,1) (r0) {$\{\}$};
