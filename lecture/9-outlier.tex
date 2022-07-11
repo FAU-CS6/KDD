@@ -3,6 +3,8 @@
 %\documentclass[aspectratio=169,t,handout]{beamer}
 
 \input{x-additional/preamble}
+\setbeamercovered{invisible}
+\usepackage[linesnumbered]{algorithm2e}
 \newcommand*\eqmark[3]{{\color{#1}\underbrace{\color{black}#2}_{\tikzmark{#3}}}}
 % Title, authors, and date
 \title[KDD~7.~Outlier]{7. Outlier Analysis} %
@@ -10,6 +12,8 @@
 \input{x-additional/mbs.tex}
 \input{x-additional/get_git_rev.tex}
 
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
 % Set additional logo (overwrites FAU seal)
 %\logo{\includegraphics[width=.15\textwidth]{themefau/art/xxx/xxx.pdf}}
@@ -28,11 +32,11 @@
 }
 
 % Body
-% \input{9-outlier/1-introduction}
-% \input{9-outlier/2-methods}
+\input{9-outlier/1-introduction}
+\input{9-outlier/2-methods}
 \input{9-outlier/3-statistical-approaches}
-% \input{9-outlier/4-proximity-approaches}
-% \input{9-outlier/5-summary}
-% \input{x-additional/x-contact}
+\input{9-outlier/4-proximity-approaches}
+\input{9-outlier/5-summary}
+\input{x-additional/x-contact}
 \input{9-outlier/6-appendix}
 \end{document}

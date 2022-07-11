@@ -57,7 +57,8 @@
 \end{frame}
 
 
-\begin{frame}{Maximum Likelihood Estimation I}
+
+\begin{frame}{Excursus: Maximum Likelihood Estimation I}
 	\begin{block}{Maximum Likelihood Estimation}
 		\textit{Maximum Likelihood Estimation} (MLE) estimates \textit{parameters} of an assumed probability distribution such that the \textit{distribution fits the data as closely as possible}.
 	\end{block}
@@ -80,7 +81,7 @@
 \end{frame}
 
 
-\begin{frame}{Maximum Likelihood Estimation II}
+\begin{frame}{Excursus: Maximum Likelihood Estimation II}
 	\begin{itemize}
 		\item In the case of a Gaussian distribution: find estimates for $\mu$ and $\sigma$ such that
 		      \begin{align*}
@@ -104,7 +105,7 @@
 \end{frame}
 % TODO: MLE easily motivated and explained visually. Mabye insert plots similarly to ML hands-on book p. 269
 
-\begin{frame}{Maximum Likelihood Estimation IV: General Process}
+\begin{frame}{Excursus: Maximum Likelihood Estimation III}
 	\begin{enumerate}
 		\setcounter{enumi}{-1}
 		\item Transform equation:
@@ -120,7 +121,7 @@
 		      \end{align*}
 		\item Then, by setting these quation equals zero, we derive the following likelihood estimates:
 		      \begin{center}
-			      mean $\widehat{\mu}&=\frac{1}{n}\sum\nolimits_{i=1}^n x_i$ \hspace{3em} standard deviation $\widehat{\sigma}&=\sqrt{\frac{1}{n}\sum\nolimits_{i=1}^n (x_i-\mu)^2}$
+			      mean $\widehat{\mu}=\frac{1}{n}\sum\nolimits_{i=1}^n x_i$ \hspace{3em} standard deviation $\widehat{\sigma}=\sqrt{\frac{1}{n}\sum\nolimits_{i=1}^n (x_i-\mu)^2}$
 		      \end{center}
 		      % TODO: proof in appendix or discuss in lecture?
 	\end{enumerate}
@@ -235,6 +236,7 @@
 	\end{columns}
 \end{frame}
 
+% TODO: Add book author name in footnote
 \begin{frame}{Parametric Methods III: Using Mixture of Parametric Distributions}
 	\tikzoverlay at (11cm,0.5cm) {\input{9-outlier/complex-data-outlier.tex}};
 	\begin{itemize}
@@ -247,7 +249,7 @@
 				            \text{P}(\mathbf{x} \; \vert \; \mathcal{N}_1, \mathcal{N}_2) = f_{\mathcal{N}_1}(\mathbf{x} \; \vert \; \mu_1, \sigma_1) + f_{\mathcal{N}_2}(\mathbf{x} \; \vert \; \mu_2, \sigma_2),
 			            \end{align}
 			            where $f_{\mathcal{N}_1}$ and $f_{\mathcal{N}_1}$ are the probability density functions of $\mathcal{N}_1$ and $\mathcal{N}_2$, respectively.
-			      \item Use expectation-maximization (EM) algorithm\footnote{Not covered in this lecture, but in book chapter 11.} to learn the parameters $\mu_1, \sigma_1, \mu_2, \sigma_2$ from the data.
+			      \item Use expectation-maximization (EM) algorithm\footnote{Expectation-maximization algorithm is not covered in this lecture. If you are interested, you may take a look at chapter 11 of our reference book titled \citetitle{han2011}.} to learn the parameters $\mu_1, \sigma_1, \mu_2, \sigma_2$ from the data.
 			      \item An object $\mathbf{x}$ is an outlier if it does not belong to any cluster.
 		      \end{itemize}
 	\end{itemize}
@@ -268,10 +270,10 @@
 			\end{enumerate}
 		\end{column}
 		\begin{column}{0.3\textwidth}
-			\begin{figure*}
+			\begin{figure}
 				\centering
 				\includegraphics[width=\textwidth]{img/histogram8.png}
-			\end{figure*}
+			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}

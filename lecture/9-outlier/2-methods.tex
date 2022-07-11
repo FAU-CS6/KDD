@@ -1,96 +1,81 @@
 \section{Outlier-Detection Methods}
 
+% TODO: make slide more rounded
 \begin{frame}{How can we detect outliers?}
+	\textbf{Two ways to categorize outlier-detection methods:}
+
+	Grouping according to
+	\begin{enumerate}
+		\item \textcolor{faugray}{\textbf{How many samples are labeled:}}\\
+		      I.e. supervised, semi-supervised vs. unsupervised methods.
+		\item \textcolor{faugray}{\textbf{Assumptions}} regarding normal and abnormal samples.\\
+		      I.e. statistical, proximity-based, and clustering-based methods.
+	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Outlier Detection: Grouping According to Label Existence I}
+	Domain expert labelled all, some, or no samples.
+	\vspace*{1em}
+	\textcolor{faugray}{\textbf{Supervised Methods:}}
 	\begin{itemize}
-		\item \textbf{Two ways to categorize outlier-detection methods:}
+		\item Modeling outlier detection as a \textbf{classification problem}:\\
+		      Samples examined by domain experts used for training \& testing.
+		\item Methods for learning a classifier for outlier detection effectively:
 		      \begin{itemize}
-			      \item Based on whether \textbf{\color{airforceblue}user-labeled examples of outliers} can be obtained: \\
-			            I.e. supervised, semi-supervised vs. unsupervised methods.
-			      \item Based on \textbf{\color{airforceblue}assumptions} about normal data and outliers: \\
-			            I.e. statistical, proximity-based, and clustering-based methods.
+			      \item Model normal objects \& report those not matching the model as outliers.
+			      \item Model outliers and treat those not matching the model as normal.
+		      \end{itemize}
+		\item \textbf{Challenges:}
+		      \begin{itemize}
+			      \item Imbalanced classes, i.e., outliers are rare: \\
+			            Boost the outlier class and make up some artificial outliers.
+			      \item Catch as many outliers as possible. \\
+			            Therefore: recall is more important than accuracy \\
+			            (i.e., not mislabeling normal objects as outliers).
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 
-\begin{frame}{Outlier Detection I}
+\begin{frame}{Outlier Detection: Grouping According to Label Existence II}
+	\textcolor{faugray}{\textbf{Unsupervised Methods:}}
+
 	\begin{itemize}
-		\item \textbf{Supervised Methods:}
+		\item No labels available.
+		\item \textbf{Implicit assumptions:}
 		      \begin{itemize}
-			      \item Modeling outlier detection as a \textbf{classification problem}:\\
-			            Samples examined by domain experts used for training \& testing.
-			      \item Methods for learning a classifier for outlier detection effectively:
-			            \begin{itemize}
-				            \item Model normal objects \& report those not matching the model as outliers.
-				            \item Model outliers and treat those not matching the model as normal.
-			            \end{itemize}
-			      \item \textbf{Challenges:}
-			            \begin{itemize}
-				            \item Imbalanced classes, i.e., outliers are rare: \\
-				                  Boost the outlier class and make up some artificial outliers.
-				            \item Catch as many outliers as possible, \\
-				                  i.e., recall is more important than accuracy \\
-				                  (i.e., not mislabeling normal objects as outliers).
-			            \end{itemize}
+			      \item \textcolor{faugray}{Normal objects are someqhat ``clustered''} into multiple groups, each having some distinct features.
+			      \item Outlier are expected to be far away from any group of normal objects.
 		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Outlier Detection II}
-	\begin{itemize}
-		\item \textbf{Assume the {\color{airforceblue}normal objects are somewhat "clustered"} into multiple groups, each having some distinct features.}
-		      \item\textbf{An outlier is expected to be {\color{airforceblue}far away from any group} of normal objects.}
-		\item \textbf{Weakness: Can't detect collective outliers effectively.}
+		\item Adapt clustering methods for unsupervised outlier detection:
+		      \begin{enumerate}
+			      \item Find clusters.
+			      \item Samples not falling in any cluster are outliers.
+		      \end{enumerate}
+		\item \textbf{Challenges:}
 		      \begin{itemize}
-			      \item Normal objects may not share any strong pattern, \\
-			            but the collective outliers may have high similarity in a small area.
-		      \end{itemize}
-		\item \textbf{I.e., in some intrusion or virus detection, normal activities are diverse.}
-		      \begin{itemize}
-			      \item Unsupervised methods may have a high false-positive rate, \\
-			            but still miss many real outliers.
-			      \item Supervised methods can be more effective, \\
-			            e.g., identify attacking some key resources.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Outlier Detection III}
-	\begin{itemize}
-		\item \textbf{Many clustering methods can be adapted for unsupervised methods:}
-		      \begin{itemize}
-			      \item Find clusters, then outliers: not belonging to any cluster.
-			      \item \textbf{Problem 1:} Hard to distinguish noise from outliers.
-			      \item \textbf{Problem 2:} Costly since first clustering, but far less outliers than normal objects.
-			      \item Newer methods: tackle outliers directly.
+			      \item Samples outside of clusters may not be outliers.
+			      \item Costly to find clusters.
+			      \item Hard to distinguish noise from outliers.
+			      \item Can't detect collective outliers effectively.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Outlier Detection IV}
+	\frametitle{Outlier Detection: Grouping According to Label Existence III}
+	\textcolor{faugray}{\textbf{Semi-Supervised Methods:}}
 	\begin{itemize}
-		\item \textbf{Situation:}
-		      \begin{itemize}
-			      \item In many applications, the \textbf{\color{airforceblue}number of labeled data objects is small}:\\
-			            Labels could be on outliers only, on normal objects only, or on both.
-		      \end{itemize}
-		\item \textbf{Semi-supervised outlier detection:}
-		      \begin{itemize}
-			      \item Regarded as application of semi-supervised learning.
-		      \end{itemize}
+		\item Only a small set of samples are labeled as normal or as outlier.
 		\item \textbf{If some {\color{airforceblue}labeled normal objects} are available:}
 		      \begin{itemize}
 			      \item Use the labeled examples and the proximate \\
 			            unlabeled objects to train a model for normal objects.
 			      \item Those not fitting the model of normal objects are detected as outliers.
 		      \end{itemize}
-		\item \textbf{If only some {\color{airforceblue}labeled outliers} are available, \\ that small number may not cover the possible outliers well.}
+		\item \textbf{If only some {\color{airforceblue}labeled outliers} are available, \\ that small number may not cover all possible outliers well.}
 		      \begin{itemize}
 			      \item To improve the quality of outlier detection: get help from models for normal objects learned from unsupervised methods.
 		      \end{itemize}
@@ -98,8 +83,9 @@
 \end{frame}
 
 
-\begin{frame}{Outlier Detection V: Statistical Methods}
+\begin{frame}{Outlier Detection: Grouping Based on Assumption I}
 	\tikzoverlay at (11cm,1cm) {\input{9-outlier/general-outlier.tex}};
+	\textcolor{faugray}{\textbf{Statistical Methods}}
 	\begin{itemize}
 		\item (Also known as model-based methods)
 		\item Assume that the \textbf{\color{airforceblue}normal data follow some statistical model}.
@@ -125,8 +111,10 @@
 \end{frame}
 
 
-\begin{frame}{Outlier Detection (2): Proximity-Based Methods}
+\begin{frame}{Outlier Detection: Grouping Based on Assumption II}
 	\tikzoverlay at (11cm,1cm) {\input{9-outlier/general-outlier.tex}};
+	\textcolor{faugray}{\textbf{Proximity-Based Methods}}
+
 	An object is an outlier if the \textbf{\color{airforceblue}nearest neighbors of the object are far away},\\ i.e., the proximity of the object significantly deviates from the proximity\\ of most of the other objects in the same data set.
 	\begin{itemize}
 
@@ -150,8 +138,10 @@
 \end{frame}
 
 
-\begin{frame}{Outlier Detection (3): Clustering-Based Methods}
+\begin{frame}{Outlier Detection: Grouping Based on Assumption III}
 	\tikzoverlay at (11cm,1cm) {\input{9-outlier/general-outlier.tex}};
+	\textcolor{faugray}{\textbf{Clustering-Based Methods}}
+
 	Normal data belong to large and dense clusters, whereas outliers belong to\\ \textbf{\color{airforceblue}small or sparse clusters}, or do not belong to any cluster.
 	\begin{itemize}
 
