@@ -44,16 +44,16 @@
 		\item For each object $\mathbf{o}\in D$ examine the number of other objects in the $r$-neighborhood of $\mathbf{o}$.
 		\item If most objects in $D$ are far away from $\mathbf{o}$, then $\mathbf{o}$ is an outlier.
 		\item Formally: \textbf{An object $\mathbf{o}$ is a \underline{$\mathbf{DB}(r, \pi)$-outlier}, iff}
-		      \begin{align}\label{db-outlier}
+		      \begin{align*}\label{db-outlier}
 			      \frac{||\{\mathbf{o'} \; \vert \; d(\mathbf{o},\mathbf{o'}) \leq r \}|| }{||D||} \leq \pi.
-		      \end{align}
+		      \end{align*}
 
 		      where
 		      \begin{itemize}
 			      \item $d(\mathbf{o},\mathbf{o}')$ is a distance function of two objects $\mathbf{o}$ and $\mathbf{o}'$
-			      \item $\pi$ with $\pi\leq0\leq1$ is a fraction threshold.
+			      \item $\pi$ with $0\leq\pi\leq1$ is a fraction threshold.
 		      \end{itemize}
-		\item Determine if an object $\mathbf{o}$ is an outlier by taking a look at the $k$-nearest neighbor $\mathcal{o}_k$ where $k=\ceil*{\pi n}$
+		\item Determine if an object $\mathbf{o}$ is an outlier by taking a look at the $k$-nearest neighbor $\mathbf{o}_k$ where $k=\ceil*{\pi n}$
 		\item $\mathbf{o}$ is an outlier, if $d(\mathbf{o}, \mathbf{o}_k) > r$.
 	\end{itemize}
 \end{frame}
@@ -65,7 +65,7 @@
 			\vspace*{-0.5em}
 			\textbf{Efficient computation: {\color{airforceblue}Nested-loop algorithm}:}
 			\begin{itemize}
-				\item For every object $\mathbf{o}_i\in D$ calculate distance with every other object $\mathbf{o}_j D$ where $i\neq j$.
+				\item For every object $\mathbf{o}_i\in D$ calculate distance with every other object $\mathbf{o}_j \in D$ where $i\neq j$.
 				\item Also count the number of objects in the $r$-neighborhood of $\mathbf{o}_i$.
 				\item Terminate inner loop if $\pi n$ objects found in distance $r$: $\mathbf{o}_i$ must be a $\mathbf{DB}(r, \pi)$-outlier.
 				\item Otherwise do not terminate: $\mathbf{o}_i$ is not an outlier.
@@ -83,7 +83,7 @@
 			\scriptsize
 			\begin{algorithm}[H]
 				\SetAlgoVlined
-				\KwData{a set of objects $D={\mathcal{o}_1, \dots, \mathbf{o}_n}$, threshold $r$, fraction threshold $\pi$}
+				\KwData{a set of objects $D=\{\mathbf{o}_1, \dots, \mathbf{o}_n\}$, threshold $r$, fraction threshold $\pi$}
 				\KwResult{$\mathbf{DB}(r, \pi)$-outlier in $D$}
 				\BlankLine
 				\ForEach{$\mathbf{o}_i\in D$}{
