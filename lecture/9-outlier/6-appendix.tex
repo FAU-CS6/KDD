@@ -1,0 +1,217 @@
+\appendix
+\section{Appendix}
+
+\begin{frame}{Maximum Likelihood Estimation}
+	\begin{itemize}
+		\item \textbf{Example:} Assume a normal distribution $\mathcal{N}(\mu, \sigma)$ with probability density function
+		      \begin{align*}
+			      f(x)=\frac{1}{\sqrt{2\pi \sigma^2}} {\rm e}^{-\frac{(x-\mu)^2}{2\sigma^2}}
+		      \end{align*}
+		\item Likelihood function of the normal distribution for a dataset $X=\{x_1, \dots, x_n\}$, therefore, is as follows:
+		      \vspace{-0.8em}
+		      \begin{equation*}
+			      \mathcal{L}(\mu, \sigma|x_1, \dots, x_n) = \prod\nolimits_{i=1}^n \frac{1}{\sqrt{2\pi \sigma^2}} {\rm e}^{-\frac{(x_i-\mu)^2}{2\sigma^2}}
+		      \end{equation*}
+		\item General procedure:
+		      \begin{enumerate}
+			      \item Generate two derivatives, with respect to $\mu$ and $\sigma$, respectively.
+			      \item Solve each equation by setting them equal to zero.
+		      \end{enumerate}
+		\item Instead of taking the derivative directly, we take the log of the likelihood function as this makes it easier to take derivatives.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Maximum Likelihood Estimation: Log-Transform Equation}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			\vspace*{-2em}
+			\begin{align*}
+				 & \ln{\mathcal{L}(\mu, \sigma|x_1, \dots, x_n)}= \ln{\bigg(\eqmark{faured}{\textstyle\prod\nolimits_{i=1}^n}{e1} \frac{1}{\sqrt{2\pi \sigma^2}} {\rm e}^{-\frac{(x_i-\mu)^2}{2\sigma^2}}\bigg)}      \\
+				 & =\textstyle\sum\nolimits_{i=1}^n \ln{\bigg(\eqmark{faured}{\frac{1}{\sqrt{2\pi \sigma^2}} {\rm e}^{-\frac{(x_i-\mu)^2}{2\sigma^2}}}{e2}\bigg)}                                                     \\
+				 & =\textstyle\sum\nolimits_{i=1}^n \bigg(\ln{\bigg(\eqmark{faured}{\frac{1}{\sqrt{2\pi \sigma^2}}}{e3}\bigg)} + \ln{\bigg(\eqmark{faured}{{\rm e}^{-\frac{(x_i-\mu)^2}{2\sigma^2}}}{e4}\bigg)}\bigg) \\
+				 & =\textstyle\sum\nolimits_{i=1}^n \left(\ln{\left((2\pi\sigma^2)^{-\frac{1}{2}} \right)} - \frac{(x_i-\mu)^2}{2\sigma^2} \ln{{\rm e}}\right)
+			\end{align*}
+
+			\begin{tikzpicture}[remember picture,overlay]
+				\node[below=-1em of e1] (m1) {\color{faured}\small1.};
+				\node[below=-1em of e2] (m2) {\color{faured}\small2.};
+				\node[below=-1em of e3] (m2) {\color{faured}\small3.a};
+				\node[below=-1em of e4] (m2) {\color{faured}\small3.b};
+			\end{tikzpicture}
+
+		\end{column}
+
+		\begin{column}{0.4\textwidth}
+			\begin{enumerate}
+				{
+				\setbeamercolor{enumerate item}{fg=faured}
+				\item Log transforms multiplicatoin into addition.
+				\item Transform each element in log, that is convert multiplication to addition.
+				\item Convert one {\color{faured}(a)} over square root and {\color{faured}(b)} exponent of euler.
+
+				      Recall:
+				      \vspace*{-1em}
+				      \begin{align*}
+					      x^{-v}      & = \frac{1}{x^v}  \\
+					      \sqrt[v]{x} & =x^{\frac{1}{v}} \\
+					      \ln{x^v}    & =v\ln{x}
+				      \end{align*}
+				      }
+			\end{enumerate}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Maximum Likelihood Estimation: Log-Transform Equation}
+	\vspace*{-2em}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{align*}
+				 & =\textstyle\sum\nolimits_{i=1}^n \Big(\ln{\Big(\eqmark{faured}{(2\pi\sigma^2)^{-\frac{1}{2}}}{e5} \Big)} - \frac{(x_i-\mu)^2}{2\sigma^2} \eqmark{faured}{\ln{{\rm e}}}{e6}\Big) \\
+				 & =\textstyle\sum\nolimits_{i=1}^n \Big(-\frac{1}{2}\ln{\eqmark{faured}{2\pi\sigma^2}{e7}}-\eqmark{faured}{\frac{(x_i-\mu)^2}{2\sigma^2}}{e8}\Big)                                \\
+				 & =\textstyle\sum\nolimits_{i=1}^n \Big(-\frac{1}{2}\ln{2\pi}-\frac{1}{2}\eqmark{faured}{\ln{\sigma^2}}{e9}-\frac{(x_i-\mu)^2}{2\sigma^2}\Big)                                    \\
+				 & =\textstyle\sum\nolimits_{i=1}^n \Big(-\frac{1}{2}\ln{2\pi}-\eqmark{faured}{\textstyle\frac{1}{2}2}{e10}\ln{\sigma}-\frac{(x_i-\mu)^2}{2\sigma^2}\Big)                          \\
+				 & =\textstyle\sum\nolimits_{i=1}^n \left(-\frac{1}{2}\ln{2\pi}-\ln{\sigma}-\frac{(x_i-\mu)^2}{2\sigma^2}\right)\tikzmark{e11}
+			\end{align*}
+			\begin{tikzpicture}[remember picture,overlay]
+				\node[below=-1em of e5] (m1) {\color{faured}\small4.a};
+				\node[below=-1em of e6] (m2) {\color{faured}\small4.b};
+				\node[below=-1em of e7] (m3) {\color{faured}\small5.a};
+				\node[below=-1em of e8] (m4) {\color{faured}\small5.b};
+				\node[below=-1em of e9] (m5) {\color{faured}\small6.};
+				\node[below=-1em of e10] (m6) {\color{faured}\small7.};
+			\end{tikzpicture}
+		\end{column}
+
+		\begin{column}{0.5\textwidth}
+			\begin{enumerate}
+				{
+				\setbeamercolor{enumerate item}{fg=faured}
+				\setcounter{enumi}{3}
+				\item Convert {\color{faured}(a)} exponent into multiplication and {\color{faured}(b)} remove $\ln{\rm e}$.
+
+				      Recall:
+				      \vspace*{-1em}
+				      \begin{align*}
+					      \ln{\rm e}=1
+				      \end{align*}
+				\item {\color{faured}(a)} Transform multiplication to addition. {\color{faured}(b)} Nothing to do to last term.
+				\item Convert exponent.
+				\item Simplify equation.
+				      }
+			\end{enumerate}
+
+			\vspace*{1em}
+			\textbf{We can now take the derivative w.\,r.\,t. $\mu$ and $\sigma$ of:}
+			\vspace*{-1em}
+			\begin{align*}
+				 & \ln{(\mathcal{L}(\mu, \sigma|x_1, \dots, x_n))}                                                        \\
+				 & \tikzmark{e12}=-\textstyle\frac{n}{2}\ln{2\pi}-n\ln{\sigma}-\sum_{i=1}^n \frac{(x_i-\mu)^2}{2\sigma^2}
+			\end{align*}
+			\begin{tikzpicture}[remember picture,overlay]
+				\draw[faured,thick,->] ([yshift=1.2mm,xshift=1mm]e11) to[out=5,in=180] ([yshift=1mm,xshift=-1mm]e12) node [above right=0.1em and 3.3em of e11] (m7) {\small{\color{faured}7.}};
+			\end{tikzpicture}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Maximum Likelihood Estimation: Take Derivative w.\,r.\,t. $\mu$}
+	\vspace*{-2em}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{align*}
+				 & \textstyle\frac{\partial}{\partial \mu}\ln{(\mathcal{L}(\mu, \sigma|x_1, \dots, x_n))}                                                                                                                                                                                            \\
+				 & =\eqmark{fauorange}{\textstyle\frac{\partial}{\partial \mu}(-\frac{n}{2}\ln{2\pi})}{e1}-\eqmark{fauorange}{\textstyle\frac{\partial}{\partial \mu}(n\ln{\sigma}}{e2})-\sum_{i=1}^{n} \eqmark{fauorange}{\textstyle\frac{\partial}{\partial \mu}\frac{(x_i-\mu)^2}{2\sigma^2}}{e3} \\
+				 & =\eqmark{fauorange}{\textstyle\sum_{i=1}^n \frac{-2(x_i-\mu)(-1)}{2\sigma^2}}{e4}                                                                                                                                                                                                 \\
+				 & =\textstyle\sum_{i=1}^n\frac{2(x_i-\mu)}{2\sigma^2}                                                                                                                                                                                                                               \\
+				 & = \textstyle\sum_{i=1}^n \frac{x_i-\mu}{\sigma^2}                                                                                                                                                                                                                                 \\
+				 & = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i -\mu)
+			\end{align*}
+			\begin{tikzpicture}[remember picture,overlay]
+				\node[below=-1em of e1] (m1) {\color{fauorange}\small1.};
+				\node[below=-1em of e2] (m2) {\color{fauorange}\small1.};
+				\node[below=-1em of e3] (m2) {\color{fauorange}\small2.};
+				\node[below=-1em of e4] (m2) {\color{fauorange}\small3.};
+			\end{tikzpicture}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{enumerate}
+				{
+				\setbeamercolor{enumerate item}{fg=fauorange}
+				\item Derivative of this component can be treated as a constant as it does not contain $\mu$, therefore it equals to zero.
+				\item Apply chain rule.
+				\item Simplify equation.
+				      }
+			\end{enumerate}
+			\vspace*{1em}
+			{
+				\footnotesize
+				Recall:
+				\vspace*{-1em}
+				\begin{align*}
+					\text{Linearity: } (f+g)'                                        & = f' + g'                                                                       \\
+					\text{Product Rule: } (fg)'                                      & = f'g + fg'                                                                     \\
+					\text{Quotient: } \left(\textstyle\frac{f}{g}\right)'            & =\textstyle\frac{f'g-fg'}{g^2}                                                  \\
+					\text{Chain Rule: } (f(g(x)))'                                   & =f'(g(x))g'(x)                                                                  \\
+					\text{also denoted as: } \textstyle\frac{\partial f}{\partial x} & =\textstyle\frac{\partial f}{\partial g}\textstyle\frac{\partial g}{\partial x}
+				\end{align*}
+			}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Maximum Likelihood Estimation: Take Derivative w.\,r.\,t. $\sigma$}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\vspace*{-2em}
+			\begin{align*}
+				 & \textstyle\frac{\partial}{\partial \sigma}\ln{(\mathcal{L}(\mu, \sigma|x_1, \dots, x_n))}                                                                                                                                                                                            \\
+				 & =\eqmark{faucyan}{\textstyle\frac{\partial}{\partial \sigma}(-\frac{n}{2}\ln{2\pi})}{e1}-\eqmark{faucyan}{\textstyle\frac{\partial}{\partial \sigma}(n\ln{\sigma}}{e2})-\sum_{i=1}^{n} \eqmark{faucyan}{\textstyle\frac{\partial}{\partial \sigma}\frac{(x_i-\mu)^2}{2\sigma^2}}{e3} \\
+				 & =-\textstyle\frac{n}{\sigma}\eqmark{faucyan}{-\textstyle\sum_{i-1}^n \frac{(x_i-\mu)^2}{2}(-2)\sigma^{-3}}{e4}                                                                                                                                                                       \\
+				% &=-\textstyle\frac{n}{\sigma}+\sum_{i=1}^n \frac{(x_i-\mu)^2}{2}(2)\sigma^{-3}\\
+				 & =-\textstyle\frac{n}{\sigma}+\sum_{i=1}^n (x_i-\mu)^2\eqmark{faucyan}{\sigma^{-3}}{e5}                                                                                                                                                                                               \\
+				 & =\eqmark{faucyan}{-\textstyle\frac{n}{\sigma}+\sum_{i=1}^n \frac{(x_i-\mu)^2}{\sigma^3}}{e6}                                                                                                                                                                                         \\
+				 & =-\textstyle\frac{n}{\sigma}+\frac{1}{\sigma^3}\sum_{i=1}^n (x_i-\mu)^2
+			\end{align*}
+			\begin{tikzpicture}[remember picture,overlay]
+				\node[below=-1em of e1] (m1) {\color{faucyan}\small1.};
+				\node[below=-1em of e2] (m2) {\color{faucyan}\small2.};
+				\node[below=-1em of e3] (m2) {\color{faucyan}\small3.};
+				\node[below=-1em of e4] (m2) {\color{faucyan}\small4.};
+				\node[below=-1em of e5] (m2) {\color{faucyan}\small5.};
+				\node[below=-1em of e6] (m2) {\color{faucyan}\small6.};
+			\end{tikzpicture}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{enumerate}
+				{
+				\setbeamercolor{enumerate item}{fg=faucyan}
+				\item Derivative of this component can be treated as a constant as it does not contain $\sigma$, therefore it equals to zero.
+				\item Take derivative.
+				\item Easier when expressed as $\frac{(x_i-\mu)^2}{2}\sigma^{-2}$. Then take derivative of $\sigma^{-2}$. Recall: $(x^a)'=ax^{a-1}$
+				\item Two minuses cancel out (minus before sum and minus of $(-2)$). Additionally, simplify by cancel out $\frac{2}{2}$.
+				\item Put back as denominator.
+				\item Simplify equation.
+				      }
+			\end{enumerate}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Maximum Likelihood Estimation: Two Derivatives w.\,r.\,t. $\mu$ and $\sigma$}
+	\vspace*{-1em}
+	Derivatives are:
+	\vspace*{-2em}
+	\begin{align*}
+		\textstyle\frac{\partial}{\partial \mu}\ln{(\mathcal{L}(\mu, \sigma|x_1, \dots, x_n))}    & = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i -\mu)                            \\
+		\textstyle\frac{\partial}{\partial \sigma}\ln{(\mathcal{L}(\mu, \sigma|x_1, \dots, x_n))} & =-\textstyle\frac{n}{\sigma}+\frac{1}{\sigma^3}\sum_{i=1}^n (x_i-\mu)^2
+	\end{align*}
+
+	\textbf{To find the estimates of $\mu$ and $\sigma$, solve these equations by equal them to zero\footnote{We want to find the value for with the log functions reaches their maximum. At this point, the slope of these functions equal to zero. Therefore, we equal these functions to zero.}:}
+
+	\begin{itemize}
+		\item For $\mu$: $0=\textstyle\frac{1}{\sigma^2} \sum_{i=1}^n (x_i -\mu) \stackrel{{\color{faured}\times \sigma^2}}{\Leftrightarrow} 0=\sum_{i=1}^n x_i-\mu \stackrel{{\color{faured}+n\mu}}{\Leftrightarrow} n\mu = \sum_{i=1}^n x_i \stackrel{{\color{faured}\times\frac{1}{n}}}{\Leftrightarrow} \underline{\underline{\mu=\frac{1}{n}\sum_{i=1}^n x_i}}$\\This equals to mean.
+		\item For $\sigma$: $0=-\textstyle\frac{n}{\sigma}+\frac{1}{\sigma^3}\sum_{i=1}^n (x_i-\mu)^2 \stackrel{{\color{faured}\times \sigma}}{\Leftrightarrow} 0=-n+\frac{1}{\sigma^2}\sum_{i=1}^n (x_i-\mu)^2 \stackrel{{\color{faured}+n}}{\Leftrightarrow} n=\frac{1}{\sigma^2} \sum_{i=1}^n (x_i-\mu)^2$\\
+		      $\stackrel{{\color{faured}\times \sigma^2}}{\Leftrightarrow} n\sigma^2 = \sum_{i=1}^n (x_i-\mu)^2 \stackrel{{\color{faured}\times \frac{1}{n}}}{\Leftrightarrow} \sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\mu)^2 \stackrel{{\color{faured}\sqrt{\vphantom{}}}}{\Leftrightarrow} \underline{\underline{\sigma=\sqrt{\frac{1}{n}\sum_{i=1}^n (x_i-\mu)^2}}}$\\This equals to standard deviation.
+	\end{itemize}
+\end{frame}
