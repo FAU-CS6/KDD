@@ -2,6 +2,50 @@
 
 
 \begin{frame}
-	\frametitle{Classification of heterogenous sensor signals from power plants}
-	Power plants, regardless of their construction, must be intensively maintained and monitored to ensure constantly efficient power generation and to minimize the risk of damage. Sensors measure pressure, temperature, enthalpy, electrical resistance, etc., and their readings are recorded for this reason in order to monitor them. Since power plant operators operate at an international level, there is a need to evaluate information from power plants whose measured values are organized and stored in accordance with the norms that are standard for the specific country.
+	\frametitle{What is CHESS?}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{itemize}
+				\item \textbf{C}lassification of \textbf{H}eterogenous \textbf{S}ensor \textbf{S}ignals\footnotemark
+				\item Hierarchical approach to a real-world sensor mapping problem (SIEMENS power plants)
+				\item Deals with a wide variety of sensor signals and tries to map those to labels used for maintenance and monitoring
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-3em}
+			\begin{flushright}
+				\includegraphics[width=0.8\textwidth]{img/research/PowerPlant.png}
+				\begin{center}
+					\includegraphics[width=0.4\textwidth]{img/research/SElogo.png}
+				\end{center}
+			\end{flushright}
+		\end{column}
+	\end{columns}
+	\footnotetext{Just recently started. Still working on the acronym and name!}
+\end{frame}
+
+\begin{frame}
+	\frametitle{How could you contribute?}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			\begin{itemize}
+				\item We approach the high complexity problem from a hierarchical perspective
+				\item The problems mostly contain time series processing, sensor fusion and pattern detection in time series
+				\item We already identified the following challenges (for students or research work):
+				      \begin{itemize}
+					      \item Region of interest detection in power output signals
+					      \item Feature engineering for sensor event response
+					      \item Identification of active sensors during entity events
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\vspace*{\fill}
+			\begin{flushright}
+				\includegraphics[width=0.8\textwidth]{img/research/ROIselection.png}
+			\end{flushright}
+			\vspace*{\fill}
+		\end{column}
+	\end{columns}
+	\footnotetext{Just recently started. Still working on acronym and name!}
 \end{frame}
