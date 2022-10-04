@@ -1,0 +1,228 @@
+\section{ANANIA - Dominik Probst}
+
+\begin{frame}
+	\frametitle{What is ANANIA?}
+
+	\begin{columns}
+		\begin{column}{0.7\textwidth}
+			\begin{itemize}
+				\item \textbf{A}rchitecture of \textbf{N}on-Multiple \textbf{A}utoencoders for {\color{darkgray}\textbf{N}on-Lossy}\footnotemark \textbf{I}nformation \textbf{A}gglomeration
+				\item Compression of relational tuples using autoencoders
+				\item Special focus on time-series databases
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.3\textwidth}
+			\vspace*{-3em}
+			\begin{flushright}
+				\includegraphics[width=0.7\textwidth]{img/research/project-anania-logo.pdf}
+			\end{flushright}
+		\end{column}
+	\end{columns}
+	\footnotetext{At the moment, the project tends more towards lossy compression, despite the project name.}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{What are Autoencoders?}
+
+	\begin{itemize}
+		\item Special subtype of neural networks trained to output the same values as the values input
+	\end{itemize}
+
+	\begin{center}
+		\begin{tikzpicture}[scale=0.75]
+			\node[circle,draw,fill=gray,scale=1] at (0,0) (i1) {};
+			\node[circle,draw,fill=gray,scale=1] at (0,1) (i2) {};
+			\node[circle,draw,fill=gray,scale=1] at (0,2) (i3) {};
+			\node[circle,draw,fill=gray,scale=1] at (0,3) (i4) {};
+
+			\node[circle,draw,fill=white,scale=1] at (2,1) (hi1) {};
+			\node[circle,draw,fill=white,scale=1] at (2,2) (hi2) {};
+
+			\node[circle,draw,fill=darkgray,scale=1] at (4,1.5) (l) {};
+
+			\node[circle,draw,fill=white,scale=1] at (6,1) (ho1) {};
+			\node[circle,draw,fill=white,scale=1] at (6,2) (ho2) {};
+
+			\node[circle,draw,fill=gray,scale=1] at (8,0) (o1) {};
+			\node[circle,draw,fill=gray,scale=1] at (8,1) (o2) {};
+			\node[circle,draw,fill=gray,scale=1] at (8,2) (o3) {};
+			\node[circle,draw,fill=gray,scale=1] at (8,3) (o4) {};
+
+			\path[-,thick]
+			(i1) edge (hi1)
+			(i2) edge (hi1)
+			(i3) edge (hi1)
+			(i4) edge (hi1);
+
+			\path[-,thick]
+			(i1) edge (hi2)
+			(i2) edge (hi2)
+			(i3) edge (hi2)
+			(i4) edge (hi2);
+
+			\path[-,thick]
+			(hi1) edge (l)
+			(hi2) edge (l);
+
+			\path[-,thick]
+			(l) edge (ho1)
+			(l) edge (ho2);
+
+			\path[-,thick]
+			(ho1) edge (o1)
+			(ho1) edge (o2)
+			(ho1) edge (o3)
+			(ho1) edge (o4);
+
+			\path[-,thick]
+			(ho2) edge (o1)
+			(ho2) edge (o2)
+			(ho2) edge (o3)
+			(ho2) edge (o4);
+
+			\node[very thin,black,below=0.25mm of i1] {\scriptsize Input};
+			\node[very thin,black,below=0.25mm of l] {\scriptsize Latent};
+			\node[very thin,black,below=0.25mm of o1] {\scriptsize Output};
+
+			\draw[thick,black,decorate,decoration={brace,amplitude=2mm}] (2.5,-1) -- (-0.5,-1) node[below=3mm, midway] (e) {\scriptsize Encoder};
+			\node[very thin,darkgray,below=0.01mm of e] {\tiny Used to compress the data};
+			\draw[thick,black,decorate,decoration={brace,amplitude=2mm}] (8.5,-1) -- (5.5,-1) node[below=3mm, midway] (d) {\scriptsize Decoder};
+			\node[very thin,darkgray,below=0.01mm of d] {\tiny Used to decompress the data};
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What is the basic idea of ANANIA?}
+
+	\begin{itemize}
+		\item Compress groups of tuples to benefit from additional context
+	\end{itemize}
+
+	\begin{center}
+		\begin{tikzpicture}[scale=0.75]
+			\node[very thin,darkgray] at (-4, 1.5) (in) {
+				\scriptsize
+				\begin{tabular}{|c|c|}
+					\hline
+					{\textbf{Time}} & {\textbf{Temp}} \\ \hline
+					11.2            & 22.3            \\ \hline
+					11.4            & 21.1            \\ \hline
+				\end{tabular}
+			};
+
+			\node[circle,draw,fill=gray,scale=1] at (0,0) (i1) {};
+			\node[circle,draw,fill=gray,scale=1] at (0,1) (i2) {};
+			\node[circle,draw,fill=gray,scale=1] at (0,2) (i3) {};
+			\node[circle,draw,fill=gray,scale=1] at (0,3) (i4) {};
+
+			\node[very thin,black,left=2.5mm of i1] (iv1) {\scriptsize 11.2};
+			\node[very thin,black,left=2.5mm of i2] (iv2) {\scriptsize 22.3};
+			\node[very thin,black,left=2.5mm of i3] (iv3) {\scriptsize 11.4};
+			\node[very thin,black,left=2.5mm of i4] (iv4) {\scriptsize 21.1};
+
+			\path[->,thick]
+			(in) edge (iv1)
+			(in) edge (iv2)
+			(in) edge (iv3)
+			(in) edge (iv4);
+
+			\path[->,thick]
+			(iv1) edge (i1)
+			(iv2) edge (i2)
+			(iv3) edge (i3)
+			(iv4) edge (i4);
+
+			\node[circle,draw,fill=white,scale=1] at (2,1) (hi1) {};
+			\node[circle,draw,fill=white,scale=1] at (2,2) (hi2) {};
+
+			\node[circle,draw,fill=darkgray,scale=1] at (4,1.5) (l) {};
+
+			\node[circle,draw,fill=white,scale=1] at (6,1) (ho1) {};
+			\node[circle,draw,fill=white,scale=1] at (6,2) (ho2) {};
+
+			\node[circle,draw,fill=gray,scale=1] at (8,0) (o1) {};
+			\node[circle,draw,fill=gray,scale=1] at (8,1) (o2) {};
+			\node[circle,draw,fill=gray,scale=1] at (8,2) (o3) {};
+			\node[circle,draw,fill=gray,scale=1] at (8,3) (o4) {};
+
+
+			\node[very thin,black,right=2.5mm of o1] (ov1) {\scriptsize 11.2};
+			\node[very thin,black,right=2.5mm of o2] (ov2) {\scriptsize 22.2};
+			\node[very thin,black,right=2.5mm of o3] (ov3) {\scriptsize 11.4};
+			\node[very thin,black,right=2.5mm of o4] (ov4) {\scriptsize 21.2};
+
+			\path[->,thick]
+			(o1) edge (ov1)
+			(o2) edge (ov2)
+			(o3) edge (ov3)
+			(o4) edge (ov4);
+
+			\node[very thin,darkgray] at (12, 1.5) (on) {
+				\scriptsize
+				\begin{tabular}{|c|c|}
+					\hline
+					{\textbf{Time}} & {\textbf{Temp}} \\ \hline
+					11.2            & 22.2            \\ \hline
+					11.4            & 21.2            \\ \hline
+				\end{tabular}
+			};
+
+			\path[->,thick]
+			(ov1) edge (on)
+			(ov2) edge (on)
+			(ov3) edge (on)
+			(ov4) edge (on);
+
+			\path[-,thick]
+			(i1) edge (hi1)
+			(i2) edge (hi1)
+			(i3) edge (hi1)
+			(i4) edge (hi1);
+
+			\path[-,thick]
+			(i1) edge (hi2)
+			(i2) edge (hi2)
+			(i3) edge (hi2)
+			(i4) edge (hi2);
+
+			\path[-,thick]
+			(hi1) edge (l)
+			(hi2) edge (l);
+
+			\path[-,thick]
+			(l) edge (ho1)
+			(l) edge (ho2);
+
+			\path[-,thick]
+			(ho1) edge (o1)
+			(ho1) edge (o2)
+			(ho1) edge (o3)
+			(ho1) edge (o4);
+
+			\path[-,thick]
+			(ho2) edge (o1)
+			(ho2) edge (o2)
+			(ho2) edge (o3)
+			(ho2) edge (o4);
+
+			\node[very thin,black,below=0.25mm of i1] {\scriptsize Input};
+			\node[very thin,black,below=0.25mm of l] (ln) {\scriptsize Latent};
+			\node[very thin,black,below=0.25mm of o1] {\scriptsize Output};
+
+			\node[very thin,darkgray] at (4, -2) (cn) {
+				\scriptsize
+				\begin{tabular}{|c|}
+					\hline
+					{\textbf{Compression}} \\ \hline
+					8.2                    \\ \hline
+				\end{tabular}
+			};
+
+			\path[->,thick]
+			(ln) edge (cn);
+
+		\end{tikzpicture}
+	\end{center}
+\end{frame}

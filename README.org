@@ -21,7 +21,7 @@
   5. *Clustering* - Dominik Probst
   6. *Outlier* /(suspended)/ - Melanie B. Sigl
 
-* Summer semester 2021
+* Summer semester 2022
   Semester duration: 25 April 2022 – 29 July 2022
 
   | *Calendar Week* | *Lecture Topic*                          | *Lecturer*        | *Exercise*                  |
