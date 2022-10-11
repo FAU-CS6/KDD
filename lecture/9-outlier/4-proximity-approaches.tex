@@ -67,8 +67,8 @@
 			\begin{itemize}
 				\item For every object $\mathbf{o}_i\in D$ calculate distance with every other object $\mathbf{o}_j \in D$ where $i\neq j$.
 				\item Also count the number of objects in the $r$-neighborhood of $\mathbf{o}_i$.
-				\item Terminate inner loop if $\pi n$ objects found in distance $r$: $\mathbf{o}_i$ must be a $\mathbf{DB}(r, \pi)$-outlier.
-				\item Otherwise do not terminate: $\mathbf{o}_i$ is not an outlier.
+				\item Terminate inner loop if $\pi n$ objects found in distance $r$: $\mathbf{o}_i$ is no $\mathbf{DB}(r, \pi)$-outlier.
+				\item Otherwise do not terminate: $\mathbf{o}_i$ is an outlier.
 			\end{itemize}
 			\textbf{Efficiency:}
 			\begin{itemize}
