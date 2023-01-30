@@ -1,0 +1,20 @@
+#+title: Semester Plans
+* Summer semester 2022
+  Semester duration: 25 April 2022 – 29 July 2022
+
+  | *Calendar Week* | *Lecture Topic*                          | *Lecturer*        | *Exercise*                  |
+  |---------------+----------------------------------------+-----------------+---------------------------|
+  |            17 | Course Introduction + KDD Introduction | Dominik Probst  |                           |
+  |            18 | Data                                   | Melanie B. Sigl | Introduction to Python & Pandas |
+  |            19 | Preprocessing, Part 1                  | Dominik Probst  | Data analysis & data preprocessing |
+  |            20 | Preprocessing, Part 2                  | Dominik Probst  | Data analysis & data preprocessing |
+  |            21 | OLAP                                   | Melanie B. Sigl | Data analysis & data preprocessing |
+  |            22 | Frequent Pattern, Part 1               | Dominik Probst  | Frequent Pattern          |
+  |            23 | -                                      | -               | -                         |
+  |            24 | Frequent Pattern, Part 2               | Dominik Probst  | Frequent Pattern          |
+  |            25 | Classification, Part 1                 | Melanie B. Sigl | Classification            |
+  |            26 | Classification, Part 2                 | Melanie B. Sigl | Classification            |
+  |            27 | Cluster Analysis, Part 1               | Dominik Probst  | Classification            |
+  |            28 | Cluster Analysis, Part 2               | Dominik Probst  | Clustering                |
+  |            29 | Outlier Analysis, Part 1               | Melanie B. Sigl | Clustering                |
+  |            30 | Outlier Analysis, Part 2 + Current Research at CS6 and Exam QnA | Melanie B. Sigl + Dominik Probst |                           |
