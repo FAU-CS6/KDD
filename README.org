@@ -21,25 +21,31 @@
   5. *Clustering* - Dominik Probst
   6. *Outlier* /(suspended)/ - Melanie B. Sigl
 
-* Summer semester 2022
-  Semester duration: 25 April 2022 – 29 July 2022
+* Summer semester 2023
+  - Semester duration: 17 April 2023 – 21 July 2023
+  - No lectures on: Tuesday, 30 May 2023 (CW 22)
+  - Public holidays:
+    - Monday, 1 May 2023 (Tag der Arbeit/May Day, CW 18)
+    - Thursday, 18 May 2023 (Christi Himmelfahrt/Ascension Day, CW 20)
+    - Monday, 29 May 2022 (Pfingstmontag/Whit Monday, CW 22)
+    - Thursday, 8 June 2022 (Fronleichnam/Corpus Christi, CW 23)
 
-  | *Calendar Week* | *Lecture Topic*                          | *Lecturer*        | *Exercise*                  |
-  |---------------+----------------------------------------+-----------------+---------------------------|
-  |            17 | Course Introduction + KDD Introduction | Dominik Probst  |                           |
-  |            18 | Data                                   | Melanie B. Sigl | Introduction to Python & Pandas |
-  |            19 | Preprocessing, Part 1                  | Dominik Probst  | Data analysis & data preprocessing |
-  |            20 | Preprocessing, Part 2                  | Dominik Probst  | Data analysis & data preprocessing |
-  |            21 | OLAP                                   | Melanie B. Sigl | Data analysis & data preprocessing |
-  |            22 | Frequent Pattern, Part 1               | Dominik Probst  | Frequent Pattern          |
-  |            23 | -                                      | -               | -                         |
-  |            24 | Frequent Pattern, Part 2               | Dominik Probst  | Frequent Pattern          |
-  |            25 | Classification, Part 1                 | Melanie B. Sigl | Classification            |
-  |            26 | Classification, Part 2                 | Melanie B. Sigl | Classification            |
-  |            27 | Cluster Analysis, Part 1               | Dominik Probst  | Classification            |
-  |            28 | Cluster Analysis, Part 2               | Dominik Probst  | Clustering                |
-  |            29 | Outlier Analysis, Part 1               | Melanie B. Sigl | Clustering                |
-  |            30 | Outlier Analysis, Part 2 + Current Research at CS6 and Exam QnA | Melanie B. Sigl + Dominik Probst |                           |
+  | *Calendar Week* | *Lecture Topic*                                                   | *Lecturer*                         | *Exercise*                           |
+  |---------------+-----------------------------------------------------------------+----------------------------------+------------------------------------|
+  |            16 | Course Introduction + KDD Introduction                          | Dominik Probst                   |                                    |
+  |            17 | Data                                                            | Melanie B. Sigl                  | Introduction to Python & Pandas    |
+  |            18 | Preprocessing, Part 1                                           | Dominik Probst                   | Data analysis & data preprocessing |
+  |            19 | Preprocessing, Part 2                                           | Dominik Probst                   | Data analysis & data preprocessing |
+  |            20 | OLAP                                                            | Melanie B. Sigl                  | Data analysis & data preprocessing |
+  |            21 | Frequent Pattern, Part 1                                        | Dominik Probst                   | Frequent Pattern                   |
+  |            22 | -                                                               | -                                | -                                  |
+  |            23 | Frequent Pattern, Part 2                                        | Dominik Probst                   | Frequent Pattern                   |
+  |            24 | Classification, Part 1                                          | Melanie B. Sigl                  | Classification                     |
+  |            25 | Classification, Part 2                                          | Melanie B. Sigl                  | Classification                     |
+  |            26 | Cluster Analysis, Part 1                                        | Dominik Probst                   | Classification                     |
+  |            27 | Cluster Analysis, Part 2                                        | Dominik Probst                   | Clustering                         |
+  |            28 | Outlier Analysis, Part 1                                        | Melanie B. Sigl                  | Clustering                         |
+  |            29 | Outlier Analysis, Part 2 + Current Research at CS6 and Exam QnA | Melanie B. Sigl + Dominik Probst |                                    |
 
 * Setup for Building Lecture Slides Locally
 To build these lecture slides locally on your machine you'll need an up-to-date
