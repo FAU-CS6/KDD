@@ -15,17 +15,17 @@
 		      \end{itemize}
 		\item \textbf{Scalable mining methods: three major approaches.}
 		      \begin{itemize}
-			      \item A priori (Agrawal \& Srikant, VLDB'94).
-			      \item Frequent-pattern growth (FPgrowth) (Han, Pei \& Yin,
+			      \item Apriori (Agrawal \& Srikant, VLDB'94).
+			      \item Frequent-pattern growth (FP-growth) (Han, Pei \& Yin,
 			            SIGMOD'00).
 			      \item Vertical-data-format approach (CHARM) (Zaki \& Hsiao, SDM'02).
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{A Priori: A Candidate Generation \& Test Approach}
+\begin{frame}{Apriori: A Candidate Generation \& Test Approach}
 	\begin{itemize}
-		\item \textbf{A priori pruning principle:}
+		\item \textbf{Apriori pruning principle:}
 		      \begin{itemize}
 			      \item \textbf{\color{airforceblue}If there is any itemset which is
 				            infrequent, \\ its supersets should not be generated/tested!} \\
@@ -44,7 +44,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{A Priori Algorithm -- An Example}
+\begin{frame}{Apriori Algorithm -- An Example}
 	\centering
 	\vspace{-0.7cm}
 	\scalebox{0.9}{%
@@ -154,7 +154,7 @@
 	}
 \end{frame}
 
-\begin{frame}{A Priori Algorithm (Pseudo Code)}
+\begin{frame}{Apriori Algorithm (Pseudo Code)}
 	$C_k$: candidate itemsets of size $k$\\
 	$L_k$: frequent itemsets of size $k$\\[0.5cm]
 
@@ -170,7 +170,7 @@
 	\textbf{return} $\bigcup_k L_k$;
 \end{frame}
 
-\begin{frame}{Implementation of a Priori}
+\begin{frame}{Implementation of Apriori}
 	\begin{itemize}
 		\item \textbf{\color{airforceblue}How to generate candidates?}
 		      \begin{itemize}
@@ -194,7 +194,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Implementation of a Priori}
+\begin{frame}{Implementation of Apriori}
 	\begin{itemize}
 		\item \textbf{Why is counting supports of candidates a problem?}
 		      \begin{itemize}
@@ -313,7 +313,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Further Improvement of the a Priori Method}
+\begin{frame}{Further Improvement of the Apriori Method}
 	\begin{itemize}
 		\item \textbf{Major computational challenges.}
 		      \begin{itemize}
@@ -321,7 +321,7 @@
 			      \item Huge number of candidates.
 			      \item Support counting for candidates is laborious.
 		      \end{itemize}
-		\item \textbf{Improving a priori: general ideas.}
+		\item \textbf{Improving Apriori: general ideas.}
 		      \begin{itemize}
 			      \item Reduce passes of transaction-database scans.
 			      \item Shrink number of candidates.
@@ -405,7 +405,7 @@
 \begin{frame}{Sampling for Frequent Patterns}
 	\begin{itemize}
 		\item \textbf{Select a sample of original database,\\
-			      mine frequent patterns within sample using a priori.}
+			      mine frequent patterns within sample using Apriori.}
 		\item \textbf{Scan database once to verify frequent itemsets found in
 			      sample,\\
 			      only {\color{airforceblue}borders} of closure of frequent patterns
@@ -534,17 +534,17 @@
 					\draw[dashed, color=red] (3,-2.8) -- (-3,-3.8);
 					\draw[dashed, color=red] (3,-3.3) -- (-3,-4.3);
 					\node at (-3.5, -3.1) {\color{red}DIC:};
-					\node at (-3.5, -1.1) {\color{airforceblue}A priori:};
+					\node at (-3.5, -1.1) {\color{airforceblue}Apriori:};
 				\end{tikzpicture}
 			}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Pattern-growth Approach: Mining Frequent Patterns without
+\begin{frame}{FP-growth: Mining Frequent Patterns without
 		Candidate Generation}
 	\begin{itemize}
-		\item \textbf{Bottlenecks of the a priori approach.}
+		\item \textbf{Bottlenecks of the Apriori approach.}
 		      \begin{itemize}
 			      \item Breadth-first (i.e., level-wise) search.
 			      \item Candidate generation and test.
@@ -552,7 +552,7 @@
 				            \item Often generates a huge number of candidates.
 			            \end{itemize}
 		      \end{itemize}
-		\item \textbf{The FPGrowth Approach.} (Han, Pei \& Yin, SIGMOD'00)
+		\item \textbf{The FP-growth Approach.} (Han, Pei \& Yin, SIGMOD'00)
 		      \begin{itemize}
 			      \item Depth-first search.
 			      \item Avoid explicit candidate generation.
@@ -1070,7 +1070,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{The Frequent-pattern-growth Mining Method}
+\begin{frame}{The FP-growth Mining Method}
 	\centering
 	\begin{itemize}
 		\item \textbf{Idea: FP-growth.}
@@ -1235,7 +1235,7 @@
 	}
 \end{frame}
 
-\begin{frame}{Advantages of the Pattern-growth Approach}
+\begin{frame}{Advantages of the FP-growth Approach}
 	\begin{itemize}
 		\item \textbf{Divide-and-conquer:}
 		      \begin{itemize}
@@ -1252,11 +1252,6 @@
 			            FP-tree,\\
 			            no pattern search and matching.
 		      \end{itemize}
-		\item \textbf{A good open-source implementation and refinement of
-			      FP-growth:}
-		      \begin{itemize}
-			      \item FPGrowth+ (Grahne \& Zhu, FIMI'03)
-		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -1272,7 +1267,7 @@
 			      \item Mine datasets with small rows but numerous columns.
 			      \item Construct a row-enumeration tree for efficient mining.
 		      \end{itemize}
-		\item \textbf{FPgrowth+} (Grahne \& Zhu, FIMI'03)
+		\item \textbf{FP-growth+} (Grahne \& Zhu, FIMI'03)
 		      \begin{itemize}
 			      \item Efficiently using prefix-trees in mining frequent itemsets.
 		      \end{itemize}
