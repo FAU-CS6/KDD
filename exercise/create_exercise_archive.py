@@ -64,7 +64,7 @@ if __name__ == "__main__":
         # Iterate through all files in the copied folder
         for file in os.listdir(folder_temp_path):
             # Check if it is a .ipynb file
-            if re.match(r"^[A-Za-z0-9_-]*.ipynb$", file):
+            if re.match(r"^[A-Za-z0-9._-]*.ipynb$", file):
                 # Delete the cells with the tag
                 new_notebook = exporter.from_filename(
                     os.path.join(folder_temp_path, file)
