@@ -1,0 +1,16 @@
+AID,NAME,PRICE,TYPE
+1,Apple,0.3,Fruit
+2,Banana,0.75,Fruit
+3,Kiwi,0.6,Fruit
+4,Clementine,0.5,Fruit
+5,Strawberry,0.45,Fruit
+6,Cherry,0.4,Fruit
+7,Carrot,0.5,Vegetable
+8,Bell Pepper,0.7,Vegetable
+9,Onion,0.3,Vegetable
+10,Salad,0.4,Vegetable
+11,Tomato,0.45,Vegetable
+12,Cucumber,0.3,Vegetable
+13,Spinach,0.6,Vegetable
+14,Water Melon,1.5,Fruit
+15,Garlic,0.3,Vegetable

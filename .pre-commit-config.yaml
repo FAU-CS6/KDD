@@ -24,7 +24,7 @@ repos:
 
   # Hooks concerning Python files (and Jupyter Notebooks)
   -   repo: https://github.com/psf/black
-      rev: 21.12b0
+      rev: 23.1.0
       hooks:
       -   id: black-jupyter
 

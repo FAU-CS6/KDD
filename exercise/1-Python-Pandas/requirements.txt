@@ -1,6 +1,6 @@
-pandas==1.4.2
-numpy==1.22.4
-sqlalchemy==1.4.37
+pandas==1.5.3
+numpy==1.24.2
+sqlalchemy==2.0.7
 
-ipython==8.4.0
-jupyterlab==3.4.3
+ipython==8.11.0
+jupyterlab==3.6.2
