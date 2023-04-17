@@ -11,7 +11,7 @@ train_buys_computer = pd.DataFrame(
         [">40", "low", "yes", "excellent", "no"],
         ["31-40", "low", "yes", "excellent", "yes"],
         ["<=30", "medium", "no", "fair", "no"],
-        ["<=30", "low", "no", "fair", "yes"],
+        ["<=30", "low", "yes", "fair", "yes"],
         [">40", "medium", "yes", "fair", "yes"],
         ["<=30", "medium", "yes", "excellent", "yes"],
         ["31-40", "medium", "no", "excellent", "yes"],

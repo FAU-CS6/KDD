@@ -1,9 +1,8 @@
-pandas==1.4.2
-seaborn==0.11.2
-numpy==1.22.3
-scikit-learn==1.0.2
-matplotlib==3.5.1
+pandas==1.5.3
+seaborn==0.12.2
+numpy==1.24.2
+scikit-learn==1.2.2
+matplotlib==3.7.1
 
-
-ipython==8.4.0
-jupyterlab==3.4.3
+ipython==8.11.0
+jupyterlab==3.6.2

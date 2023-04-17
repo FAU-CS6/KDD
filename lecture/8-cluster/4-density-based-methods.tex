@@ -263,9 +263,24 @@
 
 \begin{frame}{DBSCAN: Sensitive to Parameters}
 	\centering
-	\includegraphics[width=12cm]{img/dbscan.png}\\
-	\includegraphics[width=2cm]{img/dbscan3.png}
-	\includegraphics[width=10cm]{img/dbscan2.png}
+	\begin{columns}[c]
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.75\textheight, trim={1mm 1mm 1mm 1mm}, clip]{img/dbscan-eps-1-minpts-5.png}
+
+				\textbf{\small $\epsilon = 1 \text{ and } MinPts=5$}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.75\textheight, trim={1mm 1mm 1mm 1mm}, clip]{img/dbscan-eps-0.7-minpts-10.png}
+
+				\textbf{\small $\epsilon = 0.7 \text{ and } MinPts=10$}
+			\end{figure}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{OPTICS: A Cluster-ordering Method}
@@ -296,9 +311,8 @@
 \end{frame}
 
 \begin{frame}{OPTICS: Some Extension of DBSCAN}
-	\begin{columns}
+	\begin{columns}[c]
 		\begin{column}{0.7\textwidth}
-			\vspace{-4cm}
 			\begin{itemize}
 				\item \textbf{\color{airforceblue}Core distance:}
 				      \begin{itemize}
@@ -323,7 +337,6 @@
 		\end{column}
 		\begin{column}{0.3\textwidth}
 			\centering
-			\vspace{4cm}
 			\begin{tikzpicture}
 				\draw (0,0) circle (2cm);
 				\draw (0,0) circle (1cm);
@@ -405,7 +418,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{DENCLUE: Technical Essence}
+\begin{frame}{DENCLUE: Technical Essence (I)}
 	\begin{itemize}
 		\item \textbf{Density estimation:}
 		      \begin{itemize}
@@ -447,17 +460,4 @@
 			            high density ($>$ threshold).
 		      \end{itemize}
 	\end{itemize}
-\end{frame}
-
-\begin{frame}{Density Attractor}
-	\centering
-	\vspace{1cm}
-	\includegraphics[width=4cm]{img/densityattractor.png}
-	\includegraphics[width=4cm]{img/densityattractor1.png}
-	\includegraphics[width=4cm]{img/densityattractor2.png}
-\end{frame}
-
-\begin{frame}{Density Attractor}
-	\centering
-	\includegraphics[width=11.5cm]{img/densities.png}
 \end{frame}

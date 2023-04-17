@@ -15,17 +15,17 @@
 		      \end{itemize}
 		\item \textbf{Scalable mining methods: three major approaches.}
 		      \begin{itemize}
-			      \item A priori (Agrawal \& Srikant, VLDB'94).
-			      \item Frequent-pattern growth (FPgrowth) (Han, Pei \& Yin,
+			      \item Apriori (Agrawal \& Srikant, VLDB'94).
+			      \item Frequent-pattern growth (FP-growth) (Han, Pei \& Yin,
 			            SIGMOD'00).
 			      \item Vertical-data-format approach (CHARM) (Zaki \& Hsiao, SDM'02).
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{A Priori: A Candidate Generation \& Test Approach}
+\begin{frame}{Apriori: A Candidate Generation \& Test Approach}
 	\begin{itemize}
-		\item \textbf{A priori pruning principle:}
+		\item \textbf{Apriori pruning principle:}
 		      \begin{itemize}
 			      \item \textbf{\color{airforceblue}If there is any itemset which is
 				            infrequent, \\ its supersets should not be generated/tested!} \\
@@ -44,7 +44,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{A Priori Algorithm -- An Example}
+\begin{frame}{Apriori Algorithm -- An Example}
 	\centering
 	\vspace{-0.7cm}
 	\scalebox{0.9}{%
@@ -154,7 +154,7 @@
 	}
 \end{frame}
 
-\begin{frame}{A Priori Algorithm (Pseudo Code)}
+\begin{frame}{Apriori Algorithm (Pseudo Code)}
 	$C_k$: candidate itemsets of size $k$\\
 	$L_k$: frequent itemsets of size $k$\\[0.5cm]
 
@@ -170,7 +170,7 @@
 	\textbf{return} $\bigcup_k L_k$;
 \end{frame}
 
-\begin{frame}{Implementation of a Priori}
+\begin{frame}{Implementation of Apriori (I)}
 	\begin{itemize}
 		\item \textbf{\color{airforceblue}How to generate candidates?}
 		      \begin{itemize}
@@ -194,7 +194,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Implementation of a Priori}
+\begin{frame}{Implementation of Apriori (II)}
 	\begin{itemize}
 		\item \textbf{Why is counting supports of candidates a problem?}
 		      \begin{itemize}
@@ -313,7 +313,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Further Improvement of the a Priori Method}
+\begin{frame}{Further Improvement of the Apriori Method}
 	\begin{itemize}
 		\item \textbf{Major computational challenges.}
 		      \begin{itemize}
@@ -321,7 +321,7 @@
 			      \item Huge number of candidates.
 			      \item Support counting for candidates is laborious.
 		      \end{itemize}
-		\item \textbf{Improving a priori: general ideas.}
+		\item \textbf{Improving Apriori: general ideas.}
 		      \begin{itemize}
 			      \item Reduce passes of transaction-database scans.
 			      \item Shrink number of candidates.
@@ -331,7 +331,7 @@
 \end{frame}
 
 \begin{frame}{Hashing: Reduce the Number of Candidates}
-	\begin{columns}
+	\begin{columns}[c]
 		\begin{column}{0.6\textwidth}
 			\begin{itemize}
 				\item \textbf{A $k$-itemset whose corresponding hashing-bucket
@@ -405,7 +405,7 @@
 \begin{frame}{Sampling for Frequent Patterns}
 	\begin{itemize}
 		\item \textbf{Select a sample of original database,\\
-			      mine frequent patterns within sample using a priori.}
+			      mine frequent patterns within sample using Apriori.}
 		\item \textbf{Scan database once to verify frequent itemsets found in
 			      sample,\\
 			      only {\color{airforceblue}borders} of closure of frequent patterns
@@ -418,7 +418,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Dynamic Itemset Counting: Reduce Number of Scans}
+\begin{frame}{Dynamic Itemset Counting: Reduce Number of Scans (I)}
 	\begin{itemize}
 		\item \textbf{Adding candidate itemsets at different points during a
 			      scan.}
@@ -534,17 +534,17 @@
 					\draw[dashed, color=red] (3,-2.8) -- (-3,-3.8);
 					\draw[dashed, color=red] (3,-3.3) -- (-3,-4.3);
 					\node at (-3.5, -3.1) {\color{red}DIC:};
-					\node at (-3.5, -1.1) {\color{airforceblue}A priori:};
+					\node at (-3.5, -1.1) {\color{airforceblue}Apriori:};
 				\end{tikzpicture}
 			}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Pattern-growth Approach: Mining Frequent Patterns without
+\begin{frame}{FP-growth: Mining Frequent Patterns without
 		Candidate Generation}
 	\begin{itemize}
-		\item \textbf{Bottlenecks of the a priori approach.}
+		\item \textbf{Bottlenecks of the Apriori approach.}
 		      \begin{itemize}
 			      \item Breadth-first (i.e., level-wise) search.
 			      \item Candidate generation and test.
@@ -552,7 +552,7 @@
 				            \item Often generates a huge number of candidates.
 			            \end{itemize}
 		      \end{itemize}
-		\item \textbf{The FPGrowth Approach.} (Han, Pei \& Yin, SIGMOD'00)
+		\item \textbf{The FP-growth Approach.} (Han, Pei \& Yin, SIGMOD'00)
 		      \begin{itemize}
 			      \item Depth-first search.
 			      \item Avoid explicit candidate generation.
@@ -999,7 +999,7 @@
 	}
 \end{frame}
 
-\begin{frame}{A Special Case: Single Prefix Path in FP-tree}
+\begin{frame}{A Special Case: Single Prefix Path in FP-tree (I)}
 	\centering
 	\begin{itemize}
 		\item \textbf{Suppose a (conditional) FP-tree $T$ has a shared single
@@ -1046,7 +1046,7 @@
 	}
 \end{frame}
 
-\begin{frame}{A Special Case: Single Prefix Path in FP-tree}
+\begin{frame}{A Special Case: Single Prefix Path in FP-tree (II)}
 	\centering
 	\begin{itemize}
 		\item \textbf{Completeness.}
@@ -1070,7 +1070,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{The Frequent-pattern-growth Mining Method}
+\begin{frame}{The FP-growth Mining Method}
 	\centering
 	\begin{itemize}
 		\item \textbf{Idea: FP-growth.}
@@ -1235,7 +1235,7 @@
 	}
 \end{frame}
 
-\begin{frame}{Advantages of the Pattern-growth Approach}
+\begin{frame}{Advantages of the FP-growth Approach}
 	\begin{itemize}
 		\item \textbf{Divide-and-conquer:}
 		      \begin{itemize}
@@ -1251,65 +1251,6 @@
 			      \item Basic ops: counting local frequent items and building sub
 			            FP-tree,\\
 			            no pattern search and matching.
-		      \end{itemize}
-		\item \textbf{A good open-source implementation and refinement of
-			      FP-growth:}
-		      \begin{itemize}
-			      \item FPGrowth+ (Grahne \& Zhu, FIMI'03)
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Further Improvements of Mining Methods}
-	\begin{itemize}
-		\item \textbf{AFOPT} (Liu et al., KDD'03)
-		      \begin{itemize}
-			      \item A "push-right" method for mining condensed frequent-pattern
-			            (CFP) tree.
-		      \end{itemize}
-		\item \textbf{Carpenter} (Pan et al., KDD'03)
-		      \begin{itemize}
-			      \item Mine datasets with small rows but numerous columns.
-			      \item Construct a row-enumeration tree for efficient mining.
-		      \end{itemize}
-		\item \textbf{FPgrowth+} (Grahne \& Zhu, FIMI'03)
-		      \begin{itemize}
-			      \item Efficiently using prefix-trees in mining frequent itemsets.
-		      \end{itemize}
-		\item \textbf{TD-Close} (Liu et al., SDM'06)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Extension of Pattern-growth Mining Methodology}
-	\begin{itemize}
-		\item \textbf{Mining closed frequent itemsets and max-patterns.}
-		      \begin{itemize}
-			      \item CLOSET (DMKD'00), FPclose, and FPMax (Grahne \& Zhu, FIMI'03)
-		      \end{itemize}
-		\item \textbf{Mining sequential patterns.}
-		      \begin{itemize}
-			      \item PrefixSpan (ICDE'01), CloSpan (SDM'03), BIDE (ICDE'04)
-		      \end{itemize}
-		\item \textbf{Mining graph patterns.}
-		      \begin{itemize}
-			      \item gSpan (ICDM'02), CloseGraph (KDD'03)
-		      \end{itemize}
-		\item \textbf{Constraint-based mining of frequent patterns.}
-		      \begin{itemize}
-			      \item Convertible constraints (ICDE'01), gPrune (PAKDD'03)
-		      \end{itemize}
-		\item \textbf{Computing iceberg data cubes with complex measures.}
-		      \begin{itemize}
-			      \item H-tree, H-cubing, and Star-cubing (SIGMOD'01, VLDB'03)
-		      \end{itemize}
-		\item \textbf{Pattern-growth-based clustering.}
-		      \begin{itemize}
-			      \item MaPle (Pei et al., ICDM'03)
-		      \end{itemize}
-		\item \textbf{Pattern-growth-based classification.}
-		      \begin{itemize}
-			      \item Mining frequent and discriminative patterns (Cheng et al.,
-			            ICDE'07)
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -1340,14 +1281,14 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Mining Closed Itemsets: CLOSET}
-	\begin{columns}
+\begin{frame}{Mining Closed Itemsets: CLOSET (I)}
+	\begin{columns}[c]
 		\begin{column}{0.6\textwidth}
 			\begin{itemize}
-				\item \textbf{Flist: list of all frequent items \\ in
+				\item \textbf{F-list: list of all frequent items \\ in
 					      support-ascending order.}
 				      \begin{itemize}
-					      \item Flist: d-a-f-e-c.
+					      \item F-list: d-a-f-e-c.
 				      \end{itemize}
 				\item \textbf{Divide search space.}
 				      \begin{itemize}
@@ -1362,8 +1303,7 @@
 				      \end{itemize}
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.3\textwidth}
-			$\text{min\_sup} =2$ \\[0.2cm]
+		\begin{column}{0.25\textwidth}
 			\begin{tabular}{|c|c|}
 				\hline
 				TID & Items     \\\hline
@@ -1377,7 +1317,7 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Mining Closed Itemsets: CLOSET}
+\begin{frame}{Mining Closed Itemsets: CLOSET (II)}
 	\begin{itemize}
 		\item \textbf{Itemset merging:.}
 		      \begin{itemize}
@@ -1401,8 +1341,7 @@
 \end{frame}
 
 \begin{frame}{MaxMiner: Mining Max-itemsets}
-	\begin{columns}
-		\vspace{-5mm}
+	\begin{columns}[c]
 		\begin{column}{0.6\textwidth}
 			\begin{itemize}
 				\item \textbf{1st scan: find frequent items.}
