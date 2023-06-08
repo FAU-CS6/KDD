@@ -184,10 +184,12 @@
 			\vspace*{-1em}
 			\begin{itemize}
 				\item Attribute $A$ with $v$ distinct values.
-				\item Expected information required to classify tuple in $D$ based on partitioning by $A$:
+				\item Expected information required to classify tuple in $D$ based on partitioning by $A$.
+				\item $D_A$: dataset $D$ partitioned by $A$, $v$: number of distinct values of $A$.
 			\end{itemize}
+			\vspace*{-1em}
 			\begin{align*}
-				\text{Info}_A(D) = \sum_{j=1}^v \frac{|D_j|}{|D|} \text{Info}(D_j)
+				\text{Info}_A(D) = \sum_{j=1}^v \frac{|D_{A,j}|}{|D_A|} \text{Info}(D_{A,j})
 			\end{align*}
 		\end{column}
 
@@ -207,8 +209,8 @@
 			\end{itemize}
 		\end{column}
 	\end{columns}
-	\vspace*{1.5em}
-	Given $\text{Info}_A(D)$ and $\text{Info}_A(D)$, Information Gain is defines as:
+	\vspace*{.5em}
+	Given $\text{Info}(D)$ and $\text{Info}_A(D)$, Information Gain is defined as:
 	\begin{align*}
 		\text{Gain}(A) = \text{Info}(D) - \text{Info}_A(D)
 	\end{align*}

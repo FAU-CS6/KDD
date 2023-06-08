@@ -114,89 +114,85 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Sequential Covering Algorithm (I)}
-	% REVIEW: This header is a bit confusing after concrete Sequential Covering Algortihms are presented on the previous slide. One wonders which of the algorithms is being outlined here. Since "FOIL_Gain" is mentioned on the next slide, I assume that the algorithm outlined here is supposed to be FOIL. Accordingly, I would then also mention this in the three headers.
+\begin{frame}{Sequential Covering Algorithm (I): Basic Algorithm}
+	\begin{algorithm}[H]
+		\SetAlgoVlined
+		\KwData{
+			\begin{itemize}
+				\item Training dataset $D$ containing tuples with their associated class labels;
+				\item \texttt{attribute\_values}, the set of all attributes and their possible values;
+			\end{itemize}
+		}
+		\KwResult{A rule set.}
+		\BlankLine
+		\texttt{rule\_set} $\leftarrow \{\}$ \tcp*[l]{Initial set of rules learned is empty}
+		\BlankLine
+		\ForEach{class $c$ of $D$}{
+			\Repeat{terminating condition}{
+				\texttt{rule} $\leftarrow$ \texttt{learn\_one\_rule}($D$, \texttt{attribute\_values, $c$})\;
+				remove tuples covered by \texttt{rule} from $D$\;
+				\BlankLine
+				\texttt{rule\_set} $\leftarrow$ \texttt{rule\_set} + \texttt{rule} \tcp*[l]{add new rule to rule set}
+			}
+		}
+		\BlankLine
+		\KwRet{
+			\texttt{rule\_set}\;
+		}
+	\end{algorithm}
+\end{frame}
+
+\begin{frame}{Sequential Covering Algorithm (II): How Rules are Learned}
 	\begin{itemize}
-		\item \textbf{While (enough target tuples left):}
+		\item Rules are learned in a \textit{general-to-specific} manner
+		\item Start with the most general rule possible: a rule with an empty condition
+		      \begin{center}
+			      IF THEN \texttt{buys\_computer} = "yes"
+		      \end{center}
+		\item Then: Consider each possible attribute (\texttt{attribute\_values})\newline
+		      For instance: attribute-value pair (\texttt{att}, \texttt{val}); consider the following attribute tests:\newline
+		      \texttt{att} = \texttt{val}, \texttt{att} $<$ \texttt{val}, \texttt{att} $\leq$ \texttt{val}, \texttt{att} > \texttt{val}, \texttt{att} $\geq$ \texttt{val}
+		\item \textbf{Curse of dimensionality:} testing each attribute-value pair is computationally explosive
+		\item Solution: \textbf{greedy depth-first strategy of \texttt{learn\_one\_rule}}
 		      \begin{itemize}
-			      \item generate a rule;
-			      \item remove positive target tuples satisfying this rule;
+			      \item Add new attribute test that improves the rule quality the most.
+			      \item Each time a new attribute test is added, the rule should cover more "accept" tuples (\texttt{buys\_computer} = "yes").
+			      \item Repeat until a certain acceptable quality level is reached (\textit{terminating condition}).
 		      \end{itemize}
-		      \centering
-		      \begin{tikzpicture}
-			      \draw[fill=airforceblue] (0,0) ellipse (5.2 and 2.5) (0,0) node [text=black] {};
-			      \draw[fill=white] (0,1) ellipse (2 and 1.2) (0,0) node [text=black] {};
-			      \draw[fill=white] (-3,-0.2) ellipse (2 and 1.2) (0,0) node [text=black] {};
-			      \draw[fill=white] (3,0) ellipse (2 and 1.2) (0,0) node [text=black] {};
-			      \node at (0,1.1) (a1) {Examples covered};
-			      \node at (0,0.8) (a2) {by rule 2};
-			      \node at (3,0.1) (b1) {Examples covered};
-			      \node at (3,-0.2) (b2) {by rule 3};
-			      \node at (-3,-0.2) (c1) {Examples covered};
-			      \node at (-3,-0.5) (c2) {by rule 1};
-			      \node at (-1,-1.5) (d1) {\textbf{Positive}};
-			      \node at (-1,-1.8) (d2) {\textbf{examples}};
-		      \end{tikzpicture}
+		\item \textbf{What if we added a poor choice?} Greedy search does not allow for backtracking.
+		      \begin{itemize}
+			      \item Retain the best $k$ attribute candidates at each step, rather than a single best candidate.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Sequential Covering Algorithm (II)}
-	\begin{itemize}
-		\item \textbf{To generate a rule:}
-		      \begin{itemize}
-			      \item \textbf{while}(true:)
-			            \begin{itemize}
-				            \item find the best predicate $p$ (attribute = value);
-				            \item \textbf{if} \texttt{FOIL\_Gain}(p) > threshold
-				            \item \textbf{then} add $p$ to current rule;
-				            \item \textbf{else} break;
-			            \end{itemize}
-		      \end{itemize}
-	\end{itemize}
-	\centering
-	\begin{tikzpicture}
-		\draw[fill=red!20] (-3,0) rectangle (1,4) (0,0) node [text=black] {};
-		\draw[fill=airforceblue!20] (6,0) rectangle (0,4) (0,0) node [text=black] {};
-		\node at (3,0.5) (a1) {Negative examples};
-		\node at (-1.5,0.5) (a1) {Positive examples};
-		\uncover<2->{
-			\draw[fill=yellow!20,fill opacity=0.7] (-0.7,2.5) ellipse (2 and 1.2) (0,0) node [text=black] {};
-			\node at (-0.7,3) {$A3=1$};
-		}
-		\uncover<3->{
-			\draw[fill=yellow!20,fill opacity=0.7] (-0.7,2.5) ellipse (1.8 and 1) (0,0) node [text=black] {};
-			\node at (-0.7,2.7) {$A3=1 \&\& A1=2$};
-		}
-		\uncover<4->{
-			\draw[fill=yellow!20,fill opacity=0.7] (-0.7,2.5) ellipse (1.6 and 0.8) (0,0) node [text=black] {};
-			\node at (-0.7,2.4) {$A3=1 \&\& A1=2$};
-			\node at (-0.7,2.1) {$\&\& A8=5$};
-		}
-	\end{tikzpicture}
+\begin{frame}{Sequential Covering Algorithm (III): Rule Space}
+	\vspace*{-1em}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[height=0.8\textheight]{img/7-classification_rule_space.png}
+	\end{figure}
 \end{frame}
 
-% TODO: Review again and cosmetics
-\begin{frame}{Sequential Covering Algorithm (III)}
+\begin{frame}{Sequential Covering Algorithm (III): Rule Quality Measure}
 	\begin{itemize}
-		\item \textbf{Start with the most general rule possible:}
+		\item \texttt{learn\_one\_rule} requires a measure of rule quality.
+		\item Accuracy and coverage seems obvious choices on their own, but
+		      individually not enough.
+		\item \textbf{FOIL} (First-Order Inductive Learner): based on information gain
 		      \begin{itemize}
-			      \item Condition = empty.
-		      \end{itemize}
-		\item \textbf{Add new attributes by adopting a greedy depth-first strategy.}
-		      \begin{itemize}
-			      \item Pick the one that improves the rule quality most.
-			      \item Current rule $R$: IF condition THEN class = c.
-			      \item New rule $R'$: IF condition' THEN class = c,
-			      \item $pos/neg$ are $\#$ of positive/negative tuples covered by $R$.
-		      \end{itemize}
-		\item \textbf{Rule-quality measures.}
-		      \begin{itemize}
-			      \item Must consider both coverage and accuracy.
-			      \item \texttt{FOIL\_Gain} (from \texttt{FOIL} - First-Order Inductive Learner):
+			      \item Suppose we have two rules:
+			            \begin{align*}
+				            \label{}
+				            R  & : \text{IF condition THEN class} = c  \\
+				            R' & : \text{IF condition' THEN class} = c
+			            \end{align*}
+			      \item $pos/neg$ are $\#$ of positive/negative tuples covered by $R$, $pos'/neg'$ respectively for $R'$.
+			      \item FOIL assesses the information gained by extending \textit{condition'} as
 			            \begin{align*}
 				            \text{FOIL\_Gain} = \text{pos}' \left( \log_2 \frac{\text{pos}'}{\text{pos}' + \text{neg}'} - \log_2 \frac{\text{pos}}{\text{pos}+\text{neg}} \right).
 			            \end{align*}
-			      \item Favors rules that have high accuracy and cover many positive tuples.
+			      \item FOIL favors rules that have high accuracy and cover many positive tuples.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
