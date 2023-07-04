@@ -62,7 +62,7 @@
 	\vspace*{-1em}
 	\begin{columns}
 		\begin{column}{0.75\textwidth}
-			\textbf{Construction in general} follows a greedy algorithm, i. e. nonbacktracking. Thus, it is done in a \textit{top-down recursive in a divide-and-conquer manner}.\\\medskip
+			\textbf{Construction in general} follows a greedy algorithm, i. e. non-backtracking. Thus, it is done in a \textit{top-down recursive in a divide-and-conquer manner}.\\\medskip
 			\textbf{Input:} data partition $D$, \texttt{attribute\_list}, \texttt{attribute\_selection\_method}.\\\medskip
 
 			\textbf{Algorithm Sketch \texttt{build\_decision\_tree}:}
@@ -424,7 +424,7 @@
 		      where $p_j$ is the non-zero probability that sample in $D$ belongs to class $C_j$ as estimated by $\frac{|C_{j,D}|}{|D|}$
 		\item If \textbf{attribute $A$ is discrete-valued} with $v$ distinct values
 		      compute all possible subsets of values $2^v - 2$. Compute weighted sum of
-		      each partition tuble ($D_1$ and $D_2$) as follows:
+		      each partition tuple ($D_1$ and $D_2$) as follows:
 		      \begin{align*}
 			      \text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2).
 		      \end{align*}

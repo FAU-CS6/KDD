@@ -74,7 +74,7 @@
 	\vspace*{-1em}
 	\begin{itemize}
 		\item \textbf{Given a data set $D$ of $d$ class-labeled tuples: $(x_1 , y_1), \ldots, (x_d, y_d)$} with $y_d \in Y = \{1, \dots, c\}$.
-		\item \textbf{Initialize emtpy lists to hold information per classifier:} $\textbf{w}, \boldsymbol{\beta}, \textbf{M} \leftarrow $ empty list.
+		\item \textbf{Initialize empty lists to hold information per classifier:} $\textbf{w}, \boldsymbol{\beta}, \textbf{M} \leftarrow $ empty list.
 		\item \textbf{Initialize weights for first classifier to hold same probability for each tuple:} $w_i^1 \leftarrow \frac{1}{d}$
 		\item \textbf{Generate $k$ classifiers in $k$ iterations. At iteration $i$,}
 		      \begin{enumerate}
@@ -82,7 +82,7 @@
 			      \item Sample dataset with replacement according to previously assigned weights to form training set $D_i$.
 			      \item Derive classification model $M_i$ from $D_i$.
 			      \item Calculate error by using $D_i$ as a test set as follows: $\varepsilon_i = \text{error}(M_i) = \sum_{j=1}^{d} w_j \cdot \text{err}(x_j)$.\\
-			            $\text{err}(x_j)$ refers to the missclassification error on tuple $x_j$. If missclassified $\text{err}(x_j)=1$, else $0$.
+			            $\text{err}(x_j)$ refers to the misclassification error on tuple $x_j$. If misclassified $\text{err}(x_j)=1$, else $0$.
 			      \item If $\text{error}(M_i)>0.5$: Abandon this classifier and go back to step 1.
 			      \item Calculate $\beta_i = \frac{\varepsilon_i}{1 - \varepsilon_i}$.
 			      \item Update weights for next iteration: If a tuple has been correctly classified, multiply its ``normalized'' weight with $\beta_i$:  $w^{i+1}_i=w^i_j \beta^{1-\text{err}(x_j)}_i$. \textit{If a tuple is misclassified, its weight is increased, otherwise it is decreased.}

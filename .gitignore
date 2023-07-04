@@ -23,6 +23,7 @@
 *.awk
 *.bat
 *.synctex.gz
+*.synctex(busy)
 *.bak*
 vc.tex
 output

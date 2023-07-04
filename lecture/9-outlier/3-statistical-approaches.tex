@@ -49,7 +49,7 @@
 		\item \underline{Recall:} normal distribution $\mathcal{N}(\mu, \sigma)$
 		      \begin{itemize}
 			      \item Characterized by two parameters: mean $\mu$, and standard deviation $\sigma$.
-			      \item Probability density functin: $f(x)=\frac{1}{\sqrt{2\pi \sigma^2}} {\rm e}^{-\frac{(x-\mu)^2}{2\sigma^2}}$.
+			      \item Probability density function: $f(x)=\frac{1}{\sqrt{2\pi \sigma^2}} {\rm e}^{-\frac{(x-\mu)^2}{2\sigma^2}}$.
 		      \end{itemize}
 		\item \textbf{\color{faugray}Idea:} Estimate parameters $\mu$ and $\sigma$ so that normal distribution fits data as close as possible.
 		\item \textbf{Question:} How to estimate these parameters? $\rightarrow$ \textit{\color{faugray}Maximum likelihood method.}
@@ -103,7 +103,7 @@
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
-% TODO: MLE easily motivated and explained visually. Mabye insert plots similarly to ML hands-on book p. 269
+% TODO: MLE easily motivated and explained visually. Maybe insert plots similarly to ML hands-on book p. 269
 
 \begin{frame}{Excursus: Maximum Likelihood Estimation III}
 	\begin{enumerate}
@@ -119,7 +119,7 @@
 			      \textstyle\frac{\partial}{\partial \mu}\ln{(\mathcal{L}(\mu, \sigma|x_1, \dots, x_n))}    & = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i -\mu)                            \\
 			      \textstyle\frac{\partial}{\partial \sigma}\ln{(\mathcal{L}(\mu, \sigma|x_1, \dots, x_n))} & =-\textstyle\frac{n}{\sigma}+\frac{1}{\sigma^3}\sum_{i=1}^n (x_i-\mu)^2
 		      \end{align*}
-		\item Then, by setting these quation equals zero, we derive the following likelihood estimates:
+		\item Then, by setting these equations equals zero, we derive the following likelihood estimates:
 		      \begin{center}
 			      mean $\widehat{\mu}=\frac{1}{n}\sum\nolimits_{i=1}^n x_i$ \hspace{3em} standard deviation $\widehat{\sigma}=\sqrt{\frac{1}{n}\sum\nolimits_{i=1}^n (x_i-\mu)^2}$
 		      \end{center}
@@ -265,7 +265,7 @@
 			\vspace*{-1em}
 			\begin{enumerate}
 				\item Construct histogram
-				\item Detect outiler by checking objects against the histogram and determine if is normal or not.\\
+				\item Detect outlier by checking objects against the histogram and determine if is normal or not.\\
 				      \textbf{Example:} A transaction with the amount of $\$7,500$ is an outlier, since only $0.2\%$ \\ of the transactions have an amount higher than $\$5,000$.
 			\end{enumerate}
 		\end{column}

@@ -163,7 +163,7 @@
 		\node at (15,8) {\scriptsize Check if};
 		\node at (15,7) {\scriptsize objects};
 		\node at (15,6) {\scriptsize have to be};
-		\node at (15,5) {\scriptsize reasigned};
+		\node at (15,5) {\scriptsize reassigned};
 	\end{tikzpicture}\\
 	\hspace{2.65cm}
 	\begin{tikzpicture}[scale=0.23]
@@ -191,7 +191,7 @@
 		\node [red] at (8,4) {\Large\textbullet};
 		\draw[->] (17,5)--(12,5);
 		\draw[->] (12,6)--(17,10);
-		\node at (15,4) {\scriptsize Reasign};
+		\node at (15,4) {\scriptsize Reassign};
 		\node at (15,3) {\scriptsize objects};
 	\end{tikzpicture}
 	\begin{tikzpicture}[scale=0.23]
@@ -450,7 +450,7 @@
 		\node at (7,11) {\scriptsize Total cost = 21};
 		\node at (15,8) {\scriptsize Randomly};
 		\node at (15,7) {\scriptsize select};
-		\node at (15,6) {\scriptsize nonmedoid};
+		\node at (15,6) {\scriptsize non-medoid};
 		\node at (15,5) {\scriptsize object $o_\text{random}$};
 	\end{tikzpicture}\\
 	\hspace{1.2cm}
@@ -511,10 +511,10 @@
 		\item \textbf{Use real objects to represent the clusters.}
 		\item \textbf{Algorithm:}
 		      \begin{itemize}
-			      \item[1.] Arbitrarily choose $k$ objects as the initial mediods.
+			      \item[1.] Arbitrarily choose $k$ objects as the initial medoids.
 			      \item[2.] Repeat.
 			      \item[3.] \hspace{0.2cm} Assign each remaining object to the
-				      cluster with the nearest mediod $o_i$.
+				      cluster with the nearest medoid $o_i$.
 			      \item[4.] \hspace{0.2cm} Randomly select a non-medoid object $o_h$.
 			      \item[5.] \hspace{0.2cm} Compute the total cost $\text{TC}_{ih}$ of
 				      swapping $o_i$ with $o_h$.
