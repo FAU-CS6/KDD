@@ -75,18 +75,18 @@
 	\begin{itemize}
 		\item \textbf{Given a data set $D$ of $d$ class-labeled tuples: $(x_1 , y_1), \ldots, (x_d, y_d)$} with $y_d \in Y = \{1, \dots, c\}$.
 		\item \textbf{Initialize empty lists to hold information per classifier:} $\textbf{w}, \boldsymbol{\beta}, \textbf{M} \leftarrow $ empty list.
-		\item \textbf{Initialize weights for first classifier to hold same probability for each tuple:} $w_i^1 \leftarrow \frac{1}{d}$
-		\item \textbf{Generate $k$ classifiers in $k$ iterations. At iteration $i$,}
+		\item \textbf{Initialize weights for first classifier to hold same probability for each tuple:} $w_j^1 \leftarrow \frac{1}{d}$
+		\item \textbf{Generate $K$ classifiers in $K$ iterations. At iteration $k$,}
 		      \begin{enumerate}
-			      \item Calculate ``normalized'' weights: $p^i = \frac{\textbf{w}^i}{\sum_{j=1}^N w_j^i}$
-			      \item Sample dataset with replacement according to previously assigned weights to form training set $D_i$.
-			      \item Derive classification model $M_i$ from $D_i$.
-			      \item Calculate error by using $D_i$ as a test set as follows: $\varepsilon_i = \text{error}(M_i) = \sum_{j=1}^{d} w_j \cdot \text{err}(x_j)$.\\
-			            $\text{err}(x_j)$ refers to the misclassification error on tuple $x_j$. If misclassified $\text{err}(x_j)=1$, else $0$.
-			      \item If $\text{error}(M_i)>0.5$: Abandon this classifier and go back to step 1.
-			      \item Calculate $\beta_i = \frac{\varepsilon_i}{1 - \varepsilon_i}$.
-			      \item Update weights for next iteration: If a tuple has been correctly classified, multiply its ``normalized'' weight with $\beta_i$:  $w^{i+1}_i=w^i_j \beta^{1-\text{err}(x_j)}_i$. \textit{If a tuple is misclassified, its weight is increased, otherwise it is decreased.}
-			      \item Add $w^{i+1}$, $M_i$, and $\beta_i$ to their respective lists.
+			      \item Calculate ``normalized'' weights: $\textbf{p}^k = \frac{\textbf{w}^k}{\sum_{j=1}^d w_j^i}$
+			      \item Sample dataset with replacement according to $\textbf{p}^k$ to form training set $D_k$.
+			      \item Derive classification model $M_k$ from $D_k$.
+			      \item Calculate error $\varepsilon_k$ by using $D_k$ as a test set as follows: $\varepsilon_k = \sum_{j=1}^{d} p^k_j \cdot \text{err}(M_k, x_j, y_j)$,\\
+			            where the \textit{misclassification error} $\text{err}(M_k, x_j, y_j)$ returns 1 if $M_k(x_j) \neq y_j$, otherwise it returns $0$.
+			      \item If $\text{error}(M_k)>0.5$: Abandon this classifier and go back to step 1.
+			      \item Calculate $\beta_k = \frac{\varepsilon_k}{1 - \varepsilon_k}$.
+			      \item Update weights for the next iteration: $w^{k+1}_j=w^k_j \beta^{1-err(M_k, x_j, y_j)}_k$. \textit{If a tuple is misclassified, its weight remains the same, otherwise it is decreased.} Misclassified tuple weights are increased relatively.
+			      \item Add $\textbf{w}^{k+1}$, $M_k$, and $\beta_k$ to their respective lists.
 		      \end{enumerate}
 	\end{itemize}
 \end{frame}
