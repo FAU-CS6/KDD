@@ -46,3 +46,6 @@ __pycache__
 # Other files
 *.db
 *.cspell/
+
+# MacOS
+.DS_Store
