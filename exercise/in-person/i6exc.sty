@@ -1,0 +1,143 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{i6exc}[2014/04/14 Commands for practice sheets and exams]
+
+% Process options
+\newif\ifgerman
+\DeclareOption{ngerman}{ % German strings
+	\germantrue
+}
+\DeclareOption*{} % Ignore unknown options
+\ProcessOptions\relax
+
+
+% Language-dependent strings for titles and footers
+\ifgerman
+	\newcommand*{\WinterSem}{Wintersemester}
+	\newcommand*{\SummerSem}{Sommersemester}
+	\newcommand*{\Department}{Department Informatik}
+	\newcommand*{\Chair}{Lehrstuhl für Informatik 6\\(Datenmanagement)}
+\else
+	\newcommand*{\WinterSem}{Winter Semester}
+	\newcommand*{\SummerSem}{Summer Semester}
+	\newcommand*{\Department}{Department of Computer Science}
+	\newcommand*{\Chair}{Computer Science 6\\(Data Management)}
+\fi
+
+
+% Calculate semester based on \month and \year
+% \semester prints long form of current semester and \semester* prints short form
+\ifnum\month<4
+	\newcounter{LastYear}
+	\setcounter{LastYear}{\year}
+	\addtocounter{LastYear}{-1}
+	\newcommand{\SemesterShort}{WS \theLastYear/\the\year}
+	\newcommand{\SemesterLong}{\WinterSem~\theLastYear/\the\year}
+\else\ifnum\month>9
+	\newcounter{NextYear}
+	\setcounter{NextYear}{\year}
+	\addtocounter{NextYear}{1}
+	\newcommand{\SemesterShort}{WS \the\year/\theNextYear}
+	\newcommand{\SemesterLong}{\WinterSem~\the\year/\theNextYear}
+\else
+	\newcommand{\SemesterShort}{SS \the\year}	
+	\newcommand{\SemesterLong}{\SummerSem~\the\year}
+\fi
+\fi
+\newcommand{\semester}{\@ifstar
+	\SemesterShort%
+	\SemesterLong%
+}
+
+
+% Solution and Notes
+% Use environment "solution" or command \sol to mark solutions.
+% \sol is ment for short single-line solutions and may be used with anoptional space argument (e.g. \sol[2cm]{solution}) to insert horizontal space when \withsolutions is not set.
+% Use environment "note" or command \nt to mark additional notes, e.g. ment only for tutors.
+% Solutions and notes are colored with solutioncolor and notecolor respectively.
+% For places where a more flexible solution is needed, e.g. because the content should not be colored, the conditionals \ifsolutions and \ifnotes are provided.
+% Use \withsolutions and \withnotes respectively to make content of these environments visible
+\RequirePackage[table,dvipsnames]{xcolor}
+\RequirePackage{comment}
+% Fix encoding issues with the comment package.
+%
+% See http://tex.stackexchange.com/qüstions/159820/comment-sty-and-utf8-encoding/159824
+%
+% "The problem is in how comments.sty writes out files; when you input à, it is interpreted during a \write and it becomes the character corresponding to à in the T1 encoding.
+% Solution: modify \ThisComment to write out uninterpreted commands."
+% This effects only comment.sty version >= 3.7. ThisComment is not defined in older versions. 
+%
+\ifdefined\ThisComment 
+\renewcommand\ThisComment[1]{%
+    \immediate\write\CommentStream{\unexpanded{#1}}%
+}
+\fi
+
+
+\definecolor{solutioncolor}{RGB}{0,128,255}
+\definecolor{notecolor}{RGB}{255,128,0}
+
+% Solutions
+\newif\ifsolutions
+
+\newcommand{\sol}[2][]{%
+	\ifsolutions%
+		\begingroup\color{solutioncolor}#2\endgroup%
+	\else%
+		\ifx\\#1\\\else \hspace*{#1} \fi%
+	\fi%
+}
+\excludecomment{solution} % Define solution environment and default to invisible
+\excludecomment{footnotedsolution}  % Define solution environment with footnote support
+\newcommand{\withsolutions}{
+	\solutionstrue
+	\specialcomment{solution}
+	{\begingroup\color{solutioncolor}}
+	{\endgroup}
+	\specialcomment{footnotedsolution}
+	{%
+		\begingroup%
+		\color{solutioncolor}%
+		\setkomafont{footnoterule}{\color{solutioncolor}}%
+		\setkomafont{footnote}{\color{solutioncolor}}
+	
+		\begin{minipage}{\textwidth}%
+
+		}
+	{\end{minipage}
+	
+	\endgroup}
+}
+
+
+\newcommand{\solspace}[2]{
+	\vbox to #1 {\vfil\sol{#2}\vfil}
+}
+
+% Notes
+\newif\ifnotes
+
+\newcommand{\nt}[1]{\ifnotes \begingroup\color{notecolor}#1\endgroup \fi}
+\excludecomment{note} % Define note environment and default to invisible
+\newcommand{\withnotes}{
+	\notestrue
+	\specialcomment{note}
+	{\begingroup\color{notecolor}}
+	{\endgroup}
+}
+
+% Makefile automation. The flags are to be set in the Makefile
+\ifdefined\solutionsflag \withsolutions \fi
+\ifdefined\notesflag \withnotes \fi
+
+
+%%% Macros for authors
+
+%%% Creates boxes for Multiple-Choice Questions
+\newcommand{\mc}{\Square \enspace}
+\newcommand{\mcsol}{\ifsolutions \XBox \else \Square \fi \enspace}
+
+\newcommand{\itemmc}{\item[\Square]}
+\newcommand{\itemmcsol}{\ifsolutions \item[\XBox] \else \item[\Square] \fi}
+
+\newcommand{\mcsmall}{\Square}
+\newcommand{\mcsmallsol}{\ifsolutions \XBox \else \Square \fi}

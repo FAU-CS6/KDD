@@ -1,0 +1,23 @@
+% This file adds packages and configuration options used
+% in several exercises.
+% Do not use it for packages which are specific to your course!
+% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{i6common}[2014/04/16 Packages and configuration usefull for practice sheets across courses]
+
+\RequirePackage{enumerate}
+\RequirePackage{tikz}
+\RequirePackage{hyperref}
+\RequirePackage{listings}
+\RequirePackage{bold-extra} % Ermöglicht fetten Text in \ttfamily
+\RequirePackage{amssymb}
+\RequirePackage{amsmath} % align-Environment
+
+\lstset{basicstyle=\ttfamily,language=SQL}
+\hypersetup{
+    colorlinks = true,
+    linkcolor = {green!40!black},
+    citecolor = {green!40!black},
+    urlcolor  = {green!40!black}
+}
+
