@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{i6prcsht}[2014/04/16 i6 practice sheet]
+\ProvidesClass{../i6prcsht}[2014/04/16 i6 practice sheet]
 
 % Process options
 \newif\ifgerman
