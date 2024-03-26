@@ -1,51 +1,54 @@
 #+title: KDD - Knowledge Discovery in Databases
 
 * Responsibilities
+(Changed in 2024WS since Melanie B. Sigl is not participating this time)
 ** Lecture
   1. *Course Intro* - Dominik Probst
   2. *Introduction* - Dominik Probst
-  3. *Data* - Melanie B. Sigl
+  3. *Data* - Dominik Probst
   4. *Preprocessing* - Dominik Probst
-  5. *OLAP* - Melanie B. Sigl
+  5. *OLAP* - Dominik Probst
   6. *Mining Frequent Patterns, Associations and Correlations* - Dominik Probst
-  7. *Classification* - Melanie B. Sigl
+  7. *Classification* - Dominik Probst
   8. *Cluster Analysis* - Dominik Probst
-  9. *Outlier Analysis* - Melanie B. Sigl
+  9. *Outlier Analysis* - Dominik Probst
   10. *Current Research at CS6* - Dominik Probst
 
 ** Exercise
-  1. *Introduction to Python & Pandas* - Melanie B. Sigl
+  1. *Introduction to Python & Pandas* - Dominik Probst
   2. *Data analysis & data preprocessing* - Dominik Probst
   3. *Frequent Patterns* - Dominik Probst
-  4. *Classification* - Melanie B. Sigl
+  4. *Classification* - Dominik Probst
   5. *Clustering* - Dominik Probst
-  6. *Outlier* /(suspended)/ - Melanie B. Sigl
 
-* Summer semester 2023
-  - Semester duration: 17 April 2023 – 21 July 2023
-  - No lectures on: Tuesday, 30 May 2023 (CW 22)
+* Summer semester 2024
+  - Semester duration: 15 April 2024 – 19 July 2024
   - Public holidays:
-    - Monday, 1 May 2023 (Tag der Arbeit/May Day, CW 18)
-    - Thursday, 18 May 2023 (Christi Himmelfahrt/Ascension Day, CW 20)
-    - Monday, 29 May 2022 (Pfingstmontag/Whit Monday, CW 22)
-    - Thursday, 8 June 2022 (Fronleichnam/Corpus Christi, CW 23)
+    - Wednesday, 1 May 2024
+    - Thursday, 9 May 2024
+    - Monday, 20 May 2024
+    - Thursday, 30 May 2024
+  - FAU specific holidays (no lectures and exercises):
+    - Tuesday, 21 May 2024
+    - Friday, 31 May 2024
 
   | *Calendar Week* | *Lecture Topic*                          | *Lecturer*                         | *Exercise*                           |
   |---------------+----------------------------------------+----------------------------------+------------------------------------|
   |            16 | Course Introduction + KDD Introduction | Dominik Probst                   |                                    |
-  |            17 | Data                                   | Melanie B. Sigl                  | Introduction to Python & Pandas    |
+  |            17 | Data                                   | Dominik Probst                  | Introduction to Python & Pandas    |
   |            18 | Preprocessing, Part 1                  | Dominik Probst                   | Data analysis & data preprocessing |
   |            19 | Preprocessing, Part 2                  | Dominik Probst                   | Data analysis & data preprocessing |
-  |            20 | OLAP                                   | Melanie B. Sigl                  | Data analysis & data preprocessing |
-  |            21 | Frequent Pattern, Part 1               | Dominik Probst                   | -                                  |
-  |            22 | Frequent Pattern, Part 2               | Dominik Probst                   | Frequent Pattern                   |
-  |            23 | Classification, Part 1                 | Melanie B. Sigl                  | Frequent Pattern                   |
-  |            24 | Classification, Part 2                 | Melanie B. Sigl                  | Classification                     |
-  |            25 | Cluster Analysis, Part 1               | Dominik Probst                   | Classification                     |
-  |            26 | Cluster Analysis, Part 2               | Dominik Probst                   | Classification                     |
-  |            27 | Outlier Analysis, Part 1               | Melanie B. Sigl                  | Clustering                         |
-  |            28 | Outlier Analysis, Part 2               | Melanie B. Sigl                  | Clustering                         |
-  |            29 | Current Research at CS6 and Exam QnA   | Melanie B. Sigl + Dominik Probst |                                    |
+  |            20 | OLAP                                   | Dominik Probst                  | Data analysis & data preprocessing |
+  |            21 | -               | Dominik Probst                   | -                                  |
+  |            22 | Frequent Pattern, Part 1               | Dominik Probst                   | -                   |
+  |            23 | Frequent Pattern, Part 2               | Dominik Probst                   | Frequent Pattern                   |
+  |            24 | Classification, Part 1                 | Dominik Probst                  | Frequent Pattern                   |
+  |            25 | Classification, Part 2                 | Dominik Probst                  | Classification                     |
+  |            26 | Cluster Analysis, Part 1               | Dominik Probst                   | Classification                     |
+  |            27 | Cluster Analysis, Part 2               | Dominik Probst                   | Classification                     |
+  |            28 | Outlier Analysis, Part 1               | Dominik Probst                  | Clustering                         |
+  |            29 | Outlier Analysis, Part 2 & Exam QnA (if there is time)             | Dominik Probst                  | Clustering                         |
+
 
 * Setup for Building Lecture Slides Locally
 To build these lecture slides locally on your machine you'll need an up-to-date
