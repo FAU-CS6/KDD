@@ -6,16 +6,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Run hooks again to validate they have run
-        uses: xu-cheng/texlive-action/full@v1
+        uses: xu-cheng/texlive-action@v2
         with:
           run: |
             apk update
             apk upgrade
             apk add --virtual build-dependencies build-base gcc wget git
             apk add --no-cache python3 python3-dev py3-pip nodejs npm
+            python3 -m venv venv
+            source venv/bin/activate
             pip3 install pre-commit
             git config --global --add safe.directory /github/workspace
             pre-commit run --verbose --all-files > pre-commit-validation.txt & cat pre-commit-validation.txt
@@ -27,6 +29,7 @@ jobs:
               echo "Pre-commit did run on local machine."
             fi
 
+
   build_latex:
     name: Build lecture PDFs
     runs-on: ubuntu-latest
@@ -34,7 +37,7 @@ jobs:
     if: contains(needs.*.result, 'success')
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build figures
         uses: ./lecture/
@@ -46,18 +49,19 @@ jobs:
             make figures
 
       - name: Compile LaTeX document
-        uses: xu-cheng/texlive-action/full@v1
+        uses: xu-cheng/texlive-action@v2
         with:
           run: |
             apk add make
             apk add git
             git config --global --add safe.directory /github/workspace
+            git config --global --add safe.directory /home/runner/work/KDD/KDD
             cd lecture
             ls -la img
             make all-wo-figures
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: Lecture Slides
@@ -73,10 +77,10 @@ jobs:
     if: contains(needs.*.result, 'success')
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Initialize Python 3.7
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
             python-version: 3.7
 
@@ -91,7 +95,7 @@ jobs:
             make all
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: Exercise Archives

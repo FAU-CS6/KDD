@@ -5,4 +5,4 @@ scikit-learn==1.2.2
 matplotlib==3.7.1
 
 ipython==8.11.0
-jupyterlab==3.6.2
+jupyterlab==3.6.7
