@@ -68,9 +68,9 @@ jobs:
           path: |
             lecture/output/*.pdf
             lecture/output/*.log
-          retention-days: 5
+          retention-days: 90
 
-  build_exercise:
+  build_old_exercise:
     name: Build the exercise archives
     runs-on: ubuntu-latest
     needs: [pre_commit_validation]
@@ -98,7 +98,39 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Exercise Archives
+          name: Old Exercise Archives
           path: |
             exercise-old/output/*.zip
-          retention-days: 5
+          retention-days: 90
+
+  build_in_person_exercise:
+    name: Build the in person exercise archives
+    runs-on: ubuntu-latest
+    needs: [pre_commit_validation]
+    if: contains(needs.*.result, 'success')
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+
+      - name: Create the exercise archives
+        uses: xu-cheng/texlive-action@v2
+        with:
+          run: |
+            apk update
+            apk upgrade
+            apk add --virtual build-dependencies build-base gcc wget git
+            apk add --no-cache python3 python3-dev py3-pip nodejs npm
+            python3 -m venv venv
+            source venv/bin/activate
+            pip3 install -r exercise/in-person/requirements.txt
+            cd exercise/in-person
+            make all
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: New In Person Exercise Archives
+          path: |
+            exercise/in-person/output/*.zip
+          retention-days: 90
