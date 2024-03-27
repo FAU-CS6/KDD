@@ -19,6 +19,8 @@ jobs:
             python3 -m venv /venv
             ls -l /venv
             ls -l /venv/bin
+            chmod +x /venv/bin/activate
+            ls -l /venv/bin
             /venv/bin/activate
             pip3 install pre-commit
             git config --global --add safe.directory /github/workspace
