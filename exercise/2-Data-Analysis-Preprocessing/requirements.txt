@@ -9,4 +9,4 @@ seaborn==0.12.2
 pywaffle==1.1.0
 
 ipython==8.11.0
-jupyterlab==3.6.2
+jupyterlab==3.6.7
