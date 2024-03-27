@@ -16,6 +16,8 @@ jobs:
             apk upgrade
             apk add --virtual build-dependencies build-base gcc wget git
             apk add --no-cache python3 python3-dev py3-pip nodejs npm
+            python3 -m venv venv
+            source venv/bin/activate
             pip3 install pre-commit
             git config --global --add safe.directory /github/workspace
             pre-commit run --verbose --all-files > pre-commit-validation.txt & cat pre-commit-validation.txt
@@ -26,6 +28,7 @@ jobs:
             else
               echo "Pre-commit did run on local machine."
             fi
+
 
   build_latex:
     name: Build lecture PDFs
