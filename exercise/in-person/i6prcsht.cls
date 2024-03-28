@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{../i6prcsht}[2014/04/16 i6 practice sheet]
+\ProvidesClass{i6prcsht}[2014/04/16 i6 practice sheet]
 
 % Process options
 \newif\ifgerman
@@ -24,7 +24,7 @@
 \RequirePackage[utf8]{inputenc} % Unicode is the only reasonable choice for the heterogeneous environment at LS6. UTF8 is the most common Unicode encoding.
 \RequirePackage[T1]{fontenc} % Support for umlaute
 \RequirePackage{lmodern} % Computer modern font with enhanced metrics and glyph coverage
-\RequirePackageWithOptions{../i6exc}    % Macros for semester, solution, ...
+\RequirePackageWithOptions{i6exc}    % Macros for semester, solution, ...
 \RequirePackage{scrlayer-scrpage} % Customized footer
 \RequirePackage{graphicx} % Include graphics for footer and title
 \RequirePackage{lastpage} % Last page number for footer
@@ -63,7 +63,7 @@
 
 % Footer
 \pagestyle{scrheadings}
-\ifoot[]{\parbox{1cm}{\includegraphics[width=1cm]{../i6prcsht_res/i6_icon}} \parbox{11cm}{\LectureShort,\ \semester* -- \PracticeTitle\ifSubTitleDefined \\ \fi \PracticeSubTitle}}
+\ifoot[]{\parbox{1cm}{\includegraphics[width=1cm]{i6prcsht_res/i6_icon}} \parbox{11cm}{\LectureShort,\ \semester* -- \PracticeTitle\ifSubTitleDefined \\ \fi \PracticeSubTitle}}
 \cfoot[]{}
 \ifgerman
 	% \parbox is only necessary to achieve same vertical position of page number and one-line string in ifoot
@@ -84,7 +84,7 @@
 % Title
 \titlehead{%
 	\parbox[c]{4cm}{
-		\includegraphics[width=4cm]{../i6prcsht_res/fau_tech}
+		\includegraphics[width=4cm]{i6prcsht_res/fau_tech}
 	}
 	\hfill
 	\parbox[c]{6cm}{
@@ -98,7 +98,7 @@
 	\hfill
 	\parbox[c]{4cm}{
 		\hfill % Graphic right aligned
-		\includegraphics[width=2.6cm]{../i6prcsht_res/i6_logo}
+		\includegraphics[width=2.6cm]{i6prcsht_res/i6_logo}
 	}
 }
 \subject{\ifLectureDefined \LectureLong \\ \fi \semester}
