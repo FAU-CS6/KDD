@@ -1,4 +1,4 @@
-
+\def\solutionsflag{1}
 
 \documentclass[
 english,
@@ -215,22 +215,22 @@ Given is a \textbf{transactional dataset}:
 \begin{center}
 	\begin{tabular}{|c|l|}
 		\hline
-		\textbf{ID} & \textbf{Transaction}       \\
+		\textbf{ID} & \textbf{Transaction} \\
 		\hline
-		1           & Apple, Banana, Cherry      \\
+		1           & Apple, Banana        \\
 		\hline
-		2           & Banana, Cherry             \\
+		2           & Banana, Cherry       \\
 		\hline
-		3           & Cherry, Apple              \\
+		3           & Cherry, Apple        \\
 		\hline
-		4           & Dragonfruit, Apple, Banana \\
+		4           & Apple, Banana        \\
 		\hline
-		5           & Apple, Dragonfruit         \\
+		5           & Apple, Dragonfruit   \\
 		\hline
 	\end{tabular}
 \end{center}
 
-Use \textbf{FP-growth} to find all frequent itemsets for a \textbf{minimum support count} of \textbf{3}.
+Use \textbf{FP-growth} to find all frequent itemsets for a \textbf{minimum support count} of \textbf{2}.
 
 Write down \textbf{all} intermediate steps. This \textbf{includes} the header table for each FP-tree.
 
@@ -256,27 +256,26 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 		      \begin{itemize}
 			      \item Apple: 4
 			      \item Banana: 3
-			      \item Cherry: 3
-			      \item Dragonfruit: 2
+			      \item Cherry: 2
+			      \item Dragonfruit: 1
 		      \end{itemize}
 
 		\item \textbf{Prune non-frequent 1-itemsets}:
 
-		      The 1-itemsets that have a support count of at least 3 are:
+		      The 1-itemsets that have a support count of at least 2 are:
 
 		      \begin{itemize}
 			      \item Apple: 4
 			      \item Banana: 3
-			      \item Cherry: 3
+			      \item Cherry: 2
 		      \end{itemize}
 
 		\item \textbf{Create the f-list for our dataset}:
 
-		      The f-list is created by sorting the 1-itemsets in descending order of their support count. There are two possible f-lists:
+		      The f-list is created by sorting the 1-itemsets in descending order of their support count:
 
 		      \begin{itemize}
-			      \item \textbf{F-list 1:} Apple $\rightarrow$ Banana $\rightarrow$ Cherry \textit{(Used in this solution)}
-			      \item \textbf{F-list 2:} Apple $\rightarrow$ Cherry $\rightarrow$ Banana
+			      \item Apple $\rightarrow$ Banana $\rightarrow$ Cherry
 		      \end{itemize}
 
 		\item \textbf{Order the items in the transactions according to the f-list}:
@@ -286,17 +285,17 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 		      \begin{center}
 			      \begin{tabular}{|c|l|}
 				      \hline
-				      \textbf{ID} & \textbf{Transaction}  \\
+				      \textbf{ID} & \textbf{Transaction} \\
 				      \hline
-				      1           & Apple, Banana, Cherry \\
+				      1           & Apple, Banana        \\
 				      \hline
-				      2           & Banana, Cherry        \\
+				      2           & Banana, Cherry       \\
 				      \hline
-				      3           & Apple, Cherry         \\
+				      3           & Apple, Cherry        \\
 				      \hline
-				      4           & Apple, Banana         \\
+				      4           & Apple, Banana        \\
 				      \hline
-				      5           & Apple                 \\
+				      5           & Apple                \\
 				      \hline
 			      \end{tabular}
 		      \end{center}
@@ -308,23 +307,22 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 		      The initial FP-tree is created by inserting the items of each transaction into the tree:
 
 		      \begin{enumerate}
-			      \item \textbf{Insert the first transaction (Apple, Banana, Cherry)}:
+			      \item \textbf{Insert the first transaction (Apple, Banana)}:
 
 			            \begin{center}
 				            \scalebox{0.85}{
 					            \begin{tikzpicture}[scale=3]
-						            \useasboundingbox (-2,0) rectangle (5,-1.75);
+						            \useasboundingbox (-2,0) rectangle (5,-1.25);
 
 						            \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
 
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0,-0.5) (a1) {\fptreenodewithoccurences{$Apple$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0,-1) (a1b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
-						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0,-1.5) (a1b1c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 
-						            \draw (0) -- (a1) -- (a1b1) -- (a1b1c1);
+						            \draw (0) -- (a1) -- (a1b1);
 
 						            % Header table
-						            \node[anchor=west, text width=5cm] at (2,-0.75) (Header Table) {
+						            \node[anchor=west, text width=5cm] at (2,-0.5) (Header Table) {
 							            \begin{center}
 								            \textbf{Header table:}
 
@@ -338,7 +336,7 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 									            \hline
 									            Banana        & 1              & 1              \\
 									            \hline
-									            Cherry        & 1              & 1              \\
+									            Cherry        & 0              & 0              \\
 									            \hline
 								            \end{tabular}
 							            \end{center}
@@ -353,21 +351,20 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 			            \begin{center}
 				            \scalebox{0.85}{
 					            \begin{tikzpicture}[scale=3]
-						            \useasboundingbox (-2,0) rectangle (5,-1.75);
+						            \useasboundingbox (-2,0) rectangle (5,-1.25);
 
 						            \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
 
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0.5,-0.5) (a1) {\fptreenodewithoccurences{$Apple$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0.5,-1) (a1b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
-						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0.5,-1.5) (a1b1c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0.5,-0.5) (b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0.5,-1) (b1c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 
-						            \draw (0) -- (a1) -- (a1b1) -- (a1b1c1);
+						            \draw (0) -- (a1) -- (a1b1);
 						            \draw (0) -- (b1) -- (b1c1);
 
 						            % Header table
-						            \node[anchor=west, text width=5cm] at (2,-0.75) (Header Table) {
+						            \node[anchor=west, text width=5cm] at (2,-0.5) (Header Table) {
 							            \begin{center}
 								            \textbf{Header table:}
 
@@ -381,7 +378,7 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 									            \hline
 									            Banana        & 2              & 2              \\
 									            \hline
-									            Cherry        & 2              & 2              \\
+									            Cherry        & 1              & 1              \\
 									            \hline
 								            \end{tabular}
 							            \end{center}
@@ -395,23 +392,22 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 			            \begin{center}
 				            \scalebox{0.85}{
 					            \begin{tikzpicture}[scale=3]
-						            \useasboundingbox (-2,0) rectangle (5,-1.75);
+						            \useasboundingbox (-2,0) rectangle (5,-1.25);
 
 						            \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
 
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0.5,-0.5) (a2) {\fptreenodewithoccurences{$Apple$}{$2$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-1,-1) (a2b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
-						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-1,-1.5) (a2b1c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0,-1) (a2c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (1,-0.5) (b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (1,-1) (b1c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 
-						            \draw (0) -- (a2) -- (a2b1) -- (a2b1c1);
+						            \draw (0) -- (a2) -- (a2b1);
 						            \draw (a2) -- (a2c1);
 						            \draw (0) -- (b1) -- (b1c1);
 
 						            % Header table
-						            \node[anchor=west, text width=5cm] at (2,-0.75) (Header Table) {
+						            \node[anchor=west, text width=5cm] at (2,-0.5) (Header Table) {
 							            \begin{center}
 								            \textbf{Header table:}
 
@@ -425,7 +421,7 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 									            \hline
 									            Banana        & 2              & 2              \\
 									            \hline
-									            Cherry        & 3              & 3              \\
+									            Cherry        & 2              & 2              \\
 									            \hline
 								            \end{tabular}
 							            \end{center}
@@ -434,30 +430,27 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 				            }
 			            \end{center}
 
-			            \newpage
-
 			      \item \textbf{Insert the fourth transaction (Apple, Banana)}:
 
 			            \begin{center}
 				            \scalebox{0.85}{
 					            \begin{tikzpicture}[scale=3]
-						            \useasboundingbox (-2,0) rectangle (5,-1.75);
+						            \useasboundingbox (-2,0) rectangle (5,-1.25);
 
 						            \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
 
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0.5,-0.5) (a3) {\fptreenodewithoccurences{$Apple$}{$3$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-1,-1) (a3b2) {\fptreenodewithoccurences{$Banana$}{$2$}};
-						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-1,-1.5) (a3b2c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0,-1) (a3c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (1,-0.5) (b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (1,-1) (b1c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 
-						            \draw (0) -- (a3) -- (a3b2) -- (a3b2c1);
+						            \draw (0) -- (a3) -- (a3b2);
 						            \draw (a3) -- (a3c1);
 						            \draw (0) -- (b1) -- (b1c1);
 
 						            % Header table
-						            \node[anchor=west, text width=5cm] at (2,-0.75) (Header Table) {
+						            \node[anchor=west, text width=5cm] at (2,-0.5) (Header Table) {
 							            \begin{center}
 								            \textbf{Header table:}
 
@@ -485,23 +478,22 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 			            \begin{center}
 				            \scalebox{0.85}{
 					            \begin{tikzpicture}[scale=3]
-						            \useasboundingbox (-2,0) rectangle (5,-1.75);
+						            \useasboundingbox (-2,0) rectangle (5,-1.25);
 
 						            \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
 
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0.5,-0.5) (a4) {\fptreenodewithoccurences{$Apple$}{$4$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-1,-1) (a4b2) {\fptreenodewithoccurences{$Banana$}{$2$}};
-						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-1,-1.5) (a4b2c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0,-1) (a4c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (1,-0.5) (b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
 						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (1,-1) (b1c1) {\fptreenodewithoccurences{$Cherry$}{$1$}};
 
-						            \draw (0) -- (a4) -- (a4b2) -- (a4b2c1);
+						            \draw (0) -- (a4) -- (a4b2);
 						            \draw (a4) -- (a4c1);
 						            \draw (0) -- (b1) -- (b1c1);
 
 						            % Header table
-						            \node[anchor=west, text width=5cm] at (2,-0.75) (Header Table) {
+						            \node[anchor=west, text width=5cm] at (2,-0.5) (Header Table) {
 							            \begin{center}
 								            \textbf{Header table:}
 
@@ -515,7 +507,7 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 									            \hline
 									            Banana        & 3              & 2              \\
 									            \hline
-									            Cherry        & 3              & 3              \\
+									            Cherry        & 2              & 2              \\
 									            \hline
 								            \end{tabular}
 							            \end{center}
@@ -526,7 +518,7 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 
 		      \end{enumerate}
 
-		\item \textbf{Determine the conditional pattern base for each item in the FP-tree}:
+		\item \textbf{Determine the conditional pattern base for each frequent item in the header tables of the FP-tree}:
 
 
 		      \begin{enumerate}
@@ -543,7 +535,6 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 			      \item \textbf{Conditional pattern base for Cherry}:
 
 			            \begin{itemize}
-				            \item Apple, Banana: 1
 				            \item Apple: 1
 				            \item Banana: 1
 			            \end{itemize}
@@ -558,7 +549,7 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 			            \begin{center}
 				            \scalebox{0.85}{
 					            \begin{tikzpicture}[scale=3]
-						            \useasboundingbox (-1,0) rectangle (5,-0.75);
+						            \useasboundingbox (-1,0) rectangle (5,-0.6);
 
 						            \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
 
@@ -586,27 +577,61 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 				            }
 			            \end{center}
 
-			            \newpage
-
 			      \item \textbf{Conditional FP-tree for Cherry}:
 
 			            \begin{enumerate}
-				            \item \textbf{Insert \glqq Apple, Banana: 1\grqq}:
+				            \item \textbf{Insert \glqq Apple: 1\grqq}:
 
 				                  \begin{center}
 					                  \scalebox{0.85}{
 						                  \begin{tikzpicture}[scale=3]
-							                  \useasboundingbox (-1,0) rectangle (5,-1.25);
+							                  \useasboundingbox (-1,0) rectangle (5,-0.6);
 
 							                  \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
 
 							                  \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0,-0.5) (a1) {\fptreenodewithoccurences{$Apple$}{$1$}};
-							                  \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0,-1) (a1b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
 
-							                  \draw (0) -- (a1) -- (a1b1);
+							                  \draw (0) -- (a1);
 
 							                  % Header table
-							                  \node[anchor=west, text width=8cm] at (2,-0.5) (Header Table) {
+							                  \node[anchor=west, text width=8cm] at (2,-0.2) (Header Table) {
+								                  \begin{center}
+									                  \textbf{Header table:}
+
+									                  \vspace{0.45cm}
+
+									                  \begin{tabular}{|c|c|c|}
+										                  \hline
+										                  \textbf{Item}    & \textbf{Freq.} & \textbf{Nodes} \\
+										                  \hline
+										                  (Cherry,) Apple  & 1              & 1              \\
+										                  \hline
+										                  (Cherry,) Banana & 0              & 0              \\
+										                  \hline
+									                  \end{tabular}
+								                  \end{center}
+							                  };
+						                  \end{tikzpicture}
+					                  }
+				                  \end{center}
+
+				            \item \textbf{Insert \glqq Banana: 1\grqq}:
+
+				                  \begin{center}
+					                  \scalebox{0.85}{
+						                  \begin{tikzpicture}[scale=3]
+							                  \useasboundingbox (-1,0) rectangle (5,-0.6);
+
+							                  \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
+
+							                  \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0.5,-0.5) (a1) {\fptreenodewithoccurences{$Apple$}{$1$}};
+							                  \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0.5,-0.5) (b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
+
+							                  \draw (0) -- (a1);
+							                  \draw (0) -- (b1);
+
+							                  % Header table
+							                  \node[anchor=west, text width=8cm] at (2,-0.2) (Header Table) {
 								                  \begin{center}
 									                  \textbf{Header table:}
 
@@ -626,183 +651,37 @@ Write down \textbf{all} intermediate steps. This \textbf{includes} the header ta
 						                  \end{tikzpicture}
 					                  }
 				                  \end{center}
-
-				            \item \textbf{Insert \glqq Apple: 1\grqq}:
-
-				                  \begin{center}
-					                  \scalebox{0.85}{
-						                  \begin{tikzpicture}[scale=3]
-							                  \useasboundingbox (-1,0) rectangle (5,-1.25);
-
-							                  \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
-
-							                  \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0,-0.5) (a2) {\fptreenodewithoccurences{$Apple$}{$2$}};
-							                  \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0,-1) (a2b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
-
-							                  \draw (0) -- (a2) -- (a2b1);
-
-							                  % Header table
-							                  \node[anchor=west, text width=8cm] at (2,-0.5) (Header Table) {
-								                  \begin{center}
-									                  \textbf{Header table:}
-
-									                  \vspace{0.45cm}
-
-									                  \begin{tabular}{|c|c|c|}
-										                  \hline
-										                  \textbf{Item}    & \textbf{Freq.} & \textbf{Nodes} \\
-										                  \hline
-										                  (Cherry,) Apple  & 2              & 1              \\
-										                  \hline
-										                  (Cherry,) Banana & 1              & 1              \\
-										                  \hline
-									                  \end{tabular}
-								                  \end{center}
-							                  };
-						                  \end{tikzpicture}
-					                  }
-				                  \end{center}
-
-				            \item \textbf{Insert \glqq Banana: 1\grqq}:
-
-				                  \begin{center}
-					                  \scalebox{0.85}{
-						                  \begin{tikzpicture}[scale=3]
-							                  \useasboundingbox (-1,0) rectangle (5,-1.25);
-
-							                  \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
-
-							                  \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0.5,-0.5) (a2) {\fptreenodewithoccurences{$Apple$}{$2$}};
-							                  \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (-0.5,-1) (a2b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
-							                  \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0.5,-0.5) (b1) {\fptreenodewithoccurences{$Banana$}{$1$}};
-
-							                  \draw (0) -- (a2) -- (a2b1);
-							                  \draw (0) -- (b1);
-
-							                  % Header table
-							                  \node[anchor=west, text width=8cm] at (2,-0.5) (Header Table) {
-								                  \begin{center}
-									                  \textbf{Header table:}
-
-									                  \vspace{0.45cm}
-
-									                  \begin{tabular}{|c|c|c|}
-										                  \hline
-										                  \textbf{Item}    & \textbf{Freq.} & \textbf{Nodes} \\
-										                  \hline
-										                  (Cherry,) Apple  & 2              & 1              \\
-										                  \hline
-										                  (Cherry,) Banana & 2              & 2              \\
-										                  \hline
-									                  \end{tabular}
-								                  \end{center}
-							                  };
-						                  \end{tikzpicture}
-					                  }
-				                  \end{center}
 			            \end{enumerate}
 		      \end{enumerate}
 
-		\item \textbf{Determine the conditional pattern base for each item in the header tables of the conditional FP-trees}:
+		\item \textbf{Determine the conditional pattern base for each frequent itemset in the header tables of the conditional FP-trees}:
 
 
 		      \begin{enumerate}
 			      \item \textbf{Conditional pattern base for \glqq Banana, Apple\grqq }:
 
 			            Apple is the direct child of the root node, so the conditional pattern base is empty.
-
-			      \item \textbf{Conditional pattern base for \glqq Cherry, Apple\grqq }:
-
-			            Apple is the direct child of the root node, so the conditional pattern base is empty.
-
-			      \item \textbf{Conditional pattern base for \glqq Cherry, Banana\grqq }:
-
-			            \begin{itemize}
-				            \item Apple: 1
-			            \end{itemize}
 		      \end{enumerate}
 
-		      \newpage
-
-		\item \textbf{Create the conditional FP-trees for the conditional pattern bases}:
-
-		      \begin{enumerate}
-
-			      \item \textbf{Conditional FP-tree for \glqq Cherry, Banana\grqq }:
-
-			            \begin{center}
-				            \scalebox{0.85}{
-					            \begin{tikzpicture}[scale=3]
-						            \useasboundingbox (-1,0) rectangle (5,-0.75);
-
-						            \node[minimum height = 0.65cm, minimum width=2cm] at (0,0) (0) {\fptreerootnode};
-
-						            \node[fill=white, minimum height = 0.65cm, minimum width=2.25cm] at (0,-0.5) (a1) {\fptreenodewithoccurences{$Apple$}{$1$}};
-
-						            \draw (0) -- (a1);
-
-						            % Header table
-						            \node[anchor=west, text width=8cm] at (2,-0.25) (Header Table) {
-							            \begin{center}
-								            \textbf{Header table:}
-
-								            \vspace{0.45cm}
-
-								            \begin{tabular}{|c|c|c|}
-									            \hline
-									            \textbf{Item}           & \textbf{Freq.} & \textbf{Nodes} \\
-									            \hline
-									            (Cherry, Banana,) Apple & 1              & 1              \\
-									            \hline
-								            \end{tabular}
-							            \end{center}
-						            };
-					            \end{tikzpicture}
-				            }
-			            \end{center}
-
-		      \end{enumerate}
-
-		\item \textbf{Determine the conditional pattern base for each item in the header tables of the new conditional FP-tree}:
-
-		      \begin{enumerate}
-
-			      \item \textbf{Conditional pattern base for \glqq Cherry, Banana, Apple\grqq }:
-
-			            Apple is the direct child of the root node, so the conditional pattern base is empty.
-
-		      \end{enumerate}
 
 		\item \textbf{Termination}:
 
 		      The algorithm terminates because there are no more conditional FP-trees to create.
 
-
 	\end{enumerate}
-
-	\textbf{All n-itemsets within the FP-trees:}
-
-	\begin{itemize}
-		\item Apple: 4 \textit{(Header table of the initial FP-tree)}
-		\item Banana: 3 \textit{(Header table of the initial FP-tree)}
-		\item Cherry: 3 \textit{(Header table of the initial FP-tree)}
-		\item Banana, Apple: 2 \textit{(Header table of the conditional FP-tree for Banana)}
-		\item Cherry, Apple: 2 \textit{(Header table of the conditional FP-tree for Cherry)}
-		\item Cherry, Banana: 2 \textit{(Header table of the conditional FP-tree for Cherry)}
-		\item Cherry, Banana, Apple: 1 \textit{(Header table of the conditional FP-tree for Cherry, Banana)}
-	\end{itemize}
 
 	\textbf{Result:}
 
 	\vspace*{-0.2cm}
 
-	The frequent itemsets for a minimum support count of 3 are:
+	The frequent itemsets for a minimum support count of 2 are:
 
-	\begin{multicols}{3}
+	\begin{multicols}{4}
 		\begin{enumerate}
 			\item Apple
 			\item Banana
 			\item Cherry
+			\item Banana, Apple
 		\end{enumerate}
 	\end{multicols}
 
