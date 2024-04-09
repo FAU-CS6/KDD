@@ -30,7 +30,7 @@ def remove_tex_ending(string):
 
 
 # Helper function to compile the LaTeX files
-def compile_latex_files(input, output_folder, style):
+def compile_latex_files(input, output_folder):
     # Check if input is a valid file without the .tex ending
     valid_tex_file(input + ".tex")
 
@@ -78,4 +78,4 @@ if __name__ == "__main__":
     input_without_ending = remove_tex_ending(args.input)
 
     # Build the LaTeX-files
-    compile_latex_files(input_without_ending, args.output, args.style)
+    compile_latex_files(input_without_ending, args.output)
