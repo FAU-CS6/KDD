@@ -100,3 +100,31 @@ jobs:
           path: |
             exercise/output/*.zip
           retention-days: 90
+
+  build_submission:
+    name: Build the submission pdfs
+    runs-on: ubuntu-latest
+    needs: [pre_commit_validation]
+    if: contains(needs.*.result, 'success')
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+
+      - name: Create the submission pdfs
+        uses: xu-cheng/texlive-action@v2
+        with:
+          run: |
+            apk update
+            apk upgrade
+            apk add --virtual build-dependencies build-base gcc wget git
+            cd submission
+            make all
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Submission PDFs
+          path: |
+            submission/output/*.pdf
+          retention-days: 90
