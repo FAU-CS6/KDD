@@ -69,8 +69,8 @@ jobs:
             lecture/output/*.log
           retention-days: 90
 
-  build_in_person_exercise:
-    name: Build the in-person exercise archives
+  build_exercise:
+    name: Build the exercise archives
     runs-on: ubuntu-latest
     needs: [pre_commit_validation]
     if: contains(needs.*.result, 'success')
@@ -88,15 +88,15 @@ jobs:
             apk add --no-cache python3 python3-dev py3-pip nodejs npm
             python3 -m venv venv
             source venv/bin/activate
-            pip3 install -r exercise/in-person/requirements.txt
-            cd exercise/in-person
+            pip3 install -r exercise/requirements.txt
+            cd exercise
             make all
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: In-Person Exercises
+          name: Exercise Archives
           path: |
-            exercise/in-person/output/*.zip
+            exercise/output/*.zip
           retention-days: 90

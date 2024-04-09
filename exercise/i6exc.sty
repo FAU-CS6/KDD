@@ -39,7 +39,7 @@
 	\newcommand{\SemesterShort}{WS \the\year/\theNextYear}
 	\newcommand{\SemesterLong}{\WinterSem~\the\year/\theNextYear}
 \else
-	\newcommand{\SemesterShort}{SS \the\year}	
+	\newcommand{\SemesterShort}{SS \the\year}
 	\newcommand{\SemesterLong}{\SummerSem~\the\year}
 \fi
 \fi
@@ -64,9 +64,9 @@
 %
 % "The problem is in how comments.sty writes out files; when you input à, it is interpreted during a \write and it becomes the character corresponding to à in the T1 encoding.
 % Solution: modify \ThisComment to write out uninterpreted commands."
-% This effects only comment.sty version >= 3.7. ThisComment is not defined in older versions. 
+% This effects only comment.sty version >= 3.7. ThisComment is not defined in older versions.
 %
-\ifdefined\ThisComment 
+\ifdefined\ThisComment
 \renewcommand\ThisComment[1]{%
     \immediate\write\CommentStream{\unexpanded{#1}}%
 }
@@ -99,12 +99,12 @@
 		\color{solutioncolor}%
 		\setkomafont{footnoterule}{\color{solutioncolor}}%
 		\setkomafont{footnote}{\color{solutioncolor}}
-	
+
 		\begin{minipage}{\textwidth}%
 
 		}
 	{\end{minipage}
-	
+
 	\endgroup}
 }
 
