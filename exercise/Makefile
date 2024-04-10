@@ -1,24 +1,25 @@
-.PHONY: all clean students solutions
+.PHONY: all clean students solutions FORCE
 
-folders := $(wildcard */)
-foldersstudents := $(patsubst %/, %-Student, $(folders))
-folderssolutions := $(patsubst %/, %-Solution, $(folders))
+TEX_FILES := $(wildcard *.tex)
+
+STUDENT_TARGETS := $(TEX_FILES:.tex=-Student)
+SOLUTION_TARGETS := $(TEX_FILES:.tex=-Solution)
 
 all: clean students solutions
 
 clean:
 	rm -rf output
 
-%-Student: %/ FORCE
+students: $(STUDENT_TARGETS)
+
+solutions: $(SOLUTION_TARGETS)
+
+%-Student: %.tex FORCE
 	mkdir -p output
-	python3 create_exercise_archive.py -o output/$@ -s student $<
+	python3 create_exercise_archive.py -o output -s student $<
 
-%-Solution: %/ FORCE
+%-Solution: %.tex FORCE
 	mkdir -p output
-	python3 create_exercise_archive.py -o output/$@ -s solution $<
-
-students: $(foldersstudents)
-
-solutions: $(folderssolutions)
+	python3 create_exercise_archive.py -o output -s solution $<
 
 FORCE: ;

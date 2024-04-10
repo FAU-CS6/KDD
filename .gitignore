@@ -27,10 +27,14 @@
 *.bak*
 vc.tex
 output
+!fau_tech.pdf
+!i6_icon.pdf
+!i6_logo.pdf
 
 # IDEs
 .idea
 .vscode
+*.cut
 
 # Python
 .venv
@@ -46,4 +50,6 @@ __pycache__
 # Other files
 *.db
 *.cspell/
+
+# MacOS
 .DS_Store

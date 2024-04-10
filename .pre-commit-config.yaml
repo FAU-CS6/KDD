@@ -11,10 +11,10 @@ repos:
       -   id: end-of-file-fixer
 
   # Hooks concerning Latex files
-  -   repo: https://github.com/melsigl/latexhooks
-      rev: v0.1.1
-      hooks:
-      -   id: latexindent
+  #-   repo: https://github.com/melsigl/latexhooks
+  #    rev: v0.1.1
+  #    hooks:
+  #    -   id: latexindent
 
   # Hooks concerning Bibtex files
   -   repo: https://github.com/FlamingTempura/bibtex-tidy

@@ -21,6 +21,11 @@
   4. *Classification* - Dominik Probst
   5. *Clustering* - Dominik Probst
 
+** Submission
+  1. *Frequent Patterns* - Dominik Probst
+  2. *Classification* - Dominik Probst
+  3. *Clustering* - Dominik Probst
+
 * Summer semester 2024
   - Semester duration: 15 April 2024 – 19 July 2024
   - Public holidays:
@@ -32,22 +37,22 @@
     - Tuesday, 21 May 2024
     - Friday, 31 May 2024
 
-  | *Calendar Week* | *Lecture Topic*                          | *Lecturer*                         | *Exercise*                           |
-  |---------------+----------------------------------------+----------------------------------+------------------------------------|
-  |            16 | Course Introduction + KDD Introduction | Dominik Probst                   |                                    |
-  |            17 | Data                                   | Dominik Probst                  | Introduction to Python & Pandas    |
-  |            18 | Preprocessing, Part 1                  | Dominik Probst                   | Data analysis & data preprocessing |
-  |            19 | Preprocessing, Part 2                  | Dominik Probst                   | Data analysis & data preprocessing |
-  |            20 | OLAP                                   | Dominik Probst                  | Data analysis & data preprocessing |
-  |            21 | -               | Dominik Probst                   | -                                  |
-  |            22 | Frequent Pattern, Part 1               | Dominik Probst                   | -                   |
-  |            23 | Frequent Pattern, Part 2               | Dominik Probst                   | Frequent Pattern                   |
-  |            24 | Classification, Part 1                 | Dominik Probst                  | Frequent Pattern                   |
-  |            25 | Classification, Part 2                 | Dominik Probst                  | Classification                     |
-  |            26 | Cluster Analysis, Part 1               | Dominik Probst                   | Classification                     |
-  |            27 | Cluster Analysis, Part 2               | Dominik Probst                   | Classification                     |
-  |            28 | Outlier Analysis, Part 1               | Dominik Probst                  | Clustering                         |
-  |            29 | Outlier Analysis, Part 2 & Exam QnA (if there is time)             | Dominik Probst                  | Clustering                         |
+  | *Calendar Week* | *Lecture Topic*                          | *Lecturer*                         | *Exercise*                           | *Submission*                        |
+  |---------------+----------------------------------------+----------------------------------+------------------------------------+------------------------------------|
+  |            16 | Course Introduction + KDD Introduction | Dominik Probst                   | -                                   | -                                   |
+  |            17 | Data                                   | Dominik Probst                  | Introduction to Python & Pandas    | -                                   |
+  |            18 | Preprocessing, Part 1                  | Dominik Probst                   | Data analysis & data preprocessing (only Group 1 & 2) | -                                   |
+  |            19 | Preprocessing, Part 2                  | Dominik Probst                   | Data analysis & data preprocessing | -                                   |
+  |            20 | OLAP                                   | Dominik Probst                  | Data analysis & data preprocessing | -                                   |
+  |            21 | -               | Dominik Probst                   | Data analysis & data preprocessing (only Group 3 & 4)                                   | -                                   |
+  |            22 | Frequent Pattern, Part 1               | Dominik Probst                   | -                   | -                                   |
+  |            23 | Frequent Pattern, Part 2               | Dominik Probst                   | Frequent Pattern                   | -                                  |
+  |            24 | Classification, Part 1                 | Dominik Probst                  | Frequent Pattern                   | Frequent Pattern |
+  |            25 | Classification, Part 2                 | Dominik Probst                  | Classification                     | Frequent Pattern |
+  |            26 | Cluster Analysis, Part 1               | Dominik Probst                   | Classification                     | Classification |
+  |            27 | Cluster Analysis, Part 2               | Dominik Probst                   | Classification                     | Classification |
+  |            28 | Outlier Analysis, Part 1               | Dominik Probst                  | Clustering                         | Clustering |
+  |            29 | Outlier Analysis, Part 2 & Exam QnA (if there is time)             | Dominik Probst                  | Clustering                         | Clustering |
 
 
 * Setup for Building Lecture Slides Locally
