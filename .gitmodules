@@ -1,0 +1,6 @@
+[submodule "submission/1-Frequent-Patterns/Code-Skeleton"]
+	path = submission/1-Frequent-Patterns/Code-Skeleton
+	url = git@github.com:FAU-CS6-KDDmUe-Submissions/1-Frequent-Patterns.git
+[submodule "submission/1-Frequent-Patterns/Solution"]
+	path = submission/1-Frequent-Patterns/Solution
+	url = git@github.com:FAU-CS6-KDDmUe-Submissions/1-Frequent-Patterns-Solution.git

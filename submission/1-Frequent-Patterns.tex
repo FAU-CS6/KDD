@@ -14,6 +14,28 @@ smallborders
 \usepackage{makecell}
 \usepackage{graphicx}
 \usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{array}
+
+\usepackage{listings}
+\lstset
+{
+    language=python,
+	showtabs=true,
+	tab=,
+	tabsize=2,
+	basicstyle=\ttfamily\scriptsize,
+	backgroundcolor=\color{lightgray!20},
+	breakindent=.5\textwidth,
+	frame=single,
+	breaklines=true,
+	numbers=left,
+	stepnumber=1,
+	deletekeywords=[2]{abs,max}
+}
+
+\newcommand{\points}[1]{\hfill \color{red}(#1 Points)\color{black}}
+
 
 \hyphenation{Stud-On}
 
@@ -23,20 +45,331 @@ smallborders
 \maketitle
 \vspace*{-2cm}
 
-\section*{About this Submission}
+\section*{About this Assignment}
 
-TODO
+Throughout the course of this assignment, you will independently implement the two methods, \hyperref[sec:task-one]{Apriori (Task 1)} and \hyperref[sec:task-one]{FP-growth (Task 2)}. For this purpose, a basic code skeleton, several helper classes, and some test cases are provided to you.
 
-\section*{Preparation}
+\subsection*{Key Data}
 
-TODO
+\begin{itemize}
+	\item \textbf{GitHub Classroom:} \url{https://classroom.github.com/a/???}
+	\item \textbf{Submission Deadline:} ???
+	\item \textbf{Max. Group Size:} 3
+	\item \textbf{Max. Points:} ???
+	      % \item \textbf{Estimated Workload:} ???
+\end{itemize}
+
+\subsection*{Restrictions}
+
+Within the scope of your implementation, you are not permitted to modify the helper classes, the test cases, or the provided GitHub Actions.
+
+This will be checked on a random basis, and any attempt to do so will result in zero points for the involved group, similar to the consequences of plagiarism.
+
+\newpage
 
 \section*{Task 1: Apriori}
+\label{sec:task-one}
 
-TODO
+Apriori is a classic algorithm for frequent itemset mining over transactional databases. It proceeds by identifying the frequent individual items in the database and extending them to larger and larger itemsets as long as those itemsets appear sufficiently often in the database.
+
+\subsection*{Task 1.1 \points{2}}
+
+At the beginning of Apriori, the identification of 1-itemsets is paramount.
+
+Open \texttt{apriori.py} in your repository and implement the \texttt{\_generate\_one\_itemsets}, which generates all 1-itemsets for a given dataset:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _generate_one_itemsets(self, dataset: Dataset) -> Set[Itemset]:
+	"""
+	Generate all 1-itemsets for the given dataset.
+
+	Parameters:
+	dataset (Dataset): The dataset for which the 1-itemsets should be generated.
+
+	Returns:
+	Set[Itemset]: A set containing all 1-itemsets that are contained in the dataset.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+Make sure that you expect a \texttt{Dataset} and return a \texttt{Set[Itemset]}\footnote{\textbf{Hint:} \texttt{Itemset} and \texttt{Database} are helper classes that can be found in the \texttt{classes/} folder.}.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/apriori/test_generate_one_itemsets.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 1.2 \points{2}}
+
+After the 1-itemsets have been identified, the next step is to count the occurrences of these itemsets in the dataset.
+
+Complete the function \texttt{\_count\_occurences\_of\_itemsets}, which counts the occurrences of all given itemsets in the dataset:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _count_occurences_of_itemsets(
+	self, dataset: Dataset, itemsets: Set[Itemset]
+) -> ItemsetsWithOccurenceCounts:
+	"""
+    Count the occurrences of the given itemsets in the dataset.
+
+	Parameters:
+	dataset (Dataset): The dataset for which the itemset occurrences should be counted.
+	itemsets (Set[Itemset]): The itemsets for which the occurrences should be counted.
+	The itemsets do not need to be present in the dataset.
+
+	Returns:
+	ItemsetsWithOccurenceCounts: A dictionary containing the itemsets as keys and
+	their occurrence counts as values.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+Expect that the input consists of a \texttt{Dataset} and a \texttt{Set[Itemset]}. The method should return an instance of \texttt{ItemsetsWithOccurrenceCounts}.
+
+Also be aware that the method should be able to count the occurrences of itemsets with any length, not just 1-itemsets.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/apriori/test_count_occurences_of_itemsets.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 1.3 \points{2}}
+
+After counting occurrences, it is necessary in Apriori to prune all itemsets falling below the minimum support threshold.
+
+Complete the function \texttt{\_prune\_itemsets\_below\_min\_support}, which prunes all itemsets that do not meet the minimum support threshold:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _prune_itemsets_below_min_support(
+	self,
+	itemsets_with_occurence_counts: ItemsetsWithOccurenceCounts,
+) -> Set[Itemset]:
+	"""
+	Prune itemsets that are below the minimum support threshold.
+
+	Parameters:
+	itemsets_with_occurence_counts (ItemsetsWithOccurenceCounts): A dictionary containing
+	the itemsets as keys and their occurrence counts as values.
+
+	Returns:
+	Set[Itemset]: A set containing all itemsets that are considered frequent.
+	"""
+ 	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The input consists of an \texttt{ItemsetsWithOccurenceCounts}. The (absolute) minimum support is a member variable of the Apriori object and can therefore be accessed via \texttt{self.min\_support}. You have to return a \texttt{Set[Itemset]}.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/apriori/test_prune_itemsets_below_min_support.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 1.4 \points{4}}
+
+The last missing step in the Apriori algorithm is to generate the candidate itemsets for the next iteration.
+
+Complete the function \texttt{\_generate\_candidate\_itemsets}, which generates the candidate itemsets for the next iteration:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _generate_candidate_itemsets(
+    self, frequent_itemsets: Set[Itemset]
+) -> Set[Itemset]:
+	"""
+	Generate length-k+1 candidate itemsets based on the given frequent itemsets.
+	k is the length of the longest frequent itemset.
+
+	Parameters:
+	frequent_itemsets (Set[Itemset]): A set containing all frequent itemsets.
+
+	Returns:
+	Set[Itemset]: A set containing all length-k+1 candidate itemsets.
+	"""
+
+	# If there are no frequent itemsets, return an empty set
+	if not frequent_itemsets:
+		return set()
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The input consists of a \texttt{Set[Itemset]} containing all frequent itemsets. The method should return a \texttt{Set[Itemset]} containing all candidate itemsets for the next iteration.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/apriori/test_generate_candidate_itemsets.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 1.5 \points{5}}
+
+All previous steps can be combined into a single algorithm: Apriori.
+
+Complete the function \texttt{fit}, which implements the Apriori algorithm:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def fit(self, dataset: Dataset):
+	"""
+	Use the Apriori algorithm to find all frequent itemsets in the given dataset.
+	Saves the frequent itemsets in the frequent_itemsets attribute.
+
+	Parameters:
+	dataset (Dataset): The dataset to which the Apriori algorithm should be fitted.
+	"""
+
+	# Reset the set of frequent itemsets
+	self.frequent_itemsets = set()
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The input consists of a \texttt{Dataset}. The method should not return anything but save the frequent itemsets in the \texttt{self.frequent\_itemsets} attribute of the Apriori object.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/apriori/test_fit.py
+\end{lstlisting}
+
+
+\newpage
 
 \section*{Task 2: FP-growth}
+\label{sec:task-two}
 
 TODO
+
+\newpage
+
+\section*{Appendices}
+
+In \hyperref[sec:task-one]{Task 1} and \hyperref[sec:task-one]{Task 2} test cases are provided and used to grade the submission.
+
+The most test cases are based on the following data sets:
+
+\subsection*{Small Fruit Dataset}
+
+All test cases starting with the prefix \texttt{test\_with\_small\_fruit\_dataset} are based on a small transactional dataset regarding fruits.
+
+The dataset is structured as follows:
+
+\vspace*{1cm}
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|l|}
+		\hline
+		\textbf{TID} & \textbf{Items}             \\
+		\hline
+		1            & Apple, Banana, Cherry      \\
+		\hline
+		2            & Banana, Cherry             \\
+		\hline
+		3            & Cherry, Apple              \\
+		\hline
+		4            & Dragonfruit, Apple, Cherry \\
+		\hline
+		5            & Apple, Dragonfruit         \\
+		\hline
+	\end{tabular}
+	\caption{Small Fruit Dataset}
+	\label{tab:small-fruit-dataset}
+\end{table}
+
+\vspace*{1cm}
+
+\subsection*{Large Book Dataset}
+
+All test cases starting with the prefix \texttt{test\_with\_large\_book\_dataset} are based on a large(r)\footnote{The term "large" is, of course, somewhat exaggerated. However, the datasets should still be comprehensible by humans, which is why this is the largest dataset we use for testing.} transactional dataset.
+
+The dataset is structured as follows:
+
+\vspace*{1cm}
+
+\begin{table}[ht]
+	\centering
+	\begin{minipage}[t]{0.5\textwidth}
+		\centering
+		\begin{tabular}{|l|l|}
+			\hline
+			\textbf{TID} & \textbf{Books}          \\
+			\hline
+			1            & Book 1, Book 2, Book 3  \\
+			2            & Book 2, Book 4, Book 5  \\
+			3            & Book 3, Book 6, Book 7  \\
+			4            & Book 4, Book 8, Book 9  \\
+			5            & Book 1, Book 5, Book 10 \\
+			6            & Book 6, Book 7, Book 8  \\
+			7            & Book 9, Book 10, Book 2 \\
+			8            & Book 3, Book 4, Book 5  \\
+			9            & Book 6, Book 8, Book 1  \\
+			10           & Book 7, Book 9, Book 10 \\
+			\hline
+		\end{tabular}
+	\end{minipage}%
+	\begin{minipage}[t]{0.5\textwidth}
+		\centering
+		\scalebox{0.8}{
+			\begin{tabular}{ll}
+				\textbf{Book} & \textbf{Title}                \\
+
+				Book 1        & The Shadows of Tomorrow       \\
+				Book 2        & Echoes of a Forgotten Realm   \\
+				Book 3        & Whispers of the Ancient World \\
+				Book 4        & Chronicles of the Unseen      \\
+				Book 5        & Legends of the Fallen Skies   \\
+				Book 6        & Tales of the Crimson Dawn     \\
+				Book 7        & Secrets of the Silent Ocean   \\
+				Book 8        & Memories of the Last Horizon  \\
+				Book 9        & Dreams of the Distant Stars   \\
+				Book 10       & Visions of the Lost Empire    \\
+			\end{tabular}
+		}
+	\end{minipage}
+	\caption{Large Book Dataset}
+	\label{tab:large-book-dataset}
+\end{table}
+
+\vspace*{1cm}
 
 \end{document}
