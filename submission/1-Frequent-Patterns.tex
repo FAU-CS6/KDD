@@ -126,14 +126,14 @@ pytest tests/apriori/test_generate_one_itemsets.py
 
 After the 1-itemsets have been identified, the next step is to count the occurrences of these itemsets in the dataset.
 
-Complete the function \texttt{\_count\_occurences\_of\_itemsets}, which counts the occurrences of all given itemsets in the dataset:
+Complete the function \texttt{\_count\_occurrences\_of\_itemsets}, which counts the occurrences of all given itemsets in the dataset:
 
 \vspace*{0.3cm}
 
 \begin{lstlisting}
-def _count_occurences_of_itemsets(
+def _count_occurrences_of_itemsets(
 	self, dataset: Dataset, itemsets: Set[Itemset]
-) -> ItemsetsWithOccurenceCounts:
+) -> ItemsetsWithOccurrenceCounts:
 	"""
     Count the occurrences of the given itemsets in the dataset.
 
@@ -143,7 +143,7 @@ def _count_occurences_of_itemsets(
 	The itemsets do not need to be present in the dataset.
 
 	Returns:
-	ItemsetsWithOccurenceCounts: A dictionary containing the itemsets as keys and
+	ItemsetsWithOccurrenceCounts: A dictionary containing the itemsets as keys and
 	their occurrence counts as values.
 	"""
 	# TODO
@@ -160,7 +160,7 @@ You can test whether your implementation is correct by executing the following c
 \vspace*{0.3cm}
 
 \begin{lstlisting}
-pytest tests/apriori/test_count_occurences_of_itemsets.py
+pytest tests/apriori/test_count_occurrences_of_itemsets.py
 \end{lstlisting}
 
 \vspace*{0.1cm}
@@ -176,13 +176,13 @@ Complete the function \texttt{\_prune\_itemsets\_below\_min\_support}, which pru
 \begin{lstlisting}
 def _prune_itemsets_below_min_support(
 	self,
-	itemsets_with_occurence_counts: ItemsetsWithOccurenceCounts,
+	itemsets_with_occurrence_counts: ItemsetsWithOccurrenceCounts,
 ) -> Set[Itemset]:
 	"""
 	Prune itemsets that are below the minimum support threshold.
 
 	Parameters:
-	itemsets_with_occurence_counts (ItemsetsWithOccurenceCounts): A dictionary containing
+	itemsets_with_occurrence_counts (ItemsetsWithOccurrenceCounts): A dictionary containing
 	the itemsets as keys and their occurrence counts as values.
 
 	Returns:
@@ -193,7 +193,7 @@ def _prune_itemsets_below_min_support(
 
 \vspace*{0.1cm}
 
-The input consists of an \texttt{ItemsetsWithOccurenceCounts}. The (absolute) minimum support is a member variable of the Apriori object and can therefore be accessed via \texttt{self.min\_support}. You have to return a \texttt{Set[Itemset]}.
+The input consists of an \texttt{ItemsetsWithOccurrenceCounts}. The (absolute) minimum support is a member variable of the Apriori object and can therefore be accessed via \texttt{self.min\_support}. You have to return a \texttt{Set[Itemset]}.
 
 You can test whether your implementation is correct by executing the following command in the console:
 
