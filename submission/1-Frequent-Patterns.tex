@@ -52,11 +52,9 @@ Throughout the course of this assignment, you will independently implement the t
 \subsection*{Key Data}
 
 \begin{itemize}
-	\item \textbf{GitHub Classroom:} \url{https://classroom.github.com/a/???}
-	\item \textbf{Submission Deadline:} 23rd June 2024, 23:55
 	\item \textbf{Max. Group Size:} 3
-	\item \textbf{Max. Points:} ???
-	      % \item \textbf{Estimated Workload:} ???
+	\item \textbf{Max. Points:} 40
+	\item \textbf{Estimated Workload:} 4 hours
 \end{itemize}
 
 \subsection*{How to Work on the Assignment}
@@ -291,7 +289,293 @@ pytest tests/apriori/test_fit.py
 \section*{Task 2: FP-growth}
 \label{sec:task-two}
 
-TODO
+While Apriori represents a very simple approach to mining frequent itemsets, there are alternative methods available. An interesting method is FP-growth, which necessitates only two passes on the original dataset. This is achieved through the utilization of the so-called FP-trees.
+
+\subsection*{Task 2.1 \points{3}}
+
+The first step in FP-growth is to find all frequent 1-itemsets. At the same time, it is beneficial not to immediately discard the occurrence counts of the frequent 1-itemsets.
+
+In \texttt{fpgrowth.py} implement \texttt{\_generate\_frequent\_one\_itemsets\_with\_occurrence\_counts},\newline which generates all 1-itemsets together with their occurrence counts for a given dataset:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _generate_frequent_one_itemsets_with_occurrence_counts(
+	self, dataset: Dataset
+) -> ItemsetsWithOccurrenceCounts:
+	"""
+	Generate all frequent 1-itemsets for the given dataset.
+
+	Parameters:
+	dataset (Dataset): The dataset for which the frequent 1-itemsets should be generated.
+
+	Returns:
+	ItemsetsWithOccurrenceCounts: A dictionary containing the frequent 1-itemsets as keys
+	and their occurrence counts as values.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+Expect a \texttt{Dataset} as input and return an \texttt{ItemsetsWithOccurrenceCounts}. Remember that you did do a similar task in Apriori.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/fpgrowth/test_generate_frequent_one_itemsets_with_occurrence_counts.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 2.2 \points{2}}
+
+After identifying the frequent 1-itemsets, the f-list can be generated. This is where the occurrence counts of the frequent 1-itemsets come into play.
+
+Complete \texttt{\_generate\_f\_list}:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _generate_f_list(
+self, frequent_one_itemsets: ItemsetsWithOccurrenceCounts
+) -> List[Itemset]:
+	"""
+	Generate the f-list for the given frequent 1-itemsets.
+
+	Parameters:
+	frequent_one_itemsets (ItemsetsWithOccurrenceCounts): The frequent 1-itemsets with
+	their occurrence counts for which the F-list should be generated.
+
+	Returns:
+	List[Itemset]: A f-list containing the frequent 1-itemsets sorted by decreasing
+	occurrence count.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The input consists of an \texttt{ItemsetsWithOccurrenceCounts}. The return value should be a \texttt{List[Itemset]} containing the frequent 1-itemsets sorted by decreasing occurrence count
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/fpgrowth/test_generate_f_list.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 2.3 \points{4}}
+
+After generating the f-list, the dataset can be sorted according to the f-list. This is necessary to build the FP-tree.
+
+Complete the function \texttt{\_sort\_dataset\_accoring\_to\_f\_list}, which sorts the dataset according to the f-list:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _sort_dataset_according_to_f_list(
+	self, dataset: Dataset, f_list: List[Itemset]
+) -> SortedDataset:
+	"""
+	Sort the dataset according to the given f-list.
+
+	Parameters:
+	dataset (Dataset): The dataset to be sorted.
+	f_list (List[Itemset]): The f-list according to which the dataset should be sorted.
+
+	Returns:
+	SortedDataset: The sorted dataset.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The input consists of a \texttt{Dataset} and a \texttt{List[Itemset]}. The method should return a \texttt{SortedDataset}.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/fpgrowth/test_sort_dataset_according_to_f_list.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+
+\subsection*{Task 2.4 \points{2}}
+
+With the sorted dataset, the FP-tree can be built.
+
+Complete the function \texttt{\_construct\_initial\_fp\_tree}, which builds the
+initial FP-tree:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _construct_initial_fp_tree(self, sorted_dataset: SortedDataset) -> FPTree:
+	"""
+	Construct the initial FP-tree from the given sorted dataset.
+
+	Parameters:
+	sorted_dataset (SortedDataset): The sorted dataset from which the initial
+	FP-tree should be constructed.
+
+	Returns:
+	FPTree: The initial FP-tree.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The input consists of a \texttt{SortedDataset}. The method should return an \texttt{FPTree}.
+
+\texttt{FPTree} implements a method \texttt{add\_items\_to\_tree}, which might be helpful for this task.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/fpgrowth/test_construct_initial_fp_tree.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 2.5 \points{4}}
+
+In FP-growth, besides the initial FP-tree, the so-called conditional FP-trees also play a crucial role. To be able to build these, the conditional pattern base must be generated.
+
+Complete the function \texttt{\_get\_conditional\_pattern\_base}:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _get_conditional_pattern_base(
+ 	self, item: Item, fp_tree: FPTree
+) -> ConditionalPatternBase:
+	"""
+	Get the conditional pattern base for the given item in the FP-tree.
+
+	Parameters:
+	item (Item): The item for which the conditional pattern base should be generated.
+	fp_tree (FPTree): The FP-tree from which the conditional pattern base should
+	be extracted.
+
+	Returns:
+	ConditionalPatternBase: The conditional pattern base for the given item.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The input consists of an \texttt{Item} and an \texttt{FPTree}. The output is a \texttt{ConditionalPatternBase}.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/fpgrowth/test_get_conditional_pattern_base.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+%\newpage
+
+\subsection*{Task 2.6 \points{2}}
+
+With the conditional pattern base, the conditional FP-tree can be built.
+
+Complete the function \texttt{\_construct\_conditional\_fp\_tree}:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _construct_conditional_fp_tree(
+	self, conditional_pattern_base: ConditionalPatternBase
+) -> FPTree:
+	"""
+	Construct a conditional FP-tree from the given sorted dataset.
+
+	Parameters:
+	conditional_pattern_base (ConditionalPatternBase): The conditional pattern base
+	for which the conditional FP-tree should be constructed.
+
+	Returns:
+	FPTree: The conditional FP-tree.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The input consists of a \texttt{ConditionalPatternBase}. The method should return an \texttt{FPTree}.
+
+There are a lot of similarities between this function and \texttt{\_construct\_initial\_fp\_tree}.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/fpgrowth/test_construct_conditional_fp_tree.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 2.7 \points{8}}
+
+The last missing step in FP-growth is to recursively mine the frequent itemsets.
+
+Complete \texttt{fit}, which implements the FP-growth algorithm:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def fit(self, dataset: Dataset):
+	"""
+	Use the FP-growth algorithm to find all frequent itemsets in the given dataset.
+	Saves the frequent itemsets in the frequent_itemsets attribute.
+
+	Parameters:
+	dataset (Dataset): The dataset to which the FP-growth algorithm should be fitted.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The input consists of a \texttt{Dataset}. The method should not return anything but save the frequent itemsets in the \texttt{self.frequent\_itemsets} attribute of the FP-growth object.
+
+You are free to implement some extra methods if you think they are necessary.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/fpgrowth/test_fit.py
+\end{lstlisting}
+
+
+
+
+
+
+
+
+
+
 
 \newpage
 
