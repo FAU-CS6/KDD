@@ -1,7 +1,7 @@
 #+title: KDD - Knowledge Discovery in Databases
 
 * Responsibilities
-(Changed in 2024WS since Melanie B. Sigl is not participating this time)
+(Changed in 2024SS since Melanie B. Sigl is not participating this time)
 ** Lecture
   1. *Course Intro* - Dominik Probst
   2. *Introduction* - Dominik Probst
