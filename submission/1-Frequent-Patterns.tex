@@ -54,7 +54,7 @@ Throughout the course of this assignment, you will independently implement the t
 \begin{itemize}
 	\item \textbf{Max. Group Size:} 3
 	\item \textbf{Max. Points:} 40
-	\item \textbf{Estimated Workload:} 4 hours
+	\item \textbf{Estimated Workload:} 4 - 6 hours
 \end{itemize}
 
 \subsection*{How to Work on the Assignment}
@@ -84,7 +84,7 @@ This will be checked on a random basis, and any attempt to do so will result in 
 
 Apriori is a classic algorithm for frequent itemset mining over transactional databases. It proceeds by identifying the frequent individual items in the database and extending them to larger and larger itemsets as long as those itemsets appear sufficiently often in the database.
 
-\subsection*{Task 1.1 \points{2}}
+\subsection*{Task 1.1}
 
 At the beginning of Apriori, the identification of 1-itemsets is paramount.
 
@@ -120,7 +120,7 @@ pytest tests/apriori/test_generate_one_itemsets.py
 
 \vspace*{0.1cm}
 
-\subsection*{Task 1.2 \points{2}}
+\subsection*{Task 1.2}
 
 After the 1-itemsets have been identified, the next step is to count the occurrences of these itemsets in the dataset.
 
@@ -163,7 +163,7 @@ pytest tests/apriori/test_count_occurrences_of_itemsets.py
 
 \vspace*{0.1cm}
 
-\subsection*{Task 1.3 \points{2}}
+\subsection*{Task 1.3}
 
 After counting occurrences, it is necessary in Apriori to prune all itemsets falling below the minimum support threshold.
 
@@ -203,7 +203,7 @@ pytest tests/apriori/test_prune_itemsets_below_min_support.py
 
 \vspace*{0.1cm}
 
-\subsection*{Task 1.4 \points{4}}
+\subsection*{Task 1.4}
 
 The last missing step in the Apriori algorithm is to generate the candidate itemsets for the next iteration.
 
@@ -247,7 +247,7 @@ pytest tests/apriori/test_generate_candidate_itemsets.py
 
 \vspace*{0.1cm}
 
-\subsection*{Task 1.5 \points{5}}
+\subsection*{Task 1.5}
 
 All previous steps can be combined into a single algorithm: Apriori.
 
@@ -291,7 +291,7 @@ pytest tests/apriori/test_fit.py
 
 While Apriori represents a very simple approach to mining frequent itemsets, there are alternative methods available. An interesting method is FP-growth, which necessitates only two passes on the original dataset. This is achieved through the utilization of the so-called FP-trees.
 
-\subsection*{Task 2.1 \points{3}}
+\subsection*{Task 2.1}
 
 The first step in FP-growth is to find all frequent 1-itemsets. At the same time, it is beneficial not to immediately discard the occurrence counts of the frequent 1-itemsets.
 
@@ -330,7 +330,7 @@ pytest tests/fpgrowth/test_generate_frequent_one_itemsets_with_occurrence_counts
 
 \vspace*{0.1cm}
 
-\subsection*{Task 2.2 \points{2}}
+\subsection*{Task 2.2}
 
 After identifying the frequent 1-itemsets, the f-list can be generated. This is where the occurrence counts of the frequent 1-itemsets come into play.
 
@@ -370,7 +370,7 @@ pytest tests/fpgrowth/test_generate_f_list.py
 
 \vspace*{0.1cm}
 
-\subsection*{Task 2.3 \points{4}}
+\subsection*{Task 2.3}
 
 After generating the f-list, the dataset can be sorted according to the f-list. This is necessary to build the FP-tree.
 
@@ -410,7 +410,7 @@ pytest tests/fpgrowth/test_sort_dataset_according_to_f_list.py
 \vspace*{0.1cm}
 
 
-\subsection*{Task 2.4 \points{2}}
+\subsection*{Task 2.4}
 
 With the sorted dataset, the FP-tree can be built.
 
@@ -450,7 +450,7 @@ pytest tests/fpgrowth/test_construct_initial_fp_tree.py
 
 \vspace*{0.1cm}
 
-\subsection*{Task 2.5 \points{4}}
+\subsection*{Task 2.5}
 
 In FP-growth, besides the initial FP-tree, the so-called conditional FP-trees also play a crucial role. To be able to build these, the conditional pattern base must be generated.
 
@@ -492,7 +492,7 @@ pytest tests/fpgrowth/test_get_conditional_pattern_base.py
 
 %\newpage
 
-\subsection*{Task 2.6 \points{2}}
+\subsection*{Task 2.6}
 
 With the conditional pattern base, the conditional FP-tree can be built.
 
@@ -533,7 +533,7 @@ pytest tests/fpgrowth/test_construct_conditional_fp_tree.py
 
 \vspace*{0.1cm}
 
-\subsection*{Task 2.7 \points{8}}
+\subsection*{Task 2.7}
 
 The last missing step in FP-growth is to recursively mine the frequent itemsets.
 
