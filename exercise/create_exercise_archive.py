@@ -142,14 +142,17 @@ def compile_latex_files(input, output_folder, style):
             os.path.join(temp_folder, input + ".pdf"),
             os.path.join(temp_folder, input + "-Student.pdf"),
         )
+
+        # Copy the pdf from the temp folder to the output folder
+        shutil.copy(os.path.join(temp_folder, input + "-Student.pdf"), output_folder)
     elif style == "solution":
         os.rename(
             os.path.join(temp_folder, input + ".pdf"),
             os.path.join(temp_folder, input + "-Solution.pdf"),
         )
 
-    # Copy the pdf from the temp folder to the output folder
-    shutil.copy(os.path.join(temp_folder, input + ".pdf"), output_folder)
+        # Copy the pdf from the temp folder to the output folder
+        shutil.copy(os.path.join(temp_folder, input + "-Solution.pdf"), output_folder)
 
 
 if __name__ == "__main__":
