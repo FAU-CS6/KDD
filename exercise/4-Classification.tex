@@ -1,3 +1,5 @@
+\def\solutionsflag{}
+
 \documentclass[
 english,
 smallborders
@@ -14,8 +16,12 @@ smallborders
 \usepackage{makecell}
 \usepackage{graphicx}
 \usepackage{multicol}
+\usepackage{amsmath}
 
 \hyphenation{Stud-On}
+
+\newcommand{\OfSpecificValue}[3]{_{\text{\tiny #1#2#3}}}
+\newcommand{\OfAttribute}[1]{_{\text{\tiny #1}}}
 
 \begin{document}
 
@@ -61,9 +67,313 @@ Before participating in the exercise, you must prepare the following:
 
 \end{enumerate}
 
-\section*{Exercise 1: TODO}
+\section*{Exercise 1: Decision Trees}
 
-TODO
+\begin{comment}
+% Table for Exercise 1
+Age; Age1; Age2; Major; Participation; Passed?
+23; <=23,5; <=25; CS; High; Yes
+23; <=23,5; <=25; DS; Low; No
+26; >23,5; >25; DS; High; Yes
+24; >23,5; <=25; CS; Medium; Yes
+26; >23,5; >25; DS; Medium; No
+26; >23,5; >25; DS; Low; No
+
+% Good site to check: https://planetcalc.com/8421/
+\end{comment}
+
+Given is a dataset $D$:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		\textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+		23           & CS             & High                   & Yes             \\ \hline
+		23           & DS             & Low                    & No              \\ \hline
+		26           & DS             & High                   & Yes             \\ \hline
+		24           & CS             & Medium                 & Yes             \\ \hline
+		26           & DS             & Medium                 & No              \\ \hline
+		26           & DS             & Low                    & No              \\ \hline
+	\end{tabular}
+\end{center}
+
+$D$ is containing a continuous attribute (\textit{Age}) and two categorical attributes (\textit{Major} and \textit{Participation}) which can be used to predict the target attribute \textit{Passed}.
+
+\subsection*{Task 1: Information Gain}
+
+Use the algorithm for \textbf{Decision Tree Induction} known from the lecture to build a decision tree for this dataset. The decision tree should be built using \textbf{Information Gain} as the attribute selection method.
+
+Write down \textbf{all} intermediate steps.
+
+\begin{solution}
+\begin{enumerate}
+\item \textbf{Create the root node:}
+
+To create the root node, we need to calculate the Information Gain for each attribute and select the one with the highest Information Gain.
+
+\begin{enumerate}
+	\item \textbf{Calculate the Entropy of the target attribute \textit{Passed}:}
+	      \begin{alignat*}{2}
+		      \text{Info}(D) & = -\sum_{i=1}^{m}p_i \log_2(p_i)                                                                                                                          \\
+		                     & = -p\OfSpecificValue{Passed}{=}{Yes} \log_2(p\OfSpecificValue{Passed}{=}{Yes})- p\OfSpecificValue{Passed}{=}{No} \log_2(p\OfSpecificValue{Passed}{=}{No}) \\
+		                     & = -\frac{3}{6} \log_2\left(\frac{3}{6}\right) - \frac{3}{6} \log_2\left(\frac{3}{6}\right)                                                                \\
+		                     & = 1                                                                                                                                                       \\
+	      \end{alignat*}
+
+	\item \textbf{Calculate the Information Gain for all attributes:}
+
+	      \begin{enumerate}
+		      \item \textbf{Attribute \textit{Age}:}
+
+		            \textit{Age} is a continuous attribute. To calculate the Information Gain, we need to find the best split point.
+
+		            \begin{enumerate}
+			            \item \textbf{Split point $23,5$:}
+
+			                  \begin{alignat*}{2}
+				                  \text{Info}\OfAttribute{Age}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Age$,j$}|}{|D\OfAttribute{Age}|} \text{Info}(D_{A\OfAttribute{Age$,j$}})                                                                                                                            \\
+				                                                  & = \frac{|D\OfSpecificValue{Age}{$\leq$}{2,5}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$\leq$}{2,5}) + \frac{|D\OfSpecificValue{Age}{$>$}{2,5}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$>$}{2,5})   \\
+				                                                  & = \frac{2}{6} \left(-\frac{1}{2} \log_2\left(\frac{1}{2}\right) - \frac{1}{2} \log_2\left(\frac{1}{2}\right)\right) + \frac{4}{6} \left(-\frac{2}{4} \log_2\left(\frac{2}{4}\right) - \frac{2}{4} \log_2\left(\frac{2}{4}\right)\right) \\
+				                                                  & = \frac{2}{6} \cdot 1 + \frac{4}{6} \cdot 1                                                                                                                                                                                             \\
+				                                                  & = 1                                                                                                                                                                                                                                     \\
+				                  \text{Gain}\OfAttribute{Age}    & = \text{Info}(D) - \text{Info}\OfAttribute{Age}(D)                                                                                                                                                                                      \\
+				                                                  & = 1 - 1                                                                                                                                                                                                                                 \\
+				                                                  & = 0                                                                                                                                                                                                                                     \\
+			                  \end{alignat*}
+
+			            \item \textbf{Split point $25,5$:}
+
+			                  \begin{alignat*}{2}
+				                  \text{Info}\OfAttribute{Age}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Age$,j$}|}{|D\OfAttribute{Age}|} \text{Info}(D_{A\OfAttribute{Age$,j$}})                                                                                                                            \\
+				                                                  & = \frac{|D\OfSpecificValue{Age}{$\leq$}{5}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$\leq$}{5}) + \frac{|D\OfSpecificValue{Age}{$>$}{5}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$>$}{5})           \\
+				                                                  & = \frac{3}{6} \left(-\frac{2}{3} \log_2\left(\frac{2}{3}\right) - \frac{1}{3} \log_2\left(\frac{1}{3}\right)\right) + \frac{3}{6} \left(-\frac{1}{3} \log_2\left(\frac{1}{3}\right) - \frac{2}{3} \log_2\left(\frac{2}{3}\right)\right) \\
+				                                                  & = \frac{3}{6} \cdot 0,9183 + \frac{3}{6} \cdot 0,9183                                                                                                                                                                                   \\
+				                                                  & = 0,9183                                                                                                                                                                                                                                \\
+				                  \text{Gain}\OfAttribute{Age}    & = \text{Info}(D) - \text{Info}\OfAttribute{Age}(D)                                                                                                                                                                                      \\
+				                                                  & = 1 - 0,9183                                                                                                                                                                                                                            \\
+				                                                  & = 0,0817                                                                                                                                                                                                                                \\
+			                  \end{alignat*}
+
+		            \end{enumerate}
+
+		            Therefore, the Information Gain for the attribute \textit{Age} is $0,817$ (if we split at $25,5$).
+
+		      \item \textbf{Attribute \textit{Major}:}
+
+		            \textit{Major} is a categorical attribute with two possible values: \textit{CS} and \textit{DS}.
+
+		            Since it is a categorical attribute and we are using the Information Gain, there is no need to determine a splitting criterion.
+
+		            \begin{alignat*}{2}
+			            \text{Info}\OfAttribute{Major}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Major$,j$}|}{|D\OfAttribute{Major}|} \text{Info}(D_{A\OfAttribute{Major$,j$}})                                                                                                                      \\
+			                                              & = \frac{|D\OfSpecificValue{Major}{=}{CS}|}{|D\OfAttribute{Major}|} \text{Info}(D\OfSpecificValue{Major}{=}{CS}) + \frac{|D\OfSpecificValue{Major}{=}{DS}|}{|D\OfAttribute{Major}|} \text{Info}(D\OfSpecificValue{Major}{=}{DS})         \\
+			                                              & = \frac{2}{6} \left(-\frac{2}{2} \log_2\left(\frac{2}{2}\right) - \frac{0}{2} \log_2\left(\frac{0}{2}\right)\right) + \frac{4}{6} \left(-\frac{1}{4} \log_2\left(\frac{1}{4}\right) - \frac{3}{4} \log_2\left(\frac{3}{4}\right)\right) \\
+			                                              & = \frac{2}{6} \left(- 0 - 0 \cdot \text{undefined}\right) + \frac{4}{6} \left(0,8113\right) \text{\tiny \textit{\hspace{0,2cm}\textbf{Hint:} Multiplication by 0 always results in 0}}                                                  \\
+			                                              & = \frac{2}{6} \left(- 0 - 0 \right) + \frac{4}{6} \left(0,8113\right)                                                                                                                                                                   \\
+			                                              & = 0,5408                                                                                                                                                                                                                                \\
+			            \text{Gain}\OfAttribute{Major}    & = \text{Info}(D) - \text{Info}\OfAttribute{Major}(D)                                                                                                                                                                                    \\
+			                                              & = 1 - 0,5408                                                                                                                                                                                                                            \\
+			                                              & = 0,4592                                                                                                                                                                                                                                \\
+		            \end{alignat*}
+
+		      \item \textbf{Attribute \textit{Participation}:}
+
+		            \textit{Participation} is a categorical attribute with three possible values: \textit{High}, \textit{Medium} and \textit{Low}.
+
+		            Since it is a categorical attribute and we are using the Information Gain, there is no need to determine a splitting criterion.
+
+		            \begin{alignat*}{3}
+			            \text{Info}\OfAttribute{Parti.}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Parti.$,j$}|}{|D\OfAttribute{Parti.}|} \text{Info}(D_{A\OfAttribute{Parti.$,j$}})                                                                                                                             \\
+			                                               & = \frac{|D\OfSpecificValue{Parti.}{=}{High}|}{|D\OfAttribute{Parti.}|} \text{Info}(D\OfSpecificValue{Parti.}{=}{High}) + \frac{|D\OfSpecificValue{Parti.}{=}{Medium}|}{|D\OfAttribute{Parti.}|} \text{Info}(D\OfSpecificValue{Parti.}{=}{Medium}) \\
+			                                               & + \frac{|D\OfSpecificValue{Parti.}{=}{Low}|}{|D\OfAttribute{Parti.}|} \text{Info}(D\OfSpecificValue{Parti.}{=}{Low})                                                                                                                              \\
+			                                               & = \frac{2}{6} \left(-\frac{2}{2} \log_2\left(\frac{2}{2}\right) - \frac{0}{2} \log_2\left(\frac{0}{2}\right)\right) + \frac{2}{6} \left(-\frac{1}{2} \log_2\left(\frac{1}{2}\right) - \frac{1}{2} \log_2\left(\frac{1}{2}\right)\right)           \\
+			                                               & + \frac{2}{6} \left(-\frac{0}{2} \log_2\left(\frac{0}{2}\right) - \frac{2}{2} \log_2\left(\frac{2}{2}\right)\right)                                                                                                                               \\
+			                                               & = \frac{2}{6} \cdot 0 + \frac{2}{6} \cdot 1 + \frac{2}{6} \cdot 0                                                                                                                                                                                 \\
+			                                               & =  0,3333                                                                                                                                                                                                                                         \\
+			            \text{Gain}\OfAttribute{Parti.}    & = \text{Info}(D) - \text{Info}\OfAttribute{Parti.}(D)                                                                                                                                                                                             \\
+			                                               & = 1 - 0,3333                                                                                                                                                                                                                                      \\
+			                                               & = 0,6667                                                                                                                                                                                                                                          \\
+		            \end{alignat*}
+	      \end{enumerate}
+
+	\item \textbf{Create the node based on the highest Information Gain:}
+
+	      The attribute with the highest Information Gain is \textit{Participation} with a value of $0,6667$. It will therefore become the splitting attribute for the root node.
+
+	      The resulting tree will look like this:
+
+	      \begin{center}
+		      \begin{tikzpicture}[
+				      >=latex,
+				      thick,
+				      node/.style={
+						      draw,
+						      rounded corners=.25em,
+						      text depth=0.2em
+					      },
+				      leaf/.style={
+						      draw,
+						      rounded corners=.7em,
+						      text depth=0.2em
+					      },
+				      branch/.style={
+						      fill=white,
+						      font=\ttfamily\scriptsize,
+						      rounded corners=.7em,
+						      text depth=0.2em
+					      }
+			      ]
+			      \useasboundingbox (-6,0.5) rectangle (6,-6);
+
+			      \node[node, anchor=center] at (0,0) (parti) {Participation?};
+
+			      \node[draw=none,anchor=center] at (-4,-2.5) (high) {
+				      \resizebox{6.5cm}{!}{%
+					      \begin{tabular}{|c|c|c|c|c|}
+						      \hline
+						      \textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+						      23           & CS             & High                   & Yes             \\ \hline
+						      26           & DS             & High                   & Yes             \\ \hline
+					      \end{tabular}
+				      }
+			      };
+
+			      \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high} (-4,-1) -- (high.north);
+
+			      \node[draw=none,anchor=center] at (0,-4.25)  (medium) {
+				      \resizebox{6.5cm}{!}{%
+					      \begin{tabular}{|c|c|c|c|c|}
+						      \hline
+						      \textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+						      24           & CS             & Medium                 & Yes             \\ \hline
+						      26           & DS             & Medium                 & No              \\ \hline
+					      \end{tabular}
+				      }
+			      };
+
+			      \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none, fill=white] {medium} (0,-2.5) -- (medium.north);
+
+			      \node[draw=none,anchor=center] at (4,-2.5)  (low) {
+				      \resizebox{6.5cm}{!}{%
+					      \begin{tabular}{|c|c|c|c|c|}
+						      \hline
+						      \textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+						      23           & DS             & Low                    & No              \\ \hline
+						      26           & DS             & Low                    & No              \\ \hline
+					      \end{tabular}
+				      }
+			      };
+
+			      \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
+
+		      \end{tikzpicture}
+	      \end{center}
+\end{enumerate}
+
+\item \textbf{Visit each branch:}
+
+\begin{enumerate}
+	\item \textbf{Branch \textit{High}:}
+
+	      All samples in the partial dataset of the branch \textit{High} have the same value for the target attribute \textit{Passed}. Therefore, the branch becomes a leaf node.
+
+	      \begin{center}
+		      \begin{tikzpicture}[
+				      >=latex,
+				      thick,
+				      node/.style={
+						      draw,
+						      rounded corners=.25em,
+						      text depth=0.2em
+					      },
+				      leaf/.style={
+						      draw,
+						      rounded corners=.7em,
+						      text depth=0.2em
+					      },
+				      branch/.style={
+						      fill=white,
+						      font=\ttfamily\scriptsize,
+						      rounded corners=.7em,
+						      text depth=0.2em
+					      }
+			      ]
+			      \useasboundingbox (-6,0.5) rectangle (6,-6);
+
+			      \node[node, anchor=center] at (0,0) (parti) {Participation?};
+
+			      \node[leaf] at (-4,-2.5) (high) {Yes};
+
+			      \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high} (-4,-1) -- (high.north);
+
+			      \node[draw=none,anchor=center] at (0,-4.25)  (medium) {
+				      \resizebox{6.5cm}{!}{%
+					      \begin{tabular}{|c|c|c|c|c|}
+						      \hline
+						      \textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+						      24           & CS             & Medium                 & Yes             \\ \hline
+						      26           & DS             & Medium                 & No              \\ \hline
+					      \end{tabular}
+				      }
+			      };
+
+			      \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none, fill=white] {medium} (0,-2.5) -- (medium.north);
+
+			      \node[draw=none,anchor=center] at (4,-2.5)  (low) {
+				      \resizebox{6.5cm}{!}{%
+					      \begin{tabular}{|c|c|c|c|c|}
+						      \hline
+						      \textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+						      23           & DS             & Low                    & No              \\ \hline
+						      26           & DS             & Low                    & No              \\ \hline
+					      \end{tabular}
+				      }
+			      };
+
+			      \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
+
+		      \end{tikzpicture}
+	      \end{center}
+
+	\item \textbf{Branch \textit{Medium}:}
+
+	      The partial dataset of the branch \textit{Medium} contains samples with different values for the target attribute \textit{Passed}. Therefore, we need to create a new node.
+
+	      \begin{enumerate}
+		      \item \textbf{Calculate the Entropy of the target attribute \textit{Passed}:}
+
+		            \begin{alignat*}{2}
+			            \text{Info}(D\OfSpecificValue{Parti}{=}{Medium}) & = -\sum_{i=1}^{m}p_i \log_2(p_i)                                                                                                                          \\
+			                                                             & = -p\OfSpecificValue{Passed}{=}{Yes} \log_2(p\OfSpecificValue{Passed}{=}{Yes})- p\OfSpecificValue{Passed}{=}{No} \log_2(p\OfSpecificValue{Passed}{=}{No}) \\
+			                                                             & = -\frac{1}{2} \log_2\left(\frac{1}{2}\right) - \frac{1}{2} \log_2\left(\frac{1}{2}\right)                                                                \\
+			                                                             & = 1                                                                                                                                                       \\
+		            \end{alignat*}
+
+		      \item \textbf{Calculate the Information Gain for all attributes that are not yet a node:}
+
+		            \begin{enumerate}
+			            \item \textbf{Attribute \textit{Age}:}
+
+			                  \textit{Age} is still a continuous attribute. However since there are only two different values in the partial dataset, we only have one split point.
+
+			                  \begin{alignat*}{2}
+				                  \text{Info}\OfAttribute{Age}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Age$,j$}|}{|D\OfAttribute{Age}|} \text{Info}(D_{A\OfAttribute{Age$,j$}})                                                                                                                            \\
+				                                                  & = \frac{|D\OfSpecificValue{Age}{$\leq$}{5}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$\leq$}{5}) + \frac{|D\OfSpecificValue{Age}{$>$}{5}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$>$}{5})           \\
+				                                                  & = \frac{1}{2} \left(-\frac{1}{1} \log_2\left(\frac{1}{1}\right) - \frac{0}{1} \log_2\left(\frac{0}{1}\right)\right) + \frac{1}{2} \left(-\frac{1}{1} \log_2\left(\frac{1}{1}\right) - \frac{0}{1} \log_2\left(\frac{0}{1}\right)\right) \\
+				                                                  & = \frac{1}{2} \cdot 0 + \frac{1}{2} \cdot 0                                                                                                                                                                                             \\
+				                                                  & = 0                                                                                                                                                                                                                                     \\
+				                  \text{Gain}\OfAttribute{Age}    & = \text{Info}(D) - \text{Info}\OfAttribute{Age}(D)                                                                                                                                                                                      \\
+				                                                  & = 1 - 0                                                                                                                                                                                                                                 \\
+				                                                  & = 1                                                                                                                                                                                                                                     \\
+			                  \end{alignat*}
+
+
+		            \end{enumerate}
+	      \end{enumerate}
+
+\end{enumerate}
+\end{solution}
+
 
 \section*{Exercise 2: TODO}
 
