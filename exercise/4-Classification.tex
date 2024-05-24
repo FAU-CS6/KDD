@@ -86,7 +86,7 @@ $D$ is containing a continuous attribute (\textit{Age}) and two categorical attr
 
 \subsection*{Task 1: Information Gain}
 
-Use the algorithm for \textbf{Decision Tree Induction} known from the lecture to build a decision tree for this dataset. The decision tree should be built using \textbf{Information Gain} as the attribute selection method.
+Use the algorithm for \textbf{Decision Tree Induction} known from the lecture to build a decision tree for dataset $D$. The decision tree should be built using \textbf{Information Gain} as the attribute selection method.
 
 Write down \textbf{all} intermediate steps.
 
@@ -536,6 +536,368 @@ Write down \textbf{all} intermediate steps.
 	\end{enumerate}
 \end{solution}
 
+\subsection*{Task 2: Gini Index}
+
+This time, the decision tree for dataset $D$ should be built using the \textbf{Gini Index} as the attribute selection method.
+
+\textbf{Task 2.a: Root Node}
+
+Using the algorithm for building a decision tree with the Gini Index, create the root node of the decision tree for the dataset $D$.
+
+Write down \textbf{all} intermediate steps \textbf{up to} the point where the root node is created.
+
+\begin{solution}
+	\begin{enumerate}
+		\item \textbf{Create the root node:}
+
+		      To create the root node, we need to calculate the Gini Index for each attribute and select the one with the lowest Gini Index.
+
+		      \begin{enumerate}
+			      \item \textbf{Calculate the impurity of the whole Dataset $D$:}
+
+			            \begin{alignat*}{2}
+				            \text{Gini}(D) & = 1 - \sum_{i=1}^{m}p_i^2                                                      \\
+				                           & = 1 - p\OfSpecificValue{Passed}{=}{Yes}^2 - p\OfSpecificValue{Passed}{=}{No}^2 \\
+				                           & = 1 - \left(\frac{3}{6}\right)^2 - \left(\frac{3}{6}\right)^2                  \\
+				                           & = 0,5                                                                          \\
+			            \end{alignat*}
+
+			      \item \textbf{Calculate the Gini Index for all attributes:}
+
+			            \begin{enumerate}
+				            \item \textbf{Attribute \textit{Age}:}
+
+				                  \textit{Age} is a continuous attribute. Similar to the Information Gain, we need to find the best split point.
+
+				                  \begin{enumerate}
+					                  \item \textbf{Split point $23,5$:}
+
+					                        \begin{alignat*}{2}
+						                        \text{Gini}\OfAttribute{Age}(D)       & = \frac{|D\OfSpecificValue{Age}{$\leq$}{23,5}|}{|D\OfAttribute{Age}|} \text{Gini}(D\OfSpecificValue{Age}{$\leq$}{23,5}) + \frac{|D\OfSpecificValue{Age}{$>$}{23,5}|}{|D\OfAttribute{Age}|} \text{Gini}(D\OfSpecificValue{Age}{$>$}{23,5}) \\
+						                                                              & = \frac{2}{6} \left(1 - \left(\frac{1}{2}\right)^2 - \left(\frac{1}{2}\right)^2\right) + \frac{4}{6} \left(1 - \left(\frac{2}{4}\right)^2 - \left(\frac{2}{4}\right)^2\right)                                                             \\
+						                                                              & = \frac{2}{6} \cdot 0,5 + \frac{4}{6} \cdot 0,5                                                                                                                                                                                           \\
+						                                                              & = 0,5                                                                                                                                                                                                                                     \\
+						                        \Delta\text{Gini}\OfAttribute{Age}(D) & = \text{Gini}(D) - \text{Gini}\OfAttribute{Age}(D)                                                                                                                                                                                        \\
+						                                                              & = 0,5 - 0,5                                                                                                                                                                                                                               \\
+						                                                              & = 0                                                                                                                                                                                                                                       \\
+					                        \end{alignat*}
+					                  \item \textbf{Split point $25,5$:}
+
+					                        \begin{alignat*}{2}
+						                        \text{Gini}\OfAttribute{Age}(D)       & = \frac{|D\OfSpecificValue{Age}{$\leq$}{25,5}|}{|D\OfAttribute{Age}|} \text{Gini}(D\OfSpecificValue{Age}{$\leq$}{25,5}) + \frac{|D\OfSpecificValue{Age}{$>$}{25,5}|}{|D\OfAttribute{Age}|} \text{Gini}(D\OfSpecificValue{Age}{$>$}{25,5}) \\
+						                                                              & = \frac{3}{6} \left(1 - \left(\frac{2}{3}\right)^2 - \left(\frac{1}{3}\right)^2\right) + \frac{3}{6} \left(1 - \left(\frac{1}{3}\right)^2 - \left(\frac{2}{3}\right)^2\right)                                                             \\
+						                                                              & = \frac{3}{6} \cdot 0,4444 + \frac{3}{6} \cdot 0,4444                                                                                                                                                                                     \\
+						                                                              & = 0,4444                                                                                                                                                                                                                                  \\
+						                        \Delta\text{Gini}\OfAttribute{Age}(D) & = \text{Gini}(D) - \text{Gini}\OfAttribute{Age}(D)                                                                                                                                                                                        \\
+						                                                              & = 0,5 - 0,4444                                                                                                                                                                                                                            \\
+						                                                              & = 0,0556                                                                                                                                                                                                                                  \\
+					                        \end{alignat*}
+				                  \end{enumerate}
+
+				                  The best split point is $25,5$ since its Gini Index is the lowest ($0,4444$) and therefore the reduction of impurity ($0,0556$) is the highest.
+
+				            \item \textbf{Attribute \textit{Major}:}
+
+				                  \textit{Major} is a categorical attribute with two possible values: \textit{CS} and \textit{DS}.
+
+				                  Gini Index only supports two-way splits. Therefore if we would have had more than two values, we would have needed to calculate the Gini Index for each possible split.
+
+				                  However since we only have two values, we can directly calculate the Gini Index for the attribute \textit{Major}:
+
+				                  \begin{alignat*}{2}
+					                  \text{Gini}\OfAttribute{Major}(D)       & = \frac{|D\OfSpecificValue{Major}{=}{CS}|}{|D\OfAttribute{Major}|} \text{Gini}(D\OfSpecificValue{Major}{=}{CS}) + \frac{|D\OfSpecificValue{Major}{=}{DS}|}{|D\OfAttribute{Major}|} \text{Gini}(D\OfSpecificValue{Major}{=}{DS}) \\
+					                                                          & = \frac{1}{6} \left(1 - \left(\frac{1}{1}\right)^2 - \left(\frac{0}{1}\right)^2\right) + \frac{5}{6} \left(1 - \left(\frac{2}{5}\right)^2 - \left(\frac{3}{5}\right)^2\right)                                                   \\
+					                                                          & = \frac{1}{6} \cdot 0 + \frac{5}{6} \cdot 0,48                                                                                                                                                                                  \\
+					                                                          & = 0,4                                                                                                                                                                                                                           \\
+					                  \Delta\text{Gini}\OfAttribute{Major}(D) & = \text{Gini}(D) - \text{Gini}\OfAttribute{Major}(D)                                                                                                                                                                            \\
+					                                                          & = 0,5 - 0,4                                                                                                                                                                                                                     \\
+					                                                          & = 0,1                                                                                                                                                                                                                           \\
+				                  \end{alignat*}
+
+				            \item \textbf{Attribute \textit{Participation}:}
+
+				                  \textit{Participation} is a categorical attribute with three possible values: \textit{High}, \textit{Medium} and \textit{Low}.
+
+				                  Since we have more than two different attributes, we have to calculate the Gini Index for each possible attribute combination.
+
+				                  \begin{enumerate}
+					                  \item \textbf{Combination \textit{\{High, Medium\}} and \textit{\{Low\}}:}
+
+					                        \begin{alignat*}{2}
+						                        \text{Gini}\OfAttribute{Parti.}(D)       & = \frac{|D\OfSpecificValue{Parti.}{=}{High, Medium}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Major}{=}{High, Medium}) + \frac{|D\OfSpecificValue{Parti.}{=}{Low}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Parti.}{=}{Low}) \\
+						                                                                 & = \frac{4}{6} \left(1 - \left(\frac{3}{4}\right)^2 - \left(\frac{1}{4}\right)^2\right) + \frac{2}{6} \left(1 - \left(\frac{0}{2}\right)^2 - \left(\frac{2}{2}\right)^2\right)                                                                              \\
+						                                                                 & = \frac{4}{6} \cdot 0,375 + \frac{2}{6} \cdot 0                                                                                                                                                                                                            \\
+						                                                                 & = 0,25                                                                                                                                                                                                                                                     \\
+						                        \Delta\text{Gini}\OfAttribute{Parti.}(D) & = \text{Gini}(D) - \text{Gini}\OfAttribute{Parti.}(D)                                                                                                                                                                                                      \\
+						                                                                 & = 0,5 - 0,25                                                                                                                                                                                                                                               \\
+						                                                                 & = 0,25                                                                                                                                                                                                                                                     \\
+					                        \end{alignat*}
+
+					                  \item \textbf{Combination \textit{\{High, Low\}} and \textit{\{Medium\}}:}
+
+					                        \begin{alignat*}{2}
+						                        \text{Gini}\OfAttribute{Parti.}(D)       & = \frac{|D\OfSpecificValue{Parti.}{=}{High, Low}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Major}{=}{High, Low}) + \frac{|D\OfSpecificValue{Parti.}{=}{Medium}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Parti.}{=}{Medium}) \\
+						                                                                 & = \frac{4}{6} \left(1 - \left(\frac{2}{4}\right)^2 - \left(\frac{2}{4}\right)^2\right) + \frac{2}{6} \left(1 - \left(\frac{1}{2}\right)^2 - \left(\frac{1}{2}\right)^2\right)                                                                              \\
+						                                                                 & = \frac{4}{6} \cdot 0,5 + \frac{2}{6} \cdot 0,5                                                                                                                                                                                                            \\
+						                                                                 & = 0,5                                                                                                                                                                                                                                                      \\
+						                        \Delta\text{Gini}\OfAttribute{Parti.}(D) & = \text{Gini}(D) - \text{Gini}\OfAttribute{Parti.}(D)                                                                                                                                                                                                      \\
+						                                                                 & = 0,5 - 0,5                                                                                                                                                                                                                                                \\
+						                                                                 & = 0                                                                                                                                                                                                                                                        \\
+					                        \end{alignat*}
+					                  \item \textbf{Combination \textit{\{Medium, Low\}} and \textit{\{High\}}:}
+
+					                        \begin{alignat*}{2}
+						                        \text{Gini}\OfAttribute{Parti.}(D)       & = \frac{|D\OfSpecificValue{Parti.}{=}{Medium, Low}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Major}{=}{Medium, Low}) + \frac{|D\OfSpecificValue{Parti.}{=}{High}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Parti.}{=}{High}) \\
+						                                                                 & = \frac{4}{6} \left(1 - \left(\frac{1}{4}\right)^2 - \left(\frac{3}{4}\right)^2\right) + \frac{2}{6} \left(1 - \left(\frac{2}{2}\right)^2 - \left(\frac{0}{2}\right)^2\right)                                                                              \\
+						                                                                 & = \frac{4}{6} \cdot 0,375 + \frac{2}{6} \cdot 0                                                                                                                                                                                                            \\
+						                                                                 & = 0,25                                                                                                                                                                                                                                                     \\
+						                        \Delta\text{Gini}\OfAttribute{Parti.}(D) & = \text{Gini}(D) - \text{Gini}\OfAttribute{Parti.}(D)                                                                                                                                                                                                      \\
+						                                                                 & = 0,5 - 0,25                                                                                                                                                                                                                                               \\
+						                                                                 & = 0,25                                                                                                                                                                                                                                                     \\
+					                        \end{alignat*}
+				                  \end{enumerate}
+
+				                  The best combinations are \textit{\{High, Medium\}} and \textit{\{Low\}} and \textit{\{Medium, Low\}} and \textit{\{High\}} since their Gini Index is the lowest ($0,25$) and therefore the reduction of impurity ($0,25$) is the highest.
+
+				                  We can choose either of them as the combination \glqq representing\grqq\ the attribute \textit{Participation}. For the simplicity of this sample solution, we will choose the combination \textit{\{High, Medium\}} and \textit{\{Low\}}.
+			            \end{enumerate}
+
+			      \item \textbf{Create the root node based on the lowest Gini Index:}
+
+			            The attribute with the lowest Gini Index is \textit{Participation} with a value of $0,25$. It will therefore become the splitting attribute for the root node.
+
+			            The resulting tree will look like this:
+
+			            \begin{center}
+				            \begin{tikzpicture}[
+						            >=latex,
+						            thick,
+						            node/.style={
+								            draw,
+								            rounded corners=.25em,
+								            text depth=0.2em
+							            },
+						            leaf/.style={
+								            draw,
+								            rounded corners=.7em,
+								            text depth=0.2em
+							            },
+						            branch/.style={
+								            fill=white,
+								            font=\ttfamily\scriptsize,
+								            rounded corners=.7em,
+								            text depth=0.2em
+							            }
+					            ]
+					            \useasboundingbox (-6,0.5) rectangle (6,-6);
+
+					            \node[node, anchor=center] at (0,0) (parti) {Participation?};
+
+					            \node[draw=none,anchor=north] at (-4,-1.5) (highmedium) {
+						            \resizebox{6.5cm}{!}{%
+							            \begin{tabular}{|c|c|c|c|c|}
+								            \hline
+								            \textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+								            23           & CS             & High                   & Yes             \\ \hline
+								            26           & DS             & High                   & Yes             \\ \hline
+								            24           & DS             & Medium                 & Yes             \\ \hline
+								            26           & DS             & Medium                 & No              \\ \hline
+							            \end{tabular}
+						            }
+					            };
+
+					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high, medium} (-4,-1) -- (highmedium.north);
+
+
+					            \node[draw=none,anchor=north] at (4,-1.5)  (low) {
+						            \resizebox{6.5cm}{!}{%
+							            \begin{tabular}{|c|c|c|c|c|}
+								            \hline
+								            \textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+								            23           & DS             & Low                    & No              \\ \hline
+								            26           & DS             & Low                    & No              \\ \hline
+							            \end{tabular}
+						            }
+					            };
+
+					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
+
+				            \end{tikzpicture}
+			            \end{center}
+
+			            Since the table for the branch \textit{Low} only contains tuples with the class label \textit{No}, we can already create a leaf node for this branch:
+
+			            \begin{center}
+				            \begin{tikzpicture}[
+						            >=latex,
+						            thick,
+						            node/.style={
+								            draw,
+								            rounded corners=.25em,
+								            text depth=0.2em
+							            },
+						            leaf/.style={
+								            draw,
+								            rounded corners=.7em,
+								            text depth=0.2em
+							            },
+						            branch/.style={
+								            fill=white,
+								            font=\ttfamily\scriptsize,
+								            rounded corners=.7em,
+								            text depth=0.2em
+							            }
+					            ]
+					            \useasboundingbox (-6,0.5) rectangle (6,-6);
+
+					            \node[node, anchor=center] at (0,0) (parti) {Participation?};
+
+					            \node[draw=none,anchor=north] at (-4,-1.5) (highmedium) {
+						            \resizebox{6.5cm}{!}{%
+							            \begin{tabular}{|c|c|c|c|c|}
+								            \hline
+								            \textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+								            23           & CS             & High                   & Yes             \\ \hline
+								            26           & DS             & High                   & Yes             \\ \hline
+								            24           & DS             & Medium                 & Yes             \\ \hline
+								            26           & DS             & Medium                 & No              \\ \hline
+							            \end{tabular}
+						            }
+					            };
+
+					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high, medium} (-4,-1) -- (highmedium.north);
+
+
+					            \node[leaf,anchor=north] at (4,-1.5)  (low) {No};
+
+					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
+
+				            \end{tikzpicture}
+			            \end{center}
+
+		      \end{enumerate}
+	\end{enumerate}
+\end{solution}
+
+\textbf{Task 2.b: Splitting attribute candidates}
+
+In the resulting tree from Task 2.a, one of the branches is already a leaf node.
+
+\textbf{Which} of the \textbf{attributes} in the other branch should be checked for their Gini index and \textbf{are} therefore \textbf{candidates} to become the next splitting attribute?
+
+\begin{solution}
+	\begin{itemize}
+		\item \textbf{Attribute \textit{Age}:}
+
+		      The attribute \textit{Age} should be checked for its Gini Index in the branch \textit{High, Medium} since it still contains different values.
+
+		\item \textbf{Attribute \textit{Major}:}
+
+		      The attribute \textit{Major} should be checked for its Gini Index in the branch \textit{High, Medium} since it still contains different values.
+
+		\item \textbf{Attribute \textit{Participation}:}
+
+		      Contrary to the procedure for Information Gain - where the attribute \textit{Participation} would not be checked again - we also have to check the attribute \textit{Participation} for its Gini Index in the branch \textit{High, Medium} since it still contains different values.
+
+		      This is due to the fact that the Gini Index does not support multi-way splits. Therefore a categorical attribute with more than two values can be splitting attribute multiple times in the same branch.
+
+
+	\end{itemize}
+\end{solution}
+
+\subsection*{Task 3: Gain Ratio}
+
+The \textbf{Gain Ratio} is a solution to a problem of the \textbf{Information Gain}.
+
+Come up with an example \textbf{dataset} showing the problem of the Information Gain and explain how the Gain Ratio solves this problem.
+
+\begin{solution}
+	The problem of the Information Gain is that it tends to favor attributes with a large number of values.
+
+	If we for example take a look at the following dataset $D$:
+
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			\textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+			CS             & High                   & Yes             \\ \hline
+			DS             & Low                    & No              \\ \hline
+			IIS            & High                   & Yes             \\ \hline
+			AI             & Medium                 & Yes             \\ \hline
+			ICT            & Medium                 & No              \\ \hline
+			CME            & Low                    & No              \\ \hline
+		\end{tabular}
+	\end{center}
+
+	We can see that the attribute \textit{Major} only contains unique values.
+
+	Therefore, the Information Gain for the attribute \textit{Major} would be $1$:
+
+	\begin{alignat*}{2}
+		\text{Info}(D)                    & = -\sum_{i=1}^{m}p_i \log_2(p_i)                                                                                                                                                                                     \\
+		                                  & = -p\OfSpecificValue{Passed}{=}{Yes} \log_2(p\OfSpecificValue{Passed}{=}{Yes})- p\OfSpecificValue{Passed}{=}{No} \log_2(p\OfSpecificValue{Passed}{=}{No})                                                            \\
+		                                  & = -\frac{3}{6} \log_2\left(\frac{3}{6}\right) - \frac{3}{6} \log_2\left(\frac{3}{6}\right)                                                                                                                           \\
+		                                  & = 1                                                                                                                                                                                                                  \\
+		\text{Info}\OfAttribute{Major}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Major$,j$}|}{|D\OfAttribute{Major}|} \text{Info}(D_{A\OfAttribute{Major$,j$}})                                                                                                   \\
+		                                  & = \frac{1}{6} \left(-\frac{1}{1} \log_2\left(\frac{1}{1}\right)\right) + \frac{1}{6} \left(-\frac{1}{1} \log_2\left(\frac{1}{1}\right)\right) + \frac{1}{6} \left(-\frac{1}{1} \log_2\left(\frac{1}{1}\right)\right) \\
+		                                  & + \frac{1}{6} \left(-\frac{1}{1} \log_2\left(\frac{1}{1}\right)\right) + \frac{1}{6} \left(-\frac{1}{1} \log_2\left(\frac{1}{1}\right)\right) + \frac{1}{6} \left(-\frac{1}{1} \log_2\left(\frac{1}{1}\right)\right) \\
+		                                  & = 0                                                                                                                                                                                                                  \\
+		\text{Gain}\OfAttribute{Major}    & = \text{Info}(D) - \text{Info}\OfAttribute{Major}(D)                                                                                                                                                                 \\
+		                                  & = 1 - 0                                                                                                                                                                                                              \\
+		                                  & = 1                                                                                                                                                                                                                  \\
+	\end{alignat*}
+
+	On the other hand the attribute \textit{Participation} still (see Task 1) has an Information Gain of $0,6667$:
+
+	\begin{alignat*}{3}
+		\text{Info}\OfAttribute{Parti.}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Parti.$,j$}|}{|D\OfAttribute{Parti.}|} \text{Info}(D_{A\OfAttribute{Parti.$,j$}})                                                                                                                             \\
+		                                   & = \frac{|D\OfSpecificValue{Parti.}{=}{High}|}{|D\OfAttribute{Parti.}|} \text{Info}(D\OfSpecificValue{Parti.}{=}{High}) + \frac{|D\OfSpecificValue{Parti.}{=}{Medium}|}{|D\OfAttribute{Parti.}|} \text{Info}(D\OfSpecificValue{Parti.}{=}{Medium}) \\
+		                                   & + \frac{|D\OfSpecificValue{Parti.}{=}{Low}|}{|D\OfAttribute{Parti.}|} \text{Info}(D\OfSpecificValue{Parti.}{=}{Low})                                                                                                                              \\
+		                                   & = \frac{2}{6} \left(-\frac{2}{2} \log_2\left(\frac{2}{2}\right) - \frac{0}{2} \log_2\left(\frac{0}{2}\right)\right) + \frac{2}{6} \left(-\frac{1}{2} \log_2\left(\frac{1}{2}\right) - \frac{1}{2} \log_2\left(\frac{1}{2}\right)\right)           \\
+		                                   & + \frac{2}{6} \left(-\frac{0}{2} \log_2\left(\frac{0}{2}\right) - \frac{2}{2} \log_2\left(\frac{2}{2}\right)\right)                                                                                                                               \\
+		                                   & = \frac{2}{6} \cdot 0 + \frac{2}{6} \cdot 1 + \frac{2}{6} \cdot 0                                                                                                                                                                                 \\
+		                                   & =  0,3333                                                                                                                                                                                                                                         \\
+		\text{Gain}\OfAttribute{Parti.}    & = \text{Info}(D) - \text{Info}\OfAttribute{Parti.}(D)                                                                                                                                                                                             \\
+		                                   & = 1 - 0,3333                                                                                                                                                                                                                                      \\
+		                                   & = 0,6667                                                                                                                                                                                                                                          \\
+	\end{alignat*}
+
+	With the Information Gain, we would choose the attribute \textit{Major} as the splitting attribute since it has a higher Information Gain than the attribute \textit{Participation}.
+
+	However, since the attribute \textit{Major} only contains unique values, it is not a good splitting attribute, since we on the one hand up end up with a big multi-way split and on the other hand risk to overfit our decision tree on the training data.
+
+	The Gain Ratio solves this problem by normalizing the Information Gain with the \textbf{Split Information}:
+
+	\begin{alignat*}{2}
+		\text{SplitInfo}\OfAttribute{A}(D) & = -\sum_{j=1}^{v} \frac{|D\OfAttribute{A$,j$}|}{|D|} \log_2\left(\frac{|D\OfAttribute{A$,j$}|}{|D|}\right) \\
+		\text{GainRatio}\OfAttribute{A}    & = \frac{\text{Gain}\OfAttribute{A}}{\text{SplitInfo}\OfAttribute{A}(D)}
+	\end{alignat*}
+
+	If we apply the Gain Ratio to the Gain of the attributes \textit{Major} and \textit{Participation}, we get:
+
+	\begin{alignat*}{2}
+		\text{SplitInfo}\OfAttribute{Major}(D) & = -\frac{1}{6} \log_2\left(\frac{1}{6}\right) - \frac{1}{6} \log_2\left(\frac{1}{6}\right) - \frac{1}{6} \log_2\left(\frac{1}{6}\right) \\
+		                                       & - \frac{1}{6} \log_2\left(\frac{1}{6}\right) - \frac{1}{6} \log_2\left(\frac{1}{6}\right) - \frac{1}{6} \log_2\left(\frac{1}{6}\right)  \\
+		                                       & = 2,5850                                                                                                                                \\
+		\text{GainRatio}\OfAttribute{Major}    & = \frac{1}{2,5850}                                                                                                                      \\
+		                                       & = 0,3868                                                                                                                                \\
+	\end{alignat*}
+	\begin{alignat*}{2}
+		\text{SplitInfo}\OfAttribute{Parti.}(D) & = -\frac{2}{6} \log_2\left(\frac{2}{6}\right) - \frac{2}{6} \log_2\left(\frac{2}{6}\right) - \frac{2}{6} \log_2\left(\frac{2}{6}\right) \\
+		                                        & = 1,5849                                                                                                                                \\
+		\text{GainRatio}\OfAttribute{Parti.}    & = \frac{0,6667}{1,5849}                                                                                                                 \\
+		                                        & = 0,4207                                                                                                                                \\
+	\end{alignat*}
+
+	With the Gain Ratio, we would now choose the attribute \textit{Participation} as the splitting attribute since it has a higher Gain Ratio than the attribute \textit{Major}.
+
+	We therefore avoid the problem of the Information Gain to favor attributes with a large number of values.
+
+	\textit{\textbf{Note:} The Gain Ratio has its own problems, as it becomes unstable if SplitInfo is close to zero. In this case, the Gain Ratio can become very high. Therefore, the Gain Ratio should also be used with caution.}
+
+\end{solution}
+
+\newpage
 
 \section*{Exercise 2: TODO}
 
