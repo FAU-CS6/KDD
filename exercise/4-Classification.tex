@@ -1,3 +1,5 @@
+\def\solutionsflag{}
+
 \documentclass[
 english,
 smallborders
@@ -15,11 +17,18 @@ smallborders
 \usepackage{graphicx}
 \usepackage{multicol}
 \usepackage{amsmath}
+\usepackage[]{mdframed}
 
 \hyphenation{Stud-On}
 
 \newcommand{\OfSpecificValue}[3]{_{\text{\tiny #1#2#3}}}
 \newcommand{\OfAttribute}[1]{_{\text{\tiny #1}}}
+\newcommand{\PriorProbability}[2]{P(\texttt{#1}=\text{"#2"})}
+\newcommand{\Likelihood}[4]{P(\texttt{#1}=\text{"#2"} | \texttt{#3}=\text{"#4"})}
+\newcommand{\LikelihoodTuple}[3]{P(#1 | \texttt{#2}=\text{"#3"})}
+\newcommand{\BayesNumerator}[3]{P(#1 | \texttt{#2}=\text{"#3"}) \cdot P(\texttt{#2}=\text{"#3"})}
+\newcommand{\PosterioriProbability}[3]{P(\texttt{#2}=\text{"#3"} | #1)}
+\newcommand{\ResultClass}[2]{\texttt{#1}=\text{"#2"}}
 
 \begin{document}
 
@@ -544,7 +553,7 @@ This time, the decision tree for dataset $D$ should be built using the \textbf{G
 
 Using the algorithm for building a decision tree with the Gini Index, create the root node of the decision tree for the dataset $D$.
 
-Write down \textbf{all} intermediate steps \textbf{up to} the point where the root node is created.
+Write down \textbf{all} intermediate steps \textbf{up to} (and including) the point where the root node is created.
 
 \begin{solution}
 	\begin{enumerate}
@@ -783,7 +792,7 @@ Write down \textbf{all} intermediate steps \textbf{up to} the point where the ro
 
 In the resulting tree from Task 2.a, one of the branches is already a leaf node.
 
-\textbf{Which} of the \textbf{attributes} in the other branch should be checked for their Gini index and \textbf{are} therefore \textbf{candidates} to become the next splitting attribute?
+Which of the \textbf{attributes} \textit{Age}, \textit{Major} and \textit{Participation} have to \textbf{be checked} for their Gini index in the next step necessary to further split the remaining branch?
 
 \begin{solution}
 	\begin{itemize}
@@ -899,9 +908,249 @@ Come up with an example \textbf{dataset} showing the problem of the Information 
 
 \newpage
 
-\section*{Exercise 2: TODO}
+\section*{Exercise 2: Naïve Bayes}
 
-TODO
+Given is a dataset $D$:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		% Basic Idea: Submission Topic & Prior Knowledge & Hours Invested & Passed
+		\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{Passed} \\ \hline
+		Classification    & High               & 1,0            & No              \\ \hline
+		Clustering        & Low                & 4,0            & No              \\ \hline
+		Frequent Patterns & High               & 5,0            & Yes             \\ \hline
+		Clustering        & Medium             & 5,0            & Yes             \\ \hline
+		Frequent Patterns & High               & 2,0            & No              \\ \hline
+		Frequent Patterns & Medium             & 3,0            & Yes             \\ \hline
+		Classification    & Low                & 6,0            & Yes             \\ \hline
+		Clustering        & Low                & 5,0            & Yes             \\ \hline
+		Clustering        & High               & 3,0            & Yes             \\ \hline
+		Classification    & Medium             & 4,0            & Yes             \\ \hline
+	\end{tabular}
+\end{center}
+
+It can be assumed that \textit{Topic}, \textit{Knowledge} and \textit{Hours} are conditionally independent of each other.
+
+The attributes \textit{Topic} and \textit{Knowledge} are categorical attributes. \newline
+The attribute \textit{Hours} is a continuous attribute. It can be assumed that the values of this attribute are distributed according to a Gaussian distribution.
+
+\subsection*{Task 1: Classification}
+
+Use the dataset $D$ and the Naïve Bayes algorithm to classify the following tuples:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{Passed} \\ \hline
+		Clustering        & Medium             & 4,0            & ?               \\ \hline
+		Classification    & High               & 3,0            & ?               \\ \hline
+		Frequent Patterns & Low                & 6,8            & ?               \\ \hline
+	\end{tabular}
+\end{center}
+
+Write down \textbf{all} intermediate steps.
+
+\begin{solution}
+	\begin{enumerate}
+		\item \textbf{Calculate the prior probabilities:}
+
+		      \begin{alignat*}{2}
+			      \PriorProbability{Passed}{Yes} & = \frac{7}{10} = 0,7 \\
+			      \PriorProbability{Passed}{No}  & = \frac{3}{10} = 0,3 \\
+		      \end{alignat*}
+
+		\item \textbf{Calculate the likelihoods:}
+
+		      \begin{enumerate}
+			      \item \textbf{Attribute \textit{Topic}:}
+			            \begin{alignat*}{2}
+				            \Likelihood{Topic}{Clustering}{Passed}{Yes}        & = \frac{3}{7} = 0,4286 \\
+				            \Likelihood{Topic}{Clustering}{Passed}{No}         & = \frac{1}{3} = 0,3333 \\
+				                                                               &                        \\
+				            \Likelihood{Topic}{Classification}{Passed}{Yes}    & = \frac{2}{7} = 0,2857 \\
+				            \Likelihood{Topic}{Classification}{Passed}{No}     & = \frac{1}{3} = 0,3333 \\
+				                                                               &                        \\
+				            \Likelihood{Topic}{Frequent Patterns}{Passed}{Yes} & = \frac{2}{7} = 0,2857 \\
+				            \Likelihood{Topic}{Frequent Patterns}{Passed}{No}  & = \frac{1}{3} = 0,3333 \\
+			            \end{alignat*}
+
+			      \item \textbf{Attribute \textit{Knowledge}:}
+			            \begin{alignat*}{2}
+				            \Likelihood{Knowledge}{High}{Passed}{Yes}   & = \frac{2}{7} = 0,2857 \\
+				            \Likelihood{Knowledge}{High}{Passed}{No}    & = \frac{2}{3} = 0,6667 \\
+				                                                        &                        \\
+				            \Likelihood{Knowledge}{Medium}{Passed}{Yes} & = \frac{3}{7} = 0,4286 \\
+				            \Likelihood{Knowledge}{Medium}{Passed}{No}  & = \frac{0}{3} = 0      \\
+				                                                        &                        \\
+				            \Likelihood{Knowledge}{Low}{Passed}{Yes}    & = \frac{2}{7} = 0,2857 \\
+				            \Likelihood{Knowledge}{Low}{Passed}{No}     & = \frac{1}{3} = 0,3333 \\
+			            \end{alignat*}
+
+			      \item \textbf{Attribute \textit{Hours}:}
+
+			            Since the attribute \textit{Hours} is continuous and follows a Gaussian distribution, we have to calculate the mean $\mu$ and the standard deviation $\sigma$ for each class label:
+
+			            \begin{alignat*}{2}
+				            \mu_{\texttt{Passed}=\text{"Yes"}}    & = \frac{5 + 5 + 3 + 6 + 5 + 3 + 4}{7} = \frac{31}{7} = 4,4286                                                                 \\
+				            \sigma_{\texttt{Passed}=\text{"Yes"}} & = \sqrt{\frac{(5-\frac{31}{7})^2 \cdot 3 + (3-\frac{31}{7})^2 \cdot 2 + (6-\frac{31}{7})^2 + (4-\frac{31}{7})^2}{7}} = 1,0498 \\
+				                                                  &                                                                                                                               \\
+				            \mu_{\texttt{Passed}=\text{"No"}}     & = \frac{1 + 4 + 2}{3} = \frac{7}{3} = 2,3333                                                                                  \\
+				            \sigma_{\texttt{Passed}=\text{"No"}}  & = \sqrt{\frac{(1-\frac{7}{3})^2 + (4-\frac{7}{3})^2 + (2-\frac{7}{3})^2}{3}} = 1,2472                                         \\
+			            \end{alignat*}
+
+			            We can now calculate the likelihoods for the attribute \textit{Hours}:
+
+			            \begin{alignat*}{2}
+				            \Likelihood{Hours}{4}{Passed}{Yes}   & = \frac{1}{\sqrt{2\pi} \cdot 1,0498} \cdot e^{-\frac{(4-4,4286)^2}{2 \cdot 1,0498^2}} = 0,3496   \\
+				            \Likelihood{Hours}{4}{Passed}{No}    & = \frac{1}{\sqrt{2\pi} \cdot 1,2472} \cdot e^{-\frac{(4-2,3333)^2}{2 \cdot 1,2472^2}} = 0,1309   \\
+				                                                 &                                                                                                  \\
+				            \Likelihood{Hours}{3}{Passed}{Yes}   & = \frac{1}{\sqrt{2\pi} \cdot 1,0498} \cdot e^{-\frac{(3-4,4286)^2}{2 \cdot 1,0498^2}} = 0,1505   \\
+				            \Likelihood{Hours}{3}{Passed}{No}    & = \frac{1}{\sqrt{2\pi} \cdot 1,2472} \cdot e^{-\frac{(3-2,3333)^2}{2 \cdot 1,2472^2}} = 0,2773   \\
+				                                                 &                                                                                                  \\
+				            \Likelihood{Hours}{6,8}{Passed}{Yes} & = \frac{1}{\sqrt{2\pi} \cdot 1,0498} \cdot e^{-\frac{(6,8-4,4286)^2}{2 \cdot 1,0498^2}} = 0,0296 \\
+				            \Likelihood{Hours}{6,8}{Passed}{No}  & = \frac{1}{\sqrt{2\pi} \cdot 1,2472} \cdot e^{-\frac{(6,8-2,3333)^2}{2 \cdot 1,2472^2}} = 0,0005 \\
+			            \end{alignat*}
+		      \end{enumerate}
+
+		\item \textbf{Calculate the likelihood of each tuple:}
+
+		      \begin{enumerate}
+			      \item \textbf{Tuple $T_1$ with \textit{Clustering, Medium, 4}:}
+			            \begin{alignat*}{2}
+				            \LikelihoodTuple{T_1}{Passed}{Yes} & =  \Likelihood{Topic}{Clustering}{Passed}{Yes}    \\
+				                                               & \cdot \Likelihood{Knowledge}{Medium}{Passed}{Yes} \\
+				                                               & \cdot \Likelihood{Hours}{4}{Passed}{Yes}          \\
+				                                               & = 0,4286 \cdot 0,4286 \cdot 0,3496                \\
+				                                               & = 0,0642                                          \\
+				                                               &                                                   \\
+				            \LikelihoodTuple{T_1}{Passed}{No}  & =  \Likelihood{Topic}{Clustering}{Passed}{No}     \\
+				                                               & \cdot \Likelihood{Knowledge}{Medium}{Passed}{No}  \\
+				                                               & \cdot \Likelihood{Hours}{4}{Passed}{No}           \\
+				                                               & =  0,3333 \cdot 0 \cdot 0,1309                    \\
+				                                               & = 0                                               \\
+			            \end{alignat*}
+			      \item \textbf{Tuple $T_2$ with \textit{Classification, High, 3}:}
+			            \begin{alignat*}{2}
+				            \LikelihoodTuple{T_2}{Passed}{Yes} & =  \Likelihood{Topic}{Classification}{Passed}{Yes} \\
+				                                               & \cdot \Likelihood{Knowledge}{High}{Passed}{Yes}    \\
+				                                               & \cdot \Likelihood{Hours}{3}{Passed}{Yes}           \\
+				                                               & =  0,2857 \cdot 0,2857 \cdot 0,1505                \\
+				                                               & = 0,0123                                           \\
+				                                               &                                                    \\
+				            \LikelihoodTuple{T_2}{Passed}{No}  & =  \Likelihood{Topic}{Classification}{Passed}{No}  \\
+				                                               & \cdot \Likelihood{Knowledge}{High}{Passed}{No}     \\
+				                                               & \cdot \Likelihood{Hours}{3}{Passed}{No}            \\
+				                                               & =  0,3333 \cdot 0,6667 \cdot 0,2773                \\
+				                                               & = 0,0616                                           \\
+			            \end{alignat*}
+
+			      \item \textbf{Tuple $T_3$ with \textit{Frequent Patterns, Low, 7}:}
+			            \begin{alignat*}{2}
+				            \LikelihoodTuple{T_3}{Passed}{Yes} & =  \Likelihood{Topic}{Frequent Patterns}{Passed}{Yes} \\
+				                                               & \cdot \Likelihood{Knowledge}{Low}{Passed}{Yes}        \\
+				                                               & \cdot \Likelihood{Hours}{7}{Passed}{Yes}              \\
+				                                               & =  0,2857 \cdot 0,2857 \cdot 0,0296                   \\
+				                                               & = 0,0024                                              \\
+				                                               &                                                       \\
+				            \LikelihoodTuple{T_3}{Passed}{No}  & =  \Likelihood{Topic}{Frequent Patterns}{Passed}{No}  \\
+				                                               & \cdot \Likelihood{Knowledge}{Low}{Passed}{No}         \\
+				                                               & \cdot \Likelihood{Hours}{7}{Passed}{No}               \\
+				                                               & =  0,3333 \cdot 0,3333 \cdot 0,0005                   \\
+				                                               & = 0,0000                                              \\
+			            \end{alignat*}
+		      \end{enumerate}
+
+		\item \textbf{Determine the highest posteriori probability for each tuple:}
+
+		      The posteriori probability according to Bayes' theorem is actually calculated as follows:
+
+		      \begin{alignat*}{2}
+			      P(C_i|X) = \frac{P(X|C_i)P(C_i)}{P(X)}.
+		      \end{alignat*}
+
+		      Where $C_i$ stands for the class to be predicted and $X$ is representing a specific tuple (resp. the attribute combination that is part of that tuple).
+
+		      However, since $P(X)$ is the same for all classes, it is sufficient to calculate only the numerators to determine the highest $P(C_i|X)$.
+
+		      Being able to determine the highest $P(C_i|X)$ (even without knowing its exact value) is sufficient to classify the tuple.
+
+		      \begin{enumerate}
+			      \item \textbf{Tuple $T_1$ with \textit{Clustering, Medium, 4}:}
+
+			            Calculate the numerator of $\PosterioriProbability{T_1}{Passed}{Yes}$ and $\PosterioriProbability{T_1}{Passed}{No}$:
+
+			            \begin{alignat*}{2}
+				            \BayesNumerator{T_1}{Passed}{Yes} & = 0,0642 \cdot 0,7 = 0,0449 \\
+				            \BayesNumerator{T_1}{Passed}{No}  & = 0 \cdot 0,3 = 0           \\
+			            \end{alignat*}
+
+			            Since $0,0449 > 0$ and we classify the tuple $T_1$ as $\ResultClass{Passed}{Yes}$.
+
+			            \vspace*{3em}
+
+			            \begin{mdframed}[linecolor=solutioncolor]
+				            \color{solutioncolor}
+				            \begin{em}
+					            \textbf{Calculation of the posteriori probability:}
+
+					            Even if the calculation of the full posteriori probability is not necessary, it is still possible to calculate it.
+
+					            We first need to calculate the denominator of the posteriori probability $P(X)$:
+
+					            \begin{alignat*}{2}
+						            P(T_1) & = \BayesNumerator{T_1}{Passed}{Yes}       \\
+						                   & + \BayesNumerator{T_1}{Passed}{No}        \\
+						                   & = 0,0642 \cdot 0,7 + 0 \cdot 0,3 = 0,0449 \\
+						                   & = 0,0449 + 0 = 0,0449
+					            \end{alignat*}
+
+
+					            Which can then be used to calculate the posteriori probabilities:
+
+					            \begin{alignat*}{2}
+						            \PosterioriProbability{T_1}{Passed}{Yes} & = \frac{\BayesNumerator{T_1}{Passed}{Yes}}{P(T_1)} \\
+						                                                     & = \frac{0,0449}{0,0449}                            \\
+						                                                     & = 1                                                \\
+						                                                     &                                                    \\
+						            \PosterioriProbability{T_1}{Passed}{No}  & = \frac{\BayesNumerator{T_1}{Passed}{No}}{P(T_1)}  \\
+						                                                     & = \frac{0}{0,0449}                                 \\
+						                                                     & = 0                                                \\
+					            \end{alignat*}
+
+					            As this calculation is not necessary for the classification, we will not calculate the posteriori probabilities for the other tuples.
+				            \end{em}
+			            \end{mdframed}
+
+			            \newpage
+
+			      \item \textbf{Tuple $T_2$ with \textit{Classification, High, 3}:}
+
+			            Calculate the numerator of $\PosterioriProbability{T_2}{Passed}{Yes}$ and $\PosterioriProbability{T_2}{Passed}{No}$:
+
+			            \begin{alignat*}{2}
+				            \BayesNumerator{T_2}{Passed}{Yes} & = 0,0123 \cdot 0,7 = 0,0086 \\
+				            \BayesNumerator{T_2}{Passed}{No}  & = 0,0616 \cdot 0,3 = 0,0185 \\
+			            \end{alignat*}
+
+			            Since $0,0086 < 0,0185$ we classify the tuple $T_2$ as $\ResultClass{Passed}{No}$.
+
+			      \item \textbf{Tuple $T_3$ with \textit{Frequent Patterns, Low, 7}:}
+
+			            Calculate the numerator of $\PosterioriProbability{T_3}{Passed}{Yes}$ and $\PosterioriProbability{T_3}{Passed}{No}$:
+
+			            \begin{alignat*}{2}
+				            \BayesNumerator{T_3}{Passed}{Yes} & = 0,0024 \cdot 0,7 = 0,0017 \\
+				            \BayesNumerator{T_3}{Passed}{No}  & = 0,0000 \cdot 0,3 = 0,0000 \\
+			            \end{alignat*}
+
+			            Since $0,0017 > 0,0000$ we classify the tuple $T_3$ as $\ResultClass{Passed}{Yes}$.
+		      \end{enumerate}
+
+
+
+	\end{enumerate}
+\end{solution}
 
 \section*{Exercise 3: TODO}
 
