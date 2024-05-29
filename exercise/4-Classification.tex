@@ -16,6 +16,9 @@ smallborders
 \usepackage{multicol}
 \usepackage{amsmath}
 \usepackage[]{mdframed}
+\usepackage{array}
+\usepackage{multirow}
+
 
 \hyphenation{Stud-On}
 
@@ -1149,6 +1152,101 @@ Write down \textbf{all} intermediate steps.
 
 	\end{enumerate}
 \end{solution}
+
+\newpage
+
+\subsection*{Task 2: Model Evaluation}
+
+The classifier was also trained on a version of dataset $D$ with more tuples.
+
+To test the quality of the resulting model, some test values were classified.
+
+The dataset $T$ contains both the true and the predicted "Passed"-Status for each test tuple:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{\begin{tabular}[c]{@{}c@{}}Passed\\ (True)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Passed\\ (Pred)\end{tabular}} \\ \hline
+		Classification    & Medium             & 7.5            & Yes                                                              & Yes                                                              \\ \hline
+		Frequent Patterns & Low                & 1.8            & No                                                               & No                                                               \\ \hline
+		Frequent Patterns & High               & 3.7            & No                                                               & Yes                                                              \\ \hline
+		Frequent Patterns & Low                & 0.2            & No                                                               & No                                                               \\ \hline
+		Frequent Patterns & High               & 1.4            & Yes                                                              & No                                                               \\ \hline
+		Frequent Patterns & High               & 9.9            & Yes                                                              & Yes                                                              \\ \hline
+		Frequent Patterns & Medium             & 7.3            & Yes                                                              & Yes                                                              \\ \hline
+		Frequent Patterns & Low                & 4.3            & No                                                               & Yes                                                              \\ \hline
+		Classification    & Medium             & 5.5            & Yes                                                              & Yes                                                              \\ \hline
+		Clustering        & Low                & 0.1            & No                                                               & No                                                               \\ \hline
+	\end{tabular}
+\end{center}
+
+Use the dataset $T$ to calculate the \textbf{sensitivity}, \textbf{specificity}, \textbf{accuracy}, \textbf{precision}, \textbf{recall}, and \textbf{F1-score} of the model.
+
+Also state the \textbf{best possible} value for each metric.
+
+\begin{solution}
+	We need to calculate the True Positives (TP), True Negatives (TN), False Positives (FP), and False Negatives (FN) for the model evaluation.
+
+	This is often done by creating a confusion matrix:
+
+	\begin{center}
+		\begin{tabular}{c|c|>{\centering}p{1.5cm}|>{\centering}p{1.5cm}|c|}
+
+			\multicolumn{2}{c|}{\multirow{2}{*}{}} & \multicolumn{2}{c|}{Predicted} &                              \\\cline{3-4}
+			\multicolumn{2}{c|}{}                  & $Yes$                          & $No$   & Total               \\\hline
+			\multirow{2}{*}{True}                  & $Yes$                          & 4 (TP) & 1 (FN)      & 5 (P) \\\cline{2-4}
+			                                       & $No$                           & 2 (FP) & 3 (TN)      & 5 (N) \\\hline
+			\multicolumn{2}{r|}{Total}             & 6 (P')                         & 4 (N') & 10 (P + N)
+		\end{tabular}
+	\end{center}
+
+	This confusion matrix can be used to calculate the metrics:
+
+	\begin{itemize}
+		\item \textbf{Sensitivity:}
+		      \begin{alignat*}{2}
+			      \text{Sensitivity} & = \frac{TP}{P} = \frac{4}{5} = 0,8
+		      \end{alignat*}
+
+		      Best possible value: 1
+		\item \textbf{Specificity:}
+		      \begin{alignat*}{2}
+			      \text{Specificity} & = \frac{TN}{N} = \frac{3}{5} = 0,6
+		      \end{alignat*}
+
+		      Best possible value: 1
+		\item \textbf{Accuracy:}
+		      \begin{alignat*}{2}
+			      \text{Accuracy} & = \frac{TP + TN}{P + N} = \frac{4 + 3}{5 + 5} = \frac{7}{10} = 0,7
+		      \end{alignat*}
+
+		      Best possible value: 1
+		\item \textbf{Precision:}
+		      \begin{alignat*}{2}
+			      \text{Precision} & = \frac{TP}{TP + FP} = \frac{4}{4 + 2} = \frac{4}{6} = 0,6667
+		      \end{alignat*}
+
+		      Best possible value: 1
+		\item \textbf{Recall:}
+		      \begin{alignat*}{2}
+			      \text{Recall} & = \frac{TP}{TP + FN} = \frac{TP}{P} = \text{Sensitivity} = 0,8
+		      \end{alignat*}
+
+		      Best possible value: 1
+		\item \textbf{F1-Score:}
+		      \begin{alignat*}{2}
+			      \text{F1-Score} & = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = 2 \cdot \frac{0,6667 \cdot 0,8}{0,6667 + 0,8} = 0,7273
+		      \end{alignat*}
+
+		      Best possible value: 1
+	\end{itemize}
+
+	Of course, the question regarding the best possible value is a trick question. The best possible value for each metric is 1 (or 100\%), as this would mean 100\% of the tuples were classified correctly.
+
+
+\end{solution}
+
+\newpage
 
 \section*{Exercise 3: TODO}
 
