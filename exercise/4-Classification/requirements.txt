@@ -1,0 +1,5 @@
+pandas==1.5.3
+mlxtend==0.21.0
+
+ipython==8.11.0
+jupyterlab==3.6.7
