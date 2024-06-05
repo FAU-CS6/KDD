@@ -1,3 +1,4 @@
+
 \documentclass[
 english,
 smallborders
@@ -41,9 +42,9 @@ smallborders
 
 This exercise sheet focuses on the content of lecture \textit{7. Classification}.
 
-It includes TODO.
+It includes both theoretical exercises on Decision Trees (Exercise 1) and Naïve Bayes (Exercise 2) and a practical data science exercise (Exercise 3).
 
-The exercise sheet is designed for a three-week period, during which the tasks can be completed flexibly.
+The exercise sheet is designed for a three-week period, during which the tasks can be completed flexibly (Planned is one exercise per week).
 
 The sample solution will be published after the three weeks have elapsed.
 
@@ -77,22 +78,29 @@ Before participating in the exercise, you must prepare the following:
 
 \section*{Exercise 1: Decision Trees}
 
-Given is a dataset $D$:
+\begin{minipage}{.5\textwidth}
+	Given is a dataset $D$.
 
-\begin{center}
-	\begin{tabular}{|c|c|c|c|c|c|}
-		\hline
-		\textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
-		23           & CS             & High                   & Yes             \\ \hline
-		23           & DS             & Low                    & No              \\ \hline
-		26           & DS             & High                   & Yes             \\ \hline
-		24           & DS             & Medium                 & Yes             \\ \hline
-		26           & DS             & Medium                 & No              \\ \hline
-		26           & DS             & Low                    & No              \\ \hline
-	\end{tabular}
-\end{center}
+	\vspace*{0.5cm}
 
-$D$ is containing a continuous attribute (\textit{Age}) and two categorical attributes (\textit{Major} and \textit{Participation}) which can be used to predict the target attribute \textit{Passed}.
+	$D$ is containing a continuous attribute (\textit{Age}) and two categorical attributes (\textit{Major} and \textit{Participation}) which can be used to predict the target attribute \textit{Passed}.
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+	\begin{flushright}
+		\scalebox{0.85}{
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+				23           & CS             & High                   & Yes             \\ \hline
+				23           & DS             & Low                    & No              \\ \hline
+				26           & DS             & High                   & Yes             \\ \hline
+				24           & DS             & Medium                 & Yes             \\ \hline
+				26           & DS             & Medium                 & No              \\ \hline
+				26           & DS             & Low                    & No              \\ \hline
+			\end{tabular}
+		}
+	\end{flushright}
+\end{minipage}
 
 \subsection*{Task 1: Information Gain}
 
@@ -911,44 +919,60 @@ Come up with an example \textbf{dataset} showing the problem of the Information 
 
 \section*{Exercise 2: Naïve Bayes}
 
-Given is a dataset $D$:
+\begin{minipage}{.375\textwidth}
+	Given is a dataset $D$.
 
-\begin{center}
-	\begin{tabular}{|c|c|c|c|}
-		\hline
-		% Basic Idea: Submission Topic & Prior Knowledge & Hours Invested & Passed
-		\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{Passed} \\ \hline
-		Classification    & High               & 1,0            & No              \\ \hline
-		Clustering        & Low                & 4,0            & No              \\ \hline
-		Frequent Patterns & High               & 5,0            & Yes             \\ \hline
-		Clustering        & Medium             & 5,0            & Yes             \\ \hline
-		Frequent Patterns & High               & 2,0            & No              \\ \hline
-		Frequent Patterns & Medium             & 3,0            & Yes             \\ \hline
-		Classification    & Low                & 6,0            & Yes             \\ \hline
-		Clustering        & Low                & 5,0            & Yes             \\ \hline
-		Clustering        & High               & 3,0            & Yes             \\ \hline
-		Classification    & Medium             & 4,0            & Yes             \\ \hline
-	\end{tabular}
-\end{center}
+	\vspace*{0.5cm}
 
-It can be assumed that \textit{Topic}, \textit{Knowledge} and \textit{Hours} are conditionally independent of each other.
+	It can be assumed that \textit{Topic}, \textit{Knowledge} and \textit{Hours} are conditionally independent of each other.
 
-The attributes \textit{Topic} and \textit{Knowledge} are categorical attributes. \newline
-The attribute \textit{Hours} is a continuous attribute. It can be assumed that the values of this attribute are distributed according to a Gaussian distribution.
+	\vspace*{0.5cm}
+
+	The attributes \textit{Topic} and \textit{Knowledge} are categorical attributes.
+
+	\vspace*{0.1cm}
+
+	The attribute \textit{Hours} is a continuous attribute. It can be assumed that the values of this attribute are distributed according to a Gaussian distribution.
+\end{minipage}
+\begin{minipage}{.625\textwidth}
+	\begin{flushright}
+		\scalebox{0.85}{
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				% Basic Idea: Submission Topic & Prior Knowledge & Hours Invested & Passed
+				\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{Passed} \\ \hline
+				Classification    & High               & 1,0            & No              \\ \hline
+				Clustering        & Low                & 4,0            & No              \\ \hline
+				Frequent Patterns & High               & 5,0            & Yes             \\ \hline
+				Clustering        & Medium             & 5,0            & Yes             \\ \hline
+				Frequent Patterns & High               & 2,0            & No              \\ \hline
+				Frequent Patterns & Medium             & 3,0            & Yes             \\ \hline
+				Classification    & Low                & 6,0            & Yes             \\ \hline
+				Clustering        & Low                & 5,0            & Yes             \\ \hline
+				Clustering        & High               & 3,0            & Yes             \\ \hline
+				Classification    & Medium             & 4,0            & Yes             \\ \hline
+			\end{tabular}
+		}
+	\end{flushright}
+\end{minipage}
 
 \subsection*{Task 1: Classification}
+
 
 Use the dataset $D$ and the Naïve Bayes algorithm to classify the following tuples:
 
 \begin{center}
-	\begin{tabular}{|c|c|c|c|}
-		\hline
-		\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{Passed} \\ \hline
-		Clustering        & Medium             & 4,0            & ?               \\ \hline
-		Classification    & High               & 3,0            & ?               \\ \hline
-		Frequent Patterns & Low                & 6,8            & ?               \\ \hline
-	\end{tabular}
+	\scalebox{0.85}{
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{Passed} \\ \hline
+			Clustering        & Medium             & 4,0            & ?               \\ \hline
+			Classification    & High               & 3,0            & ?               \\ \hline
+			Frequent Patterns & Low                & 6,8            & ?               \\ \hline
+		\end{tabular}
+	}
 \end{center}
+
 
 Write down \textbf{all} intermediate steps.
 
@@ -1153,32 +1177,31 @@ Write down \textbf{all} intermediate steps.
 	\end{enumerate}
 \end{solution}
 
-\newpage
-
 \subsection*{Task 2: Model Evaluation}
 
-The classifier was also trained on a version of dataset $D$ with more tuples.
+The classifier was also trained on a version of dataset $D$ with more tuples:
 
-To test the quality of the resulting model, some test values were classified.
-
-The dataset $T$ contains both the true and the predicted "Passed"-Status for each test tuple:
+The dataset $T$ contains both the true and the predicted "Passed"-Status for each test tuple.
 
 \begin{center}
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
-		\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{\begin{tabular}[c]{@{}c@{}}Passed\\ (True)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Passed\\ (Pred)\end{tabular}} \\ \hline
-		Classification    & Medium             & 7,5            & Yes                                                              & Yes                                                              \\ \hline
-		Frequent Patterns & Low                & 1,8            & No                                                               & No                                                               \\ \hline
-		Frequent Patterns & High               & 3,7            & No                                                               & Yes                                                              \\ \hline
-		Frequent Patterns & Low                & 0,2            & No                                                               & No                                                               \\ \hline
-		Frequent Patterns & High               & 1,4            & Yes                                                              & No                                                               \\ \hline
-		Frequent Patterns & High               & 9,9            & Yes                                                              & Yes                                                              \\ \hline
-		Frequent Patterns & Medium             & 7,3            & Yes                                                              & Yes                                                              \\ \hline
-		Frequent Patterns & Low                & 4,3            & No                                                               & Yes                                                              \\ \hline
-		Classification    & Medium             & 5,5            & Yes                                                              & Yes                                                              \\ \hline
-		Clustering        & Low                & 0,1            & No                                                               & No                                                               \\ \hline
-	\end{tabular}
+	\scalebox{0.85}{
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{\begin{tabular}[c]{@{}c@{}}Passed\\ (True)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Passed\\ (Pred)\end{tabular}} \\ \hline
+			Classification    & Medium             & 7,5            & Yes                                                              & Yes                                                              \\ \hline
+			Frequent Patterns & Low                & 1,8            & No                                                               & No                                                               \\ \hline
+			Frequent Patterns & High               & 3,7            & No                                                               & Yes                                                              \\ \hline
+			Frequent Patterns & Low                & 0,2            & No                                                               & No                                                               \\ \hline
+			Frequent Patterns & High               & 1,4            & Yes                                                              & No                                                               \\ \hline
+			Frequent Patterns & High               & 9,9            & Yes                                                              & Yes                                                              \\ \hline
+			Frequent Patterns & Medium             & 7,3            & Yes                                                              & Yes                                                              \\ \hline
+			Frequent Patterns & Low                & 4,3            & No                                                               & Yes                                                              \\ \hline
+			Classification    & Medium             & 5,5            & Yes                                                              & Yes                                                              \\ \hline
+			Clustering        & Low                & 0,1            & No                                                               & No                                                               \\ \hline
+		\end{tabular}
+	}
 \end{center}
+
 
 Use the dataset $T$ to calculate the \textbf{sensitivity}, \textbf{specificity}, \textbf{accuracy}, \textbf{precision}, \textbf{recall}, and \textbf{F1-score} of the model.
 
@@ -1248,9 +1271,20 @@ Also state the \textbf{best possible} value for each metric.
 
 \newpage
 
-\section*{Exercise 3: TODO}
+\section*{Exercise 3: Conducting Classification}
 
-TODO
+This exercise comprises practical data science tasks and thus utilizes a Jupyter Notebook:
+
+\begin{enumerate}
+	\item Open \texttt{Conducting-Classification.ipynb}.
+	\item Take a look at the tasks (blue boxes) in the notebook and try to solve them.
+\end{enumerate}
+
+If you are unfamiliar with how to open a Jupyter Notebook, please refer to Exercise 1 of \texttt{1-Introduction-Python-Pandas.pdf}.
+
+\begin{solution}
+	The solution to the exercise can be found in \texttt{Additional-Files-Solution.zip}.
+\end{solution}
 
 
 \end{document}
