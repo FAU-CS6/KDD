@@ -82,7 +82,14 @@ def create_additional_files_zip(input_folder, output_folder, style):
                     new_file.write(new_notebook[0])
 
     # Create a zip out of the copied (and modified) folder
-    shutil.make_archive(output_folder + "/Additional-Files", "zip", folder_temp_path)
+    if style == "student":
+        shutil.make_archive(
+            output_folder + "/Additional-Files-Student", "zip", folder_temp_path
+        )
+    elif style == "solution":
+        shutil.make_archive(
+            output_folder + "/Additional-Files-Solution", "zip", folder_temp_path
+        )
 
 
 # Helper function to compile the LaTeX files
@@ -129,8 +136,23 @@ def compile_latex_files(input, output_folder, style):
         print("Error while creating the LaTeX files.")
         print("Error:", result.stderr.decode())
 
-    # Copy the pdf from the temp folder to the output folder
-    shutil.copy(os.path.join(temp_folder, input + ".pdf"), output_folder)
+    # Rename the output pdf to include a -Student or -Solution suffix
+    if style == "student":
+        os.rename(
+            os.path.join(temp_folder, input + ".pdf"),
+            os.path.join(temp_folder, input + "-Student.pdf"),
+        )
+
+        # Copy the pdf from the temp folder to the output folder
+        shutil.copy(os.path.join(temp_folder, input + "-Student.pdf"), output_folder)
+    elif style == "solution":
+        os.rename(
+            os.path.join(temp_folder, input + ".pdf"),
+            os.path.join(temp_folder, input + "-Solution.pdf"),
+        )
+
+        # Copy the pdf from the temp folder to the output folder
+        shutil.copy(os.path.join(temp_folder, input + "-Solution.pdf"), output_folder)
 
 
 if __name__ == "__main__":
