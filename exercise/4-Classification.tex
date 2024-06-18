@@ -1,4 +1,3 @@
-
 \documentclass[
 english,
 smallborders
@@ -990,26 +989,26 @@ Write down \textbf{all} intermediate steps.
 		      \begin{enumerate}
 			      \item \textbf{Attribute \textit{Topic}:}
 			            \begin{alignat*}{2}
-				            \Likelihood{Topic}{Clustering}{Passed}{Yes}        & = \frac{3}{7} = 0,4286 \\
-				            \Likelihood{Topic}{Clustering}{Passed}{No}         & = \frac{1}{3} = 0,3333 \\
-				                                                               &                        \\
-				            \Likelihood{Topic}{Classification}{Passed}{Yes}    & = \frac{2}{7} = 0,2857 \\
-				            \Likelihood{Topic}{Classification}{Passed}{No}     & = \frac{1}{3} = 0,3333 \\
-				                                                               &                        \\
-				            \Likelihood{Topic}{Frequent Patterns}{Passed}{Yes} & = \frac{2}{7} = 0,2857 \\
-				            \Likelihood{Topic}{Frequent Patterns}{Passed}{No}  & = \frac{1}{3} = 0,3333 \\
+				            \Likelihood{Topic}{Clustering}{Passed}{Yes}        & = \frac{3}{7} \approx 0,4286 \\
+				            \Likelihood{Topic}{Clustering}{Passed}{No}         & = \frac{1}{3} \approx 0,3333 \\
+				                                                               &                              \\
+				            \Likelihood{Topic}{Classification}{Passed}{Yes}    & = \frac{2}{7} \approx 0,2857 \\
+				            \Likelihood{Topic}{Classification}{Passed}{No}     & = \frac{1}{3} \approx 0,3333 \\
+				                                                               &                              \\
+				            \Likelihood{Topic}{Frequent Patterns}{Passed}{Yes} & = \frac{2}{7} \approx 0,2857 \\
+				            \Likelihood{Topic}{Frequent Patterns}{Passed}{No}  & = \frac{1}{3} \approx 0,3333 \\
 			            \end{alignat*}
 
 			      \item \textbf{Attribute \textit{Knowledge}:}
 			            \begin{alignat*}{2}
-				            \Likelihood{Knowledge}{High}{Passed}{Yes}   & = \frac{2}{7} = 0,2857 \\
-				            \Likelihood{Knowledge}{High}{Passed}{No}    & = \frac{2}{3} = 0,6667 \\
-				                                                        &                        \\
-				            \Likelihood{Knowledge}{Medium}{Passed}{Yes} & = \frac{3}{7} = 0,4286 \\
-				            \Likelihood{Knowledge}{Medium}{Passed}{No}  & = \frac{0}{3} = 0      \\
-				                                                        &                        \\
-				            \Likelihood{Knowledge}{Low}{Passed}{Yes}    & = \frac{2}{7} = 0,2857 \\
-				            \Likelihood{Knowledge}{Low}{Passed}{No}     & = \frac{1}{3} = 0,3333 \\
+				            \Likelihood{Knowledge}{High}{Passed}{Yes}   & = \frac{2}{7} \approx 0,2857 \\
+				            \Likelihood{Knowledge}{High}{Passed}{No}    & = \frac{2}{3} \approx 0,6667 \\
+				                                                        &                              \\
+				            \Likelihood{Knowledge}{Medium}{Passed}{Yes} & = \frac{3}{7} \approx 0,4286 \\
+				            \Likelihood{Knowledge}{Medium}{Passed}{No}  & = \frac{0}{3} \approx 0      \\
+				                                                        &                              \\
+				            \Likelihood{Knowledge}{Low}{Passed}{Yes}    & = \frac{2}{7} \approx 0,2857 \\
+				            \Likelihood{Knowledge}{Low}{Passed}{No}     & = \frac{1}{3} \approx 0,3333 \\
 			            \end{alignat*}
 
 			      \item \textbf{Attribute \textit{Hours}:}
@@ -1017,24 +1016,24 @@ Write down \textbf{all} intermediate steps.
 			            Since the attribute \textit{Hours} is continuous and follows a Gaussian distribution, we have to calculate the mean $\mu$ and the standard deviation $\sigma$ for each class label:
 
 			            \begin{alignat*}{2}
-				            \mu_{\texttt{Passed}=\text{"Yes"}}    & = \frac{5 + 5 + 3 + 6 + 5 + 3 + 4}{7} = \frac{31}{7} = 4,4286                                                                 \\
-				            \sigma_{\texttt{Passed}=\text{"Yes"}} & = \sqrt{\frac{(5-\frac{31}{7})^2 \cdot 3 + (3-\frac{31}{7})^2 \cdot 2 + (6-\frac{31}{7})^2 + (4-\frac{31}{7})^2}{7}} = 1,0498 \\
-				                                                  &                                                                                                                               \\
-				            \mu_{\texttt{Passed}=\text{"No"}}     & = \frac{1 + 4 + 2}{3} = \frac{7}{3} = 2,3333                                                                                  \\
-				            \sigma_{\texttt{Passed}=\text{"No"}}  & = \sqrt{\frac{(1-\frac{7}{3})^2 + (4-\frac{7}{3})^2 + (2-\frac{7}{3})^2}{3}} = 1,2472                                         \\
+				            \mu_{\texttt{Passed}=\text{"Yes"}}    & = \frac{5 + 5 + 3 + 6 + 5 + 3 + 4}{7} = \frac{31}{7} \approx 4,4286                                                                   \\
+				            \sigma_{\texttt{Passed}=\text{"Yes"}} & = \sqrt{\frac{(5-\frac{31}{7})^2 \cdot 3 + (3-\frac{31}{7})^2 \cdot 2 + (6-\frac{31}{7})^2 + (4-\frac{31}{7})^2}{7-1}} \approx 1,1339 \\
+				                                                  &                                                                                                                                       \\
+				            \mu_{\texttt{Passed}=\text{"No"}}     & = \frac{1 + 4 + 2}{3} = \frac{7}{3} \approx 2,3333                                                                                    \\
+				            \sigma_{\texttt{Passed}=\text{"No"}}  & = \sqrt{\frac{(1-\frac{7}{3})^2 + (4-\frac{7}{3})^2 + (2-\frac{7}{3})^2}{3-1}} \approx 1,5275                                         \\
 			            \end{alignat*}
 
 			            We can now calculate the likelihoods for the attribute \textit{Hours}:
 
 			            \begin{alignat*}{2}
-				            \Likelihood{Hours}{4}{Passed}{Yes}   & = \frac{1}{\sqrt{2\pi} \cdot 1,0498} \cdot e^{-\frac{(4-4,4286)^2}{2 \cdot 1,0498^2}} = 0,3496   \\
-				            \Likelihood{Hours}{4}{Passed}{No}    & = \frac{1}{\sqrt{2\pi} \cdot 1,2472} \cdot e^{-\frac{(4-2,3333)^2}{2 \cdot 1,2472^2}} = 0,1309   \\
-				                                                 &                                                                                                  \\
-				            \Likelihood{Hours}{3}{Passed}{Yes}   & = \frac{1}{\sqrt{2\pi} \cdot 1,0498} \cdot e^{-\frac{(3-4,4286)^2}{2 \cdot 1,0498^2}} = 0,1505   \\
-				            \Likelihood{Hours}{3}{Passed}{No}    & = \frac{1}{\sqrt{2\pi} \cdot 1,2472} \cdot e^{-\frac{(3-2,3333)^2}{2 \cdot 1,2472^2}} = 0,2773   \\
-				                                                 &                                                                                                  \\
-				            \Likelihood{Hours}{6,8}{Passed}{Yes} & = \frac{1}{\sqrt{2\pi} \cdot 1,0498} \cdot e^{-\frac{(6,8-4,4286)^2}{2 \cdot 1,0498^2}} = 0,0296 \\
-				            \Likelihood{Hours}{6,8}{Passed}{No}  & = \frac{1}{\sqrt{2\pi} \cdot 1,2472} \cdot e^{-\frac{(6,8-2,3333)^2}{2 \cdot 1,2472^2}} = 0,0005 \\
+				            \Likelihood{Hours}{4}{Passed}{Yes}   & \approx \frac{1}{\sqrt{2\pi} \cdot 1,1339} \cdot e^{-\frac{(4-4,4286)^2}{2 \cdot 1,1339^2}} \approx 0,3276   \\
+				            \Likelihood{Hours}{4}{Passed}{No}    & \approx \frac{1}{\sqrt{2\pi} \cdot 1,5275} \cdot e^{-\frac{(4-2,3333)^2}{2 \cdot 1,5275^2}} \approx 0,1440   \\
+				                                                 &                                                                                                              \\
+				            \Likelihood{Hours}{3}{Passed}{Yes}   & \approx \frac{1}{\sqrt{2\pi} \cdot 1,1339} \cdot e^{-\frac{(3-4,4286)^2}{2 \cdot 1,1339^2}} \approx 0,1591   \\
+				            \Likelihood{Hours}{3}{Passed}{No}    & \approx \frac{1}{\sqrt{2\pi} \cdot 1,5275} \cdot e^{-\frac{(3-2,3333)^2}{2 \cdot 1,5275^2}} \approx 0,2374   \\
+				                                                 &                                                                                                              \\
+				            \Likelihood{Hours}{6,8}{Passed}{Yes} & \approx \frac{1}{\sqrt{2\pi} \cdot 1,1339} \cdot e^{-\frac{(6,8-4,4286)^2}{2 \cdot 1,1339^2}} \approx 0,0395 \\
+				            \Likelihood{Hours}{6,8}{Passed}{No}  & \approx \frac{1}{\sqrt{2\pi} \cdot 1,5275} \cdot e^{-\frac{(6,8-2,3333)^2}{2 \cdot 1,5275^2}} \approx 0,0036 \\
 			            \end{alignat*}
 		      \end{enumerate}
 
@@ -1046,43 +1045,43 @@ Write down \textbf{all} intermediate steps.
 				            \LikelihoodTuple{T_1}{Passed}{Yes} & =  \Likelihood{Topic}{Clustering}{Passed}{Yes}    \\
 				                                               & \cdot \Likelihood{Knowledge}{Medium}{Passed}{Yes} \\
 				                                               & \cdot \Likelihood{Hours}{4}{Passed}{Yes}          \\
-				                                               & = 0,4286 \cdot 0,4286 \cdot 0,3496                \\
-				                                               & = 0,0642                                          \\
+				                                               & \approx 0,4286 \cdot 0,4286 \cdot 0,3276          \\
+				                                               & \approx 0,0602                                    \\
 				                                               &                                                   \\
 				            \LikelihoodTuple{T_1}{Passed}{No}  & =  \Likelihood{Topic}{Clustering}{Passed}{No}     \\
 				                                               & \cdot \Likelihood{Knowledge}{Medium}{Passed}{No}  \\
 				                                               & \cdot \Likelihood{Hours}{4}{Passed}{No}           \\
-				                                               & =  0,3333 \cdot 0 \cdot 0,1309                    \\
-				                                               & = 0                                               \\
+				                                               & \approx  0,3333 \cdot 0 \cdot 0,1440              \\
+				                                               & \approx 0                                         \\
 			            \end{alignat*}
 			      \item \textbf{Tuple $T_2$ with \textit{Classification, High, 3}:}
 			            \begin{alignat*}{2}
 				            \LikelihoodTuple{T_2}{Passed}{Yes} & =  \Likelihood{Topic}{Classification}{Passed}{Yes} \\
 				                                               & \cdot \Likelihood{Knowledge}{High}{Passed}{Yes}    \\
 				                                               & \cdot \Likelihood{Hours}{3}{Passed}{Yes}           \\
-				                                               & =  0,2857 \cdot 0,2857 \cdot 0,1505                \\
-				                                               & = 0,0123                                           \\
+				                                               & \approx  0,2857 \cdot 0,2857 \cdot 0,1591          \\
+				                                               & \approx 0,0130                                     \\
 				                                               &                                                    \\
 				            \LikelihoodTuple{T_2}{Passed}{No}  & =  \Likelihood{Topic}{Classification}{Passed}{No}  \\
 				                                               & \cdot \Likelihood{Knowledge}{High}{Passed}{No}     \\
 				                                               & \cdot \Likelihood{Hours}{3}{Passed}{No}            \\
-				                                               & =  0,3333 \cdot 0,6667 \cdot 0,2773                \\
-				                                               & = 0,0616                                           \\
+				                                               & \approx  0,3333 \cdot 0,6667 \cdot 0,2374          \\
+				                                               & \approx 0,0528                                     \\
 			            \end{alignat*}
 
-			      \item \textbf{Tuple $T_3$ with \textit{Frequent Patterns, Low, 7}:}
+			      \item \textbf{Tuple $T_3$ with \textit{Frequent Patterns, Low, 6.8}:}
 			            \begin{alignat*}{2}
 				            \LikelihoodTuple{T_3}{Passed}{Yes} & =  \Likelihood{Topic}{Frequent Patterns}{Passed}{Yes} \\
 				                                               & \cdot \Likelihood{Knowledge}{Low}{Passed}{Yes}        \\
-				                                               & \cdot \Likelihood{Hours}{7}{Passed}{Yes}              \\
-				                                               & =  0,2857 \cdot 0,2857 \cdot 0,0296                   \\
-				                                               & = 0,0024                                              \\
+				                                               & \cdot \Likelihood{Hours}{6.8}{Passed}{Yes}            \\
+				                                               & \approx  0,2857 \cdot 0,2857 \cdot 0,0395             \\
+				                                               & \approx 0,0032                                        \\
 				                                               &                                                       \\
 				            \LikelihoodTuple{T_3}{Passed}{No}  & =  \Likelihood{Topic}{Frequent Patterns}{Passed}{No}  \\
 				                                               & \cdot \Likelihood{Knowledge}{Low}{Passed}{No}         \\
-				                                               & \cdot \Likelihood{Hours}{7}{Passed}{No}               \\
-				                                               & =  0,3333 \cdot 0,3333 \cdot 0,0005                   \\
-				                                               & = 0,0000                                              \\
+				                                               & \cdot \Likelihood{Hours}{6.8}{Passed}{No}             \\
+				                                               & \approx  0,3333 \cdot 0,3333 \cdot 0,0036             \\
+				                                               & \approx 0,0004                                        \\
 			            \end{alignat*}
 		      \end{enumerate}
 
@@ -1106,11 +1105,11 @@ Write down \textbf{all} intermediate steps.
 			            Calculate the numerator of $\PosterioriProbability{T_1}{Passed}{Yes}$ and $\PosterioriProbability{T_1}{Passed}{No}$:
 
 			            \begin{alignat*}{2}
-				            \BayesNumerator{T_1}{Passed}{Yes} & = 0,0642 \cdot 0,7 = 0,0449 \\
-				            \BayesNumerator{T_1}{Passed}{No}  & = 0 \cdot 0,3 = 0           \\
+				            \BayesNumerator{T_1}{Passed}{Yes} & \approx 0,0602 \cdot 0,7 \approx 0,0421 \\
+				            \BayesNumerator{T_1}{Passed}{No}  & = 0 \cdot 0,3 = 0                       \\
 			            \end{alignat*}
 
-			            Since $0,0449 > 0$ and we classify the tuple $T_1$ as $\ResultClass{Passed}{Yes}$.
+			            Since $0,0421 > 0$ and we classify the tuple $T_1$ as $\ResultClass{Passed}{Yes}$.
 
 			            \vspace*{3em}
 
@@ -1124,10 +1123,10 @@ Write down \textbf{all} intermediate steps.
 					            We first need to calculate the denominator of the posteriori probability $P(X)$:
 
 					            \begin{alignat*}{2}
-						            P(T_1) & = \BayesNumerator{T_1}{Passed}{Yes}       \\
-						                   & + \BayesNumerator{T_1}{Passed}{No}        \\
-						                   & = 0,0642 \cdot 0,7 + 0 \cdot 0,3 = 0,0449 \\
-						                   & = 0,0449 + 0 = 0,0449
+						            P(T_1) & = \BayesNumerator{T_1}{Passed}{Yes}    \\
+						                   & + \BayesNumerator{T_1}{Passed}{No}     \\
+						                   & \approx 0,0602 \cdot 0,7 + 0 \cdot 0,3 \\
+						                   & \approx 0,0421
 					            \end{alignat*}
 
 
@@ -1135,11 +1134,11 @@ Write down \textbf{all} intermediate steps.
 
 					            \begin{alignat*}{2}
 						            \PosterioriProbability{T_1}{Passed}{Yes} & = \frac{\BayesNumerator{T_1}{Passed}{Yes}}{P(T_1)} \\
-						                                                     & = \frac{0,0449}{0,0449}                            \\
+						                                                     & = \frac{0,0421}{0,0421}                            \\
 						                                                     & = 1                                                \\
 						                                                     &                                                    \\
 						            \PosterioriProbability{T_1}{Passed}{No}  & = \frac{\BayesNumerator{T_1}{Passed}{No}}{P(T_1)}  \\
-						                                                     & = \frac{0}{0,0449}                                 \\
+						                                                     & = \frac{0}{0,0421}                                 \\
 						                                                     & = 0                                                \\
 					            \end{alignat*}
 
@@ -1154,22 +1153,22 @@ Write down \textbf{all} intermediate steps.
 			            Calculate the numerator of $\PosterioriProbability{T_2}{Passed}{Yes}$ and $\PosterioriProbability{T_2}{Passed}{No}$:
 
 			            \begin{alignat*}{2}
-				            \BayesNumerator{T_2}{Passed}{Yes} & = 0,0123 \cdot 0,7 = 0,0086 \\
-				            \BayesNumerator{T_2}{Passed}{No}  & = 0,0616 \cdot 0,3 = 0,0185 \\
+				            \BayesNumerator{T_2}{Passed}{Yes} & \approx 0,0130 \cdot 0,7 \approx 0,0091 \\
+				            \BayesNumerator{T_2}{Passed}{No}  & \approx 0,0528 \cdot 0,3 \approx 0,0158 \\
 			            \end{alignat*}
 
-			            Since $0,0086 < 0,0185$ we classify the tuple $T_2$ as $\ResultClass{Passed}{No}$.
+			            Since $0,0091 < 0,0158$ we classify the tuple $T_2$ as $\ResultClass{Passed}{No}$.
 
-			      \item \textbf{Tuple $T_3$ with \textit{Frequent Patterns, Low, 7}:}
+			      \item \textbf{Tuple $T_3$ with \textit{Frequent Patterns, Low, 6.8}:}
 
 			            Calculate the numerator of $\PosterioriProbability{T_3}{Passed}{Yes}$ and $\PosterioriProbability{T_3}{Passed}{No}$:
 
 			            \begin{alignat*}{2}
-				            \BayesNumerator{T_3}{Passed}{Yes} & = 0,0024 \cdot 0,7 = 0,0017 \\
-				            \BayesNumerator{T_3}{Passed}{No}  & = 0,0000 \cdot 0,3 = 0,0000 \\
+				            \BayesNumerator{T_3}{Passed}{Yes} & \approx 0,0032 \cdot 0,7 \approx 0,0022 \\
+				            \BayesNumerator{T_3}{Passed}{No}  & \approx 0,0004 \cdot 0,3 \approx 0,0001 \\
 			            \end{alignat*}
 
-			            Since $0,0017 > 0,0000$ we classify the tuple $T_3$ as $\ResultClass{Passed}{Yes}$.
+			            Since $0,0022 > 0,0001$ we classify the tuple $T_3$ as $\ResultClass{Passed}{Yes}$.
 		      \end{enumerate}
 
 
