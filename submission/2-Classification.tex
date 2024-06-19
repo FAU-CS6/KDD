@@ -1,0 +1,995 @@
+\documentclass[
+english,
+smallborders
+]{i6prcsht}
+\usepackage{i6common}
+\usepackage{i6lecture}
+
+\usepackage{todonotes}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{pdfpages}
+\usepackage{csquotes}
+\usepackage{awesomebox}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage[]{mdframed}
+\usepackage{listings}
+\lstset
+{
+    language=python,
+	showtabs=true,
+	tab=,
+	tabsize=2,
+	basicstyle=\ttfamily\scriptsize,
+	backgroundcolor=\color{lightgray!20},
+	breakindent=.5\textwidth,
+	frame=single,
+	breaklines=true,
+	numbers=left,
+	stepnumber=1,
+	deletekeywords=[2]{abs,max}
+}
+
+\newcommand{\points}[1]{\hfill \color{red}(#1 Points)\color{black}}
+
+
+\hyphenation{Stud-On}
+
+\begin{document}
+
+\title{Submission 2: \\ Classification}
+\maketitle
+\vspace*{-2cm}
+
+\section*{About this Assignment}
+
+In this assignment, your task is to implement the algorithms for  \hyperref[sec:task-one]{Decision Tree Induction} and \hyperref[sec:task-one]{Naïve Bayes Classification}. For this purpose, you have access to a basic code skeleton, some helper classes, and several test cases.
+
+\subsection*{Key Data}
+
+\begin{itemize}
+	\item \textbf{Max. Group Size:} 3
+	\item \textbf{Max. Points:} 50
+	\item \textbf{Estimated Workload:} 5 - 7.5 hours
+\end{itemize}
+
+\subsection*{How to Work on the Assignment}
+
+To start working on the assignment, you'll need to accept the assignment via GitHub Classroom by clicking the provided link. This will set up a new GitHub repository for your group, packed with all the necessary files for the assignment. If you're joining an existing group, it'll add you to that group's repository.\footnote{Each student must join individually. You can join groups while accepting an assignment.}
+
+Once that's done, you have two main options for working on your assignment. You can clone the repository\footnote{If you're unfamiliar with Git or GitHub, check out this helpful guide: \url{https://github.com/git-guides/}} to your local machine by navigating to \texttt{Code $\rightarrow$ Local}, which allows you to work directly from your computer. Alternatively, you might prefer using GitHub Codespaces by selecting \texttt{Code $\rightarrow$ Codespaces} for a virtual online environment, complete with the ability to run Python through the \texttt{Terminal} provided.
+
+Whichever method you choose, it's crucial to commit and push your changes back to the repository to submit your solution\footnotemark[\value{footnote}]. After your submission, GitHub Actions takes over to automatically grade your solution and provide feedback. You'll find this feedback in the \texttt{Actions} tab of your repository. If you didn't receive full points, you can improve your solution and push the changes back to the repository to trigger a reevaluation.
+
+\subsection*{How to Prepare the Transfer the Points to StudOn}
+
+In addition to joining the GitHub Classroom, you also need to register your GitHub username on StudOn. This is necessary to transfer the points you've earned on GitHub to StudOn. To do this, enter your GitHub username in \texttt{Submission 2 - GitHub Username}. Make sure to enter your username correctly, as otherwise, the points cannot be transferred.
+
+After submission deadline, the points you've earned on GitHub will be transferred to StudOn. This process is not immediate and may take a few days. If you have any questions or issues, please contact us via the StudOn forum.
+
+\subsection*{Restrictions}
+
+Within the scope of your implementation, you are not permitted to modify the helper classes, the test cases, or the provided GitHub Actions.
+
+This will be checked on a random basis, and any attempt to do so will result in zero points for the involved group, similar to the consequences of plagiarism.
+
+\newpage
+
+\section*{Task 1: Decision Tree Induction}
+\label{sec:task-one}
+
+Decision tree induction is a commonly used method for classifying datasets. While the fundamental approach to decision tree induction is not very variable, using different attribute selection methods can produce very different decision trees.
+
+\vspace*{1mm}
+
+\begin{mdframed}
+	\begin{em}
+		\textbf{Important Note: Categorical and Continuous Attributes}
+
+		In decision tree induction, a distinction is made between categorical and continuous attributes. To simplify the distinction, you can assume all attributes containing strings to be categorical, while numerical attributes are considered continuous. The target attributes are always categorical.
+	\end{em}
+\end{mdframed}
+
+\subsection*{Task 1.1: Attribute Selection Methods}
+
+Since attribute selection methods play a crucial role in decision tree induction, it is reasonable to implement these first. In this submission, we limit ourselves to two methods: Information Gain and Gini Index.
+
+\subsubsection*{Task 1.1.1: Information Gain}
+
+The Information Gain is a measure of the difference in entropy before and after splitting a dataset based on an attribute.
+
+\paragraph*{Task 1.1.1.1} \hfill
+
+To calculate the difference between the entropies before and after the split, the entropy of the dataset prior to the split has to be computed.
+
+Open \texttt{information\_gain.py} and implement \texttt{calculate\_entropy}, which calculates the entropy of a dataset with regard to a target attribute:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def calculate_entropy(dataset: pd.DataFrame, target_attribute: str) -> float:
+	"""
+	Calculate the entropy for a given target attribute in a dataset.
+
+	Parameters:
+	dataset (pd.DataFrame): The dataset to calculate the entropy for
+	target_attribute (str): The target attribute used as the class label
+
+	Returns:
+	float: The calculated entropy (= expected information)
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The method expects a pandas DataFrame as the dataset and a string as the target attribute. Make sure to return the calculated entropy as a \texttt{float}.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/information_gain/test_calculate_entropy.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\paragraph*{Task 1.1.1.2} \hfill
+
+The next step is to calculate the entropy after the split.
+
+Implement \texttt{calculate\_information\_partitioned}, which calculates the entropy of a dataset after splitting it based on a specific attribute:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def calculate_information_partitioned(
+	dataset: pd.DataFrame, target_attribute: str,
+	partition_attribute: str, split_value: int | float = None,
+) -> float:
+	"""
+	Calculate the information for a given target attribute in a dataset if the dataset is
+	partitioned by a given attribute.
+
+	Parameters:
+	dataset (pd.DataFrame): The dataset to calculate the information for
+	target_attribute (str): The target attribute used as the class label
+	partition_attribute (str): The attribute that is used to partition the dataset
+	split_value (int|float), default None: The value to split the partition attribute
+	on. If set to None, the function will calculate the information for a discrete-valued
+	partition attribute. If set to a value, the function will calculate the information
+	for a continuous-valued partition attribute.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+Like \texttt{calculate\_entropy}, \texttt{calculate\_information\_partitioned} also requires a dataset and a target attribute. Additionally, the function requires a string that specifies which attribute is used for partitioning. If the partitioning attribute is a continuous attribute, an optional numeric value can be provided, indicating where the partitioning into two partitions should occur.
+
+The function should return the calculated entropy as a \texttt{float}.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+	pytest tests/information_gain/test_calculate_information_partitioned.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\paragraph*{Task 1.1.1.3} \hfill
+
+Both entropies can be used to calculate the information gain.
+
+Implement \texttt{calculate\_information\_gain}, which calculates the information gain for a dataset based on a specific attribute:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def calculate_information_gain(
+	dataset: pd.DataFrame, target_attribute: str,
+	partition_attribute: str, split_value: int | float = None,
+) -> float:
+	"""
+	Calculate the information gain for a given target attribute in a dataset if the
+	dataset is partitioned by a given attribute.
+
+	Parameters:
+	dataset (pd.DataFrame): The dataset to calculate the information gain for
+	target_attribute (str): The target attribute used as the class label
+	partition_attribute (str): The attribute that is used to partition the dataset
+	split_value (int|float), default None: The value to split the partition attribute on.
+	If set to None, the function will calculate the information gain for a discrete-valued
+	partition attribute. If set to a value, the function will calculate the information
+	gain for a continuous-valued partition attribute.
+
+	Returns:
+	float: The calculated information gain
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects a dataset, a target attribute, and a partitioning attribute. If the partitioning attribute is continuous, a split value can be provided. The function should return the calculated information gain as a \texttt{float}.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/information_gain/test_calculate_information_gain.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsubsection*{Task 1.1.2: Gini Index}
+
+The Gini Index is another attribute selection method. It measures the impurity of a dataset.
+
+\paragraph*{Task 1.1.2.1} \hfill
+
+To calculate the Gini Index, the impurity of the dataset has to be computed.
+
+Open \texttt{gini\_index.py}. Implement \texttt{calculate\_impurity}, which calculates the impurity of a dataset with regard to a target attribute:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def calculate_impurity(dataset: pd.DataFrame, target_attribute: str) -> float:
+    """
+    Calculate the impurity for a given target attribute in a dataset.
+
+    Parameters:
+    dataset (pd.DataFrame): The dataset to calculate the impurity for
+    target_attribute (str): The target attribute used as the class label
+
+    Returns:
+    float: The calculated impurity
+    """
+    # TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects a dataset and a target attribute. Make sure to return the calculated impurity as a \texttt{float}.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/gini_index/test_calculate_impurity.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\paragraph*{Task 1.1.2.2} \hfill
+
+The next step is to calculate the impurity after the split.
+
+Implement \texttt{calculate\_impurity\_partitioned}, which calculates the impurity of a dataset after splitting it based on a specific attribute:
+
+\vspace*{0.3cm}
+
+\newpage
+
+\begin{lstlisting}
+def calculate_impurity_partitioned(
+	dataset: pd.DataFrame, target_attribute: str,
+	partition_attribute: str, split: int | float | Set[str],
+) -> float:
+	"""
+	Calculate the impurity for a given target attribute in a dataset if the dataset
+	is partitioned by a given attribute and split.
+
+	Parameters:
+	dataset (pd.DataFrame): The dataset to calculate the impurity for
+	target_attribute (str): The target attribute used as the class label
+	partition_attribute (str): The attribute that is used to partition the dataset
+	split (int|float|Set[str]): The split used to partition the partition attribute.
+	If the partition attribute is discrete-valued, the split is a set of strings
+	(Set[str]). If the partition attribute is continuous-valued, the split is a
+	single value (int or float).
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects a dataset, a target attribute, and a partitioning attribute. If the partitioning attribute is continuous, a single split value can be provided. If the partitioning attribute is discrete, a set of strings can be provided. The function should return the calculated impurity as a \texttt{float}.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/gini_index/test_calculate_impurity_partitioned.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\paragraph*{Task 1.1.2.3} \hfill
+
+Both impurities can be used to calculate the gini index.
+
+Implement \texttt{calculate\_gini\_index}, which calculates the gini index for a dataset based on a specific attribute:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def calculate_gini_index(
+	dataset: pd.DataFrame, target_attribute: str,
+	partition_attribute: str, split: int | float | Set[str],
+) -> float:
+	"""
+	Calculate the Gini index (= reduction of impurity) for a given target attribute in a
+	dataset if the dataset is partitioned by a given attribute and split.
+
+	Parameters:
+	dataset (pd.DataFrame): The dataset to calculate the Gini index for
+	target_attribute (str): The target attribute used as the class label
+	partition_attribute (str): The attribute that is used to partition the dataset
+	split (int|float|Set[str]): The split used to partition the partition attribute.
+	If the partition attribute is discrete-valued, the split is a set of strings
+	(Set[str]). If the partition attribute is continuous-valued, the split is a
+	single value (int or float).
+
+	Returns:
+	float: The calculated Gini index
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects a dataset, a target attribute, and a partitioning attribute. If the partitioning attribute is continuous, a single split value can be provided. If the partitioning attribute is discrete, a set of strings can be provided. The function should return the calculated gini index as a \texttt{float}.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/gini_index/test_calculate_gini_index.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 1.2: Training}
+
+After implementing the attribute selection methods, the next step is to implement the decision tree induction itself.
+
+\subsubsection*{Task 1.2.1}
+
+One important step in decision tree induction is to determine the best attribute to split the dataset on. For this purpose, the Information Gain or the Gini Index have to be calculated for each attribute. Since there might be multiple splits for the same attribute and therefore multiple information gains or gini indices, it is best to implement a separate function for this purpose.
+
+Open \texttt{decision\_tree.py} and implement \texttt{\_calculate\_information\_gain}, which calculates the best possible information gain for a specific attribute:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _calculate_information_gain(
+	self, data: pd.DataFrame, attribute: str
+) -> Tuple[float, List[DecisionTreeDecisionOutcome]]:
+	"""
+	Calculate the (best) information gain for a given attribute in a dataset.
+
+	Parameters:
+	data (pd.DataFrame): The dataset to calculate the information gain for
+	attribute (str): The attribute to calculate the information gain for
+
+	Returns:
+	float: The calculated information gain
+	List[DecisionTreeDecisionOutcome]: The outcomes the best split of this attribute has
+	"""
+	# If self.target_attribute is not set, raise an error
+	if self.target_attribute is None:
+		raise ValueError("Target attribute not set.")
+
+	# If the attribute is not in the dataset, raise an error
+	if attribute not in data.columns:
+		raise ValueError(f"Attribute '{attribute}' not in dataset.")
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects the dataset and the attribute for which the information gain is to be calculated. The target classification attribute is already set in \texttt{self.target\_attribute} when the function is called.
+
+The function should return the calculated information gain as a \texttt{float} and a list of outcomes. The \texttt{DecisionTreeDecisionOutcome} objects represent the outcomes of the best split of the attribute (e.g. if the attribute is \texttt{Age}, the outcomes might be \texttt{$\leq 25$} and \texttt{$> 25$}).
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/decision_tree/test_calculate_information_gain.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsubsection*{Task 1.2.2}
+
+The same has to be done for the Gini Index.
+
+Implement \texttt{\_calculate\_gini\_index}, which calculates the best possible gini index for a specific attribute:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _calculate_gini_index(
+	self, data: pd.DataFrame, attribute: str
+) -> Tuple[float, List[DecisionTreeDecisionOutcome]]:
+	"""
+	Calculate the (best) gini index for a given attribute in a dataset.
+
+	Parameters:
+	data (pd.DataFrame): The dataset to calculate the gini index for
+	attribute (str): The attribute to calculate the gini index for
+
+	Returns:
+	float: The calculated gini index (reduction of impurity)
+	List[DecisionTreeDecisionOutcome]: The outcomes the best split of this attribute has
+	"""
+	# If self.target_attribute is not set, raise an error
+	if self.target_attribute is None:
+		raise ValueError("Target attribute not set.")
+
+	# If the attribute is not in the dataset, raise an error
+	if attribute not in data.columns:
+		raise ValueError(f"Attribute '{attribute}' not in dataset.")
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects the dataset and the attribute for which the gini index is to be calculated. The target classification attribute is already set in \texttt{self.target\_attribute} when the function is called.
+
+The function should return the calculated gini index as a \texttt{float} and a list of outcomes. The \texttt{DecisionTreeDecisionOutcome} objects represent the outcomes of the best split of the attribute (e.g. if the attribute is \texttt{Participation}, the outcomes might be \texttt{$\{\text{High}, \text{Medium}\}$} and \texttt{$\{\text{Low}$\}}).
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/decision_tree/test_calculate_gini_index.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsubsection*{Task 1.2.3}
+
+These functions can now be used to find the best attribute to split the dataset on.
+
+Implement \texttt{\_find\_best\_split}, which finds the best split for a given dataset:
+
+\vspace*{0.3cm}
+
+\newpage
+
+\begin{lstlisting}
+def _find_best_split(
+	self, data: pd.DataFrame, attribute_list: List[str], attribute_selection_method: str,
+) -> Tuple[str, List[DecisionTreeDecisionOutcome]]:
+	"""
+	Find the best split for a given dataset and attribute list. Finding the best split
+	includes finding the best attribute to split on and also (depending on the attribute
+	selection method) the best set of outcomes to split on this attribute.
+
+	Parameters:
+	data (pd.DataFrame): The dataset to find the best splitting attribute for
+	attribute_list (List[str]): The list of attributes to consider
+	attribute_selection_method (str): The attribute selection method to use
+
+	Returns:
+	str: The attribute to split on
+	List[DecisionTreeDecisionOutcome]: The outcomes a split on this attribute should have
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects the dataset, a list of all attributes that might become the splitting attribute, and the attribute selection method. The attribute selection method can be either \texttt{information\_gain} or \texttt{gini\_index}. The function should return the best attribute to split on and a list of \texttt{DecisionTreeDecisionOutcome}s.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/decision_tree/test_find_best_split.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsubsection*{Task 1.2.4}
+
+The next step is to implement the recursive creation of the decision tree.
+
+Implement \texttt{\_build\_tree}, which recursively builds the decision tree:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _build_tree(
+	self,
+	data: pd.DataFrame,
+	attribute_list: List[str],
+	attribute_selection_method: str,
+) -> DecisionTreeNode:
+    """
+    Recursively build the decision tree.
+
+	Parameters:
+	data (pd.DataFrame): The (partial) dataset to build the decision tree with
+	attribute_list (List[str]): The list of attributes to consider
+	attribute_selection_method (str): The attribute selection method to use
+
+	Returns:
+	DecisionTreeNode: The root node of the decision tree
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects the dataset, a list of all attributes that might become the splitting attribute, and the attribute selection method. The attribute selection method can be either \texttt{information\_gain} or \texttt{gini\_index}. The function should return the \texttt{DecisionTreeNode} that represents the root node of the part of the decision tree that was built within the call of the function.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/decision_tree/test_build_tree.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsubsection*{Task 1.2.5}
+
+The last step is to implement the method to train the decision tree on a specific dataset.
+
+Implement \texttt{fit}, which fits the decision tree to the dataset:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def fit(
+	self, dataset: pd.DataFrame,
+	target_attribute: str, attribute_selection_method: str,
+):
+	"""
+	Fit decision tree on a given dataset and target attribute, using a specified
+	attribute selection method.
+
+	Parameters:
+	dataset (pd.DataFrame): The dataset to fit the decision tree on
+	target_attribute (str): The target attribute to predict
+	attribute_selection_method (str): The attribute selection method to use
+	"""
+	# Make sure that the target_attribute is in the dataset
+	if target_attribute not in dataset.columns:
+		raise ValueError(f"Target attribute '{target_attribute}' not in dataset.")
+
+	# Make sure that the attribute_selection_method is valid
+	if attribute_selection_method not in ["information_gain","gini_index",]:
+		raise ValueError(f"Attribute selection method '{attribute_selection_method}'
+		not valid (select either 'information_gain' or 'gini_index').")
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects the dataset, the target attribute, and the attribute selection method that should be used to build the decision tree. The function doesn't return anything, but sets both members \texttt{self.target\_attribute} and \texttt{self.tree}. The former is the target attribute, and the latter is the root node of the decision tree.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/decision_tree/test_fit.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 1.3: Prediction}
+
+With a trained decision tree, the classes of new tuples can be predicted.
+
+\subsubsection*{Task 1.3.1}
+
+The first step is to implement the method to predict the class of a single tuple.
+
+Within \texttt{decision\_tree.py} implement \texttt{\_predict\_tuple}, which predicts the class of a single tuple:
+
+\vspace*{0.3cm}
+
+\newpage
+
+\begin{lstlisting}
+def _predict_tuple(
+	self, tuple: pd.Series, node: DecisionTreeNode
+) -> str | int | float:
+	"""
+	Predict the target attribute for a given row in the dataset.
+	This is a recursive function that traverses the decision tree until a leaf node
+	is reached.
+
+	Parameters:
+	tuple (pd.Series): The row to predict the target attribute for
+	node (DecisionTreeNode): The current node in the decision tree
+
+	Returns:
+	str | int | float: The predicted class label
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects a single tuple as a pandas Series and the current node of the decision tree. The function should return the predicted class label.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/decision_tree/test_predict_tuple.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsubsection*{Task 1.3.2}
+
+The last step is to implement the method to predict the classes of a complete dataset.
+
+Implement \texttt{predict}, which predicts the classes of a dataset:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def predict(self, dataset: pd.DataFrame) -> List[str | int | float]:
+	"""
+	Predict the target attribute for a given dataset.
+
+	Parameters:
+	dataset (pd.DataFrame): The dataset to predict the target attribute for
+
+	Returns:
+	List[str | int | float]: A list of predicted class labels
+	"""
+
+	# If the tree is not fitted, raise an error
+	if self.tree is None:
+		raise ValueError("Tree not fitted. Call fit method first.")
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects a dataset and should return a list of predicted class labels.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/decision_tree/test_predict.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+
+\newpage
+
+\section*{Task 2: Naïve Bayes Classification}
+\label{sec:task-two}
+
+Naïve Bayes is a simple classification algorithm based on Bayes' Theorem. It is called "naïve" because it assumes that the attributes are conditionally independent given the class label.
+
+\vspace*{1mm}
+
+\begin{mdframed}
+	\begin{em}
+		\textbf{Important Note: Categorical and Continuous Attributes}
+
+		In naïve Bayes classification, a distinction is made between categorical and continuous attributes. To simplify the distinction, you can assume all attributes containing strings to be categorical, while numerical attributes are considered continuous. The target attributes are always categorical.
+	\end{em}
+\end{mdframed}
+
+\subsection*{Task 2.1: Training}
+
+To be able to classify new tuples, the algorithm has to be trained on a dataset.
+
+\subsubsection*{Task 2.1.1}
+
+For the training, the algorithm has to calculate the prior probabilities for each of the classes.
+
+Open \texttt{naive\_bayes.py} and implement \texttt{\_calculate\_prior\_probabilities}, which calculates the prior probabilities for each class:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _calculate_prior_probabilities(
+	self, dataset: pd.DataFrame
+) -> NaiveBayesPriorProbabilities:
+	"""
+	Calculate the prior probability for each class.
+	(The target attribute has to be set before calling this method.)
+
+	Parameters:
+	dataset (pd.DataFrame): The training dataset
+
+	Returns:
+	NaiveBayesPriorProbabilities: The prior probabilities for each class
+	"""
+	# Make sure that the target_attribute is set
+	if self.target_attribute is None:
+		raise ValueError("Target attribute not set.")
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects a dataset and should return an instance of \texttt{NaiveBayesPriorProbabilities}. This object contains the prior probabilities for each class. The target attribute is already set in \texttt{self.target\_attribute} when the function is called.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/naive_bayes/test_calculate_prior_probabilities.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsubsection*{Task 2.1.2}
+
+The next step is to calculate the likelihoods for each attribute given the class label.
+
+Implement \texttt{\_calculate\_likelihoods}, which calculates the likelihoods for each attribute given the class label:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _calculate_likelihoods(self, dataset: pd.DataFrame) -> NaiveBayesLikelihoods:
+	"""
+	Calculate the likelihoods for each attribute and class.
+	(The target attribute has to be set before calling this method.)
+
+	Parameters:
+	dataset (pd.DataFrame): The training dataset
+
+	Returns:
+	NaiveBayesLikelihoods: The likelihoods for each attribute and class
+	"""
+	# Make sure that the target_attribute is set
+	if self.target_attribute is None:
+		raise ValueError("Target attribute not set.")
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects a dataset and should return an instance of \texttt{NaiveBayesLikelihoods}. This object contains the likelihoods for each attribute given the class label. The target attribute is already set in \texttt{self.target\_attribute} when the function is called.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/naive_bayes/test_calculate_likelihoods.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsubsection*{Task 2.1.3}
+
+The last step is to implement the method to train the naïve Bayes classifier on a specific dataset.
+
+Implement \texttt{fit}, which fits the naïve Bayes classifier to the dataset:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def fit(self, dataset: pd.DataFrame, target_attribute: str):
+	"""
+	Fit the Naive Bayes classifier to the training dataset.
+	Sets the target attribute and the class labels.
+	Calculates the prior probabilities, and the likelihoods.
+
+	Parameters:
+	dataset (pd.DataFrame): The training dataset
+	target_attribute (str): The target attribute to predict
+	"""
+	# Make sure that the target_attribute is in the dataset
+	if target_attribute not in dataset.columns:
+		raise ValueError(f"Target attribute '{target_attribute}' not in dataset.")
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects the dataset and the target attribute. The function doesn't return anything, but sets the members \texttt{self.target\_attribute}, \texttt{self.class\_labels}, \texttt{self.prior\_probabilities}, and \texttt{self.likelihoods}. The former is the target attribute, the second is a list of all possible class labels, the third is an instance of \texttt{NaiveBayesPriorProbabilities}, and the last is an instance of \texttt{NaiveBayesLikelihoods}.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/naive_bayes/test_fit.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 2.2: Prediction}
+
+With a trained naïve Bayes classifier, the classes of new tuples can be predicted.
+
+\subsubsection*{Task 2.2.1}
+
+The first step is to implement the method to predict the class of a single tuple.
+
+Within \texttt{naive\_bayes.py} implement \texttt{\_predict\_tuple}, which predicts the class of a single tuple:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _predict_tuple(self, tuple: pd.Series) -> str | int | float:
+	"""
+	Predict the target attribute for a given row in the dataset.
+
+	Parameters:
+	tuple (pd.Series): The row in the dataset to predict the target attribute for
+
+	Returns:
+	str | int | float: The predicted class label
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects a single tuple as a pandas Series. The function should return the predicted class label.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/naive_bayes/test_predict_tuple.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsubsection*{Task 2.2.2}
+
+The last step is to implement the method to predict the classes of a complete dataset.
+
+Implement \texttt{predict}, which predicts the classes of a dataset:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def predict(self, dataset: pd.DataFrame) -> List[str | int | float]:
+	"""
+	Predict the target attribute for a given dataset.
+
+	Parameters:
+	dataset (pd.DataFrame): The dataset to predict the target attribute for
+
+	Returns:
+	List[str | int | float]: A list of predicted class labels
+	"""
+
+	# If the likelihoods or/and the prior probabilities are not calculated yet, raise
+	an error
+	if self.likelihoods is None or self.prior_probabilities is None:
+		raise ValueError("Model not trained yet.")
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The function expects a dataset and should return a list of predicted class labels.
+
+You can test whether your implementation is correct by executing the following command:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/naive_bayes/test_predict.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\section*{Appendices}
+
+In \hyperref[sec:task-one]{Task 1} and \hyperref[sec:task-one]{Task 2} test cases are provided and used to grade the submission.
+
+The most test cases are based on the following data sets:
+
+\subsection*{Small Student Dataset}
+
+All test cases starting with the prefix \texttt{test\_with\_small\_student\_dataset} are based on the small student dataset known from Exercise Sheet 4 - Task 1.
+
+The dataset is structured as follows:
+
+\vspace*{1cm}
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		\textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+		23           & CS             & High                   & Yes             \\ \hline
+		23           & DS             & Low                    & No              \\ \hline
+		26           & DS             & High                   & Yes             \\ \hline
+		24           & DS             & Medium                 & Yes             \\ \hline
+		26           & DS             & Medium                 & No              \\ \hline
+		26           & DS             & Low                    & No              \\ \hline
+	\end{tabular}
+	\caption{Small Student Dataset}
+	\label{tab:small-student-dataset}
+\end{table}
+
+\vspace*{1cm}
+
+\subsection*{Small Submission Dataset}
+
+All test cases starting with the prefix \texttt{test\_with\_small\_student\_dataset} are based on the small submission dataset known from Exercise Sheet 4 - Task 2.
+
+The dataset is structured as follows:
+
+\vspace*{1cm}
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{Passed} \\ \hline
+		Classification    & High               & 1,0            & No              \\ \hline
+		Clustering        & Low                & 4,0            & No              \\ \hline
+		Frequent Patterns & High               & 5,0            & Yes             \\ \hline
+		Clustering        & Medium             & 5,0            & Yes             \\ \hline
+		Frequent Patterns & High               & 2,0            & No              \\ \hline
+		Frequent Patterns & Medium             & 3,0            & Yes             \\ \hline
+		Classification    & Low                & 6,0            & Yes             \\ \hline
+		Clustering        & Low                & 5,0            & Yes             \\ \hline
+		Clustering        & High               & 3,0            & Yes             \\ \hline
+		Classification    & Medium             & 4,0            & Yes             \\ \hline
+	\end{tabular}
+	\caption{Small Submission Dataset}
+	\label{tab:small-submission-dataset}
+\end{table}
+
+\vspace*{1cm}
+
+\end{document}
