@@ -98,7 +98,7 @@ Decision tree induction is a commonly used method for classifying datasets. Whil
 
 Since attribute selection methods play a crucial role in decision tree induction, it is reasonable to implement these first. In this submission, we limit ourselves to two methods: Information Gain and Gini Index.
 
-\subsubsection*{Task 1.1.1: Information Gain}
+\subsubsection*{Task 1.1.1: Information Gain \points{4}}
 
 The Information Gain is a measure of the difference in entropy before and after splitting a dataset based on an attribute.
 
@@ -230,7 +230,7 @@ pytest tests/information_gain/test_calculate_information_gain.py
 
 \vspace*{0.1cm}
 
-\subsubsection*{Task 1.1.2: Gini Index}
+\subsubsection*{Task 1.1.2: Gini Index \points{4}}
 
 The Gini Index is another attribute selection method. It measures the impurity of a dataset.
 
@@ -362,7 +362,7 @@ pytest tests/gini_index/test_calculate_gini_index.py
 
 \vspace*{0.1cm}
 
-\subsection*{Task 1.2: Training}
+\subsection*{Task 1.2: Training \points{20}}
 
 After implementing the attribute selection methods, the next step is to implement the decision tree induction itself.
 
@@ -602,7 +602,7 @@ pytest tests/decision_tree/test_fit.py
 
 \vspace*{0.1cm}
 
-\subsection*{Task 1.3: Prediction}
+\subsection*{Task 1.3: Prediction \points{4}}
 
 With a trained decision tree, the classes of new tuples can be predicted.
 
@@ -708,7 +708,7 @@ Naïve Bayes is a simple classification algorithm based on Bayes' Theorem. It is
 	\end{em}
 \end{mdframed}
 
-\subsection*{Task 2.1: Training}
+\subsection*{Task 2.1: Training \points{14}}
 
 To be able to classify new tuples, the algorithm has to be trained on a dataset.
 
@@ -836,7 +836,7 @@ pytest tests/naive_bayes/test_fit.py
 
 \vspace*{0.1cm}
 
-\subsection*{Task 2.2: Prediction}
+\subsection*{Task 2.2: Prediction \points{4}}
 
 With a trained naïve Bayes classifier, the classes of new tuples can be predicted.
 
