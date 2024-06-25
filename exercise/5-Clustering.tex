@@ -1,0 +1,890 @@
+\def\solutionsflag{}
+
+\documentclass[
+english,
+smallborders
+]{i6prcsht}
+\usepackage{i6common}
+\usepackage{i6lecture}
+
+\usepackage{todonotes}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{pdfpages}
+\usepackage{csquotes}
+\usepackage{awesomebox}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage[]{mdframed}
+\usepackage{array}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes,snakes}
+
+
+\hyphenation{Stud-On}
+
+% First parameter: Points (white)
+% Second parameter: Points (gray)
+% Third parameter: Points (dark gray)
+% Fourth parameter: Centroid (white)
+% Fifth parameter: Centroid (gray)
+% Sixth parameter: Centroid (dark gray)
+\newcommand{\CoordinateSystemWithCentroids}[6]{
+    \begin{center}
+		\vspace*{0.1cm}
+        \newcommand*{\xMin}{0}%
+        \newcommand*{\xMax}{5}%
+        \newcommand*{\yMin}{0}%
+        \newcommand*{\yMax}{5}%
+        \begin{tikzpicture}[scale=0.5]
+            % Draw grid
+            \foreach \i in {\xMin,...,\xMax} {
+                \draw [very thin] (\i,\yMin) -- (\i,\yMax)  node [below] at
+                (\i,\yMin) {\tiny$\i$};
+            }
+            \foreach \i in {\yMin,...,\yMax} {
+                \draw [very thin] (\xMin,\i) -- (\xMax,\i) node [left] at
+                (\xMin,\i) {\tiny$\i$};
+            }
+
+			% Check if any centroids are given
+            \ifstrempty{#4}{}{\def\hasWhiteCentroid{true}}
+            \ifstrempty{#5}{}{\def\hasGrayCentroid{true}}
+			\ifstrempty{#6}{}{\def\hasDarkGrayCentroid{true}}
+
+			% Draw centroids
+			\ifdefined\hasWhiteCentroid
+				\node[diamond,draw,thick,fill=white,scale=0.35] at #4 {};
+			\fi
+
+			\ifdefined\hasGrayCentroid
+				\node[diamond,star points=5,draw,thick,fill=gray,scale=0.35] at #5 {};
+			\fi
+
+			\ifdefined\hasDarkGrayCentroid
+				\node[diamond,star points=5,draw,thick,fill=darkgray,scale=0.35] at #6 {};
+			\fi
+
+			% Draw points (white)
+            \foreach \point in {#1} {
+                \node[circle,draw,fill=white,scale=0.5] at \point {};
+            }
+
+            % Draw points (gray)
+            \foreach \point in {#2} {
+                \node[circle,draw,fill=gray,scale=0.5] at \point {};
+            }
+
+            % Draw points (dark gray)
+            \foreach \point in {#3} {
+                \node[circle,draw,fill=darkgray,scale=0.5] at \point {};
+            }
+
+			% Draw legend
+			% Check if either cluster has points
+            \ifstrempty{#1}{}{\def\hasWhite{true}}
+            \ifstrempty{#2}{}{\def\hasGray{true}}
+			\ifstrempty{#3}{}{\def\hasDarkGray{true}}
+
+			% Legend
+			\node[very thin,right] at (\xMax + 0.5, \yMax - 0.5) (l) {\scriptsize Points:};
+			\node[very thin,right, below=-2mm of l] (p) {};
+
+			% If there are white points
+			\ifdefined\hasWhite
+				\node[circle,draw,fill=white,scale=0.5] (l) at ($(l |- p.south) - (0, 0.5)$) {};
+				\node[very thin,above right=2mm and 1mm of l, anchor=north west,text width=4cm] (p) {\scriptsize #1};
+			\fi
+
+			% If there are gray points
+			\ifdefined\hasGray
+				\node[circle,draw,fill=gray,scale=0.5] (l) at ($(l |- p.south) - (0, 0.5)$) {};
+				\node[very thin,above right=2mm and 1mm of l, anchor=north west,text width=4cm] (p) {\scriptsize #2};
+			\fi
+
+			% If there are dark gray points
+			\ifdefined\hasDarkGray
+				\node[circle,draw,fill=darkgray,scale=0.5] (l) at ($(l |- p.south) - (0, 0.5)$) {};
+				\node[very thin,above right=2mm and 1mm of l, anchor=north west,text width=4cm] (p)  {\scriptsize #3};
+			\fi
+        \end{tikzpicture}
+		\vspace*{0.2cm}
+    \end{center}
+}
+
+% First parameter: Points (white)
+% Second parameter: Points (gray)
+% Third parameter: Points (dark gray)
+\newcommand{\CoordinateSystem}[3]{
+	\CoordinateSystemWithCentroids{#1}{#2}{#3}{}{}{}
+}
+
+% First parameter: Points in circle (gray)
+% Second parameter: Points out of circle (white)
+% Third parameter: Center of the circle
+% Fourth parameter: Radius of the circle
+\newcommand{\CoordinateSystemWithCircle}[4]{
+    \begin{center}
+		\vspace*{0.1cm}
+        \newcommand*{\xMin}{0}%
+        \newcommand*{\xMax}{5}%
+        \newcommand*{\yMin}{0}%
+        \newcommand*{\yMax}{5}%
+        \begin{tikzpicture}[scale=0.5]
+            % Draw grid
+            \foreach \i in {\xMin,...,\xMax} {
+                \draw [very thin] (\i,\yMin) -- (\i,\yMax)  node [below] at
+                (\i,\yMin) {\tiny$\i$};
+            }
+            \foreach \i in {\yMin,...,\yMax} {
+                \draw [very thin] (\xMin,\i) -- (\xMax,\i) node [left] at
+                (\xMin,\i) {\tiny$\i$};
+            }
+
+			% Draw circle
+			\draw[thick] #3 circle (#4);
+
+            % Draw points (gray)
+            \foreach \point in {#1} {
+                \node[circle,draw,fill=gray,scale=0.5] at \point {};
+            }
+
+            % Draw points (white)
+            \foreach \point in {#2} {
+                \node[circle,draw,fill=white,scale=0.5] at \point {};
+            }
+
+			% Draw legend
+			% Check if either points are given
+            \ifstrempty{#1}{}{\def\hasGray{true}}
+            \ifstrempty{#2}{}{\def\hasWhite{true}}
+
+			% Legend
+			\node[very thin,right] at (\xMax + 0.5, \yMax - 0.5) (l) {\scriptsize Points:};
+			\node[very thin,right, below=-2mm of l] (p) {};
+
+			% If there are gray points
+			\ifdefined\hasGray
+				\node[circle,draw,fill=gray,scale=0.5] (l) at ($(l |- p.south) - (0, 0.5)$) {};
+				\node[very thin,above right=2mm and 1mm of l, anchor=north west,text width=4cm] (p) {\scriptsize #1};
+			\fi
+
+			% If there are white points
+			\ifdefined\hasWhite
+				\node[circle,draw,fill=white,scale=0.5] (l) at ($(l |- p.south) - (0, 0.5)$) {};
+				\node[very thin,above right=2mm and 1mm of l, anchor=north west,text width=4cm] (p)  {\scriptsize #2};
+			\fi
+        \end{tikzpicture}
+    \end{center}
+}
+
+
+\begin{document}
+
+\title{Exercise Sheet 5: \\ Clustering}
+\maketitle
+\vspace*{-2cm}
+
+\section*{About this Exercise Sheet}
+
+This exercise sheet focuses on the content of lecture \textit{8. Clustering}.
+
+It includes both theoretical exercises on K-means (Exercise 1) and DBSCAN (Exercise 2) and a practical data science exercise (Exercise 3).
+
+The exercise sheet is designed for a three-week period, during which the tasks can be completed flexibly (Planned is one exercise per week).
+
+The sample solution will be published after the three weeks have elapsed.
+
+\section*{Preparation}
+
+Before participating in the exercise, you must prepare the following:
+
+\begin{enumerate}
+	\item \textbf{Install Python and pip on your computer}
+
+	      \begin{itemize}
+		      \item Detailed instructions can be found in \texttt{1-Introduction-Python-Pandas.pdf}.
+	      \end{itemize}
+
+	\item \textbf{Download provided additional files}
+
+	      \begin{itemize}
+		      \item Download \texttt{Additional-Files-Student.zip} from StudOn
+		      \item Extract it to a folder of your choice.
+	      \end{itemize}
+
+	\item \textbf{Install required Python packages}
+
+	      \begin{itemize}
+		      \item Open a terminal and navigate to the folder where you extracted the files.
+		      \item Run the command \texttt{pip install -r requirements.txt} within the extracted additional files folder to install the required Python packages.
+	      \end{itemize}
+
+
+\end{enumerate}
+
+\section*{Exercise 1: K-means}
+
+Given is a set of points in a two-dimensional space:
+
+\CoordinateSystem{}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{}
+
+\subsection*{Task 1: Application}
+
+Use \textbf{K-means} to cluster the given points into three clusters. Use the \textbf{Euclidean distance} as the metric defining the similarity between points.
+
+Write down \textbf{all} intermediate steps.
+
+\begin{solution}
+	\begin{enumerate}
+		\item \textbf{Create an initial partitioning of the points}
+
+		      There are many ways to create an initial partitioning. All of them are valid as long as there are three non-empty partitions.
+
+		      In this sample solution, we assign the points to the partitions from left to right with roughly equal partition sizes:
+
+		      \CoordinateSystem{(1,1), (1,2), (1,4), (2,1)}{(2,3), (3,2), (3,4)}{(4,1), (4,3), (4,4)}
+
+		\item \textbf{Calculate the centroids of the partitions}
+
+		      \begin{itemize}
+			      \item \textbf{White:}
+			            \begin{alignat*}{2}
+				            \begin{rcases*}
+					            x  = \frac{1 + 1 + 1 + 2}{4} = 1.25 \\
+					            y  = \frac{1 + 2 + 4 + 1}{4} = 2
+				            \end{rcases*}	\Rightarrow	 (1.25, 2)
+			            \end{alignat*}
+			      \item \textbf{Gray:}
+			            \begin{alignat*}{2}
+				            \begin{rcases*}
+					            x = \frac{2 + 3 + 3}{3} \approx 2.67 \\
+					            y = \frac{3 + 2 + 4}{3} = 3          \\
+				            \end{rcases*}	\Rightarrow	(2.67, 3)
+			            \end{alignat*}
+			      \item \textbf{Darkgray:}
+			            \begin{alignat*}{2}
+				            \begin{rcases*}
+					            x = \frac{4 + 4 + 4}{3} = 4          \\
+					            y = \frac{1 + 3 + 4}{3} \approx 2.67 \\
+				            \end{rcases*}	\Rightarrow	(4, 2.67)
+			            \end{alignat*}
+		      \end{itemize}
+
+		      \dotfill
+
+		      The centroids in the coordinate system:
+
+		      \CoordinateSystemWithCentroids{(1,1), (1,2), (1,4), (2,1)}{(2,3), (3,2), (3,4)}{(4,1), (4,3), (4,4)}{(1.25,2)}{(2.67,3)}{(4,2.67)}
+
+		      \dotfill
+
+		\item \textbf{Reassign the points to the partitions based on the new centroids}
+
+		      For each point, calculate the distance to each centroid and assign the point to the partition with the closest centroid:
+
+		      \begin{itemize}
+			      \item \textbf{Point $(1,1)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(1,1)\leftrightarrow(1.25,2)} & = \sqrt{(1-1.25)^2+(1-2.0)^2} \approx 1.03 \\
+				            Distance_{(1,1)\leftrightarrow(2.67,3)} & = \sqrt{(1-2.67)^2+(1-3.0)^2} \approx 2.6  \\
+				            Distance_{(1,1)\leftrightarrow(4,2.67)} & = \sqrt{(1-4.0)^2+(1-2.67)^2} \approx 3.43 \\
+			            \end{alignat*}
+
+			            The point $(1,1)$ is closest to the centroid $(1.25,2)$.
+
+			      \item \textbf{Point $(1,2)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(1,2)\leftrightarrow(1.25,2)} & = \sqrt{(1-1.25)^2+(2-2.0)^2} \approx 0.25 \\
+				            Distance_{(1,2)\leftrightarrow(2.67,3)} & = \sqrt{(1-2.67)^2+(2-3.0)^2} \approx 1.94 \\
+				            Distance_{(1,2)\leftrightarrow(4,2.67)} & = \sqrt{(1-4.0)^2+(2-2.67)^2} \approx 3.07 \\
+			            \end{alignat*}
+
+			            The point $(1,2)$ is closest to the centroid $(1.25,2)$.
+
+			      \item \textbf{Point $(1,4)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(1,4)\leftrightarrow(1.25,2)} & = \sqrt{(1-1.25)^2+(4-2.0)^2} \approx 2.02 \\
+				            Distance_{(1,4)\leftrightarrow(2.67,3)} & = \sqrt{(1-2.67)^2+(4-3.0)^2} \approx 1.94 \\
+				            Distance_{(1,4)\leftrightarrow(4,2.67)} & = \sqrt{(1-4.0)^2+(4-2.67)^2} \approx 3.28 \\
+			            \end{alignat*}
+
+			            The point $(1,4)$ is closest to the centroid $(2.67,3)$.
+
+			      \item \textbf{Point $(2,1)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(2,1)\leftrightarrow(1.25,2)} & = \sqrt{(2-1.25)^2+(1-2.0)^2} \approx 1.25 \\
+				            Distance_{(2,1)\leftrightarrow(2.67,3)} & = \sqrt{(2-2.67)^2+(1-3.0)^2} \approx 2.11 \\
+				            Distance_{(2,1)\leftrightarrow(4,2.67)} & = \sqrt{(2-4.0)^2+(1-2.67)^2} \approx 2.6  \\
+			            \end{alignat*}
+
+			            The point $(2,1)$ is closest to the centroid $(1.25,2)$.
+
+			      \item \textbf{Point $(2,3)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(2,3)\leftrightarrow(1.25,2)} & = \sqrt{(2-1.25)^2+(3-2.0)^2} \approx 1.25 \\
+				            Distance_{(2,3)\leftrightarrow(2.67,3)} & = \sqrt{(2-2.67)^2+(3-3.0)^2} \approx 0.67 \\
+				            Distance_{(2,3)\leftrightarrow(4,2.67)} & = \sqrt{(2-4.0)^2+(3-2.67)^2} \approx 2.03 \\
+			            \end{alignat*}
+
+			            The point $(2,3)$ is closest to the centroid $(2.67,3)$.
+
+			      \item \textbf{Point $(3,2)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(3,2)\leftrightarrow(1.25,2)} & = \sqrt{(3-1.25)^2+(2-2.0)^2} \approx 1.75 \\
+				            Distance_{(3,2)\leftrightarrow(2.67,3)} & = \sqrt{(3-2.67)^2+(2-3.0)^2} \approx 1.05 \\
+				            Distance_{(3,2)\leftrightarrow(4,2.67)} & = \sqrt{(3-4.0)^2+(2-2.67)^2} \approx 1.2  \\
+			            \end{alignat*}
+
+			            The point $(3,2)$ is closest to the centroid $(2.67,3)$.
+
+			      \item \textbf{Point $(3,4)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(3,4)\leftrightarrow(1.25,2)} & = \sqrt{(3-1.25)^2+(4-2.0)^2} \approx 2.66 \\
+				            Distance_{(3,4)\leftrightarrow(2.67,3)} & = \sqrt{(3-2.67)^2+(4-3.0)^2} \approx 1.05 \\
+				            Distance_{(3,4)\leftrightarrow(4,2.67)} & = \sqrt{(3-4.0)^2+(4-2.67)^2} \approx 1.67 \\
+			            \end{alignat*}
+
+			            The point $(3,4)$ is closest to the centroid $(2.67,3)$.
+
+			      \item \textbf{Point $(4,1)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(4,1)\leftrightarrow(1.25,2)} & = \sqrt{(4-1.25)^2+(1-2.0)^2} \approx 2.93 \\
+				            Distance_{(4,1)\leftrightarrow(2.67,3)} & = \sqrt{(4-2.67)^2+(1-3.0)^2} \approx 2.4  \\
+				            Distance_{(4,1)\leftrightarrow(4,2.67)} & = \sqrt{(4-4.0)^2+(1-2.67)^2} \approx 1.67 \\
+			            \end{alignat*}
+
+			            The point $(4,1)$ is closest to the centroid $(4,2.67)$.
+
+			      \item \textbf{Point $(4,3)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(4,3)\leftrightarrow(1.25,2)} & = \sqrt{(4-1.25)^2+(3-2.0)^2} \approx 2.93 \\
+				            Distance_{(4,3)\leftrightarrow(2.67,3)} & = \sqrt{(4-2.67)^2+(3-3.0)^2} \approx 1.33 \\
+				            Distance_{(4,3)\leftrightarrow(4,2.67)} & = \sqrt{(4-4.0)^2+(3-2.67)^2} \approx 0.33 \\
+			            \end{alignat*}
+
+			            The point $(4,3)$ is closest to the centroid $(4,2.67)$.
+
+			      \item \textbf{Point $(4,4)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(4,4)\leftrightarrow(1.25,2)} & = \sqrt{(4-1.25)^2+(4-2.0)^2} \approx 3.4  \\
+				            Distance_{(4,4)\leftrightarrow(2.67,3)} & = \sqrt{(4-2.67)^2+(4-3.0)^2} \approx 1.67 \\
+				            Distance_{(4,4)\leftrightarrow(4,2.67)} & = \sqrt{(4-4.0)^2+(4-2.67)^2} \approx 1.33 \\
+			            \end{alignat*}
+
+			            The point $(4,4)$ is closest to the centroid $(4,2.67)$.
+		      \end{itemize}
+
+		      \dotfill
+
+		      Overall, the new partitioning is:
+
+		      \CoordinateSystem{(1,1), (1,2), (2,1)}{(1,4), (2,3), (3,2), (3,4)}{(4,1), (4,3), (4,4)}
+
+		      Since the partitioning did change, the algorithm has not converged.
+
+		      \dotfill
+
+		\item \textbf{Compute the new centroids}
+
+		      \begin{itemize}
+			      \item \textbf{White:}
+			            \begin{alignat*}{2}
+				            \begin{rcases*}
+					            x  = \frac{1 + 1 + 2}{3} \approx 1.33 \\
+					            y  = \frac{1 + 2 + 1}{3} \approx 1.33
+				            \end{rcases*}	\Rightarrow	 (1.33, 1.33)
+			            \end{alignat*}
+			      \item \textbf{Gray:}
+			            \begin{alignat*}{2}
+				            \begin{rcases*}
+					            x = \frac{1 + 2 + 3 + 3}{4} = 2.25 \\
+					            y = \frac{4 + 3 + 2 + 4}{4} = 3.25 \\
+				            \end{rcases*}	\Rightarrow	(2.25, 3.25)
+			            \end{alignat*}
+			      \item \textbf{Darkgray:}
+			            \begin{alignat*}{2}
+				            \begin{rcases*}
+					            x = \frac{4 + 4 + 4}{3} = 4          \\
+					            y = \frac{1 + 3 + 4}{3} \approx 2.67 \\
+				            \end{rcases*}	\Rightarrow	(4, 2.67)
+			            \end{alignat*}
+		      \end{itemize}
+
+		      \dotfill
+
+		      The centroids in the coordinate system:
+
+		      \CoordinateSystemWithCentroids{(1,1), (1,2), (2,1)}{(1,4), (2,3), (3,2), (3,4)}{(4,1), (4,3), (4,4)}{(1.33,1.33)}{(2.25,3.25)}{(4,2.67)}
+
+		      \dotfill
+
+		\item \textbf{Reassign the points to the partitions based on the new centroids}
+
+		      For each point, calculate the distance to each centroid and assign the point to the partition with the closest centroid:
+
+		      \begin{itemize}
+			      \item \textbf{Point $(1,1)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(1,1)\leftrightarrow(1.33,1.33)} & = \sqrt{(1-1.33)^2+(1-1.33)^2} \approx 0.47 \\
+				            Distance_{(1,1)\leftrightarrow(2.25,3.25)} & = \sqrt{(1-2.25)^2+(1-3.25)^2} \approx 2.6  \\
+				            Distance_{(1,1)\leftrightarrow(4,2.67)}    & = \sqrt{(1-4.0)^2+(1-2.67)^2} \approx 3.43  \\
+			            \end{alignat*}
+
+			            The point $(1,1)$ is closest to the centroid $(1.33,1.33)$.
+
+			      \item \textbf{Point $(1,2)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(1,2)\leftrightarrow(1.33,1.33)} & = \sqrt{(1-1.33)^2+(2-1.33)^2} \approx 0.75 \\
+				            Distance_{(1,2)\leftrightarrow(2.25,3.25)} & = \sqrt{(1-2.25)^2+(2-3.25)^2} \approx 1.77 \\
+				            Distance_{(1,2)\leftrightarrow(4,2.67)}    & = \sqrt{(1-4.0)^2+(2-2.67)^2} \approx 3.07  \\
+			            \end{alignat*}
+
+			            The point $(1,2)$ is closest to the centroid $(1.33,1.33)$.
+
+			      \item \textbf{Point $(1,4)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(1,4)\leftrightarrow(1.33,1.33)} & = \sqrt{(1-1.33)^2+(4-1.33)^2} \approx 2.69 \\
+				            Distance_{(1,4)\leftrightarrow(2.25,3.25)} & = \sqrt{(1-2.25)^2+(4-3.25)^2} \approx 1.46 \\
+				            Distance_{(1,4)\leftrightarrow(4,2.67)}    & = \sqrt{(1-4.0)^2+(4-2.67)^2} \approx 3.28  \\
+			            \end{alignat*}
+
+			            The point $(1,4)$ is closest to the centroid $(2.25,3.25)$.
+
+			      \item \textbf{Point $(2,1)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(2,1)\leftrightarrow(1.33,1.33)} & = \sqrt{(2-1.33)^2+(1-1.33)^2} \approx 0.75 \\
+				            Distance_{(2,1)\leftrightarrow(2.25,3.25)} & = \sqrt{(2-2.25)^2+(1-3.25)^2} \approx 2.26 \\
+				            Distance_{(2,1)\leftrightarrow(4,2.67)}    & = \sqrt{(2-4.0)^2+(1-2.67)^2} \approx 2.6   \\
+			            \end{alignat*}
+
+			            The point $(2,1)$ is closest to the centroid $(1.33,1.33)$.
+
+			      \item \textbf{Point $(2,3)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(2,3)\leftrightarrow(1.33,1.33)} & = \sqrt{(2-1.33)^2+(3-1.33)^2} \approx 1.8  \\
+				            Distance_{(2,3)\leftrightarrow(2.25,3.25)} & = \sqrt{(2-2.25)^2+(3-3.25)^2} \approx 0.35 \\
+				            Distance_{(2,3)\leftrightarrow(4,2.67)}    & = \sqrt{(2-4.0)^2+(3-2.67)^2} \approx 2.03  \\
+			            \end{alignat*}
+
+			            The point $(2,3)$ is closest to the centroid $(2.25,3.25)$.
+
+			      \item \textbf{Point $(3,2)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(3,2)\leftrightarrow(1.33,1.33)} & = \sqrt{(3-1.33)^2+(2-1.33)^2} \approx 1.8  \\
+				            Distance_{(3,2)\leftrightarrow(2.25,3.25)} & = \sqrt{(3-2.25)^2+(2-3.25)^2} \approx 1.46 \\
+				            Distance_{(3,2)\leftrightarrow(4,2.67)}    & = \sqrt{(3-4.0)^2+(2-2.67)^2} \approx 1.2   \\
+			            \end{alignat*}
+
+			            The point $(3,2)$ is closest to the centroid $(4.0,2.67)$.
+
+			      \item \textbf{Point $(3,4)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(3,4)\leftrightarrow(1.33,1.33)} & = \sqrt{(3-1.33)^2+(4-1.33)^2} \approx 3.14 \\
+				            Distance_{(3,4)\leftrightarrow(2.25,3.25)} & = \sqrt{(3-2.25)^2+(4-3.25)^2} \approx 1.06 \\
+				            Distance_{(3,4)\leftrightarrow(4,2.67)}    & = \sqrt{(3-4.0)^2+(4-2.67)^2} \approx 1.67  \\
+			            \end{alignat*}
+
+			            The point $(3,4)$ is closest to the centroid $(2.25,3.25)$.
+
+			      \item \textbf{Point $(4,1)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(4,1)\leftrightarrow(1.33,1.33)} & = \sqrt{(4-1.33)^2+(1-1.33)^2} \approx 2.69 \\
+				            Distance_{(4,1)\leftrightarrow(2.25,3.25)} & = \sqrt{(4-2.25)^2+(1-3.25)^2} \approx 2.85 \\
+				            Distance_{(4,1)\leftrightarrow(4,2.67)}    & = \sqrt{(4-4.0)^2+(1-2.67)^2} \approx 1.67  \\
+			            \end{alignat*}
+
+			            The point $(4,1)$ is closest to the centroid $(4.0,2.67)$.
+
+			      \item \textbf{Point $(4,3)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(4,3)\leftrightarrow(1.33,1.33)} & = \sqrt{(4-1.33)^2+(3-1.33)^2} \approx 3.14 \\
+				            Distance_{(4,3)\leftrightarrow(2.25,3.25)} & = \sqrt{(4-2.25)^2+(3-3.25)^2} \approx 1.77 \\
+				            Distance_{(4,3)\leftrightarrow(4,2.67)}    & = \sqrt{(4-4.0)^2+(3-2.67)^2} \approx 0.33  \\
+			            \end{alignat*}
+
+			            The point $(4,3)$ is closest to the centroid $(4.0,2.67)$.
+
+			      \item \textbf{Point $(4,4)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(4,4)\leftrightarrow(1.33,1.33)} & = \sqrt{(4-1.33)^2+(4-1.33)^2} \approx 3.77 \\
+				            Distance_{(4,4)\leftrightarrow(2.25,3.25)} & = \sqrt{(4-2.25)^2+(4-3.25)^2} \approx 1.9  \\
+				            Distance_{(4,4)\leftrightarrow(4,2.67)}    & = \sqrt{(4-4.0)^2+(4-2.67)^2} \approx 1.33  \\
+			            \end{alignat*}
+
+			            The point $(4,4)$ is closest to the centroid $(4.0,2.67)$.
+		      \end{itemize}
+
+		      \dotfill
+
+		      Overall, the new partitioning is:
+
+		      \CoordinateSystem{(1,1), (1,2), (2,1)}{(1,4), (2,3), (3,4)}{(3,2),(4,1), (4,3), (4,4)}
+
+		      Since the partitioning did change, the algorithm has not converged.
+
+		      \dotfill
+
+		\item \textbf{Compute the new centroids}
+
+		      \begin{itemize}
+			      \item \textbf{White:}
+			            \begin{alignat*}{2}
+				            \begin{rcases*}
+					            x  = \frac{1 + 1 + 2}{3} \approx 1.33 \\
+					            y  = \frac{1 + 2 + 1}{3} \approx 1.33
+				            \end{rcases*}	\Rightarrow	 (1.33, 1.33)
+			            \end{alignat*}
+			      \item \textbf{Gray:}
+			            \begin{alignat*}{2}
+				            \begin{rcases*}
+					            x = \frac{1 + 2 + 3}{3} = 2          \\
+					            y = \frac{4 + 3 + 4}{3} \approx 3.67 \\
+				            \end{rcases*}	\Rightarrow	(2, 3.67)
+			            \end{alignat*}
+			      \item \textbf{Darkgray:}
+			            \begin{alignat*}{2}
+				            \begin{rcases*}
+					            x = \frac{3 + 4 + 4 + 4}{4} = 3.75 \\
+					            y = \frac{2 + 1 + 3 + 4}{4} = 2.5  \\
+				            \end{rcases*}	\Rightarrow	(3.75, 2.5)
+			            \end{alignat*}
+		      \end{itemize}
+
+		      \dotfill
+
+		      The centroids in the coordinate system:
+
+		      \CoordinateSystemWithCentroids{(1,1), (1,2), (2,1)}{(1,4), (2,3), (3,4)}{(3,2), (4,1), (4,3), (4,4)}{(1.33,1.33)}{(2,3.67)}{(3.75,2.5)}
+
+		      \dotfill
+
+		\item \textbf{Reassign the points to the partitions based on the new centroids}
+
+		      For each point, calculate the distance to each centroid and assign the point to the partition with the closest centroid:
+
+		      \begin{itemize}
+			      \item \textbf{Point $(1,1)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(1,1)\leftrightarrow(1.33,1.33)} & = \sqrt{(1-1.33)^2+(1-1.33)^2} \approx 0.47 \\
+				            Distance_{(1,1)\leftrightarrow(2.0,3.67)}  & = \sqrt{(1-2.0)^2+(1-3.67)^2} \approx 2.85  \\
+				            Distance_{(1,1)\leftrightarrow(3.75,2.5)}  & = \sqrt{(1-3.75)^2+(1-2.5)^2} \approx 3.13  \\
+			            \end{alignat*}
+
+			            The point $(1,1)$ is closest to the centroid $(1.33,1.33)$.
+
+			      \item \textbf{Point $(1,2)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(1,2)\leftrightarrow(1.33,1.33)} & = \sqrt{(1-1.33)^2+(2-1.33)^2} \approx 0.75 \\
+				            Distance_{(1,2)\leftrightarrow(2.0,3.67)}  & = \sqrt{(1-2.0)^2+(2-3.67)^2} \approx 1.94  \\
+				            Distance_{(1,2)\leftrightarrow(3.75,2.5)}  & = \sqrt{(1-3.75)^2+(2-2.5)^2} \approx 2.8   \\
+			            \end{alignat*}
+
+			            The point $(1,2)$ is closest to the centroid $(1.33,1.33)$.
+
+			      \item \textbf{Point $(1,4)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(1,4)\leftrightarrow(1.33,1.33)} & = \sqrt{(1-1.33)^2+(4-1.33)^2} \approx 2.69 \\
+				            Distance_{(1,4)\leftrightarrow(2.0,3.67)}  & = \sqrt{(1-2.0)^2+(4-3.67)^2} \approx 1.05  \\
+				            Distance_{(1,4)\leftrightarrow(3.75,2.5)}  & = \sqrt{(1-3.75)^2+(4-2.5)^2} \approx 3.13  \\
+			            \end{alignat*}
+
+			            The point $(1,4)$ is closest to the centroid $(2.0,3.67)$.
+
+			      \item \textbf{Point $(2,1)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(2,1)\leftrightarrow(1.33,1.33)} & = \sqrt{(2-1.33)^2+(1-1.33)^2} \approx 0.75 \\
+				            Distance_{(2,1)\leftrightarrow(2.0,3.67)}  & = \sqrt{(2-2.0)^2+(1-3.67)^2} \approx 2.67  \\
+				            Distance_{(2,1)\leftrightarrow(3.75,2.5)}  & = \sqrt{(2-3.75)^2+(1-2.5)^2} \approx 2.3   \\
+			            \end{alignat*}
+
+			            The point $(2,1)$ is closest to the centroid $(1.33,1.33)$.
+
+			      \item \textbf{Point $(2,3)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(2,3)\leftrightarrow(1.33,1.33)} & = \sqrt{(2-1.33)^2+(3-1.33)^2} \approx 1.8 \\
+				            Distance_{(2,3)\leftrightarrow(2.0,3.67)}  & = \sqrt{(2-2.0)^2+(3-3.67)^2} \approx 0.67 \\
+				            Distance_{(2,3)\leftrightarrow(3.75,2.5)}  & = \sqrt{(2-3.75)^2+(3-2.5)^2} \approx 1.82 \\
+			            \end{alignat*}
+
+			            The point $(2,3)$ is closest to the centroid $(2.0,3.67)$.
+
+			      \item \textbf{Point $(3,2)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(3,2)\leftrightarrow(1.33,1.33)} & = \sqrt{(3-1.33)^2+(2-1.33)^2} \approx 1.8 \\
+				            Distance_{(3,2)\leftrightarrow(2.0,3.67)}  & = \sqrt{(3-2.0)^2+(2-3.67)^2} \approx 1.94 \\
+				            Distance_{(3,2)\leftrightarrow(3.75,2.5)}  & = \sqrt{(3-3.75)^2+(2-2.5)^2} \approx 0.9  \\
+			            \end{alignat*}
+
+			            The point $(3,2)$ is closest to the centroid $(3.75,2.5)$.
+
+			      \item \textbf{Point $(3,4)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(3,4)\leftrightarrow(1.33,1.33)} & = \sqrt{(3-1.33)^2+(4-1.33)^2} \approx 3.14 \\
+				            Distance_{(3,4)\leftrightarrow(2.0,3.67)}  & = \sqrt{(3-2.0)^2+(4-3.67)^2} \approx 1.05  \\
+				            Distance_{(3,4)\leftrightarrow(3.75,2.5)}  & = \sqrt{(3-3.75)^2+(4-2.5)^2} \approx 1.68  \\
+			            \end{alignat*}
+
+			            The point $(3,4)$ is closest to the centroid $(2.0,3.67)$.
+
+			      \item \textbf{Point $(4,1)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(4,1)\leftrightarrow(1.33,1.33)} & = \sqrt{(4-1.33)^2+(1-1.33)^2} \approx 2.69 \\
+				            Distance_{(4,1)\leftrightarrow(2.0,3.67)}  & = \sqrt{(4-2.0)^2+(1-3.67)^2} \approx 3.33  \\
+				            Distance_{(4,1)\leftrightarrow(3.75,2.5)}  & = \sqrt{(4-3.75)^2+(1-2.5)^2} \approx 1.52  \\
+			            \end{alignat*}
+
+			            The point $(4,1)$ is closest to the centroid $(3.75,2.5)$.
+
+			      \item \textbf{Point $(4,3)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(4,3)\leftrightarrow(1.33,1.33)} & = \sqrt{(4-1.33)^2+(3-1.33)^2} \approx 3.14 \\
+				            Distance_{(4,3)\leftrightarrow(2.0,3.67)}  & = \sqrt{(4-2.0)^2+(3-3.67)^2} \approx 2.11  \\
+				            Distance_{(4,3)\leftrightarrow(3.75,2.5)}  & = \sqrt{(4-3.75)^2+(3-2.5)^2} \approx 0.56  \\
+			            \end{alignat*}
+
+			            The point $(4,3)$ is closest to the centroid $(3.75,2.5)$.
+
+			      \item \textbf{Point $(4,4)$:}
+
+			            Calculate the distances:
+
+			            \begin{alignat*}{2}
+				            Distance_{(4,4)\leftrightarrow(1.33,1.33)} & = \sqrt{(4-1.33)^2+(4-1.33)^2} \approx 3.77 \\
+				            Distance_{(4,4)\leftrightarrow(2.0,3.67)}  & = \sqrt{(4-2.0)^2+(4-3.67)^2} \approx 2.03  \\
+				            Distance_{(4,4)\leftrightarrow(3.75,2.5)}  & = \sqrt{(4-3.75)^2+(4-2.5)^2} \approx 1.52  \\
+			            \end{alignat*}
+
+			            The point $(4,4)$ is closest to the centroid $(3.75,2.5)$.
+		      \end{itemize}
+
+
+
+		      \dotfill
+
+		      Overall, the partitioning still is:
+
+		      \CoordinateSystem{(1,1), (1,2), (2,1)}{(1,4), (2,3), (3,4)}{(3,2),(4,1), (4,3), (4,4)}
+
+		      Since the partitioning did not change, the algorithm has converged.
+
+		      \dotfill
+	\end{enumerate}
+\end{solution}
+
+\newpage
+
+\section*{Exercise 2: DBSCAN}
+
+\subsection*{Task 1: Basic Terms}
+
+\subsubsection*{Task 1.1: Core Points}
+
+Given are the following points in a two-dimensional space:
+
+\CoordinateSystem{}{(1,1), (1,4), (2,3), (3,4)}{}
+
+Determine which of the points are a \textbf{core point} if a density based clustering algorithm like \textbf{DBSCAN} is initialized with $\varepsilon = 3$ and $MinPts = 2$.
+
+\begin{solution}
+	To determine the core points, we need to calculate the distance of each point to all other points. If the distance is less than or equal to $\varepsilon = 3$, the point is considered a core point. The number of points within the $\varepsilon$-neighborhood of a point must be greater than or equal to $MinPts = 2$.
+
+	\begin{itemize}
+		\item \textbf{Point $(1,1)$:}
+
+		      \begin{alignat*}{2}
+			      Distance_{(1,1)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(1-1)^2} = 0          \\
+			      Distance_{(1,1)\leftrightarrow(1,4)} & = \sqrt{(1-1)^2+(1-4)^2} = 3          \\
+			      Distance_{(1,1)\leftrightarrow(2,3)} & = \sqrt{(1-2)^2+(1-3)^2} \approx 2.24 \\
+			      Distance_{(1,1)\leftrightarrow(3,4)} & = \sqrt{(1-3)^2+(1-4)^2} \approx 3.61 \\
+		      \end{alignat*}
+
+		      There is 1 points within the $\varepsilon$-neighborhood of point $(1,1)$, thus it is not a core point.
+
+		      \dotfill
+
+		      This can also be visualized in the coordinate system:
+
+		      \CoordinateSystemWithCircle{(1,1)}{(1,4),(2,3),(3,4)}{(1,1)}{2}
+
+		      \dotfill
+
+		\item \textbf{Point $(1,4)$:}
+
+		      \begin{alignat*}{2}
+			      Distance_{(1,4)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(4-1)^2} = 3          \\
+			      Distance_{(1,4)\leftrightarrow(1,4)} & = \sqrt{(1-1)^2+(4-4)^2} = 0          \\
+			      Distance_{(1,4)\leftrightarrow(2,3)} & = \sqrt{(1-2)^2+(4-3)^2} \approx 1.41 \\
+			      Distance_{(1,4)\leftrightarrow(3,4)} & = \sqrt{(1-3)^2+(4-4)^2} = 2          \\
+		      \end{alignat*}
+
+		      There are 3 points within the $\varepsilon$-neighborhood of point $(1,4)$, thus it is a core point.
+
+		      \dotfill
+
+		      This can also be visualized in the coordinate system:
+
+		      \CoordinateSystemWithCircle{(1,4),(2,3),(3,4)}{(1,1)}{(1,4)}{2}
+
+		      Please note that points on the border of the circle are considered to be within the $\varepsilon$-neighborhood.
+
+		      \dotfill
+
+		\item \textbf{Point $(2,3)$:}
+
+		      \begin{alignat*}{2}
+			      Distance_{(2,3)\leftrightarrow(1,1)} & = \sqrt{(2-1)^2+(3-1)^2} \approx 2.24 \\
+			      Distance_{(2,3)\leftrightarrow(1,4)} & = \sqrt{(2-1)^2+(3-4)^2} \approx 1.41 \\
+			      Distance_{(2,3)\leftrightarrow(2,3)} & = \sqrt{(2-2)^2+(3-3)^2} = 0          \\
+			      Distance_{(2,3)\leftrightarrow(3,4)} & = \sqrt{(2-3)^2+(3-4)^2} \approx 1.41 \\
+		      \end{alignat*}
+
+		      There are 3 points within the $\varepsilon$-neighborhood of point $(2,3)$, thus it is a core point.
+
+		      \dotfill
+
+		      This can also be visualized in the coordinate system:
+
+		      \CoordinateSystemWithCircle{(1,4),(2,3),(3,4)}{(1,1)}{(2,3)}{2}
+
+		      \dotfill
+
+		\item \textbf{Point $(3,4)$:}
+
+		      \begin{alignat*}{2}
+			      Distance_{(3,4)\leftrightarrow(1,1)} & = \sqrt{(3-1)^2+(4-1)^2} \approx 3.61 \\
+			      Distance_{(3,4)\leftrightarrow(1,4)} & = \sqrt{(3-1)^2+(4-4)^2} = 2          \\
+			      Distance_{(3,4)\leftrightarrow(2,3)} & = \sqrt{(3-2)^2+(4-3)^2} \approx 1.41 \\
+			      Distance_{(3,4)\leftrightarrow(3,4)} & = \sqrt{(3-3)^2+(4-4)^2} = 0          \\
+		      \end{alignat*}
+
+		      There are 3 points within the $\varepsilon$-neighborhood of point $(3,4)$, thus it is a core point.
+
+		      \dotfill
+
+		      This can also be visualized in the coordinate system:
+
+		      \CoordinateSystemWithCircle{(1,4),(2,3),(3,4)}{(1,1)}{(3,4)}{2}
+
+		      \dotfill
+	\end{itemize}
+\end{solution}
+
+\subsubsection*{Task 1.2: Directly Density Reachable}
+
+Given are the following points in a two-dimensional space:
+
+\CoordinateSystem{}{(2,1), (1,1), (2,3), (1,4)}{}
+
+Determine which of the points are \textbf{directly density reachable} from the core point $(1,4)$ if a density based clustering algorithm like \textbf{DBSCAN} is initialized with $\varepsilon = 3$ and $MinPts = 2$.
+
+\newpage
+
+\section*{Exercise 3: Clustering in Python}
+
+This exercise comprises practical data science tasks and thus utilizes a Jupyter Notebook:
+
+\begin{enumerate}
+	\item Open \texttt{Clustering-in-Python.ipynb}.
+	\item Take a look at the tasks (blue boxes) in the notebook and try to solve them.
+\end{enumerate}
+
+If you are unfamiliar with how to open a Jupyter Notebook, please refer to Exercise 1 of \texttt{1-Introduction-Python-Pandas.pdf}.
+
+\begin{solution}
+	The solution to the exercise can be found in \texttt{Additional-Files-Solution.zip}.
+\end{solution}
+
+
+\end{document}
