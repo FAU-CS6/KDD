@@ -127,7 +127,9 @@ smallborders
 % Second parameter: Points out of circle (white)
 % Third parameter: Center of the circle
 % Fourth parameter: Radius of the circle
-\newcommand{\CoordinateSystemWithCircle}[4]{
+% Fifth parameter: Connection chain (Each coordinate in the chain)
+% Sixth parameter: Second connection chain (Each coordinate in the chain) - e.g. for an other direction
+\newcommand{\CoordinateSystemWithCirclesAndConnections}[6]{
     \begin{center}
 		\vspace*{0.1cm}
         \newcommand*{\xMin}{0}%
@@ -145,8 +147,10 @@ smallborders
                 (\xMin,\i) {\tiny$\i$};
             }
 
-			% Draw circle
-			\draw[thick] #3 circle (#4);
+			% Draw circle(s)
+			\foreach \circle in {#3} {
+				\draw[thick,dashed] \circle circle (#4);
+			}
 
             % Draw points (gray)
             \foreach \point in {#1} {
@@ -157,6 +161,17 @@ smallborders
             \foreach \point in {#2} {
                 \node[circle,draw,fill=white,scale=0.5] at \point {};
             }
+
+			% Draw connection chain
+			% TODO
+			%\foreach \coordinate [remember=\coordinate as \lastCoordinate (initially 0)] in {#5} {
+			%	\ifnum\lastCoordinate=0
+			%		\node[circle,draw,fill=white,scale=0.5] at (-1,-1) {};
+			%	\else
+			%		\draw[thick,->] \lastCoordinate -- \coordinate;
+			%	\fi
+			%}
+
 
 			% Draw legend
 			% Check if either points are given
@@ -181,6 +196,15 @@ smallborders
         \end{tikzpicture}
     \end{center}
 }
+
+% First parameter: Points in circle (gray)
+% Second parameter: Points out of circle (white)
+% Third parameter: Center of the circle
+% Fourth parameter: Radius of the circle
+\newcommand{\CoordinateSystemWithCircle}[4]{
+    \CoordinateSystemWithCirclesAndConnections{#1}{#2}{#3}{#4}{}
+}
+
 
 
 \begin{document}
@@ -232,8 +256,6 @@ Before participating in the exercise, you must prepare the following:
 Given is a set of points in a two-dimensional space:
 
 \CoordinateSystem{}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{}
-
-\subsection*{Task 1: Application}
 
 Use \textbf{K-means} to cluster the given points into three clusters. Use the \textbf{Euclidean distance} as the metric defining the similarity between points.
 
@@ -769,55 +791,68 @@ Write down \textbf{all} intermediate steps.
 
 \subsection*{Task 1: Basic Terms}
 
+Given is a set of points in a two-dimensional space:
+
+\CoordinateSystem{}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{}
+
+
 \subsubsection*{Task 1.1: Core Points}
 
-Given are the following points in a two-dimensional space:
-
-\CoordinateSystem{}{(1,1), (1,4), (2,3), (3,4)}{}
-
-Determine which of the points are a \textbf{core point} if a density based clustering algorithm like \textbf{DBSCAN} is initialized with $\varepsilon = 3$ and $MinPts = 2$.
+Determine whether  $(1,1)$, $(2,1)$, $(2,3)$, and $(1,4)$ are \textbf{core points} if a density based clustering algorithm like \textbf{DBSCAN} is initialized with $\varepsilon = 1$ and $MinPts = 2$ and applied on the given point set. The distance is calculated using the Euclidean distance.
 
 \begin{solution}
-	To determine the core points, we need to calculate the distance of each point to all other points. If the distance is less than or equal to $\varepsilon = 3$, the point is considered a core point. The number of points within the $\varepsilon$-neighborhood of a point must be greater than or equal to $MinPts = 2$.
+	To determine the core points, we need to calculate the distance of each point to all other points. If the distance is less than or equal to $\varepsilon = 1$, the point is considered a core point. The number of points within the $\varepsilon$-neighborhood of a point must be greater than or equal to $MinPts = 2$.
 
 	\begin{itemize}
 		\item \textbf{Point $(1,1)$:}
 
 		      \begin{alignat*}{2}
 			      Distance_{(1,1)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(1-1)^2} = 0          \\
+			      Distance_{(1,1)\leftrightarrow(1,2)} & = \sqrt{(1-1)^2+(1-2)^2} = 1          \\
 			      Distance_{(1,1)\leftrightarrow(1,4)} & = \sqrt{(1-1)^2+(1-4)^2} = 3          \\
+			      Distance_{(1,1)\leftrightarrow(2,1)} & = \sqrt{(1-2)^2+(1-1)^2} = 1          \\
 			      Distance_{(1,1)\leftrightarrow(2,3)} & = \sqrt{(1-2)^2+(1-3)^2} \approx 2.24 \\
+			      Distance_{(1,1)\leftrightarrow(3,2)} & = \sqrt{(1-3)^2+(1-2)^2} \approx 2.24 \\
 			      Distance_{(1,1)\leftrightarrow(3,4)} & = \sqrt{(1-3)^2+(1-4)^2} \approx 3.61 \\
+			      Distance_{(1,1)\leftrightarrow(4,1)} & = \sqrt{(1-4)^2+(1-1)^2} = 3          \\
+			      Distance_{(1,1)\leftrightarrow(4,3)} & = \sqrt{(1-4)^2+(1-3)^2} \approx 3.61 \\
+			      Distance_{(1,1)\leftrightarrow(4,4)} & = \sqrt{(1-4)^2+(1-4)^2} \approx 4.24 \\
 		      \end{alignat*}
 
-		      There is 1 points within the $\varepsilon$-neighborhood of point $(1,1)$, thus it is not a core point.
+		      There are 3 points within the $\varepsilon$-neighborhood of point $(1,1)$, thus it is a core point.
 
 		      \dotfill
 
 		      This can also be visualized in the coordinate system:
 
-		      \CoordinateSystemWithCircle{(1,1)}{(1,4),(2,3),(3,4)}{(1,1)}{2}
+		      \CoordinateSystemWithCircle{(1,1), (1,2), (2,1)}{(1,4), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1)}{1}
+
+		      Please note, that the point itself is also part of the $\varepsilon$-neighborhood and thus is included in the count.
 
 		      \dotfill
 
-		\item \textbf{Point $(1,4)$:}
+		\item \textbf{Point $(2,1)$:}
 
 		      \begin{alignat*}{2}
-			      Distance_{(1,4)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(4-1)^2} = 3          \\
-			      Distance_{(1,4)\leftrightarrow(1,4)} & = \sqrt{(1-1)^2+(4-4)^2} = 0          \\
-			      Distance_{(1,4)\leftrightarrow(2,3)} & = \sqrt{(1-2)^2+(4-3)^2} \approx 1.41 \\
-			      Distance_{(1,4)\leftrightarrow(3,4)} & = \sqrt{(1-3)^2+(4-4)^2} = 2          \\
+			      Distance_{(2,1)\leftrightarrow(1,1)} & = \sqrt{(2-1)^2+(1-1)^2} = 1          \\
+			      Distance_{(2,1)\leftrightarrow(1,2)} & = \sqrt{(2-1)^2+(1-2)^2} \approx 1.41 \\
+			      Distance_{(2,1)\leftrightarrow(1,4)} & = \sqrt{(2-1)^2+(1-4)^2} \approx 3.16 \\
+			      Distance_{(2,1)\leftrightarrow(2,1)} & = \sqrt{(2-2)^2+(1-1)^2} = 0          \\
+			      Distance_{(2,1)\leftrightarrow(2,3)} & = \sqrt{(2-2)^2+(1-3)^2} = 2          \\
+			      Distance_{(2,1)\leftrightarrow(3,2)} & = \sqrt{(2-3)^2+(1-2)^2} \approx 1.41 \\
+			      Distance_{(2,1)\leftrightarrow(3,4)} & = \sqrt{(2-3)^2+(1-4)^2} \approx 3.16 \\
+			      Distance_{(2,1)\leftrightarrow(4,1)} & = \sqrt{(2-4)^2+(1-1)^2} = 2          \\
+			      Distance_{(2,1)\leftrightarrow(4,3)} & = \sqrt{(2-4)^2+(1-3)^2} \approx 2.83 \\
+			      Distance_{(2,1)\leftrightarrow(4,4)} & = \sqrt{(2-4)^2+(1-4)^2} \approx 3.61 \\
 		      \end{alignat*}
 
-		      There are 3 points within the $\varepsilon$-neighborhood of point $(1,4)$, thus it is a core point.
+		      There are 2 points within the $\varepsilon$-neighborhood of point $(2,1)$, thus it is a core point.
 
 		      \dotfill
 
 		      This can also be visualized in the coordinate system:
 
-		      \CoordinateSystemWithCircle{(1,4),(2,3),(3,4)}{(1,1)}{(1,4)}{2}
-
-		      Please note that points on the border of the circle are considered to be within the $\varepsilon$-neighborhood.
+		      \CoordinateSystemWithCircle{(1,1), (2,1)}{(1,2), (1,4), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(2,1)}{1}
 
 		      \dotfill
 
@@ -825,49 +860,108 @@ Determine which of the points are a \textbf{core point} if a density based clust
 
 		      \begin{alignat*}{2}
 			      Distance_{(2,3)\leftrightarrow(1,1)} & = \sqrt{(2-1)^2+(3-1)^2} \approx 2.24 \\
+			      Distance_{(2,3)\leftrightarrow(1,2)} & = \sqrt{(2-1)^2+(3-2)^2} \approx 1.41 \\
 			      Distance_{(2,3)\leftrightarrow(1,4)} & = \sqrt{(2-1)^2+(3-4)^2} \approx 1.41 \\
+			      Distance_{(2,3)\leftrightarrow(2,1)} & = \sqrt{(2-2)^2+(3-1)^2} = 2          \\
 			      Distance_{(2,3)\leftrightarrow(2,3)} & = \sqrt{(2-2)^2+(3-3)^2} = 0          \\
+			      Distance_{(2,3)\leftrightarrow(3,2)} & = \sqrt{(2-3)^2+(3-2)^2} \approx 1.41 \\
 			      Distance_{(2,3)\leftrightarrow(3,4)} & = \sqrt{(2-3)^2+(3-4)^2} \approx 1.41 \\
+			      Distance_{(2,3)\leftrightarrow(4,1)} & = \sqrt{(2-4)^2+(3-1)^2} \approx 2.83 \\
+			      Distance_{(2,3)\leftrightarrow(4,3)} & = \sqrt{(2-4)^2+(3-3)^2} = 2          \\
+			      Distance_{(2,3)\leftrightarrow(4,4)} & = \sqrt{(2-4)^2+(3-4)^2} \approx 2.24 \\
 		      \end{alignat*}
 
-		      There are 3 points within the $\varepsilon$-neighborhood of point $(2,3)$, thus it is a core point.
+		      There is only 1 point within the $\varepsilon$-neighborhood of point $(2,3)$, thus it is not a core point.
 
 		      \dotfill
 
 		      This can also be visualized in the coordinate system:
 
-		      \CoordinateSystemWithCircle{(1,4),(2,3),(3,4)}{(1,1)}{(2,3)}{2}
+		      \CoordinateSystemWithCircle{(2,3)}{(1,1), (1,2), (1,4), (2,1), (3,2), (3,4), (4,1), (4,3), (4,4)}{(2,3)}{1}
 
 		      \dotfill
 
-		\item \textbf{Point $(3,4)$:}
+		\item \textbf{Point $(1,4)$:}
 
 		      \begin{alignat*}{2}
-			      Distance_{(3,4)\leftrightarrow(1,1)} & = \sqrt{(3-1)^2+(4-1)^2} \approx 3.61 \\
-			      Distance_{(3,4)\leftrightarrow(1,4)} & = \sqrt{(3-1)^2+(4-4)^2} = 2          \\
-			      Distance_{(3,4)\leftrightarrow(2,3)} & = \sqrt{(3-2)^2+(4-3)^2} \approx 1.41 \\
-			      Distance_{(3,4)\leftrightarrow(3,4)} & = \sqrt{(3-3)^2+(4-4)^2} = 0          \\
+			      Distance_{(1,4)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(4-1)^2} = 3          \\
+			      Distance_{(1,4)\leftrightarrow(1,2)} & = \sqrt{(1-1)^2+(4-2)^2} = 2          \\
+			      Distance_{(1,4)\leftrightarrow(1,4)} & = \sqrt{(1-1)^2+(4-4)^2} = 0          \\
+			      Distance_{(1,4)\leftrightarrow(2,1)} & = \sqrt{(1-2)^2+(4-1)^2} \approx 3.16 \\
+			      Distance_{(1,4)\leftrightarrow(2,3)} & = \sqrt{(1-2)^2+(4-3)^2} \approx 1.41 \\
+			      Distance_{(1,4)\leftrightarrow(3,2)} & = \sqrt{(1-3)^2+(4-2)^2} \approx 2.83 \\
+			      Distance_{(1,4)\leftrightarrow(3,4)} & = \sqrt{(1-3)^2+(4-4)^2} = 2          \\
+			      Distance_{(1,4)\leftrightarrow(4,1)} & = \sqrt{(1-4)^2+(4-1)^2} \approx 4.24 \\
+			      Distance_{(1,4)\leftrightarrow(4,3)} & = \sqrt{(1-4)^2+(4-3)^2} \approx 3.16 \\
+			      Distance_{(1,4)\leftrightarrow(4,4)} & = \sqrt{(1-4)^2+(4-4)^2} = 3          \\
 		      \end{alignat*}
 
-		      There are 3 points within the $\varepsilon$-neighborhood of point $(3,4)$, thus it is a core point.
+		      There is only 1 point within the $\varepsilon$-neighborhood of point $(1,4)$, thus it is not a core point.
 
 		      \dotfill
 
 		      This can also be visualized in the coordinate system:
 
-		      \CoordinateSystemWithCircle{(1,4),(2,3),(3,4)}{(1,1)}{(3,4)}{2}
+		      \CoordinateSystemWithCircle{(1,4)}{(1,1), (1,2), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,4)}{1}
 
 		      \dotfill
+
 	\end{itemize}
 \end{solution}
 
 \subsubsection*{Task 1.2: Directly Density Reachable}
 
-Given are the following points in a two-dimensional space:
+Determine which of the points in the point set are \textbf{directly density reachable} from the core point $(1,2)$ if a density based clustering algorithm like \textbf{DBSCAN} is initialized with $\varepsilon = 1$ and $MinPts = 2$. The distance is calculated using the Euclidean distance.
 
-\CoordinateSystem{}{(2,1), (1,1), (2,3), (1,4)}{}
+\begin{solution}
+	To determine which points are directly density reachable from a core point, we need to calculate the distance of each point to the core point. If the distance is less than or equal to $\varepsilon = 1$, the point is directly density reachable.
 
-Determine which of the points are \textbf{directly density reachable} from the core point $(1,4)$ if a density based clustering algorithm like \textbf{DBSCAN} is initialized with $\varepsilon = 3$ and $MinPts = 2$.
+	\begin{alignat*}{2}
+		Distance_{(1,2)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(2-1)^2} = 1          \\
+		Distance_{(1,2)\leftrightarrow(1,4)} & = \sqrt{(1-1)^2+(2-4)^2} = 2          \\
+		Distance_{(1,2)\leftrightarrow(2,1)} & = \sqrt{(1-2)^2+(2-1)^2} \approx 1.41 \\
+		Distance_{(1,2)\leftrightarrow(2,3)} & = \sqrt{(1-2)^2+(2-3)^2} \approx 1.41 \\
+		Distance_{(1,2)\leftrightarrow(3,2)} & = \sqrt{(1-3)^2+(2-2)^2} = 2          \\
+		Distance_{(1,2)\leftrightarrow(3,4)} & = \sqrt{(1-3)^2+(2-4)^2} \approx 2.83 \\
+		Distance_{(1,2)\leftrightarrow(4,1)} & = \sqrt{(1-4)^2+(2-1)^2} \approx 3.16 \\
+		Distance_{(1,2)\leftrightarrow(4,3)} & = \sqrt{(1-4)^2+(2-3)^2} \approx 3.16 \\
+		Distance_{(1,2)\leftrightarrow(4,4)} & = \sqrt{(1-4)^2+(2-4)^2} \approx 3.60 \\
+	\end{alignat*}
+
+	Only the point $(1,1)$ is directly density reachable from the core point $(1,2)$.
+
+	\dotfill
+
+	This can also be visualized in the coordinate system:
+
+	\CoordinateSystemWithCircle{(1,1), (1,2)}{(1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,2)}{1}
+
+	\dotfill
+\end{solution}
+
+\subsubsection*{Task 1.3: Density Reachable}
+
+Determine whether $(1,1)$, $(2,1)$, $(2,3)$, and $(1,4)$ are \textbf{density reachable} from the core point $(1,2)$ if a density based clustering algorithm like \textbf{DBSCAN} is initialized with $\varepsilon = 1$ and $MinPts = 2$. The distance is calculated using the Euclidean distance.
+
+\begin{solution}
+	A point is density reachable from a core point if there is a chain of direct density reachable points leading from the core point to the point. The distance between each pair of points in the chain must be less than or equal to $\varepsilon = 1$ and each point in the chain (with the final point being an exception) must be a core point.
+
+	\textit{In theory we would have to check all possible chains of direct density reachable points. However, as a human it is possible to estimate which point chains might be possible just by looking at the points. In this sample solution, we will only check, whether a chain we think is possible is actually possible.}
+
+	\begin{itemize}
+		\item \textbf{Point $(1,1)$:}
+
+		      The point $(1,1)$ is directly density reachable from the core point $(1,2)$ (as shown in Task 1.2) Thus, it is also density reachable.
+
+		      \dotfill
+
+		      This can also be visualized in the coordinate system:
+
+		      \CoordinateSystemWithCirclesAndConnections{(1,1), (1,2)}{(1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,2)}{1}{(1,1), (1,2), (3,2)}
+
+		      \dotfill
+	\end{itemize}
+\end{solution}
 
 \newpage
 
