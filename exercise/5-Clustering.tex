@@ -1,5 +1,3 @@
-\def\solutionsflag{}
-
 \documentclass[
 english,
 smallborders
@@ -900,14 +898,14 @@ Write down \textbf{all} intermediate steps.
 	\end{enumerate}
 \end{solution}
 
-
+\newpage
 \section*{Exercise 2: DBSCAN}
+
+\subsection*{Task 1: Basic Terms}
 
 Given is a set of points in a two-dimensional space:
 
 \CoordinateSystem{}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{}
-
-\subsection*{Task 1: Basic Terms}
 
 \subsubsection*{Task 1.1: Core Points}
 
@@ -1150,7 +1148,7 @@ Determine whether $(1,1)$, $(2,1)$, $(2,3)$, and $(4,4)$ are \textbf{density rea
 	\end{itemize}
 \end{solution}
 
-\paragraph*{Task 1.3.1: Reversal of Density Reachability} \hfill
+\paragraph*{Task 1.3.2: Reversal of Density Reachability} \hfill
 
 Determine whether $(3,4)$ is density reachable from $(4,4)$ and whether $(4,4)$ is density reachable from $(3,4)$ if a density based clustering algorithm like \textbf{DBSCAN} is initialized with $\varepsilon = 1$ and $MinPts = 3$. The distance is calculated using the Euclidean distance.
 
@@ -1297,176 +1295,476 @@ Determine whether $(1,1)$, $(3,2)$, $(4,3)$, and $(4,4)$ are \textbf{density con
 
 \subsection*{Task 2: Application of DBSCAN}
 
-Apply the \textbf{DBSCAN} algorithm on the given point set with $\varepsilon = 1$ and $MinPts = 2$.
+Given is a set of points in a two-dimensional space:
+
+\CoordinateSystem{}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{}
+
+Apply the \textbf{DBSCAN} algorithm known from the lecture on the given point set while using $\varepsilon = 1$ and $MinPts = 2$.
 
 Write down \textbf{all} intermediate steps.
 
 \begin{solution}
 
-	The DBSCAN algorithm can either be structured recursively or iteratively.
+The DBSCAN algorithm can either be structured recursively or iteratively.
 
-	In this sample solution, we will structure it iteratively, as it is less nested and therefore easier to write down.
+In this sample solution, we will structure it iteratively, as it is less nested and therefore easier to write down.
 
 
-	\begin{enumerate}
-		\item \textbf{Select a Random Point:}
+\begin{enumerate}
+\item \textbf{Select $(1,2)$ as Random Point:}
 
-		      In this sample solution, we will start with point $(1,2)$.
+Every point can be selected as the starting point. In this sample solution, we randomly decided to use $(1,2)$ as the starting point:
 
-		      \begin{enumerate}
-			      \item \textbf{For $(1,2)$:}
+\begin{enumerate}
+	\item \textbf{Mark $(1,2)$ as Visited:}
 
-			            \begin{enumerate}
-				            \item \textbf{Mark $(1,2)$ as Visited:}
+	      Points should only be visited once. This is important to avoid infinite loops:
 
-				                  Points should only be visited once. This is important to avoid infinite loops:
+	      \CoordinateSystemForDBSCAN{(1,1), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,2)}{(1,2)}{}{}{}
 
-				                  \CoordinateSystemForDBSCAN{(1,1), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,2)}{(1,2)}{}{}{}
+	\item \textbf{Check if $(1,2)$ is a Core Point:}
 
-				            \item \textbf{Check if $(1,2)$ is a Core Point:}
+	      If there are at least $2$ points in the $\varepsilon$-neighborhood of $(1,2)$, $(1,2)$ is a core point:
 
-				                  If there are at least $2$ points in the $\varepsilon$-neighborhood of $(1,2)$, $(1,2)$ is a core point:
+	      \begin{alignat*}{2}
+		      Distance_{(1,2)\leftrightarrow(1,2)} & = \sqrt{(1-1)^2+(2-2)^2} = 0 \\
+		      Distance_{(1,2)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(2-1)^2} = 1 \\
+	      \end{alignat*}
 
-				                  \begin{alignat*}{2}
-					                  Distance_{(1,2)\leftrightarrow(1,2)} & = \sqrt{(1-1)^2+(2-2)^2} = 0 \\
-					                  Distance_{(1,2)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(2-1)^2} = 1 \\
-				                  \end{alignat*}
+	      Therefore, $(1,2)$ is a core point.
 
-				                  Therefore, $(1,2)$ is a core point.
+	      \dotfill
 
-				                  \dotfill
+	      Shown in the coordinate system:
 
-				                  Shown in the coordinate system:
+	      \CoordinateSystemWithCircle{(1,1), (1,2)}{(1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,2)}{1}
 
-				                  \CoordinateSystemWithCircle{(1,1), (1,2)}{(1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,2)}{1}
+	      \dotfill
 
-				                  \dotfill
+	\item \textbf{Create a New Cluster and Add $(1,2)$:}
 
-				            \item \textbf{Create a New Cluster and Add $(1,2)$:}
+	      In this sample solution, we simply name this cluster "$0$":
 
-				                  In this sample solution, we simply name this cluster "$0$":
+	      \CoordinateSystemForDBSCAN{(1,1), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,2)}{}{(1,2)}{}{}
 
-				                  \CoordinateSystemForDBSCAN{(1,1), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,2)}{}{(1,2)}{}{}
+	\item \textbf{Add Points in the $\varepsilon$-Neighborhood of $(1,2)$ to the Candidate Set $N$:}
 
-				            \item \textbf{Add Points in the $\varepsilon$-Neighborhood of $(1,2)$ to the Candidate Set $N$:}
+	      Only $(1,1)$ is an unvisited point in the $\varepsilon$-neighborhood of $(1,2)$:
 
-				                  Only $(1,1)$ is an unvisited point in the $\varepsilon$-neighborhood of $(1,2)$:
+	      \begin{alignat*}{2}
+		      Distance_{(1,2)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(2-1)^2} = 1 \\
+	      \end{alignat*}
 
-				                  \begin{alignat*}{2}
-					                  Distance_{(1,2)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(2-1)^2} = 1 \\
-				                  \end{alignat*}
+	      So only $(1,1)$ is added to the candidate set $N$:
 
-				                  So only $(1,1)$ is added to the candidate set $N$:
+	      \begin{alignat*}{2}
+		      N & = \{(1,1)\} \\
+	      \end{alignat*}
 
-				                  \begin{alignat*}{2}
-					                  N & = \{(1,1)\} \\
-				                  \end{alignat*}
-			            \end{enumerate}
-		      \end{enumerate}
 
-		\item \textbf{Iterate through the Candidate Set $N$ (for Cluster $0$):}
 
-		      The candidate set $N$ is iterated through until it is empty. All points visited in this iteration will be added to cluster $0$, since this iteration was started with point $(1,2)$:
+	\item \textbf{Iterate through the Candidate Set $N$ (for Cluster $0$):}
 
-		      \begin{enumerate}
-			      \item \textbf{For $(1,1)$:}
+	      The candidate set $N$ is iterated through until it is empty. All points visited in this iteration will be added to cluster $0$, since this iteration was started with point $(1,2)$:
 
-			            \begin{enumerate}
-				            \item \textbf{Remove $(1,1)$ from the Candidate Set $N$:}
+	      \begin{enumerate}
+		      \item \textbf{For $(1,1)$:}
 
-				                  \begin{alignat*}{2}
-					                  N & = \{\} \\
-				                  \end{alignat*}
+		            \begin{enumerate}
+			            \item \textbf{Remove $(1,1)$ from the Candidate Set $N$:}
 
-				            \item \textbf{Mark $(1,1)$ as Visited:}
+			                  \begin{alignat*}{2}
+				                  N & = \{\} \\
+			                  \end{alignat*}
 
-				                  \CoordinateSystemForDBSCAN{(1,1), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1), (1,2)}{(1,1)}{(1,2)}{}{}
+			            \item \textbf{Mark $(1,1)$ as Visited:}
 
-				            \item \textbf{Add $(1,1)$ to Cluster $0$:}
+			                  \CoordinateSystemForDBSCAN{(1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1), (1,2)}{(1,1)}{(1,2)}{}{}
 
-				                  \CoordinateSystemForDBSCAN{(1,1), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1), (1,2)}{}{(1,2), (1,1)}{}{}
+			            \item \textbf{Add $(1,1)$ to Cluster $0$:}
 
-				            \item \textbf{Check if $(1,1)$ is a Core Point:}
+			                  \CoordinateSystemForDBSCAN{(1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1), (1,2)}{}{(1,2), (1,1)}{}{}
 
-				                  If there are at least $2$ points in the $\varepsilon$-neighborhood of $(1,1)$, $(1,1)$ is a core point:
+			            \item \textbf{Check if $(1,1)$ is a Core Point:}
 
-				                  \begin{alignat*}{2}
-					                  Distance_{(1,1)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(1-1)^2} = 0 \\
-					                  Distance_{(1,1)\leftrightarrow(1,2)} & = \sqrt{(1-1)^2+(1-2)^2} = 1 \\
-					                  Distance_{(1,1)\leftrightarrow(2,1)} & = \sqrt{(1-2)^2+(1-1)^2} = 1 \\
-				                  \end{alignat*}
+			                  If there are at least $2$ points in the $\varepsilon$-neighborhood of $(1,1)$, $(1,1)$ is a core point:
 
-				                  Therefore, $(1,1)$ is a core point.
+			                  \begin{alignat*}{2}
+				                  Distance_{(1,1)\leftrightarrow(1,1)} & = \sqrt{(1-1)^2+(1-1)^2} = 0 \\
+				                  Distance_{(1,1)\leftrightarrow(1,2)} & = \sqrt{(1-1)^2+(1-2)^2} = 1 \\
+				                  Distance_{(1,1)\leftrightarrow(2,1)} & = \sqrt{(1-2)^2+(1-1)^2} = 1 \\
+			                  \end{alignat*}
 
-				                  \dotfill
+			                  Therefore, $(1,1)$ is a core point.
 
-				                  Shown in the coordinate system:
+			                  \dotfill
 
-				                  \CoordinateSystemWithCircle{(1,1), (1,2), (2,1)}{(1,4), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1)}{1}
+			                  Shown in the coordinate system:
 
-				                  \dotfill
+			                  \CoordinateSystemWithCircle{(1,1), (1,2), (2,1)}{(1,4), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1)}{1}
 
-				            \item \textbf{Add Points in the $\varepsilon$-Neighborhood of $(1,1)$ to the Candidate Set $N$:}
+			                  \dotfill
 
-				                  Only $(2,1)$ is an unvisited point in the $\varepsilon$-neighborhood of $(1,1)$:
+			            \item \textbf{Add Points in the $\varepsilon$-Neighborhood of $(1,1)$ to the Candidate Set $N$:}
 
-				                  \begin{alignat*}{2}
-					                  Distance_{(1,1)\leftrightarrow(2,1)} & = \sqrt{(1-2)^2+(1-1)^2} = 1 \\
-				                  \end{alignat*}
+			                  Only $(2,1)$ is an unvisited point in the $\varepsilon$-neighborhood of $(1,1)$:
 
-				                  So only $(2,1)$ is added to the candidate set $N$:
+			                  \begin{alignat*}{2}
+				                  Distance_{(1,1)\leftrightarrow(2,1)} & = \sqrt{(1-2)^2+(1-1)^2} = 1 \\
+			                  \end{alignat*}
 
-				                  \begin{alignat*}{2}
-					                  N & = \{(2,1)\} \\
-				                  \end{alignat*}
-			            \end{enumerate}
+			                  So only $(2,1)$ is added to the candidate set $N$:
 
-			      \item \textbf{For $(2,1)$:}
+			                  \begin{alignat*}{2}
+				                  N & = \{(2,1)\} \\
+			                  \end{alignat*}
+		            \end{enumerate}
 
-			            \begin{enumerate}
-				            \item \textbf{Remove $(2,1)$ from the Candidate Set $N$:}
+		      \item \textbf{For $(2,1)$:}
 
-				                  \begin{alignat*}{2}
-					                  N & = \{\} \\
-				                  \end{alignat*}
+		            \begin{enumerate}
+			            \item \textbf{Remove $(2,1)$ from the Candidate Set $N$:}
 
-				            \item \textbf{Mark $(2,1)$ as Visited:}
+			                  \begin{alignat*}{2}
+				                  N & = \{\} \\
+			                  \end{alignat*}
 
-				                  \CoordinateSystemForDBSCAN{(1,1), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1), (1,2), (2,1)}{(2,1)}{(1,1), (1,2)}{}{}
+			            \item \textbf{Mark $(2,1)$ as Visited:}
 
-				            \item \textbf{Add $(2,1)$ to Cluster $0$:}
+			                  \CoordinateSystemForDBSCAN{(1,4), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1), (1,2), (2,1)}{(2,1)}{(1,1), (1,2)}{}{}
 
-				                  \CoordinateSystemForDBSCAN{(1,1), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1), (1,2), (2,1)}{}{(1,1), (1,2), (2,1)}{}{}
+			            \item \textbf{Add $(2,1)$ to Cluster $0$:}
 
-				            \item \textbf{Check if $(2,1)$ is a Core Point:}
+			                  \CoordinateSystemForDBSCAN{(1,4), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1), (1,2), (2,1)}{}{(1,1), (1,2), (2,1)}{}{}
 
-				                  If there are at least $2$ points in the $\varepsilon$-neighborhood of $(2,1)$, $(2,1)$ is a core point:
+			            \item \textbf{Check if $(2,1)$ is a Core Point:}
 
-				                  \begin{alignat*}{2}
-					                  Distance_{(2,1)\leftrightarrow(1,1)} & = \sqrt{(2-1)^2+(1-1)^2} = 1 \\
-					                  Distance_{(2,1)\leftrightarrow(2,1)} & = \sqrt{(2-2)^2+(1-1)^2} = 0 \\
-				                  \end{alignat*}
+			                  If there are at least $2$ points in the $\varepsilon$-neighborhood of $(2,1)$, $(2,1)$ is a core point:
 
-				                  Therefore, $(2,1)$ is a core point.
+			                  \begin{alignat*}{2}
+				                  Distance_{(2,1)\leftrightarrow(1,1)} & = \sqrt{(2-1)^2+(1-1)^2} = 1 \\
+				                  Distance_{(2,1)\leftrightarrow(2,1)} & = \sqrt{(2-2)^2+(1-1)^2} = 0 \\
+			                  \end{alignat*}
 
-				                  \dotfill
+			                  Therefore, $(2,1)$ is a core point.
 
-				                  Shown in the coordinate system:
+			                  \dotfill
 
-				                  \CoordinateSystemWithCircle{(1,1), (2,1)}{(1,2), (1,4), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(2,1)}{1}
+			                  Shown in the coordinate system:
 
-				                  \dotfill
+			                  \CoordinateSystemWithCircle{(1,1), (2,1)}{(1,2), (1,4), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(2,1)}{1}
 
-				            \item \textbf{Add Points in the $\varepsilon$-Neighborhood of $(2,1)$ to the Candidate Set $N$:}
+			                  \dotfill
 
-				                  There are no unvisited points in the $\varepsilon$-neighborhood of $(2,1)$.
+			            \item \textbf{Add Points in the $\varepsilon$-Neighborhood of $(2,1)$ to the Candidate Set $N$:}
 
-				                  Thus, the candidate set $N$ remains empty.
-			            \end{enumerate}
+			                  There are no unvisited points in the $\varepsilon$-neighborhood of $(2,1)$.
 
-			      \item \textbf{Stop Iteration for Cluster $0$}
-		      \end{enumerate}
-	\end{enumerate}
+			                  Thus, the candidate set $N$ remains empty.
+		            \end{enumerate}
+
+		      \item \textbf{Stop the Iteration:}
+
+		            The candidate set $N$ is empty, thus the iteration is stopped.
+	      \end{enumerate}
+\end{enumerate}
+
+\item \textbf{Select $(1,4)$ as Random Point:}
+
+Every unvisited point can be selected as the next point to visit. In this sample solution, we decided to use $(1,4)$ as the next point:
+
+\begin{enumerate}
+	\item \textbf{Mark $(1,4)$ as Visited:}
+
+	      \CoordinateSystemForDBSCAN{(2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1), (1,2), (1,4), (2,1)}{(1,4)}{(1,1), (1,2), (2,1)}{}{}
+
+	\item \textbf{Check if $(1,4)$ is a Core Point:}
+
+	      If there are at least $2$ points in the $\varepsilon$-neighborhood of $(1,4)$, $(1,4)$ is a core point:
+
+	      \begin{alignat*}{2}
+		      Distance_{(1,4)\leftrightarrow(1,4)} & = \sqrt{(1-1)^2+(4-4)^2} = 0 \\
+	      \end{alignat*}
+
+	      Only $(1,4)$ is in the $\varepsilon$-neighborhood of $(1,4)$, thus $(1,4)$ is not a core point.
+
+	      \dotfill
+
+	      Shown in the coordinate system:
+
+	      \CoordinateSystemWithCircle{(1,4)}{(1,1), (1,2), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,4)}{1}
+
+	      \dotfill
+
+	\item \textbf{Mark $(1,4)$ as Noise:}
+
+	      Since $(1,4)$ is not a core point, it is marked as noise:
+
+	      \CoordinateSystemForDBSCAN{(2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(1,1), (1,2), (1,4), (2,1)}{}{(1,1), (1,2), (2,1)}{}{(1,4)}
+\end{enumerate}
+
+\item \textbf{Select $(4,4)$ as Random Point:}
+
+Every unvisited point can be selected as the next point to visit. In this sample solution, we  decided to use $(4,4)$ as the next point:
+
+\begin{enumerate}
+	\item \textbf{Mark $(4,4)$ as Visited:}
+
+	      \CoordinateSystemForDBSCAN{(2,3), (3,2), (3,4), (4,1), (4,3)}{(1,1), (1,2), (1,4), (2,1), (4,4)}{(4,4)}{(1,1), (1,2), (2,1)}{}{(1,4)}
+
+	\item \textbf{Check if $(4,4)$ is a Core Point:}
+
+	      If there are at least $2$ points in the $\varepsilon$-neighborhood of $(4,4)$, $(4,4)$ is a core point:
+
+	      \begin{alignat*}{2}
+		      Distance_{(4,4)\leftrightarrow(4,4)} & = \sqrt{(4-4)^2+(4-4)^2} = 0 \\
+		      Distance_{(4,4)\leftrightarrow(3,4)} & = \sqrt{(4-3)^2+(4-4)^2} = 1 \\
+		      Distance_{(4,4)\leftrightarrow(4,3)} & = \sqrt{(4-4)^2+(4-3)^2} = 1 \\
+	      \end{alignat*}
+
+	      Therefore, $(4,4)$ is a core point.
+
+	      \dotfill
+
+	      Shown in the coordinate system:
+
+	      \CoordinateSystemWithCircle{(3,4), (4,3), (4,4)}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (4,1)}{(4,4)}{1}
+
+	      \dotfill
+
+
+	\item \textbf{Create a New Cluster and Add $(4,4)$:}
+
+	      In this sample solution, we simply name this cluster "$1$":
+
+	      \CoordinateSystemForDBSCAN{(2,3), (3,2), (3,4), (4,1), (4,3)}{(1,1), (1,2), (1,4), (2,1), (4,4)}{}{(1,1), (1,2), (2,1)}{(4,4)}{(1,4)}
+
+	\item \textbf{Add Points in the $\varepsilon$-Neighborhood of $(4,4)$ to the Candidate Set $N$:}
+
+	      Both $(3,4)$ and $(4,3)$ are unvisited points in the $\varepsilon$-neighborhood of $(4,4)$:
+
+	      \begin{alignat*}{2}
+		      Distance_{(4,4)\leftrightarrow(3,4)} & = \sqrt{(4-3)^2+(4-4)^2} = 1 \\
+		      Distance_{(4,4)\leftrightarrow(4,3)} & = \sqrt{(4-4)^2+(4-3)^2} = 1 \\
+	      \end{alignat*}
+
+	      Thus, both $(3,4)$ and $(4,3)$ are added to the candidate set $N$:
+
+	      \begin{alignat*}{2}
+		      N & = \{(3,4), (4,3)\} \\
+	      \end{alignat*}
+
+	\item \textbf{Iterate through the Candidate Set $N$ (for Cluster $1$):}
+
+	      The candidate set $N$ is iterated through until it is empty. All points visited in this iteration will be added to cluster $1$, since this iteration was started with point $(4,4)$:
+
+	      \begin{enumerate}
+		      \item \textbf{For $(3,4)$:}
+
+		            \begin{enumerate}
+			            \item \textbf{Remove $(3,4)$ from the Candidate Set $N$:}
+
+			                  \begin{alignat*}{2}
+				                  N & = \{(4,3)\} \\
+			                  \end{alignat*}
+
+			            \item \textbf{Mark $(3,4)$ as Visited:}
+
+			                  \CoordinateSystemForDBSCAN{(2,3), (3,2), (4,1), (4,3)}{(1,1), (1,2), (1,4), (2,1), (3,4), (4,4)}{(3,4)}{(1,1), (1,2), (2,1)}{(4,4)}{(1,4)}
+
+			            \item \textbf{Add $(3,4)$ to Cluster $1$:}
+
+			                  \CoordinateSystemForDBSCAN{(2,3), (3,2), (4,1), (4,3)}{(1,1), (1,2), (1,4), (2,1), (3,4), (4,4)}{}{(1,1), (1,2), (2,1)}{(3,4), (4,4)}{(1,4)}
+
+			            \item \textbf{Check if $(3,4)$ is a Core Point:}
+
+			                  If there are at least $2$ points in the $\varepsilon$-neighborhood of $(3,4)$, $(3,4)$ is a core point:
+
+			                  \begin{alignat*}{2}
+				                  Distance_{(3,4)\leftrightarrow(3,4)} & = \sqrt{(3-3)^2+(4-4)^2} = 0 \\
+				                  Distance_{(3,4)\leftrightarrow(4,4)} & = \sqrt{(3-4)^2+(4-4)^2} = 1 \\
+			                  \end{alignat*}
+
+			                  Therefore, $(3,4)$ is a core point.
+
+			                  \dotfill
+
+			                  Shown in the coordinate system:
+
+			                  \CoordinateSystemWithCircle{(3,4), (4,4)}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (4,1), (4,3)}{(3,4)}{1}
+
+			                  \dotfill
+
+			            \item \textbf{Add Points in the $\varepsilon$-Neighborhood of $(3,4)$ to the Candidate Set $N$:}
+
+			                  There are no unvisited points in the $\varepsilon$-neighborhood of $(3,4)$.
+
+			                  Thus, the candidate set $N$ remains the same.
+		            \end{enumerate}
+
+		      \item \textbf{For $(4,3)$:}
+
+		            \begin{enumerate}
+			            \item \textbf{Remove $(4,3)$ from the Candidate Set $N$:}
+
+			                  \begin{alignat*}{2}
+				                  N & = \{\} \\
+			                  \end{alignat*}
+
+			            \item \textbf{Mark $(4,3)$ as Visited:}
+
+			                  \CoordinateSystemForDBSCAN{(2,3), (3,2), (4,1)}{(1,1), (1,2), (1,4), (2,1), (3,4), (4,3), (4,4)}{(4,3)}{(1,1), (1,2), (2,1)}{(3,4), (4,4)}{(1,4)}
+
+			            \item \textbf{Add $(4,3)$ to Cluster $1$:}
+
+			                  \CoordinateSystemForDBSCAN{(2,3), (3,2), (4,1)}{(1,1), (1,2), (1,4), (2,1), (3,4), (4,3), (4,4)}{}{(1,1), (1,2), (2,1)}{(3,4), (4,3), (4,4)}{(1,4)}
+
+			            \item \textbf{Check if $(4,3)$ is a Core Point:}
+
+			                  If there are at least $2$ points in the $\varepsilon$-neighborhood of $(4,3)$, $(4,3)$ is a core point:
+
+			                  \begin{alignat*}{2}
+				                  Distance_{(4,3)\leftrightarrow(4,3)} & = \sqrt{(4-4)^2+(3-3)^2} = 0 \\
+				                  Distance_{(4,3)\leftrightarrow(4,4)} & = \sqrt{(4-4)^2+(3-4)^2} = 1 \\
+			                  \end{alignat*}
+
+			                  Therefore, $(4,3)$ is a core point.
+
+			                  \dotfill
+
+			                  Shown in the coordinate system:
+
+			                  \CoordinateSystemWithCircle{(4,3), (4,4)}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1)}{(4,3)}{1}
+
+			                  \dotfill
+
+			            \item \textbf{Add Points in the $\varepsilon$-Neighborhood of $(4,3)$ to the Candidate Set $N$:}
+
+			                  There are no unvisited points in the $\varepsilon$-neighborhood of $(4,3)$.
+
+			                  Thus, the candidate set $N$ remains empty.
+
+		            \end{enumerate}
+
+		      \item \textbf{Stop the Iteration:}
+
+		            The candidate set $N$ is empty, thus the iteration is stopped.
+	      \end{enumerate}
+
+	\item \textbf{Select $(2,3)$ as Random Point:}
+
+	      Every unvisited point can be selected as the next point to visit. In this sample solution, we decided to use $(2,3)$ as the next point:
+
+	      \begin{enumerate}
+		      \item \textbf{Mark $(2,3)$ as Visited:}
+
+		            \CoordinateSystemForDBSCAN{(3,2), (4,1)}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,4), (4,3), (4,4)}{(2,3)}{(1,1), (1,2), (2,1)}{(3,4), (4,3), (4,4)}{(1,4)}
+
+		      \item \textbf{Check if $(2,3)$ is a Core Point:}
+
+		            If there are at least $2$ points in the $\varepsilon$-neighborhood of $(2,3)$, $(2,3)$ is a core point:
+
+		            \begin{alignat*}{2}
+			            Distance_{(2,3)\leftrightarrow(2,3)} & = \sqrt{(2-2)^2+(3-3)^2} = 0 \\
+		            \end{alignat*}
+
+		            Only $(2,3)$ is in the $\varepsilon$-neighborhood of $(2,3)$, thus $(2,3)$ is not a core point.
+
+		            \dotfill
+
+		            Shown in the coordinate system:
+
+		            \CoordinateSystemWithCircle{(2,3)}{(1,1), (1,2), (1,4), (2,1), (3,2), (3,4), (4,1), (4,3), (4,4)}{(2,3)}{1}
+
+		            \dotfill
+
+		      \item \textbf{Mark $(2,3)$ as Noise:}
+
+		            Since $(2,3)$ is not a core point, it is marked as noise:
+
+		            \CoordinateSystemForDBSCAN{(3,2), (4,1)}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,4), (4,3), (4,4)}{}{(1,1), (1,2), (2,1)}{(3,4), (4,3), (4,4)}{(1,4), (2,3)}
+	      \end{enumerate}
+
+	\item \textbf{Select $(3,2)$ as Random Point:}
+
+	      Every unvisited point can be selected as the next point to visit. In this sample solution, we decided to use $(3,2)$ as the next point:
+
+	      \begin{enumerate}
+		      \item \textbf{Mark $(3,2)$ as Visited:}
+
+		            \CoordinateSystemForDBSCAN{(4,1)}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,3), (4,4)}{(3,2)}{(1,1), (1,2), (2,1)}{(3,4), (4,3), (4,4)}{(1,4), (2,3)}
+
+		      \item \textbf{Check if $(3,2)$ is a Core Point:}
+
+		            If there are at least $2$ points in the $\varepsilon$-neighborhood of $(3,2)$, $(3,2)$ is a core point:
+
+		            \begin{alignat*}{2}
+			            Distance_{(3,2)\leftrightarrow(3,2)} & = \sqrt{(3-3)^2+(2-2)^2} = 0 \\
+		            \end{alignat*}
+
+		            Only $(3,2)$ is in the $\varepsilon$-neighborhood of $(3,2)$, thus $(3,2)$ is not a core point.
+
+		            \dotfill
+
+		            Shown in the coordinate system:
+
+		            \CoordinateSystemWithCircle{(3,2)}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,4), (4,1), (4,3), (4,4)}{(3,2)}{1}
+
+		            \dotfill
+
+		      \item \textbf{Mark $(3,2)$ as Noise:}
+
+		            Since $(3,2)$ is not a core point, it is marked as noise:
+
+		            \CoordinateSystemForDBSCAN{(4,1)}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,3), (4,4)}{}{(1,1), (1,2), (2,1)}{(3,4), (4,3), (4,4)}{(1,4), (2,3), (3,2)}
+
+	      \end{enumerate}
+
+	\item \textbf{Select $(4,1)$ as Random Point:}
+
+	      Every unvisited point can be selected as the next point to visit. In this sample solution, we decided to use $(4,1)$ as the next point:
+
+	      \begin{enumerate}
+		      \item \textbf{Mark $(4,1)$ as Visited:}
+		            \CoordinateSystemForDBSCAN{}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{(4,1)}{(1,1), (1,2), (2,1)}{(3,4), (4,3), (4,4)}{(1,4), (2,3), (3,2)}
+
+		      \item \textbf{Check if $(4,1)$ is a Core Point:}
+
+		            If there are at least $2$ points in the $\varepsilon$-neighborhood of $(4,1)$, $(4,1)$ is a core point:
+
+		            \begin{alignat*}{2}
+			            Distance_{(4,1)\leftrightarrow(4,1)} & = \sqrt{(4-4)^2+(1-1)^2} = 0 \\
+		            \end{alignat*}
+
+		            Only $(4,1)$ is in the $\varepsilon$-neighborhood of $(4,1)$, thus $(4,1)$ is not a core point.
+
+		            \dotfill
+
+		            Shown in the coordinate system:
+
+		            \CoordinateSystemWithCircle{(4,1)}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,3), (4,4)}{(4,1)}{1}
+
+		            \dotfill
+
+		      \item \textbf{Mark $(4,1)$ as Noise:}
+
+		            Since $(4,1)$ is not a core point, it is marked as noise:
+
+		            \CoordinateSystemForDBSCAN{}{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{}{(1,1), (1,2), (2,1)}{(3,4), (4,3), (4,4)}{(1,4), (2,3), (3,2), (4,1)}
+	      \end{enumerate}
+
+	\item \textbf{Stop the Algorithm:}
+
+	      All points have been visited, thus the algorithm is stopped.
+
+	      The final results are:
+
+	      \begin{alignat*}{2}
+		      \text{Cluster }{0} & : \{(1,1), (1,2), (2,1)\}        \\
+		      \text{Cluster }{1} & : \{(3,4), (4,3), (4,4)\}        \\
+		      \text{Noise}       & : \{(1,4), (2,3), (3,2), (4,1)\} \\
+	      \end{alignat*}
+\end{enumerate}
 
 
 \end{solution}
