@@ -29,7 +29,7 @@ jobs:
               echo "Pre-commit did run on local machine."
             fi
 
-  build_latex:
+  build_lecture:
     name: Build lecture PDFs
     runs-on: ubuntu-latest
     needs: [pre_commit_validation]
