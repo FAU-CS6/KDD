@@ -38,27 +38,27 @@
 			      steps:}
 		      \begin{itemize}
 			      \item[1.] Partition the database into $k$ non-empty subsets.
-				      \begin{itemize}
-					      \item E.g. the first $\frac{n}{k}$ objects, then the next
-					            $\frac{n}{k}$ objects, $\ldots$
-				      \end{itemize}
+			            \begin{itemize}
+				            \item E.g. the first $\frac{n}{k}$ objects, then the next
+				                  $\frac{n}{k}$ objects, $\ldots$
+			            \end{itemize}
 			      \item[2.] Compute the \textbf{\color{airforceblue}centroids} of the clusters of the
-				      current partitioning.
-				      \begin{itemize}
-					      \item The centroid is the center, i.e. mean point, of the
-					            cluster.
-					      \item For each attribute (or dimension), calculate the average
-					            value.
-				      \end{itemize}
+			            current partitioning.
+			            \begin{itemize}
+				            \item The centroid is the center, i.e. mean point, of the
+				                  cluster.
+				            \item For each attribute (or dimension), calculate the average
+				                  value.
+			            \end{itemize}
 			      \item[3.] Assign each object to the cluster with the nearest
-				      centroid.
-				      \begin{itemize}
-					      \item That is, for each object calculate distance to each of
-					            the $k$\\
-					            centroids and pick the one with the smallest distance.
-				      \end{itemize}
+			            centroid.
+			            \begin{itemize}
+				            \item That is, for each object calculate distance to each of
+				                  the $k$\\
+				                  centroids and pick the one with the smallest distance.
+			            \end{itemize}
 			      \item[4.] If any object has changed its cluster, go back to step 2.
-				      Otherwise stop.
+			            Otherwise stop.
 		      \end{itemize}
 		\item \textbf{Variant:}
 		      \begin{itemize}
@@ -514,12 +514,12 @@
 			      \item[1.] Arbitrarily choose $k$ objects as the initial medoids.
 			      \item[2.] Repeat.
 			      \item[3.] \hspace{0.2cm} Assign each remaining object to the
-				      cluster with the nearest medoid $o_i$.
+			            cluster with the nearest medoid $o_i$.
 			      \item[4.] \hspace{0.2cm} Randomly select a non-medoid object $o_h$.
 			      \item[5.] \hspace{0.2cm} Compute the total cost $\text{TC}_{ih}$ of
-				      swapping $o_i$ with $o_h$.
+			            swapping $o_i$ with $o_h$.
 			      \item[6.] \hspace{0.2cm} If $\text{TC}_{ih} < 0$ then swap $o_i$
-				      with $o_h$ to form the new set of $k$ medoids.
+			            with $o_h$ to form the new set of $k$ medoids.
 			      \item[7.] Until no change.
 		      \end{itemize}
 		\item $\text{TC}_{ih} = \sum\limits_{j}C_{jih}$

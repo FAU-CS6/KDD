@@ -291,20 +291,20 @@
 			      \item Suppose the items in $L_{k-1}$ are listed in order.
 			            \begin{itemize}
 				            \item[1.] Self-joining $L_{k-1}$.\\
-					            \texttt{INSERT INTO} $C_k$\\
-					            \hspace{1cm} (\texttt{SELECT p.item$_1$, p.item$_2$, $\ldots$,
-						            p.item$_{k-1}$, q.item$_{k-1}$}\\
-					            \hspace{1.1cm} \texttt{FROM $L_{k-1} p, L_{k-1} q$}\\
-					            \hspace{1.1cm} \texttt{WHERE p.item$_1$ = q.item$_1$, $\ldots$,
-						            p.item$_{k-2}$ = q.item$_{k-2}$, \\
-						            \hspace{2.05cm} p.item$_{k-1}$ $<$ q.item$_{k-1}$});
+				                  \texttt{INSERT INTO} $C_k$\\
+				                  \hspace{1cm} (\texttt{SELECT p.item$_1$, p.item$_2$, $\ldots$,
+					                  p.item$_{k-1}$, q.item$_{k-1}$}\\
+				                  \hspace{1.1cm} \texttt{FROM $L_{k-1} p, L_{k-1} q$}\\
+				                  \hspace{1.1cm} \texttt{WHERE p.item$_1$ = q.item$_1$, $\ldots$,
+					                  p.item$_{k-2}$ = q.item$_{k-2}$, \\
+					                  \hspace{2.05cm} p.item$_{k-1}$ $<$ q.item$_{k-1}$});
 				            \item[2.] Pruning.\\
-					            \hspace{1cm} \textbf{forall} itemsets $c$ in $C_k$ \textbf{do}
-					            \\
-					            \hspace{2cm} \textbf{forall} $(k-1)$-subsets $s$ of $c$
-					            \textbf{do}\\
-					            \hspace{3cm} \textbf{if} ($s$ is not in $L_{k-1}$)
-					            \textbf{then} \texttt{DELETE} $c$ \texttt{FROM} $C_k$;
+				                  \hspace{1cm} \textbf{forall} itemsets $c$ in $C_k$ \textbf{do}
+				                  \\
+				                  \hspace{2cm} \textbf{forall} $(k-1)$-subsets $s$ of $c$
+				                  \textbf{do}\\
+				                  \hspace{3cm} \textbf{if} ($s$ is not in $L_{k-1}$)
+				                  \textbf{then} \texttt{DELETE} $c$ \texttt{FROM} $C_k$;
 			            \end{itemize}
 			      \item \textbf{Use object-relational extensions like UDFs, BLOBs,
 				            and table functions for efficient implementation.} (Sarawagi,
@@ -587,9 +587,9 @@
 			\vspace{-3.5cm}
 			\begin{itemize}
 				\item[1.] Scan DB once, find frequent $1$-itemsets (single-item
-					patterns).
+				      patterns).
 				\item[2.] Sort frequent items in frequency-descending order,
-					creating the \textbf{f-list}.
+				      creating the \textbf{f-list}.
 				\item[3.] Scan DB again, construct \textbf{FP-tree}.
 			\end{itemize}
 		\end{column}

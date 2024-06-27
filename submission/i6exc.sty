@@ -33,15 +33,15 @@
 	\newcommand{\SemesterShort}{WS \theLastYear/\the\year}
 	\newcommand{\SemesterLong}{\WinterSem~\theLastYear/\the\year}
 \else\ifnum\month>9
-	\newcounter{NextYear}
-	\setcounter{NextYear}{\year}
-	\addtocounter{NextYear}{1}
-	\newcommand{\SemesterShort}{WS \the\year/\theNextYear}
-	\newcommand{\SemesterLong}{\WinterSem~\the\year/\theNextYear}
-\else
-	\newcommand{\SemesterShort}{SS \the\year}
-	\newcommand{\SemesterLong}{\SummerSem~\the\year}
-\fi
+		\newcounter{NextYear}
+		\setcounter{NextYear}{\year}
+		\addtocounter{NextYear}{1}
+		\newcommand{\SemesterShort}{WS \the\year/\theNextYear}
+		\newcommand{\SemesterLong}{\WinterSem~\the\year/\theNextYear}
+	\else
+		\newcommand{\SemesterShort}{SS \the\year}
+		\newcommand{\SemesterLong}{\SummerSem~\the\year}
+	\fi
 \fi
 \newcommand{\semester}{\@ifstar
 	\SemesterShort%
@@ -67,9 +67,9 @@
 % This effects only comment.sty version >= 3.7. ThisComment is not defined in older versions.
 %
 \ifdefined\ThisComment
-\renewcommand\ThisComment[1]{%
-    \immediate\write\CommentStream{\unexpanded{#1}}%
-}
+	\renewcommand\ThisComment[1]{%
+		\immediate\write\CommentStream{\unexpanded{#1}}%
+	}
 \fi
 
 
@@ -102,10 +102,10 @@
 
 		\begin{minipage}{\textwidth}%
 
-		}
-	{\end{minipage}
+			}
+			{\end{minipage}
 
-	\endgroup}
+		\endgroup}
 }
 
 

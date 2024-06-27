@@ -53,35 +53,35 @@ Before participating in the exercise, you must prepare the following:
 
 \begin{enumerate}
 	\item \textbf{Install Python and pip on your computer}
-
+	      
 	      \begin{itemize}
 		      \item Detailed instructions can be found in \texttt{1-Introduction-Python-Pandas.pdf}.
 	      \end{itemize}
-
+	      
 	\item \textbf{Download provided additional files}
-
+	      
 	      \begin{itemize}
 		      \item Download \texttt{Additional-Files-Student.zip} from StudOn
 		      \item Extract it to a folder of your choice.
 	      \end{itemize}
-
+	      
 	\item \textbf{Install required Python packages}
-
+	      
 	      \begin{itemize}
 		      \item Open a terminal and navigate to the folder where you extracted the files.
 		      \item Run the command \texttt{pip install -r requirements.txt} within the extracted additional files folder to install the required Python packages.
 	      \end{itemize}
-
-
+	      
+	      
 \end{enumerate}
 
 \section*{Exercise 1: Decision Trees}
 
 \begin{minipage}{.5\textwidth}
 	Given is a dataset $D$.
-
+	
 	\vspace*{0.5cm}
-
+	
 	$D$ is containing a continuous attribute (\textit{Age}) and two categorical attributes (\textit{Major} and \textit{Participation}) which can be used to predict the target attribute \textit{Passed}.
 \end{minipage}
 \begin{minipage}{.5\textwidth}
@@ -110,9 +110,9 @@ Write down \textbf{all} intermediate steps.
 \begin{solution}
 	\begin{enumerate}
 		\item \textbf{Create the root node:}
-
+		      
 		      To create the root node, we need to calculate the Information Gain for each attribute and select the one with the highest Information Gain.
-
+		      
 		      \begin{enumerate}
 			      \item \textbf{Calculate the Entropy of the target attribute \textit{Passed}:}
 			            \begin{alignat*}{2}
@@ -121,17 +121,17 @@ Write down \textbf{all} intermediate steps.
 				                           & = -\frac{3}{6} \log_2\left(\frac{3}{6}\right) - \frac{3}{6} \log_2\left(\frac{3}{6}\right)                                                                \\
 				                           & = 1                                                                                                                                                       \\
 			            \end{alignat*}
-
+			            
 			      \item \textbf{Calculate the Information Gain for all attributes:}
-
+			            
 			            \begin{enumerate}
 				            \item \textbf{Attribute \textit{Age}:}
-
+				                  
 				                  \textit{Age} is a continuous attribute. To calculate the Information Gain, we need to find the best split point.
-
+				                  
 				                  \begin{enumerate}
 					                  \item \textbf{Split point $23,5$:}
-
+					                        
 					                        \begin{alignat*}{2}
 						                        \text{Info}\OfAttribute{Age}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Age$,j$}|}{|D\OfAttribute{Age}|} \text{Info}(D_{A\OfAttribute{Age$,j$}})                                                                                                                            \\
 						                                                        & = \frac{|D\OfSpecificValue{Age}{$\leq$}{2,5}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$\leq$}{2,5}) + \frac{|D\OfSpecificValue{Age}{$>$}{2,5}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$>$}{2,5})   \\
@@ -142,9 +142,9 @@ Write down \textbf{all} intermediate steps.
 						                                                        & = 1 - 1                                                                                                                                                                                                                                 \\
 						                                                        & = 0                                                                                                                                                                                                                                     \\
 					                        \end{alignat*}
-
+					                        
 					                  \item \textbf{Split point $25,0$:}
-
+					                        
 					                        \begin{alignat*}{2}
 						                        \text{Info}\OfAttribute{Age}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Age$,j$}|}{|D\OfAttribute{Age}|} \text{Info}(D_{A\OfAttribute{Age$,j$}})                                                                                                                            \\
 						                                                        & = \frac{|D\OfSpecificValue{Age}{$\leq$}{5}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$\leq$}{5}) + \frac{|D\OfSpecificValue{Age}{$>$}{5}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$>$}{5})           \\
@@ -155,17 +155,17 @@ Write down \textbf{all} intermediate steps.
 						                                                        & = 1 - 0,9183                                                                                                                                                                                                                            \\
 						                                                        & = 0,0817                                                                                                                                                                                                                                \\
 					                        \end{alignat*}
-
+					                        
 				                  \end{enumerate}
-
+				                  
 				                  Therefore, the Information Gain for the attribute \textit{Age} is $0,817$ (if we split at $25,0$).
-
+				                  
 				            \item \textbf{Attribute \textit{Major}:}
-
+				                  
 				                  \textit{Major} is a categorical attribute with two possible values: \textit{CS} and \textit{DS}.
-
+				                  
 				                  Since it is a categorical attribute and we are using the Information Gain, there is no need to determine a splitting criterion.
-
+				                  
 				                  \begin{alignat*}{2}
 					                  \text{Info}\OfAttribute{Major}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Major$,j$}|}{|D\OfAttribute{Major}|} \text{Info}(D_{A\OfAttribute{Major$,j$}})                                                                                                                      \\
 					                                                    & = \frac{|D\OfSpecificValue{Major}{=}{CS}|}{|D\OfAttribute{Major}|} \text{Info}(D\OfSpecificValue{Major}{=}{CS}) + \frac{|D\OfSpecificValue{Major}{=}{DS}|}{|D\OfAttribute{Major}|} \text{Info}(D\OfSpecificValue{Major}{=}{DS})         \\
@@ -177,13 +177,13 @@ Write down \textbf{all} intermediate steps.
 					                                                    & = 1 - 0,8090                                                                                                                                                                                                                            \\
 					                                                    & = 0,1910                                                                                                                                                                                                                                \\
 				                  \end{alignat*}
-
+				                  
 				            \item \textbf{Attribute \textit{Participation}:}
-
+				                  
 				                  \textit{Participation} is a categorical attribute with three possible values: \textit{High}, \textit{Medium} and \textit{Low}.
-
+				                  
 				                  Since it is a categorical attribute and we are using the Information Gain, there is no need to determine a splitting criterion.
-
+				                  
 				                  \begin{alignat*}{3}
 					                  \text{Info}\OfAttribute{Parti.}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Parti.$,j$}|}{|D\OfAttribute{Parti.}|} \text{Info}(D_{A\OfAttribute{Parti.$,j$}})                                                                                                                             \\
 					                                                     & = \frac{|D\OfSpecificValue{Parti.}{=}{High}|}{|D\OfAttribute{Parti.}|} \text{Info}(D\OfSpecificValue{Parti.}{=}{High}) + \frac{|D\OfSpecificValue{Parti.}{=}{Medium}|}{|D\OfAttribute{Parti.}|} \text{Info}(D\OfSpecificValue{Parti.}{=}{Medium}) \\
@@ -197,13 +197,13 @@ Write down \textbf{all} intermediate steps.
 					                                                     & = 0,6667                                                                                                                                                                                                                                          \\
 				                  \end{alignat*}
 			            \end{enumerate}
-
+			            
 			      \item \textbf{Create the node based on the highest Information Gain:}
-
+			            
 			            The attribute with the highest Information Gain is \textit{Participation} with a value of $0,6667$. It will therefore become the splitting attribute for the root node.
-
+			            
 			            The resulting tree will look like this:
-
+			            
 			            \begin{center}
 				            \begin{tikzpicture}[
 						            >=latex,
@@ -226,9 +226,9 @@ Write down \textbf{all} intermediate steps.
 							            }
 					            ]
 					            \useasboundingbox (-6,0.5) rectangle (6,-6);
-
+					            
 					            \node[node, anchor=center] at (0,0) (parti) {Participation?};
-
+					            
 					            \node[draw=none,anchor=center] at (-4,-2.5) (high) {
 						            \resizebox{6.5cm}{!}{%
 							            \begin{tabular}{|c|c|c|c|c|}
@@ -239,9 +239,9 @@ Write down \textbf{all} intermediate steps.
 							            \end{tabular}
 						            }
 					            };
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high} (-4,-1) -- (high.north);
-
+					            
 					            \node[draw=none,anchor=center] at (0,-4.25)  (medium) {
 						            \resizebox{6.5cm}{!}{%
 							            \begin{tabular}{|c|c|c|c|c|}
@@ -252,9 +252,9 @@ Write down \textbf{all} intermediate steps.
 							            \end{tabular}
 						            }
 					            };
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none, fill=white] {medium} (0,-2.5) -- (medium.north);
-
+					            
 					            \node[draw=none,anchor=center] at (4,-2.5)  (low) {
 						            \resizebox{6.5cm}{!}{%
 							            \begin{tabular}{|c|c|c|c|c|}
@@ -265,20 +265,20 @@ Write down \textbf{all} intermediate steps.
 							            \end{tabular}
 						            }
 					            };
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
-
+					            
 				            \end{tikzpicture}
 			            \end{center}
 		      \end{enumerate}
-
+		      
 		\item \textbf{Visit each branch:}
-
+		      
 		      \begin{enumerate}
 			      \item \textbf{Branch \textit{High}:}
-
+			            
 			            All samples in the partial dataset of the branch \textit{High} have the same value for the target attribute \textit{Passed}. Therefore, the branch becomes a leaf node.
-
+			            
 			            \begin{center}
 				            \begin{tikzpicture}[
 						            >=latex,
@@ -301,13 +301,13 @@ Write down \textbf{all} intermediate steps.
 							            }
 					            ]
 					            \useasboundingbox (-6,0.5) rectangle (6,-6);
-
+					            
 					            \node[node, anchor=center] at (0,0) (parti) {Participation?};
-
+					            
 					            \node[leaf] at (-4,-2.5) (high) {Yes};
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high} (-4,-1) -- (high.north);
-
+					            
 					            \node[draw=none,anchor=center] at (0,-4.25)  (medium) {
 						            \resizebox{6.5cm}{!}{%
 							            \begin{tabular}{|c|c|c|c|c|}
@@ -318,9 +318,9 @@ Write down \textbf{all} intermediate steps.
 							            \end{tabular}
 						            }
 					            };
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none, fill=white] {medium} (0,-2.5) -- (medium.north);
-
+					            
 					            \node[draw=none,anchor=center] at (4,-2.5)  (low) {
 						            \resizebox{6.5cm}{!}{%
 							            \begin{tabular}{|c|c|c|c|c|}
@@ -331,33 +331,33 @@ Write down \textbf{all} intermediate steps.
 							            \end{tabular}
 						            }
 					            };
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
-
+					            
 				            \end{tikzpicture}
 			            \end{center}
-
+			            
 			      \item \textbf{Branch \textit{Medium}:}
-
+			            
 			            The partial dataset of the branch \textit{Medium} contains samples with different values for the target attribute \textit{Passed}. Therefore, we need to create a new node.
-
+			            
 			            \begin{enumerate}
 				            \item \textbf{Calculate the Entropy of the target attribute \textit{Passed}:}
-
+				                  
 				                  \begin{alignat*}{2}
 					                  \text{Info}(D\OfSpecificValue{Parti}{=}{Medium}) & = -\sum_{i=1}^{m}p_i \log_2(p_i)                                                                                                                          \\
 					                                                                   & = -p\OfSpecificValue{Passed}{=}{Yes} \log_2(p\OfSpecificValue{Passed}{=}{Yes})- p\OfSpecificValue{Passed}{=}{No} \log_2(p\OfSpecificValue{Passed}{=}{No}) \\
 					                                                                   & = -\frac{1}{2} \log_2\left(\frac{1}{2}\right) - \frac{1}{2} \log_2\left(\frac{1}{2}\right)                                                                \\
 					                                                                   & = 1                                                                                                                                                       \\
 				                  \end{alignat*}
-
+				                  
 				            \item \textbf{Calculate the Information Gain for all attributes that are not yet a node:}
-
+				                  
 				                  \begin{enumerate}
 					                  \item \textbf{Attribute \textit{Age}:}
-
+					                        
 					                        \textit{Age} is still a continuous attribute. However since there are only two different values in the partial dataset, we only have one split point.
-
+					                        
 					                        \begin{alignat*}{2}
 						                        \text{Info}\OfAttribute{Age}(D\OfSpecificValue{Parti}{=}{Medium}) & = \sum_{j=1}^v \frac{|D\OfAttribute{Age$,j$}|}{|D\OfAttribute{Age}|} \text{Info}(D_{A\OfAttribute{Age$,j$}})                                                                                                                            \\
 						                                                                                          & = \frac{|D\OfSpecificValue{Age}{$\leq$}{25}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$\leq$}{25}) + \frac{|D\OfSpecificValue{Age}{$>$}{25}|}{|D\OfAttribute{Age}|} \text{Info}(D\OfSpecificValue{Age}{$>$}{25})       \\
@@ -368,11 +368,11 @@ Write down \textbf{all} intermediate steps.
 						                                                                                          & = 1 - 0                                                                                                                                                                                                                                 \\
 						                                                                                          & = 1                                                                                                                                                                                                                                     \\
 					                        \end{alignat*}
-
+					                        
 					                  \item \textbf{Attribute \textit{Major}:}
-
+					                        
 					                        \textit{Major} is still a categorical attribute. This time we only have one value in the partial dataset. Therefore, the Information Gain is $0$:
-
+					                        
 					                        \begin{alignat*}{2}
 						                        \text{Info}\OfAttribute{Major}(D\OfSpecificValue{Parti}{=}{Medium}) & = \sum_{j=1}^v \frac{|D\OfAttribute{Major$,j$}|}{|D\OfAttribute{Major}|} \text{Info}(D_{A\OfAttribute{Major$,j$}})       \\
 						                                                                                            & = \frac{|D\OfSpecificValue{Major}{=}{DS}|}{|D\OfAttribute{Major}|} \text{Info}(D\OfSpecificValue{Major}{=}{DS})          \\
@@ -384,13 +384,13 @@ Write down \textbf{all} intermediate steps.
 						                                                                                            & = 0                                                                                                                      \\
 					                        \end{alignat*}
 				                  \end{enumerate}
-
+				                  
 				            \item \textbf{Create the node based on the highest Information Gain:}
-
+				                  
 				                  The attribute with the highest Information Gain is \textit{Age} with a value of $1$. It will therefore become the splitting attribute for the node.
-
+				                  
 				                  The resulting tree will look like this:
-
+				                  
 				                  \begin{center}
 					                  \begin{tikzpicture}[
 							                  >=latex,
@@ -413,17 +413,17 @@ Write down \textbf{all} intermediate steps.
 								                  }
 						                  ]
 						                  \useasboundingbox (-6,0.5) rectangle (6,-7);
-
+						                  
 						                  \node[node, anchor=center] at (0,0) (parti) {Participation?};
-
+						                  
 						                  \node[leaf] at (-4,-2.5) (high) {Yes};
-
+						                  
 						                  \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high} (-4,-1) -- (high.north);
-
+						                  
 						                  \node[node,anchor=center] at (0,-4.25)  (medium) {Age?};
-
+						                  
 						                  \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none, fill=white] {medium} (0,-2.5) -- (medium.north);
-
+						                  
 						                  \node[draw=none,anchor=center] at (4,-2.5)  (low) {
 							                  \resizebox{6.5cm}{!}{%
 								                  \begin{tabular}{|c|c|c|c|c|}
@@ -434,23 +434,23 @@ Write down \textbf{all} intermediate steps.
 								                  \end{tabular}
 							                  }
 						                  };
-
+						                  
 						                  \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
-
+						                  
 						                  \node[leaf] at (-2,-6) (yes) {Yes};
 						                  \node[leaf] at (2,-6) (no) {No};
-
+						                  
 						                  \draw[rounded corners=5pt] (medium.south) -- (0,-5) -- node[left, draw=none, fill=white] {$\leq 25$} (-1,-5) -- (-2,-5) -- (yes.north);
-
+						                  
 						                  \draw[rounded corners=5pt] (medium.south) -- (0,-5) -- node[right, draw=none, fill=white] {$> 25$} (1,-5) -- (2,-5) -- (no.north);
 					                  \end{tikzpicture}
 				                  \end{center}
-
+				                  
 			            \end{enumerate}
 			      \item \textbf{Branch \textit{Low}:}
-
+			            
 			            All samples in the partial dataset of the branch \textit{Low} have the same value for the target attribute \textit{Passed}. Therefore, the branch becomes a leaf node.
-
+			            
 			            \begin{center}
 				            \begin{tikzpicture}[
 						            >=latex,
@@ -473,38 +473,38 @@ Write down \textbf{all} intermediate steps.
 							            }
 					            ]
 					            \useasboundingbox (-6,0.5) rectangle (6,-5);
-
+					            
 					            \node[node, anchor=center] at (0,0) (parti) {Participation?};
-
+					            
 					            \node[leaf] at (-4,-2.5) (high) {Yes};
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high} (-4,-1) -- (high.north);
-
+					            
 					            \node[node,anchor=center] at (0,-2.75)  (medium) {Age?};
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none, fill=white] {medium} (0,-2.5) -- (medium.north);
-
+					            
 					            \node[leaf,anchor=center] at (4,-2.5)  (low) {No};
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
-
+					            
 					            \node[leaf] at (-2,-4) (yes) {Yes};
 					            \node[leaf] at (2,-4) (no) {No};
-
+					            
 					            \draw[rounded corners=5pt] (medium.south) -- (0,-3.5) -- node[left, draw=none, fill=white] {$\leq 25$} (-1,-3.5) -- (-2,-3.5) -- (yes.north);
-
+					            
 					            \draw[rounded corners=5pt] (medium.south) -- (0,-3.5) -- node[right, draw=none, fill=white] {$> 25$} (1,-3.5) -- (2,-3.5) -- (no.north);
 				            \end{tikzpicture}
 			            \end{center}
-
+			            
 		      \end{enumerate}
-
+		      
 		\item \textbf{Stop the algorithm:}
-
+		      
 		      Since all branches are now leaf nodes, the algorithm can be stopped.
-
+		      
 		      The final decision tree is:
-
+		      
 		      \begin{center}
 			      \begin{tikzpicture}[
 					      >=latex,
@@ -527,26 +527,26 @@ Write down \textbf{all} intermediate steps.
 						      }
 				      ]
 				      \useasboundingbox (-6,0.5) rectangle (6,-5);
-
+				      
 				      \node[node, anchor=center] at (0,0) (parti) {Participation?};
-
+				      
 				      \node[leaf] at (-4,-2.5) (high) {Yes};
-
+				      
 				      \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high} (-4,-1) -- (high.north);
-
+				      
 				      \node[node,anchor=center] at (0,-2.75)  (medium) {Age?};
-
+				      
 				      \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none, fill=white] {medium} (0,-2.5) -- (medium.north);
-
+				      
 				      \node[leaf,anchor=center] at (4,-2.5)  (low) {No};
-
+				      
 				      \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
-
+				      
 				      \node[leaf] at (-2,-4) (yes) {Yes};
 				      \node[leaf] at (2,-4) (no) {No};
-
+				      
 				      \draw[rounded corners=5pt] (medium.south) -- (0,-3.5) -- node[left, draw=none, fill=white] {$\leq 25$} (-1,-3.5) -- (-2,-3.5) -- (yes.north);
-
+				      
 				      \draw[rounded corners=5pt] (medium.south) -- (0,-3.5) -- node[right, draw=none, fill=white] {$> 25$} (1,-3.5) -- (2,-3.5) -- (no.north);
 			      \end{tikzpicture}
 		      \end{center}
@@ -566,29 +566,29 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 \begin{solution}
 	\begin{enumerate}
 		\item \textbf{Create the root node:}
-
+		      
 		      To create the root node, we need to calculate the Gini Index for each attribute and select the one with the lowest Gini Index.
-
+		      
 		      \begin{enumerate}
 			      \item \textbf{Calculate the impurity of the whole Dataset $D$:}
-
+			            
 			            \begin{alignat*}{2}
 				            \text{Gini}(D) & = 1 - \sum_{i=1}^{m}p_i^2                                                      \\
 				                           & = 1 - p\OfSpecificValue{Passed}{=}{Yes}^2 - p\OfSpecificValue{Passed}{=}{No}^2 \\
 				                           & = 1 - \left(\frac{3}{6}\right)^2 - \left(\frac{3}{6}\right)^2                  \\
 				                           & = 0,5                                                                          \\
 			            \end{alignat*}
-
+			            
 			      \item \textbf{Calculate the Gini Index for all attributes:}
-
+			            
 			            \begin{enumerate}
 				            \item \textbf{Attribute \textit{Age}:}
-
+				                  
 				                  \textit{Age} is a continuous attribute. Similar to the Information Gain, we need to find the best split point.
-
+				                  
 				                  \begin{enumerate}
 					                  \item \textbf{Split point $23,5$:}
-
+					                        
 					                        \begin{alignat*}{2}
 						                        \text{Gini}\OfAttribute{Age}(D)       & = \frac{|D\OfSpecificValue{Age}{$\leq$}{23,5}|}{|D\OfAttribute{Age}|} \text{Gini}(D\OfSpecificValue{Age}{$\leq$}{23,5}) + \frac{|D\OfSpecificValue{Age}{$>$}{23,5}|}{|D\OfAttribute{Age}|} \text{Gini}(D\OfSpecificValue{Age}{$>$}{23,5}) \\
 						                                                              & = \frac{2}{6} \left(1 - \left(\frac{1}{2}\right)^2 - \left(\frac{1}{2}\right)^2\right) + \frac{4}{6} \left(1 - \left(\frac{2}{4}\right)^2 - \left(\frac{2}{4}\right)^2\right)                                                             \\
@@ -599,7 +599,7 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 						                                                              & = 0                                                                                                                                                                                                                                       \\
 					                        \end{alignat*}
 					                  \item \textbf{Split point $25,0$:}
-
+					                        
 					                        \begin{alignat*}{2}
 						                        \text{Gini}\OfAttribute{Age}(D)       & = \frac{|D\OfSpecificValue{Age}{$\leq$}{25,0}|}{|D\OfAttribute{Age}|} \text{Gini}(D\OfSpecificValue{Age}{$\leq$}{25,0}) + \frac{|D\OfSpecificValue{Age}{$>$}{25,0}|}{|D\OfAttribute{Age}|} \text{Gini}(D\OfSpecificValue{Age}{$>$}{25,0}) \\
 						                                                              & = \frac{3}{6} \left(1 - \left(\frac{2}{3}\right)^2 - \left(\frac{1}{3}\right)^2\right) + \frac{3}{6} \left(1 - \left(\frac{1}{3}\right)^2 - \left(\frac{2}{3}\right)^2\right)                                                             \\
@@ -610,17 +610,17 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 						                                                              & = 0,0556                                                                                                                                                                                                                                  \\
 					                        \end{alignat*}
 				                  \end{enumerate}
-
+				                  
 				                  The best split point is $25,0$ since its Gini Index is the lowest ($0,4444$) and therefore the reduction of impurity ($0,0556$) is the highest.
-
+				                  
 				            \item \textbf{Attribute \textit{Major}:}
-
+				                  
 				                  \textit{Major} is a categorical attribute with two possible values: \textit{CS} and \textit{DS}.
-
+				                  
 				                  Gini Index only supports two-way splits. Therefore if we would have had more than two values, we would have needed to calculate the Gini Index for each possible split.
-
+				                  
 				                  However since we only have two values, we can directly calculate the Gini Index for the attribute \textit{Major}:
-
+				                  
 				                  \begin{alignat*}{2}
 					                  \text{Gini}\OfAttribute{Major}(D)       & = \frac{|D\OfSpecificValue{Major}{=}{CS}|}{|D\OfAttribute{Major}|} \text{Gini}(D\OfSpecificValue{Major}{=}{CS}) + \frac{|D\OfSpecificValue{Major}{=}{DS}|}{|D\OfAttribute{Major}|} \text{Gini}(D\OfSpecificValue{Major}{=}{DS}) \\
 					                                                          & = \frac{1}{6} \left(1 - \left(\frac{1}{1}\right)^2 - \left(\frac{0}{1}\right)^2\right) + \frac{5}{6} \left(1 - \left(\frac{2}{5}\right)^2 - \left(\frac{3}{5}\right)^2\right)                                                   \\
@@ -630,16 +630,16 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 					                                                          & = 0,5 - 0,4                                                                                                                                                                                                                     \\
 					                                                          & = 0,1                                                                                                                                                                                                                           \\
 				                  \end{alignat*}
-
+				                  
 				            \item \textbf{Attribute \textit{Participation}:}
-
+				                  
 				                  \textit{Participation} is a categorical attribute with three possible values: \textit{High}, \textit{Medium} and \textit{Low}.
-
+				                  
 				                  Since we have more than two different attributes, we have to calculate the Gini Index for each possible attribute combination.
-
+				                  
 				                  \begin{enumerate}
 					                  \item \textbf{Combination \textit{\{High, Medium\}} and \textit{\{Low\}}:}
-
+					                        
 					                        \begin{alignat*}{2}
 						                        \text{Gini}\OfAttribute{Parti.}(D)       & = \frac{|D\OfSpecificValue{Parti.}{=}{High, Medium}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Major}{=}{High, Medium}) + \frac{|D\OfSpecificValue{Parti.}{=}{Low}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Parti.}{=}{Low}) \\
 						                                                                 & = \frac{4}{6} \left(1 - \left(\frac{3}{4}\right)^2 - \left(\frac{1}{4}\right)^2\right) + \frac{2}{6} \left(1 - \left(\frac{0}{2}\right)^2 - \left(\frac{2}{2}\right)^2\right)                                                                              \\
@@ -649,9 +649,9 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 						                                                                 & = 0,5 - 0,25                                                                                                                                                                                                                                               \\
 						                                                                 & = 0,25                                                                                                                                                                                                                                                     \\
 					                        \end{alignat*}
-
+					                        
 					                  \item \textbf{Combination \textit{\{High, Low\}} and \textit{\{Medium\}}:}
-
+					                        
 					                        \begin{alignat*}{2}
 						                        \text{Gini}\OfAttribute{Parti.}(D)       & = \frac{|D\OfSpecificValue{Parti.}{=}{High, Low}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Major}{=}{High, Low}) + \frac{|D\OfSpecificValue{Parti.}{=}{Medium}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Parti.}{=}{Medium}) \\
 						                                                                 & = \frac{4}{6} \left(1 - \left(\frac{2}{4}\right)^2 - \left(\frac{2}{4}\right)^2\right) + \frac{2}{6} \left(1 - \left(\frac{1}{2}\right)^2 - \left(\frac{1}{2}\right)^2\right)                                                                              \\
@@ -662,7 +662,7 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 						                                                                 & = 0                                                                                                                                                                                                                                                        \\
 					                        \end{alignat*}
 					                  \item \textbf{Combination \textit{\{Medium, Low\}} and \textit{\{High\}}:}
-
+					                        
 					                        \begin{alignat*}{2}
 						                        \text{Gini}\OfAttribute{Parti.}(D)       & = \frac{|D\OfSpecificValue{Parti.}{=}{Medium, Low}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Major}{=}{Medium, Low}) + \frac{|D\OfSpecificValue{Parti.}{=}{High}|}{|D\OfAttribute{Parti.}|} \text{Gini}(D\OfSpecificValue{Parti.}{=}{High}) \\
 						                                                                 & = \frac{4}{6} \left(1 - \left(\frac{1}{4}\right)^2 - \left(\frac{3}{4}\right)^2\right) + \frac{2}{6} \left(1 - \left(\frac{2}{2}\right)^2 - \left(\frac{0}{2}\right)^2\right)                                                                              \\
@@ -673,18 +673,18 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 						                                                                 & = 0,25                                                                                                                                                                                                                                                     \\
 					                        \end{alignat*}
 				                  \end{enumerate}
-
+				                  
 				                  The best combinations are \textit{\{High, Medium\}} and \textit{\{Low\}} and \textit{\{Medium, Low\}} and \textit{\{High\}} since their Gini Index is the lowest ($0,25$) and therefore the reduction of impurity ($0,25$) is the highest.
-
+				                  
 				                  We can choose either of them as the combination \glqq representing\grqq\ the attribute \textit{Participation}. For the simplicity of this sample solution, we will choose the combination \textit{\{High, Medium\}} and \textit{\{Low\}}.
 			            \end{enumerate}
-
+			            
 			      \item \textbf{Create the root node based on the lowest Gini Index:}
-
+			            
 			            The attribute with the lowest Gini Index is \textit{Participation} with a value of $0,25$. It will therefore become the splitting attribute for the root node.
-
+			            
 			            The resulting tree will look like this:
-
+			            
 			            \begin{center}
 				            \begin{tikzpicture}[
 						            >=latex,
@@ -707,9 +707,9 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 							            }
 					            ]
 					            \useasboundingbox (-6,0.5) rectangle (6,-6);
-
+					            
 					            \node[node, anchor=center] at (0,0) (parti) {Participation?};
-
+					            
 					            \node[draw=none,anchor=north] at (-4,-1.5) (highmedium) {
 						            \resizebox{6.5cm}{!}{%
 							            \begin{tabular}{|c|c|c|c|c|}
@@ -722,10 +722,10 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 							            \end{tabular}
 						            }
 					            };
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high, medium} (-4,-1) -- (highmedium.north);
-
-
+					            
+					            
 					            \node[draw=none,anchor=north] at (4,-1.5)  (low) {
 						            \resizebox{6.5cm}{!}{%
 							            \begin{tabular}{|c|c|c|c|c|}
@@ -736,14 +736,14 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 							            \end{tabular}
 						            }
 					            };
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
-
+					            
 				            \end{tikzpicture}
 			            \end{center}
-
+			            
 			            Since the table for the branch \textit{Low} only contains tuples with the class label \textit{No}, we can already create a leaf node for this branch:
-
+			            
 			            \begin{center}
 				            \begin{tikzpicture}[
 						            >=latex,
@@ -766,9 +766,9 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 							            }
 					            ]
 					            \useasboundingbox (-6,0.5) rectangle (6,-6);
-
+					            
 					            \node[node, anchor=center] at (0,0) (parti) {Participation?};
-
+					            
 					            \node[draw=none,anchor=north] at (-4,-1.5) (highmedium) {
 						            \resizebox{6.5cm}{!}{%
 							            \begin{tabular}{|c|c|c|c|c|}
@@ -781,17 +781,17 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 							            \end{tabular}
 						            }
 					            };
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {high, medium} (-4,-1) -- (highmedium.north);
-
-
+					            
+					            
 					            \node[leaf,anchor=north] at (4,-1.5)  (low) {No};
-
+					            
 					            \draw[rounded corners=5pt] (parti.south) -- (0,-1) -- node[above, draw=none] {low} (4,-1) -- (low.north);
-
+					            
 				            \end{tikzpicture}
 			            \end{center}
-
+			            
 		      \end{enumerate}
 	\end{enumerate}
 \end{solution}
@@ -805,20 +805,20 @@ Which of the \textbf{attributes} \textit{Age}, \textit{Major} and \textit{Partic
 \begin{solution}
 	\begin{itemize}
 		\item \textbf{Attribute \textit{Age}:}
-
+		      
 		      The attribute \textit{Age} should be checked for its Gini Index in the branch \textit{High, Medium} since it still contains different values.
-
+		      
 		\item \textbf{Attribute \textit{Major}:}
-
+		      
 		      The attribute \textit{Major} should be checked for its Gini Index in the branch \textit{High, Medium} since it still contains different values.
-
+		      
 		\item \textbf{Attribute \textit{Participation}:}
-
+		      
 		      Contrary to the procedure for Information Gain - where the attribute \textit{Participation} would not be checked again - we also have to check the attribute \textit{Participation} for its Gini Index in the branch \textit{High, Medium} since it still contains different values.
-
+		      
 		      This is due to the fact that the Gini Index does not support multi-way splits. Therefore a categorical attribute with more than two values can be splitting attribute multiple times in the same branch.
-
-
+		      
+		      
 	\end{itemize}
 \end{solution}
 
@@ -830,9 +830,9 @@ Come up with an example \textbf{dataset} showing the problem of the Information 
 
 \begin{solution}
 	The problem of the Information Gain is that it tends to favor attributes with a large number of values.
-
+	
 	If we for example take a look at the following dataset $D$:
-
+	
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|}
 			\hline
@@ -845,11 +845,11 @@ Come up with an example \textbf{dataset} showing the problem of the Information 
 			CME            & Low                    & No              \\ \hline
 		\end{tabular}
 	\end{center}
-
+	
 	We can see that the attribute \textit{Major} only contains unique values.
-
+	
 	Therefore, the Information Gain for the attribute \textit{Major} would be $1$:
-
+	
 	\begin{alignat*}{2}
 		\text{Info}(D)                    & = -\sum_{i=1}^{m}p_i \log_2(p_i)                                                                                                                                                                                     \\
 		                                  & = -p\OfSpecificValue{Passed}{=}{Yes} \log_2(p\OfSpecificValue{Passed}{=}{Yes})- p\OfSpecificValue{Passed}{=}{No} \log_2(p\OfSpecificValue{Passed}{=}{No})                                                            \\
@@ -863,9 +863,9 @@ Come up with an example \textbf{dataset} showing the problem of the Information 
 		                                  & = 1 - 0                                                                                                                                                                                                              \\
 		                                  & = 1                                                                                                                                                                                                                  \\
 	\end{alignat*}
-
+	
 	On the other hand the attribute \textit{Participation} still (see Task 1) has an Information Gain of $0,6667$:
-
+	
 	\begin{alignat*}{3}
 		\text{Info}\OfAttribute{Parti.}(D) & = \sum_{j=1}^v \frac{|D\OfAttribute{Parti.$,j$}|}{|D\OfAttribute{Parti.}|} \text{Info}(D_{A\OfAttribute{Parti.$,j$}})                                                                                                                             \\
 		                                   & = \frac{|D\OfSpecificValue{Parti.}{=}{High}|}{|D\OfAttribute{Parti.}|} \text{Info}(D\OfSpecificValue{Parti.}{=}{High}) + \frac{|D\OfSpecificValue{Parti.}{=}{Medium}|}{|D\OfAttribute{Parti.}|} \text{Info}(D\OfSpecificValue{Parti.}{=}{Medium}) \\
@@ -878,20 +878,20 @@ Come up with an example \textbf{dataset} showing the problem of the Information 
 		                                   & = 1 - 0,3333                                                                                                                                                                                                                                      \\
 		                                   & = 0,6667                                                                                                                                                                                                                                          \\
 	\end{alignat*}
-
+	
 	With the Information Gain, we would choose the attribute \textit{Major} as the splitting attribute since it has a higher Information Gain than the attribute \textit{Participation}.
-
+	
 	However, since the attribute \textit{Major} only contains unique values, it is not a good splitting attribute, since we on the one hand up end up with a big multi-way split and on the other hand risk to overfit our decision tree on the training data.
-
+	
 	The Gain Ratio solves this problem by normalizing the Information Gain with the \textbf{Split Information}:
-
+	
 	\begin{alignat*}{2}
 		\text{SplitInfo}\OfAttribute{A}(D) & = -\sum_{j=1}^{v} \frac{|D\OfAttribute{A$,j$}|}{|D|} \log_2\left(\frac{|D\OfAttribute{A$,j$}|}{|D|}\right) \\
 		\text{GainRatio}\OfAttribute{A}    & = \frac{\text{Gain}\OfAttribute{A}}{\text{SplitInfo}\OfAttribute{A}(D)}
 	\end{alignat*}
-
+	
 	If we apply the Gain Ratio to the Gain of the attributes \textit{Major} and \textit{Participation}, we get:
-
+	
 	\begin{alignat*}{2}
 		\text{SplitInfo}\OfAttribute{Major}(D) & = -\frac{1}{6} \log_2\left(\frac{1}{6}\right) - \frac{1}{6} \log_2\left(\frac{1}{6}\right) - \frac{1}{6} \log_2\left(\frac{1}{6}\right) \\
 		                                       & - \frac{1}{6} \log_2\left(\frac{1}{6}\right) - \frac{1}{6} \log_2\left(\frac{1}{6}\right) - \frac{1}{6} \log_2\left(\frac{1}{6}\right)  \\
@@ -905,13 +905,13 @@ Come up with an example \textbf{dataset} showing the problem of the Information 
 		\text{GainRatio}\OfAttribute{Parti.}    & = \frac{0,6667}{1,5849}                                                                                                                 \\
 		                                        & = 0,4207                                                                                                                                \\
 	\end{alignat*}
-
+	
 	With the Gain Ratio, we would now choose the attribute \textit{Participation} as the splitting attribute since it has a higher Gain Ratio than the attribute \textit{Major}.
-
+	
 	We therefore avoid the problem of the Information Gain to favor attributes with a large number of values.
-
+	
 	\textit{\textbf{Note:} The Gain Ratio has its own problems, as it becomes unstable if SplitInfo is close to zero. In this case, the Gain Ratio can become very high. Therefore, the Gain Ratio should also be used with caution.}
-
+	
 \end{solution}
 
 \newpage
@@ -920,17 +920,17 @@ Come up with an example \textbf{dataset} showing the problem of the Information 
 
 \begin{minipage}{.375\textwidth}
 	Given is a dataset $D$.
-
+	
 	\vspace*{0.5cm}
-
+	
 	It can be assumed that \textit{Topic}, \textit{Knowledge} and \textit{Hours} are conditionally independent of each other.
-
+	
 	\vspace*{0.5cm}
-
+	
 	The attributes \textit{Topic} and \textit{Knowledge} are categorical attributes.
-
+	
 	\vspace*{0.1cm}
-
+	
 	The attribute \textit{Hours} is a continuous attribute. It can be assumed that the values of this attribute are distributed according to a Gaussian distribution.
 \end{minipage}
 \begin{minipage}{.625\textwidth}
@@ -978,14 +978,14 @@ Write down \textbf{all} intermediate steps.
 \begin{solution}
 	\begin{enumerate}
 		\item \textbf{Calculate the prior probabilities:}
-
+		      
 		      \begin{alignat*}{2}
 			      \PriorProbability{Passed}{Yes} & = \frac{7}{10} = 0,7 \\
 			      \PriorProbability{Passed}{No}  & = \frac{3}{10} = 0,3 \\
 		      \end{alignat*}
-
+		      
 		\item \textbf{Calculate the likelihoods:}
-
+		      
 		      \begin{enumerate}
 			      \item \textbf{Attribute \textit{Topic}:}
 			            \begin{alignat*}{2}
@@ -998,7 +998,7 @@ Write down \textbf{all} intermediate steps.
 				            \Likelihood{Topic}{Frequent Patterns}{Passed}{Yes} & = \frac{2}{7} \approx 0,2857 \\
 				            \Likelihood{Topic}{Frequent Patterns}{Passed}{No}  & = \frac{1}{3} \approx 0,3333 \\
 			            \end{alignat*}
-
+			            
 			      \item \textbf{Attribute \textit{Knowledge}:}
 			            \begin{alignat*}{2}
 				            \Likelihood{Knowledge}{High}{Passed}{Yes}   & = \frac{2}{7} \approx 0,2857 \\
@@ -1010,11 +1010,11 @@ Write down \textbf{all} intermediate steps.
 				            \Likelihood{Knowledge}{Low}{Passed}{Yes}    & = \frac{2}{7} \approx 0,2857 \\
 				            \Likelihood{Knowledge}{Low}{Passed}{No}     & = \frac{1}{3} \approx 0,3333 \\
 			            \end{alignat*}
-
+			            
 			      \item \textbf{Attribute \textit{Hours}:}
-
+			            
 			            Since the attribute \textit{Hours} is continuous and follows a Gaussian distribution, we have to calculate the mean $\mu$ and the standard deviation $\sigma$ for each class label:
-
+			            
 			            \begin{alignat*}{2}
 				            \mu_{\texttt{Passed}=\text{"Yes"}}    & = \frac{5 + 5 + 3 + 6 + 5 + 3 + 4}{7} = \frac{31}{7} \approx 4,4286                                                                   \\
 				            \sigma_{\texttt{Passed}=\text{"Yes"}} & = \sqrt{\frac{(5-\frac{31}{7})^2 \cdot 3 + (3-\frac{31}{7})^2 \cdot 2 + (6-\frac{31}{7})^2 + (4-\frac{31}{7})^2}{7-1}} \approx 1,1339 \\
@@ -1022,9 +1022,9 @@ Write down \textbf{all} intermediate steps.
 				            \mu_{\texttt{Passed}=\text{"No"}}     & = \frac{1 + 4 + 2}{3} = \frac{7}{3} \approx 2,3333                                                                                    \\
 				            \sigma_{\texttt{Passed}=\text{"No"}}  & = \sqrt{\frac{(1-\frac{7}{3})^2 + (4-\frac{7}{3})^2 + (2-\frac{7}{3})^2}{3-1}} \approx 1,5275                                         \\
 			            \end{alignat*}
-
+			            
 			            We can now calculate the likelihoods for the attribute \textit{Hours}:
-
+			            
 			            \begin{alignat*}{2}
 				            \Likelihood{Hours}{4}{Passed}{Yes}   & \approx \frac{1}{\sqrt{2\pi} \cdot 1,1339} \cdot e^{-\frac{(4-4,4286)^2}{2 \cdot 1,1339^2}} \approx 0,3276   \\
 				            \Likelihood{Hours}{4}{Passed}{No}    & \approx \frac{1}{\sqrt{2\pi} \cdot 1,5275} \cdot e^{-\frac{(4-2,3333)^2}{2 \cdot 1,5275^2}} \approx 0,1440   \\
@@ -1036,9 +1036,9 @@ Write down \textbf{all} intermediate steps.
 				            \Likelihood{Hours}{6,8}{Passed}{No}  & \approx \frac{1}{\sqrt{2\pi} \cdot 1,5275} \cdot e^{-\frac{(6,8-2,3333)^2}{2 \cdot 1,5275^2}} \approx 0,0036 \\
 			            \end{alignat*}
 		      \end{enumerate}
-
+		      
 		\item \textbf{Calculate the likelihood of each tuple:}
-
+		      
 		      \begin{enumerate}
 			      \item \textbf{Tuple $T_1$ with \textit{Clustering, Medium, 4}:}
 			            \begin{alignat*}{2}
@@ -1068,7 +1068,7 @@ Write down \textbf{all} intermediate steps.
 				                                               & \approx  0,3333 \cdot 0,6667 \cdot 0,2374          \\
 				                                               & \approx 0,0528                                     \\
 			            \end{alignat*}
-
+			            
 			      \item \textbf{Tuple $T_3$ with \textit{Frequent Patterns, Low, 6.8}:}
 			            \begin{alignat*}{2}
 				            \LikelihoodTuple{T_3}{Passed}{Yes} & =  \Likelihood{Topic}{Frequent Patterns}{Passed}{Yes} \\
@@ -1084,54 +1084,54 @@ Write down \textbf{all} intermediate steps.
 				                                               & \approx 0,0004                                        \\
 			            \end{alignat*}
 		      \end{enumerate}
-
+		      
 		\item \textbf{Determine the highest posteriori probability for each tuple:}
-
+		      
 		      The posteriori probability according to Bayes' theorem is actually calculated as follows:
-
+		      
 		      \begin{alignat*}{2}
 			      P(C_i|X) = \frac{P(X|C_i)P(C_i)}{P(X)}.
 		      \end{alignat*}
-
+		      
 		      Where $C_i$ stands for the class to be predicted and $X$ is representing a specific tuple (resp. the attribute combination that is part of that tuple).
-
+		      
 		      However, since $P(X)$ is the same for all classes, it is sufficient to calculate only the numerators to determine the highest $P(C_i|X)$.
-
+		      
 		      Being able to determine the highest $P(C_i|X)$ (even without knowing its exact value) is sufficient to classify the tuple.
-
+		      
 		      \begin{enumerate}
 			      \item \textbf{Tuple $T_1$ with \textit{Clustering, Medium, 4}:}
-
+			            
 			            Calculate the numerator of $\PosterioriProbability{T_1}{Passed}{Yes}$ and $\PosterioriProbability{T_1}{Passed}{No}$:
-
+			            
 			            \begin{alignat*}{2}
 				            \BayesNumerator{T_1}{Passed}{Yes} & \approx 0,0602 \cdot 0,7 \approx 0,0421 \\
 				            \BayesNumerator{T_1}{Passed}{No}  & = 0 \cdot 0,3 = 0                       \\
 			            \end{alignat*}
-
+			            
 			            Since $0,0421 > 0$ and we classify the tuple $T_1$ as $\ResultClass{Passed}{Yes}$.
-
+			            
 			            \vspace*{3em}
-
+			            
 			            \begin{mdframed}[linecolor=solutioncolor]
 				            \color{solutioncolor}
 				            \begin{em}
 					            \textbf{Calculation of the posteriori probability:}
-
+					            
 					            Even if the calculation of the full posteriori probability is not necessary, it is still possible to calculate it.
-
+					            
 					            We first need to calculate the denominator of the posteriori probability $P(X)$:
-
+					            
 					            \begin{alignat*}{2}
 						            P(T_1) & = \BayesNumerator{T_1}{Passed}{Yes}    \\
 						                   & + \BayesNumerator{T_1}{Passed}{No}     \\
 						                   & \approx 0,0602 \cdot 0,7 + 0 \cdot 0,3 \\
 						                   & \approx 0,0421
 					            \end{alignat*}
-
-
+					            
+					            
 					            Which can then be used to calculate the posteriori probabilities:
-
+					            
 					            \begin{alignat*}{2}
 						            \PosterioriProbability{T_1}{Passed}{Yes} & = \frac{\BayesNumerator{T_1}{Passed}{Yes}}{P(T_1)} \\
 						                                                     & = \frac{0,0421}{0,0421}                            \\
@@ -1141,38 +1141,38 @@ Write down \textbf{all} intermediate steps.
 						                                                     & = \frac{0}{0,0421}                                 \\
 						                                                     & = 0                                                \\
 					            \end{alignat*}
-
+					            
 					            As this calculation is not necessary for the classification, we will not calculate the posteriori probabilities for the other tuples.
 				            \end{em}
 			            \end{mdframed}
-
+			            
 			            \newpage
-
+			            
 			      \item \textbf{Tuple $T_2$ with \textit{Classification, High, 3}:}
-
+			            
 			            Calculate the numerator of $\PosterioriProbability{T_2}{Passed}{Yes}$ and $\PosterioriProbability{T_2}{Passed}{No}$:
-
+			            
 			            \begin{alignat*}{2}
 				            \BayesNumerator{T_2}{Passed}{Yes} & \approx 0,0130 \cdot 0,7 \approx 0,0091 \\
 				            \BayesNumerator{T_2}{Passed}{No}  & \approx 0,0528 \cdot 0,3 \approx 0,0158 \\
 			            \end{alignat*}
-
+			            
 			            Since $0,0091 < 0,0158$ we classify the tuple $T_2$ as $\ResultClass{Passed}{No}$.
-
+			            
 			      \item \textbf{Tuple $T_3$ with \textit{Frequent Patterns, Low, 6.8}:}
-
+			            
 			            Calculate the numerator of $\PosterioriProbability{T_3}{Passed}{Yes}$ and $\PosterioriProbability{T_3}{Passed}{No}$:
-
+			            
 			            \begin{alignat*}{2}
 				            \BayesNumerator{T_3}{Passed}{Yes} & \approx 0,0032 \cdot 0,7 \approx 0,0022 \\
 				            \BayesNumerator{T_3}{Passed}{No}  & \approx 0,0004 \cdot 0,3 \approx 0,0001 \\
 			            \end{alignat*}
-
+			            
 			            Since $0,0022 > 0,0001$ we classify the tuple $T_3$ as $\ResultClass{Passed}{Yes}$.
 		      \end{enumerate}
-
-
-
+		      
+		      
+		      
 	\end{enumerate}
 \end{solution}
 
@@ -1208,12 +1208,12 @@ Also state the \textbf{best possible} value for each metric.
 
 \begin{solution}
 	We need to calculate the True Positives (TP), True Negatives (TN), False Positives (FP), and False Negatives (FN) for the model evaluation.
-
+	
 	This is often done by creating a confusion matrix:
-
+	
 	\begin{center}
 		\begin{tabular}{c|c|>{\centering}p{1.5cm}|>{\centering}p{1.5cm}|c|}
-
+			
 			\multicolumn{2}{c|}{\multirow{2}{*}{}} & \multicolumn{2}{c|}{Predicted} &                              \\\cline{3-4}
 			\multicolumn{2}{c|}{}                  & $Yes$                          & $No$   & Total               \\\hline
 			\multirow{2}{*}{True}                  & $Yes$                          & 4 (TP) & 1 (FN)      & 5 (P) \\\cline{2-4}
@@ -1221,51 +1221,51 @@ Also state the \textbf{best possible} value for each metric.
 			\multicolumn{2}{r|}{Total}             & 6 (P')                         & 4 (N') & 10 (P + N)
 		\end{tabular}
 	\end{center}
-
+	
 	This confusion matrix can be used to calculate the metrics:
-
+	
 	\begin{itemize}
 		\item \textbf{Sensitivity:}
 		      \begin{alignat*}{2}
 			      \text{Sensitivity} & = \frac{TP}{P} = \frac{4}{5} = 0,8
 		      \end{alignat*}
-
+		      
 		      Best possible value: 1
 		\item \textbf{Specificity:}
 		      \begin{alignat*}{2}
 			      \text{Specificity} & = \frac{TN}{N} = \frac{3}{5} = 0,6
 		      \end{alignat*}
-
+		      
 		      Best possible value: 1
 		\item \textbf{Accuracy:}
 		      \begin{alignat*}{2}
 			      \text{Accuracy} & = \frac{TP + TN}{P + N} = \frac{4 + 3}{5 + 5} = \frac{7}{10} = 0,7
 		      \end{alignat*}
-
+		      
 		      Best possible value: 1
 		\item \textbf{Precision:}
 		      \begin{alignat*}{2}
 			      \text{Precision} & = \frac{TP}{TP + FP} = \frac{4}{4 + 2} = \frac{4}{6} = 0,6667
 		      \end{alignat*}
-
+		      
 		      Best possible value: 1
 		\item \textbf{Recall:}
 		      \begin{alignat*}{2}
 			      \text{Recall} & = \frac{TP}{TP + FN} = \frac{TP}{P} = \text{Sensitivity} = 0,8
 		      \end{alignat*}
-
+		      
 		      Best possible value: 1
 		\item \textbf{F1-Score:}
 		      \begin{alignat*}{2}
 			      \text{F1-Score} & = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = 2 \cdot \frac{0,6667 \cdot 0,8}{0,6667 + 0,8} = 0,7273
 		      \end{alignat*}
-
+		      
 		      Best possible value: 1
 	\end{itemize}
-
+	
 	Of course, the question regarding the best possible value is a trick question. The best possible value for each metric is 1 (or 100\%), as this would mean 100\% of the tuples were classified correctly.
-
-
+	
+	
 \end{solution}
 
 \newpage

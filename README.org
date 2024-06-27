@@ -73,14 +73,3 @@ directory of this project.
 We assume that each commit has been validated with these pre-commit hooks
 and will not accept pull requests that contain unvalidated commits
 (the pre-commit hooks are also checked again on the server side by a GitHub action).
-
-*(Current) other prerequisites:*
-- The latex package [[latexindent][https://ctan.org/pkg/latexindent]]
-- Nodejs and npm
-
-*Note for Windows users:*
-One of the hooks uses [[https://github.com/cmhughes/latexindent.pl][latexindent.pl]].
-This is usually not installed correctly by MikTex and other package managers.
-Instead, download the ZIP archive of the [[https://github.com/cmhughes/latexindent.pl/releases][latest release]]
-and copy the latexindent.exe and the defaultSettings.yaml into a directory
-that you then specify in the Windows $PATH environment variable.
