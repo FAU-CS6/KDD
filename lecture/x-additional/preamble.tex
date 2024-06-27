@@ -14,6 +14,24 @@
 \usepackage{listings}
 \usepackage[backend=biber,sorting=none,doi=true,style=ieee]{biblatex}
 
+% Options:
+%  - inst:      Institute
+%                 med:      MedFak FAU theme
+%                 nat:      NatFak FAU theme
+%                 phil:     PhilFak FAU theme
+%                 rw:       RWFak FAU theme
+%                 rw-jura:  RWFak FB Jura FAU theme
+%                 rw-wiso:  RWFak FB WISO FAU theme
+%                 tf:       TechFak FAU theme
+%  - image:     Cover image on title page
+%  - plain:     Plain title page
+%  - longtitle: Title page layout for long title
+\usetheme[%
+	image,%
+	longtitle,%
+	inst=tf%
+]{fau}
+
 % Enable semi-transparent animation preview
 \setbeamercovered{transparent}
 
