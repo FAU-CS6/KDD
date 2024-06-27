@@ -1,23 +1,37 @@
+% Set a pdf version and a document type
 \ifx\pdfminorversion\undefined\else\pdfminorversion=4\fi
-\documentclass[aspectratio=169,t, table]{beamer}
+\documentclass[aspectratio=169,t,table]{beamer}
 
+% Import all necessary packages
+\input{x-additional/packages}
+
+% Set the theme (customized FAU beamer theme)
+\usetheme[%
+	image,%
+	longtitle,%
+	inst=tf%
+]{fau}
+
+% Set all important settings and define commands that are used in more than one lecture
 \input{x-additional/preamble}
-\setbeamercovered{invisible}
-\usepackage[linesnumbered]{algorithm2e}
-\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{faucyan}{#1}}
-\SetCommentSty{mycommfont}
-\usepackage{multirow}
-\usepackage{array}
-\newcommand*\revealcline{\noalign{\vskip\arrayrulewidth}} % used in 5-evaluation-selection
-% Title, authors, and date
+
+% Title, author(s), and date
 \title[KDD~7.~Classification]{7. Classification} %
 \subtitle{Knowledge Discovery in Databases}
 \input{x-additional/dp.tex}
 \input{x-additional/get_git_rev.tex}
 
-\input{data/q.tex}
+% Create custom commands
+\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{faucyan}{#1}}
+\newcommand*\revealcline{\noalign{\vskip\arrayrulewidth}} % used in 5-evaluation-selection
+
+% Set custom (theme) settings 
+\setbeamercovered{invisible}
+\SetCommentSty{mycommfont}
+
+% Start the document
 \begin{document}
-\input{data/qq.tex}
+
 % Title
 \maketitle
 

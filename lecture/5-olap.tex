@@ -1,19 +1,30 @@
+% Set a pdf version and a document type
 \ifx\pdfminorversion\undefined\else\pdfminorversion=4\fi
 \documentclass[aspectratio=169,t,table]{beamer}
 
+% Import all necessary packages
+\input{x-additional/packages}
+
+% Set the theme (customized FAU beamer theme)
+\usetheme[%
+	image,%
+	longtitle,%
+	inst=tf%
+]{fau}
+
+% Set all important settings and define commands that are used in more than one lecture
 \input{x-additional/preamble}
 
-\newcolumntype{b}{>{\columncolor{faugray!62}}l}
-
-% Title, authors, and date
+% Title, author(s), and date
 \title[KDD~5.~OLAP]{5. Data Warehousing and Online Analytical Processing} %
 \subtitle{Knowledge Discovery in Databases}
 \input{x-additional/dp.tex}
 \input{x-additional/get_git_rev.tex}
 
-% Set additional logo (overwrites FAU seal)
-% \logo{}
+% Define a custom column type
+\newcolumntype{b}{>{\columncolor{faugray!62}}l}
 
+% Start the document
 \begin{document}
 
 % Title

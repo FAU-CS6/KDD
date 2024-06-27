@@ -1,18 +1,40 @@
+% Set a pdf version and a document type
 \ifx\pdfminorversion\undefined\else\pdfminorversion=4\fi
 \documentclass[aspectratio=169,t,table]{beamer}
 
+% Import all necessary packages
+\input{x-additional/packages}
+
+% Set the theme (customized FAU beamer theme)
+\usetheme[%
+	image,%
+	longtitle,%
+	inst=tf%
+]{fau}
+
+% Set all important settings and define commands that are used in more than one lecture
 \input{x-additional/preamble}
 
-% Title, authors, and date
+% Title, author(s), and date
 \title[KDD~3.~Data]{3. Getting to Know Your Data} %
 \subtitle{Knowledge Discovery in Databases}
 \input{x-additional/dp.tex}
 \input{x-additional/get_git_rev.tex}
 
-
-\input{data/q.tex}
-\begin{document}
+% Read in the required data files
+\pgfplotstableread{data/iris.dat}\iris
+\pgfplotstablegetrowsof{\iris}
+\pgfmathsetmacro\NumRows{\pgfplotsretval-1}
 \input{data/qq.tex}
+
+% IMPORTANT: 
+% This document requires you to build some figures before you can compile it.
+% Execute "make figures" in the main directory to build the figures.
+% If you prefer to build the figures manually, you can find the required scripts in the "src" directory.
+
+% Start the document
+\begin{document}
+
 % Title
 \maketitle
 

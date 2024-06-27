@@ -1,17 +1,29 @@
+% Set a pdf version and a document type
 \ifx\pdfminorversion\undefined\else\pdfminorversion=4\fi
-\documentclass[aspectratio=169,t]{beamer}
+\documentclass[aspectratio=169,t,table]{beamer}
 
+% Import all necessary packages
+\input{x-additional/packages}
+
+% Set the theme (customized FAU beamer theme)
+\usetheme[%
+	image,%
+	longtitle,%
+	inst=tf%
+]{fau}
+
+% Set all important settings and define commands that are used in more than one lecture
 \input{x-additional/preamble}
 
-% Title, authors, and date
+% Title, author(s), and date
 \title[KDD~10.~Current~Research]{10. Current Research} %
 \subtitle{Knowledge Discovery in Databases}
 \author[M.~B.~Sigl\and L.~Weber]{Melanie Bianca Sigl, \texttt{melanie.sigl@fau.de}\and Lucas Weber, \texttt{lucas.weber@fau.de}}
 \input{x-additional/get_git_rev.tex}
 
-\input{data/q.tex}
+% Start the document
 \begin{document}
-\input{data/qq.tex}
+
 % Title
 \maketitle
 
