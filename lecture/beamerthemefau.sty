@@ -121,20 +121,20 @@
 \pgfmathsetmacro{\beamer@sixteentonine}{16/9}
 \ifdim \beamer@aspectratio pt=\beamer@fourtothree pt%
 	% Aspect ratio 4:3
-	\pgfdeclareimage[width=3.18cm]{faulogo-white}{art/\imagepath/\faulogowhite}
-	\pgfdeclareimage[width=3.18cm]{faulogo-large}{art/\imagepath/\faulogo}
-	\pgfdeclareimage[width=2.08cm]{faulogo-small}{art/\imagepath/\faulogo}
-	\pgfdeclareimage[width=12.37cm,height=5.44cm]{image-large}{art/\imagepath/image-large-43}
-	\pgfdeclareimage[width=12.37cm,height=3.59cm]{image-small}{art/\imagepath/image-small-43}
+	\pgfdeclareimage[width=3.18cm]{faulogo-white}{fau_res/\imagepath/\faulogowhite}
+	\pgfdeclareimage[width=3.18cm]{faulogo-large}{fau_res/\imagepath/\faulogo}
+	\pgfdeclareimage[width=2.08cm]{faulogo-small}{fau_res/\imagepath/\faulogo}
+	\pgfdeclareimage[width=12.37cm,height=5.44cm]{image-large}{fau_res/\imagepath/image-large-43}
+	\pgfdeclareimage[width=12.37cm,height=3.59cm]{image-small}{fau_res/\imagepath/image-small-43}
 \else\ifdim \beamer@aspectratio pt=\beamer@sixteentonine pt%
 		% Aspect ratio 16:9
-		\pgfdeclareimage[width=6.98cm]{faulogo-large}{art/\imagepath/\faulogo}
-		\pgfdeclareimage[width=6.98cm]{faulogo-white}{art/\imagepath/\faulogowhite}
-		\pgfdeclareimage[width=6.98cm]{faulogo-white}{art/\imagepath/\faulogowhite}
-		\pgfdeclareimage[width=6.98cm]{fautext-white}{art/\imagepath/\faulogowhite}
-		\pgfdeclareimage[width=4cm]{faulogo-small}{art/\imagepath/\faulogo}
-		\pgfdeclareimage[width=15.63cm,height=5.17cm]{image-large}{art/\imagepath/image-large-169}
-		\pgfdeclareimage[width=15.63cm,height=3.39cm]{image-small}{art/\imagepath/image-small-169}
+		\pgfdeclareimage[width=6.98cm]{faulogo-large}{fau_res/\imagepath/\faulogo}
+		\pgfdeclareimage[width=6.98cm]{faulogo-white}{fau_res/\imagepath/\faulogowhite}
+		\pgfdeclareimage[width=6.98cm]{faulogo-white}{fau_res/\imagepath/\faulogowhite}
+		\pgfdeclareimage[width=6.98cm]{fautext-white}{fau_res/\imagepath/\faulogowhite}
+		\pgfdeclareimage[width=4cm]{faulogo-small}{fau_res/\imagepath/\faulogo}
+		\pgfdeclareimage[width=15.63cm,height=5.17cm]{image-large}{fau_res/\imagepath/image-large-169}
+		\pgfdeclareimage[width=15.63cm,height=3.39cm]{image-small}{fau_res/\imagepath/image-small-169}
 	\else%
 		\errmessage{Any layout other than aspect ratio 4:3 or 16:9 is not supported}
 	\fi\fi%
