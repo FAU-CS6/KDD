@@ -1,44 +1,29 @@
-% English version FAU Logo
-\usepackage[english]{babel}
-% German version FAU Logo
-%\usepackage[ngerman]{babel}
+% Set institute and date 
+\institute[CS6]{Chair of Computer Science 6 (Data Management), Friedrich-Alexander-University Erlangen-N\"urnberg}
+\date[SS\the\year{}]{Summer semester \the\year{}}
 
-\usepackage[utf8]{inputenc}
-\usepackage[sfdefault]{roboto}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb}
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
+% Configure the bibliography
+\defbibheading{bibliography}{}
+\addbibresource{references.bib}
 
-\usepackage{graphicx}
-\usepackage{listings}
-\usepackage[backend=biber,sorting=none,doi=true,style=ieee]{biblatex}
+% Define additional colors 
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{ForestGreen}{rgb}{0.34, 0.139, 0.34}
 
-% Options:
-%  - inst:      Institute
-%                 med:      MedFak FAU theme
-%                 nat:      NatFak FAU theme
-%                 phil:     PhilFak FAU theme
-%                 rw:       RWFak FAU theme
-%                 rw-jura:  RWFak FB Jura FAU theme
-%                 rw-wiso:  RWFak FB WISO FAU theme
-%                 tf:       TechFak FAU theme
-%  - image:     Cover image on title page
-%  - plain:     Plain title page
-%  - longtitle: Title page layout for long title
-\usetheme[%
-	image,%
-	longtitle,%
-	inst=tf%
-]{fau}
-
-% Enable semi-transparent animation preview
+% Configure the template
 \setbeamercovered{transparent}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{section page}{%
+	\begingroup
+	\begin{beamercolorbox}[sep=10pt,center,rounded=true,shadow=true]{section title}
+		\usebeamerfont{section title}\thesection~\insertsection\par
+	\end{beamercolorbox}
+	\endgroup
+}
+\setlength{\skip\footins}{0.2cm}
+\setlength{\footnotesep}{0.1cm}
 
-% Enable frame numbering
-%\setbeamertemplate{footline}[frame number]
-
-
+% Configure the formatting of listings
 \lstset{%
 	language=Python,
 	tabsize=2,
@@ -52,52 +37,104 @@
 	numberstyle=\tt
 }
 
-\defbibheading{bibliography}{}
-\addbibresource{references.bib}
+% Add tikz and pgfplots libraries
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,shapes.symbols,chains,intersections,snakes,positioning,matrix,mindmap,shapes.multipart,shapes,calc,shapes.geometric,shadows,shadows.blur}
+\usepgfplotslibrary{groupplots}
 
-\input{x-additional/date}
+% Define pgfplotsset
+\pgfplotsset{height=4cm,width=8cm,compat=1.14}
 
-\usepackage{url}
-\usepackage{hyperref}
-\usepackage{fontawesome5}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{calc}
-\usepackage{ifthen}
-
-\usepackage{tabularx}
-\usepackage{longtable}
-\usepackage{makecell}
-\usepackage{multicol}
-\usepackage{multirow}
-\usepackage{hhline}
-\usepackage{qrcode}
-
-\usepackage{xcolor}
-\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
-\definecolor{ForestGreen}{rgb}{0.34, 0.139, 0.34}
-
-% English version
-\institute[CS6]{Chair of Computer Science 6 (Data Management), Friedrich-Alexander-University Erlangen-N\"urnberg}
-% German version
-% \institute[Lehrstuhl]{Lehrstuhl, Friedrich-Alexander-Universit\"at Erlangen-N\"urnberg}
-
-\setbeamertemplate{section in toc}[sections numbered]
-
-\setbeamertemplate{section page}{%
-	\begingroup
-	\begin{beamercolorbox}[sep=10pt,center,rounded=true,shadow=true]{section title}
-		\usebeamerfont{section title}\thesection~\insertsection\par
-	\end{beamercolorbox}
-	\endgroup
+% Define tikz sets 
+\tikzset{
+	every overlay node/.style={
+			anchor=north west, inner sep=0pt,
+		},
+}
+\tikzset{
+	thick,
+	>=latex,
+	every edge/.style={draw=gray, thick, >=latex},
+	vertex/.style = {
+			circle,
+			fill            = black,
+			outer sep = 2pt,
+			inner sep = 1pt,
+		}
+}
+\tikzset{level 1/.append style={sibling angle=50,level distance = 165mm}}
+\tikzset{level 2/.append style={sibling angle=20,level distance = 45mm}}
+\tikzset{every node/.append style={scale=1}}
+\tikzset{
+	vertex/.style = {
+			circle,
+			fill            = black,
+			outer sep = 2pt,
+			inner sep = 1pt,
+		}
+}
+\tikzset{
+	mynode/.style={
+			draw,
+			thick,
+			anchor=south west,
+			minimum width=2cm,
+			minimum height=1.3cm,
+			align=center,
+			inner sep=0.2cm,
+			outer sep=0,
+			rectangle split,
+			rectangle split parts=2,
+			rectangle split draw splits=false},
+	reverseclip/.style={
+			insert path={(current page.north east) --
+					(current page.south east) --
+					(current page.south west) --
+					(current page.north west) --
+					(current page.north east)}
+		}
+}
+\tikzset{basic/.style={
+			draw,
+			rectangle split,
+			rectangle split parts=2,
+			rectangle split part fill={blue!20,white},
+			minimum width=2.5cm,
+			text width=2cm,
+			align=left,
+			font=\itshape
+		},
+	Diamond/.style={ diamond,
+			draw,
+			shape aspect=2,
+			inner sep = 2pt,
+			text centered,
+			fill=blue!10!white,
+			font=\itshape
+		}
 }
 
-\input{x-additional/tikzsetup}
+% Define tikzoverlay
+% Usage:
+% \tikzoverlay at (-1cm,-5cm) {content};
+% or
+% \tikzoverlay[text width=5cm] at (-1cm,-5cm) {content};
+\def\tikzoverlay{%
+	\tikz[remember picture, overlay]\node[every overlay node]
+}%
 
-\usepackage{cleveref}
+% Define additional math operators
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% Define pgfmath functions
+\pgfmathdeclarefunction{gauss}{2}{%
+	\pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+
+% Define additional commands
 \newcommand*{\fullref}[1]{\underline{\hyperref[{#1}]{\cref{#1} (\nameref*{#1})}}}
-
-% Reduce the spacing in the footnotes
-% (Especially targeted at our \footfullcite)
-\setlength{\skip\footins}{0.2cm}
-\setlength{\footnotesep}{0.1cm}
+\newcommand{\tikzmark}[1]{\tikz[remember picture] \node[coordinate] (#1) {#1};}
+\newcommand{\plots}{0.611201}
+\newcommand{\plotm}{2.19882}
+\newcommand{\MaxNumberX}{3}
+\newcommand{\MaxNumberY}{5}

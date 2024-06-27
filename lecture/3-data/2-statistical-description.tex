@@ -506,7 +506,7 @@
 				xlabel = {group size},
 				ylabel = {ratio}
 			]
-			\addplot[faucyan,ybar,fill, fill opacity=0.62, bar width = 0.8,] table {data.dat};
+			\addplot[faucyan,ybar,fill, fill opacity=0.62, bar width = 0.8,] table {data/data.dat};
 			\addplot[faured, line width = 1,domain=1:40,samples=100] {1/(x*sqrt(2*pi)*\plots)*exp(-(ln(x)-\plotm)^2/(2*\plots^2))};
 			\legend{empirical,lognormal fit}
 		\end{axis}
