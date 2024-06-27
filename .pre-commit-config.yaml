@@ -8,6 +8,8 @@ repos:
       hooks:
       -   id: check-yaml
       -   id: end-of-file-fixer
+      -   id: trailing-whitespace
+          exclude: '\.tex$' # trailing-whitespace and latexindent would otherwise conflict
 
   # Hooks concerning Latex files
   -   repo: https://github.com/cmhughes/latexindent.pl.git
