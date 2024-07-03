@@ -1,0 +1,453 @@
+\documentclass[
+english,
+smallborders
+]{i6prcsht}
+\usepackage{i6common}
+\usepackage{i6lecture}
+
+\usepackage{todonotes}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{pdfpages}
+\usepackage{csquotes}
+\usepackage{awesomebox}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage[]{mdframed}
+\usepackage{listings}
+\usepackage{multicol}
+\usetikzlibrary{calc}
+\lstset
+{
+    language=python,
+	showtabs=true,
+	tab=,
+	tabsize=2,
+	basicstyle=\ttfamily\scriptsize,
+	backgroundcolor=\color{lightgray!20},
+	breakindent=.5\textwidth,
+	frame=single,
+	breaklines=true,
+	numbers=left,
+	stepnumber=1,
+	deletekeywords=[2]{abs,max}
+}
+
+\newcommand{\points}[1]{\hfill \color{red}(#1 Points)\color{black}}
+
+\newcommand{\Point}[2]{\texttt{Point(x=#1, y=#2)}}
+
+\setlength{\columnsep}{-25pt}
+% First parameter: Points (gray)
+% Second parameter: Lowest X coordinate
+% Third parameter: Highest X coordinate
+% Fourth parameter: Lowest Y coordinate
+% Fifth parameter: Highest Y coordinate
+% Sixth parameter: Legend text width
+% Seventh parameter: Columns of legend
+\newcommand{\CoordinateSystem}[7]{
+    \begin{center}
+		\vspace*{0.1cm}
+        \newcommand*{\xMin}{#2}%
+        \newcommand*{\xMax}{#3}%
+        \newcommand*{\yMin}{#4}%
+        \newcommand*{\yMax}{#5}%
+        \begin{tikzpicture}[scale=0.375]
+            % Draw grid
+            \foreach \i in {\xMin,...,\xMax} {
+                \draw [very thin] (\i,\yMin) -- (\i,\yMax)  node [below] at
+                (\i,\yMin) {\tiny$\i$};
+            }
+            \foreach \i in {\yMin,...,\yMax} {
+                \draw [very thin] (\xMin,\i) -- (\xMax,\i) node [left] at
+                (\xMin,\i) {\tiny$\i$};
+            }
+
+            % Draw points (gray)
+            \foreach \point in {#1} {
+                \node[circle,draw,fill=gray,scale=0.5] at \point {};
+            }
+
+			% Draw legend
+			% Check if either cluster has points
+            \ifstrempty{#1}{}{\def\hasGray{true}}
+
+			% Legend
+			\node[very thin,right] at (\xMax + 0.5, \yMax - 0.5) (l) {\scriptsize Points:};
+			\node[very thin,right, below=-2mm of l] (p) {};
+
+			% If there are gray points
+			\ifdefined\hasGray
+				\node[circle,draw,fill=gray,scale=0.5] (l) at ($(l |- p.south) - (0, 0.5)$) {};
+				\node[very thin,above right=7.4mm and -7mm of l, anchor=north west,text width=#6] (p) {\scriptsize 
+				\begin{multicols}{#7}
+					\noindent
+					\begin{itemize}
+						\foreach \point in {#1} {
+							\item[] \point
+						}
+					\end{itemize}
+					
+				\end{multicols}
+				};
+			\fi
+        \end{tikzpicture}
+		
+		\vspace*{0.2cm}
+    \end{center}
+}
+
+
+\hyphenation{Stud-On}
+
+\begin{document}
+
+\title{Submission 3: \\ Clustering}
+\maketitle
+\vspace*{-2cm}
+
+\section*{About this Assignment}
+
+In this assignment, your task is to implement the algorithms for \hyperref[sec:task-one]{K-means} and \hyperref[sec:task-two]{DBSCAN}. For this purpose, you have access to a basic code skeleton, some helper classes, and several test cases.
+
+\subsection*{Key Data}
+
+\begin{itemize}
+	\item \textbf{Max. Group Size:} 3
+	\item \textbf{Max. Points:} 30
+	\item \textbf{Estimated Workload:} 3 - 4 hours
+\end{itemize}
+
+\subsection*{How to Work on the Assignment}
+
+To start working on the assignment, you'll need to accept the assignment via GitHub Classroom by clicking the provided link. This will set up a new GitHub repository for your group, packed with all the necessary files for the assignment. If you're joining an existing group, it'll add you to that group's repository.\footnote{Each student must join individually. You can join groups while accepting an assignment.}
+
+Once that's done, you have two main options for working on your assignment. You can clone the repository\footnote{If you're unfamiliar with Git or GitHub, check out this helpful guide: \url{https://github.com/git-guides/}} to your local machine by navigating to \texttt{Code $\rightarrow$ Local}, which allows you to work directly from your computer. Alternatively, you might prefer using GitHub Codespaces by selecting \texttt{Code $\rightarrow$ Codespaces} for a virtual online environment, complete with the ability to run Python through the \texttt{Terminal} provided.
+
+Whichever method you choose, it's crucial to commit and push your changes back to the repository to submit your solution\footnotemark[\value{footnote}]. After your submission, GitHub Actions takes over to automatically grade your solution and provide feedback. You'll find this feedback in the \texttt{Actions} tab of your repository. If you didn't receive full points, you can improve your solution and push the changes back to the repository to trigger a reevaluation.
+
+\subsection*{How to Prepare the Transfer the Points to StudOn}
+
+In addition to joining the GitHub Classroom, you also need to register your GitHub username on StudOn. This is necessary to transfer the points you've earned on GitHub to StudOn. To do this, enter your GitHub username in \texttt{Submission 3 - GitHub Username}. Make sure to enter your username correctly, as otherwise, the points cannot be transferred.
+
+After submission deadline, the points you've earned on GitHub will be transferred to StudOn. This process is not immediate and may take a few days. If you have any questions or issues, please contact us via the StudOn forum.
+
+\subsection*{Restrictions}
+
+Within the scope of your implementation, you are not permitted to modify the helper classes, the test cases, or the provided GitHub Actions.
+
+This will be checked on a random basis, and any attempt to do so will result in zero points for the involved group, similar to the consequences of plagiarism.
+
+\newpage
+
+\section*{Task 1: K-means \points{14}}
+\label{sec:task-one}
+
+K-means is a simple and widely used clustering algorithm. It partitions a dataset into \textit{k} clusters by iteratively assigning each data point to the cluster with the nearest centroid and updating the centroids based on the mean of the data points in the cluster.
+
+\subsection*{Task 1.1}
+
+The first step of the K-means algorithm is to distribute the data points to the k partitions. This partition can be done randomly or by using a more sophisticated method. All partitions have to be non-empty after the initialization and each data point has to be assigned to exactly one partition.
+
+Open \texttt{kmeans.py} and implement \texttt{\_initialize\_partitions}, which initializes the partitions for the K-means algorithm:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _initialize_partitions(self, points: List[Point]):
+	"""
+	Initializes the partitions (self.partitions) by assigning each point 
+	to a cluster/partition.
+	All clusters/partitions are non empty after this method is called.
+
+	Parameters:
+	points (List[Point]): The points to cluster
+	"""
+	# Check if the number of points is greater or equal to the number of clusters
+	if len(points) < self.k:
+		raise ValueError(
+			"Number of points has to be greater or equal to the number of clusters."
+		)
+
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The method expects a list of \texttt{Point}s and does not return anything. The method should put each point into one of the partitions available at \texttt{self.partitions}. The number of partitions is given by the variable \texttt{self.k}.
+
+You can test whether your implementation is correct by executing the following command in
+the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/kmeans/test_initialize_partitions.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 1.2}
+
+A second important part of the K-means algorithm is to update the centroids of the partitions. The centroid of a partition is the mean of all points in the partition.
+
+Open \texttt{kmeans.py} and implement \texttt{\_update\_centroids}, which updates the centroids of the partitions:
+
+\vspace*{0.3cm}
+
+\newpage
+
+\begin{lstlisting}
+def _update_centroids(self):
+	"""
+	Updates the centroids of the partitions and writes the new centroids
+	into self.centroids.
+	"""
+	# Make sure that all partitions are non-empty
+	for partition in self.partitions:
+		if len(partition) == 0:
+			# Throw an error if a partition is empty
+			raise ValueError(
+				"All partitions have to be non-empty before updating the centroids."
+			)
+
+	# TODO	
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The method does not expect any parameters and does not return anything. The method should update the \texttt{self.centroids} based on the mean of all points in the partition. The i-th centroid in \texttt{self.centroids} should refer to the i-th partition in \texttt{self.partitions}.
+
+You can test whether your implementation is correct by executing the following command in
+the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/kmeans/test_update_centroids.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 1.3}
+
+The last step of the K-means algorithm is to assign each data point to the cluster with the nearest centroid. 
+
+Open \texttt{kmeans.py} and implement \texttt{\_reassign\_points(self)}, which assigns each data point to the partition with the nearest centroid:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _reassign_points(self) -> bool:
+	"""
+	Reassigns each point to the partition with the closest centroid.
+
+	Ensures that each partition is non-empty after reassigning the points,
+	by randomly reassigning a single point from a random non-empty partition
+	with more than one element into each empty partition.
+
+	This is necessary to avoid empty partitions, which would lead to k-means
+	not producing k clusters, but k-n clusters (n is the number of empty partitions).
+
+	Returns:
+	bool: True if the reassignment changed the partitions, False otherwise
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The method does not expect any parameters and returns a boolean. The method should remove all points from their previous partition and add them to the partition with the nearest centroid if there is a closer centroid. If the reassignment changed the partitions, the method should return \texttt{True}, otherwise \texttt{False}.
+
+If there are empty partitions after the reassignment, the method should randomly reassign a single point from a random non-empty partition with more than one element into each empty partition. This is necessary to avoid empty partitions, which would lead to K-means not producing $k$ clusters, but $k-n$ clusters ($n$ being the number of empty partitions).
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/kmeans/test_reassign_points.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 1.4}
+
+The K-means algorithm is iterative. The algorithm stops if the partitions do not change anymore or if a maximum number of iterations is reached.
+
+Open \texttt{kmeans.py} and implement \texttt{fit}, which combines the previous steps to implement the K-means algorithm:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def fit(self, points: List[Point]):
+	"""
+	Fit the K-Means clustering instance to the given points.
+
+	Parameters:
+	points (List[Point]): The points to cluster
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The method expects a list of \texttt{Point}s and does not return anything. The method should implement the K-means algorithm by calling the methods \texttt{\_initialize\_partitions}, \texttt{\_update\_centroids}, and \texttt{\_reassign\_points}. 
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/kmeans/test_fit.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\newpage
+
+\section*{Task 2: DBSCAN}
+\label{sec:task-two}
+
+DBSCAN is a density-based clustering algorithm that groups together points that are closely packed together. It is based on two parameters: $\varepsilon$ and $MinPts$. 
+
+\subsection*{Task 2.1 \points{2}}
+
+A core part of the DBSCAN algorithm is to find all points that are within a distance of $\varepsilon$ of a given point, the so-called $\varepsilon$-Neighborhood.
+
+Open \texttt{dbscan.py} and implement \texttt{\_epsilon\_neighborhood}, which returns all points that are within a distance of $\varepsilon$ of a given point:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def _get_neighborhood(self, point: Point, points: List[Point]) -> List[Point]:
+	"""
+	Get the neighborhood of a point.
+
+	Parameters:
+	point (Point): The point to get the neighborhood of.
+	points (List[Point]): The points to consider.
+
+	Returns:
+	List[Point]: The points in the neighborhood.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The method expects the \texttt{Point} for which the neighborhood should be determined and a list of all \texttt{Point}s that should be considered. The method should return all points that are within a distance of $\varepsilon$ of the given point as a list of \texttt{Point}s. $\varepsilon$ is given by the variable \texttt{self.epsilon}.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/dbscan/test_epsilon_neighborhood.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+\subsection*{Task 2.2 \points{14}}
+
+The function \texttt{\_epsilon\_neighborhood} can be used to implement the DBSCAN algorithm. The algorithm can be implemented either iteratively or recursively.
+
+Open \texttt{dbscan.py} and implement \texttt{fit}, which implements the DBSCAN algorithm:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+def fit(self, points: List[Point]) -> None:
+	"""
+	Fit the DBSCAN clustering instance to the given points.
+
+	Parameters:
+	points (List[Point]): The points to cluster.
+	"""
+	# TODO
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+The method expects a list of \texttt{Point}s and does store the found clusters in the variable \texttt{self.clusters} and the noise points in the variable \texttt{self.noise}. 
+
+The method can be implemented either iteratively or recursively. Additional helper methods can be implemented if necessary, but they will not be tested and therefore award no points.
+
+You can test whether your implementation is correct by executing the following command in the console:
+
+\vspace*{0.3cm}
+
+\begin{lstlisting}
+pytest tests/dbscan/test_fit.py
+\end{lstlisting}
+
+\vspace*{0.1cm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\section*{Appendices}
+
+In \hyperref[sec:task-one]{Task 1} and \hyperref[sec:task-two]{Task 2} test cases are provided and used to grade the submission.
+
+The most test cases are based on the following data sets:
+
+\subsection*{Small Point Dataset}
+
+All test cases starting with the prefix \texttt{test\_with\_small\_point\_dataset} are based on the small dataset of 2D Points known from Exercise Sheet 5 - Task 1/Task 2.
+
+The dataset is structured as follows:
+
+\CoordinateSystem{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{0}{5}{0}{5}{5cm}{5}
+
+
+\subsection*{Bigger Point Dataset}
+
+All test cases starting with the prefix \texttt{test\_with\_bigger\_point\_dataset} are based on a bigger dataset of one-hundred 2D Points.
+
+The dataset is structured as follows:
+
+\CoordinateSystem{
+	(-10,-10), (-10,-9), (-10,-7), (-10,10), 
+	(-9,-10), (-9,-9), (-9,-8), (-9,-6), (-9,9), 
+	(-8,-9), (-8,-8), (-8,-7), (-8,-5), (-8,8), 
+	(-7,-8), (-7,-7), (-7,-6), (-7,-4), (-7,7),
+	(-6,-7), (-6,-6), (-6,-5), (-6,-3), (-6,6),
+	(-5,-6), (-5,-5), (-5,-4), (-5,-2), (-4,-5),
+	(-4,-4), (-4,-3), (-4,-1), (-4,4), (-3,-4),
+	(-3,-3), (-3,-2), (-3,0), (-3,3), (-2,-3),   
+	(-2,-2), (-2,-1), (-2,1), (-2,2), (-1,-2),
+	(-1,-1), (-1,0), (-1,1), (-1,2), (0,-3),
+	(0,-1), (0,0), (0,1), (0,3), (1,-4), (1,-2),
+	(1,1), (1,2), (1,4), (2,-5), (2,-3), (2,2),
+	(2,3), (2,5), (3,-6), (3,-4), (3,3), (3,4),
+	(3,6), (4,-7), (4,-5), (4,4), (4,5), (4,7),
+	(5,-8), (5,-6), (5,5), (5,5), (5,6), (5,8),
+	(6,-9), (6,-7), (6,6), (6,7), (6,9), (7,-10),
+	(7,-8), (7,7), (7,8), (7,10), (8,-10), (8,-9),
+	(8,8), (8,9), (9,-10), (9,-9), (9,9), (9,10),
+	(10,-10), (10,-8), (10,10)
+}{-11}{11}{-13}{13}{7cm}{5}
+
+\end{document}

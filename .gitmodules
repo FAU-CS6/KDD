@@ -10,3 +10,9 @@
 [submodule "submission/2-Classification/Code-Skeleton"]
 	path = submission/2-Classification/Code-Skeleton
 	url = git@github.com:FAU-CS6-KDDmUe-Submissions/2-Classification.git
+[submodule "submission/3-Clustering/Code-Skeleton"]
+	path = submission/3-Clustering/Code-Skeleton
+	url = git@github.com:FAU-CS6-KDDmUe-Submissions/3-Clustering.git
+[submodule "submission/3-Clustering/Solution"]
+	path = submission/3-Clustering/Solution
+	url = git@github.com:FAU-CS6-KDDmUe-Submissions/3-Clustering-Solution.git
