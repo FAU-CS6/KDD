@@ -1075,7 +1075,7 @@ Determine whether $(1,1)$, $(2,1)$, $(2,3)$, and $(4,4)$ are \textbf{density rea
 		      
 		\item \textbf{Point $(2,1)$:}
 		      
-		      The point $(2,1)$ is directly density reachable from the core point $(1,2)$. However, it seems like there is a chain of points leading from the core point $(1,2)$ to the point $(1,1)$ and then to the point $(2,1)$.
+		      The point $(2,1)$ is not directly density reachable from the core point $(1,2)$. However, it seems like there is a chain of points leading from the core point $(1,2)$ to the point $(1,1)$ and then to the point $(2,1)$.
 		      
 		      To prove that this chain is possible, we have to prove the following:
 		      
@@ -1131,7 +1131,7 @@ Determine whether $(1,1)$, $(2,1)$, $(2,3)$, and $(4,4)$ are \textbf{density rea
 		      
 		      \dotfill
 		      
-		\item \textbf{Point $(1,4)$:}
+		\item \textbf{Point $(4,4)$:}
 		      
 		      While the point $(4,4)$ seems to be density reachable from the points $(3,4)$ and $(4,3)$, neither of these points are in the $\varepsilon$-neighborhood of any other point. Thus, the point $(4,4)$ is not density reachable from the core point $(1,2)$.
 		      
@@ -1211,7 +1211,7 @@ Determine whether $(3,4)$ is density reachable from $(4,4)$ and whether $(4,4)$ 
 
 \subsubsection*{Task 1.4: Density Connectivity}
 
-Determine whether $(1,1)$, $(3,2)$, $(4,3)$, and $(4,4)$ are \textbf{density connected} to the core point $(3,4)$ if a density based clustering algorithm like \textbf{DBSCAN} is initialized with $\varepsilon = 1$ and $MinPts = 3$. The distance is calculated using the Euclidean distance.
+Determine whether $(1,1)$, $(3,2)$, $(4,3)$, and $(4,4)$ are \textbf{density connected} to the point $(3,4)$ if a density based clustering algorithm like \textbf{DBSCAN} is initialized with $\varepsilon = 1$ and $MinPts = 3$. The distance is calculated using the Euclidean distance.
 
 \begin{solution}
 	Points are density connected if there is a core point from which both points are density reachable. Thus, we have to check whether there is a core point from which both points are density reachable.
