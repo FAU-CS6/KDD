@@ -1,4 +1,4 @@
-\begin{frame}{Who? - Lecturer}
+\begin{frame}{Who? - Lecturers and Tutors}
 
 	%Dominik Probst
 	\begin{columns}[T]
@@ -9,15 +9,44 @@
 				\includegraphics[width=0.55\textwidth]{img/dominik_probst.jpg}
 			\end{figure}
 		\end{column}
-		\begin{column}{0.8\textwidth}
-			\textbf{Dominik Probst, M.Sc.}
+		\begin{column}{0.6\textwidth}
+			\textbf{Dominik Probst, M.Sc.} \\
+			\textit{Lecturer, Tutor and Primary Contact}
 			\begin{itemize}
-				% Following the guidelines for our business cards without "Chair of"
-				\item Ph.D. candidate
-				\item Computer Science 6 (Data Management)
+				\item Ph.D. candidate \href{https://www.cs6.tf.fau.eu}{@CS6 (Data Management)}
 				\item E-Mail: \texttt{\href{mailto:dominik.probst@fau.de}{dominik.probst@fau.de}}
 				\item Website: \url{https://www.cs6.tf.fau.eu/dp}
 			\end{itemize}
+		\end{column}
+		\begin{column}{0.2\textwidth}
+			\hfill
+		\end{column}
+	\end{columns}
+
+	\vspace{0.5em}
+	{\color{lightgray}\hrule}
+	\vspace{1em}
+
+	%Lucas Weber
+	\begin{columns}[T]
+		\begin{column}{0.2\textwidth}
+			\hfill
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\textbf{Lucas Weber, Dipl.Ing.} \\
+			\textit{Tutor}
+			\begin{itemize}
+				\item Ph.D. candidate \href{https://www.cs6.tf.fau.eu}{@CS6 (Data Management)}
+				\item E-Mail: \texttt{\href{mailto:lucas.weber@fau.de}{lucas.weber@fau.de}}
+				\item Website: \url{https://www.cs6.tf.fau.eu/lw}
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.2\textwidth}
+			\vspace{-1em}
+			\begin{figure}[t]
+				\centering
+				\includegraphics[width=0.55\textwidth]{img/lucas_weber.jpg}
+			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -94,17 +123,27 @@
 				            %      {\color{gray}(Not part of the exam)}
 			      \end{enumerate}
 		      \end{multicols}
-		      \vspace*{-1\multicolsep}
+		      \vspace*{-0.75\multicolsep}
 		\item \textbf{Topics in the exercise:}
 		      \vspace*{-1\multicolsep}
 		      \begin{multicols}{2}
 			      \begin{enumerate}
-				      \item Introduction to python and pandas {\color{gray}optional}
+				      \item Introduction to python and pandas {\color{gray}(optional)}
 				      \item Data Analysis and Data Preprocessing
 				      \item Frequent Patterns
 				      \item Classification
 				      \item Clustering
 				      \item Outlier
+			      \end{enumerate}
+		      \end{multicols}
+		      \vspace*{-0.75\multicolsep}
+		\item \textbf{Topics in the submissions:}
+		      \vspace*{-1\multicolsep}
+		      \begin{multicols}{2}
+			      \begin{enumerate}
+				      \item Frequent Patterns
+				      \item Classification
+				      \item Clustering
 			      \end{enumerate}
 		      \end{multicols}
 		      \
@@ -130,6 +169,58 @@
 			            \end{itemize}
 		      \end{itemize}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Why? - Exercises}
+	\begin{itemize}
+		\item \textbf{Last semester:}
+		      \begin{itemize}
+			      \item Very low attendance in the exercise sessions (below 5\% of registered students)\\
+			            $\Rightarrow$ Tasks \underline{based on} the exercise sheets with very low point averages in the exam
+		      \end{itemize}
+	\end{itemize}
+
+	\only<2->{
+		\begin{center}
+			\scalebox{0.75}{
+				\begin{tikzpicture}
+					\begin{axis}[
+						xbar,
+						xmin=0, xmax=100,
+						ytick={0, 1, 2},
+						yticklabels={
+						DBSCAN {(Exercise Sheet 5)},
+						Gini Index {(Exercise Sheet 4)},
+						K-Means {(Exercise Sheet 3)},
+						},
+						xlabel={Average score achieved (in \%)},
+						nodes near coords,
+						bar width=15pt,
+						enlarge y limits=0.3,
+						]
+
+						\addplot [fill=gray!60] coordinates {
+								(11,0) 	% DBSCAN
+								(9,1)	% Gini Index
+								(24,2) 	% K-Means
+							};
+
+
+						\draw [red, thick, dashed]
+						(axis cs:50,-0.5) -- (axis cs:50,2.5)
+						node[pos=0.5, anchor=north, rotate=90, red] {\scriptsize Passing Score};
+					\end{axis}
+				\end{tikzpicture}
+			}
+		\end{center}
+	}
+
+	\only<3->{
+		\begin{alertblock}{Important: The exercises are crucial for the exam!}
+			While the lectures give you a basic theoretical overview, the exercises go into more detail, give you some more practical insights, and will be the basis of multiple questions in the exam!
+		\end{alertblock}
+	}
+
 \end{frame}
 
 \begin{frame}{What? - Submissions}
