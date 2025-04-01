@@ -293,6 +293,79 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Section page end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%-------------------------------------------------------------------------------
+% Subsection page
+%-------------------------------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Subsection page %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\subsectionpagebody}{%
+	\begin{pgfpicture}{\factor*1.56cm}{0cm}% Minus left margin
+		{\paperwidth}{\paperheight}
+		% Decoration on the left
+		\color{maincolor}%
+		\pgfrect[fill]{\pgfpoint{0pt}{\paperheight}}%
+		{\pgfpoint{\paperwidth}{\paperheight}}
+
+		% Upper box
+		\pgfrect[fill]{\pgfpoint{0}{\paperheight}}%
+		{\pgfpoint{\paperwidth}{-\factor*21cm}}
+
+		% Headline - Korrigiert für das FAU-Logo
+		\pgfputat{\pgfpoint{\paperwidth-\factory*1.77cm}%
+			{\paperheight-\factory*0.7cm}}{%
+			\pgfbox[right,top]{%
+				\pgfuseimage{faulogo-white}
+			}
+		}
+
+		\color{faugraydark}
+		\pgfrect[fill]{\pgfpoint{\factor*1.5cm}{\factor*15cm}}
+		{\pgfpoint{\paperwidth}{0.08cm}}
+
+		% Section title (same as in section page)
+		\pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*4.88cm}}{%
+			\pgfbox[left,top]{%
+				\usebeamercolor[fg]{title}
+				\pgfmathparse{\factorx*23.8cm}%
+				\parbox{\pgfmathresult pt}{%
+					\smallskip\raggedright%
+					\usebeamerfont{title}{\insertsection}
+				}
+			}
+		}
+
+		% Subsection title (smaller size and closer to section title)
+		\pgfputat{\pgfpoint{\factorx*1.5cm}{\paperheight-\factor*7cm}}{%
+			\pgfbox[left,top]{%
+				\usebeamercolor[fg]{title}
+				\pgfmathparse{\factorx*23.8cm}%
+				\parbox{\pgfmathresult pt}{%
+					\smallskip\raggedright%
+					{\fontsize{16}{18}\selectfont\insertsubsection}
+				}
+			}
+		}
+
+		\ifdefined\beamer@@tmpl@logo%
+			% Draw logo
+			\pgfputat{\pgfpoint{\paperwidth-\factorx*1.24cm}%
+				{\paperheight-\factor*17.1cm}}{%
+				\pgfbox[right,bottom]{%
+					\insertlogo
+				}
+			}
+		\fi
+	\end{pgfpicture}
+}
+
+% Zusätzlicher Test mit beamer@plain für Konsistenz mit Section-Page
+\AtBeginSubsection{%
+	\frame[plain,c,noframenumbering]{%
+		\beamer@plainfalse%
+		\subsectionpagebody%
+	}% End frame
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Subsection page end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Itemize items %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{itemize item}{\footnotesize\raisebox{.275ex}{$\bullet$}}
