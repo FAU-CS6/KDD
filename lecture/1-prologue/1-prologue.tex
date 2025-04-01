@@ -74,16 +74,12 @@
 \begin{frame}{For whom? - Prerequisites}
 	%Prerequisites
 	\begin{itemize}
-		\item \textbf{Mandatory requirements:}
+		\item \textbf{Useful prerequisites:}
 		      \begin{itemize}
-			      \item Successful completion of the module \glqq Konzeptionelle Modellierung\grqq~(KonzMod)
+			      \item Successful completion of the module \glqq Einführung in Datenbanken\grqq~(EDB)
 			            \begin{itemize}
 				            \item Or a similar course teaching the basics of databases and SQL
 			            \end{itemize}
-		      \end{itemize}
-		\item \textbf{Useful prerequisites:}
-		      \begin{itemize}
-			      \item Successful completion of the module \glqq Implementierung von Datenbanksystemen\grqq~(IDB)
 			      \item Experience with:
 			            \begin{itemize}
 				            \item Python
@@ -194,7 +190,8 @@
 						FP-growth {(Exercise Sheet 3)},
 						},
 						xlabel={Average score achieved (in \%)},
-						nodes near coords,
+						nodes near coords*={\pgfmathprintnumber{\pgfplotspointmeta}~\%},
+						every node near coord/.append style={font=\footnotesize},
 						bar width=15pt,
 						enlarge y limits=0.3,
 						]

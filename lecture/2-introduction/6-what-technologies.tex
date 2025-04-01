@@ -3,25 +3,30 @@
 \begin{frame}{Data Mining: Confluence of Multiple Disciplines}
 	\centering
 	\resizebox{5.5cm}{5.5cm}{%
-		\begin{tikzpicture}[mindmap, minimum size=4cm, every
-				node/.style=concept, concept color=black!40, grow cyclic]
+		\begin{tikzpicture}[mindmap, minimum size=4cm,  every
+				node/.style=concept, concept color=black!40, grow cyclic,
+				level 1/.style={level distance=6cm, sibling angle=360/10}]
 			\node[concept] {\Huge Data mining}
 			child [concept color=gray!40, minimum size=3cm]{node {\Large
 							Machine Learning}}
 			child [concept color=gray!40, minimum size=3cm]{node {\Large
-							Pattern recognition}}
-			child [concept color=gray!40, minimum size=3cm]{node {\Large
 							Statistics}}
 			child [concept color=gray!40, minimum size=3cm]{node {\Large
-							Visualization}}
+							Pattern Recognition}}
 			child [concept color=gray!40, minimum size=3cm]{node {\Large
-							Database technology}}
+							Visualization and Human-Computer Interaction}}
 			child [concept color=gray!40, minimum size=3cm]{node {\Large
 							Algorithms}}
 			child [concept color=gray!40, minimum size=3cm]{node {\Large
-							Machine Learning}}
+							High-performance Computing}}
 			child [concept color=gray!40, minimum size=3cm]{node {\Large
-							High-performance computing}};
+							Applications}}
+			child [concept color=gray!40, minimum size=3cm]{node {\Large
+							Social Sciences}}
+			child [concept color=faugray!40, minimum size=3cm]{node {\Large
+							Database Technology}}
+			child [concept color=gray!40, minimum size=3cm]{node {\Large
+							Natural Language Processing}};
 		\end{tikzpicture}}
 \end{frame}
 
