@@ -106,9 +106,10 @@
 \end{frame}
 
 
-\begin{frame}{Online Transaction Processing vs. Online Analytical Processing}
+\begin{frame}{OLTP vs. OLAP}
 	\vspace{-0.5em}
 	\begin{tabularx}{\textwidth}{|b|X|X|}
+		\hline
 		\rowcolor{faugray!62}          & \textbf{OLTP}                                            & \textbf{OLAP}                                                      \\\hline
 		\textbf{Users}                 & clerk, IT professional                                   & knowledge worker                                                   \\ \hline
 		\textbf{Function}              & day-to-day operations                                    & decision support                                                   \\ \hline
@@ -123,7 +124,9 @@
 		\textbf{Quantification}        & transaction throughput                                   & query throughput, response                                         \\ \hline
 	\end{tabularx}
 
-	{\tiny OLTP = Online Transaction Processing, OLAP = Online Analytical Processing}
+	\vspace*{5mm}
+
+	{\small OLTP = Online Transaction Processing, OLAP = Online Analytical Processing}
 \end{frame}
 
 \begin{frame}{Why a Separate Data Warehouse?}
@@ -193,9 +196,9 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Metadata\footnote{C.f. chapter 9 of \fullcite{kimball2004}} Repository}
+\begin{frame}{Metadata Repository\footnotemark}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.45\textwidth}
 			Generally speaking:
 
 			\begin{block}{Metadata}
@@ -204,7 +207,6 @@
 
 			Three types: \textit{business}, \textit{process execution}, and
 			\textit{technical} metadata.
-
 			\vspace*{0.8em}
 			\textbf{Business Metadata}
 			\begin{itemize}
@@ -215,14 +217,14 @@
 			\end{itemize}
 		\end{column}
 
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.45\textwidth}
 			\textbf{Process Execution Metadata}
 			\begin{itemize}
 				\item Data acquisition schedule.
 				\item Data-cleaning specifications.
 				\item Aggregate specifications.
 				\item Slowly changing dimensions policies.
-				\item Duration of ETL, rows rejected and successful.
+				\item Duration of ETL / rows rejected and successful.
 			\end{itemize}
 			\textbf{Technical Metadata}
 			\begin{itemize}
@@ -236,9 +238,13 @@
 				to their originated source.}
 		\end{column}
 	\end{columns}
+
+	\footnotetext[3]{C.f. chapter 9 of \fullcite{kimball2004}}
 \end{frame}
 
 % TODO: Insert (reference) architecture for data warehouse systems
 \begin{frame}{Data Warehouse Reference Overview}
+	\vspace*{1cm}
+	\centering
 	\input{5-olap/dwh-architecture.tex}
 \end{frame}

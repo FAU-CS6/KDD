@@ -1,6 +1,6 @@
 \section{Data Warehouse Design and Usage}
 
-\begin{frame}{Design of Data Warehouse: A Business-analysis Framework}
+\begin{frame}{Design of Data Warehouse: A Framework}
 	\textbf{Four views regarding the design of a data warehouse:}
 	\begin{itemize}
 		\item \textbf{\color{airforceblue}Top-down view:}
@@ -49,7 +49,7 @@
 	\end{alertblock}
 \end{frame}
 
-\begin{frame}{Data Warehouse Development: A Recommended Approach}
+\begin{frame}{Data Warehouse Development}
 	\centering
 	\begin{tikzpicture}[>=latex']
 		\tikzset{block/.style= {draw, rectangle, align=center,minimum width=2cm,minimum height=1cm},
@@ -74,14 +74,16 @@
 
 		\path[draw,->] (hlw) edge (datamart1);
 		\path[draw,->] (hlw) edge (datamart2);
-		\path[draw,->] (datamart1) edge [bend right=30] node[fill=white] {Model refinement} (hlw);
-		\path[draw,->] (datamart2) edge [bend left = 10] node[fill=white] {Model refinement} (hlw);
-		\path[draw,->] (ddm) edge [bend left = 50] node[fill=white] {Model refinement} (hlw);
-		\path[draw,->] (edw) edge [bend left = 40] node[fill=white] {Model refinement} (hlw);
+		\path[draw,->,dashed] (datamart1) edge [bend right=30,faugraydark] (hlw);
+		\path[draw,->,dashed] ($(datamart2.south)+(0.2,0)$) edge [faugraydark] ($(hlw.north)+(-0.55,0)$);
+		\path[draw,->,dashed] (ddm) edge [bend left = 50,faugraydark] (hlw);
+		\path[draw,->,dashed] (edw) edge [bend left = 40,faugraydark] (hlw);
 		\path[draw,->] (datamart1) edge (ddm);
 		\path[draw,->] (datamart2) edge (ddm);
 		\path[draw,->] (ddm) edge (mtier);
 		\path[draw,->] (edw) edge (mtier);
 		\path[draw,->] (hlw) edge (edw);
+
+		\path[draw,->,dashed,faugraydark] (0,3.5) -- node[below] {Model Refinement} (2,3.5);
 	\end{tikzpicture}
 \end{frame}
