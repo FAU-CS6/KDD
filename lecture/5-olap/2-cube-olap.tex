@@ -25,6 +25,194 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{3-D Data Cube - Example}
+	\begin{center}
+		\scalebox{0.875}{
+			\begin{tikzpicture}[scale=1]
+				% Important: 
+				% If the coordinates are x, y, z then:
+				% x = 0 is the left side, x = 4 is the right side
+				% y = 0 is the bottom side, y = 4 is the top side
+				% z = 0 is the back side, z = 4 is the front side
+				% 
+				% To get the left bottom corner of the cube, use (0,0,4):
+				% \fill[black] (0,0,4) circle (1.5pt);
+				\useasboundingbox (-2.5,-1.8,4) rectangle (8,4,-1);
+
+				% 1. STEP - Talking points:
+				% - Imagine a three-dimensional coordinate system
+
+				% Only axis
+				\only<1-3>{
+					\draw[->] (0,0,4) -- (0,5,4);
+					\draw[->] (0,0,4) -- (5,0,4);
+					\draw[->] (0,0,4) -- (0,0,-1);
+				}
+
+				% Axis labels
+				\only<1-4>{
+					\node[anchor=south,rotate=90] at (-0.25,2.5,4) {\texttt{Time}};
+					\node[anchor=north] at (2.5,-0.25,4) {\texttt{Region}};
+					\node[anchor=south,rotate=45] at (-0.125,0.125,1.5) {\texttt{Product}};
+				}
+
+				% 2. STEP - Talking points:
+				% - Individual data points can be located anywhere in this coordinate system
+
+				% Add data points with labels 
+				\only<2-3>{
+					\fill[black] (1.3,0.3,3.9) circle (1.5pt) node[above right] {\tiny{(Erlangen/Bavaria/Germany, 01/05/2023, Series 8/Washer) - (430€)}};
+					\fill[black] (2.9,1.4,0.3) circle (1.5pt) node[above right] {\tiny{(Rome/Lazio/Italy, 23/06/2024, ePhone 16 Pro/Phone) - (1250€)}};
+				}
+
+				% Also add a lot more without labels 
+				\only<3-6>{
+					\fill[gray] (0.4,0.3,1.3) circle (1.5pt);
+					\fill[gray] (0.5,1.9,1.8) circle (1.5pt);
+					\fill[gray] (1.2,0.5,2.1) circle (1.5pt);
+					\fill[gray] (1.5,0.8,2.4) circle (1.5pt);
+					\fill[gray] (1.8,0.2,2.7) circle (1.5pt);
+					\fill[gray] (2.1,1.6,1.0) circle (1.5pt);
+					\fill[gray] (2.4,0.9,3.3) circle (1.5pt);
+					\fill[gray] (2.7,3.2,3.6) circle (1.5pt);
+					%\fill[gray] (1.0,1.5,3.9) circle (1.5pt);
+					\fill[gray] (3.3,2.8,3.2) circle (1.5pt);
+					\fill[gray] (3.6,2.1,3.5) circle (1.5pt);
+					\fill[gray] (3.6,2.1,3.5) circle (1.5pt);
+					\fill[gray] (3.9,1.4,4) circle (1.5pt);
+					% ...
+				}
+
+				% 3. STEP - Talking points:
+				% - All these data points can be grouped into a cube
+				% - The facts (e.g. prices) of all the data points in the cube can be aggregated
+
+				% Repetition of the axis (taking the cube into account)
+				\only<4>{
+					\draw[->] (0,0,4) -- (0,5,4);
+					\draw[->] (0,0,4) -- (5,0,4);
+					\draw[->, dashed] (0,0,4) -- (0,0,-1);
+				}
+
+				% Repetition of the previously labeled data points (now without labels)
+				\only<4-6>{
+					\fill[black] (1.3,0.3,3.9) circle (1.5pt);
+					\fill[black] (2.9,1.4,0.3) circle (1.5pt);
+				}
+
+				% Cube
+				\only<4>{
+					\foreach \x in{0,4,...,4}
+						{   \draw (0,\x ,4) -- (4,\x ,4);
+							\draw (\x ,0,4) -- (\x ,4,4);
+							\draw (4,\x ,4) -- (4,\x ,0);
+							\draw (\x ,4,4) -- (\x ,4,0);
+							\draw (4,0,\x ) -- (4,4,\x );
+							\draw (0,4,\x ) -- (4,4,\x );
+						}
+				}
+
+				% 4. STEP - Talking points:
+				% - The cube can be sliced into smaller cubes for more detailed analysis
+				% - There aggregation on the facts of a smaller cube can be performed
+
+				% Highest granularity cube
+				\only<5>{
+					\foreach \x in{0,...,4}
+						{   \draw (0,\x ,4) -- (4,\x ,4);
+							\draw (\x ,0,4) -- (\x ,4,4);
+							\draw (4,\x ,4) -- (4,\x ,0);
+							\draw (\x ,4,4) -- (\x ,4,0);
+							\draw (4,0,\x ) -- (4,4,\x );
+							\draw (0,4,\x ) -- (4,4,\x );
+						}
+				}
+
+				% Axis categories (highest granularity)
+				\only<5>{
+					% Time axis
+					\node[anchor=east] at (-0.25,0.5,4) {\texttt{2023}};
+					\node[anchor=east] at (-0.25,1.5,4) {\texttt{2024}};
+					\node[anchor=east] at (-0.25,2.5,4) {\texttt{2025}};
+					\node[anchor=east] at (-0.25,3.5,4) {\texttt{2026}};
+
+					% Region axis 
+					\node[anchor=east,rotate=90] at (0.5, -0.25, 4) {\texttt{France}};
+					\node[anchor=east,rotate=90] at (1.5, -0.25, 4) {\texttt{Germany}};
+					\node[anchor=east,rotate=90] at (2.5, -0.25, 4) {\texttt{Italy}};
+					\node[anchor=east,rotate=90] at (3.5, -0.25, 4) {\texttt{Spain}};
+
+					% Product axis
+					\node[anchor=west,rotate=315] at (4.125, -0.125, 3.5) {\texttt{Washer}};
+					\node[anchor=west,rotate=315] at (4.125, -0.125, 2.5) {\texttt{Fridge}};
+					\node[anchor=west,rotate=315] at (4.125, -0.125, 1.5) {\texttt{TV}};
+					\node[anchor=west,rotate=315] at (4.125, -0.125, 0.5) {\texttt{Phone}};
+				}
+
+				% 5. STEP - Talking points:
+				% - The cube can be even be sliced into smaller cubes for more detailed analysis
+				% - In this example we only go to the next granularity level in the time dimension
+				% - The other dimensions also have finer granularity levels
+				% - More on this on a later slide
+
+				% Next granularity cube
+				\only<6>{
+					\foreach \y in{0,0.25,...,4}
+						{
+							\foreach \xz in{0,1,...,4}
+								{   \draw (0,\y ,4) -- (4,\y ,4);
+									\draw (\xz ,0,4) -- (\xz ,4,4);
+									\draw (4,\y ,4) -- (4,\y ,0);
+									\draw (\xz ,4,4) -- (\xz ,4,0);
+									\draw (4,0,\xz ) -- (4,4,\xz );
+									\draw (0,4,\xz ) -- (4,4,\xz );
+								}
+						}
+				}
+
+				% Axis categories (highest granularity)
+				\only<6>{
+					% Time axis
+					\node[anchor=east] at (-1.25,0.5,4) {\texttt{2023}};
+					\node[anchor=east] at (-0.25,0.125,4) {\small{\texttt{Q1}}};
+					\node[anchor=east] at (-0.25,0.375,4) {\small{\texttt{Q2}}};
+					\node[anchor=east] at (-0.25,0.625,4) {\small{\texttt{Q3}}};
+					\node[anchor=east] at (-0.25,0.875,4) {\small{\texttt{Q4}}};
+					\node[anchor=east] at (-1.25,1.5,4) {\texttt{2024}};
+					\node[anchor=east] at (-0.25,1.125,4) {\small{\texttt{Q1}}};
+					\node[anchor=east] at (-0.25,1.375,4) {\small{\texttt{Q2}}};
+					\node[anchor=east] at (-0.25,1.625,4) {\small{\texttt{Q3}}};
+					\node[anchor=east] at (-0.25,1.875,4) {\small{\texttt{Q4}}};
+					\node[anchor=east] at (-1.25,2.5,4) {\texttt{2025}};
+					\node[anchor=east] at (-0.25,2.125,4) {\small{\texttt{Q1}}};
+					\node[anchor=east] at (-0.25,2.375,4) {\small{\texttt{Q2}}};
+					\node[anchor=east] at (-0.25,2.625,4) {\small{\texttt{Q3}}};
+					\node[anchor=east] at (-0.25,2.875,4) {\small{\texttt{Q4}}};
+					\node[anchor=east] at (-1.25,3.5,4) {\texttt{2026}};
+					\node[anchor=east] at (-0.25,3.125,4) {\small{\texttt{Q1}}};
+					\node[anchor=east] at (-0.25,3.375,4) {\small{\texttt{Q2}}};
+					\node[anchor=east] at (-0.25,3.625,4) {\small{\texttt{Q3}}};
+					\node[anchor=east] at (-0.25,3.875,4) {\small{\texttt{Q4}}};
+
+					% Region axis 
+					\node[anchor=east,rotate=90] at (0.5, -0.25, 4) {\texttt{France}};
+					\node[anchor=east,rotate=90] at (1.5, -0.25, 4) {\texttt{Germany}};
+					\node[anchor=east,rotate=90] at (2.5, -0.25, 4) {\texttt{Italy}};
+					\node[anchor=east,rotate=90] at (3.5, -0.25, 4) {\texttt{Spain}};
+
+					% Product axis
+					\node[anchor=west,rotate=315] at (4.125, -0.125, 3.5) {\texttt{Washer}};
+					\node[anchor=west,rotate=315] at (4.125, -0.125, 2.5) {\texttt{Fridge}};
+					\node[anchor=west,rotate=315] at (4.125, -0.125, 1.5) {\texttt{TV}};
+					\node[anchor=west,rotate=315] at (4.125, -0.125, 0.5) {\texttt{Phone}};
+				}
+
+
+			\end{tikzpicture}
+		}
+	\end{center}
+\end{frame}
+
 \begin{frame}{From Tables and Spreadsheets to Data Cubes}
 	\begin{itemize}
 		\item Data warehouse is based on a \textbf{\color{airforceblue}multidimensional data model} which views data in the form of a \textbf{data cube}.
