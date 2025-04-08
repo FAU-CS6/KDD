@@ -2,30 +2,26 @@
 
 % TODO: Example ERM for sales
 
-\begin{frame}{From Tables and Spreadsheets to Data Cubes}
+\begin{frame}{Data Cubes}
 	\begin{itemize}
-		\item Data warehouse is based on a \textbf{\color{airforceblue}multidimensional data model} which views data in the form of a \textbf{data cube}.
-		\item A {\color{faugray}\textbf{data cube}} allows data (example: sales) to be modeled and viewed in multiple dimensions.
+		\item Data warehouse is based on a \textbf{\color{airforceblue}multidimensional data model}
+		\item It views data in the form of a \textbf{data cube}.
+		\item A {\color{faugray}\textbf{data cube}} contains \textbf{two} different kinds of data:
 		      \begin{itemize}
-			      \item Defined by dimension and facts.
-			      \item \textbf{Dimension tables:} such as: \texttt{item (item\_name, brand, type)},\\
-			            or: \texttt{time (day, week, month, quarter, year)}.
-			      \item \textbf{Fact table:} Contains \textbf{measures} (such as \texttt{dollars\_sold}) and references (\texttt{foreign keys}) to each of the related dimension tables.
+			      \item \textbf{Dimensions:} Information that can be used to group the data.
+			            \begin{itemize}
+				            \item A dimension often comes with different levels of granularity.
+				            \item Example: Time (Granularity levels: day, month, quarter, year).
+			            \end{itemize}
+			      \item \textbf{Facts}: Information that can be aggregated.
+			            \begin{itemize}
+				            \item Example: Price.
+			            \end{itemize}
 		      \end{itemize}
-		\item \textbf{$n$-dimensional base cube.}
-		      \begin{itemize}
-			      \item Called a base cuboid in data warehousing literature.
-		      \end{itemize}
-		\item \textbf{Top most $0$-dimensional cuboid.}
-		      \begin{itemize}
-			      \item Holds the highest-level of summarization.
-			      \item Called the apex cuboid.
-		      \end{itemize}
-		\item \textbf{Lattice of cuboids.} (Forms a data cube)
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{3-D Data Cube - Example}
+\begin{frame}{Example: 3-D Data Cube}
 	\begin{center}
 		\scalebox{0.875}{
 			\begin{tikzpicture}[scale=1]
@@ -37,10 +33,21 @@
 				% 
 				% To get the left bottom corner of the cube, use (0,0,4):
 				% \fill[black] (0,0,4) circle (1.5pt);
-				\useasboundingbox (-2.5,-1.8,4) rectangle (8,4,-1);
+				\useasboundingbox (-2.5,-1.8,4) rectangle (12,4,-1);
 
 				% 1. STEP - Talking points:
 				% - Imagine a three-dimensional coordinate system
+
+				\only<1>{
+					\node[text width=5cm, anchor=west] at (7.75,2.5,4) {
+						\begin{block}{Hint (1)}
+							\underline{Given:}
+							\begin{itemize}
+								\item 3-D coordinate system
+							\end{itemize}
+						\end{block}
+					};
+				}
 
 				% Only axis
 				\only<1-3>{
@@ -59,10 +66,40 @@
 				% 2. STEP - Talking points:
 				% - Individual data points can be located anywhere in this coordinate system
 
+				\only<2>{
+					\node[text width=5cm, anchor=west] at (7.75,2.5,4) {
+						\begin{block}{Hint (2)}
+							\underline{Dimensional values:}
+							\begin{itemize}
+								\item Used to locate data points
+								\item Example: Erlangen/Bavaria/Germany,\\ 01/05/2Q/2023,\\ Series 8/Washer
+							\end{itemize}
+							\vspace*{2mm}
+							\underline{Facts:}
+							\begin{itemize}
+								\item Used to describe data points
+								\item Example: 430€
+							\end{itemize}
+						\end{block}
+					};
+				}
+
 				% Add data points with labels 
-				\only<2-3>{
-					\fill[black] (1.3,0.3,3.9) circle (1.5pt) node[above right] {\tiny{(Erlangen/Bavaria/Germany, 01/05/2023, Series 8/Washer) - (430€)}};
-					\fill[black] (2.9,1.4,0.3) circle (1.5pt) node[above right] {\tiny{(Rome/Lazio/Italy, 23/06/2024, ePhone 16 Pro/Phone) - (1250€)}};
+				\only<2>{
+					\fill[black] (1.3,0.3,3.9) circle (1.5pt) node[above right] {\tiny{(Erlangen/Bavaria/Germany, 01/05/2Q/2023, Series 8/Washer) - (430€)}};
+					\fill[black] (3.9,1.4,0.3) circle (1.5pt) node[above left] {\tiny{(Rome/Lazio/Italy, 23/06/2Q/2024, ePhone 16/Phone) - (1250€)}};
+				}
+
+				\only<3>{
+					\node[text width=5cm, anchor=west] at (7.75,2.5,4) {
+						\begin{block}{Hint (3)}
+							\underline{A real data cube:}
+							\begin{itemize}
+								\item Contains a lot of data points
+								\item Many more than shown ...
+							\end{itemize}
+						\end{block}
+					};
 				}
 
 				% Also add a lot more without labels 
@@ -83,21 +120,33 @@
 					% ...
 				}
 
+				% Repetition of the previously labeled data points (now without labels)
+				\only<3-6>{
+					\fill[black] (1.3,0.3,3.9) circle (1.5pt);
+					\fill[black] (3.9,1.4,0.3) circle (1.5pt);
+				}
+
 				% 3. STEP - Talking points:
 				% - All these data points can be grouped into a cube
 				% - The facts (e.g. prices) of all the data points in the cube can be aggregated
+
+				\only<4>{
+					\node[text width=5cm, anchor=west] at (7.75,2.5,4) {
+						\begin{block}{Hint (4)}
+							\underline{The data cube itself:}
+							\begin{itemize}
+								\item Encapsulates all data points
+								\item Can be used to aggregate all facts
+							\end{itemize}
+						\end{block}
+					};
+				}
 
 				% Repetition of the axis (taking the cube into account)
 				\only<4>{
 					\draw[->] (0,0,4) -- (0,5,4);
 					\draw[->] (0,0,4) -- (5,0,4);
 					\draw[->, dashed] (0,0,4) -- (0,0,-1);
-				}
-
-				% Repetition of the previously labeled data points (now without labels)
-				\only<4-6>{
-					\fill[black] (1.3,0.3,3.9) circle (1.5pt);
-					\fill[black] (2.9,1.4,0.3) circle (1.5pt);
 				}
 
 				% Cube
@@ -115,6 +164,22 @@
 				% 4. STEP - Talking points:
 				% - The cube can be sliced into smaller cubes for more detailed analysis
 				% - There aggregation on the facts of a smaller cube can be performed
+
+				\only<5>{
+					\node[text width=5cm, anchor=west] at (7.75,2.5,4) {
+						\begin{block}{Hint (5)}
+							\underline{A cube of cubes:}
+							\begin{itemize}
+								\item The cube can be sliced into smaller cubes
+							\end{itemize}
+							\underline{The smaller cubes:}
+							\begin{itemize}
+								\item Can be analyzed separately
+								\item Are in the highest granularity of each dimension
+							\end{itemize}
+						\end{block}
+					};
+				}
 
 				% Highest granularity cube
 				\only<5>{
@@ -139,8 +204,8 @@
 					% Region axis 
 					\node[anchor=east,rotate=90] at (0.5, -0.25, 4) {\texttt{France}};
 					\node[anchor=east,rotate=90] at (1.5, -0.25, 4) {\texttt{Germany}};
-					\node[anchor=east,rotate=90] at (2.5, -0.25, 4) {\texttt{Italy}};
-					\node[anchor=east,rotate=90] at (3.5, -0.25, 4) {\texttt{Spain}};
+					\node[anchor=east,rotate=90] at (2.5, -0.25, 4) {\texttt{Spain}};
+					\node[anchor=east,rotate=90] at (3.5, -0.25, 4) {\texttt{Italy}};
 
 					% Product axis
 					\node[anchor=west,rotate=315] at (4.125, -0.125, 3.5) {\texttt{Washer}};
@@ -154,6 +219,18 @@
 				% - In this example we only go to the next granularity level in the time dimension
 				% - The other dimensions also have finer granularity levels
 				% - More on this on a later slide
+
+				\only<6>{
+					\node[text width=5cm, anchor=west] at (7.75,2.5,4) {
+						\begin{block}{Hint (6)}
+							\underline{Even smaller cubes:}
+							\begin{itemize}
+								\item Often the cubes can be sliced into even smaller cubes
+								\item By going to the next finer granularity level in at least one dimension
+							\end{itemize}
+						\end{block}
+					};
+				}
 
 				% Next granularity cube
 				\only<6>{
@@ -213,26 +290,111 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}{From Tables and Spreadsheets to Data Cubes}
+\begin{frame}{mE/R Model of a Data Cube}
 	\begin{itemize}
-		\item Data warehouse is based on a \textbf{\color{airforceblue}multidimensional data model} which views data in the form of a \textbf{data cube}.
-		\item A {\color{faugray}\textbf{data cube}} allows data (example: sales) to be modeled and viewed in multiple dimensions.
+		\item A \textbf{mE/R model}\footnote{\fullcite{sapia98}} contains both \textbf{dimensions} and \textbf{facts}.
+		\item Very good in representing \textbf{dimensional hierarchies}.
+	\end{itemize}
+
+	\vspace*{3mm}
+
+	\begin{center}
+		\scalebox{0.85}{
+			\begin{tikzpicture}
+				% Cube
+				\foreach \x in{0,2,...,2}
+					{   \draw (0,\x ,2) -- (2,\x ,2);
+						\draw (\x ,0,2) -- (\x ,2,2);
+						\draw (2,\x ,2) -- (2,\x ,0);
+						\draw (\x ,2,2) -- (\x ,2,0);
+						\draw (2,0,\x ) -- (2,2,\x );
+						\draw (0,2,\x ) -- (2,2,\x );
+					}
+
+				% Title
+				\node at (1,1.75,2) {\footnotesize{Sales}};
+
+				% Titel line
+				\draw (0,1.5,2) -- (2,1.5,2);
+
+				% Fact(s)
+				\node[darkgray] at (1,1.25,2) {\footnotesize{Price}};
+
+				% Dimension(s)
+				% --- Time ---
+				% Nodes
+				\node[draw, rectangle, minimum width=1.5cm, minimum height=0.5cm, align=center] (day) at (-2,3,2) {\footnotesize{Day}};
+				\node[draw, rectangle, minimum width=1.5cm, minimum height=0.5cm, align=center] (month) at (-4,3,2) {\footnotesize{Month}};
+				\node[draw, rectangle, minimum width=1.5cm, minimum height=0.5cm, align=center] (week) at (-4,2.25,2) {\footnotesize{Week}};
+				\node[draw, rectangle, minimum width=1.5cm, minimum height=0.5cm, align=center] (quarter) at (-6,3,2) {\footnotesize{Quarter}};
+				\node[draw, rectangle, minimum width=1.5cm, minimum height=0.5cm, align=center] (year) at (-8,3,2) {\footnotesize{Year}};
+				% Connection Cube -> Day
+				\draw (0,1,2) -- (day.east);
+				% Connection Day -> Month
+				\draw ($(day.west) + (0,0.1,0)$) -- ($(day.west) + (-0.1,0,0)$);
+				\draw ($(day.west) + (0,-0.1,0)$) -- ($(day.west) + (-0.1,0,0)$);
+				\draw[->] ($(day.west) + (-0.1,0,0)$) -- (month.east);
+				% Connection Month -> Quarter
+				\draw ($(month.west) + (0,0.1,0)$) -- ($(month.west) + (-0.1,0,0)$);
+				\draw ($(month.west) + (0,-0.1,0)$) -- ($(month.west) + (-0.1,0,0)$);
+				\draw[->] ($(month.west) + (-0.1,0,0)$) -- (quarter.east);
+				% Connection Quarter -> Year
+				\draw ($(quarter.west) + (0,0.1,0)$) -- ($(quarter.west) + (-0.1,0,0)$);
+				\draw ($(quarter.west) + (0,-0.1,0)$) -- ($(quarter.west) + (-0.1,0,0)$);
+				\draw[->] ($(quarter.west) + (-0.1,0,0)$) -- (year.east);
+				% Connection Day -> Week
+				\draw ($(day.south) + (0.1,0,0)$) -- ($(day.south) + (0,-0.1,0)$);
+				\draw ($(day.south) + (-0.1,0,0)$) -- ($(day.south) + (0,-0.1,0)$);
+				\draw[->] ($(day.south) + (0,-0.1,0)$) |- (week.east);
+
+				% --- Region ---
+				% Nodes
+				\node[draw, rectangle, minimum width=1.5cm, minimum height=0.5cm, align=center] (city) at (-2,1,2) {\footnotesize{City}};
+				\node[draw, rectangle, minimum width=1.5cm, minimum height=0.5cm, align=center] (region) at (-4,1,2) {\footnotesize{Region}};
+				\node[draw, rectangle, minimum width=1.5cm, minimum height=0.5cm, align=center] (country) at (-6,1,2) {\footnotesize{Country}};
+				% Connection Cube -> City
+				\draw (0,1,2) -- (city.east);
+				% Connection City -> Region
+				\draw ($(city.west) + (0,0.1,0)$) -- ($(city.west) + (-0.1,0,0)$);
+				\draw ($(city.west) + (0,-0.1,0)$) -- ($(city.west) + (-0.1,0,0)$);
+				\draw[->] ($(city.west) + (-0.1,0,0)$) -- (region.east);
+				% Connection Region -> Country
+				\draw ($(region.west) + (0,0.1,0)$) -- ($(region.west) + (-0.1,0,0)$);
+				\draw ($(region.west) + (0,-0.1,0)$) -- ($(region.west) + (-0.1,0,0)$);
+				\draw[->] ($(region.west) + (-0.1,0,0)$) -- (country.east);
+
+
+				% --- Product ---
+				% Nodes
+				\node[draw, rectangle, minimum width=1.5cm, minimum height=0.5cm, align=center] (item) at (-2,-1,2) {\footnotesize{Item}};
+				\node[draw, rectangle, minimum width=1.5cm, minimum height=0.5cm, align=center] (category) at (-4,-1,2) {\footnotesize{Category}};
+				% Connection Cube -> Item
+				\draw (0,1,2) -- (item.east);
+				% Connection Item -> Category
+				\draw ($(item.west) + (0,0.1,0)$) -- ($(item.west) + (-0.1,0,0)$);
+				\draw ($(item.west) + (0,-0.1,0)$) -- ($(item.west) + (-0.1,0,0)$);
+				\draw[->] ($(item.west) + (-0.1,0,0)$) -- (category.east);
+			\end{tikzpicture}
+		}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Narrowing the Data Cube Down}
+	\begin{itemize}
+		\item Each data cube can be aggregated.
+		\item In this process, it is possible to use only individual dimensions for aggregation:
 		      \begin{itemize}
-			      \item Defined by dimension and facts.
-			      \item \textbf{Dimension tables:} such as: \texttt{item (item\_name, brand, type)},\\
-			            or: \texttt{time (day, week, month, quarter, year)}.
-			      \item \textbf{Fact table:} Contains \textbf{measures} (such as \texttt{dollars\_sold}) and references (\texttt{foreign keys}) to each of the related dimension tables.
+			      \item \textbf{$n$-dimensional base cube.}
+			            \begin{itemize}
+				            \item Called a base cuboid in data warehousing literature.
+			            \end{itemize}
+			      \item \textbf{Top most $0$-dimensional cuboid.}
+			            \begin{itemize}
+				            \item Holds the highest-level of summarization.
+				            \item Called the apex cuboid.
+			            \end{itemize}
+			      \item \textbf{Lattice of cuboids.} (Forms a data cube)
 		      \end{itemize}
-		\item \textbf{$n$-dimensional base cube.}
-		      \begin{itemize}
-			      \item Called a base cuboid in data warehousing literature.
-		      \end{itemize}
-		\item \textbf{Top most $0$-dimensional cuboid.}
-		      \begin{itemize}
-			      \item Holds the highest-level of summarization.
-			      \item Called the apex cuboid.
-		      \end{itemize}
-		\item \textbf{Lattice of cuboids.} (Forms a data cube)
 	\end{itemize}
 \end{frame}
 
@@ -571,69 +733,9 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}{A Concept Hierarchy: Dimension (Location)}
-	\begin{center}
-		\begin{tikzpicture}[scale=0.9,every node/.style={transform shape}]
-			\node at (2,6) (all) {all};
-
-			\node at (-0.5,4.5) (europe) {Europe};
-			\node at (2,4.5) (dot1) {$\cdots$};
-			\node at (4.5,4.5) (america) {North\_America};
-
-			\node at (-2,3) (germany) {Germany};
-			\node at (-0.5,3) (dots2) {$\cdots$};
-			\node at (1,3) (spain) {Spain};
-			\node at (4,3) (canada) {Canada};
-			\node at (5.5,3) (dots3) {$\cdots$};
-			\node at (7,3) (mexico) {Mexico};
-
-			\node at (-2,1.5) (frankfurt) {Frankfurt};
-			\node at (-0.5,1.5) (dots4) {$\cdots$};
-			\node at (3,1.5) (vancouver) {Vancouver};
-			\node at (4.5,1.5) (dots5) {$\cdots$};
-			\node at (6,1.5) (toronto) {Toronto};
-			\node at (2,0) (lchan) {L. Chan};
-			\node at (3.5,0) (dots6) {$\cdots$};
-			\node at (5,0) (mwind) {M. Wind};
-
-			\draw (all) -- (europe);
-			\draw (all) -- (america);
-			\draw (europe) -- (germany);
-			\draw (europe) -- (spain);
-			\draw (america) -- (canada);
-			\draw (america) -- (mexico);
-			\draw (germany) -- (frankfurt);
-			\draw (germany) -- (dots4);
-			\draw (spain) -- (0.5,2.5);
-			\draw (spain) -- (1.5,2.5);
-			\draw (mexico) -- (6.5,2.5);
-			\draw (mexico) -- (7.5,2.5);
-			\draw (frankfurt) -- (-2.5,1);
-			\draw (frankfurt) -- (-1.5,1);
-			\draw (toronto) -- (5.5,1);
-			\draw (toronto) -- (6.5,1);
-			\draw (canada) -- (vancouver);
-			\draw (canada) -- (toronto);
-			\draw (vancouver) -- (lchan);
-			\draw (vancouver) -- (mwind);
-
-			\node at (9,6) (all2) {all};
-			\node at (9,4.5) (region2)  {region};
-			\node at (9,3) (country2) {country};
-			\node at (9,1.5) (city2) {city};
-			\node at (9,0) (office2) {office};
-			\draw (all2) -- (region2);
-			\draw (region2) -- (country2);
-			\draw (country2) -- (city2);
-			\draw (city2) -- (office2);
-		\end{tikzpicture}
-	\end{center}
-\end{frame}
-
 \begin{frame}{Data-Cube Measures}
 	\begin{block}{Data-Cube Measure}
-		A \textit{data-cube measure}, also called a \textit{fact}, is a numeric
-		function that can be evaluated at each point in the data cube space.
+		A \textit{data-cube measure} is a numeric function that can be evaluated at each point in the data cube space.
 	\end{block}
 
 	\textbf{Three Categories:}
@@ -681,109 +783,12 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Aggregation Type}
-	\textbf{Sales volume as a function of product, month, and region.}
-	\begin{itemize}
-		\item Dimensions: \texttt{Product, Location, Time.}
-		\item Hierarchical summarization paths.
-	\end{itemize}
-	\vspace{0.5cm}
-	\hspace{0.5cm}
-	\begin{center}
-		\begin{tikzpicture}[scale=0.6]
-			\foreach \x in{0,...,4}
-				{   \draw (0,\x ,4) -- (4,\x ,4);
-					\draw (\x ,0,4) -- (\x ,4,4);
-					\draw (4,\x ,4) -- (4,\x ,0);
-					\draw (\x ,4,4) -- (\x ,4,0);
-					\draw (4,0,\x ) -- (4,4,\x );
-					\draw (0,4,\x ) -- (4,4,\x );
-				}
-
-			\node at (0.2,-2) {\texttt{Region}};
-			\node[rotate=45] at (3.5,-1) {\texttt{Product}};
-			\node[rotate=90] at (-2,0.5) {\texttt{Month}};
-
-			\node at (8,1.5) (industry) {\texttt{Industry}};
-			\node at (8,0) (category) {\texttt{Category}};
-			\node at (8,-1.5) (product) {\texttt{Product}};
-			\draw (industry) -- (category) -- (product);
-
-			\node at (11,3) (region) {\texttt{Region}};
-			\node at (11,1.5) (country) {\texttt{Country}};
-			\node at (11,0) (city) {\texttt{City}};
-			\node at (11,-1.5) (office) {\texttt{Office}};
-			\draw (region) -- (country) -- (city) -- (office);
-
-			\node at (16,3) (year) {\texttt{Year}};
-			\node at (15,1.5) (quarter) {\texttt{Quarter}};
-			\node at (14,0) (month) {\texttt{Month}};
-			\node at (16,0) (week) {\texttt{Week}};
-			\node at (15,-1.5) (day) {\texttt{Day}};
-			\draw (year) -- (quarter) -- (month) -- (day) -- (week) -- (year);
-		\end{tikzpicture}
-	\end{center}
-\end{frame}
-
-\begin{frame}{Data Cube Sample}
-	\centering
-	\includegraphics[width=10cm,height=6cm]{img/datacube.pdf}
-\end{frame}
-
-\begin{frame}{Cuboids Corresponding to the Cube}
-	\centering
-	\vspace*{0.75cm}
-	\begin{tikzpicture}[
-			scale=0.9,
-			every node/.style={transform shape}
-		]
-		% Connections
-		\draw[gray] (3,6) -- (1.5,4.5);
-		\draw[gray] (3,6) -- (3.75,4.5);
-		\draw[gray] (3,6) -- (6.75,4.5);
-		\draw[gray] (1.5,4.5) -- (-1.5,3);
-		\draw[gray] (1.5,4.5) -- (2.25,3);
-		\draw[gray] (3.75,4.5) -- (-1.5,3);
-		\draw[gray] (3.75,4.5) -- (6,3);
-		\draw[gray] (6.75,4.5) -- (2.25,3);
-		\draw[gray] (6.75,4.5) -- (6,3);
-		\draw[gray] (-1.5,3) -- (3,1.5);
-		\draw[gray] (2.25,3) -- (3,1.5);
-		\draw[gray] (6,3) -- (3,1.5);
-
-		% Nodes
-		\node[draw, circle, fill=black] at (3,6) {};
-		\node[draw, circle, fill=black] at (1.5,4.5) {};
-		\node[draw, circle, fill=black] at (3.75,4.5) {};
-		\node[draw, circle, fill=black] at (6.75,4.5) {};
-		\node[draw, circle, fill=black] at (-1.5,3) {};
-		\node[draw, circle, fill=black] at (2.25,3) {};
-		\node[draw, circle, fill=black] at (6,3) {};
-		\node[draw, circle, fill=black] at (3,1.5) {};
-
-		% Labels
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (3,5.75) {all};
-
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (1.5,4.25) {product};
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (3.75,4.25) {date};
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (6.75,4.25) {country};
-
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (-1.5,2.75) {product,date};
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (2.25,2.75) {product,country};
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (6,2.75) {date,country};
-
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (3,1.25) {product,date,country};
-
-		% Cuidoid labels
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (10.5,6) {$0$-D (apex) cuboid};
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (10.5,4.5) {$1$-D cuboid};
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (10.5,3) {$2$-D cuboid};
-		\node[fill=white, text opacity=1, fill opacity=0.9, inner sep=1.5pt, rounded corners=1pt] at (10.5,1.5) {$3$-D (base) cuboid};
-	\end{tikzpicture}
-\end{frame}
-
 \begin{frame}{Typical OLAP Operations}
 	\begin{itemize}
+		\item \textbf{{\color{airforceblue}Slice and dice}: project and select.}
+		      \begin{itemize}
+			      \item Selecting only certain dimensions/value ranges from a cube
+		      \end{itemize}
 		\item \textbf{{\color{airforceblue}Roll up} (drill up): summarize data.}
 		      \begin{itemize}
 			      \item By climbing up hierarchy or by dimension reduction.
@@ -792,7 +797,6 @@
 		      \begin{itemize}
 			      \item From higher-level summary to lower-level summary or detailed data, or introducing new dimensions.
 		      \end{itemize}
-		\item \textbf{{\color{airforceblue}Slice and dice}: project and select.}
 		\item \textbf{{\color{airforceblue}Pivot} (rotate):}
 		      \begin{itemize}
 			      \item Reorient the cube, visualization, 3D to series of 2D planes.
@@ -803,4 +807,391 @@
 			      \item \textbf{{\color{airforceblue}Drill through}:} through the bottom level of the cube \\ to its back-end relational tables (using SQL).
 		      \end{itemize}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{OLAP Operation: Slice}
+	\begin{center}
+		\scalebox{0.875}{
+			\begin{tikzpicture}[scale=1]
+				\useasboundingbox (-2.5,-1.8,4) rectangle (12,4,-1);
+
+				\node[text width=5cm, anchor=west] at (7.75,2.5,4) {
+					\begin{block}{Slice}
+						\underline{Basic idea:}
+						\begin{itemize}
+							\item Perform a selection on one dimension of the cube.
+						\end{itemize}
+						\underline{Example:}
+						\begin{itemize}
+							\item Select the data for Q2 2025.
+						\end{itemize}
+					\end{block}
+				};
+
+				% Mark the Q2 of 2025 with faugray
+				\fill[faugray] (0,2.25,4) -- (0,2.5,4) -- (4,2.5,4) -- (4,2.25,4) -- cycle;
+				\fill[faugray] (4,2.5,4) -- (4,2.25,4) -- (4,2.25,0) -- (4,2.5,0) -- cycle;
+				\fill[faugray!40] (0,2.5,4) -- (4,2.5,4) -- (4,2.5,0) -- (0,2.5,0) -- cycle;
+				\draw[faugray] (0,2.5,4) -- (0,2.5,0);
+				\draw[faugray] (0,2.5,0) -- (4,2.5,0);
+
+				% Cube of the initial data cube example
+				\foreach \y in{0,0.25,...,4}
+					{
+						\foreach \xz in{0,1,...,4}
+							{   \draw (0,\y ,4) -- (4,\y ,4);
+								\draw (\xz ,0,4) -- (\xz ,4,4);
+								\draw (4,\y ,4) -- (4,\y ,0);
+								\draw (\xz ,4,4) -- (\xz ,4,0);
+								\draw (4,0,\xz ) -- (4,4,\xz );
+								\draw (0,4,\xz ) -- (4,4,\xz );
+							}
+					}
+
+
+				% Axis categories (highest granularity)
+				% Time axis
+				\node[anchor=east] at (-1.25,0.5,4) {\texttt{2023}};
+				\node[anchor=east] at (-0.25,0.125,4) {\small{\texttt{Q1}}};
+				\node[anchor=east] at (-0.25,0.375,4) {\small{\texttt{Q2}}};
+				\node[anchor=east] at (-0.25,0.625,4) {\small{\texttt{Q3}}};
+				\node[anchor=east] at (-0.25,0.875,4) {\small{\texttt{Q4}}};
+				\node[anchor=east] at (-1.25,1.5,4) {\texttt{2024}};
+				\node[anchor=east] at (-0.25,1.125,4) {\small{\texttt{Q1}}};
+				\node[anchor=east] at (-0.25,1.375,4) {\small{\texttt{Q2}}};
+				\node[anchor=east] at (-0.25,1.625,4) {\small{\texttt{Q3}}};
+				\node[anchor=east] at (-0.25,1.875,4) {\small{\texttt{Q4}}};
+				\node[anchor=east] at (-1.25,2.5,4) {\texttt{2025}};
+				\node[anchor=east] at (-0.25,2.125,4) {\small{\texttt{Q1}}};
+				\node[anchor=east] at (-0.25,2.375,4) {\small{\texttt{Q2}}};
+				\node[anchor=east] at (-0.25,2.625,4) {\small{\texttt{Q3}}};
+				\node[anchor=east] at (-0.25,2.875,4) {\small{\texttt{Q4}}};
+				\node[anchor=east] at (-1.25,3.5,4) {\texttt{2026}};
+				\node[anchor=east] at (-0.25,3.125,4) {\small{\texttt{Q1}}};
+				\node[anchor=east] at (-0.25,3.375,4) {\small{\texttt{Q2}}};
+				\node[anchor=east] at (-0.25,3.625,4) {\small{\texttt{Q3}}};
+				\node[anchor=east] at (-0.25,3.875,4) {\small{\texttt{Q4}}};
+
+				% Region axis 
+				\node[anchor=east,rotate=90] at (0.5, -0.25, 4) {\texttt{France}};
+				\node[anchor=east,rotate=90] at (1.5, -0.25, 4) {\texttt{Germany}};
+				\node[anchor=east,rotate=90] at (2.5, -0.25, 4) {\texttt{Italy}};
+				\node[anchor=east,rotate=90] at (3.5, -0.25, 4) {\texttt{Spain}};
+
+				% Product axis
+				\node[anchor=west,rotate=315] at (4.125, -0.125, 3.5) {\texttt{Washer}};
+				\node[anchor=west,rotate=315] at (4.125, -0.125, 2.5) {\texttt{Fridge}};
+				\node[anchor=west,rotate=315] at (4.125, -0.125, 1.5) {\texttt{TV}};
+				\node[anchor=west,rotate=315] at (4.125, -0.125, 0.5) {\texttt{Phone}};
+			\end{tikzpicture}
+		}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}{OLAP Operation: Dice}
+	\begin{center}
+		\scalebox{0.875}{
+			\begin{tikzpicture}[scale=1]
+				\useasboundingbox (-2.5,-1.8,4) rectangle (12,4,-1);
+
+				\node[text width=5cm, anchor=west] at (7.75,2.5,4) {
+					\begin{block}{Dice}
+						\underline{Basic idea:}
+						\begin{itemize}
+							\item Perform a selection on more than one dimension.
+							\item It does not have to be on all dimensions!
+						\end{itemize}
+						\underline{Example:}
+						\begin{itemize}
+							\item Select the data for Q2 2025 and the regions Germany and Italy.
+						\end{itemize}
+					\end{block}
+				};
+
+				% Mark the Q2 of 2025 in France and with faugray
+				\fill[faugray] (1,2.25,4) -- (1,2.5,4) -- (3,2.5,4) -- (3,2.25,4) -- cycle;
+				\fill[faugray!40] (3,2.5,4) -- (3,2.25,4) -- (3,2.25,0) -- (3,2.5,0) -- cycle;
+				\fill[faugray!40] (1,2.5,4) -- (3,2.5,4) -- (3,2.5,0) -- (1,2.5,0) -- cycle;
+				\draw[faugray] (1,2.5,4) -- (1,2.5,0);
+				\draw[faugray] (1,2.5,0) -- (3,2.5,0);
+				\draw[faugray] (3,2.5,4) -- (3,2.5,0);
+				\draw[faugray] (3,2.25,4) -- (3,2.25,0);
+
+				% Cube of the initial data cube example
+				\foreach \y in{0,0.25,...,4}
+					{
+						\foreach \xz in{0,1,...,4}
+							{   \draw (0,\y ,4) -- (4,\y ,4);
+								\draw (\xz ,0,4) -- (\xz ,4,4);
+								\draw (4,\y ,4) -- (4,\y ,0);
+								\draw (\xz ,4,4) -- (\xz ,4,0);
+								\draw (4,0,\xz ) -- (4,4,\xz );
+								\draw (0,4,\xz ) -- (4,4,\xz );
+							}
+					}
+
+
+				% Axis categories (highest granularity)
+				% Time axis
+				\node[anchor=east] at (-1.25,0.5,4) {\texttt{2023}};
+				\node[anchor=east] at (-0.25,0.125,4) {\small{\texttt{Q1}}};
+				\node[anchor=east] at (-0.25,0.375,4) {\small{\texttt{Q2}}};
+				\node[anchor=east] at (-0.25,0.625,4) {\small{\texttt{Q3}}};
+				\node[anchor=east] at (-0.25,0.875,4) {\small{\texttt{Q4}}};
+				\node[anchor=east] at (-1.25,1.5,4) {\texttt{2024}};
+				\node[anchor=east] at (-0.25,1.125,4) {\small{\texttt{Q1}}};
+				\node[anchor=east] at (-0.25,1.375,4) {\small{\texttt{Q2}}};
+				\node[anchor=east] at (-0.25,1.625,4) {\small{\texttt{Q3}}};
+				\node[anchor=east] at (-0.25,1.875,4) {\small{\texttt{Q4}}};
+				\node[anchor=east] at (-1.25,2.5,4) {\texttt{2025}};
+				\node[anchor=east] at (-0.25,2.125,4) {\small{\texttt{Q1}}};
+				\node[anchor=east] at (-0.25,2.375,4) {\small{\texttt{Q2}}};
+				\node[anchor=east] at (-0.25,2.625,4) {\small{\texttt{Q3}}};
+				\node[anchor=east] at (-0.25,2.875,4) {\small{\texttt{Q4}}};
+				\node[anchor=east] at (-1.25,3.5,4) {\texttt{2026}};
+				\node[anchor=east] at (-0.25,3.125,4) {\small{\texttt{Q1}}};
+				\node[anchor=east] at (-0.25,3.375,4) {\small{\texttt{Q2}}};
+				\node[anchor=east] at (-0.25,3.625,4) {\small{\texttt{Q3}}};
+				\node[anchor=east] at (-0.25,3.875,4) {\small{\texttt{Q4}}};
+
+				% Region axis 
+				\node[anchor=east,rotate=90] at (0.5, -0.25, 4) {\texttt{France}};
+				\node[anchor=east,rotate=90] at (1.5, -0.25, 4) {\texttt{Germany}};
+				\node[anchor=east,rotate=90] at (2.5, -0.25, 4) {\texttt{Italy}};
+				\node[anchor=east,rotate=90] at (3.5, -0.25, 4) {\texttt{Spain}};
+
+				% Product axis
+				\node[anchor=west,rotate=315] at (4.125, -0.125, 3.5) {\texttt{Washer}};
+				\node[anchor=west,rotate=315] at (4.125, -0.125, 2.5) {\texttt{Fridge}};
+				\node[anchor=west,rotate=315] at (4.125, -0.125, 1.5) {\texttt{TV}};
+				\node[anchor=west,rotate=315] at (4.125, -0.125, 0.5) {\texttt{Phone}};
+			\end{tikzpicture}
+		}
+	\end{center}
+\end{frame}
+
+\begin{frame}{OLAP Operations: Roll Up and Drill Down}
+	\begin{center}
+		\scalebox{0.875}{
+			\begin{tikzpicture}[scale=1]
+
+				% Finer granularity
+				\node[anchor=east] at (0,0) (finer) {
+					\scalebox{0.8} {
+						\begin{tikzpicture}[scale=1]
+							% Cube of the initial data cube example
+							\foreach \y in{0,0.25,...,4}
+								{
+									\foreach \xz in{0,1,...,4}
+										{   \draw (0,\y ,4) -- (4,\y ,4);
+											\draw (\xz ,0,4) -- (\xz ,4,4);
+											\draw (4,\y ,4) -- (4,\y ,0);
+											\draw (\xz ,4,4) -- (\xz ,4,0);
+											\draw (4,0,\xz ) -- (4,4,\xz );
+											\draw (0,4,\xz ) -- (4,4,\xz );
+										}
+								}
+
+
+							% Axis categories (highest granularity)
+							% Time axis
+							\node[anchor=east] at (-1.25,0.5,4) {\texttt{2023}};
+							\node[anchor=east] at (-0.25,0.125,4) {\small{\texttt{Q1}}};
+							\node[anchor=east] at (-0.25,0.375,4) {\small{\texttt{Q2}}};
+							\node[anchor=east] at (-0.25,0.625,4) {\small{\texttt{Q3}}};
+							\node[anchor=east] at (-0.25,0.875,4) {\small{\texttt{Q4}}};
+							\node[anchor=east] at (-1.25,1.5,4) {\texttt{2024}};
+							\node[anchor=east] at (-0.25,1.125,4) {\small{\texttt{Q1}}};
+							\node[anchor=east] at (-0.25,1.375,4) {\small{\texttt{Q2}}};
+							\node[anchor=east] at (-0.25,1.625,4) {\small{\texttt{Q3}}};
+							\node[anchor=east] at (-0.25,1.875,4) {\small{\texttt{Q4}}};
+							\node[anchor=east] at (-1.25,2.5,4) {\texttt{2025}};
+							\node[anchor=east] at (-0.25,2.125,4) {\small{\texttt{Q1}}};
+							\node[anchor=east] at (-0.25,2.375,4) {\small{\texttt{Q2}}};
+							\node[anchor=east] at (-0.25,2.625,4) {\small{\texttt{Q3}}};
+							\node[anchor=east] at (-0.25,2.875,4) {\small{\texttt{Q4}}};
+							\node[anchor=east] at (-1.25,3.5,4) {\texttt{2026}};
+							\node[anchor=east] at (-0.25,3.125,4) {\small{\texttt{Q1}}};
+							\node[anchor=east] at (-0.25,3.375,4) {\small{\texttt{Q2}}};
+							\node[anchor=east] at (-0.25,3.625,4) {\small{\texttt{Q3}}};
+							\node[anchor=east] at (-0.25,3.875,4) {\small{\texttt{Q4}}};
+
+							% Region axis 
+							\node[anchor=east,rotate=90] at (0.5, -0.25, 4) {\texttt{France}};
+							\node[anchor=east,rotate=90] at (1.5, -0.25, 4) {\texttt{Germany}};
+							\node[anchor=east,rotate=90] at (2.5, -0.25, 4) {\texttt{Italy}};
+							\node[anchor=east,rotate=90] at (3.5, -0.25, 4) {\texttt{Spain}};
+
+							% Product axis
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 3.5) {\texttt{Washer}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 2.5) {\texttt{Fridge}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 1.5) {\texttt{TV}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 0.5) {\texttt{Phone}};
+
+							% Node to fix the bounding box
+							\node at (4, -1.5, 4) {};
+						\end{tikzpicture}
+					}
+				};
+
+				% Coarser granularity
+				\node[anchor=west] at (3,0) (coarser) {
+					\scalebox{0.8} {
+						\begin{tikzpicture}[scale=1]
+							% Cube of the initial data cube example
+							\foreach \x in{0,...,4}
+								{   \draw (0,\x ,4) -- (4,\x ,4);
+									\draw (\x ,0,4) -- (\x ,4,4);
+									\draw (4,\x ,4) -- (4,\x ,0);
+									\draw (\x ,4,4) -- (\x ,4,0);
+									\draw (4,0,\x ) -- (4,4,\x );
+									\draw (0,4,\x ) -- (4,4,\x );
+								}
+
+
+							% Axis categories (highest granularity)
+							% Time axis
+							\node[anchor=east] at (-0.25,0.5,4) {\texttt{2023}};
+							\node[anchor=east] at (-0.25,1.5,4) {\texttt{2024}};
+							\node[anchor=east] at (-0.25,2.5,4) {\texttt{2025}};
+							\node[anchor=east] at (-0.25,3.5,4) {\texttt{2026}};
+
+							% Region axis 
+							\node[anchor=east,rotate=90] at (0.5, -0.25, 4) {\texttt{France}};
+							\node[anchor=east,rotate=90] at (1.5, -0.25, 4) {\texttt{Germany}};
+							\node[anchor=east,rotate=90] at (2.5, -0.25, 4) {\texttt{Spain}};
+							\node[anchor=east,rotate=90] at (3.5, -0.25, 4) {\texttt{Italy}};
+
+							% Product axis
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 3.5) {\texttt{Washer}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 2.5) {\texttt{Fridge}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 1.5) {\texttt{TV}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 0.5) {\texttt{Phone}};
+
+							% Node to fix the bounding box
+							\node at (4, -1.5, 4) {};
+						\end{tikzpicture}
+					}
+				};
+
+				% Arrows between the two cubes
+				\draw[->, very thick] ($(finer.east) + (0,0.25)$) -- ($(coarser.west) + (0,0.25)$);
+
+				\node[text width=2.5cm, anchor=south] at (1.5,0.5) {
+					\begin{block}{Roll Up}
+						Switch to a coarser granularity.
+					\end{block}
+				};
+
+				\draw[<-, very thick] ($(finer.east) + (0,-0.25)$) -- ($(coarser.west) + (0,-0.25)$);
+
+				\node[text width=2.5cm, anchor=north] at (1.5,-0.5) {
+					\begin{block}{Drill Down}
+						Switch to a finer granularity.
+					\end{block}
+				};
+			\end{tikzpicture}
+		}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}{OLAP Operations: Pivot}
+	\begin{center}
+		\scalebox{0.875}{
+			\begin{tikzpicture}[scale=1]
+
+				% Start cube
+				\node[anchor=east] at (0,0) (start) {
+					\scalebox{0.8} {
+						\begin{tikzpicture}[scale=1]
+							% Cube of the initial data cube example
+							\foreach \x in{0,...,4}
+								{   \draw (0,\x ,4) -- (4,\x ,4);
+									\draw (\x ,0,4) -- (\x ,4,4);
+									\draw (4,\x ,4) -- (4,\x ,0);
+									\draw (\x ,4,4) -- (\x ,4,0);
+									\draw (4,0,\x ) -- (4,4,\x );
+									\draw (0,4,\x ) -- (4,4,\x );
+								}
+
+
+							% Axis categories (highest granularity)
+							% Time axis
+							\node[anchor=east] at (-0.25,0.5,4) {\texttt{2023}};
+							\node[anchor=east] at (-0.25,1.5,4) {\texttt{2024}};
+							\node[anchor=east] at (-0.25,2.5,4) {\texttt{2025}};
+							\node[anchor=east] at (-0.25,3.5,4) {\texttt{2026}};
+
+							% Region axis 
+							\node[anchor=east,rotate=90] at (0.5, -0.25, 4) {\texttt{France}};
+							\node[anchor=east,rotate=90] at (1.5, -0.25, 4) {\texttt{Germany}};
+							\node[anchor=east,rotate=90] at (2.5, -0.25, 4) {\texttt{Spain}};
+							\node[anchor=east,rotate=90] at (3.5, -0.25, 4) {\texttt{Italy}};
+
+							% Product axis
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 3.5) {\texttt{Washer}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 2.5) {\texttt{Fridge}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 1.5) {\texttt{TV}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 0.5) {\texttt{Phone}};
+
+							% Node to fix the bounding box
+							\node at (4, -1.5, 4) {};
+						\end{tikzpicture}
+					}
+				};
+
+				% Start cube with different orientation
+				\node[anchor=west] at (3,0) (pivot) {
+					\scalebox{0.8} {
+						\begin{tikzpicture}[scale=1]
+							% Cube of the initial data cube example
+							\foreach \x in{0,...,4}
+								{   \draw (0,\x ,4) -- (4,\x ,4);
+									\draw (\x ,0,4) -- (\x ,4,4);
+									\draw (4,\x ,4) -- (4,\x ,0);
+									\draw (\x ,4,4) -- (\x ,4,0);
+									\draw (4,0,\x ) -- (4,4,\x );
+									\draw (0,4,\x ) -- (4,4,\x );
+								}
+
+
+							% Axis categories (highest granularity)
+							% Region axis
+							\node[anchor=east] at (-0.25,0.5,4) {\texttt{France}};
+							\node[anchor=east] at (-0.25,1.5,4) {\texttt{Germany}};
+							\node[anchor=east] at (-0.25,2.5,4) {\texttt{Spain}};
+							\node[anchor=east] at (-0.25,3.5,4) {\texttt{Italy}};
+
+							% Time axis 
+							\node[anchor=east,rotate=90] at (0.5, -0.25, 4) {\texttt{2023}};
+							\node[anchor=east,rotate=90] at (1.5, -0.25, 4) {\texttt{2024}};
+							\node[anchor=east,rotate=90] at (2.5, -0.25, 4) {\texttt{2025}};
+							\node[anchor=east,rotate=90] at (3.5, -0.25, 4) {\texttt{2026}};
+
+							% Product axis
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 3.5) {\texttt{Washer}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 2.5) {\texttt{Fridge}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 1.5) {\texttt{TV}};
+							\node[anchor=west,rotate=315] at (4.125, -0.125, 0.5) {\texttt{Phone}};
+
+							% Node to fix the bounding box
+							\node at (4, -1.5, 4) {};
+						\end{tikzpicture}
+					}
+				};
+
+				% Arrows between the two cubes
+				\draw[->, very thick] ($(start.east) + (0,1.5)$) -- ($(pivot.west) + (0,1.5)$);
+				\draw[<-, very thick] ($(start.east) + (0,1)$) -- ($(pivot.west) + (0,1)$);
+
+				\node[text width=2.5cm, anchor=north] at (1.5,0.75) {
+					\begin{block}{Pivot}
+						Rotate the cube to provide a different view on the data.
+					\end{block}
+				};
+			\end{tikzpicture}
+		}
+	\end{center}
 \end{frame}
