@@ -174,10 +174,11 @@ jobs:
       - name: Generate Badge Images
         run: |
           SHORT_SHA=$(git rev-parse --short HEAD)
+          CURRENT_TIME=$(date "+%d.%m.%Y %H:%M")
           npm install -g badge-maker
-          npx badge-maker "Lectures" "Version ${SHORT_SHA}" "#41748D" @flat-square > artifacts/gh-badges/lectures-badge.svg
-          npx badge-maker "Exercises" "Version ${SHORT_SHA}" "#228848" @flat-square> artifacts/gh-badges/exercises-badge.svg
-          npx badge-maker "Submissions" "Version ${SHORT_SHA}" "#971B2F" @flat-square> artifacts/gh-badges/submissions-badge.svg
+          npx badge-maker "Lectures" "Last Update: ${CURRENT_TIME} (SHA ${SHORT_SHA})" "#41748D" @flat-square > artifacts/gh-badges/lectures-badge.svg
+          npx badge-maker "Exercises" "Last Update: ${CURRENT_TIME} (SHA ${SHORT_SHA})" "#228848" @flat-square> artifacts/gh-badges/exercises-badge.svg
+          npx badge-maker "Submissions" "Last Update: ${CURRENT_TIME} (SHA ${SHORT_SHA})" "#971B2F" @flat-square> artifacts/gh-badges/submissions-badge.svg
 
       - name: Create index.html
         run: |
