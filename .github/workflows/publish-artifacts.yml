@@ -1,8 +1,8 @@
-name: Publish Artifacts
+name: Publish-Artifacts
 
 on:
   workflow_run:
-    workflows: ["push-actions"]
+    workflows: ["Push-Actions"]
     types:
       - completed
     branches: [artifact-publishing]
