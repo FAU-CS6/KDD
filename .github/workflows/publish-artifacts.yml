@@ -5,6 +5,8 @@ on:
     workflows: [Push-Actions-Test]
     types:
       - completed
+    branches:
+      - artifact-publishing
 
 jobs:
   publish:
