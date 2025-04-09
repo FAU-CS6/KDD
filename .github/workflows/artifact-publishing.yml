@@ -2,7 +2,7 @@ name: Publish Artifacts
 
 on:
   workflow_run:
-    workflows: [".github/workflows/push-actions.yml"]
+    workflows: ["push-actions"]
     types:
       - completed
     branches: [artifact-publishing]
