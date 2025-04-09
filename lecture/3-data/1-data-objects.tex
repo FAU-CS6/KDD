@@ -5,10 +5,10 @@
 		\begin{column}{0.45\textwidth}
 			\textbf{Records:}
 			\begin{itemize}
-				\item Relational records.
+				\item Relational records. \tikzmark{n1}
 				\item Data matrix, e.g. numerical matrix, crosstabs.
 				\item Document data: text documents, typically represented as
-				      \textit{term-frequency vectors}. \tikzmark{n1}
+				      \textit{term-frequency vectors}.
 				\item \textit{Transaction data}. \tikzmark{n2}
 			\end{itemize}
 			\textbf{Graph and network:}
@@ -19,58 +19,90 @@
 			\end{itemize}
 		\end{column}
 
-		\begin{column}{0.45\textwidth}  %%<--- here
+		\begin{column}{0.45\textwidth}
+			\vspace*{-0.7cm}
 			\begin{table}
-				\begin{tabular}{|c|c|c|c|c|c|c|}
-					\multicolumn{1}{c|}{}  & \rotatebox[origin=c]{270}{team} & \rotatebox[origin=c]{270}{couch} & \rotatebox[origin=c]{270}{play} & \rotatebox[origin=c]{270}{ball} & \rotatebox[origin=c]{270}{score} & \rotatebox[origin=c]{270}{game} \\ \hline
-					\tikzmark{t1}Document1 & 3                               & 0                                & 5                               & 0                               & 2                                & 6                               \\ \hline
-					Document2              & 0                               & 7                                & 0                               & 2                               & 1                                & 0                               \\ \hline
-					Document3              & 0                               & 1                                & 0                               & 0                               & 1                                & 2                               \\
-					\hline
-				\end{tabular}\\[0.5cm]
-				\begin{tabular} { | c | l |}
-					\hline
-					\textbf{TID}   & \textbf{Items}             \\
-					\hline
-					\tikzmark{t2}1 & Bread, Coke, Milk          \\\hline
-					2              & Beer, Bread                \\\hline
-					3              & Beer, Coke, Diapers, Milk  \\\hline
-					4              & Beer, Bread, Diapers, Milk \\\hline
-					5              & Coke, Diapers, Milk        \\
-					\hline
-				\end{tabular}
+				\scalebox{0.8}{
+					\begin{tabular}{|l|l|l|l|}
+						\hline
+						\textbf{Stud. ID.}    & \textbf{Forename} & \textbf{Surname} & \textbf{Study Programm} \\ \hline
+						22305910              & Jane              & Doe              & Data Science            \\ \hline
+						\tikzmark{t1}23061995 & Dominik           & Doe              & Informatics             \\ \hline
+						23312331              & Friedrich         & Doe              & Data Science            \\ \hline
+						20312131              & Melanie           & Doe              & Informatics             \\ \hline
+					\end{tabular}
+				}\\[1.5cm]
+				\scalebox{0.8}{
+					\begin{tabular} {|c|l|}
+						\hline
+						\textbf{TID}   & \textbf{Items}             \\
+						\hline
+						1              & Bread, Coke, Milk          \\\hline
+						2              & Beer, Bread                \\\hline
+						\tikzmark{t2}3 & Beer, Coke, Diapers, Milk  \\\hline
+						4              & Beer, Bread, Diapers, Milk \\\hline
+						5              & Coke, Diapers, Milk        \\
+						\hline
+					\end{tabular}
+				}
 			\end{table}
 			\begin{tikzpicture}[remember picture,overlay]
-				\draw[faucyan,thick,->] ([yshift=1mm]n1) to[out=0,in=180] ([yshift=1mm]t1);
-				\draw[faucyan,thick,->] ([yshift=1mm]n2) to[out=0,in=180] ([yshift=1mm]t2);
+				\draw[faugray,thick,->] ([yshift=1mm]n1) to[out=0,in=180] ([yshift=0mm, xshift=-0.5cm]t1);
+				\draw[faugray,thick,->] ([yshift=1mm]n2) to[out=0,in=180] ([yshift=1mm, xshift=-0.5cm]t2);
 			\end{tikzpicture}
 		\end{column}
 	\end{columns}
 \end{frame}
 
 \begin{frame}{Types of Data Sets}
-	\textbf{Ordered data:}
-	\begin{itemize}
-		\item Video data: sequences of images.
-		\item Temporal data: time series.
-		\item Sequential data: transaction sequences.
-		\item Genetic sequence data.
-	\end{itemize}
-	\textbf{Spatial, image and multimedia:}
-	\begin{itemize}
-		\item Spatial data: maps.
-		\item Image data.
-		\item Video data.
-	\end{itemize}
-	% TODO: Add example visualizations:
-	% - time series: students enrolled at FAU (https://www.erlangen.de/desktopdefault.aspx/tabid-1917/4223_read-7988/)
-	% - image data: pictures of FAU headquarters and tech fak building as an example for landmarks
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\textbf{Ordered data:}
+			\begin{itemize}
+				\item Video data: sequences of images.
+				\item Temporal data: time series. \tikzmark{n3}
+				\item Sequential data: transaction sequences.
+				\item Genetic sequence data.
+			\end{itemize}
+			\textbf{Spatial, image and multimedia:}
+			\begin{itemize}
+				\item Spatial data: maps.
+				\item Image data. \tikzmark{n4}
+				\item Video data.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-0.5cm}
+			\begin{center}
+				\scalebox{0.8}{
+					% Historical student numbers at FAU (Master Data Science)
+					% Source: https://www.fau.de/files/2020/12/studierende_nach_lehreinheiten.pdf 
+					% Last accessed: 09.04.2025
+					\begin{tabular}{|c|c|c|c|c|c|c|c|}
+						\hline
+						\tikzmark{t3}\textbf{Semester} & WS22 & SS23 & WS23 & SS24 & WS24 \\ \hline
+						\textbf{Students}              & 592  & 550  & 520  & 524  & 553  \\ \hline
+					\end{tabular}
+				} \\
+				\vspace*{1.25cm}
+				\scalebox{0.8}{
+					% Fictional image of a university with dogs 
+					% This is the next best thing to the previous TODO (picture of FAU)
+					% as most images of the FAU are strictly copyrighted
+					\tikzmark{t4}\includegraphics[width=0.95\textwidth]{img/university-with-dogs.png}
+				}
+			\end{center}
+			\begin{tikzpicture}[remember picture,overlay]
+				\draw[faugray,thick,->] ([yshift=1mm]n3) to[out=0,in=180] ([yshift=-2mm, xshift=-0.5cm]t3);
+				\draw[faugray,thick,->] ([yshift=1mm]n4) to[out=0,in=180] ([yshift=1.4cm, xshift=-0.5cm]t4);
+			\end{tikzpicture}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Important Characteristics of Structured Data}
 	\textbf{Dimensionality}:\\
 	Curse of dimensionality (sparse high-dimensional data spaces).\\[0.2cm]
-	% make the example with the volume of a cube
 
 	\textbf{Sparsity}:\\
 	Only presence counts.\\[0.2cm]
@@ -109,7 +141,7 @@
 		unique identifier, customer name, and customer address.
 	\end{block}
 
-	Also known as: variable, feature, field, dimension.\\\medskip
+	Also known as: Variable, feature, field, dimension.\\\medskip
 
 	\note[itemize]{
 		\item \textit{dimension}: used in DWH, but also in statistics: number of
@@ -118,23 +150,31 @@
 		\item \textit{variable}: preferred by statisticians
 	}
 
+	Further terminology:
+
 	\begin{itemize}
 		\item \textit{Observations}: Observed or measured values of an attribute.
 		\item An \textit{attribute vector} or \textit{feature vector} describes a
 		      data object by its set of attributes.
-		\item Data sets with one attribute are referred to as \textit{univariate},
-		      whereas a \textit{multivariate} data set consists of more than one
-		      attribute.
+		\item Data sets with one attribute are referred to as \textit{univariate}
+		      (more than one: \textit{multivariate}).
+	\end{itemize}
+
+	\textbf{Two different views on attributes:}
+	\begin{itemize}
+		\item The view of the \textit{statistics} community.
+		\item The view of the \textit{informatics} community.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Types of Attributes}
-	Two different views:
+\begin{frame}{Types of Attributes: Statistics}
+	\begin{itemize}
+		\item Most common classification based on Stevens\footnote{\fullcite{stevens1946}}:
 
+	\end{itemize}
 	\vspace*{1em}
-	\begin{columns}[t]
-		\begin{column}{0.5\columnwidth}
-			\centering
+	\begin{center}
+		\scalebox{0.9}{
 			\begin{tikzpicture}[
 					every path/.style={
 							thick,
@@ -182,10 +222,137 @@
 				\path[faugray] (qualitative.south) -- (qualitative-below) -- (nominal-above) -- (nominal.north);
 				\path[faugray] (qualitative.south) -- (qualitative-below) -- (ordinal-above) -- (ordinal.north);
 			\end{tikzpicture}
-		\end{column}
-
-		\begin{column}{0.5\columnwidth}
+		}
+	\end{center}
+	\vspace*{1em}
+	\begin{columns}
+		\begin{column}{0.45\columnwidth}
 			\centering
+			\textbf{Qualitative Measurements:} \\
+			Describes an attribute without providing a size or quantity.
+		\end{column}
+		\begin{column}{0.45\columnwidth}
+			\centering
+			\textbf{Quantitative Measurements:} \\
+			Describes an objective, measurable attribute. Often numerical.
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Qualitative Measurements}
+	\begin{columns}[t]
+		\begin{column}{0.45\columnwidth}
+			\centering \textbf{Nominal Measurements:}
+			\begin{itemize}
+				\item Categories, states, or "names of things".
+				\item E.g. \texttt{color} $= \{\text{blue,red,green}\}$.
+				\item Other examples: \texttt{marital\_status}, \texttt{occupation}, \texttt{ID}, \texttt{ZIP code}.
+				\item \textbf{Special case -} Binary measurements:
+				      \begin{itemize}
+					      \item Only two states ($0$ and $1$).
+					      \item \textbf{Symmetric binaries}: both outcomes equally important, such as \texttt{sex}.
+					      \item \textbf{Asymmetric binary}: outcomes not equally important. \\
+					            E.g. medical test (positive vs. negative).\\
+					            Convention: assign 1 to most important outcome (e.g. diabetes, HIV positive).
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\columnwidth}
+			\centering \textbf{Ordinal Measurements}
+			\begin{itemize}
+				\item Values have a meaningful order (ranking), but magnitude between successive values is not known.
+				\item E.g. \texttt{size} $= \{\text{small, medium, large}\}$
+				\item Other examples: \texttt{grades}, \texttt{army rankings}.
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Quantitative Measurements}
+	\begin{columns}[t]
+		\begin{column}{0.45\columnwidth}
+			\centering \textbf{Interval-Scaled Measurements}
+			\begin{itemize}
+				\item Measured on a scale of \textbf{equally sized} units.
+				\item No true zero-point.
+				\item Values have order.
+				\item E.g. temperature in $^{\circ}C$ or $^{\circ}F$.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\columnwidth}
+			\centering \textbf{Ratio-Scaled Measurements}
+			\begin{itemize}
+				\item Inherent \textbf{zero point}.
+				\item We can speak of values as being an order of magnitude larger
+				      than the unit of measurement.
+				\item E.g. temperature in Kelvin.
+			\end{itemize}
+		\end{column}
+	\end{columns}
+
+	\vspace*{2em}
+
+	\begin{center}
+		\begin{tikzpicture}[xscale=0.03]
+			\def\Tzero{-273.15}  % absolute zero
+			\def\Tnitro{-195.79} % liquid nitrogen
+			\def\Tbody{36.8}     % body temperature
+			\def\Tboil{100}      % boiling temperature
+			\def\Tmax{140}       % maximum temperature on the scale
+			\def\h{0.5}         % axis off sets
+			\def\tick####1####2####3{\draw[thick,####3] (####1+.08) --++ (0,-.16) node[below=-.5pt,scale=1] {\scriptsize ####2};}
+			\def\Ts####1{{25+50/(\Tmax-\Tzero)*(####1-\Tzero)}} % convert temperature to [25,50] range
+
+			% AXIS
+			\draw[->,thick] % degrees Celsius
+			(1.02*\Tzero,0) -- (1.1*\Tmax,0) node[right] {$^\circ$C};
+			\draw[->,thick] % Kelvin
+			(1.02*\Tzero,-\h) -- (1.1*\Tmax,-\h) node[right] {K};
+			\draw[->,thick] % Fahrenheit
+			(1.02*\Tzero,-2*\h) -- (1.1*\Tmax,-2*\h) node[right] {$^\circ$F};
+
+			% LABEL
+			\node[above=-0.2em,align=center] at (\Tzero,0.1) {\scriptsize absolute\\[-2]\strut \scriptsize zero};
+			\node[above=-0.2em,align=center] at (\Tnitro,0.1) {\scriptsize liquid\\[-2]\strut \scriptsize nitrogen};
+			\node[left=4,above=-0.2em,align=center] at (0,0.1) {\scriptsize water\\[-2]\strut \scriptsize freezes};
+			\node[right=4,above=-0.2em,align=center] at (\Tbody,0.1) {\scriptsize human\\[-2]\strut \scriptsize body};
+			\node[above=-0.2em,align=center] at (\Tboil,0.1) {\scriptsize water\\[-2]\strut \scriptsize boils};
+
+			% CELSIUS
+			\tick{\Tzero,0}{$-273.15$}{faublue} % absolute zero
+			\tick{\Tnitro,0}{\hspace{6pt}$-195.79$}{faublue} % liquid nitrogen
+			\tick{0,0}{0}{faublue}              % freezing temperature
+			\tick{\Tbody,0}{36.8}{faugreendark}            % body temperature
+			\tick{\Tboil,0}{100}{faured}        % boiling temperature
+
+			% KELVIN
+			\tick{\Tzero,-\h}{0}{faublue}   % absolute zero
+			\tick{\Tnitro,-\h}{77}{faublue}           % liquid nitrogen
+			\tick{0,-\h}{273.15}{faublue}       % freezing temperature
+			\tick{\Tbody,-\h}{310.0}{faugreendark}        % body temperature
+			\tick{\Tboil,-\h}{373.15}{faured}   % boiling temperature
+
+			% FAHRENHEIT
+			\tick{\Tzero,-2*\h}{$-459.67$}{faublue} % absolute zero
+			\tick{\Tnitro,-2*\h}{$-320$}{faublue}      % liquid nitrogen
+			\tick{0,-2*\h}{32}{faublue}          % freezing temperature
+			\tick{\Tbody,-2*\h}{98.2}{faugreendark}         % body temperature
+			\tick{\Tboil,-2*\h}{212}{faured}     % boiling temperature
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Types of Attributes: Informatics}
+	\begin{itemize}
+		\item The view of the \textit{informatics} community focuses on the \textbf{data
+			      type} of the attribute:
+
+	\end{itemize}
+	\vspace*{1em}
+	\begin{center}
+		\scalebox{0.9}{
 			\begin{tikzpicture}[
 					every path/.style={
 							thick,
@@ -223,120 +390,28 @@
 				\path[faugray] (numerical.south) -- (numerical-below) -- (continuous-above) -- (continuous.north);
 				\path[faugray] (numerical.south) -- (numerical-below) -- (discrete-above) -- (discrete.north);
 			\end{tikzpicture}
+		}
+	\end{center}
+	\vspace*{1em}
+	\begin{columns}
+		\begin{column}{0.45\columnwidth}
+			\centering
+			\textbf{Categorical Attributes:} \\
+			Corresponds to qualitative measurements. Most often strings.
+		\end{column}
+		\begin{column}{0.45\columnwidth}
+			\centering
+			\textbf{Numerical Attributes:} \\
+			Corresponds to quantitative measurements. E.g. integers, floats.
 		\end{column}
 	\end{columns}
-	\vspace*{1em}
-	\begin{itemize}
-		\item \textit{Qualitative} measurements describe an attribute without
-		      providing a size or quantity.
-
-		\item \textit{Quantitative} measurements, often also called \textit{numerical}
-		      attributes, are quantitatively measured and often represented in integers or
-		      real values.
-	\end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{Attribute Types}
-	\textbf{Nominal}:
-	\begin{itemize}
-		\item Categories, states, or "names of things".
-		\item E.g. \texttt{hair\_color} $= \{\text{auburn, black, blond, brown, grey, red, white}\}$.
-		\item Other examples: \texttt{marital\_status}, \texttt{occupation}, \texttt{ID}, \texttt{ZIP code}.
-	\end{itemize}
-
-	\textbf{Binary}:
-	\begin{itemize}
-		\item Nominal attribute with only two states ($0$ and $1$).
-		\item \textbf{Symmetric binaries}: both outcomes equally important, such as \texttt{sex}.
-		\item \textbf{Asymmetric binary}: outcomes not equally important. \\
-		      E.g. medical test (positive vs. negative).\\
-		      Convention: assign 1 to most important outcome (e.g. diabetes, HIV positive).
-	\end{itemize}
-
-	\textbf{Ordinal}:
-	\begin{itemize}
-		\item Values have a meaningful order (ranking), but magnitude between
-		      successive values is not known.
-		\item E.g. \texttt{size} $= \{\text{small, medium, large}\}$, grades, army rankings.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Numerical Attribute Types}
+\begin{frame}[c]{Numerical Attributes}
 	\begin{columns}[t]
-		\begin{column}{0.5\columnwidth}
-			\centering \textbf{Interval-Scaled Attributes}
-			\begin{itemize}
-				\item Measured on a scale of \textbf{equally sized} units.
-				\item No true zero-point.
-				\item Values have order.
-				\item E.g. temperature in $C$ or $F$, calender dates.
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.5\columnwidth}
-			\centering \textbf{Ratio-Scaled Attributes}
-			\begin{itemize}
-				\item Inherent \textbf{zero point}.
-				\item We can speak of values as being an order of magnitude larger
-				      than the unit of measurement.
-				\item E.g. temperature in Kelvin, length, counts, monetary quantities.
-			\end{itemize}
-		\end{column}
-	\end{columns}
-
-	\vspace*{1em}
-	\begin{tikzpicture}[xscale=0.032]
-		\def\Tzero{-273.15}  % absolute zero
-		\def\Tnitro{-195.79} % liquid nitrogen
-		\def\Tbody{36.8}     % body temperature
-		\def\Tboil{100}      % boiling temperature
-		\def\Tmax{140}       % maximum temperature on the scale
-		\def\h{0.5}         % axis off sets
-		\def\tick####1####2####3{\draw[thick,####3] (####1+.08) --++ (0,-.16) node[below=-.5pt,scale=1] {\scriptsize ####2};}
-		\def\Ts####1{{25+50/(\Tmax-\Tzero)*(####1-\Tzero)}} % convert temperature to [25,50] range
-
-		% AXIS
-		\draw[->,thick] % degrees Celsius
-		(1.02*\Tzero,0) -- (1.1*\Tmax,0) node[right] {$^\circ$C};
-		\draw[->,thick] % Kelvin
-		(1.02*\Tzero,-\h) -- (1.1*\Tmax,-\h) node[right] {K};
-		\draw[->,thick] % Fahrenheit
-		(1.02*\Tzero,-2*\h) -- (1.1*\Tmax,-2*\h) node[right] {$^\circ$F};
-
-		% LABEL
-		\node[above=-0.2em,align=center] at (\Tzero,0.1) {\scriptsize absolute\\[-2]\strut \scriptsize zero};
-		\node[above=-0.2em,align=center] at (\Tnitro,0.1) {\scriptsize liquid\\[-2]\strut \scriptsize nitrogen};
-		\node[left=4,above=-0.2em,align=center] at (0,0.1) {\scriptsize water\\[-2]\strut \scriptsize freezes};
-		\node[right=4,above=-0.2em,align=center] at (\Tbody,0.1) {\scriptsize human\\[-2]\strut \scriptsize body};
-		\node[above=-0.2em,align=center] at (\Tboil,0.1) {\scriptsize water\\[-2]\strut \scriptsize boils};
-
-		% CELSIUS
-		\tick{\Tzero,0}{$-273.15$}{faublue} % absolute zero
-		\tick{\Tnitro,0}{\hspace{6pt}$-195.79$}{faublue} % liquid nitrogen
-		\tick{0,0}{0}{faublue}              % freezing temperature
-		\tick{\Tbody,0}{36.8}{faugreendark}            % body temperature
-		\tick{\Tboil,0}{100}{faured}        % boiling temperature
-
-		% KELVIN
-		\tick{\Tzero,-\h}{0}{faublue}   % absolute zero
-		\tick{\Tnitro,-\h}{77}{faublue}           % liquid nitrogen
-		\tick{0,-\h}{273.15}{faublue}       % freezing temperature
-		\tick{\Tbody,-\h}{310.0}{faugreendark}        % body temperature
-		\tick{\Tboil,-\h}{373.15}{faured}   % boiling temperature
-
-		% FAHRENHEIT
-		\tick{\Tzero,-2*\h}{$-459.67$}{faublue} % absolute zero
-		\tick{\Tnitro,-2*\h}{$-320$}{faublue}      % liquid nitrogen
-		\tick{0,-2*\h}{32}{faublue}          % freezing temperature
-		\tick{\Tbody,-2*\h}{98.2}{faugreendark}         % body temperature
-		\tick{\Tboil,-2*\h}{212}{faured}     % boiling temperature
-	\end{tikzpicture}
-\end{frame}
-
-\begin{frame}[c]{Continuous vs. Discrete Attributes}
-	\begin{columns}[t]
-		\begin{column}{0.5\columnwidth}
+		\begin{column}{0.45\columnwidth}
 			\centering \textbf{Continuous Attributes}
 			\begin{itemize}
 				\item Has real numbers as attribute values.\\
@@ -345,7 +420,7 @@
 				\item Continuous attributes are typically represented as floating-point variables.
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.5\columnwidth}
+		\begin{column}{0.45\columnwidth}
 			\centering \textbf{Discrete Attributes}
 			\begin{itemize}
 				\item Has finite or countably infinite elements.\\

@@ -189,11 +189,16 @@
 		\item $x$ is the score to be standardized; $\mu$ is the population mean; $\sigma$ is the standard deviation.
 		\item The distance between the raw score and the population mean in units of the standard deviation.
 		\item Negative when the raw score is below the mean, positive else.
-		\item \textbf{An alternative way is to compute the mean absolute deviation (MAD):}
-		      \begin{align*}
-			      \text{MAD}(X = \{x_1,x_2,\ldots,x_n\}) = \frac{1}{n} \sum_{i=1}^{n} \vert x_i - \bar{x} \vert, \\
-			      \text{where} \; \bar{x} = \frac{1}{n} \sum_{i=1}^{n}x_i, \; \text{thus} \; z_i = \frac{x_i-\bar{x}}{\sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2}}.
-		      \end{align*}
+
+		      % Based on the timings in SS2024:
+		      % There does not seem to be a lot of time time to go into detail about both the z-score and the MAD.
+		      % formula. So I decided to focus on the z-score formula for now.
+		      % 
+		      %\item \textbf{An alternative way is to compute the mean absolute deviation (MAD):}
+		      %      \begin{align*}
+		      %	      \text{MAD}(X = \{x_1,x_2,\ldots,x_n\}) = \frac{1}{n} \sum_{i=1}^{n} \vert x_i - \bar{x} \vert, \\
+		      %	      \text{where} \; \bar{x} = \frac{1}{n} \sum_{i=1}^{n}x_i, \; \text{thus} \; z_i = \frac{x_i-\bar{x}}{\sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2}}.
+		      %      \end{align*}
 	\end{itemize}
 \end{frame}
 
@@ -247,7 +252,7 @@
 
 \begin{frame}{Special Cases of Minkowski Distance}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.45\textwidth}
 			$h=1$: \textbf{Manhattan Distance}
 			\begin{itemize}
 				\item Also known as city block, or $L_1$-norm.
@@ -258,7 +263,9 @@
 			\begin{align*}
 				d(x,y) = \sum_{i=1}^{n} \vert x_i - y_i \vert
 			\end{align*}
+		\end{column}
 
+		\begin{column}{0.45\textwidth}
 			$h=2$: \textbf{Euclidean}
 			\begin{itemize}
 				\item Also known as $L_2$-norm.
@@ -269,18 +276,21 @@
 			\end{align*}
 		\end{column}
 
-		\begin{column}{0.5\textwidth}
-			$h \rightarrow \infty:$ \textbf{Supremum}
-			\begin{itemize}
-				\item Also known as $L_{\text{max}}$-norm, or $L_\infty$-norm.
-				\item Maximum difference between any attribute of two vectors.
-			\end{itemize}
-			\vspace*{-1.5em}
-			\begin{align*}
-				d(x,y) = \lim_{h \rightarrow \infty} \left( \sum_{i=1}^{n} \vert x_i - y_i \vert^{h} \right)^{\frac{1}{h}} = \max_i \vert x_i-y_i \vert.
-			\end{align*}
-		\end{column}
 	\end{columns}
+
+	\vspace*{0.1cm}
+
+
+	$h \rightarrow \infty:$ \textbf{Supremum}
+	\begin{itemize}
+		\item Also known as $L_{\text{max}}$-norm, or $L_\infty$-norm.
+		\item Maximum difference between any attribute of two vectors.
+	\end{itemize}
+	\vspace*{-1.5em}
+	\begin{align*}
+		d(x,y) = \lim_{h \rightarrow \infty} \left( \sum_{i=1}^{n} \vert x_i - y_i \vert^{h} \right)^{\frac{1}{h}} = \max_i \vert x_i-y_i \vert.
+	\end{align*}
+
 \end{frame}
 
 % TODO: (Dis-)Similarity of data objects with mixed attribute types, c.f. chapter 2.4.6, page 75

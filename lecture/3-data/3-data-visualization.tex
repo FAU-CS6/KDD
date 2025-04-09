@@ -12,99 +12,61 @@
 \end{frame}
 
 \begin{frame}{Categorization of Visualization Methods}
+	\textbf{Visualization methods can be categorized into five groups:}
 	\begin{enumerate}
-		\item Pixel-oriented.
-		\item Geometric projection.
-		\item Icon-based.
-		\item Hierarchical.
-		\item Visualizing complex data and relations.
+		\item Pixel Oriented Visualization
+		\item Geometric Visualization
+		\item Icon Based Visualization
+		\item Hierarchical Visualization
+		\item Complex Data and Relations Visualization
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}{1. Pixel Oriented Visualization Techniques}
+\subsection{Pixel Oriented Visualization}
+
+\begin{frame}{Pixel Oriented Visualization}
+	Very simple visualization techniques based on pixels.
+
+	\vspace*{0.2cm}
+
+	\textbf{General Methods:}
+	\begin{itemize}
+		\item Heat map.
+		\item \textit{Circle segment diagram.}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Heat Map}
 	\vspace*{-0.5em}
 
 	\begin{itemize}
-		\item Very simple visualization
 		\item For a data set of $m$ dimensions create $m$ windows on the screen, one for each dimension.
-		\item The values in dimension $m$ of a record are mapped to $m$ pixels at the corresponding \\ positions in the windows.
-		\item The colors of the pixels reflect the corresponding values.
+		\item The values in dimension $m$ of a record are mapped to $m$ pixels at the corresponding positions.
+		\item The color/intensity of the pixels reflect the corresponding values.
 	\end{itemize}
 
-	\vspace*{0.5em}
-	\textbf{Example:} Sort all customers by income in ascending-order.
-
+	\vspace*{1.5em}
 	\begin{center}
 		\includegraphics[width=9cm]{img/pixel.jpg}\\
 		\vspace*{-0.5em}
-		a) Income. \hspace{0.3cm} b) Credit limit. \hspace{0.1cm} c) Transaction volume. \hspace{0.2cm} (d) Age.
+		a) Income. \hspace{0.3cm} b) Credit limit. \hspace{0.1cm} c) Transaction volume. \hspace{0.2cm} d) Age.
 	\end{center}
 
 	\note{\textbf{Drawback:} Do not help us to understand the data distribution in a multidimensional space.}
 \end{frame}
 
-\begin{frame}{Laying Out Pixels in a Circle Segment Diagram}
-	\begin{columns}[t]
-		\begin{column}{0.5\textwidth}
-			\begin{itemize}
-				\item Similar to previous slide but arranged in a circle.
-				\item Saves space.
-				\item Shows connection among multiple dimensions.
-				\item Optionally: Highlight one specific data record as shown opposite.
-			\end{itemize}
-			\vspace*{1em}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\centering
+\subsection{Geometric Visualization}
 
-			\begin{tikzpicture}[scale=0.8]
-				\pie[hide number]{17/Dim 1, 17/Dim 2, 17/Dim 3, 17/Dim 4, 17/Dim 5, 16/Dim 6}
-				\node at (1.5, 1) (a) {\tikzmark{t1} $\circ$};
-				\node at (-1.5, 1) (b) {\tikzmark{t2} $\circ$};
-				\node at (1.5, -0.9) (c) {\tikzmark{t3} $\circ$};
-				\node at (-1.5, -0.9) (d) {\tikzmark{t4} $\circ$};
-				\node at (0.1, -1.8) (e) {\tikzmark{t5} $\circ$};
-				\node at (0, 1.8) (f) {\tikzmark{t6}$\circ$};
-				\node at (-3, 3) (f) {Data record \tikzmark{n1}};
-			\end{tikzpicture}
-			\begin{tikzpicture}[remember picture,overlay]
-				\path[draw=black,thick,-]<1-> (n1) -- (t1);
-				\path[draw=black,thick,-]<1-> (n1) -- (t2);
-				\path[draw=black,thick,-]<1-> (n1) -- (t3);
-				\path[draw=black,thick,-]<1-> (n1) -- (t4);
-				\path[draw=black,thick,-]<1-> (n1) -- (t5);
-				\path[draw=black,thick,-]<1-> (n1) -- (t6);
-			\end{tikzpicture}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Polar Plot}
-	\begin{columns}[t]
-		\begin{column}{0.5\textwidth}
-			\begin{itemize}
-				\item Alternative to pixel-oriented or circle segment diagram.
-				\item Saves space.
-				\item Shows connections among multiple dimensions for each data record.
-				\item Downside: Can get crowded with too much data records.
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\vspace{-5em}
-			\begin{center}
-				\includegraphics[width=\textwidth,clip, trim=0cm 0cm 0cm 2.6cm]{img/dimension-plot.pdf}
-			\end{center}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{2. Geometric Visualization Techniques}
+\begin{frame}{Geometric Visualization}
 	Visualization of geometric transformations and projections of data.
+
+	\vspace*{0.2cm}
 
 	\textbf{General Methods:}
 	\begin{itemize}
 		\item Scatter plot and scatter-plot matrices.
-		\item Parallel coordinates.
+		\item Polar plot.
+		\item \textit{Parallel coordinates.}
 	\end{itemize}
 
 	\textbf{Additional Methods:}
@@ -117,99 +79,56 @@
 \end{frame}
 
 \begin{frame}{Scatter Plot Matrices}
-	\centering
-	\includegraphics[height=6.5cm]{img/scatterplot_matrix.pdf}
+	\begin{columns}[t]
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item Compare the values of more than two dimensions at once.
+				\item Each column is drawn against each other column (twice).
+				\item Makes use of scatter plots for each comparison.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-0.3cm}
+			\begin{center}
+				\scalebox{0.95}{
+					\includegraphics[height=6.5cm]{img/scatterplot_matrix.pdf}
+				}
+			\end{center}
+		\end{column}
+	\end{columns}
+
 \end{frame}
 
-\begin{frame}{Parallel Coordinate Plot}
-	\begin{center}
-		\begin{tikzpicture}
-			\begin{groupplot}[
-					group style={
-							group name=iris,
-							group size=4 by 1,
-							horizontal sep=2cm
-						},
-					axis y line=left,
-					hide x axis,
-					width=2cm,
-					height=6cm,
-					xmin=0,
-					xmax=0.5,
-					enlarge y limits,
-					every axis plot/.append style={opacity=0}
-				]
-
-				\nextgroupplot
-
-				\pgfplotsinvokeforeach{0,...,\NumRows} % loop over all rows in table
-				{
-					% get value in sw column
-					\pgfplotstablegetelem{####1}{sw}\of{\iris}%
-					% add a coordinate at x=0 and that y-value
-					\edef\temp{\noexpand\addplot coordinates {(0,\pgfplotsretval)} coordinate (sl####1);}
-					\temp
-				}
-
-				\nextgroupplot
-
-				\pgfplotsinvokeforeach{0,...,\NumRows}
-				{
-					\pgfplotstablegetelem{####1}{sl}\of{\iris}%
-					\edef\temp{\noexpand\addplot coordinates {(0,\pgfplotsretval)} coordinate (sw####1);}
-					\temp
-				}
-
-				\nextgroupplot
-
-				\pgfplotsinvokeforeach{0,...,\NumRows}
-				{
-					\pgfplotstablegetelem{####1}{pw}\of{\iris}%
-					\edef\temp{\noexpand\addplot coordinates {(0,\pgfplotsretval)} coordinate (pl####1);}
-					\temp
-				}
-
-				\nextgroupplot
-
-				\pgfplotsinvokeforeach{0,...,\NumRows}
-				{
-					\pgfplotstablegetelem{####1}{pl}\of{\iris}%
-					\edef\temp{\noexpand\addplot coordinates {(0,\pgfplotsretval)} coordinate (pw####1);}
-					\temp
-				}
-
-			\end{groupplot}
-
-			% add labels below
-			\foreach \i/\txt in {1/SW,2/SL,3/PW,4/PL}
-			\node [below] at (iris c\i r1.south west) {\txt};
-
-
-			% draw the lines
-			% this dataset has three groups of fifty rows each, hence the start/stop values
-			\foreach[
-				evaluate=\j as \START using int(\j*50),
-				evaluate=\j as \STOP using int((\j+1)*50-1),
-			] \j/\clr in {0/blue,1/red,2/green}
-				{
-					\foreach \i in {\START,...,\STOP}
-					\draw [color=\clr,opacity=0.5] (sl\i) -- (sw\i) -- (pl\i) -- (pw\i);
-				}
-
-		\end{tikzpicture}
-
-	\end{center}
-	\textbf{Disadvantage:} Reduced readability when plotting an extensive amount of data records and/or dimensions.
+\begin{frame}{Polar Plot}
+	\begin{columns}[t]
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item Shows connections among multiple dimensions for each data record.
+				\item Saves space.
+				\item \textbf{Downside:} Can get crowded with too much data records.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			%\vspace{-5em}
+			\begin{center}
+				\includegraphics[width=0.8\textwidth,clip, trim=0cm 0cm 0cm 2.6cm]{img/dimension-plot.pdf}
+			\end{center}
+		\end{column}
+	\end{columns}
 \end{frame}
 
-\begin{frame}{3. Icon Based Visualization}
-	\centering
+\subsection{Icon Based Visualization}
+
+\begin{frame}{Icon Based Visualization}
+	Visualization of the data values as features of icons:
+
+	\vspace*{0.2cm}
+
 	\begin{itemize}
-		\item \textbf{Visualization of the data values as features of icons.}
-		\item \textbf{Typical visualization methods:}
+		\item \textbf{General methods:}
 		      \begin{itemize}
-			      \item Chernoff faces.
 			      \item Stick figures.
+			      \item \textit{Chernoff faces.}
 		      \end{itemize}
 		\item \textbf{General techniques:}
 		      \begin{itemize}
@@ -221,103 +140,118 @@
 \end{frame}
 
 
-\begin{frame}{Icon Based Visualization: Example}
+\begin{frame}{Stick Figures}
 	\centering
 	\includegraphics[width=0.9\textwidth,clip, trim=0cm 0cm 0cm 2.5cm]{img/fau-enrolled-students.pdf}
 \end{frame}
 
-\begin{frame}{Chernoff Faces}
-	\textbf{Human mind is able to distinguish facial features.} Chernoff faces
-	encode multiple dimensions in one face.
 
-	E. g. head eccentricity, eye size, eye spacing, eye eccentricity, pupil size,
-	eyebrow slant, nose size, mouth shape, mouth size, and mouth opening.
+\subsection{Hierarchical Visualization}
 
-	\vspace*{1em}
-	\begin{columns}[t]
-		\hspace*{1.4em}
-		\begin{column}{0.6\textwidth}
-			\textbf{Disadvantages:}
-			\begin{itemize}
-				\item Limited power to relate multiple relationships.
-				\item Specific features are not shown.
-				\item Facial features vary in perceived importance.
-				\item Symmetric faces waste space $\rightarrow$ \textit{Asymmetrical } Chernoff
-				      faces allows up to 36 dimensions in one face.
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.4\textwidth}
-			\vspace*{-2em}
-			\begin{figure}
-				\centering
-				\includegraphics[width=5cm]{img/chernoff_faces.png}
-			\end{figure}
-		\end{column}
-	\end{columns}
-\end{frame}
+\begin{frame}{Hierarchical Visualization }
+	Visualization of the data using a hierarchical partitioning into subspaces:
 
+	\vspace*{0.2cm}
 
-\begin{frame}{4. Hierarchical Visualization Techniques}
-	\centering
 	\begin{itemize}
-		\item \textbf{Visualization of the data using a hierarchical partitioning into subspaces.}
-		\item \textbf{Methods:}
+		\item \textbf{General Methods:}
 		      \begin{itemize}
 			      \item Tree maps.
-			      \item Cone trees.
+			      \item \textit{Cone trees.}
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 
 \begin{frame}{Tree Maps}
-	\centering
-	\begin{tikzpicture}[xscale = 1.35, yscale = 0.77,
-			font=\sffamily,
-			mystyle/.style={draw=white, very thick, text=white, font=\sffamily\bfseries},
-		]
-		\pie[square,
-			style={mystyle},
-			color={yellow!80!orange, gray, blue!40, orange},
-			text=legend,
-		]{68/A, 5/B, 5/C, 22/D}
-	\end{tikzpicture}
+	\begin{columns}[t]
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item Uses a hierarchical partitioning of the screen space depending on the importance of the data.
+				\item In this example, there is only one level of hierarchy, but it can be extended to multiple levels (e.g. departments below the faculty level).
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\begin{center}
+				\scalebox{0.75}{
+					\begin{tikzpicture}[xscale = 0.9, yscale = 0.77,
+							font=\sffamily,
+							mystyle/.style={draw=white, very thick, text=white, font=\sffamily\bfseries},
+						]
+						\pie[square,
+							style={mystyle},
+							color={fauyellow, faured, faucyan, faugreen, faugray},
+							text=legend,
+						]{24/Humanities, 26/Business, 10/Medicine, 14/Sciences, 26/Engineering}
+					\end{tikzpicture}
+				}
+			\end{center}
+		\end{column}
+	\end{columns}
 \end{frame}
 
-\begin{frame}{Three Dimensional Cone Trees}
-	\begin{itemize}
-		\item $3$D cone-tree visualization technique by \citeauthor{robertson1991}\footnote{\fullcite{robertson1991}}:\\
-		      works well for up to approx. a thousand nodes.
-		\item Build a $2$D circle tree that arranges its nodes in concentric circles centered on the root node.
-		\item Overlaps can't be avoided projecting onto $2$D.
-	\end{itemize}
+\subsection{Complex Data and Relations Visualization}
 
-	\begin{columns}[b]
-		\begin{column}{0.7\textwidth}
-			\vspace*{-1em}
-			\begin{figure}
-				\centering
-				\includegraphics[width=3cm,height=3cm]{img/threedcone_one.jpg}\hspace{1cm}
-				\includegraphics[width=3cm,height=3cm]{img/threedcone_two.jpg}\\
-			\end{figure}
+\begin{frame}{Complex Data and Relations Visualization}
+	Visualizing non-numerical data:
+
+	\vspace*{0.2cm}
+
+	\begin{itemize}
+		\item \textbf{General Methods:}
+		      \begin{itemize}
+			      \item Word cloud.
+			      \item \textit{Networks.}
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Word Cloud}
+	\begin{columns}[t]
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item The importance of a word is represented by its size or color.
+				\item In this example, the size of the word is proportional to its frequency in a sample text.
+			\end{itemize}
 		\end{column}
-		\begin{column}{0.3\textwidth}
-			\tiny{Acknowledgement: \href{ttp://nadeausoftware.com/articles/visualization}{http://nadeausoftware.com/articles/visualization}.}
+		\begin{column}{0.45\textwidth}
+			\begin{center}
+				\scalebox{0.5}{
+					\begin{tikzpicture}
+						% How often the word occurs in the text
+						% data - 71 times
+						\node[text=faugray, font=\bfseries\fontsize{50}{60}\selectfont] at (0,0) {data};
+
+						% attributes - 24 times
+						\node[text=faugray, font=\bfseries\fontsize{32}{38}\selectfont] at (3,1.5) {attributes};
+
+						% visualization - 22 times
+						\node[text=faugray, font=\bfseries\fontsize{30}{36}\selectfont] at (-3.5,1) {visualization};
+
+						% objects - 18 times
+						\node[text=faugray, font=\bfseries\fontsize{28}{34}\selectfont] at (2.5,-1.5) {objects};
+
+						% values - 15 times
+						\node[text=faugray, font=\bfseries\fontsize{26}{31}\selectfont] at (-2,-1.5) {values};
+
+						% distance - 13 times
+						\node[text=faugray, font=\fontsize{24}{29}\selectfont] at (0,2.5) {distance};
+
+						% object - 13 times
+						\node[text=faugray, font=\fontsize{24}{29}\selectfont] at (0,-2.5) {object};
+
+						% attribute - 12 times
+						\node[text=faugray, font=\fontsize{22}{26}\selectfont] at (-4,-0.5) {attribute};
+
+						% measure - 11 times
+						\node[text=faugray, font=\fontsize{20}{24}\selectfont] at (4,0) {measure};
+
+						% binary - 11 times
+						\node[text=faugray, font=\fontsize{20}{24}\selectfont] at (3.5,3) {binary};
+					\end{tikzpicture}
+				}
+			\end{center}
 		\end{column}
 	\end{columns}
 
-
-\end{frame}
-
-\begin{frame}{5. Visualizing Complex Data and Relations}
-	\textbf{Visualizing non-numerical data}
-	\begin{itemize}
-		\item \textbf{Text cloud}
-		      \begin{itemize}
-			      \item The importance of tag is represented by font size/color.
-			      \item Besides text data, there are also methods to visualize relationships, \\ such as visualizing social networks.
-		      \end{itemize}
-		\item \textbf{Networks}
-	\end{itemize}
-	% TODO: Add exemplary word cloud and some network
 \end{frame}
