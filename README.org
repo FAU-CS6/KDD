@@ -2,9 +2,9 @@
 
 * Materials
 
-[[https://fau-cs6.github.io/KDD/lecture-slides.zip][https://img.shields.io/badge/Download-Lecture%20Slides-blue]]
-[[https://fau-cs6.github.io/KDD/exercise-archives.zip][https://img.shields.io/badge/Download-Exercise%20Archives-green]]
-[[https://fau-cs6.github.io/KDD/submission-pdfs.zip][https://img.shields.io/badge/Download-Submission%20PDFs-orange]]
+[[https://fau-cs6.github.io/KDD/lecture-slides.zip][file:https://fau-cs6.github.io/KDD/badge/lectures-badge.svg]]
+[[https://fau-cs6.github.io/KDD/exercise-slides.zip][file:https://fau-cs6.github.io/KDD/badge/exercises-badge.svg]]
+[[https://fau-cs6.github.io/KDD/submission-pdfs.zip][file:https://fau-cs6.github.io/KDD/badge/submissions-badge.svg]]
 
 * Responsibilities
 ** Lecture
