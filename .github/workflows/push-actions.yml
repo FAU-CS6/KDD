@@ -168,6 +168,14 @@ jobs:
           zip -r exercise-archives.zip exercise-archives/
           zip -r submission-pdfs.zip submission-pdfs/
 
+      - name: Generate Badge Images
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          npm install -g badge-maker
+          npx badge-maker "Lectures" "Version ${SHORT_SHA}" > artifacts/gh-badges/lectures-badge.svg
+          npx badge-maker "Exercises" "Version ${SHORT_SHA}" > artifacts/gh-badges/exercises-badge.svg
+          npx badge-maker "Submissions" "Version ${SHORT_SHA}" > artifacts/gh-badges/submissions-badge.svg
+
       - name: Create index.html
         run: |
           cat > artifacts/index.html << 'EOL'
@@ -183,6 +191,8 @@ jobs:
               li { margin: 10px 0; }
               a { color: #0366d6; text-decoration: none; }
               a:hover { text-decoration: underline; }
+              .badge-container { margin-top: 20px; }
+              .badge-container img { margin-right: 10px; }
             </style>
           </head>
           <body>
@@ -194,6 +204,15 @@ jobs:
               <li><a href="exercise-archives.zip">Exercise Archives (ZIP)</a></li>
               <li><a href="submission-pdfs.zip">Submission PDFs (ZIP)</a></li>
             </ul>
+
+            <div class="badge-container">
+              <h2>Badges</h2>
+              <p>
+                <a href="lecture-slides.zip"><img src="gh-badges/lectures-badge.svg" alt="Lectures Badge"></a>
+                <a href="exercise-archives.zip"><img src="gh-badges/exercises-badge.svg" alt="Exercises Badge"></a>
+                <a href="submission-pdfs.zip"><img src="gh-badges/submissions-badge.svg" alt="Submissions Badge"></a>
+              </p>
+            </div>
           </body>
           </html>
           EOL
