@@ -5,7 +5,6 @@ on:
     workflows: ["Push-Actions"]
     types:
       - completed
-    branches: [artifact-publishing]
 
 jobs:
   publish:
