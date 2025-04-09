@@ -173,12 +173,14 @@ jobs:
 
       - name: Generate Badge Images
         run: |
-          SHORT_SHA=$(git rev-parse --short HEAD)
-          CURRENT_TIME=$(TZ="Europe/Berlin" date "+%d.%m.%Y %H:%M")
+          SHA=$(git rev-parse HEAD)
+          CURRENT_TIME=$(TZ="Europe/Berlin" date "+%d.%m.%Y %H:%M:%S")
           npm install -g badge-maker
-          npx badge-maker "Lectures (${SHORT_SHA})" "${CURRENT_TIME}" "#41748D" @flat-square > artifacts/gh-badges/lectures-badge.svg
-          npx badge-maker "Exercises (${SHORT_SHA})" "${CURRENT_TIME}" "#228848" @flat-square> artifacts/gh-badges/exercises-badge.svg
-          npx badge-maker "Submissions (${SHORT_SHA})" "${CURRENT_TIME}" "#971B2F" @flat-square> artifacts/gh-badges/submissions-badge.svg
+          npx badge-maker "Submissions" "Download" "#41748D" @flat-square > artifacts/gh-badges/lectures-badge.svg
+          npx badge-maker "Submissions" "Download" "#228848" @flat-square> artifacts/gh-badges/exercises-badge.svg
+          npx badge-maker "Submissions" "Download" "#971B2F" @flat-square> artifacts/gh-badges/submissions-badge.svg
+          npx badge-maker "Current SHA" "${SHA}" "#002F6C" @flat-square> artifacts/gh-badges/sha-badge.svg
+          npx badge-maker "Update time" "${CURRENT_TIME} (MEZ/MESZ)" "#002F6C" @flat-square> artifacts/gh-badges/time-badge.svg
 
       - name: Create index.html
         run: |

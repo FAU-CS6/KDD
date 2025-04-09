@@ -6,6 +6,10 @@
 [[https://fau-cs6.github.io/KDD/exercise-slides.zip][file:https://fau-cs6.github.io/KDD/gh-badges/exercises-badge.svg]]
 [[https://fau-cs6.github.io/KDD/submission-pdfs.zip][file:https://fau-cs6.github.io/KDD/gh-badges/submissions-badge.svg]]
 
+[[https://fau-cs6.github.io/KDD][file:https://fau-cs6.github.io/KDD/gh-badges/sha-badge.svg]]
+
+[[https://fau-cs6.github.io/KDD][file:https://fau-cs6.github.io/KDD/gh-badges/time-badge.svg]]
+
 * Responsibilities
 ** Lecture
   1. *Course Intro* - Dominik Probst
