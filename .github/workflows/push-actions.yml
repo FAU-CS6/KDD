@@ -161,13 +161,49 @@ jobs:
           name: Submission PDFs
           path: artifacts/submission-pdfs
 
-      - name: Create simple directory listing
+      - name: Create ZIP files
         run: |
           cd artifacts
           zip -r lecture-slides.zip lecture-slides/
           zip -r exercise-archives.zip exercise-archives/
           zip -r submission-pdfs.zip submission-pdfs/
-          rm -rf lecture-slides/ exercise-archives/ submission-pdfs/
+
+      - name: Create index.html
+        run: |
+          cat > artifacts/index.html << 'EOL'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>KDD Course Materials</title>
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
+              h1 { color: #333; }
+              h2 { color: #555; margin-top: 20px; }
+              ul { list-style-type: none; padding: 0; }
+              li { margin: 10px 0; }
+              a { color: #0366d6; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+            </style>
+          </head>
+          <body>
+            <h1>KDD Course Materials</h1>
+
+            <h2>Download as ZIP</h2>
+            <ul>
+              <li><a href="lecture-slides.zip">Lecture Slides (ZIP)</a></li>
+              <li><a href="exercise-archives.zip">Exercise Archives (ZIP)</a></li>
+              <li><a href="submission-pdfs.zip">Submission PDFs (ZIP)</a></li>
+            </ul>
+
+            <h2>Browse Directories</h2>
+            <ul>
+              <li><a href="lecture-slides/">Lecture Slides</a></li>
+              <li><a href="exercise-archives/">Exercise Archives</a></li>
+              <li><a href="submission-pdfs/">Submission PDFs</a></li>
+            </ul>
+          </body>
+          </html>
+          EOL
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
