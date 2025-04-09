@@ -1,5 +1,11 @@
 #+title: KDD - Knowledge Discovery in Databases
 
+* Downloads
+
+[[https://fau-cs6.github.io/KDD/lecture-slides.zip][file:https://fau-cs6.github.io/KDD/gh-badges/lectures-badge.svg]]
+[[https://fau-cs6.github.io/KDD/exercise-slides.zip][file:https://fau-cs6.github.io/KDD/gh-badges/exercises-badge.svg]]
+[[https://fau-cs6.github.io/KDD/submission-pdfs.zip][file:https://fau-cs6.github.io/KDD/gh-badges/submissions-badge.svg]]
+
 * Responsibilities
 ** Lecture
   1. *Course Intro* - Dominik Probst

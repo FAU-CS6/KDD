@@ -1,3 +1,5 @@
+name: Push-Actions
+
 on: [push]
 
 jobs:
@@ -128,3 +130,99 @@ jobs:
           path: |
             submission/output/*.pdf
           retention-days: 90
+
+  publish_artifacts:
+    name: Publish artifacts to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: [build_lecture, build_exercise, build_submission]
+    if: success()
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+
+      - name: Create artifacts directory
+        run: mkdir -p artifacts
+
+      - name: Create badges directory
+        run: mkdir -p artifacts/gh-badges
+
+      - name: Download Lecture Slides
+        uses: actions/download-artifact@v4
+        with:
+          name: Lecture Slides
+          path: artifacts/lecture-slides
+
+      - name: Download Exercise Archives
+        uses: actions/download-artifact@v4
+        with:
+          name: Exercise Archives
+          path: artifacts/exercise-archives
+
+      - name: Download Submission PDFs
+        uses: actions/download-artifact@v4
+        with:
+          name: Submission PDFs
+          path: artifacts/submission-pdfs
+
+      - name: Create ZIP files
+        run: |
+          cd artifacts
+          zip -r lecture-slides.zip lecture-slides/
+          zip -r exercise-archives.zip exercise-archives/
+          zip -r submission-pdfs.zip submission-pdfs/
+
+      - name: Generate Badge Images
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          npm install -g badge-maker
+          npx badge-maker "Lectures" "Version ${SHORT_SHA}" "#41748D" @flat-square > artifacts/gh-badges/lectures-badge.svg
+          npx badge-maker "Exercises" "Version ${SHORT_SHA}" "#228848" @flat-square> artifacts/gh-badges/exercises-badge.svg
+          npx badge-maker "Submissions" "Version ${SHORT_SHA}" "#971B2F" @flat-square> artifacts/gh-badges/submissions-badge.svg
+
+      - name: Create index.html
+        run: |
+          cat > artifacts/index.html << 'EOL'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>KDD Course Materials</title>
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
+              h1 { color: #333; }
+              h2 { color: #555; margin-top: 20px; }
+              ul { list-style-type: none; padding: 0; }
+              li { margin: 10px 0; }
+              a { color: #0366d6; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .badge-container { margin-top: 20px; }
+              .badge-container img { margin-right: 10px; }
+            </style>
+          </head>
+          <body>
+            <h1>KDD Course Materials</h1>
+
+            <h2>Download as ZIP</h2>
+            <ul>
+              <li><a href="lecture-slides.zip">Lecture Slides (ZIP)</a></li>
+              <li><a href="exercise-archives.zip">Exercise Archives (ZIP)</a></li>
+              <li><a href="submission-pdfs.zip">Submission PDFs (ZIP)</a></li>
+            </ul>
+
+            <div class="badge-container">
+              <h2>Badges</h2>
+              <p>
+                <a href="lecture-slides.zip"><img src="gh-badges/lectures-badge.svg" alt="Lectures Badge"></a>
+                <a href="exercise-archives.zip"><img src="gh-badges/exercises-badge.svg" alt="Exercises Badge"></a>
+                <a href="submission-pdfs.zip"><img src="gh-badges/submissions-badge.svg" alt="Submissions Badge"></a>
+              </p>
+            </div>
+          </body>
+          </html>
+          EOL
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./artifacts
+          force_orphan: true
