@@ -3,10 +3,8 @@ name: Publish-Artifacts
 on:
   workflow_run:
     workflows: [Push-Actions-Test]
-    types:
-      - completed
-    branches:
-      - artifact-publishing
+    types: [completed]
+    branches: [artifact-publishing]
 
 jobs:
   publish:
