@@ -2,7 +2,7 @@ name: Publish-Artifacts
 
 on:
   workflow_run:
-    workflows: [Push-Actions]
+    workflows: [Push-Actions-Test]
     types:
       - completed
 
