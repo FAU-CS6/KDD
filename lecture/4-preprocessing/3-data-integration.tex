@@ -369,20 +369,88 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Correlation and Causality}
+\begin{frame}{Correlation x Causality}
+	\begin{center}
+		\begin{tikzpicture}
+			% Inspiration and values taken from:
+			% https://tylervigen.com/spurious/correlation/2716_bachelors-degrees-awarded-in-engineering_correlates-with_electricity-generation-in-cambodia
+			\begin{axis}[
+					width=12cm,
+					height=4cm,
+					xlabel={Year},
+					xlabel style={font=\small},
+					ylabel={\parbox{3cm}{Bachelor's \\degrees awarded in\\ Engineering}},
+					ylabel style={faugraydark, font=\small},
+					axis y line*=left,
+					ymin=80000, ymax=130000,
+					xmin=2012, xmax=2021,
+					xtick={2012,2013,2014,2015,2016,2017,2018,2019,2020,2021},
+					xticklabel style={font=\scriptsize},
+					xticklabel={\pgfmathprintnumber[fixed, precision=0]{\tick}},
+					grid=both,
+					ymajorgrids=true,
+					yminorgrids=false,
+					minor tick num=1,
+					grid style={dotted, gray!30},
+					scaled y ticks=false,
+					yticklabel style={/pgf/number format/fixed},
+					yticklabel style={font=\scriptsize},
+				]
+				\addplot[faugraydark, very thick, mark=diamond, mark size=3pt] coordinates {
+						(2012,81371)
+						(2013,85987)
+						(2014,92169)
+						(2015,97852)
+						(2016,106789)
+						(2017,115671)
+						(2018,121953)
+						(2019,126692)
+						(2020,128337)
+						(2021,126037)
+					};
 
-	% TODO: Add one or two spurios correlation examples
-	% Good Examples: 
-	% - https://tylervigen.com/spurious/correlation/2716_bachelors-degrees-awarded-in-engineering_correlates-with_electricity-generation-in-cambodia
-	% - https://tylervigen.com/spurious/correlation/1775_wind-power-generated-in-taiwan_correlates-with_google-searches-for-i-am-tired
+			\end{axis}
 
-	\vspace{5mm}
+			\begin{axis}[
+					width=12cm,
+					height=4cm,
+					xlabel={},
+					ylabel={\parbox{3cm}{Electricity generation\\ in Cambodia \\(Billion kWh)}},
+					ylabel style={faureddark, font=\small},
+					axis y line*=right,
+					axis x line=none,
+					ymin=1.4, ymax=8.7,
+					xmin=2012, xmax=2021,
+					grid=both,
+					ymajorgrids=true,
+					yminorgrids=false,
+					minor tick num=1,
+					grid style={dotted, gray!30},
+					yticklabel style={font=\scriptsize},
+				]
+				\addplot[faureddark, very thick, mark=diamond, mark size=3pt] coordinates {
+						(2012,1.37266)
+						(2013,1.72742)
+						(2014,2.9839)
+						(2015,4.25994)
+						(2016,5.4275)
+						(2017,6.76582)
+						(2018,7.96357)
+						(2019,8.45234)
+						(2020,8.44419)
+						(2021,8.69423)
+					};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+
+	\vspace{3mm}
 	\begin{alertblock}{Important: Correlation does not imply causality!}
 		\begin{itemize}
-			\item E.g. $\#$ of hospitals and $\#$ of car-thefts in a city
-			      are correlated.
-			\item Both are causally linked to the third variable:
-			      population.
+			\item Of course there is no causal relationship between the number of
+			      bachelor's degrees awarded in engineering and the electricity
+			      generation in Cambodia.
+			\item The correlation is purely coincidental.
 		\end{itemize}
 	\end{alertblock}
 
