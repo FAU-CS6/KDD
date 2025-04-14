@@ -173,8 +173,8 @@ jobs:
 
       - name: Generate Badge Images
         run: |
-          SHA=$(git rev-parse HEAD)
-          CURRENT_TIME=$(TZ="Europe/Berlin" date "+%d.%m.%Y %H:%M:%S")
+          SHA=$(git rev-parse --short HEAD)
+          CURRENT_TIME=$(TZ="Europe/Berlin" date "+%d.%m.%Y %H:%M")
           npm install -g badge-maker
           npx badge-maker "Lectures" "Download" "#41748D" @flat-square > artifacts/gh-badges/lectures-badge.svg
           npx badge-maker "Exercises" "Download" "#228848" @flat-square> artifacts/gh-badges/exercises-badge.svg

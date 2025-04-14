@@ -203,6 +203,7 @@
 			      \end{tabular}
 			      \vspace{2mm}
 		      \end{center}
+		      \vspace*{0.5cm}
 		\item \textbf{In our example it would look like this:} \\
 		      \begin{center}
 			      \vspace{1mm}
@@ -231,6 +232,8 @@
 			      \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m}
 			      \frac{(c_{ij}-e_{ij})^2}{e_{ij}}.
 		      \end{align*}
+		      % TODO: Replace this general explanation with aktual values from the X^2 distribution.
+		      % Good link for a full table: https://www.hawkeslearning.com/documents/statdatasets/stat_tables.pdf
 		      \begin{block}{Properties of the $\chi^2$-test}
 			      \begin{itemize}
 				      \item No correlation (i.e. independence of attributes) yields
@@ -257,15 +260,6 @@
 		      \end{align*}
 		\item \textbf{It shows that "Reads Books" and "Plays Chess" are
 			      correlated (in our example)}
-		      \vspace{5mm}
-		      \begin{alertblock}{Important: Correlation does not imply causality!}
-			      \begin{itemize}
-				      \item E.g. $\#$ of hospitals and $\#$ of car-thefts in a city
-				            are correlated.
-				      \item Both are causally linked to the third variable:
-				            population.
-			      \end{itemize}
-		      \end{alertblock}
 	\end{itemize}
 \end{frame}
 
@@ -373,6 +367,25 @@
 			      \end{minipage}\hfill
 		      \end{figure}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Correlation and Causality}
+
+	% TODO: Add one or two spurios correlation examples
+	% Good Examples: 
+	% - https://tylervigen.com/spurious/correlation/2716_bachelors-degrees-awarded-in-engineering_correlates-with_electricity-generation-in-cambodia
+	% - https://tylervigen.com/spurious/correlation/1775_wind-power-generated-in-taiwan_correlates-with_google-searches-for-i-am-tired
+
+	\vspace{5mm}
+	\begin{alertblock}{Important: Correlation does not imply causality!}
+		\begin{itemize}
+			\item E.g. $\#$ of hospitals and $\#$ of car-thefts in a city
+			      are correlated.
+			\item Both are causally linked to the third variable:
+			      population.
+		\end{itemize}
+	\end{alertblock}
+
 \end{frame}
 
 \begin{frame}{Covariance of Numerical Data (I)}
