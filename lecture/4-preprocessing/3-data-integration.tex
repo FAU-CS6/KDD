@@ -278,13 +278,16 @@
 		      $\mu_A$ and $\mu_B$ are the respective mean values of $A$ and $B$,
 		      $\sigma_{A}$ and $\sigma_{B}$B are the respective standard
 		      deviations of $A$ and $B$
+
+		      \vspace*{2mm}
+
 		      \begin{block}{Properties of Pearson's product-moment coefficient}
 			      \begin{itemize}
 				      \item If $\text{Cor}(A, B) > 0$: $A$ and $B$ are positively
-				            correlated.
+				            correlated (the closer to $1$, the stronger the correlation).
 				      \item If $\text{Cor}(A, B) = 0$: $A$ and $B$ are independent.
-				      \item If $\text{Cor}(A, B) < 0$: $A$ and $B$ are negatively
-				            correlated.
+				      \item If $\text{Cor}(A, B) < 0$: $A$ and $B$ are negatively correlated (the closer to $-1$, the stronger the correlation).
+
 			      \end{itemize}
 		      \end{block}
 	\end{itemize}
@@ -369,156 +372,246 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Correlation x Causality}
+\begin{frame}{Correlation vs. Causality}
 	\begin{center}
 		\begin{tikzpicture}
-			% Inspiration and values taken from:
+			% Inspiration and statistics taken from:
 			% https://tylervigen.com/spurious/correlation/2716_bachelors-degrees-awarded-in-engineering_correlates-with_electricity-generation-in-cambodia
-			\begin{axis}[
-					width=12cm,
-					height=4cm,
-					xlabel={Year},
-					xlabel style={font=\small},
-					ylabel={\parbox{3cm}{Bachelor's \\degrees awarded in\\ Engineering}},
-					ylabel style={faugraydark, font=\small},
-					axis y line*=left,
-					ymin=80000, ymax=130000,
-					xmin=2012, xmax=2021,
-					xtick={2012,2013,2014,2015,2016,2017,2018,2019,2020,2021},
-					xticklabel style={font=\scriptsize},
-					xticklabel={\pgfmathprintnumber[fixed, precision=0]{\tick}},
-					grid=both,
-					ymajorgrids=true,
-					yminorgrids=false,
-					minor tick num=1,
-					grid style={dotted, gray!30},
-					scaled y ticks=false,
-					yticklabel style={/pgf/number format/fixed},
-					yticklabel style={font=\scriptsize},
-				]
-				\addplot[faugraydark, very thick, mark=diamond, mark size=3pt] coordinates {
-						(2012,81371)
-						(2013,85987)
-						(2014,92169)
-						(2015,97852)
-						(2016,106789)
-						(2017,115671)
-						(2018,121953)
-						(2019,126692)
-						(2020,128337)
-						(2021,126037)
-					};
 
-			\end{axis}
+			\only<1-3>{
+				\begin{axis}[
+						width=12cm,
+						height=7cm,
+						xlabel={Year},
+						xlabel style={font=\small},
+						ylabel={\parbox{5cm}{\centering Bachelor's degrees in Engineering\\ (Thousand degrees)}},
+						ylabel style={white, font=\small},
+						axis y line*=left,
+						ymin=80, ymax=130,
+						xmin=2012, xmax=2021,
+						xtick={2012,2013,2014,2015,2016,2017,2018,2019,2020,2021},
+						xticklabel style={font=\scriptsize, /pgf/number format/1000 sep={}},
+						xticklabel={\pgfmathprintnumber[fixed, precision=0]{\tick}},
+						grid=both,
+						ymajorgrids=true,
+						yminorgrids=false,
+						minor tick num=0,
+						grid style={dotted, gray!30},
+						scaled y ticks=false,
+						yticklabel style={white,font=\scriptsize,/pgf/number format/fixed},
+					]
+					\addplot[faugraydark, very thick, mark=diamond, mark size=3pt] coordinates {
+							(2012,81)
+							(2013,86)
+							(2014,92)
+							(2015,98)
+							(2016,107)
+							(2017,116)
+							(2018,122)
+							(2019,127)
+							(2020,128)
+							(2021,126)
+						};
 
-			\begin{axis}[
-					width=12cm,
-					height=4cm,
-					xlabel={},
-					ylabel={\parbox{3cm}{Electricity generation\\ in Cambodia \\(Billion kWh)}},
-					ylabel style={faureddark, font=\small},
-					axis y line*=right,
-					axis x line=none,
-					ymin=1.4, ymax=8.7,
-					xmin=2012, xmax=2021,
-					grid=both,
-					ymajorgrids=true,
-					yminorgrids=false,
-					minor tick num=1,
-					grid style={dotted, gray!30},
-					yticklabel style={font=\scriptsize},
-				]
-				\addplot[faureddark, very thick, mark=diamond, mark size=3pt] coordinates {
-						(2012,1.37266)
-						(2013,1.72742)
-						(2014,2.9839)
-						(2015,4.25994)
-						(2016,5.4275)
-						(2017,6.76582)
-						(2018,7.96357)
-						(2019,8.45234)
-						(2020,8.44419)
-						(2021,8.69423)
-					};
-			\end{axis}
+				\end{axis}
+
+				\begin{axis}[
+						width=12cm,
+						height=7cm,
+						xlabel={},
+						ylabel={\parbox{5cm}{\centering Electricity generation in Cambodia \\(Billion kWh)}},
+						ylabel style={white, font=\small},
+						axis y line*=right,
+						axis x line=none,
+						ymin=1.4, ymax=8.7,
+						xmin=2012, xmax=2021,
+						grid=both,
+						ymajorgrids=true,
+						yminorgrids=false,
+						minor tick num=0,
+						grid style={dotted, gray!30},
+						yticklabel style={white,font=\scriptsize},
+					]
+					\addplot[faureddark, very thick, mark=diamond, mark size=3pt] coordinates {
+							(2012,1.37266)
+							(2013,1.72742)
+							(2014,2.9839)
+							(2015,4.25994)
+							(2016,5.4275)
+							(2017,6.76582)
+							(2018,7.96357)
+							(2019,8.45234)
+							(2020,8.44419)
+							(2021,8.69423)
+						};
+
+				\end{axis}
+			}
+			\only<4->{
+				\begin{axis}[
+						width=12cm,
+						height=7cm,
+						xlabel={Year},
+						xlabel style={font=\small},
+						ylabel={\parbox{5cm}{\centering Bachelor's degrees in Engineering\\ (Thousand degrees)}},
+						ylabel style={faugraydark, font=\small},
+						axis y line*=left,
+						ymin=80, ymax=130,
+						xmin=2012, xmax=2021,
+						xtick={2012,2013,2014,2015,2016,2017,2018,2019,2020,2021},
+						xticklabel style={font=\scriptsize, /pgf/number format/1000 sep={}},
+						xticklabel={\pgfmathprintnumber[fixed, precision=0]{\tick}},
+						grid=both,
+						ymajorgrids=true,
+						yminorgrids=false,
+						minor tick num=0,
+						grid style={dotted, gray!30},
+						scaled y ticks=false,
+						yticklabel style={font=\scriptsize,/pgf/number format/fixed},
+					]
+					\addplot[faugraydark, very thick, mark=diamond, mark size=3pt] coordinates {
+							(2012,81)
+							(2013,86)
+							(2014,92)
+							(2015,98)
+							(2016,107)
+							(2017,116)
+							(2018,122)
+							(2019,127)
+							(2020,128)
+							(2021,126)
+						};
+
+				\end{axis}
+
+				\begin{axis}[
+						width=12cm,
+						height=7cm,
+						xlabel={},
+						ylabel={\parbox{5cm}{\centering Electricity generation in Cambodia \\(Billion kWh)}},
+						ylabel style={faureddark, font=\small},
+						axis y line*=right,
+						axis x line=none,
+						ymin=1.4, ymax=8.7,
+						xmin=2012, xmax=2021,
+						grid=both,
+						ymajorgrids=true,
+						yminorgrids=false,
+						minor tick num=0,
+						grid style={dotted, gray!30},
+						yticklabel style={font=\scriptsize},
+					]
+					\addplot[faureddark, very thick, mark=diamond, mark size=3pt] coordinates {
+							(2012,1.37266)
+							(2013,1.72742)
+							(2014,2.9839)
+							(2015,4.25994)
+							(2016,5.4275)
+							(2017,6.76582)
+							(2018,7.96357)
+							(2019,8.45234)
+							(2020,8.44419)
+							(2021,8.69423)
+						};
+
+				\end{axis}
+			}
+			\only<2->{
+				\node[text width=3.5cm, anchor=north] (pearson) at (8,3) {
+					\begin{block}{Pearson's coefficient}
+						\centering
+						$Cor = 0.9803$
+					\end{block}
+				};
+			}
+			\only<3->{
+				\node[text width=3.5cm, below=of pearson] at (8,3) {
+					\begin{block}{}
+						\centering
+						\color{faubluedark}
+						\textbf{$\Rightarrow$ Strong correlation}
+					\end{block}
+				};
+			}
+			\only<5->{
+				\node[text width=4.65cm] at (2.65,4.5) {
+					\begin{alertblock}{\centering Correlation $\nRightarrow$ Causality}
+						\centering
+						There can be strong correlation without any causal relationship.
+					\end{alertblock}
+				};
+			}
 		\end{tikzpicture}
 	\end{center}
-
-	\vspace{3mm}
-	\begin{alertblock}{Important: Correlation does not imply causality!}
-		\begin{itemize}
-			\item Of course there is no causal relationship between the number of
-			      bachelor's degrees awarded in engineering and the electricity
-			      generation in Cambodia.
-			\item The correlation is purely coincidental.
-		\end{itemize}
-	\end{alertblock}
-
 \end{frame}
 
-\begin{frame}{Covariance of Numerical Data (I)}
-	\begin{itemize}
-		\item \textbf{\color{airforceblue}Covariance} \textbf{is similar to
-			      correlation:}
-		      \begin{align*}
-			      \text{Cov}(A, B) =
-			      \frac{\sum_{i=1}^{n}(a_i-\mu_{A})(b_i-\mu_{B})}{n} =
-			      \frac{\sum_{i=1}^{n}a_ib_i}{n}-\mu_{A}\mu_{B}
-		      \end{align*}
-		\item \textbf{It is possible to compute the correlation based on the
-			      covariance:}
-		      \begin{align*}
-			      \text{Cor}(A, B) = \frac{\text{Cov}(A,
-				      B)}{\sigma_{A}\sigma_{B}}
-		      \end{align*}
-	\end{itemize}
-	\begin{block}{Properties of the covariance}
-		\begin{itemize}
-			\item If $\text{Cov}(A, B) > 0$: $A$ and $B$ tend to be either both
-			      larger or both smaller than their expected values.
-			\item If $\text{Cov}(A, B) < 0$: If $A$ is larger than its expected
-			      value, $B$ is likely to be smaller than its expected value and vice
-			      versa.
-		\end{itemize}
-	\end{block}
-\end{frame}
+% Due to time constraints, we will not cover the following slides anymore in SS25.
+% However, they might be something to back on in the future.
+%
+%
+% \begin{frame}{Covariance of Numerical Data (I)}
+% 	\begin{itemize}
+% 		\item \textbf{\color{airforceblue}Covariance} \textbf{is similar to
+% 			      correlation:}
+% 		      \begin{align*}
+% 			      \text{Cov}(A, B) =
+% 			      \frac{\sum_{i=1}^{n}(a_i-\mu_{A})(b_i-\mu_{B})}{n} =
+% 			      \frac{\sum_{i=1}^{n}a_ib_i}{n}-\mu_{A}\mu_{B}
+% 		      \end{align*}
+% 		\item \textbf{It is possible to compute the correlation based on the
+% 			      covariance:}
+% 		      \begin{align*}
+% 			      \text{Cor}(A, B) = \frac{\text{Cov}(A,
+% 				      B)}{\sigma_{A}\sigma_{B}}
+% 		      \end{align*}
+% 	\end{itemize}
+% 	\begin{block}{Properties of the covariance}
+% 		\begin{itemize}
+% 			\item If $\text{Cov}(A, B) > 0$: $A$ and $B$ tend to be either both
+% 			      larger or both smaller than their expected values.
+% 			\item If $\text{Cov}(A, B) < 0$: If $A$ is larger than its expected
+% 			      value, $B$ is likely to be smaller than its expected value and vice
+% 			      versa.
+% 		\end{itemize}
+% 	\end{block}
+% \end{frame}
 
-\begin{frame}{Covariance of Numerical Data (II)}
-	\begin{itemize}
-		\item \textbf{Example:}
-		      \begin{itemize}
-			      \item We examine a table containing the history of two
-			            stock prices:
-
-			            \begin{center}
-				            \begin{tabular}{|l|c|c|}
-					            \hline
-					            Date  & Stock 1 & Stock 2
-					            \\\hline
-					            21.06 & 2       & 5
-					            \\\hline
-					            22.06 & 3       & 8
-					            \\\hline
-					            23.06 & 5       & 10
-					            \\\hline
-					            24.06 & 4       & 11
-					            \\\hline
-					            25.06 & 6       & 14
-					            \\\hline
-				            \end{tabular}
-			            \end{center}
-
-			            \vspace{1mm}
-
-			      \item If the stocks are affected by the same industry trends,
-			            will their prices rise or fall together?
-			            \begin{align*}
-				            \text{Cov}(A, B) & = \frac{2\cdot5 + 3\cdot 8 + 5
-					            \cdot
-					            10 + 4 \cdot 11 + 6 \cdot 14}{5} - 4\cdot 9.6 = 4.
-			            \end{align*}
-			      \item Thus, $A$ and $B$ rise together since $\text{Cov}(A, B) >
-				            0$.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
+% \begin{frame}{Covariance of Numerical Data (II)}
+% 	\begin{itemize}
+% 		\item \textbf{Example:}
+% 		      \begin{itemize}
+% 			      \item We examine a table containing the history of two
+% 			            stock prices:
+% 
+% 			            \begin{center}
+% 				            \begin{tabular}{|l|c|c|}
+% 					            \hline
+% 					            Date  & Stock 1 & Stock 2
+% 					            \\\hline
+% 					            21.06 & 2       & 5
+% 					            \\\hline
+% 					            22.06 & 3       & 8
+% 					            \\\hline
+% 					            23.06 & 5       & 10
+% 					            \\\hline
+% 					            24.06 & 4       & 11
+% 					            \\\hline
+% 					            25.06 & 6       & 14
+% 					            \\\hline
+% 				            \end{tabular}
+% 			            \end{center}
+% 
+% 			            \vspace{1mm}
+% 
+% 			      \item If the stocks are affected by the same industry trends,
+% 			            will their prices rise or fall together?
+% 			            \begin{align*}
+% 				            \text{Cov}(A, B) & = \frac{2\cdot5 + 3\cdot 8 + 5
+% 					            \cdot
+% 					            10 + 4 \cdot 11 + 6 \cdot 14}{5} - 4\cdot 9.6 = 4.
+% 			            \end{align*}
+% 			      \item Thus, $A$ and $B$ rise together since $\text{Cov}(A, B) >
+% 				            0$.
+% 		      \end{itemize}
+% 	\end{itemize}
+% \end{frame}
