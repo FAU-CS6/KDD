@@ -232,35 +232,105 @@
 			      \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m}
 			      \frac{(c_{ij}-e_{ij})^2}{e_{ij}}.
 		      \end{align*}
-		      % TODO: Replace this general explanation with aktual values from the X^2 distribution.
-		      % Good link for a full table: https://www.hawkeslearning.com/documents/statdatasets/stat_tables.pdf
-		      \begin{block}{Properties of the $\chi^2$-test}
-			      \begin{itemize}
-				      \item No correlation (i.e. independence of attributes) yields
-				            $\chi^2$
-				            value of zero.
-				      \item The larger the $\chi^2$ value, the more likely the
-				            variables are
-				            related.
-				      \item The cells that contribute the most to the $\chi^2$ value
-				            are those whose actual count is very different from the
-				            expected count
-				            $e_{ij}$.
-			      \end{itemize}
-		      \end{block}
-	\end{itemize}
-\end{frame}
 
-\begin{frame}{Correlation Analysis for Nominal Data (VI)}
-	\begin{itemize}
 		\item \textbf{Calculation of $\chi^2$ in our example:}
 		      \begin{align*}
 			      \chi^2 = \frac{(250-90)^2}{90} + \frac{(50-210)^2}{210} +
 			      \frac{(200-360)^2}{360} + \frac{(1000-840)^2}{840} = 507.93.
 		      \end{align*}
-		\item \textbf{It shows that "Reads Books" and "Plays Chess" are
-			      correlated (in our example)}
+
+
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Correlation Analysis for Nominal Data (VI)}
+	\begin{block}{Null hypothesis of the $\chi^2$-test}
+		\begin{itemize}
+			\item The $\chi^2$-test is used to test the null hypothesis $H_0$ of independence (i.e. no correlation).
+		\end{itemize}
+	\end{block}
+
+	\begin{itemize}
+		\item Which $\chi^2$ value indicates correlation?
+		      \begin{itemize}
+			      \item The $\chi^2$ value is compared with a critical value from the
+			            $\chi^2$ distribution (see table on the next slide).
+			      \item Before that is done the degrees of freedom (df) must be
+			            calculated:
+			            \begin{align*}
+				            \text{df} = (n-1) \cdot (m-1)
+			            \end{align*}
+			            Where $n$ is the count of distinct values in $A$ and $m$ of distinct values in $B$.
+			      \item And a significance level $\alpha$ must be defined (e.g. $\alpha = 0.005$).
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Correlation Analysis for Nominal Data (VII)}
+	\begin{columns}
+		\begin{column}{0.55\textwidth}
+			\vspace*{-0.7cm}
+
+			\begin{itemize}
+				\item \textbf{In our example:}
+				      \begin{itemize}
+					      \only<1->{
+					      \item The degrees of freedom (df) are:
+					            \begin{align*}
+						            \text{df} = (2-1) \cdot (2-1) = 1.
+					            \end{align*}
+					            }
+					            \only<3->{
+					      \item We set the significance level to $\alpha = 0.005$
+					            }
+					            \only<5->{
+					      \item The critical value from the $\chi^2$ distribution\footnotemark[1] is:
+					            \begin{align*}
+						            \chi^2_{0.005, 1} = 7.879.
+					            \end{align*}
+					            }
+					            \only<6->{
+					      \item Our $\chi^2$-value is bigger than the critical value:
+					            \begin{align*}
+						            \chi^2 = 507.93 > 7.879.
+					            \end{align*}
+					            }
+					            \only<7->{
+					      \item Therefore we reject the null hypothesis $H_0$ and conclude that
+					            there is correlation between the two attributes.
+					            }
+
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.35\textwidth}
+			\centering
+
+			\vspace*{1cm}
+
+			\scalebox{0.8}{
+				\begin{tabular}{|c|c|c|c|}
+					\hline
+					\textbf{$\text{df}/\alpha$}                 & \textbf{0.025}                         & \textbf{0.010}                         & \only<4->{\cellcolor{faugray!30}}\textbf{0.005}                           \\ \hline
+					\only<2->{\cellcolor{faugray!30}}\textbf{1} & \only<2->{\cellcolor{faugray!30}}5.024 & \only<2->{\cellcolor{faugray!30}}6.635 & \only<2-3>{\cellcolor{faugray!30}}\only<4->{\cellcolor{faugray!60}} 7.879 \\ \hline
+					\textbf{2}                                  & 7.378                                  & 9.210                                  & \only<4->{\cellcolor{faugray!30}} 10.597                                  \\ \hline
+					\textbf{3}                                  & 9.348                                  & 11.345                                 & \only<4->{\cellcolor{faugray!30}}12.838                                   \\ \hline
+					\textbf{4}                                  & 11.143                                 & 13.277                                 & \only<4->{\cellcolor{faugray!30}}14.860                                   \\ \hline
+					\textbf{5}                                  & 12.833                                 & 15.086                                 & \only<4->{\cellcolor{faugray!30}}16.750                                   \\ \hline
+					\textbf{6}                                  & 14.449                                 & 16.812                                 & \only<4->{\cellcolor{faugray!30}}18.548                                   \\ \hline
+					\textbf{7}                                  & 16.013                                 & 18.475                                 & \only<4->{\cellcolor{faugray!30}}20.278                                   \\ \hline
+					\textbf{8}                                  & 17.535                                 & 20.090                                 & \only<4->{\cellcolor{faugray!30}}21.955                                   \\ \hline
+					\textbf{9}                                  & 19.023                                 & 21.666                                 & \only<4->{\cellcolor{faugray!30}}23.589                                   \\ \hline
+				\end{tabular}
+			}
+
+
+		\end{column}
+		\footnotetext[1]{Good link for a full table: \url{https://www.hawkeslearning.com/documents/statdatasets/stat_tables.pdf}}
+	\end{columns}
+
+
 \end{frame}
 
 \begin{frame}{Correlation Analysis of Numerical Data (I)}
@@ -537,7 +607,7 @@
 				\node[text width=4.65cm] at (2.65,4.5) {
 					\begin{alertblock}{\centering Correlation $\nRightarrow$ Causality}
 						\centering
-						There can be strong correlation without any causal relationship.
+						There can be strong correlation without causal relationship.
 					\end{alertblock}
 				};
 			}

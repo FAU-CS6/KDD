@@ -155,25 +155,6 @@
 	\end{tabular}
 \end{frame}
 
-\begin{frame}{Why Wavelet Transform?}
-	\begin{itemize}
-		\item \textbf{Hat-shaped filters:}
-		      \begin{itemize}
-			      \item Emphasize region where points cluster.
-			      \item Suppress weaker information in their boundaries.
-		      \end{itemize}
-		\item \textbf{Effective removal of outliers:}
-		      \begin{itemize}
-			      \item Insensitive to noise, insensitive to input order.
-		      \end{itemize}
-		\item \textbf{Multi-resolution:}
-		      \begin{itemize}
-			      \item Detect arbitrary shaped clusters at different scales.
-		      \end{itemize}
-		\item \textbf{Efficient:} Complexity $\mathcal{O}(N)$.
-	\end{itemize}
-\end{frame}
-
 \begin{frame}{Principal Component Analysis (PCA)}
 	\begin{itemize}
 		\item \textbf{Main idea:}
@@ -545,16 +526,62 @@
 
 \begin{frame}{Histogram Analysis}
 	\begin{itemize}
-		\item \textbf{Divide data into buckets and store average (sum) of each
+		\item \textbf{Divide data into buckets and store aggregate (e.g. average) of each
 			      bucket.}
-		\item \textbf{Partitioning rules:}
+		\item \textbf{Two different partitioning rules:}
 		      \begin{itemize}
-			      \item Equal-width: equal bucket range.
-			      \item Equal-frequency (or equal-depth).
+			      \item \textbf{Equal-width:} equal width of each bucket. \only<2>{{\color{faugraydark} $\leftarrow$}}
+			      \item \textbf{Equal-frequency (or equal-depth)}: equal number of
+			            tuples in each bucket. \only<3>{{\color{faugraydark} $\leftarrow$}}
 		      \end{itemize}
 	\end{itemize}
 	\centering
-	\includegraphics[width=9.5cm]{img/histogram.png}
+	% Example histogram
+	% Value range: 0-25 (excl.)
+	% Number of buckets: 5
+	% Values: 0, 2, 3, 6, 11, 12, 14, 16, 21, 25
+	%
+	% Equal-width:
+	% Bin 1 (0-5 (excl.)): 0, 2, 3
+	% Bin 2 (5-10 (excl.)): 6
+	% Bin 3 (10-15 (excl.)): 11, 12, 14
+	% Bin 4 (15-20 (excl.)): 16
+	% Bin 5 (20-25 (encl.)): 21, 25
+	%
+	% Equal-frequency:
+	% Bin 1: 0, 2
+	% Bin 2: 3, 6
+	% Bin 3: 11, 12
+	% Bin 4: 14, 16
+	% Bin 5: 21, 25
+	\vspace*{0.5cm}
+	\only<2>{
+		\begin{tikzpicture}
+			\begin{axis}[
+					ymin=0, ymax=4,
+					minor y tick num = 3,
+					area style,
+					width=8cm,
+					height=5cm,
+				]
+				\addplot+[faugraydark, fill=faugray, thick, ybar interval, mark=no] plot coordinates {(0, 3) (5, 1) (10, 3) (15,1) (20,2) (25,2)};
+			\end{axis}
+		\end{tikzpicture}
+	}
+	\only<3>{
+		\begin{tikzpicture}
+			\begin{axis}[
+					ymin=0, ymax=4,
+					minor y tick num = 3,
+					xtick={0,3,11,14,21,25},
+					area style,
+					width=8cm,
+					height=5cm,
+				]
+				\addplot+[faugraydark, fill=faugray, thick, ybar interval, mark=no] plot coordinates {(0, 2) (3, 2) (11, 2) (14,2) (21,2) (25,2)};
+			\end{axis}
+		\end{tikzpicture}
+	}
 \end{frame}
 
 \begin{frame}{Clustering}
@@ -616,28 +643,31 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Data-Cube Aggregation}
-	\begin{itemize}
-		\item \textbf{The lowest level of a data cube (base cuboid).}
-		      \begin{itemize}
-			      \item The aggregated data for an \textbf{individual entity of
-				            interest}.
-			      \item E.g. a customer in a phone-calling data warehouse.
-			      \item Number of calls per hour, day, or week.
-		      \end{itemize}
-		\item \textbf{Multiple levels of aggregation in data cubes.}
-		      \begin{itemize}
-			      \item Further reduce the size of data to deal with.
-		      \end{itemize}
-		\item \textbf{Reference appropriate levels.}
-		      \begin{itemize}
-			      \item Use the smallest representation that is enough to solve
-			            the task.
-		      \end{itemize}
-		\item \textbf{Queries regarding aggregated information should be
-			      answered using the data cube, if possible.}
-	\end{itemize}
-\end{frame}
+% Removed as this slide confused students in the past
+% (The basics of data cubes are covered in Chapter 5, while we are in Chapter 4)
+%
+%\begin{frame}{Data-Cube Aggregation}
+%	\begin{itemize}
+%		\item \textbf{The lowest level of a data cube (base cuboid).}
+%		      \begin{itemize}
+%			      \item The aggregated data for an \textbf{individual entity of
+%				            interest}.
+%			      \item E.g. a customer in a phone-calling data warehouse.
+%			      \item Number of calls per hour, day, or week.
+%		      \end{itemize}
+%		\item \textbf{Multiple levels of aggregation in data cubes.}
+%		      \begin{itemize}
+%			      \item Further reduce the size of data to deal with.
+%		      \end{itemize}
+%		\item \textbf{Reference appropriate levels.}
+%		      \begin{itemize}
+%			      \item Use the smallest representation that is enough to solve
+%			            the task.
+%		      \end{itemize}
+%		\item \textbf{Queries regarding aggregated information should be
+%			      answered using the data cube, if possible.}
+%	\end{itemize}
+%\end{frame}
 
 \begin{frame}{Data Reduction (III): Data Compression}
 	\begin{itemize}
