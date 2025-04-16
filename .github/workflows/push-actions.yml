@@ -135,7 +135,7 @@ jobs:
     name: Publish artifacts to GitHub Pages
     runs-on: ubuntu-latest
     needs: [build_lecture, build_exercise, build_submission]
-    if: success()
+    if: success() && github.ref == 'refs/heads/main'
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
