@@ -177,10 +177,10 @@ jobs:
           CURRENT_TIME=$(TZ="Europe/Berlin" date "+%d.%m.%Y %H:%M")
           npm install -g badge-maker
           npx badge-maker "Lectures" "Download" "#41748D" @flat-square > artifacts/gh-badges/lectures-badge.svg
-          npx badge-maker "Exercises" "Download" "#228848" @flat-square> artifacts/gh-badges/exercises-badge.svg
-          npx badge-maker "Submissions" "Download" "#971B2F" @flat-square> artifacts/gh-badges/submissions-badge.svg
-          npx badge-maker "Current SHA" "${SHA}" "#041E42" @flat-square> artifacts/gh-badges/sha-badge.svg
-          npx badge-maker "Update Time" "${CURRENT_TIME} (MEZ/MESZ)" "#041E42" @flat-square> artifacts/gh-badges/time-badge.svg
+          npx badge-maker "Exercises" "Download" "#228848" @flat-square > artifacts/gh-badges/exercises-badge.svg
+          npx badge-maker "Submissions" "Download" "#971B2F" @flat-square > artifacts/gh-badges/submissions-badge.svg
+          npx badge-maker "Current SHA" "${SHA}" "#041E42" @flat-square > artifacts/gh-badges/sha-badge.svg
+          npx badge-maker "Update Time" "${CURRENT_TIME} (MEZ/MESZ)" "#041E42" @flat-square > artifacts/gh-badges/time-badge.svg
 
       - name: Create index.html
         run: |
