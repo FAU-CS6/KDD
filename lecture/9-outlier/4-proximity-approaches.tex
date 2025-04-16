@@ -33,8 +33,8 @@
 	\end{columns}
 \end{frame}
 
-
-\begin{frame}{Distance-Based Outlier Detection: Method with a Nested Loop I}
+\subsection{Distance-Based Outlier Detection}
+\begin{frame}{Method with a Nested Loop (I)}
 	\begin{itemize}
 		\item Suppose we have:
 		      \begin{itemize}
@@ -58,8 +58,7 @@
 	\end{itemize}
 \end{frame}
 
-
-\begin{frame}{Distance-Based Outlier Detection: Method with a Nested Loop II}
+\begin{frame}{Method with a Nested Loop (II)}
 	\begin{columns}[t]
 		\begin{column}{0.5\textwidth}
 			\vspace*{-0.5em}
@@ -108,7 +107,7 @@
 \end{frame}
 
 
-\begin{frame}{Distance-Based Outlier Detection: Method with a Nested Loop III}\textbf{Why is efficiency still a concern?}
+\begin{frame}{Method with a Nested Loop (III)}\textbf{Why is efficiency still a concern?}
 	\begin{itemize}
 		\item If the complete set of objects cannot be held in main memory, \\
 		      there is significant cost for I/O swapping.
@@ -128,7 +127,7 @@
 \end{frame}
 
 
-\begin{frame}{Distance-Based Outlier Detection: A Grid-Based Method I}
+\begin{frame}{A Grid-Based Method (I)}
 	\begin{itemize}
 		\item \textbf{CELL:}
 		      \begin{itemize}
@@ -157,7 +156,7 @@
 \end{frame}
 
 
-\begin{frame}{Distance-Based Outlier Detection: A Grid-Based Method II}
+\begin{frame}{A Grid-Based Method (II)}
 	\textcolor{faugray}{\textbf{Cell Pruning Rules}}
 	\begin{itemize}
 		\item Total number of objects in cell $\mathbf{C}$: $a$.
@@ -184,6 +183,7 @@
 	\end{itemize}
 \end{frame}
 
+\subsection{Density-Based Outlier Detection}
 
 \begin{frame}{Density-Based Outlier Detection}
 	\begin{itemize}
@@ -226,7 +226,7 @@
 \end{frame}
 
 
-\begin{frame}{Density-Based Outlier Detection: Measure Relative Density}
+\begin{frame}{Measure Relative Density}
 	\begin{itemize}
 		\item Use the \textbf{relative density} of an object against its neighbors \\
 		      as the indicator of the degree of the object being an outlier.
@@ -252,7 +252,7 @@
 \end{frame}
 
 
-\begin{frame}{Density-Based Outlier Detection: Reachability Distance}
+\begin{frame}{Reachability Distance}
 	\begin{itemize}
 		\item \textbf{\color{airforceblue}Reachability distance from $\mathbf{o'}$ to $\mathbf{o}$:}
 		      \begin{align*}
@@ -273,7 +273,7 @@
 \end{frame}
 
 
-\begin{frame}{Density-Based Outlier Detection: Local Outlier Factor (LOF)}
+\begin{frame}{Local Outlier Factor (LOF)}
 	\begin{itemize}
 		\item LOF is the average of the ratio of the local reachability density of $\mathbf{o}$ and \\
 		      those of $\mathbf{o}$'s $k$-nearest neighbors.

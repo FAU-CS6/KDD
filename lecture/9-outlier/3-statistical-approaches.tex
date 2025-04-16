@@ -35,8 +35,9 @@
 	\end{columns}
 \end{frame}
 
+\subsection{Parametric Methods}
 
-\begin{frame}{Parametric Methods I: Detection Based on Normal Distribution}
+\begin{frame}{Detection Based on Normal Distribution (I)}
 	% TODO: add plot for visual motivation
 	\begin{itemize}
 		\item \textbf{Univariate data:} A data set involving \textit{only one attribute} or variable.
@@ -130,7 +131,7 @@
 	\end{flushright}
 \end{frame}
 
-\begin{frame}{Parametric Methods I: Detection Based on Normal Distribution (2)}
+\begin{frame}{Detection Based on Normal Distribution (II)}
 	\textbf{Example:}
 	\begin{itemize}
 		\item Average yearly temperatures: $\{24.0, 28.9, 28.9, 29.0, 29.1, 29.1, 29.2, 29.2, 29.3, 29.4\}$.
@@ -152,7 +153,7 @@
 \end{frame}
 
 
-\begin{frame}{Parametric Methods I: The Grubbs' Test\footnote{Named after Frank E. Grubbs.}}
+\begin{frame}{The Grubbs' Test\footnote{Named after Frank E. Grubbs.}}
 	\begin{block}{Grubbs' Test}
 		The \textit{Grubbs' Test} is a statistical test to detect outlier in a \underline{univariate} data set under the assumption that this data set follows a normal distribution. Grubbs' Test is also known as \textit{maximum normed residual test}.
 	\end{block}
@@ -183,7 +184,7 @@
 \end{frame}
 
 
-\begin{frame}{Parametric Methods II: Detection of Multivariate Outliers}
+\begin{frame}{Detection of Multivariate Outliers}
 	\begin{itemize}
 		\item \textbf{Multivariate data}: A data set involving \textbf{\color{faugray}two or more attributes} or variables.
 		\item Univariate outlier detection methods can be extended to the multivariate case.
@@ -200,7 +201,7 @@
 \end{frame}
 
 
-\begin{frame}{Parametric Methods II: Mahalanobis Distance and $\chi^2$ Statistic}
+\begin{frame}{Mahalanobis Distance and $\chi^2$ Statistic}
 	\vspace*{-2em}
 	\begin{columns}[t]
 		\begin{column}{0.5\textwidth}
@@ -237,7 +238,7 @@
 \end{frame}
 
 % TODO: Add book author name in footnote
-\begin{frame}{Parametric Methods III: Using Mixture of Parametric Distributions}
+\begin{frame}{Using Mixture of Parametric Distributions}
 	\tikzoverlay at (11cm,0.5cm) {\input{9-outlier/complex-data-outlier.tex}};
 	\begin{itemize}
 		\item Assuming data follows a normal distribution is too simple for complex\\ data distributions.
@@ -255,8 +256,9 @@
 	\end{itemize}
 \end{frame}
 
+\subsection{Non-Parametric Methods}
 
-\begin{frame}{Non-Parametric Methods: Detection Using Histogram I}
+\begin{frame}{Detection Using Histogram (I)}
 	\textit{Non-parametric methods} make fewer assumptions about the data, and thus are applicable in more scenarios.\\\bigskip
 
 	\textbf{Outlier detection using histograms:}
@@ -279,7 +281,7 @@
 \end{frame}
 
 
-\begin{frame}{Non-Parametric Methods: Detection Using Histogram II}
+\begin{frame}{Detection Using Histogram (II)}
 	\textbf{Problem:}
 	\begin{itemize}
 		\item Hard to \textbf{\color{airforceblue}choose an appropriate bin size} for histogram.
