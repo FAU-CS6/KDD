@@ -26,7 +26,7 @@
 
 \begin{frame}{Population vs. Sample}
 	\begin{columns}[t]
-		\begin{column}{0.5\columnwidth}
+		\begin{column}{0.45\columnwidth}
 			\centering \textbf{Population}
 			\begin{itemize}
 				\item Collection of \textit{all} data objects of interest.\\ E.g. all
@@ -40,7 +40,7 @@
 				always have a sample.
 			\end{alertblock}
 		\end{column}
-		\begin{column}{0.5\columnwidth}
+		\begin{column}{0.45\columnwidth}
 			\centering \textbf{Sample}
 			\begin{itemize}
 				\item Randomly selected and representative subset of a population obtained
@@ -55,9 +55,9 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Measuring the Central Tendency: Mean and Trimmed Mean}
+\begin{frame}{Central Tendency: Mean and Trimmed Mean}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.45\textwidth}
 			\textbf{Arithmetic Mean}
 
 			Simple and most commonly used measure of central tendency:
@@ -70,7 +70,7 @@
 				\item Sensitive to extreme values (outliers).
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.45\textwidth}
 			\textbf{Trimmed Mean}
 
 			Simple and robust variation of the arithmetic mean:
@@ -81,8 +81,8 @@
 
 			\begin{itemize}
 				\item Order data.
-				\item Discard lowest $100\alpha\%$ and highest $100\alpha\%$.
-				\item Compute arithmetic mean on remaining data.
+				\item Discard lowest and highest $100\alpha\%$.
+				\item Compute arithmetic mean.
 			\end{itemize}
 
 
@@ -91,7 +91,7 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Measuring the Central Tendency: Median (I)}
+\begin{frame}{Central Tendency: Median (I)}
 	The \textbf{median} $\tilde{x}$ is the middle value of ordered observations where
 	\begin{itemize}
 		\item A minimum of 50\% of all values are lesser or equal $\tilde{x}$.
@@ -108,7 +108,7 @@
 	More robust compared to mean as extreme values does not have such drastic affects.
 \end{frame}
 
-\begin{frame}{Measuring the Central Tendency: Median (II)}
+\begin{frame}{Central Tendency: Median (II)}
 	\textbf{Median for interval grouped data} (An Example)
 	\begin{table}
 		\begin{tabularx}{\textwidth}{|c|c|p{4.5em}|X|X|X|}
@@ -127,7 +127,7 @@
 	The median lies within the fourth group, i.e. in the age group from 21 to 50 years
 \end{frame}
 
-\begin{frame}{Measuring the Central Tendency: Median (III)}
+\begin{frame}{Central Tendency: Median (III)}
 	\textbf{Median for interval grouped data}
 
 	For grouped data we typically have no information about the underlying
@@ -148,7 +148,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Measuring the Central Tendency: Median (IV)}
+\begin{frame}{Central Tendency: Median (IV)}
 	\textbf{Median for interval grouped data}
 
 	$F_i>0.5$: Median lies within the class where the cumulative
@@ -168,7 +168,7 @@
 	In our example: $\tilde{x} \approx 21 +\left(\frac{\frac{3194}{2} - 950}{1500}\right)*30 \approx 33.94$, i. e. 33 years and 11 months
 \end{frame}
 
-\begin{frame}{Measuring the Central Tendency: Mode}
+\begin{frame}{Central Tendency: Mode}
 	\textbf{Mode}
 	\begin{itemize}
 		\item Value that occurs most frequently within the data set.
@@ -184,7 +184,7 @@
 
 \begin{frame}{Example of Mode, Median and Mean (I)}
 	\begin{columns}[t]
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.45\textwidth}
 			\vspace{-1em}
 			\textbf{Normal distribution}
 
@@ -230,7 +230,7 @@
 				\path[faugraydark, ->,thick] (median.north) -- (MM);
 			\end{tikzpicture}
 		\end{column}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.45\textwidth}
 			\textbf{Positively Skewed Data Distribution}
 			\begin{tikzpicture}[font=\sffamily,
 					declare function={Gauss(\x,\y,\z,\u)=1/(\z*sqrt(2*pi))*exp(-((\x-\y+\u*(\x-\y)*sign(\x-\y))^2)/(2*\z^2));},
@@ -270,6 +270,7 @@
 					\addlegendentry{Mean}
 				\end{axis}
 			\end{tikzpicture}
+			\vspace*{0.1cm}
 
 			\textbf{Negatively Skewed Data Distribution}
 			\begin{tikzpicture}[font=\sffamily,
@@ -316,7 +317,7 @@
 			      \item $\mu-3\sigma$ to $\mu + 3\sigma$: contains about $99.7\%$ of the surface under the curve.
 		      \end{itemize}
 	\end{itemize}
-	\vspace{0.2cm}
+	\vspace{0.4cm}
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[

@@ -1,4 +1,4 @@
-\section{Data integration}
+\section{Data Integration}
 
 \begin{frame}{Data Integration}
 	\begin{itemize}
@@ -203,6 +203,7 @@
 			      \end{tabular}
 			      \vspace{2mm}
 		      \end{center}
+		      \vspace*{0.5cm}
 		\item \textbf{In our example it would look like this:} \\
 		      \begin{center}
 			      \vspace{1mm}
@@ -231,42 +232,105 @@
 			      \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m}
 			      \frac{(c_{ij}-e_{ij})^2}{e_{ij}}.
 		      \end{align*}
-		      \begin{block}{Properties of the $\chi^2$-test}
-			      \begin{itemize}
-				      \item No correlation (i.e. independence of attributes) yields
-				            $\chi^2$
-				            value of zero.
-				      \item The larger the $\chi^2$ value, the more likely the
-				            variables are
-				            related.
-				      \item The cells that contribute the most to the $\chi^2$ value
-				            are those whose actual count is very different from the
-				            expected count
-				            $e_{ij}$.
-			      \end{itemize}
-		      \end{block}
-	\end{itemize}
-\end{frame}
 
-\begin{frame}{Correlation Analysis for Nominal Data (VI)}
-	\begin{itemize}
 		\item \textbf{Calculation of $\chi^2$ in our example:}
 		      \begin{align*}
 			      \chi^2 = \frac{(250-90)^2}{90} + \frac{(50-210)^2}{210} +
 			      \frac{(200-360)^2}{360} + \frac{(1000-840)^2}{840} = 507.93.
 		      \end{align*}
-		\item \textbf{It shows that "Reads Books" and "Plays Chess" are
-			      correlated (in our example)}
-		      \vspace{5mm}
-		      \begin{alertblock}{Important: Correlation does not imply causality!}
-			      \begin{itemize}
-				      \item E.g. $\#$ of hospitals and $\#$ of car-thefts in a city
-				            are correlated.
-				      \item Both are causally linked to the third variable:
-				            population.
-			      \end{itemize}
-		      \end{alertblock}
+
+
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Correlation Analysis for Nominal Data (VI)}
+	\begin{block}{Null hypothesis of the $\chi^2$-test}
+		\begin{itemize}
+			\item The $\chi^2$-test is used to test the null hypothesis $H_0$ of independence (i.e. no correlation).
+		\end{itemize}
+	\end{block}
+
+	\begin{itemize}
+		\item Which $\chi^2$ value indicates correlation?
+		      \begin{itemize}
+			      \item The $\chi^2$ value is compared with a critical value from the
+			            $\chi^2$ distribution (see table on the next slide).
+			      \item Before that is done the degrees of freedom (df) must be
+			            calculated:
+			            \begin{align*}
+				            \text{df} = (n-1) \cdot (m-1)
+			            \end{align*}
+			            Where $n$ is the count of distinct values in $A$ and $m$ of distinct values in $B$.
+			      \item And a significance level $\alpha$ must be defined (e.g. $\alpha = 0.005$).
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Correlation Analysis for Nominal Data (VII)}
+	\begin{columns}
+		\begin{column}{0.55\textwidth}
+			\vspace*{-0.7cm}
+
+			\begin{itemize}
+				\item \textbf{In our example:}
+				      \begin{itemize}
+					      \only<1->{
+					      \item The degrees of freedom (df) are:
+					            \begin{align*}
+						            \text{df} = (2-1) \cdot (2-1) = 1.
+					            \end{align*}
+					            }
+					            \only<3->{
+					      \item We set the significance level to $\alpha = 0.005$
+					            }
+					            \only<5->{
+					      \item The critical value from the $\chi^2$ distribution\footnotemark[1] is:
+					            \begin{align*}
+						            \chi^2_{0.005, 1} = 7.879.
+					            \end{align*}
+					            }
+					            \only<6->{
+					      \item Our $\chi^2$-value is bigger than the critical value:
+					            \begin{align*}
+						            \chi^2 = 507.93 > 7.879.
+					            \end{align*}
+					            }
+					            \only<7->{
+					      \item Therefore we reject the null hypothesis $H_0$ and conclude that
+					            there is correlation between the two attributes.
+					            }
+
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.35\textwidth}
+			\centering
+
+			\vspace*{1cm}
+
+			\scalebox{0.8}{
+				\begin{tabular}{|c|c|c|c|}
+					\hline
+					\textbf{$\text{df}/\alpha$}                 & \textbf{0.025}                         & \textbf{0.010}                         & \only<4->{\cellcolor{faugray!30}}\textbf{0.005}                           \\ \hline
+					\only<2->{\cellcolor{faugray!30}}\textbf{1} & \only<2->{\cellcolor{faugray!30}}5.024 & \only<2->{\cellcolor{faugray!30}}6.635 & \only<2-3>{\cellcolor{faugray!30}}\only<4->{\cellcolor{faugray!60}} 7.879 \\ \hline
+					\textbf{2}                                  & 7.378                                  & 9.210                                  & \only<4->{\cellcolor{faugray!30}} 10.597                                  \\ \hline
+					\textbf{3}                                  & 9.348                                  & 11.345                                 & \only<4->{\cellcolor{faugray!30}}12.838                                   \\ \hline
+					\textbf{4}                                  & 11.143                                 & 13.277                                 & \only<4->{\cellcolor{faugray!30}}14.860                                   \\ \hline
+					\textbf{5}                                  & 12.833                                 & 15.086                                 & \only<4->{\cellcolor{faugray!30}}16.750                                   \\ \hline
+					\textbf{6}                                  & 14.449                                 & 16.812                                 & \only<4->{\cellcolor{faugray!30}}18.548                                   \\ \hline
+					\textbf{7}                                  & 16.013                                 & 18.475                                 & \only<4->{\cellcolor{faugray!30}}20.278                                   \\ \hline
+					\textbf{8}                                  & 17.535                                 & 20.090                                 & \only<4->{\cellcolor{faugray!30}}21.955                                   \\ \hline
+					\textbf{9}                                  & 19.023                                 & 21.666                                 & \only<4->{\cellcolor{faugray!30}}23.589                                   \\ \hline
+				\end{tabular}
+			}
+
+
+		\end{column}
+		\footnotetext[1]{Good link for a full table: \url{https://www.hawkeslearning.com/documents/statdatasets/stat_tables.pdf}}
+	\end{columns}
+
+
 \end{frame}
 
 \begin{frame}{Correlation Analysis of Numerical Data (I)}
@@ -284,13 +348,16 @@
 		      $\mu_A$ and $\mu_B$ are the respective mean values of $A$ and $B$,
 		      $\sigma_{A}$ and $\sigma_{B}$B are the respective standard
 		      deviations of $A$ and $B$
+
+		      \vspace*{5mm}
+
 		      \begin{block}{Properties of Pearson's product-moment coefficient}
 			      \begin{itemize}
 				      \item If $\text{Cor}(A, B) > 0$: $A$ and $B$ are positively
-				            correlated.
+				            correlated (the closer to $1$, the stronger the correlation).
 				      \item If $\text{Cor}(A, B) = 0$: $A$ and $B$ are independent.
-				      \item If $\text{Cor}(A, B) < 0$: $A$ and $B$ are negatively
-				            correlated.
+				      \item If $\text{Cor}(A, B) < 0$: $A$ and $B$ are negatively correlated (the closer to $-1$, the stronger the correlation).
+
 			      \end{itemize}
 		      \end{block}
 	\end{itemize}
@@ -375,69 +442,251 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Covariance of Numerical Data (I)}
-	\begin{itemize}
-		\item \textbf{\color{airforceblue}Covariance} \textbf{is similar to
-			      correlation:}
-		      \begin{align*}
-			      \text{Cov}(A, B) =
-			      \frac{\sum_{i=1}^{n}(a_i-\mu_{A})(b_i-\mu_{B})}{n} =
-			      \frac{\sum_{i=1}^{n}a_ib_i}{n}-\mu_{A}\mu_{B}
-		      \end{align*}
-		\item \textbf{It is possible to compute the correlation based on the
-			      covariance:}
-		      \begin{align*}
-			      \text{Cor}(A, B) = \frac{\text{Cov}(A,
-				      B)}{\sigma_{A}\sigma_{B}}
-		      \end{align*}
-	\end{itemize}
-	\begin{block}{Properties of the covariance}
-		\begin{itemize}
-			\item If $\text{Cov}(A, B) > 0$: $A$ and $B$ tend to be either both
-			      larger or both smaller than their expected values.
-			\item If $\text{Cov}(A, B) < 0$: If $A$ is larger than its expected
-			      value, $B$ is likely to be smaller than its expected value and vice
-			      versa.
-		\end{itemize}
-	\end{block}
+\begin{frame}{Correlation vs. Causality}
+	\begin{center}
+		\begin{tikzpicture}
+			% Inspiration and statistics taken from:
+			% https://tylervigen.com/spurious/correlation/2716_bachelors-degrees-awarded-in-engineering_correlates-with_electricity-generation-in-cambodia
+
+			\only<1-3>{
+				\begin{axis}[
+						width=12cm,
+						height=7cm,
+						xlabel={Year},
+						xlabel style={font=\small},
+						ylabel={\parbox{5cm}{\centering Bachelor's degrees in Engineering\\ (Thousand degrees)}},
+						ylabel style={white, font=\small},
+						axis y line*=left,
+						ymin=80, ymax=130,
+						xmin=2012, xmax=2021,
+						xtick={2012,2013,2014,2015,2016,2017,2018,2019,2020,2021},
+						xticklabel style={font=\scriptsize, /pgf/number format/1000 sep={}},
+						xticklabel={\pgfmathprintnumber[fixed, precision=0]{\tick}},
+						grid=both,
+						ymajorgrids=true,
+						yminorgrids=false,
+						minor tick num=0,
+						grid style={dotted, gray!30},
+						scaled y ticks=false,
+						yticklabel style={white,font=\scriptsize,/pgf/number format/fixed},
+					]
+					\addplot[faugraydark, very thick, mark=diamond, mark size=3pt] coordinates {
+							(2012,81)
+							(2013,86)
+							(2014,92)
+							(2015,98)
+							(2016,107)
+							(2017,116)
+							(2018,122)
+							(2019,127)
+							(2020,128)
+							(2021,126)
+						};
+
+				\end{axis}
+
+				\begin{axis}[
+						width=12cm,
+						height=7cm,
+						xlabel={},
+						ylabel={\parbox{5cm}{\centering Electricity generation in Cambodia \\(Billion kWh)}},
+						ylabel style={white, font=\small},
+						axis y line*=right,
+						axis x line=none,
+						ymin=1.4, ymax=8.7,
+						xmin=2012, xmax=2021,
+						grid=both,
+						ymajorgrids=true,
+						yminorgrids=false,
+						minor tick num=0,
+						grid style={dotted, gray!30},
+						yticklabel style={white,font=\scriptsize},
+					]
+					\addplot[faureddark, very thick, mark=diamond, mark size=3pt] coordinates {
+							(2012,1.37266)
+							(2013,1.72742)
+							(2014,2.9839)
+							(2015,4.25994)
+							(2016,5.4275)
+							(2017,6.76582)
+							(2018,7.96357)
+							(2019,8.45234)
+							(2020,8.44419)
+							(2021,8.69423)
+						};
+
+				\end{axis}
+			}
+			\only<4->{
+				\begin{axis}[
+						width=12cm,
+						height=7cm,
+						xlabel={Year},
+						xlabel style={font=\small},
+						ylabel={\parbox{5cm}{\centering Bachelor's degrees in Engineering\\ (Thousand degrees)}},
+						ylabel style={faugraydark, font=\small},
+						axis y line*=left,
+						ymin=80, ymax=130,
+						xmin=2012, xmax=2021,
+						xtick={2012,2013,2014,2015,2016,2017,2018,2019,2020,2021},
+						xticklabel style={font=\scriptsize, /pgf/number format/1000 sep={}},
+						xticklabel={\pgfmathprintnumber[fixed, precision=0]{\tick}},
+						grid=both,
+						ymajorgrids=true,
+						yminorgrids=false,
+						minor tick num=0,
+						grid style={dotted, gray!30},
+						scaled y ticks=false,
+						yticklabel style={font=\scriptsize,/pgf/number format/fixed},
+					]
+					\addplot[faugraydark, very thick, mark=diamond, mark size=3pt] coordinates {
+							(2012,81)
+							(2013,86)
+							(2014,92)
+							(2015,98)
+							(2016,107)
+							(2017,116)
+							(2018,122)
+							(2019,127)
+							(2020,128)
+							(2021,126)
+						};
+
+				\end{axis}
+
+				\begin{axis}[
+						width=12cm,
+						height=7cm,
+						xlabel={},
+						ylabel={\parbox{5cm}{\centering Electricity generation in Cambodia \\(Billion kWh)}},
+						ylabel style={faureddark, font=\small},
+						axis y line*=right,
+						axis x line=none,
+						ymin=1.4, ymax=8.7,
+						xmin=2012, xmax=2021,
+						grid=both,
+						ymajorgrids=true,
+						yminorgrids=false,
+						minor tick num=0,
+						grid style={dotted, gray!30},
+						yticklabel style={font=\scriptsize},
+					]
+					\addplot[faureddark, very thick, mark=diamond, mark size=3pt] coordinates {
+							(2012,1.37266)
+							(2013,1.72742)
+							(2014,2.9839)
+							(2015,4.25994)
+							(2016,5.4275)
+							(2017,6.76582)
+							(2018,7.96357)
+							(2019,8.45234)
+							(2020,8.44419)
+							(2021,8.69423)
+						};
+
+				\end{axis}
+			}
+			\only<2->{
+				\node[text width=3.5cm, anchor=north] (pearson) at (8,3) {
+					\begin{block}{Pearson's coefficient}
+						\centering
+						$Cor = 0.9803$
+					\end{block}
+				};
+			}
+			\only<3->{
+				\node[text width=3.5cm, below=of pearson] at (8,3) {
+					\begin{block}{}
+						\centering
+						\color{faubluedark}
+						\textbf{$\Rightarrow$ Strong correlation}
+					\end{block}
+				};
+			}
+			\only<5->{
+				\node[text width=4.65cm] at (2.65,4.5) {
+					\begin{alertblock}{\centering Correlation $\nRightarrow$ Causality}
+						\centering
+						There can be strong correlation without causal relationship.
+					\end{alertblock}
+				};
+			}
+			\only<1->{
+				\node[text width=5cm] at (7.9,0.1) {
+					\tiny Source: \url{https://tylervigen.com/spurious-correlations}
+				};
+			}
+		\end{tikzpicture}
+	\end{center}
 \end{frame}
 
-\begin{frame}{Covariance of Numerical Data (II)}
-	\begin{itemize}
-		\item \textbf{Example:}
-		      \begin{itemize}
-			      \item We examine a table containing the history of two
-			            stock prices:
+% Due to time constraints, we will not cover the following slides anymore in SS25.
+% However, they might be something to back on in the future.
+%
+%
+% \begin{frame}{Covariance of Numerical Data (I)}
+% 	\begin{itemize}
+% 		\item \textbf{\color{airforceblue}Covariance} \textbf{is similar to
+% 			      correlation:}
+% 		      \begin{align*}
+% 			      \text{Cov}(A, B) =
+% 			      \frac{\sum_{i=1}^{n}(a_i-\mu_{A})(b_i-\mu_{B})}{n} =
+% 			      \frac{\sum_{i=1}^{n}a_ib_i}{n}-\mu_{A}\mu_{B}
+% 		      \end{align*}
+% 		\item \textbf{It is possible to compute the correlation based on the
+% 			      covariance:}
+% 		      \begin{align*}
+% 			      \text{Cor}(A, B) = \frac{\text{Cov}(A,
+% 				      B)}{\sigma_{A}\sigma_{B}}
+% 		      \end{align*}
+% 	\end{itemize}
+% 	\begin{block}{Properties of the covariance}
+% 		\begin{itemize}
+% 			\item If $\text{Cov}(A, B) > 0$: $A$ and $B$ tend to be either both
+% 			      larger or both smaller than their expected values.
+% 			\item If $\text{Cov}(A, B) < 0$: If $A$ is larger than its expected
+% 			      value, $B$ is likely to be smaller than its expected value and vice
+% 			      versa.
+% 		\end{itemize}
+% 	\end{block}
+% \end{frame}
 
-			            \begin{center}
-				            \begin{tabular}{|l|c|c|}
-					            \hline
-					            Date  & Stock 1 & Stock 2
-					            \\\hline
-					            21.06 & 2       & 5
-					            \\\hline
-					            22.06 & 3       & 8
-					            \\\hline
-					            23.06 & 5       & 10
-					            \\\hline
-					            24.06 & 4       & 11
-					            \\\hline
-					            25.06 & 6       & 14
-					            \\\hline
-				            \end{tabular}
-			            \end{center}
-
-			            \vspace{1mm}
-
-			      \item If the stocks are affected by the same industry trends,
-			            will their prices rise or fall together?
-			            \begin{align*}
-				            \text{Cov}(A, B) & = \frac{2\cdot5 + 3\cdot 8 + 5
-					            \cdot
-					            10 + 4 \cdot 11 + 6 \cdot 14}{5} - 4\cdot 9.6 = 4.
-			            \end{align*}
-			      \item Thus, $A$ and $B$ rise together since $\text{Cov}(A, B) >
-				            0$.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
+% \begin{frame}{Covariance of Numerical Data (II)}
+% 	\begin{itemize}
+% 		\item \textbf{Example:}
+% 		      \begin{itemize}
+% 			      \item We examine a table containing the history of two
+% 			            stock prices:
+% 
+% 			            \begin{center}
+% 				            \begin{tabular}{|l|c|c|}
+% 					            \hline
+% 					            Date  & Stock 1 & Stock 2
+% 					            \\\hline
+% 					            21.06 & 2       & 5
+% 					            \\\hline
+% 					            22.06 & 3       & 8
+% 					            \\\hline
+% 					            23.06 & 5       & 10
+% 					            \\\hline
+% 					            24.06 & 4       & 11
+% 					            \\\hline
+% 					            25.06 & 6       & 14
+% 					            \\\hline
+% 				            \end{tabular}
+% 			            \end{center}
+% 
+% 			            \vspace{1mm}
+% 
+% 			      \item If the stocks are affected by the same industry trends,
+% 			            will their prices rise or fall together?
+% 			            \begin{align*}
+% 				            \text{Cov}(A, B) & = \frac{2\cdot5 + 3\cdot 8 + 5
+% 					            \cdot
+% 					            10 + 4 \cdot 11 + 6 \cdot 14}{5} - 4\cdot 9.6 = 4.
+% 			            \end{align*}
+% 			      \item Thus, $A$ and $B$ rise together since $\text{Cov}(A, B) >
+% 				            0$.
+% 		      \end{itemize}
+% 	\end{itemize}
+% \end{frame}

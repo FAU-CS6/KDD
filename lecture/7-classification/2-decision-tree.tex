@@ -59,7 +59,7 @@
 \end{frame}
 
 \begin{frame}{Algorithm for Decision Tree Induction (I)}
-	\vspace*{-1em}
+	\vspace*{-0em}
 	\begin{columns}
 		\begin{column}{0.75\textwidth}
 			\textbf{Construction in general} follows a greedy algorithm, i. e. non-backtracking. Thus, it is done in a \textit{top-down recursive in a divide-and-conquer manner}.\\\medskip
@@ -85,7 +85,7 @@
 
 		\end{column}
 		\begin{column}{0.25\textwidth}
-			\vspace*{-3em}
+			\vspace*{-2em}
 			\centering
 
 			Attribute Types:
@@ -156,7 +156,7 @@
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}{Attribute Selection Methods: Information Gain (ID3) (I)}
+\begin{frame}{Information Gain (ID3) (I)}
 	\begin{itemize}
 		\item \textbf{Select the attribute with the highest information gain.}
 		\item Partitions reflect least randomness, i. e. impurity.
@@ -173,7 +173,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Attribute Selection Methods: Information Gain (ID3) (II)}
+\begin{frame}{Information Gain (ID3) (II)}
 	Calculate information for every attribute in \texttt{attribute\_list} and data partition $D$:
 	\vspace*{-1.5em}
 	\begin{columns}
@@ -216,7 +216,7 @@
 	\end{align*}
 \end{frame}
 
-\begin{frame}{Example: Information Gain}
+\begin{frame}{Information Gain (ID3) - Example (I)}
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
 			\vspace*{-2em}
@@ -247,7 +247,7 @@
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.45\textwidth}
-			\vspace{-1.3cm}
+			\vspace{-0.9cm}
 			\begin{align*}
 				\resizebox{7cm}{!}{%
 				$\text{Info}_{\texttt{age}}(D) = \frac{5}{14}I(2,3) + \frac{4}{14} I(4,0) + \frac{5}{14} I(3,2) = 0.694$.
@@ -268,9 +268,9 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Partitioning in the Example}
+\begin{frame}{Information Gain (ID3) - Example (II)}
 	\centering
-	% REVIEW: PICTURE-NOT-IN-FRAME
+
 	\begin{tikzpicture}[
 			overlay,
 			remember picture,
@@ -351,7 +351,7 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Attribute Selection Methods: Gain Ratio (C4.5)}
+\begin{frame}{Gain Ratio (C4.5)}
 	\begin{itemize}
 		\item Extension to Information Gain as this method is biased towards attributes with large amount of values.
 		\item \textbf{C4.5 (a successor of ID3) uses gain ratio to overcome the problem (normalization to information gain):}
@@ -366,7 +366,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Gini Index}
+\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (I)}
 	\begin{itemize}
 		\item \textbf{Corrado Gini (1884 -- 1965).}
 		      \begin{itemize}
@@ -390,7 +390,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Gini Index (II)} % TODO: plot anpassen, sodass cumulative income nur steigt und nie faellt
+\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (II)} % TODO: plot anpassen, sodass cumulative income nur steigt und nie faellt
 	% TODO: Mark the areas between the curves and the diagonal line. After all, the Gini Index and thus also this image is exactly about this area. This should be recognizable in a Gini Index image.
 	\centering
 	Example: Distribution of incomes.\\[0.5cm]
@@ -415,7 +415,7 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (I)}
+\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (III)}
 	\begin{itemize}
 		\item Measured impurity of partition $D$ is defined as the sum over $n$ classes:
 		      \begin{align*}
@@ -435,7 +435,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (II)}
+\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (IV)}
 	\begin{itemize}
 		\item Gini Index as the \textbf{reduction in impurity} is then given as
 		      follows:
@@ -447,7 +447,7 @@
 
 \end{frame}
 
-\begin{frame}{Example: Gini Index (I)}
+\begin{frame}{Gini Index - Example (I)}
 	\begin{itemize}
 		\item $D$ has $9$ tuples in $\text{buys\_computer} =$ "yes" and 5 in "no", thus
 		      \begin{align*}
@@ -464,7 +464,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Computation of Gini Index (II)}
+\begin{frame}{Gini Index - Example (II)}
 	\begin{itemize}
 		\item $\text{Gini}(D\vert_{D[\texttt{income}]="low", "high"}) = 0.458$,\\
 		      $\text{Gini}(D\vert_{D[\texttt{income}]="medium", "high"}) = 0.450.$
@@ -694,12 +694,12 @@
 	\includegraphics[height=0.8\textheight]{img/classification1.jpeg}
 \end{frame}
 
-\begin{frame}{Visualization of a Decision Tree in SGI/MineSet 3.0}
+\begin{frame}{Visualization of a Decision Tree}
 	\centering
 	\includegraphics[height=0.8\textheight]{img/classification2.jpeg}
 \end{frame}
 
-\begin{frame}{Interactive Visual Mining by Perception-based Classification (PBC)}
+\begin{frame}{Interactive Visual Mining}
 	\centering
 	\includegraphics[height=0.8\textheight]{img/classification3.jpeg}
 \end{frame}

@@ -1,128 +1,279 @@
-\section{Data cleaning}
+\section{Data Cleaning}
 
-\begin{frame}{Data Cleaning}
-	\textbf{Data in the real world is {\color{airforceblue}dirty}. Lots of
-		potentially incorrect data:}
+\begin{frame}{Dirty Data}
 	\begin{itemize}
-		\item E.g. instrument faulty, human or computer error, transmission
-		      error.
-		\item \textbf{\color{airforceblue}Incomplete:} lacking attributes,
-		      lacking certain attributes of interest or containing aggregate data.
+		\item \textbf{Data in the real world is {\color{airforceblue}dirty}.}
+		\item \textbf{Lots of different kinds of dirty data:}
 		      \begin{itemize}
-			      \item E.g. occupation = "" (missing data).
-		      \end{itemize}
-		\item \textbf{\color{airforceblue}Noisy:} containing noise.
-		      \begin{itemize}
-			      \item E.g. small measurement inaccuracies with a sensor
-			            (noise)
-		      \end{itemize}
-		\item \textbf{\color{airforceblue}Errors/Outliers:} containing errors
-		      or outliers.
-		      \begin{itemize}
-			      \item E.g. scores = "2,3,0,6,1,9,95" (outlier = "95")
-			      \item E.g. salary = "-10" (error)
-		      \end{itemize}
-		\item \textbf{\color{airforceblue}Inconsistencies:} containing
-		      discrepancies in codes or names.
-		      \begin{itemize}
-			      \item E.g. age = "42", birthday = "03/07/2010".
-			      \item E.g. old rating = "1,2,3", new rating = "A,B,C".
-			      \item E.g. discrepancy between duplicate records (e.g. address).
-		      \end{itemize}
-		\item \textbf{\color{airforceblue}Intentional} (only default value,
-		      e.g. disguised missing data):
-		      \begin{itemize}
-			      \item E.g. "Doe" as everyone's surname
+			      \item \textbf{Incomplete data:} lacking attributes, lacking values or containing aggregate data.
+			      \item \textbf{Inconsistencies:} containing discrepancies in codes or names.
+			      \item \textbf{Errors:} containing incorrect values.
+			      \item \textbf{Noise:} containing small inaccuracies.
+			      \item \textbf{Outliers:} containing extreme values.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Incomplete (Missing) Data}
-	\begin{itemize}
-		\item \textbf{Data is not always available.}
-		      \begin{itemize}
-			      \item E.g. many tuples have no recorded value for several
-			            attributes.
-			      \item Examples are customer income in sales data.
-		      \end{itemize}
-		\item \textbf{Missing data may be due to:}
-		      \begin{itemize}
-			      \item Equipment malfunction.
-			      \item Inconsistency with other recorded data and thus deleted.
-			      \item Data not entered due to misunderstanding.
-			      \item Certain data may not be considered important at the time of
-			            entry.
-			      \item Not registered history or changes of the data.
-		      \end{itemize}
-		\item \textbf{Missing data may need to be inferred.}
-	\end{itemize}
+\begin{frame}{Dirty Data: Incomplete Data}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item \textbf{Potential reasons:}
+				      \begin{itemize}
+					      \item Data not yet available.
+					      \item Technical malfunction.
+					      \item Human error.
+					      \item etc.
+				      \end{itemize}
+				\item \textbf{Potential solutions:}
+				      \begin{itemize}
+					      \item Ignore the tuple.
+					      \item Fill in the missing value manually.
+					            \begin{itemize}
+						            \item Often infeasible.
+					            \end{itemize}
+					      \item Fill in automatically with:
+					            \begin{itemize}
+						            \item A global constant.
+						            \item The attribute mean.
+						            \item The class mean.
+						            \item The most probable value.
+					            \end{itemize}
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.45\textwidth}
+			\centering
+
+			\vspace*{1cm}
+
+			\scalebox{0.8}{
+				\begin{tabular}{|c|c|}
+					\hline
+					\textbf{Mat. Nr.}                 & \textbf{Age}                      \\ \hline
+					12345678                          & 23                                \\ \hline
+					23061995                          & 25                                \\ \hline
+					21241992                          & \only<2->{\cellcolor{faugray!50}} \\ \hline
+					\only<2->{\cellcolor{faugray!50}} & 23                                \\ \hline
+					25052025                          & 21                                \\ \hline
+					14912780                          & 24                                \\ \hline
+				\end{tabular}
+			}
+
+		\end{column}
+
+	\end{columns}
 \end{frame}
 
-\begin{frame}{How to Handle Missing Data?}
-	\begin{itemize}
-		\item \textbf{Ignore the tuple:}
-		      \begin{itemize}
-			      \item Usually done when class label is missing (when doing
-			            classification).
-			      \item Not effective when the percentage of missing values per
-			            attribute varies considerably.
-		      \end{itemize}
-		\item \textbf{Fill in the missing value manually.}
-		      \begin{itemize}
-			      \item Tedious or infeasible.
-		      \end{itemize}
-		\item \textbf{Fill in automatically with:}
-		      \begin{itemize}
-			      \item A global constant, e.g. "unknown", maybe a new class.
-			      \item The attribute mean.
-			      \item The attribute mean for all samples belonging to the same
-			            class.
-			      \item \textbf{\color{airforceblue} The most probable value:}
-			            Inference-based such as Bayesian formula or decision tree.
-		      \end{itemize}
-	\end{itemize}
+\begin{frame}{Dirty Data: Inconsistencies}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item \textbf{Potential reasons:}
+				      \begin{itemize}
+					      \item Merging of data from different sources.
+					      \item Missing conventions.
+					      \item Human error.
+					      \item etc.
+				      \end{itemize}
+				\item \textbf{Potential solutions:}
+				      \begin{itemize}
+					      \item Manual data cleaning.
+					      \item (Semi-)Automatic data cleaning.
+					            \begin{itemize}
+						            \item Most often common inconsistencies can be detected and solved via rule based approaches.
+					            \end{itemize}
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.45\textwidth}
+			\centering
+
+			\vspace*{1cm}
+
+			\scalebox{0.8}{
+				\begin{tabular}{|c|c|}
+					\hline
+					\textbf{Applicant}                        & \textbf{Grade}                       \\ \hline
+					124                                       & 1.0                                  \\ \hline
+					\only<2->{\cellcolor{faugray!50}} Michael & 2.3                                  \\ \hline
+					134                                       & 3.7                                  \\ \hline
+					323                                       & \only<2->{\cellcolor{faugray!50}} A- \\ \hline
+					174                                       & 2.0                                  \\ \hline
+					123                                       & 1.6                                  \\ \hline
+				\end{tabular}
+			}
+
+		\end{column}
+
+	\end{columns}
 \end{frame}
 
-\begin{frame}{Noisy Data}
-	\begin{itemize}
-		\item \textbf{\color{airforceblue}Noise:}
-		      \begin{itemize}
-			      \item Random error or variance in a measured variable.
-			      \item Stored value a little bit off the real value, up or down.
-			      \item Leads to (slightly) incorrect attribute values.
-		      \end{itemize}
-		\item \textbf{May be due to:}
-		      \begin{itemize}
-			      \item Faulty or imprecise data-collection instruments.
-			      \item Data-entry problems.
-			      \item Data-transmission problems.
-			      \item Technology limitation.
-			      \item Inconsistency in naming conventions.
-		      \end{itemize}
-	\end{itemize}
+
+\begin{frame}{Dirty Data: Errors}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item \textbf{Potential reasons:}
+				      \begin{itemize}
+					      \item Malfunctions.
+					      \item Transmission errors.
+					      \item Human error.
+					      \item etc.
+				      \end{itemize}
+				\item \textbf{Potential solutions:}
+				      \begin{itemize}
+					      \item Ignore the tuple.
+					      \item Manual data cleaning.
+					            \begin{itemize}
+						            \item A subject matter expert (SME) is often needed to
+						                  identify the errors.
+					            \end{itemize}
+					      \item (Semi-)Automatic data cleaning.
+					            \begin{itemize}
+						            \item Errors are often highly case dependent and therefore there is no general solution.
+					            \end{itemize}
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.45\textwidth}
+			\centering
+
+			\vspace*{1cm}
+
+			\scalebox{0.8}{
+				\begin{tabular}{|c|c|}
+					\hline
+					\textbf{Module} & \textbf{ECTS}                      \\ \hline
+					EADEIS          & 5                                  \\ \hline
+					MoL             & 5                                  \\ \hline
+					DL              & 5                                  \\ \hline
+					EDB             & 7.5                                \\ \hline
+					KDDmUe          & \only<2->{\cellcolor{faugray!50}}6 \\ \hline
+					POIS            & 5                                  \\ \hline
+				\end{tabular}
+			}
+		\end{column}
+	\end{columns}
 \end{frame}
 
-\begin{frame}{How to Handle Noisy Data?}
-	\begin{itemize}
-		\item \textbf{Binning:}
-		      \begin{itemize}
-			      \item First sort data and partition into (equal-frequency) bins.
-			      \item Then smooth by bin mean, by bin median or by bin boundaries.
-		      \end{itemize}
-		\item \textbf{Regression:}
-		      \begin{itemize}
-			      \item Smooth by fitting the data to regression functions.
-		      \end{itemize}
-		\item \textbf{Clustering:}
-		      \begin{itemize}
-			      \item Detect and remove outliers.
-		      \end{itemize}
-		\item \textbf{Combined computer and human inspection:}
-		      \begin{itemize}
-			      \item Detect suspicious values and check by human.
-			      \item E.g. deal with possible outliers.
-		      \end{itemize}
-	\end{itemize}
+\begin{frame}{Dirty Data: Noise}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item \textbf{Potential reasons:}
+				      \begin{itemize}
+					      \item Small sensor inaccuracies.
+					      \item Transmission errors.
+					      \item etc.
+				      \end{itemize}
+				\item \textbf{Potential solutions:}
+				      \begin{itemize}
+					      \item Data smoothing by:
+					            \begin{itemize}
+						            \item Binning.
+						            \item Regression.
+						            \item Clustering.
+						            \item etc.
+					            \end{itemize}
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.45\textwidth}
+			\centering
+
+			\vspace*{1cm}
+
+			\scalebox{0.8}{
+				\begin{tabular}{|c|c|}
+					\hline
+					\textbf{Time} & \textbf{Temperature}                      \\ \hline
+					08:01         & \only<2->{\cellcolor{faugray!50}}14.123°C \\ \hline
+					08:02         & \only<2->{\cellcolor{faugray!50}}14.153°C \\ \hline
+					08:03         & \only<2->{\cellcolor{faugray!50}}14.163°C \\ \hline
+					08:04         & \only<2->{\cellcolor{faugray!50}}14.723°C \\ \hline
+					08:05         & \only<2->{\cellcolor{faugray!50}}14.126°C \\ \hline
+					08:06         & \only<2->{\cellcolor{faugray!50}}14.463°C \\ \hline
+				\end{tabular}
+			}
+
+		\end{column}
+	\end{columns}
+
+	\begin{columns}
+		\begin{column}{0.9\textwidth}
+			\centering
+
+			\only<3->{
+				\begin{block}{Errors $\Longleftrightarrow$ Noise}
+					\begin{itemize}
+						\item Noise can be referred to as a special type of error.
+						\item Not every error is noise!
+					\end{itemize}
+				\end{block}
+			}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Dirty Data: Outliers}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item \textbf{Potential reasons:}
+				      \begin{itemize}
+					      \item Errors.
+					      \item Very rare events.
+				      \end{itemize}
+				\item \textbf{Potential solutions:}
+				      \begin{itemize}
+					      \item If an error, treat them as one.
+					      \item If a rare event, the outlier is interesting and can be
+					            used for further analysis.
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.45\textwidth}
+			\centering
+
+			\vspace*{1cm}
+
+			\scalebox{0.8}{
+				\begin{tabular}{|c|c|}
+					\hline
+					\textbf{Year} & \textbf{Max. Temp.}                   \\ \hline
+					2026          & 32°C                                  \\ \hline
+					2027          & 34°C                                  \\ \hline
+					2028          & 33°C                                  \\ \hline
+					2029          & 35°C                                  \\ \hline
+					2030          & \only<2->{\cellcolor{faugray!50}}61°C \\ \hline
+					2031          & 36°C                                  \\ \hline
+				\end{tabular}
+			}
+
+		\end{column}
+	\end{columns}
+
+	\begin{columns}
+		\begin{column}{0.9\textwidth}
+			\centering
+
+			\only<3->{
+				\begin{block}{Errors $\Longleftrightarrow$ Outliers}
+					\begin{itemize}
+						\item Outliers might indicate errors.
+						\item Not every outlier is an error!
+					\end{itemize}
+				\end{block}
+			}
+		\end{column}
+	\end{columns}
+
 \end{frame}
 
 \begin{frame}{Data Cleaning as a Process (I)}

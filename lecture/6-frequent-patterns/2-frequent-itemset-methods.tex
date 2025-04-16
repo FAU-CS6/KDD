@@ -1,6 +1,6 @@
-\section{Scalable frequent-itemset-mining methods}
+\section{Scalable Frequent-itemset Mining Methods}
 
-\begin{frame}{The Downward-closure Property and Scalable Mining Methods}
+\begin{frame}{The Downward-closure Property}
 	\begin{itemize}
 		\item \textbf{The downward-closure property of frequent patterns:}
 		      \begin{itemize}
@@ -23,7 +23,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Apriori: A Candidate Generation \& Test Approach}
+\begin{frame}{Apriori: A Candidate Generation Approach}
 	\begin{itemize}
 		\item \textbf{Apriori pruning principle:}
 		      \begin{itemize}
@@ -46,7 +46,7 @@
 
 \begin{frame}{Apriori Algorithm -- An Example}
 	\centering
-	\vspace{-0.7cm}
+	\vspace{0cm}
 	\scalebox{0.9}{%
 		\begin{tikzpicture}
 			\path (0,1) coordinate (A) node[above, inner sep=0] {
@@ -212,7 +212,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Counting Supports of Candidates using Hash Tree}
+\begin{frame}{Counting Supports using Hash Tree}
 	\centering
 	$15$ candidate itemsets: ${1 4 5}, {1 2 4}, {4 5 7}, {1 2 5}, {4 5 8}, {1 5
 				9}, {1 3 6}, {2 3 4}, {5 6 7}, {3 4 5}, {3 5 6}, {3 5 7},{6 8 9}, {3 6 7},
@@ -418,7 +418,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Dynamic Itemset Counting: Reduce Number of Scans (I)}
+\begin{frame}{Dynamic Itemset Counting (I)}
 	\begin{itemize}
 		\item \textbf{Adding candidate itemsets at different points during a
 			      scan.}
@@ -439,7 +439,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Dynamic Itemset Counting: Reduce Number of Scans (II)}
+\begin{frame}{Dynamic Itemset Counting (II)}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\centering
@@ -541,8 +541,7 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{FP-growth: Mining Frequent Patterns without
-		Candidate Generation}
+\begin{frame}{FP-growth}
 	\begin{itemize}
 		\item \textbf{Bottlenecks of the Apriori approach.}
 		      \begin{itemize}
@@ -658,7 +657,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Find Itemsets having Item $p$ from $p$'s Conditional Pattern Base}
+\begin{frame}{Find Itemsets from $p$'s Conditional Pattern Base}
 	\begin{itemize}
 		\item \textbf{Starting at the frequent-item header table in the
 			      FP-tree.}

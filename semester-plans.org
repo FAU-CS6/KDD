@@ -1,5 +1,34 @@
 #+title: Semester Plans
 
+* Summer semester 2024
+  - Semester duration: 15 April 2024 – 19 July 2024
+  - Public holidays:
+    - Wednesday, 1 May 2024
+    - Thursday, 9 May 2024
+    - Monday, 20 May 2024
+    - Thursday, 30 May 2024
+  - FAU specific holidays (no lectures and exercises):
+    - Tuesday, 21 May 2024
+    - Friday, 31 May 2024
+
+ | *Calendar Week* | *Lecture Topic*                               | *Exercise*                           | *Submission*                     |
+|----------------+-------------------------------------------+------------------------------------+---------------------------------|
+| 16             | Prologue + Introduction                   |              -                      |             -                    |
+| 17             | Data                                      | Introduction to Python & Pandas (optional) |        -                         |
+| 18             | -                                          |      -                              |      -                           |
+| 19             | Preprocessing + Guest lecture            | Data Analysis & Data Preprocessing           |       -                          |
+| 20             | Preprocessing                                           | Data Analysis & Data Preprocessing |     -                            |
+| 21             | Data Warehousing (Fri 08:15-09:45)       | Data Analysis & Data Preprocessing                                    |     -                            |
+| 22             | Frequent Pattern                         | Data Analysis & Data Preprocessing                           |      -                           |
+| 23             | Frequent Pattern                                          | Frequent Pattern                   |     -                            |
+| 24             | Classification                           | Frequent Pattern                                   | Frequent Pattern                |
+| 25             | Classification                                          | Classification                     | Frequent Pattern                                |
+| 26             | Cluster Analysis                         | Classification                                    | Classification                  |
+| 27             | Cluster Analysis                                          | Classification                                    | Classification                                |
+| 28             | Outlier Analysis              | Clustering                         | Clustering                       |
+| 29             | Outlier Analysis + Exam Q&A                                          | Clustering                                   | Clustering                                |
+
+
 * Summer semester 2023
   - Semester duration: 17 April 2023 – 21 July 2023
   - No lectures on: Tuesday, 30 May 2023 (CW 22)

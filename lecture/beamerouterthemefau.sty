@@ -5,6 +5,12 @@
 % International License. To view a copy of this license, visit
 % http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to Creative
 % Commons, PO Box 1866, Mountain View, CA 94042, USA.
+%
+% Modifications to the original FAU beamer theme:
+% (C) Melanie Sigl <melanie.sigl@fau.de>
+% (C) Dominik Probst <dominik.probst@fau.de>
+%
+% Author of the original FAU beamer theme:
 % (C) Oliver Reiche <oliver.reiche@fau.de>
 %-------------------------------------------------------------------------------
 
@@ -25,8 +31,9 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frametitle %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\currentframetitle{}
 \setbeamertemplate{frametitle}{%
-	\insertframetitle\\
+	\gdef\currentframetitle{\insertframetitle}%
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Frametitle end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -35,17 +42,26 @@
 \newcommand{\headlinebody}[1][\empty]{%
 	\def\paperheight{\factor*2.75cm}
 	\begin{pgfpicture}{0cm}{0cm}{\paperwidth}{\paperheight}
+		% Frametitle
+		\pgfputat{\pgfpoint{\factor*1.5cm}{\paperheight-\factor*.85cm}}{%
+			\pgfbox[left,top]{%
+				\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\currentframetitle
+			}
+		}
+
+		% FAU logo
 		\pgfputat{\pgfpoint{\paperwidth-\factor*.92cm}{\paperheight-\factor*.54cm}}{%
 			\pgfbox[right,top]{%
 				\pgfuseimage{faulogo-small}
 			}
 		}
+
 		% Additional headline logo
 		\ifx#1\empty\else
 			\pgfputat{\pgfpoint{\paperwidth-\factor*.92cm-\factor*4.86cm}%
 				{\paperheight-\factor*.335cm}}{%
 				\pgfbox[right,top]{%
-					#1%
+
 				}
 			}
 		\fi

@@ -1,7 +1,15 @@
 #+title: KDD - Knowledge Discovery in Databases
 
+* Downloads
+
+[[https://fau-cs6.github.io/KDD/lecture-slides.zip][file:https://fau-cs6.github.io/KDD/gh-badges/lectures-badge.svg]]
+[[https://fau-cs6.github.io/KDD/exercise-slides.zip][file:https://fau-cs6.github.io/KDD/gh-badges/exercises-badge.svg]]
+[[https://fau-cs6.github.io/KDD/submission-pdfs.zip][file:https://fau-cs6.github.io/KDD/gh-badges/submissions-badge.svg]]
+
+[[https://fau-cs6.github.io/KDD][file:https://fau-cs6.github.io/KDD/gh-badges/sha-badge.svg]]
+[[https://fau-cs6.github.io/KDD][file:https://fau-cs6.github.io/KDD/gh-badges/time-badge.svg]]
+
 * Responsibilities
-(Changed in 2024SS since Melanie B. Sigl is not participating this time)
 ** Lecture
   1. *Course Intro* - Dominik Probst
   2. *Introduction* - Dominik Probst
@@ -26,16 +34,16 @@
   2. *Classification* - Dominik Probst
   3. *Clustering* - Dominik Probst
 
-* Summer semester 2024
-  - Semester duration: 15 April 2024 – 19 July 2024
+* Summer Semester 2025
+  - Semester duration: 23 April 2025 – 25 July 2025
   - Public holidays:
-    - Wednesday, 1 May 2024
-    - Thursday, 9 May 2024
-    - Monday, 20 May 2024
-    - Thursday, 30 May 2024
+    - Wednesday, 1 May 2025
+    - Thursday, 29 May 2025
+    - Monday, 9 June 2025
+    - Thursday, 19 June 2025
   - FAU specific holidays (no lectures and exercises):
-    - Tuesday, 21 May 2024
-    - Friday, 31 May 2024
+    - Tuesday, 10 June 2025
+    - Friday, 20 June 2025
 
 * Setup for Building Lecture Slides Locally
 To build these lecture slides locally on your machine you'll need an up-to-date
