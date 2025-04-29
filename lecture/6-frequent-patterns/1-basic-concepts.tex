@@ -1,33 +1,82 @@
 \section{Basic Concepts}
 
 \begin{frame}{What is Frequent-pattern Analysis?}
+
+	\begin{block}{Frequent Pattern}
+		A pattern (a set of items, subsequences, substructures, etc.) that occurs frequently in a dataset.
+	\end{block}
 	\begin{itemize}
-		\item \textbf{Frequent pattern:}
-		      \begin{itemize}
-			      \item A pattern (a set of items, subsequences, substructures, etc.)
-			            that occurs frequently in a dataset.
-		      \end{itemize}
-		\item \textbf{Motivation: Finding inherent regularities in data:}
+		\item \textbf{Finding inherent regularities in data:}
 		      \begin{itemize}
 			      \item What products are often purchased together? Beer and diapers?!
 			      \item What are the subsequent purchases after buying a PC?
-			      \item Who bought this has often also bought $\ldots$"
+			      \item Who bought this has often also bought $\ldots$
 			      \item What kinds of DNA are sensitive to this new drug?
-			      \item Can we automatically classify Web documents?
-		      \end{itemize}
-		\item \textbf{Applications:}
-		      \begin{itemize}
-			      \item Basket-data analysis, cross-marketing, catalog design,
-			            sale-campaign analysis, Web-log (click-stream) analysis, and
-			            DNA-sequence analysis.
+			      \item Can we automatically classify web documents?
 		      \end{itemize}
 	\end{itemize}
+
+	\vspace{0.5cm}
+
+	\only<2->{
+		\begin{alertblock}{Intrinsic and Important}
+			A frequent pattern is an intrinsic and important property of a dataset.
+		\end{alertblock}
+	}
+\end{frame}
+
+\newcommand{\smartphone}[2][]{
+	% Note: The dimensions of this wrapper are matched to the screenshot ratio of an iPhone 16 Pro Max (1320x2868)
+	%	    It might be necessary to adjust this ratio for screenshots of other devices.
+
+	\begin{tikzpicture}[#1]
+		\draw[rounded corners=10pt, line width=1pt, fill=faugray!10]
+		(0,0) rectangle (6,13.52);
+
+		\draw[rounded corners=5pt, line width=0.5pt, fill=white]
+		(0.3,0.8) rectangle (5.7,12.52);
+
+		\begin{scope}
+			\clip[rounded corners=5pt] (0.3,0.8) rectangle (5.7,12.52);
+			\node[anchor=center, inner sep=0pt] at (3,6.66)
+			{\includegraphics[width=5.4cm]{#2}};
+		\end{scope}
+
+		\draw[line width=0.5pt, fill=white] (3,0.4) circle (0.25);
+
+		\draw[rounded corners=1pt, fill=faugraydark!50] (2.5,12.82) rectangle (3.5,13.02);
+
+	\end{tikzpicture}
+}
+
+\begin{frame}
+	\frametitle{Some Real World Examples}
+
+	\begin{center}
+		\scalebox{0.45}{
+			\smartphone{img/frequent-patterns-shopping.png}
+
+			\hspace*{2cm}
+
+			\smartphone{img/frequent-patterns-education.png}
+
+			\hspace*{2cm}
+
+			\smartphone{img/frequent-patterns-movies.png}
+		}
+	\end{center}
+
+	\vspace{-2.15cm}
+
+	\only<2->{
+		\begin{block}{Recommendation Systems}
+			While frequent pattern analysis often serves as \textbf{the foundation} of recommendation systems, such systems typically consist of multiple distinct components.
+		\end{block}
+	}
 \end{frame}
 
 \begin{frame}{Why is Frequent-pattern Mining Important?}
 	\begin{itemize}
-		\item \textbf{A frequent pattern is an intrinsic and important property
-			      of a dataset.}
 		\item \textbf{Foundation for many essential data-mining tasks:}
 		      \begin{itemize}
 			      \item Association, correlation, and causality analysis.
@@ -37,29 +86,112 @@
 			      \item Classification: discriminative, frequent-pattern analysis.
 			      \item Cluster analysis: frequent-pattern-based clustering.
 			      \item Data warehousing: iceberg cube and cube gradient.
-			      \item Semantic data compression: fascicles (Jagadish, Madar, and
-			            Ng, VLDB'99).
+			      \item Semantic data compression: fascicles\footnote{\fullcite{jagadish1999}}
 			      \item Broad applications.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Some Real World Examples}
+\begin{frame}{Basic Concepts: Frequent Itemsets}
+	\begin{itemize}
+		\item \textbf{Itemset:}
+		      \begin{itemize}
+			      \item A set of one or more items.
+			      \item $k$-itemset $X = \{x_1, x_2, \ldots, x_k\}$.
+		      \end{itemize}
+		\item \textbf{Support:}
+		      \begin{itemize}
+			      \item \textbf{Absolute Support} $s$/\textbf{Support Count} of $X$:
+			            \begin{itemize}
+				            \item Frequency or occurrence count of $X$.
+			            \end{itemize}
+			      \item \textbf{Relative Support} $s$:
+			            \begin{itemize}
+				            \item The fraction of the transactions that contain $X$.
+				            \item I.e. the \textbf{probability} that a transaction
+				                  contains $X$.
+			            \end{itemize}
+		      \end{itemize}
+	\end{itemize}
 
-	\begin{center}
-		\begin{tikzpicture}
-			\node at (7,-2) [inner sep=0pt, opacity=0] {\includegraphics[height=0.4\textheight]{img/frequent-patterns-mindfactory.png}}; % Invisible node
-			\node<1-> (img1) at (0,0) [inner sep=0pt, blur shadow={shadow blur steps=20, shadow xshift=0.1ex, shadow yshift=-0.1ex}] {\includegraphics[height=0.4\textheight]{img/frequent-patterns-amazon.png}};
-			%\node<1-> at (img1.south) [yshift=-0.5cm] {\scriptsize Amazon};
-			\node<2-> (img2) at (3.5,-1) [inner sep=0pt, blur shadow={shadow blur steps=20, shadow xshift=0.1ex, shadow yshift=-0.1ex}] {\includegraphics[height=0.4\textheight]{img/frequent-patterns-bestbuy.png}};
-			%\node<2-> at (img2.south) [yshift=-0.5cm] {\scriptsize Best Buy};
-			\node<3-> (img3) at (7,-2) [inner sep=0pt, blur shadow={shadow blur steps=20, shadow xshift=0.1ex, shadow yshift=-0.1ex}] {\includegraphics[height=0.4\textheight]{img/frequent-patterns-mindfactory.png}};
-			%\node<3-> at (img3.south) [yshift=-0.5cm] {\scriptsize Mindfactory};
-		\end{tikzpicture}
-	\end{center}
+	\vspace*{0.75cm}
 
+	\begin{block}{Frequent Itemset}
+		An itemset $X$ is frequent, if $X$'s support is no less than a \texttt{min\_sup} threshold.
+	\end{block}
 \end{frame}
+
+\begin{frame}{Frequent Itemsets - Example}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{tabular}{|c|c|}
+				\hline
+				\textbf{TID} & \textbf{Items bought}             \\\hline
+				10           & Beer, Nuts, Diapers               \\\hline
+				20           & Beer, Coffee, Diapers             \\\hline
+				30           & Beer, Diapers, Eggs               \\\hline
+				40           & Nuts, Eggs, Milk                  \\\hline
+				50           & Nuts, Coffee, Diapers, Eggs, Milk \\\hline
+			\end{tabular}
+			\begin{tikzpicture}[fill=gray]
+				% left hand
+				\scope
+				\clip (-2,-2) rectangle (2,2)
+				(1,0) circle (1);
+				\fill (0,0) circle (1);
+				\endscope
+				% right hand
+				\scope
+				\clip (-2,-2) rectangle (2,2)
+				(0,0) circle (1);
+				\fill (1,0) circle (1);
+				\endscope
+				% outline
+				\draw (0,0) circle (1) (0,1) (1,0) circle (1) (1,1);
+				\node[label=below:{Customer buys beer}] at (-1,-1) {};
+				\node[label=below:{Customer buys diapers}] at (2.5,1.7) {};
+				\node[label=below:{Customer buys both}] at (-1,1.7) {};
+				\draw (-1,-1) -- (-0.5,-0.5);
+				\draw (2,1.2) -- (1.2,0.5);
+				\draw (-1,1.2) -- (0.5,0.5);
+			\end{tikzpicture}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\vspace{-1cm}
+			\begin{itemize}
+				\item \textbf{Minimum (absolute) support threshold:}
+				      \begin{itemize}
+					      \item Set by the user.
+					      \item In this example: $min\_sup = 3$.
+				      \end{itemize}
+				\item \textbf{Frequent Itemsets:}
+				      \begin{itemize}
+					      \item \textbf{1-itemsets:}
+					            \begin{itemize}
+						            \item \{Beer\}: $3$, \{Nuts\}: $3$, \{Diapers\}: $4$, \{Eggs\}: $3$.
+					            \end{itemize}
+					      \item \textbf{2-itemsets:}
+					            \begin{itemize}
+						            \item \{Beer, Diapers\}: $3$
+					            \end{itemize}
+					      \item \textbf{3-itemsets:}
+					            \begin{itemize}
+						            \item \textit{None}
+					            \end{itemize}
+					      \item \textbf{4-itemsets:}
+					            \begin{itemize}
+						            \item \textit{None}
+					            \end{itemize}
+					      \item \textbf{5-itemsets:}
+					            \begin{itemize}
+						            \item \textit{None}
+					            \end{itemize}
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
 
 \begin{frame}{An Theoretical Example (I)}
 	\begin{columns}
@@ -213,7 +345,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Closed Itemsets and Max-itemsets (I)}
+\begin{frame}{Closed Itemsets and Max-Itemsets}
 	\begin{itemize}
 		\item \textbf{A long itemset contains a combinatorial number of
 			      sub-itemsets.}
@@ -227,22 +359,21 @@
 			            \begin{itemize}
 				            \item Mine closed itemsets and max-itemsets instead.
 			            \end{itemize}
-			      \item \textbf{An itemset $X$ is closed, if $X$ is frequent and
-				            there exists no super-itemset $X \subset Y$ with the same support
-				            as $X$.} (Pasquier et al., ICDT'99)
-			      \item \textbf{An itemset $X$ is a max-itemset, if $X$ is frequent
-				            and there exists no frequent super-itemset $X \subset Y$.}
-			            (Bayardo, SIGMOD'98)
-			      \item \textbf{Closed itemset is a lossless "compression" of
-				            frequent itemsets.}
-			            \begin{itemize}
-				            \item Reducing the number of itemsets (and rules).
-			            \end{itemize}
 		      \end{itemize}
 	\end{itemize}
+
+	\begin{block}{Closed Itemsets\footnote{\fullcite{pasquier1999}}}
+		An itemset $X$ is closed, if $X$ is frequent and there exists no super-itemset $X \subset Y$ with the same support.
+	\end{block}
+
+	\begin{block}{Max-Itemsets\footnote{\fullcite{bayardo1998}}}
+		An itemset $X$ is a max-itemset, if $X$ is frequent and there exists no frequent super-itemset $X \subset Y$.
+	\end{block}
+
+	\vspace{0.25cm}
 \end{frame}
 
-\begin{frame}{Closed Itemsets and Max-itemsets (II)}
+\begin{frame}{Closed Itemsets and Max-Itemsets - Example}
 	\begin{itemize}
 		\item \textbf{Example:}
 		      \begin{itemize}
