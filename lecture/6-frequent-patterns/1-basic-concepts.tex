@@ -157,7 +157,7 @@
 			\end{tikzpicture}
 		\end{column}
 		\begin{column}{0.5\textwidth}
-			\vspace{-1cm}
+			\vspace{-1.25cm}
 			\begin{itemize}
 				\item \textbf{Minimum (absolute) support threshold:}
 				      \begin{itemize}
@@ -168,150 +168,23 @@
 				      \begin{itemize}
 					      \item \textbf{1-itemsets:}
 					            \begin{itemize}
-						            \item \{Beer\}: $3$, \{Nuts\}: $3$, \{Diapers\}: $4$, \{Eggs\}: $3$.
+						            \item \only<2->{\{Beer\}: $3$, \{Nuts\}: $3$, \{Diapers\}: $4$, \{Eggs\}: $3$.}
 					            \end{itemize}
 					      \item \textbf{2-itemsets:}
 					            \begin{itemize}
-						            \item \{Beer, Diapers\}: $3$
+						            \item \only<3->{\{Beer, Diapers\}: $3$}
 					            \end{itemize}
 					      \item \textbf{3-itemsets:}
 					            \begin{itemize}
-						            \item \textit{None}
+						            \item \only<4->{\textit{None}}
 					            \end{itemize}
 					      \item \textbf{4-itemsets:}
 					            \begin{itemize}
-						            \item \textit{None}
+						            \item \only<5->{\textit{None}}
 					            \end{itemize}
 					      \item \textbf{5-itemsets:}
 					            \begin{itemize}
-						            \item \textit{None}
-					            \end{itemize}
-				      \end{itemize}
-			\end{itemize}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-
-\begin{frame}{An Theoretical Example (I)}
-	\begin{columns}
-		\begin{column}{0.4\textwidth}
-			\begin{tabular}{|c|c|}
-				\hline
-				\textbf{TID} & \textbf{Items bought}             \\\hline
-				10           & Beer, Nuts, Diapers               \\\hline
-				20           & Beer, Coffee, Diapers             \\\hline
-				30           & Beer, Diapers, Eggs               \\\hline
-				40           & Nuts, Eggs, Milk                  \\\hline
-				50           & Nuts, Coffee, Diapers, Eggs, Milk \\\hline
-			\end{tabular}
-			\begin{tikzpicture}[fill=gray]
-				% left hand
-				\scope
-				\clip (-2,-2) rectangle (2,2)
-				(1,0) circle (1);
-				\fill (0,0) circle (1);
-				\endscope
-				% right hand
-				\scope
-				\clip (-2,-2) rectangle (2,2)
-				(0,0) circle (1);
-				\fill (1,0) circle (1);
-				\endscope
-				% outline
-				\draw (0,0) circle (1) (0,1) (1,0) circle (1) (1,1);
-				\node[label=below:{Customer buys beer}] at (-1,-1) {};
-				\node[label=below:{Customer buys diapers}] at (2.5,1.7) {};
-				\node[label=below:{Customer buys both}] at (-1,1.7) {};
-				\draw (-1,-1) -- (-0.5,-0.5);
-				\draw (2,1.2) -- (1.2,0.5);
-				\draw (-1,1.2) -- (0.5,0.5);
-			\end{tikzpicture}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\vspace{-1cm}
-			\begin{itemize}
-				\item \textbf{Itemset:}
-				      \begin{itemize}
-					      \item A set of one or more items.
-					      \item $k$-itemset $X = \{x_1, x_2, \ldots, x_k\}$.
-				      \end{itemize}
-				\item \textbf{(Absolute) Support, or support count of $X$:}
-				      \begin{itemize}
-					      \item Frequency or occurrence of $X$.
-				      \end{itemize}
-				\item (Relative) Support $s$:
-				      \begin{itemize}
-					      \item The fraction of the transactions that contain $X$.
-					      \item I.e. the \textbf{probability} that a transaction
-					            contains $X$.
-				      \end{itemize}
-				\item \textbf{An itemset $X$ is frequent, if $X$'s support is
-					      no less than a \texttt{min\_sup} threshold.}
-			\end{itemize}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{An Theoretical Example (II)}
-	\begin{columns}
-		\begin{column}{0.4\textwidth}
-			\begin{tabular}{|c|c|}
-				\hline
-				\textbf{TID} & \textbf{Items bought}             \\\hline
-				10           & Beer, Nuts, Diapers               \\\hline
-				20           & Beer, Coffee, Diapers             \\\hline
-				30           & Beer, Diapers, Eggs               \\\hline
-				40           & Nuts, Eggs, Milk                  \\\hline
-				50           & Nuts, Coffee, Diapers, Eggs, Milk \\\hline
-			\end{tabular}
-			\begin{tikzpicture}[fill=gray]
-				% left hand
-				\scope
-				\clip (-2,-2) rectangle (2,2)
-				(1,0) circle (1);
-				\fill (0,0) circle (1);
-				\endscope
-				% right hand
-				\scope
-				\clip (-2,-2) rectangle (2,2)
-				(0,0) circle (1);
-				\fill (1,0) circle (1);
-				\endscope
-				% outline
-				\draw (0,0) circle (1) (0,1) (1,0) circle (1) (1,1);
-				\node[label=below:{Customer buys beer}] at (-1,-1) {};
-				\node[label=below:{Customer buys diapers}] at (2.5,1.7) {};
-				\node[label=below:{Customer buys both}] at (-1,1.7) {};
-				\draw (-1,-1) -- (-0.5,-0.5);
-				\draw (2,1.2) -- (1.2,0.5);
-				\draw (-1,1.2) -- (0.5,0.5);
-			\end{tikzpicture}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\vspace{-1cm}
-			\begin{itemize}
-				\item \textbf{Find all the rules $X \implies Y$ with minimum
-					      support and confidence.}
-				      \begin{itemize}
-					      \item \textbf{Support} $s$: probability that a transaction
-					            contains $X \cup Y$.
-					      \item \textbf{Confidence} $c$: conditional probability that
-					            a transaction having $X$ also contains $Y$.
-				      \end{itemize}
-				\item \textbf{Example:}
-				      \begin{itemize}
-					      \item $\text{min\_sup} = 50\%$ and $\text{min\_conf} =
-						            50\%$.
-					      \item Frequent itemsets:
-					            \begin{itemize}
-						            \item Beer: $3$, Nuts: $3$, Diapers: $4$, Eggs: $3$,
-						                  $\{\text{Beer, Diapers}\}$: $3$.
-					            \end{itemize}
-					      \item \textbf{Association rules:}
-					            \begin{itemize}
-						            \item Beer $\implies$ Diapers ($60\%$, $100\%$).
-						            \item Diapers $\implies$ Beer ($60\%$, $75\%$).
+						            \item \only<6->{\textit{None}}
 					            \end{itemize}
 				      \end{itemize}
 			\end{itemize}
@@ -339,10 +212,83 @@
 		      \end{itemize}
 		\item \textbf{Association-rule mining:}
 		      \begin{itemize}
-			      \item Find all frequent itemsets.
+			      \item Find all frequent itemsets (with a length of at least $2$).
 			      \item Generate strong association rules from the frequent itemsets.
 		      \end{itemize}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Association Rules - Example}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{tabular}{|c|c|}
+				\hline
+				\textbf{TID} & \textbf{Items bought}             \\\hline
+				10           & Beer, Nuts, Diapers               \\\hline
+				20           & Beer, Coffee, Diapers             \\\hline
+				30           & Beer, Diapers, Eggs               \\\hline
+				40           & Nuts, Eggs, Milk                  \\\hline
+				50           & Nuts, Coffee, Diapers, Eggs, Milk \\\hline
+			\end{tabular}
+			\begin{tikzpicture}[fill=gray]
+				% left hand
+				\scope
+				\clip (-2,-2) rectangle (2,2)
+				(1,0) circle (1);
+				\fill (0,0) circle (1);
+				\endscope
+				% right hand
+				\scope
+				\clip (-2,-2) rectangle (2,2)
+				(0,0) circle (1);
+				\fill (1,0) circle (1);
+				\endscope
+				% outline
+				\draw (0,0) circle (1) (0,1) (1,0) circle (1) (1,1);
+				\node[label=below:{Customer buys beer}] at (-1,-1) {};
+				\node[label=below:{Customer buys diapers}] at (2.5,1.7) {};
+				\node[label=below:{Customer buys both}] at (-1,1.7) {};
+				\draw (-1,-1) -- (-0.5,-0.5);
+				\draw (2,1.2) -- (1.2,0.5);
+				\draw (-1,1.2) -- (0.5,0.5);
+			\end{tikzpicture}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\vspace{-1.25cm}
+			\begin{itemize}
+				\item \textbf{Thresholds:}
+				      \begin{itemize}
+					      \item Set by the user.
+					      \item In this example:
+					            \begin{itemize}
+						            \item $min\_sup = 3$.
+						            \item $min\_conf = 50\%$.
+					            \end{itemize}
+				      \end{itemize}
+				\item \textbf{Reminder:}
+				      \begin{itemize}
+					      \item Frequent itemset(s) with length $>2$:
+					            \begin{itemize}
+						            \item \{Beer, Diapers\}: $3$
+					            \end{itemize}
+					      \item Already satisfy the \texttt{min\_sup} threshold.
+				      \end{itemize}
+				      \only<2->{
+				\item \textbf{Association Rules:}
+				      \begin{itemize}
+					      \item Beer $\implies$ Diapers:
+					            \begin{itemize}
+						            \item \only<3->{$P(Diapers | Beer) = \frac{3}{3} = 100\%$.}
+					            \end{itemize}
+					      \item Diapers $\implies$ Beer:
+					            \begin{itemize}
+						            \item \only<4->{$P(Beer | Diapers) = \frac{3}{4} = 75\%$.}
+					            \end{itemize}
+				      \end{itemize}
+				      }
+			\end{itemize}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Closed Itemsets and Max-Itemsets}
@@ -374,24 +320,77 @@
 \end{frame}
 
 \begin{frame}{Closed Itemsets and Max-Itemsets - Example}
-	\begin{itemize}
-		\item \textbf{Example:}
-		      \begin{itemize}
-			      \item $\text{DB} = \{\langle a_1,a_2, \ldots, a_{100} \rangle,
-				            \langle a_1, a_2, \ldots, a_{50} \rangle \}$.
-			      \item I.e. just two transactions.
-			      \item $\text{min\_sup} = 1$.
-		      \end{itemize}
-		\item \textbf{What are the closed itemsets?}
-		      \begin{itemize}
-			      \item $\langle a_1,a_2, \ldots, a_{100} \rangle : 1$,
-			      \item $\langle a_1,a_2, \ldots, a_{50} \rangle : 2$,
-			      \item Number behind the colon: support\_count.
-		      \end{itemize}
-		\item \textbf{What are the max-itemsets?}
-		      \begin{itemize}
-			      \item $\langle a_1,a_2, \ldots, a_{100} \rangle : 1$.
-		      \end{itemize}
-		\item \textbf{What is the set of all frequent itemsets?}
-	\end{itemize}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{tabular}{|c|c|}
+				\hline
+				\textbf{TID} & \textbf{Items bought}             \\\hline
+				10           & Beer, Nuts, Diapers               \\\hline
+				20           & Beer, Coffee, Diapers             \\\hline
+				30           & Beer, Diapers, Eggs               \\\hline
+				40           & Nuts, Eggs, Milk                  \\\hline
+				50           & Nuts, Coffee, Diapers, Eggs, Milk \\\hline
+			\end{tabular}
+			\begin{tikzpicture}[fill=gray]
+				% left hand
+				\scope
+				\clip (-2,-2) rectangle (2,2)
+				(1,0) circle (1);
+				\fill (0,0) circle (1);
+				\endscope
+				% right hand
+				\scope
+				\clip (-2,-2) rectangle (2,2)
+				(0,0) circle (1);
+				\fill (1,0) circle (1);
+				\endscope
+				% outline
+				\draw (0,0) circle (1) (0,1) (1,0) circle (1) (1,1);
+				\node[label=below:{Customer buys beer}] at (-1,-1) {};
+				\node[label=below:{Customer buys diapers}] at (2.5,1.7) {};
+				\node[label=below:{Customer buys both}] at (-1,1.7) {};
+				\draw (-1,-1) -- (-0.5,-0.5);
+				\draw (2,1.2) -- (1.2,0.5);
+				\draw (-1,1.2) -- (0.5,0.5);
+			\end{tikzpicture}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\vspace{-1.6cm}
+			\begin{itemize}
+				\item \textbf{Reminder:}
+				      \begin{itemize}
+					      \item \textbf{Frequent Itemsets:}
+					            \begin{itemize}
+						            \item \textbf{1-itemsets:} \\
+						                  \{Beer\}: $3$, \{Nuts\}: $3$, \{Diapers\}: $4$, \{Eggs\}: $3$
+						            \item \textbf{2-itemsets:} \\
+						                  \{Beer, Diapers\}: $3$
+					            \end{itemize}
+				      \end{itemize}
+				\item \textbf{Closed Itemsets:}
+
+				      \begin{itemize}
+					      \item \textbf{1-itemsets:} \\
+					            \begin{itemize}
+						            \item \only<2->{\{Nuts\}: $3$, \{Diapers\}: $4$, \{Eggs\}: $3$}
+					            \end{itemize}
+					      \item \textbf{2-itemsets:} \\
+					            \begin{itemize}
+						            \item \only<3->{\{Beer, Diapers\}: $3$}
+					            \end{itemize}
+				      \end{itemize}
+				\item \textbf{Max-Itemsets:}
+				      \begin{itemize}
+					      \item \textbf{1-itemsets:} \\
+					            \begin{itemize}
+						            \item \only<4->{\{Nuts\}: $3$, \{Eggs\}: $3$}
+					            \end{itemize}
+					      \item \textbf{2-itemsets:} \\
+					            \begin{itemize}
+						            \item \only<5->{\{Beer, Diapers\}: $3$}
+					            \end{itemize}
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+	\end{columns}
 \end{frame}
