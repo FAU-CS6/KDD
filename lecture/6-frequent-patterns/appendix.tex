@@ -1,6 +1,22 @@
 \section*{Appendix}
 
-\begin{frame}{Further Improvements of Mining Methods}
+\begin{frame}{Apriori Algorithm - Pseudo Code}
+	$C_k$: candidate itemsets of size $k$\\
+	$L_k$: frequent itemsets of size $k$\\[0.5cm]
+
+	$L_1 = \{\text{frequent items}\}$;\\[0.5cm]
+	\textbf{for} $(k=1; L_k \neq \emptyset; k\texttt{++})$ \textbf{do begin}\\
+	\hspace{1cm} $C_{k+1} = \text{candidates generated from } L_k;$\\
+	\hspace{1cm} \textbf{for each} transaction $t$ in database \textbf{do}\\
+	\hspace{2cm} increment the count of all candidates in $C_{k+1}$ that are
+	contained in $t$;\\[0.1cm]
+	\hspace{1cm}$L_{k+1} = \text{candidates in } C_{k+1} \text{ with
+			min\_sup};$\\
+	\textbf{end;}\\[0.1cm]
+	\textbf{return} $\bigcup_k L_k$;
+\end{frame}
+
+\begin{frame}{Other Improved Mining Methods}
 	\begin{itemize}
 		\item \textbf{AFOPT} (Liu et al., KDD'03)
 		      \begin{itemize}
@@ -52,21 +68,4 @@
 			            ICDE'07)
 		      \end{itemize}
 	\end{itemize}
-\end{frame}
-
-\begin{frame}{Visualization of Association Rules (I)}
-	\centering
-	\scalebox{0.9}{
-		\includegraphics[width=0.6\textwidth]{img/assoc_rules1.jpg}
-	}
-	% In fact, these two illustrations are still the best visualization of association rules I could find. Alternatives would % be the visualizations from e.g. this Jupyter Notebook experiment:
-	% https://goldinlocks.github.io/Market-Basket-Analysis-in-Python/.
-	% It may also be useful to revisit these graphics once we have completed our exercise sheets.
-\end{frame}
-
-\begin{frame}{Visualization of Association Rules (II)}
-	\centering
-	\scalebox{0.9}{
-		\includegraphics[width=0.6\textwidth]{img/assoc_rules2.jpg}
-	}
 \end{frame}

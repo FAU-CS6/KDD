@@ -1,37 +1,36 @@
 \section{Scalable Frequent-itemset Mining Methods}
 
 \begin{frame}{The Downward-closure Property}
+
+	\begin{block}{The Downward-closure Property}
+		Any subset of a frequent itemset must also be frequent.
+	\end{block}
+
 	\begin{itemize}
-		\item \textbf{The downward-closure property of frequent patterns:}
+		\item \textbf{Example:}
+
 		      \begin{itemize}
-			      \item \textbf{\color{airforceblue}Any subset of a frequent itemset
-				            must also be frequent.}
-			            \begin{itemize}
-				            \item If $\{\text{Beer, Diapers, Nuts}\}$ is frequent, so is
-				                  $\{\text{Beer, Diapers}\}$.
-				            \item I.e. every transaction having $\{\text{Beer, Diapers,
-						                  Nuts}\}$ also contains $\{\text{Beer, Diapers}\}$.
-			            \end{itemize}
+			      \item If $\{\text{Beer, Diapers, Nuts}\}$ is frequent, so is $\{\text{Beer, Diapers}\}$.
+			      \item I.e. every transaction having $\{\text{Beer, Diapers, Nuts}\}$ also contains $\{\text{Beer, Diapers}\}$.
 		      \end{itemize}
-		\item \textbf{Scalable mining methods: three major approaches.}
+		\item \textbf{Utilized by the major frequent-itemset mining algorithms:}
 		      \begin{itemize}
-			      \item Apriori (Agrawal \& Srikant, VLDB'94).
-			      \item Frequent-pattern growth (FP-growth) (Han, Pei \& Yin,
-			            SIGMOD'00).
-			      \item Vertical-data-format approach (CHARM) (Zaki \& Hsiao, SDM'02).
+			      \item Apriori\footnote{\fullcite{agarwal1994}}
+			      \item Frequent-pattern growth (FP-growth)\footnote{\fullcite{han2000}}
+			      \item etc \ldots
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Apriori: A Candidate Generation Approach}
+\subsection{Apriori}
+
+\begin{frame}{Apriori Algorithm}
+	\begin{block}{The Apriori Pruning Principle\footnote{\fullcite{agarwal1994}}\footnote{\fullcite{mannila1994}}}
+		If there is any itemset which is infrequent, its supersets should not be generated/tested!
+	\end{block}
+
 	\begin{itemize}
-		\item \textbf{Apriori pruning principle:}
-		      \begin{itemize}
-			      \item \textbf{\color{airforceblue}If there is any itemset which is
-				            infrequent, \\ its supersets should not be generated/tested!} \\
-			            (Agrawal \& Srikant, VLDB'94; Mannila et al., KDD'94)
-		      \end{itemize}
-		\item \textbf{Method:}
+		\item \textbf{The Apriori Algorithm - A Candidate Generation Approach:\footnote{A complete pseudo-code can be found in the appendix.}}
 		      \begin{itemize}
 			      \item Initially, scan DB once to get frequent $1$-itemsets.
 			      \item Generate length-$(k+1)$ candidate itemsets from length-$k$
@@ -44,344 +43,262 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Apriori Algorithm -- An Example}
+\begin{frame}{Apriori Algorithm - Example}
 	\centering
 	\vspace{0cm}
 	\scalebox{0.9}{%
 		\begin{tikzpicture}
-			\path (0,1) coordinate (A) node[above, inner sep=0] {
-					\begin{tabular}{ | c | c |}
-						\hline
-						\textbf{TID} & \textbf{Items} \\\hline
-						10           & A,C,D          \\\hline
-						20           & B,C,E          \\\hline
-						30           & A,B,C,E        \\\hline
-						40           & B,E            \\\hline
-					\end{tabular}
-				};
-			\path (4,1) coordinate (A) node[above, inner sep=0] {
-					\begin{tabular}{ | c | c |}
-						\hline
-						\textbf{Itemset} & \textbf{sup} \\\hline
-						$\{A\}$          & 2            \\\hline
-						$\{B\}$          & 3            \\\hline
-						$\{C\}$          & 3            \\\hline
-						$\{D\}$          & 1            \\\hline
-						$\{E\}$          & 3            \\\hline
-					\end{tabular}
-				};
-			\path (8,1) coordinate (A) node[above, inner sep=0] {
-					\begin{tabular}{ | c | c |}
-						\hline
-						\textbf{Itemset} & \textbf{sup} \\\hline
-						$\{A\}$          & 2            \\\hline
-						$\{B\}$          & 3            \\\hline
-						$\{C\}$          & 3            \\\hline
-						$\{E\}$          & 3            \\\hline
-					\end{tabular}
-				};
-			\path (11.5,1) coordinate (A) node[above, inner sep=0] {
-					\begin{tabular}{ | c |}
-						\hline
-						\textbf{Itemset} \\\hline
-						$\{A,B\}$        \\\hline
-						$\{A,C\}$        \\\hline
-						$\{A,E\}$        \\\hline
-						$\{B,C\}$        \\\hline
-						$\{B,E\}$        \\\hline
-						$\{C,E\}$        \\\hline
-					\end{tabular}
-				};
-			\path (11.5,-2.5) coordinate (A) node[above, inner sep=0] {
-					\begin{tabular}{ | c | c |}
-						\hline
-						\textbf{Itemset} & \textbf{sup} \\\hline
-						$\{A,B\}$        & 1            \\\hline
-						$\{A,C\}$        & 2            \\\hline
-						$\{A,E\}$        & 1            \\\hline
-						$\{B,C\}$        & 2            \\\hline
-						$\{B,E\}$        & 3            \\\hline
-						$\{C,E\}$        & 2            \\\hline
-					\end{tabular}
-				};
-			\path (8,-2.5) coordinate (A) node[above, inner sep=0] {
-					\begin{tabular}{ | c | c |}
-						\hline
-						\textbf{Itemset} & \textbf{sup} \\\hline
-						$\{A,C\}$        & 2            \\\hline
-						$\{B,C\}$        & 2            \\\hline
-						$\{B,E\}$        & 3            \\\hline
-						$\{C,E\}$        & 2            \\\hline
-					\end{tabular}
-				};
-			\path (4,-2.5) coordinate (A) node[above, inner sep=0] {
-					\begin{tabular}{ | c |}
-						\hline
-						\textbf{Itemset} \\\hline
-						$\{B,C,E\}$      \\\hline
-					\end{tabular}
-				};
-			\path (0,-2.5) coordinate (A) node[above, inner sep=0] {
-					\begin{tabular}{ | c | c |}
-						\hline
-						\textbf{Itemset} & \textbf{sup} \\\hline
-						$\{B,C,E\}$      & 2            \\\hline
-					\end{tabular}
-				};
+			\visible<1->{
+				\path (0,1) coordinate (A) node[above, inner sep=0] {
+						\begin{tabular}{ | c | c |}
+							\hline
+							\textbf{TID} & \textbf{Items} \\\hline
+							10           & A,C,D          \\\hline
+							20           & B,C,E          \\\hline
+							30           & A,B,C,E        \\\hline
+							40           & B,E            \\\hline
+						\end{tabular}
+					};
+			}
 
-			\draw[->] (1.25,2) -- (2.7,2);
-			\draw[->] (5.25,2) -- (6.7,2);
-			\draw[->] (9.25,2) -- (10.7,2);
-			\draw[->] (10.5,0.2) to [out=150,in=30] (8.5,-0.2);
-			\draw[->] (11.5,1) -- (11.5,0.6);
-			\draw[->] (6.7,-2) -- (5,-2);
-			\draw[->] (3,-2) -- (1.5,-2);
-			\node at (-0.1,3.5) {Database TBD};
-			\node at (1.9,2.3) {$1^{\text{st}}$ scan};
-			\node at (2.2,-1.7) {$3^{\text{rd}}$ scan};
-			\node at (12.5,0.8) {$2^{\text{nd}}$ scan};
-			\node at (6,2.2) {prune};
-			\node at (10,2.3) {combine};
-			\node at (3,3.9) {$C_1$};
-			\node at (7,3.45) {$L_1$};
-			\node at (10.4,0.8) {$C_2$};
-			\node at (11,4.3) {$C_2$};
-			\node at (7,0) {$L_2$};
-			\node at (3.3,-1.4) {$C_3$};
-			\node at (-1.3,-1.4) {$L_3$};
-			\node at (0,0) {min\_sup = 2};
+			\visible<2->{
+				\path (4,1) coordinate (A) node[above, inner sep=0] {
+						\begin{tabular}{ | c | c |}
+							\hline
+							\textbf{Itemset} & \textbf{sup} \\\hline
+							$\{A\}$          & 2            \\\hline
+							$\{B\}$          & 3            \\\hline
+							$\{C\}$          & 3            \\\hline
+							$\{D\}$          & 1            \\\hline
+							$\{E\}$          & 3            \\\hline
+						\end{tabular}
+					};
+			}
+
+			\visible<3->{
+				\path (8,1) coordinate (A) node[above, inner sep=0] {
+						\begin{tabular}{ | c | c |}
+							\hline
+							\textbf{Itemset} & \textbf{sup} \\\hline
+							$\{A\}$          & 2            \\\hline
+							$\{B\}$          & 3            \\\hline
+							$\{C\}$          & 3            \\\hline
+							$\{E\}$          & 3            \\\hline
+						\end{tabular}
+					};
+			}
+
+			\visible<4->{
+				\path (11.5,1) coordinate (A) node[above, inner sep=0] {
+						\begin{tabular}{ | c |}
+							\hline
+							\textbf{Itemset} \\\hline
+							$\{A,B\}$        \\\hline
+							$\{A,C\}$        \\\hline
+							$\{A,E\}$        \\\hline
+							$\{B,C\}$        \\\hline
+							$\{B,E\}$        \\\hline
+							$\{C,E\}$        \\\hline
+						\end{tabular}
+					};
+			}
+
+			\visible<5->{
+				\path (11.5,-2.5) coordinate (A) node[above, inner sep=0] {
+						\begin{tabular}{ | c | c |}
+							\hline
+							\textbf{Itemset} & \textbf{sup} \\\hline
+							$\{A,B\}$        & 1            \\\hline
+							$\{A,C\}$        & 2            \\\hline
+							$\{A,E\}$        & 1            \\\hline
+							$\{B,C\}$        & 2            \\\hline
+							$\{B,E\}$        & 3            \\\hline
+							$\{C,E\}$        & 2            \\\hline
+						\end{tabular}
+					};
+			}
+
+			\visible<6->{
+				\path (8,-2.5) coordinate (A) node[above, inner sep=0] {
+						\begin{tabular}{ | c | c |}
+							\hline
+							\textbf{Itemset} & \textbf{sup} \\\hline
+							$\{A,C\}$        & 2            \\\hline
+							$\{B,C\}$        & 2            \\\hline
+							$\{B,E\}$        & 3            \\\hline
+							$\{C,E\}$        & 2            \\\hline
+						\end{tabular}
+					};
+			}
+
+			\visible<7->{
+				\path (4,-2.5) coordinate (A) node[above, inner sep=0] {
+						\begin{tabular}{ | c |}
+							\hline
+							\textbf{Itemset} \\\hline
+							$\{B,C,E\}$      \\\hline
+						\end{tabular}
+					};
+			}
+
+			\visible<8->{
+				\path (0,-2.5) coordinate (A) node[above, inner sep=0] {
+						\begin{tabular}{ | c | c |}
+							\hline
+							\textbf{Itemset} & \textbf{sup} \\\hline
+							$\{B,C,E\}$      & 2            \\\hline
+						\end{tabular}
+					};
+			}
+
+
+			\visible<2->{
+				\draw[->] (1.25,2) -- (2.7,2);
+			}
+
+			\visible<3->{
+				\draw[->] (5.25,2) -- (6.7,2);
+			}
+
+			\visible<4->{
+				\draw[->] (9.25,2) -- (10.7,2);
+			}
+
+			\visible<5->{
+				\draw[->] (11.5,1) -- (11.5,0.6);
+			}
+
+			\visible<6->{
+				\draw[->] (10.1,0.2) to [out=150,in=30] (8.5,-0.2);
+			}
+
+			\visible<7->{
+				\draw[->] (6.7,-2) -- (5,-2);
+			}
+
+			\visible<8->{
+				\draw[->] (3,-2) -- (1.5,-2);
+			}
+
+
+			\visible<1->{
+				\node at (-0.1,3.5) {Database};
+				\node at (0,0) {$min\_sup = 2$};
+			}
+
+			\visible<2->{
+				\node at (1.9,2.3) {$1^{\text{st}}$ scan};
+				\node at (3,3.9) {$C_1$};
+			}
+
+			\visible<3->{
+				\node at (6,2.2) {prune};
+				\node at (7,3.45) {$L_1$};
+			}
+
+			\visible<4->{
+				\node at (10,2.3) {combine};
+				\node at (11,4.3) {$C_2$};
+			}
+
+			\visible<5->{
+				\node at (12.5,0.8) {$2^{\text{nd}}$ scan};
+				\node at (10.4,0.8) {$C_2$};
+			}
+
+			\visible<6->{
+				\node at (8.7,0.3) {prune};
+				\node at (7,0) {$L_2$};
+			}
+
+			\visible<7->{
+				\node at (3.3,-1.4) {$C_3$};
+				\node at (5.85,-1.7) {combine};
+			}
+
+			\visible<8->{
+				\node at (2.2,-1.7) {$3^{\text{rd}}$ scan};
+				\node at (-1.3,-1.4) {$L_3$};
+			}
 		\end{tikzpicture}
 	}
 \end{frame}
 
-\begin{frame}{Apriori Algorithm (Pseudo Code)}
-	$C_k$: candidate itemsets of size $k$\\
-	$L_k$: frequent itemsets of size $k$\\[0.5cm]
 
-	$L_1 = \{\text{frequent items}\}$;\\[0.5cm]
-	\textbf{for} $(k=1; L_k \neq \emptyset; k\texttt{++})$ \textbf{do begin}\\
-	\hspace{1cm} $C_{k+1} = \text{candidates generated from } L_k;$\\
-	\hspace{1cm} \textbf{for each} transaction $t$ in database \textbf{do}\\
-	\hspace{2cm} increment the count of all candidates in $C_{k+1}$ that are
-	contained in $t$;\\[0.1cm]
-	\hspace{1cm}$L_{k+1} = \text{candidates in } C_{k+1} \text{ with
-			min\_sup};$\\
-	\textbf{end;}\\[0.1cm]
-	\textbf{return} $\bigcup_k L_k$;
-\end{frame}
+\begin{frame}{Apriori Algorithm - Candidate Generation}
+	\begin{alertblock}{Follow the Apriori Pruning Principle!}
+		If \textbf{any} subset of an itemset you wish to generate is infrequent, it is \textbf{not} a valid candidate!
+	\end{alertblock}
 
-\begin{frame}{Implementation of Apriori (I)}
+	\vspace{0.25cm}
+
 	\begin{itemize}
+		\item \textbf{Example}\footnote{Based on the previous slide/example}\textbf{:}
+		      \begin{itemize}
+			      \item The itemset $\{A,B,C\}$ is \textbf{not} a valid candidate:
+			            \begin{itemize}
+				            \item Frequent Subsets: $\{A\}$, $\{B\}$, $\{C\}$, $\{A,C\}$, $\{B,C\}$
+				            \item Infrequent Subset: $\{A,B\}$
+			            \end{itemize}
+		      \end{itemize}
 		\item \textbf{\color{airforceblue}How to generate candidates?}
 		      \begin{itemize}
-			      \item Step 1: self-joining $L_k$ (or joining $L_k$ with $L_1$).
-			      \item Step 2: pruning.
-		      \end{itemize}
-		\item \textbf{Example of candidate generation:}
-		      \begin{itemize}
-			      \item $L_3 = \{abc, abd, acd, ace, bcd\}$.
-			      \item Self-joining: $L_3 \bowtie L_3$:
+			      \item Step 1: Join all frequent $k$-itemsets that have $k-1$ items in
+			            common.
 			            \begin{itemize}
-				            \item $abcd$ from $abc$ and $abd$.
-				            \item $acde$ from $acd$ and $ace$.
+				            \item E.g. $\{A,B\}$ and $\{A,C\}$ can be joined to form $\{A,B,C\}$.
 			            \end{itemize}
-			      \item \textbf{Pruning:}
+			      \item Step 2: Prune all combinations that have infrequent subsets.
 			            \begin{itemize}
-				            \item $acde$ is removed because $ade$ is not in $L_3$.
+				            \item E.g. $\{A,B,C\}$ has to be pruned, because $\{A,B\}$ is infrequent.
 			            \end{itemize}
-			      \item $C_4 = \{abcd\}$.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Implementation of Apriori (II)}
+\begin{frame}{Improvements}
 	\begin{itemize}
-		\item \textbf{Why is counting supports of candidates a problem?}
-		      \begin{itemize}
-			      \item The total number of candidates can be huge.
-			      \item One transaction may contain many candidates.
-		      \end{itemize}
-		\item \textbf{Method:}
-		      \begin{itemize}
-			      \item Candidate itemsets are stored in a \textbf{hash tree}.
-			      \item Leaf node of hash tree contains a list of itemsets and counts.
-			      \item Interior node contains a hash table.
-			      \item Subset function: finds all the candidates contained in a
-			            transaction.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Counting Supports using Hash Tree}
-	\centering
-	$15$ candidate itemsets: ${1 4 5}, {1 2 4}, {4 5 7}, {1 2 5}, {4 5 8}, {1 5
-				9}, {1 3 6}, {2 3 4}, {5 6 7}, {3 4 5}, {3 5 6}, {3 5 7},{6 8 9}, {3 6 7},
-		{3 6 8}$.\\[0.5cm]
-	\resizebox{9cm}{!}{%
-		\begin{tikzpicture}
-			\node[draw, circle, fill=black, label=above:{Transaction: 1 2 3 5
-			6}] (r) at (0,10) {};
-			\draw[->, color=airforceblue] (-0.3,9.7) -- (-2.3,9);
-			\node[draw, circle, fill=black] (a) at (0,8.95) {};
-			\node at (0,8.6) {2 3 4};
-			\node at (0,8.2) {5 6 7};
-			\node[draw, circle, fill=black] (b) at (3,9) {};
-			\node[draw, circle, fill=black] (c) at (-3,9) {};
-			\node[draw, circle, fill=black] (d) at (-3,8) {};
-			\node[draw, circle, fill=black] (e) at (-4,8) {};
-			\node at (-4,7.6) {1 4 5};
-			\node at (-6,10) (o) {1 + 2 3 5 6};
-			\node at (-6.5,9) (p) {1 3 + 5 6};
-			\node at (-6,8) (q) {1 2 + 3 5 6};
-			\node[draw, circle, fill=black] (f) at (-2,8) {};
-			\node at (-2,7.6) {1 3 6};
-			\node[draw, circle, fill=black] (g) at (-3,7) {};
-			\node at (-3,6.6) {\color{airforceblue}1 2 5};
-			\node at (-3,6.2) {4 5 8};
-			\node[draw, circle, fill=black] (h) at (-2,7) {};
-			\node at (-2,6.6) {1 5 9};
-			\node[draw, circle, fill=black] (i) at (-4,7) {};
-			\node at (-4,6.6) {1 2 4};
-			\node at (-4,6.2) {4 5 7};
-			\draw[->, color=airforceblue] (-2.8, 7.6) -- (-2.8,7.1);
-			\draw[->, color=airforceblue] (-2.8, 8.8) -- (-2.8,8.1);
-			\draw[->, color=airforceblue] (-2.7, 7.9) -- (-2,7.2);
-			\draw[->, color=airforceblue] (-2.2,7) -- (-2.9, 7.7);
-
-			\node[draw, circle, fill=black] (j) at (3,8) {};
-			\node at (3,7.6) {3 5 6};
-			\node at (3,7.2) {3 5 7};
-			\node at (3,6.8) {6 8 9};
-			\node[draw, circle, fill=black] (k) at (4,8) {};
-			\node at (4,7.6) {3 6 7};
-			\node at (4,7.2) {3 6 8};
-			\node[draw, circle, fill=black] (l) at (2,8) {};
-			\node at (2,7.6) {3 4 5};
-
-			\draw (r) -- (b);
-			\draw (r) -- (a);
-			\draw (r) -- (c) -- (d) -- (g);
-			\draw (c) -- (e);
-			\draw (c) -- (f);
-			\draw (d) -- (h);
-			\draw (d) -- (i);
-			\draw (b) -- (j);
-			\draw (b) -- (k);
-			\draw (b) -- (l);
-			\draw[->, dashed, color=airforceblue] (o) -- (c);
-			\draw[->, dashed, color=airforceblue] (p) -- (f);
-			\draw[->, dashed, color=airforceblue] (q) -- (i);
-
-			\node at (0,6) {\color{airforceblue}Subset function:};
-			\node at (-0.8,5.1) {1 4 7};
-			\node at (0,4.6) {2 5 8};
-			\node at (0.8,5.1) {3 6 9};
-			\draw (-0.7,5.3) -- (0,5.8);
-			\draw (0.7,5.3) -- (0,5.8);
-			\draw (0,4.8) -- (0,5.8);
-			\draw[color=airforceblue] (-2,6.3) -- (2,6.3) -- (2,4.3) --
-			(-2,4.3) -- (-2,6.3);
-		\end{tikzpicture}}
-\end{frame}
-
-\begin{frame}{Candidate Generation: An SQL Implementation}
-	\begin{itemize}
-		\item \textbf{SQL implementation of candidate generation.}
-		      \begin{itemize}
-			      \item Suppose the items in $L_{k-1}$ are listed in order.
-			            \begin{itemize}
-				            \item[1.] Self-joining $L_{k-1}$.\\
-				                  \texttt{INSERT INTO} $C_k$\\
-				                  \hspace{1cm} (\texttt{SELECT p.item$_1$, p.item$_2$, $\ldots$,
-					                  p.item$_{k-1}$, q.item$_{k-1}$}\\
-				                  \hspace{1.1cm} \texttt{FROM $L_{k-1} p, L_{k-1} q$}\\
-				                  \hspace{1.1cm} \texttt{WHERE p.item$_1$ = q.item$_1$, $\ldots$,
-					                  p.item$_{k-2}$ = q.item$_{k-2}$, \\
-					                  \hspace{2.05cm} p.item$_{k-1}$ $<$ q.item$_{k-1}$});
-				            \item[2.] Pruning.\\
-				                  \hspace{1cm} \textbf{forall} itemsets $c$ in $C_k$ \textbf{do}
-				                  \\
-				                  \hspace{2cm} \textbf{forall} $(k-1)$-subsets $s$ of $c$
-				                  \textbf{do}\\
-				                  \hspace{3cm} \textbf{if} ($s$ is not in $L_{k-1}$)
-				                  \textbf{then} \texttt{DELETE} $c$ \texttt{FROM} $C_k$;
-			            \end{itemize}
-			      \item \textbf{Use object-relational extensions like UDFs, BLOBs,
-				            and table functions for efficient implementation.} (Sarawagi,
-			            Thomas \& Agrawal, SIGMOD'98)
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Further Improvement of the Apriori Method}
-	\begin{itemize}
-		\item \textbf{Major computational challenges.}
+		\item \textbf{Apriori is pretty inefficient:}
 		      \begin{itemize}
 			      \item Multiple scans of transaction database.
 			      \item Huge number of candidates.
 			      \item Support counting for candidates is laborious.
 		      \end{itemize}
-		\item \textbf{Improving Apriori: general ideas.}
+		\item \textbf{Many improvements have been proposed.}
+		\item \textbf{Some examples:}
 		      \begin{itemize}
-			      \item Reduce passes of transaction-database scans.
-			      \item Shrink number of candidates.
-			      \item Facilitate support counting of candidates.
+			      \item Reducing the passes of database scans:
+			            \begin{itemize}
+				            \item Partitioning\footnote{e.g. \fullcite{savasere1995}}
+				            \item Dynamic itemset counting\footnote{e.g. \fullcite{brin1997}}
+			            \end{itemize}
+			      \item Shrinking the number of candidates:
+			            \begin{itemize}
+				            \item Hashing\footnote{e.g. \fullcite{park1995}}
+			            \end{itemize}
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Hashing: Reduce the Number of Candidates}
-	\begin{columns}[c]
-		\begin{column}{0.6\textwidth}
-			\begin{itemize}
-				\item \textbf{A $k$-itemset whose corresponding hashing-bucket
-					      count is below the threshold cannot be frequent.}
-				      \begin{itemize}
-					      \item Candidates: $a,b,c,d,e$.
-					      \item While scanning DB for frequent $1$-itemsets, create
-					            hash entries for $2$-itemsets:
-					            \begin{itemize}
-						            \item $\{ab,ad,ae\}$
-						            \item $\{bd,be,de\}$
-						            \item $\ldots$
-					            \end{itemize}
-					      \item Frequent $1$-itemset: $a,b,d,e$.
-					      \item $ab$ is not a candidate $2$-itemset, if the sum of
-					            count of $\{ab, ad, ae\}$ is below support threshold.
-					      \item (Park, Chen \& Yu, SIGMOD'95)
-				      \end{itemize}
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.3\textwidth}
-			\centering
-			\textbf{Hash table:}\\
-			\begin{tabular}{| c | c |}
-				\hline
-				count    & itemsets       \\\hline
-				35       & $\{ab,ad,ae\}$ \\\hline
-				88       & $\{bd,be,de\}$ \\\hline
-				$\vdots$ & $\vdots$       \\\hline
-				102      & $\{yz,qs,wt\}$ \\\hline
-			\end{tabular}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Partition: Scan Database Only Twice}
+\begin{frame}{Improvements - Partitioning}
+	\begin{block}{Partitioning: The Basic Idea}
+		Any itemset that is potentially frequent in the whole database must be frequent in at least one of the partitions of the database.
+	\end{block}
 	\begin{itemize}
-		\item \textbf{Any itemset that is potentially frequent in DB must be
-			      frequent in at least one of the partitions of DB.}
+		\item \textbf{Method: Scan the database twice}
 		      \begin{itemize}
-			      \item Scan 1: partition database and find local frequent patterns:
+			      \item Scan 1: Partition database and find the local frequent itemsets:
 			            \begin{itemize}
 				            \item $\text{min\_sup}_i = \text{min\_sup}[\%] \cdot \vert
 					                  \sigma\text{DB}_i \vert$.
 			            \end{itemize}
-			      \item Scan 2: consolidate global frequent patterns.\\
-			            (Savasere, Omiecinski \& Navathe, VLDB'95)
+			      \item Scan 2: Use the local frequent itemsets to check for global frequent itemsets:
+			            \begin{itemize}
+				            \item Only itemsets that are frequent in at least one partition are checked.
+			            \end{itemize}
 		      \end{itemize}
-		      \vspace{0.5cm}
 	\end{itemize}
+	\vspace{0.25cm}
 	\centering
 	\begin{tikzpicture}[square/.style={regular polygon,regular polygon sides=4}]
 		\node at (0,0) [square, draw, fill=gray, minimum size=2cm] {};
@@ -402,31 +319,15 @@
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Sampling for Frequent Patterns}
-	\begin{itemize}
-		\item \textbf{Select a sample of original database,\\
-			      mine frequent patterns within sample using Apriori.}
-		\item \textbf{Scan database once to verify frequent itemsets found in
-			      sample,\\
-			      only {\color{airforceblue}borders} of closure of frequent patterns
-			      are checked.}
-		      \begin{itemize}
-			      \item Example: check $abcd$ instead of $ab, ac, \ldots,$ etc.
-		      \end{itemize}
-		\item \textbf{Scan database again to find missed frequent patterns.}\\
-		      (Toivonen, VLDB'96)
-	\end{itemize}
-\end{frame}
+\begin{frame}{Improvements - Dynamic Itemset Counting (I)}
+	\begin{block}{Dynamic Itemset Counting (DIC): The Basic Idea}
+		Itemset frequency counting starts once all subsets are confirmed to be frequent.
+	\end{block}
 
-\begin{frame}{Dynamic Itemset Counting (I)}
 	\begin{itemize}
-		\item \textbf{Adding candidate itemsets at different points during a
-			      scan.}
+		\item \textbf{Candidate itemsets are added at different points during a scan:}
 		      \begin{itemize}
-			      \item DB partitioned into blocks marked by
-			            \textbf{\color{airforceblue}start points}.
-			      \item New candidate itemsets can be added at any start point during
-			            a scan.
+			      \item New candidate itemsets can be added at any start point during a scan.
 			            \begin{itemize}
 				            \item E.g. if $A$ and $B$ are already found to be frequent, \\
 				                  $AB$ are also counted from that starting point on.
@@ -439,7 +340,8 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Dynamic Itemset Counting (II)}
+\begin{frame}{Improvements - Dynamic Itemset Counting (II)}
+	\vspace{1cm}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\centering
@@ -463,9 +365,6 @@
 					\node[draw] at (0.5,-3) (c) {C};
 					\node[draw] at (1.5,-3) (d) {D};
 					\node[draw] at (0,-4) (0) {$\{\}$};
-					\node at (0,-5) {\color{red}Itemset lattice};
-					\node at (0,-6) {(Brin, Motwani, Ullman \& Tsur,
-						SIGMOD'97)};
 
 					\draw[->] (0)-- (a);
 					\draw[->] (0)-- (b);
@@ -475,7 +374,6 @@
 					\draw[->] (a)-- (ac);
 					\draw[->] (a)-- (ad);
 					\draw[->] (b)-- (ab);
-					%\draw[->] (b)-- (ac); this one should be wrong
 					\draw[->] (b)-- (bd);
 					\draw[->] (c)-- (ac);
 					\draw[->] (c)-- (bc);
@@ -506,13 +404,6 @@
 		\end{column}
 		\begin{column}{0.5\textwidth}
 			\vspace{-6.2cm}
-			\begin{itemize}
-				\item Once both $A$ and $D$ are determined frequent,\\
-				      the counting of $AD$ begins.
-				\item Once length-$2$ subsets of $BCD$ are determined
-				      frequent,
-				      the counting of $BCD$ begins.
-			\end{itemize}
 			\scalebox{0.9}{
 				\begin{tikzpicture}
 					\node[draw, fill=gray, text width = 7cm]
@@ -540,6 +431,48 @@
 		\end{column}
 	\end{columns}
 \end{frame}
+
+\begin{frame}{Improvements - Hashing}
+	\begin{block}{Hashing: The Basic Idea}
+		Itemsets are hashed into buckets, and during the first scan, only the occurrences of each bucket are counted.
+	\end{block}
+
+	\begin{columns}[c]
+		\begin{column}{0.6\textwidth}
+			\begin{itemize}
+				\item \textbf{A $k$-itemset whose corresponding hashing-bucket
+					      count is below the threshold cannot be frequent.}
+				      \begin{itemize}
+					      \item Candidates: $a,b,c,d,e$.
+					      \item While scanning DB for frequent $1$-itemsets, create
+					            hash entries for $2$-itemsets:
+					            \begin{itemize}
+						            \item $\{ab,ad,ae\}$
+						            \item $\{bd,be,de\}$
+						            \item $\ldots$
+					            \end{itemize}
+					      \item Frequent $1$-itemset: $a,b,d,e$.
+					      \item $ab$ is not a candidate $2$-itemset, if the sum of
+					            count of $\{ab, ad, ae\}$ is below support threshold.
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.3\textwidth}
+			\centering
+			\textbf{Hash table:}\\
+			\begin{tabular}{| c | c |}
+				\hline
+				count    & itemsets       \\\hline
+				35       & $\{ab,ad,ae\}$ \\\hline
+				88       & $\{bd,be,de\}$ \\\hline
+				$\vdots$ & $\vdots$       \\\hline
+				102      & $\{yz,qs,wt\}$ \\\hline
+			\end{tabular}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\subsection{FP-growth}
 
 \begin{frame}{FP-growth}
 	\begin{itemize}
