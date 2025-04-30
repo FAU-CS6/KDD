@@ -476,7 +476,7 @@
 
 \begin{frame}{FP-growth}
 	\begin{itemize}
-		\item \textbf{Bottlenecks of the Apriori approach.}
+		\item \textbf{Apriori:}
 		      \begin{itemize}
 			      \item Breadth-first (i.e., level-wise) search.
 			      \item Candidate generation and test.
@@ -484,21 +484,161 @@
 				            \item Often generates a huge number of candidates.
 			            \end{itemize}
 		      \end{itemize}
-		\item \textbf{The FP-growth Approach.} (Han, Pei \& Yin, SIGMOD'00)
+		\item \textbf{FP-growth:}
 		      \begin{itemize}
 			      \item Depth-first search.
 			      \item Avoid explicit candidate generation.
 		      \end{itemize}
-		\item \textbf{Major philosophy: Grow long patterns from short ones
-			      using local frequent items only.}
-		      \begin{itemize}
-			      \item $abc$ is a frequent pattern.
-			      \item Get all transactions having $abc$, i.e. restrict DB on $abc$:
-			            $DB|_{abc}$.
-			      \item $d$ is a local frequent item in $DB|_{abc \implies abcd}$ is
-			            a frequent pattern.
-		      \end{itemize}
 	\end{itemize}
+
+	\vspace{0.5cm}
+
+	\begin{block}{FP-growth: All Frequent Itemsets in Only Two Scans}
+		FP-growth employs a tree-based structure to identify all frequent itemsets in a dataset using two scans.
+	\end{block}
+\end{frame}
+
+% Commands for the FP-tree
+\newcommand{\fptreerootnode}{
+	\begin{tikzpicture}
+		\node[draw, fill=faugraydark!75, text=white, minimum height = 0.65cm, minimum width=1cm] at (0,-1) (Label) {$\{\}$};
+	\end{tikzpicture}
+}
+
+\newcommand{\fptreenode}[2]{
+	\begin{tikzpicture}
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=0.5cm] at (0,-1) (Label) {$#1$};
+		\node[draw, fill=faugraydark!75, text=white, minimum height = 0.65cm, minimum width=0.5cm, right = 0cm of Label] {$#2$};
+	\end{tikzpicture}
+}
+
+\begin{frame}{FP-growth - Algorithm}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\vspace{-6.5cm}
+			\begin{itemize}
+				\item \textbf{Steps of FP-growth:}
+				      \begin{enumerate}
+					      \visible<2->{
+					      \item Find frequent $1$-itemsets (\textbf{1st scan}).
+					            }
+					            \visible<4->{
+					      \item Put them in a frequency-descending list. \\
+					            \hspace{0.25cm}$\Rightarrow$ \textbf{f-list}.
+					            }
+					            \visible<6->{
+					      \item Perform the \textbf{2nd scan:}
+					            \begin{itemize}
+						            \item {\only<8,11>{\color{faugraydark}}Sort and filter the items in each tuple.}
+						            \item {\only<9,12>{\color{faugraydark}}Construct the initial \textbf{FP-tree}}.
+					            \end{itemize}
+					            }
+
+				      \end{enumerate}
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-0.5cm}
+			\centering
+			\scalebox{0.75}{
+				\begin{tikzpicture}
+					\node[text width=5cm, anchor=north] at (0,0) (original-dataset)
+					{
+						\begin{center}
+							\begin{tabular}{|c|c|}
+								\hline
+								\textbf{TID}                             & \textbf{Items bought}                                                              \\\hline
+								\only<7-9>{\cellcolor{faugray!50}} 100   & \only<7-9>{\cellcolor{faugray!50}} \only<1-7>{f,a,c,d,g,i,m,p}\only<8->{f,c,a,m,p} \\\hline
+								\only<10-12>{\cellcolor{faugray!50}} 200 & \only<10-12>{\cellcolor{faugray!50}} \only<1-10>{a,b,c,f,l,m}\only<11->{f,c,a,b,m} \\\hline
+								300                                      & b,f,h,j,o,w                                                                        \\\hline
+								400                                      & b,c,k,s,p                                                                          \\\hline
+								500                                      & a,f,c,e,l,p,m,n                                                                    \\\hline
+							\end{tabular} \\
+							\vspace{0.2cm}
+							$min\_sup=3$ \\
+							\visible<5->{
+								\vspace{0.15cm}
+								\textbf{f-list:} f-c-a-b-m-p
+							}
+						\end{center}
+					};
+
+					\visible<3-5>{
+						\node[text width=5cm, anchor=north, below=0.15cm of original-dataset] (frequent-1-itemsets)
+						{
+							\begin{center}
+								\textbf{Frequent $1$-itemsets:} \\
+								\vspace{0.2cm}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Itemset} & \textbf{sup} \\\hline
+									\{f\}            & 4            \\\hline
+									\{a\}            & 3            \\\hline
+									\{c\}            & 4            \\\hline
+									\{m\}            & 3            \\\hline
+									\{p\}            & 3            \\\hline
+									\{b\}            & 3            \\\hline
+								\end{tabular} \\
+							\end{center}
+
+						};
+					}
+
+					\visible<3>{
+						\draw[->] (original-dataset.east) to [out=0, in=-0] (frequent-1-itemsets.east);
+					}
+
+					\visible<5>{
+						\draw[->] (frequent-1-itemsets.east) to [out=0, in=-0] (original-dataset.south east);
+					}
+
+					\visible<9->{
+						\node[text width=5cm, anchor=north, below=0.15cm of original-dataset] (fp-tree)
+						{
+							\begin{center}
+								\scalebox{0.7}{
+									\begin{tikzpicture} [scale=1]
+										\node at (0,0) (root) {\fptreerootnode};
+
+										% TID 100
+										\visible<9-11>{
+											\node at (0,-1) (f) {\fptreenode{f}{1}};
+											\node at (0,-2) (fc) {\fptreenode{c}{1}};
+											\node at (0,-3) (fca) {\fptreenode{a}{1}};
+											\node at (0,-4) (fcam) {\fptreenode{m}{1}};
+											\node at (0,-5) (fcamp) {\fptreenode{p}{1}};
+
+											\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
+										}
+
+										% TID 200
+										\visible<12-14>{
+											\node at (0,-1) (f) {\fptreenode{f}{2}};
+											\node at (0,-2) (fc) {\fptreenode{c}{2}};
+											\node at (0,-3) (fca) {\fptreenode{a}{2}};
+											\node at (-1,-4) (fcam) {\fptreenode{m}{1}};
+											\node at (-1,-5) (fcamp) {\fptreenode{p}{1}};
+											\node at (1,-4) (fcab) {\fptreenode{b}{1}};
+											\node at (1,-5) (fcabm) {\fptreenode{m}{1}};
+
+											\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
+											\draw (fca) -- (fcab) -- (fcabm);
+										}
+
+									\end{tikzpicture}
+								}
+							\end{center}
+
+						};
+					}
+
+					\visible<9,12>{
+						\draw[->] (original-dataset.east) to [out=0, in=-0] (fp-tree.east);
+					}
+				\end{tikzpicture}
+			}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Construct FP-tree from a Transaction Database}
