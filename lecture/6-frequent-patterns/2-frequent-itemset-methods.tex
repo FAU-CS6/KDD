@@ -505,6 +505,12 @@
 	\end{tikzpicture}
 }
 
+\newcommand{\fptreeuniquenode}[1]{
+	\begin{tikzpicture}
+		\node[draw, fill=faugraydark!75, text=white, minimum height = 0.65cm, minimum width=1cm] at (0,-1) (Label) {$#1$};
+	\end{tikzpicture}
+}
+
 \newcommand{\fptreenode}[2]{
 	\begin{tikzpicture}
 		\node[draw, fill=white, minimum height = 0.65cm, minimum width=0.5cm] at (0,-1) (Label) {$#1$};
@@ -527,22 +533,22 @@
 }
 \newcommand{\headertableheader}{
 	\begin{tikzpicture}
-		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.5cm] at (0,-1) (Item) {\textbf{Item}};
-		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.5cm, right = 0cm of Item] {\textbf{Sum}};
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.65cm] at (0,-1) (Item) {\textbf{Item}};
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.65cm, right = 0cm of Item] {\textbf{Sum}};
 	\end{tikzpicture}
 }
 
 \newcommand{\headertableentry}[2]{
 	\begin{tikzpicture}
-		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.5cm] at (0,-1) (Item) {$#1$};
-		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.5cm, right = 0cm of Item] {$#2$};
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.65cm] at (0,-1) (Item) {$#1$};
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.65cm, right = 0cm of Item] {$#2$};
 	\end{tikzpicture}
 }
 
 \newcommand{\headertableentrymarked}[2]{
 	\begin{tikzpicture}
-		\node[draw, fill=faureddark!20, minimum height = 0.65cm, minimum width=1.5cm] at (0,-1) (Item) {$#1$};
-		\node[draw, fill=faureddark!20, minimum height = 0.65cm, minimum width=1.5cm, right = 0cm of Item] {$#2$};
+		\node[draw, fill=faureddark!20, minimum height = 0.65cm, minimum width=1.65cm] at (0,-1) (Item) {$#1$};
+		\node[draw, fill=faureddark!20, minimum height = 0.65cm, minimum width=1.65cm, right = 0cm of Item] {$#2$};
 	\end{tikzpicture}
 }
 
@@ -581,7 +587,13 @@
 						                  \visible<32->{
 						            \item Build a \textbf{conditional FP-tree} for each non-empty conditional pattern base.
 						                  }
+						                  \visible<36->{
+						            \item Perform \textbf{4.} for each cond. FP-tree.
+						                  }
 					            \end{enumerate}
+					            }
+					            \visible<56->{
+					      \item Collect the \textbf{frequent itemsets}.
 					            }
 
 				      \end{enumerate}
@@ -746,7 +758,7 @@
 
 					}
 
-					\visible<22->{
+					\visible<22-33,38,42,44,52>{
 						% Header table
 						\node[inner sep=0cm] at (-2,-1.5) (headertable) {\scalebox{0.7}{\headertableheader}};
 						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
@@ -995,17 +1007,587 @@
 							{
 								\begin{tabular}{|c|c|}
 									\hline
-									\textbf{Item}                         & \textbf{Conditional Pattern Base}                                  \\\hline
-									\only<26>{\cellcolor{faureddark!20}}f & \only<26>{\cellcolor{faureddark!20}}\visible<26->{-}               \\\hline
-									\only<27>{\cellcolor{faureddark!20}}c & \only<27>{\cellcolor{faureddark!20}}\visible<27->{f:3}             \\\hline
-									\only<28>{\cellcolor{faureddark!20}}a & \only<28>{\cellcolor{faureddark!20}}\visible<28->{fc:3}            \\\hline
-									\only<29>{\cellcolor{faureddark!20}}b & \only<29>{\cellcolor{faureddark!20}}\visible<29->{fca:1, f:1, c:1} \\\hline
-									\only<30>{\cellcolor{faureddark!20}}m & \only<30>{\cellcolor{faureddark!20}}\visible<30->{fca:2, fcab:1}   \\\hline
-									\only<31>{\cellcolor{faureddark!20}}p & \only<31>{\cellcolor{faureddark!20}}\visible<31->{fcam:2, cb:1}    \\\hline
+									\textbf{Item}                                                          & \textbf{Conditional Pattern Base}                                                                      \\\hline
+									\only<26>{\cellcolor{faureddark!20}}f                                  & \only<26>{\cellcolor{faureddark!20}}\visible<26->{-}                                                   \\\hline
+									\only<27>{\cellcolor{faureddark!20}}\only<33>{\cellcolor{faugray!50}}c & \only<33>{\cellcolor{faugray!50}}\only<27>{\cellcolor{faureddark!20}}\visible<27->{f:3}                \\\hline
+									\only<28>{\cellcolor{faureddark!20}}\only<38>{\cellcolor{faugray!50}}a & \only<38>{\cellcolor{faugray!50}}\only<28>{\cellcolor{faureddark!20}}\visible<28->{f,c:3}              \\\hline
+									\only<29>{\cellcolor{faureddark!20}}\only<42>{\cellcolor{faugray!50}}b & \only<42>{\cellcolor{faugray!50}}\only<29>{\cellcolor{faureddark!20}}\visible<29->{f,c,a:1, f:1, c:1}  \\\hline
+									\only<30>{\cellcolor{faureddark!20}}\only<44>{\cellcolor{faugray!50}}m & \only<44>{\cellcolor{faugray!50}}\only<30>{\cellcolor{faureddark!20}}\visible<30->{f,c,a:2, f,c,a,b:1} \\\hline
+									\only<31>{\cellcolor{faureddark!20}}\only<52>{\cellcolor{faugray!50}}p & \only<52>{\cellcolor{faugray!50}}\only<31>{\cellcolor{faureddark!20}}\visible<31->{f,c,a,m:2, c,b:1}   \\\hline
 								\end{tabular}
 							};
 						}
 					}
+
+					% Conditional FP-tree for "c"
+					\visible<34-37>{
+						\node[text width=5cm, anchor=north] at (1,0) (conditional-pattern-base)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Condition} & \textbf{Pattern Base} \\\hline
+									c                  & f:3                   \\\hline
+								\end{tabular}
+							\end{center}
+						};
+
+
+						\visible<35->{
+							% Header table
+							\node[inner sep=0cm] at (0.2,-3.1) (headertable) {\scalebox{0.7}{\headertableheader}};
+							\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+									\headertableentry{(c,)f}{3}%
+								}};
+
+							% FP-tree
+							\node[inner sep=0.05cm] at (2.5,-3) (root) {\scalebox{0.7}{%
+									\fptreerootnode%
+								}};
+							\node[inner sep=0.05cm] at (2.5,-3.7) (f) {\scalebox{0.7}{%
+									\fptreenode{f}{3}%
+								}};
+							\draw (root) -- (f);
+
+
+							% Pointers
+							\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+						}
+
+						\visible<37->{
+							\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+							{
+								\begin{center}
+									\begin{tabular}{|c|c|}
+										\hline
+										\textbf{Item} & \textbf{Conditional Pattern Base} \\\hline
+										(c,) f        & -                                 \\\hline
+									\end{tabular}
+								\end{center}
+							};
+						}
+					}
+
+
+					% Conditional FP-tree for "a"
+					\visible<39-40>{
+						\node[text width=5cm, anchor=north] at (1,0) (conditional-pattern-base)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Condition} & \textbf{Pattern Base} \\\hline
+									a                  & f,c:3                 \\\hline
+								\end{tabular}
+							\end{center}
+						};
+
+
+						% Header table
+						\node[inner sep=0cm] at (0.2,-3.1) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+								\headertableentry{(a,)f}{3}%
+							}};
+						\node[inner sep=0cm, below=0cm of f-header] (c-header) {\scalebox{0.7}{%
+								\headertableentry{(a,)c}{3}%
+							}};
+
+						% FP-tree
+						\node[inner sep=0.05cm] at (2.5,-3) (root) {\scalebox{0.7}{%
+								\fptreerootnode%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-3.7) (f) {\scalebox{0.7}{%
+								\fptreenode{f}{3}%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-4.4) (fc) {\scalebox{0.7}{%
+								\fptreenode{c}{3}%
+							}};
+						\draw (root) -- (f) -- (fc);
+
+
+						% Pointers
+						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+						\draw[->, color=faugraydark, dashed] (c-header) to [out=0, in=180] (fc);
+
+						\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Item}                           & \textbf{Conditional Pattern Base}    \\\hline
+									(a,) f                                  & -                                    \\\hline
+									\only<40>{\cellcolor{faugray!50}}(a,) c & \only<40>{\cellcolor{faugray!50}}f:3 \\\hline
+								\end{tabular}
+							\end{center}
+						};
+					}
+
+					% Conditional FP-tree for "a,c"
+					\visible<41>{
+						\node[text width=5cm, anchor=north] at (1,0) (conditional-pattern-base)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Condition} & \textbf{Pattern Base} \\\hline
+									a,c                & f:3                   \\\hline
+								\end{tabular}
+							\end{center}
+						};
+
+
+						% Header table
+						\node[inner sep=0cm] at (0.2,-3.1) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+								\headertableentry{(a,c,)f}{3}%
+							}};
+
+						% FP-tree
+						\node[inner sep=0.05cm] at (2.5,-3) (root) {\scalebox{0.7}{%
+								\fptreerootnode%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-3.7) (f) {\scalebox{0.7}{%
+								\fptreenode{f}{3}%
+							}};
+						\draw (root) -- (f);
+
+
+						% Pointers
+						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+
+						\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Item} & \textbf{Conditional Pattern Base} \\\hline
+									(a,c,) f      & -                                 \\\hline
+								\end{tabular}
+							\end{center}
+						};
+					}
+
+					% Conditional FP-tree for "b"
+					\visible<43>{
+						\node[text width=5cm, anchor=north] at (1,0) (conditional-pattern-base)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Condition} & \textbf{Pattern Base} \\\hline
+									b                  & f,c,a:1, f:1, c:1     \\\hline
+								\end{tabular}
+							\end{center}
+						};
+
+
+						% Header table
+						\node[inner sep=0cm] at (-0.4,-3.1) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+								\headertableentry{(b,)f}{2}%
+							}};
+						\node[inner sep=0cm, below=0cm of f-header] (c-header) {\scalebox{0.7}{%
+								\headertableentry{(b,)c}{2}%
+							}};
+						\node[inner sep=0cm, below=0cm of c-header] (a-header) {\scalebox{0.7}{%
+								\headertableentry{(b,)a}{1}%
+							}};
+
+						% FP-tree
+						\node[inner sep=0.05cm] at (3,-3) (root) {\scalebox{0.7}{%
+								\fptreerootnode%
+							}};
+						\node[inner sep=0.05cm] at (2.3,-3.7) (f) {\scalebox{0.7}{%
+								\fptreenode{f}{2}%
+							}};
+						\node[inner sep=0.05cm] at (2.3,-4.4) (fc) {\scalebox{0.7}{%
+								\fptreenode{c}{1}%
+							}};
+						\node[inner sep=0.05cm] at (2.3,-5.1) (fca) {\scalebox{0.7}{%
+								\fptreenode{a}{1}%
+							}};
+						\node[inner sep=0.05cm] at (3.7,-3.7) (c) {\scalebox{0.7}{%
+								\fptreenode{c}{1}%
+							}};
+						\draw (root) -- (f) -- (fc) -- (fca);
+						\draw (root) -- (c);
+
+
+						% Pointers
+						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+						\draw[->, color=faugraydark, dashed] (c-header) to [out=0, in=180] (fc);
+						\draw[->, color=faugraydark, dashed] (a-header) to [out=0, in=180] (fca);
+						\draw[->, color=faugraydark, dashed] (fc) to [out=0, in=180] (c);
+
+						\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Item} & \textbf{Conditional Pattern Base} \\\hline
+									\multicolumn{2}{|c|}{No frequent items}           \\\hline
+								\end{tabular}
+							\end{center}
+						};
+					}
+
+					% Conditional FP-tree for "m"
+					\visible<45-46,48>{
+						\node[text width=5cm, anchor=north] at (1,0) (conditional-pattern-base)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Condition} & \textbf{Pattern Base} \\\hline
+									m                  & f,c,a:2, f,c,a,b:1    \\\hline
+								\end{tabular}
+							\end{center}
+						};
+
+
+						% Header table
+						\node[inner sep=0cm] at (0.2,-3.1) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+								\headertableentry{(m,)f}{3}%
+							}};
+						\node[inner sep=0cm, below=0cm of f-header] (c-header) {\scalebox{0.7}{%
+								\headertableentry{(m,)c}{3}%
+							}};
+						\node[inner sep=0cm, below=0cm of c-header] (a-header) {\scalebox{0.7}{%
+								\headertableentry{(m,)a}{3}%
+							}};
+						\node[inner sep=0cm, below=0cm of a-header] (b-header) {\scalebox{0.7}{%
+								\headertableentry{(m,)b}{1}%
+							}};
+
+						% FP-tree
+						\node[inner sep=0.05cm] at (2.5,-2.5) (root) {\scalebox{0.7}{%
+								\fptreerootnode%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-3.2) (f) {\scalebox{0.7}{%
+								\fptreenode{f}{3}%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-3.9) (fc) {\scalebox{0.7}{%
+								\fptreenode{c}{3}%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-4.6) (fca) {\scalebox{0.7}{%
+								\fptreenode{a}{3}%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-5.3) (fcab) {\scalebox{0.7}{%
+								\fptreenode{b}{1}%
+							}};
+						\draw (root) -- (f) -- (fc) -- (fca) -- (fcab);
+
+
+						% Pointers
+						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+						\draw[->, color=faugraydark, dashed] (c-header) to [out=0, in=180] (fc);
+						\draw[->, color=faugraydark, dashed] (a-header) to [out=0, in=180] (fca);
+						\draw[->, color=faugraydark, dashed] (b-header) to [out=0, in=180] (fcab);
+
+						\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Item}                           & \textbf{Conditional Pattern Base}      \\\hline
+									(m,) f                                  & -                                      \\\hline
+									\only<46>{\cellcolor{faugray!50}}(m,) c & \only<46>{\cellcolor{faugray!50}}f:3   \\\hline
+									\only<48>{\cellcolor{faugray!50}}(m,) a & \only<48>{\cellcolor{faugray!50}}f,c:3 \\\hline
+								\end{tabular}
+							\end{center}
+						};
+					}
+
+					% Conditional FP-tree for "m,c"
+					\visible<47>{
+						\node[text width=5cm, anchor=north] at (1,0) (conditional-pattern-base)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Condition} & \textbf{Pattern Base} \\\hline
+									m,c                & f:3                   \\\hline
+								\end{tabular}
+							\end{center}
+						};
+
+
+						% Header table
+						\node[inner sep=0cm] at (0.2,-3.1) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+								\headertableentry{(m,c,)f}{3}%
+							}};
+
+						% FP-tree
+						\node[inner sep=0.05cm] at (2.5,-3) (root) {\scalebox{0.7}{%
+								\fptreerootnode%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-3.7) (f) {\scalebox{0.7}{%
+								\fptreenode{f}{3}%
+							}};
+						\draw (root) -- (f);
+
+
+						% Pointers
+						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+
+						\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Item} & \textbf{Conditional Pattern Base} \\\hline
+									(m,c,) f      & -                                 \\\hline
+								\end{tabular}
+							\end{center}
+						};
+					}
+
+					% Conditional FP-tree for "m,a"
+					\visible<49-50>{
+						\node[text width=5cm, anchor=north] at (1,0) (conditional-pattern-base)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Condition} & \textbf{Pattern Base} \\\hline
+									m,a                & f,c:3                 \\\hline
+								\end{tabular}
+							\end{center}
+						};
+
+
+						% Header table
+						\node[inner sep=0cm] at (0.2,-3.1) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+								\headertableentry{(m,a,)f}{3}%
+							}};
+						\node[inner sep=0cm, below=0cm of f-header] (c-header) {\scalebox{0.7}{%
+								\headertableentry{(m,a,)c}{3}%
+							}};
+
+						% FP-tree
+						\node[inner sep=0.05cm] at (2.5,-3) (root) {\scalebox{0.7}{%
+								\fptreerootnode%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-3.7) (f) {\scalebox{0.7}{%
+								\fptreenode{f}{3}%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-4.4) (fc) {\scalebox{0.7}{%
+								\fptreenode{c}{3}%
+							}};
+						\draw (root) -- (f) -- (fc);
+
+
+						% Pointers
+						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+						\draw[->, color=faugraydark, dashed] (c-header) to [out=0, in=180] (fc);
+
+						\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Item}                             & \textbf{Conditional Pattern Base}    \\\hline
+									(a,) f                                    & -                                    \\\hline
+									\only<50>{\cellcolor{faugray!50}}(m,a,) c & \only<50>{\cellcolor{faugray!50}}f:3 \\\hline
+								\end{tabular}
+							\end{center}
+						};
+					}
+
+					% Conditional FP-tree for "m,a,c"
+					\visible<51>{
+						\node[text width=5cm, anchor=north] at (1,0) (conditional-pattern-base)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Condition} & \textbf{Pattern Base} \\\hline
+									m,a,c              & f:3                   \\\hline
+								\end{tabular}
+							\end{center}
+						};
+
+
+						% Header table
+						\node[inner sep=0cm] at (0.2,-3.1) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+								\headertableentry{(m,a,c,)f}{3}%
+							}};
+
+						% FP-tree
+						\node[inner sep=0.05cm] at (2.5,-3) (root) {\scalebox{0.7}{%
+								\fptreerootnode%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-3.7) (f) {\scalebox{0.7}{%
+								\fptreenode{f}{3}%
+							}};
+						\draw (root) -- (f);
+
+
+						% Pointers
+						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+
+						\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Item} & \textbf{Conditional Pattern Base} \\\hline
+									(m,a,c,) f    & -                                 \\\hline
+								\end{tabular}
+							\end{center}
+						};
+					}
+
+					% Conditional FP-tree for "p"
+					\visible<53-54>{
+						\node[text width=5cm, anchor=north] at (1,0) (conditional-pattern-base)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Condition} & \textbf{Pattern Base} \\\hline
+									p                  & f,c,a,m:2, c,b:1      \\\hline
+								\end{tabular}
+							\end{center}
+						};
+
+
+						% Header table
+						\node[inner sep=0cm] at (-0.4,-3.1) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+								\headertableentry{(p,)f}{2}%
+							}};
+						\node[inner sep=0cm, below=0cm of f-header] (c-header) {\scalebox{0.7}{%
+								\headertableentry{(p,)c}{3}%
+							}};
+						\node[inner sep=0cm, below=0cm of c-header] (a-header) {\scalebox{0.7}{%
+								\headertableentry{(p,)a}{2}%
+							}};
+						\node[inner sep=0cm, below=0cm of a-header] (m-header) {\scalebox{0.7}{%
+								\headertableentry{(p,)m}{2}%
+							}};
+						\node[inner sep=0cm, below=0cm of m-header] (b-header) {\scalebox{0.7}{%
+								\headertableentry{(p,)b}{1}%
+							}};
+
+						% FP-tree
+						\node[inner sep=0.05cm] at (3,-2.5) (root) {\scalebox{0.7}{%
+								\fptreerootnode%
+							}};
+						\node[inner sep=0.05cm] at (2.3,-3.2) (f) {\scalebox{0.7}{%
+								\fptreenode{f}{2}%
+							}};
+						\node[inner sep=0.05cm] at (2.3,-3.9) (fc) {\scalebox{0.7}{%
+								\fptreenode{c}{2}%
+							}};
+						\node[inner sep=0.05cm] at (2.3,-4.6) (fca) {\scalebox{0.7}{%
+								\fptreenode{a}{2}%
+							}};
+						\node[inner sep=0.05cm] at (2.3,-5.3) (fcam) {\scalebox{0.7}{%
+								\fptreenode{m}{2}%
+							}};
+						\node[inner sep=0.05cm] at (3.7,-3.2) (c) {\scalebox{0.7}{%
+								\fptreenode{c}{1}%
+							}};
+						\node[inner sep=0.05cm] at (3.7,-3.9) (cb) {\scalebox{0.7}{%
+								\fptreenode{b}{1}%
+							}};
+						\draw (root) -- (f) -- (fc) -- (fca) -- (fcam);
+						\draw (root) -- (c) -- (cb);
+
+
+						% Pointers
+						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+						\draw[->, color=faugraydark, dashed] (c-header) to [out=0, in=180] (fc);
+						\draw[->, color=faugraydark, dashed] (a-header) to [out=0, in=180] (fca);
+						\draw[->, color=faugraydark, dashed] (m-header) to [out=0, in=180] (fcam);
+						\draw[->, color=faugraydark, dashed] (b-header) .. controls (2.0,-5.9) and (3.2,-5.9) .. (cb);
+						\draw[->, color=faugraydark, dashed] (fc) to [out=0, in=180] (c);
+
+						\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Item}                           & \textbf{Conditional Pattern Base}    \\\hline
+									\only<54>{\cellcolor{faugray!50}}(p,) c & \only<54>{\cellcolor{faugray!50}}f:2 \\\hline
+								\end{tabular}
+							\end{center}
+						};
+					}
+
+					% Conditional FP-tree for "p,c"
+					\visible<55>{
+						\node[text width=5cm, anchor=north] at (1,0) (conditional-pattern-base)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Condition} & \textbf{Pattern Base} \\\hline
+									p,c                & f:2                   \\\hline
+								\end{tabular}
+							\end{center}
+						};
+
+
+						% Header table
+						\node[inner sep=0cm] at (0.2,-3.1) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+								\headertableentry{(p,c,)f}{2}%
+							}};
+
+						% FP-tree
+						\node[inner sep=0.05cm] at (2.5,-3) (root) {\scalebox{0.7}{%
+								\fptreerootnode%
+							}};
+						\node[inner sep=0.05cm] at (2.5,-3.7) (f) {\scalebox{0.7}{%
+								\fptreenode{f}{2}%
+							}};
+						\draw (root) -- (f);
+
+
+						% Pointers
+						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+
+						\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Item} & \textbf{Conditional Pattern Base} \\\hline
+									\multicolumn{2}{|c|}{No frequent items}           \\\hline
+								\end{tabular}
+							\end{center}
+						};
+					}
+
+					\visible<57>{
+						\node[text width=5cm, anchor=north] at (0,-1) (frequent-patterns)
+						{
+							\begin{center}
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Source}       & \textbf{Frequent Itemset(s)}             \\ \hline
+									Initial FP-tree       & \{f\}, \{c\}, \{a\}, \{b\}, \{m\}, \{p\} \\ \hline
+									c’s cond. FP-tree     & \{c,f\}                                  \\ \hline
+									a’s cond. FP-tree     & \{a,f\}, \{a,c\}                         \\ \hline
+									b’s cond. FP-tree     & -                                        \\ \hline
+									a,c’s cond. FP-tree   & \{a,c,f\}                                \\ \hline
+									m’s cond. FP-tree     & \{m,f\},\{m,c\},\{m,a\}                  \\ \hline
+									m,c’s cond. FP-tree   & \{m,c,f\}                                \\ \hline
+									m,a’s cond. FP-tree   & \{m,a,f\},\{m,a,c\}                      \\ \hline
+									m,a,c’s cond. FP-tree & \{m,a,c,f\}                              \\ \hline
+									p’s cond. FP-tree     & \{p,c\}                                  \\ \hline
+									p,c’s cond. FP-tree   & -                                        \\ \hline
+								\end{tabular}
+							\end{center}
+						};
+					}
+
 				\end{tikzpicture}
 
 			}
@@ -1013,691 +1595,113 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Construct FP-tree from a Transaction Database}
-	\centering
-	\begin{tabular}{|c|c|c|}
-		\hline
-		\underline{TID} & \underline{Items bought} & \underline{(ordered)
-		frequent items}                                                   \\\hline
-		100             & $\{f,a,c,d,g,i,m,p\}$    & $\{f,c,a,m,p\}$      \\\hline
-		200             & $\{a,b,c,f,l,m\}$        & $\{f,c,a,b,m\}$      \\\hline
-		300             & $\{b,f,h,j,o,w\}$        & $\{f,b\}$            \\\hline
-		400             & $\{b,c,k,s,p\}$          & $\{c,b,p\}$          \\\hline
-		500             & $\{a,f,c,e,l,p,m,n\}$    & $\{f,c,a,m,p\}$      \\\hline
-	\end{tabular}
-	\vspace{0.2cm}
-	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\vspace{-3.5cm}
-			\begin{itemize}
-				\item[1.] Scan DB once, find frequent $1$-itemsets (single-item
-				      patterns).
-				\item[2.] Sort frequent items in frequency-descending order,
-				      creating the \textbf{f-list}.
-				\item[3.] Scan DB again, construct \textbf{FP-tree}.
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\centering
-			\scalebox{0.85}{
-				\begin{tikzpicture}
-					\node[draw, fill=airforceblue] at (0,0) (0)
-					{\color{white}$\{\}$};
-					\node[draw, fill=airforceblue] at (-1,-0.7) (f4)
-					{\color{white}$f:4$};
-					\node[draw, fill=airforceblue] at (-1.5,-1.4) (c3)
-					{\color{white}$c:3$};
-					\node[draw, fill=airforceblue] at (-1.5,-2.1) (a3)
-					{\color{white}$a:3$};
-					\node[draw, fill=airforceblue] at (-2,-2.7) (m2)
-					{\color{white}$m:2$};
-					\node[draw, fill=airforceblue] at (-2,-3.3) (p2)
-					{\color{white}$p:2$};
-					\node[draw, fill=airforceblue] at (-1,-2.7) (b12)
-					{\color{white}$b:1$};
-					\node[draw, fill=airforceblue] at (-1,-3.3) (m1)
-					{\color{white}$m:1$};
-
-					\node[draw, fill=airforceblue] at (-0.5,-1.4) (b1)
-					{\color{white}$b:1$};
-					\node[draw, fill=airforceblue] at (1,-0.7) (c1)
-					{\color{white}$c:1$};
-					\node[draw, fill=airforceblue] at (1,-1.4) (b13)
-					{\color{white}$b:1$};
-					\node[draw, fill=airforceblue] at (1,-2.1) (p1)
-					{\color{white}$p:1$};
-					\draw (0) -- (f4) -- (c3) -- (a3) -- (m2) -- (p2);
-					\draw (0) -- (c1);
-					\draw (f4) -- (b1);
-					\draw (a3) -- (b12) -- (m1);
-					\draw (c1) -- (b13) -- (p1);
-					\node at (2,0) (0)
-					{\color{airforceblue}$\text{min\_sup}=3$};
-					\node at (2,-3) (0) {\textbf{\color{airforceblue}F-list} =
-						f-c-a-b-m-p};
-				\end{tikzpicture}
-			}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Partition Itemsets and Databases}
+\begin{frame}{FP-growth - Special Case(s) (I)}
 	\begin{itemize}
-		\item \textbf{Frequent itemsets can be partitioned into subsets
-			      according to f-list.}
+		\item \textbf{Special Case:} A single branch FP-tree
 		      \begin{itemize}
-			      \item F-list = f-c-a-b-m-p.
-			      \item Patterns containing p.
-			            \begin{itemize}
-				            \item The least-frequent item (at the end of the f-list,
-				                  suffix).
-			            \end{itemize}
-			      \item Patterns having m but not p.
-			      \item $\vdots$
-			      \item Patterns having c but not a nor b, m, p.
-			      \item Pattern f.
+			      \item No recursion required.\footnote{A simple FP-tree recursion will still work, but is not as efficent as one with a special case optimization.}
+			      \item Frequent itemsets can directly be generated in one shot.
 		      \end{itemize}
-		\item \textbf{This processing order guarantees completeness and
-			      non-redundancy.}
+
+		      \vspace*{0.5cm}
+
+		      \begin{center}
+			      \scalebox{0.7}{
+				      \begin{tikzpicture}
+					      % Single branch FP-tree
+					      \node[inner sep=0.05cm] at (0,0) (root) {\scalebox{0.7}{\fptreerootnode}};
+					      \node[inner sep=0.05cm] at (0,-0.7) (d) {\scalebox{0.7}{\fptreenode{d}{3}}};
+					      \node[inner sep=0.05cm] at (0,-1.4) (o) {\scalebox{0.7}{\fptreenode{o}{3}}};
+					      \node[inner sep=0.05cm] at (0,-2.1) (m) {\scalebox{0.7}{\fptreenode{m}{3}}};
+					      \node[inner sep=0.05cm] at (0,-2.8) (i) {\scalebox{0.7}{\fptreenode{i}{3}}};
+					      \draw (root) -- (d) -- (o) -- (m) -- (i);
+
+					      % Arrow
+					      \node at (2,-1.4) (arrow) {$\rightarrow$};
+
+					      % Frequent itemsets
+					      \node[text width=5cm] at (6,-1.4) (frequent-itemsets) {
+						      \textbf{Frequent Itemsets:} \\
+						      \begin{itemize}
+							      \item \{d\}, \{o\}, \{m\}, \{i\}
+							      \item \{d,o\}, \{d,m\}, \{d,i\}
+							      \item \{o,m\}, \{o,i\}
+							      \item \{m,i\}
+							      \item \{d,o,m\}, \{d,o,i\}, \{d,m,i\}
+							      \item \{o,m,i\}
+							      \item \{d,o,m,i\}
+						      \end{itemize}
+					      };
+
+
+				      \end{tikzpicture}
+			      }
+		      \end{center}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Find Itemsets from $p$'s Conditional Pattern Base}
+\begin{frame}{FP-growth - Special Case(s) (II)}
 	\begin{itemize}
-		\item \textbf{Starting at the frequent-item header table in the
-			      FP-tree.}
-		\item \textbf{Traverse the FP-tree by following the link of frequent
-			      item $p$.}
-		\item \textbf{Accumulate all transformed {\color{airforceblue}prefix
-				      paths} of item $p$ to form $p$'s {\color{red}conditional pattern base}.}
-	\end{itemize}
-	\vspace{0.2cm}
-	\centering
-	\scalebox{0.9}{
-		\begin{tikzpicture}
-			\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-			\node[draw, fill=airforceblue] at (-1,-0.7) (f4)
-			{\color{white}$f:4$};
-			\node[draw, fill=airforceblue] at (-1.5,-1.4) (c3)
-			{\color{white}$c:3$};
-			\node[draw, fill=airforceblue] at (-1.5,-2.1) (a3)
-			{\color{white}$a:3$};
-			\node[draw, fill=airforceblue] at (-2,-2.7) (m2)
-			{\color{white}$m:2$};
-			\node[draw, fill=airforceblue] at (-2,-3.3) (p2)
-			{\color{white}$p:2$};
-			\node[draw, fill=airforceblue] at (-1,-2.7) (b12)
-			{\color{white}$b:1$};
-			\node[draw, fill=airforceblue] at (-1,-3.3) (m1)
-			{\color{white}$m:1$};
-
-			\node[draw, fill=airforceblue] at (-0.5,-1.4) (b1)
-			{\color{white}$b:1$};
-			\node[draw, fill=airforceblue] at (1,-0.7) (c1)
-			{\color{white}$c:1$};
-			\node[draw, fill=airforceblue] at (1,-1.4) (b13)
-			{\color{white}$b:1$};
-			\node[draw, fill=airforceblue] at (1,-2.1) (p1)
-			{\color{white}$p:1$};
-			\draw (0) -- (f4) -- (c3) -- (a3) -- (m2) -- (p2);
-			\draw (0) -- (c1);
-			\draw (f4) -- (b1);
-			\draw (a3) -- (b12) -- (m1);
-			\draw (c1) -- (b13) -- (p1);
-			\node at (2,0) (0) {\color{airforceblue}$\text{min\_sup}=3$};
-			\node at (2,-3) (0) {\textbf{\color{airforceblue}F-list} =
-				f-c-a-b-m-p};
-			\node at (5.5,0.5) (0) {\textbf{Header table:}};
-			\node at (10,0.5) (0) {\textbf{Conditional pattern bases:}};
-			\node at (5.5,-1.5) (0) {
-				\begin{tabular}{|c|c|}
-					\hline
-					\textbf{item} & \textbf{Frequency} \\\hline
-					f             & 4                  \\
-					c             & 4                  \\
-					a             & 3                  \\
-					b             & 3                  \\
-					m             & 3                  \\
-					p             & 3                  \\\hline
-				\end{tabular}
-			};
-			\node at (10,-1.5) (0) {
-				\begin{tabular}{|c|c|}
-					\hline
-					\textbf{item} & \textbf{pattern base} \\\hline
-					c             & f:3                   \\
-					a             & fc:3                  \\
-					b             & fca:1, f:1, c:1       \\
-					m             & fca:2, fcab:1         \\
-					p             & fcam:2, cb:1          \\
-					\hline
-				\end{tabular}
-			};
-		\end{tikzpicture}
-	}
-\end{frame}
-
-\begin{frame}{$p$'s Conditional Pattern Base}
-	\centering
-	\begin{tikzpicture}
-		\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-		\node[draw, fill=ForestGreen] at (-1,-0.7) (f4) {\color{white}$f:4$};
-		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c3) {\color{white}$c:3$};
-		\node[draw, fill=ForestGreen] at (-1.5,-2.1) (a3) {\color{white}$a:3$};
-		\node[draw, fill=ForestGreen] at (-2,-2.7) (m2) {\color{white}$m:2$};
-		\node[draw, fill=red] at (-2,-3.3) (p2) {\color{white}$p:2$};
-		\node[draw, fill=airforceblue] at (-1,-2.7) (b12) {\color{white}$b:1$};
-		\node[draw, fill=airforceblue] at (-1,-3.3) (m1) {\color{white}$m:1$};
-
-		\node[draw, fill=airforceblue] at (-0.5,-1.4) (b1) {\color{white}$b:1$};
-		\node[draw, fill=ForestGreen] at (1,-0.7) (c1) {\color{white}$c:1$};
-		\node[draw, fill=ForestGreen] at (1,-1.4) (b13) {\color{white}$b:1$};
-		\node[draw, fill=red] at (1,-2.1) (p1) {\color{white}$p:1$};
-		\draw (0) -- (f4) -- (c3) -- (a3) -- (m2) -- (p2);
-		\draw (0) -- (c1);
-		\draw (f4) -- (b1);
-		\draw (a3) -- (b12) -- (m1);
-		\draw (c1) -- (b13) -- (p1);
-		\node at (5.5,0.5) (0) {\textbf{Header table:}};
-		\node at (5.5,-1.5) (0) {
-			\begin{tabular}{|c|c|}
-				\hline
-				\textbf{item}         & \textbf{Frequency}    \\\hline
-				f                     & 4                     \\
-				c                     & 4                     \\
-				a                     & 3                     \\
-				b                     & 3                     \\
-				m                     & 3                     \\
-				\textbf{\color{red}p} & \textbf{\color{red}3} \\\hline
-			\end{tabular}
-		};
-	\end{tikzpicture}\\[0.2cm]
-	Hence, $p$'s conditional pattern base is\\
-	fcam:2, cb:1\\
-	both below min\_sup.
-\end{frame}
-
-\begin{frame}{$m$'s Conditional Pattern Base}
-	\centering
-	\begin{tikzpicture}
-		\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-		\node[draw, fill=ForestGreen] at (-1,-0.7) (f4) {\color{white}$f:4$};
-		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c3) {\color{white}$c:3$};
-		\node[draw, fill=ForestGreen] at (-1.5,-2.1) (a3) {\color{white}$a:3$};
-		\node[draw, fill=red] at (-2,-2.7) (m2) {\color{white}$m:2$};
-		\node[draw, fill=airforceblue] at (-2,-3.3) (p2) {\color{white}$p:2$};
-		\node[draw, fill=ForestGreen] at (-1,-2.7) (b12) {\color{white}$b:1$};
-		\node[draw, fill=red] at (-1,-3.3) (m1) {\color{white}$m:1$};
-
-		\node[draw, fill=airforceblue] at (-0.5,-1.4) (b1) {\color{white}$b:1$};
-		\node[draw, fill=airforceblue] at (1,-0.7) (c1) {\color{white}$c:1$};
-		\node[draw, fill=airforceblue] at (1,-1.4) (b13) {\color{white}$b:1$};
-		\node[draw, fill=airforceblue] at (1,-2.1) (p1) {\color{white}$p:1$};
-		\draw (0) -- (f4) -- (c3) -- (a3) -- (m2) -- (p2);
-		\draw (0) -- (c1);
-		\draw (f4) -- (b1);
-		\draw (a3) -- (b12) -- (m1);
-		\draw (c1) -- (b13) -- (p1);
-		\node at (5.5,0.5) (0) {\textbf{Header table:}};
-		\node at (5.5,-1.5) (0) {
-			\begin{tabular}{|c|c|}
-				\hline
-				\textbf{item}         & \textbf{Frequency}    \\\hline
-				f                     & 4                     \\
-				c                     & 4                     \\
-				a                     & 3                     \\
-				b                     & 3                     \\
-				\textbf{\color{red}m} & \textbf{\color{red}3} \\
-				p                     & 3                     \\\hline
-			\end{tabular}
-		};
-	\end{tikzpicture}\\[0.2cm]
-	Hence, $m$'s conditional pattern base is\\
-	fca:2, fcab:1\\
-	both below min\_sup.
-\end{frame}
-
-\begin{frame}{$b$'s Conditional Pattern Base}
-	\centering
-	\begin{tikzpicture}
-		\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-		\node[draw, fill=ForestGreen] at (-1,-0.7) (f4) {\color{white}$f:4$};
-		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c3) {\color{white}$c:3$};
-		\node[draw, fill=ForestGreen] at (-1.5,-2.1) (a3) {\color{white}$a:3$};
-		\node[draw, fill=airforceblue] at (-2,-2.7) (m2) {\color{white}$m:2$};
-		\node[draw, fill=airforceblue] at (-2,-3.3) (p2) {\color{white}$p:2$};
-		\node[draw, fill=red] at (-1,-2.7) (b12) {\color{white}$b:1$};
-		\node[draw, fill=airforceblue] at (-1,-3.3) (m1) {\color{white}$m:1$};
-
-		\node[draw, fill=red] at (-0.5,-1.4) (b1) {\color{white}$b:1$};
-		\node[draw, fill=ForestGreen] at (1,-0.7) (c1) {\color{white}$c:1$};
-		\node[draw, fill=red] at (1,-1.4) (b13) {\color{white}$b:1$};
-		\node[draw, fill=airforceblue] at (1,-2.1) (p1) {\color{white}$p:1$};
-		\draw (0) -- (f4) -- (c3) -- (a3) -- (m2) -- (p2);
-		\draw (0) -- (c1);
-		\draw (f4) -- (b1);
-		\draw (a3) -- (b12) -- (m1);
-		\draw (c1) -- (b13) -- (p1);
-		\node at (5.5,0.5) (0) {\textbf{Header table:}};
-		\node at (5.5,-1.5) (0) {
-			\begin{tabular}{|c|c|}
-				\hline
-				\textbf{item}         & \textbf{Frequency}    \\\hline
-				f                     & 4                     \\
-				c                     & 4                     \\
-				a                     & 3                     \\
-				\textbf{\color{red}b} & \textbf{\color{red}3} \\
-				m                     & 3                     \\
-				p                     & 3                     \\\hline
-			\end{tabular}
-		};
-	\end{tikzpicture}\\[0.2cm]
-	Hence, $b$'s conditional pattern base is\\
-	fca:1, f:1, c:1\\
-	{all below min\_sup.}
-\end{frame}
-
-\begin{frame}{$a$'s Conditional Pattern Base}
-	\centering
-	\begin{tikzpicture}
-		\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-		\node[draw, fill=ForestGreen] at (-1,-0.7) (f4) {\color{white}$f:4$};
-		\node[draw, fill=ForestGreen] at (-1.5,-1.4) (c3) {\color{white}$c:3$};
-		\node[draw, fill=red] at (-1.5,-2.1) (a2) {\color{white}$a:3$};
-		\node[draw, fill=airforceblue] at (-2,-2.7) (m3) {\color{white}$m:3$};
-		\node[draw, fill=airforceblue] at (-2,-3.3) (p2) {\color{white}$p:2$};
-		\node[draw, fill=airforceblue] at (-1,-2.7) (b12) {\color{white}$b:1$};
-		\node[draw, fill=airforceblue] at (-1,-3.3) (m1) {\color{white}$m:1$};
-
-		\node[draw, fill=airforceblue] at (-0.5,-1.4) (b1) {\color{white}$b:1$};
-		\node[draw, fill=airforceblue] at (1,-0.7) (c1) {\color{white}$c:1$};
-		\node[draw, fill=airforceblue] at (1,-1.4) (b13) {\color{white}$b:1$};
-		\node[draw, fill=airforceblue] at (1,-2.1) (p1) {\color{white}$p:1$};
-		\draw (0) -- (f4) -- (c3) -- (a3) -- (m2) -- (p2);
-		\draw (0) -- (c1);
-		\draw (f4) -- (b1);
-		\draw (a3) -- (b12) -- (m1);
-		\draw (c1) -- (b13) -- (p1);
-		\node at (5.5,0.5) (0) {\textbf{Header table:}};
-		\node at (5.5,-1.5) (0) {
-			\begin{tabular}{|c|c|}
-				\hline
-				\textbf{item}         & \textbf{Frequency}    \\\hline
-				f                     & 4                     \\
-				c                     & 4                     \\
-				\textbf{\color{red}a} & \textbf{\color{red}3} \\
-				b                     & 3                     \\
-				m                     & 3                     \\
-				p                     & 3                     \\\hline
-			\end{tabular}
-		};
-	\end{tikzpicture}\\[0.2cm]
-	Hence, $a$'s conditional pattern base is\\
-	fc:3\\
-	{has min\_sup.}
-\end{frame}
-
-\begin{frame}{From Conditional Pattern Bases to Conditional FP-trees}
-	\centering
-	\begin{itemize}
-		\item \textbf{For each conditional pattern base:}
-		      \begin{itemize}
-			      \item Accumulate the count for each item in the base.
-			      \item Construct the conditional FP-tree for the frequent items of
-			            the pattern base.
-		      \end{itemize}
-	\end{itemize}
-	\centering
-	\scalebox{0.9}{
-		\begin{tikzpicture}
-			\node[draw, fill=airforceblue] at (0,0) (0) {\color{white}$\{\}$};
-			\node[draw, fill=airforceblue] at (-1,-0.7) (f4)
-			{\color{white}$f:4$};
-			\node[draw, fill=airforceblue] at (-1.5,-1.4) (c2)
-			{\color{white}$c:3$};
-			\node[draw, fill=airforceblue] at (-1.5,-2.1) (a2)
-			{\color{white}$a:3$};
-			\node[draw, fill=airforceblue] at (-2,-2.7) (m2)
-			{\color{white}$m:2$};
-			\node[draw, fill=airforceblue] at (-2,-3.3) (p2)
-			{\color{white}$p:2$};
-			\node[draw, fill=airforceblue] at (-1,-2.7) (b12)
-			{\color{white}$b:1$};
-			\node[draw, fill=airforceblue] at (-1,-3.3) (m1)
-			{\color{white}$m:1$};
-
-			\node[draw, fill=airforceblue] at (-0.5,-1.4) (b1)
-			{\color{white}$b:1$};
-			\node[draw, fill=airforceblue] at (1,-0.7) (c1)
-			{\color{white}$c:1$};
-			\node[draw, fill=airforceblue] at (1,-1.4) (b13)
-			{\color{white}$b:1$};
-			\node[draw, fill=airforceblue] at (1,-2.1) (p1)
-			{\color{white}$p:1$};
-			\draw (0) -- (f4) -- (c3) -- (a3) -- (m2) -- (p2);
-			\draw (0) -- (c1);
-			\draw (f4) -- (b1);
-			\draw (a3) -- (b12) -- (m1);
-			\draw (c1) -- (b13) -- (p1);
-			\node at (5.5,-3.5) {\textbf{All frequent patterns related to
-					$m$:}};
-			\node at (5.5,-4) {m, fm, cm, am, fcm, fam, cam, fcam};
-			\node at (10,-1) (10) {$\{\}$};
-			\node at (10,-1.75) (11) {$f:3$};
-			\node at (10,-2.5) (12) {$c:3$};
-			\node at (10,-3.25) (13) {$a:3$};
-			\node at (10.5,-4) (14) {$b:1$};
-			\node at (10,0.5) {$m$\textbf{'s conditional pattern base:}};
-			\node at (10,0) {fca:2, fcab:1};
-			\node at (10,-0.5) {$m$\textbf{'s conditional FP-tree:}};
-			\draw (10) -- (11) -- (12) -- (13) -- (14);
-			\node at (5.5,0.5) {\textbf{Header table:}};
-			\node at (5.5,-1.5) {
-				\begin{tabular}{|c|c|}
-					\hline
-					\textbf{item} & \textbf{Frequency} \\\hline
-					f             & 4                  \\
-					c             & 4                  \\
-					a             & 3                  \\
-					b             & 3                  \\
-					m             & 3                  \\
-					p             & 3                  \\\hline
-				\end{tabular}
-			};
-		\end{tikzpicture}
-	}
-\end{frame}
-
-\begin{frame}{Recursion: Mining each Conditional FP-tree}
-	\centering
-	\scalebox{0.85}{
-		\begin{tikzpicture}
-			\node at (0,0.5) (0) {\textbf{$m$'s conditional FP-tree:}};
-			\node at (0,0) (0) {$\{\}$};
-			\node at (0,-1) (f3) {f:3};
-			\node at (0,-2) (c3) {c:3};
-			\node at (0,-3) (a3) {a:3};
-			\node at (1,-4) (b1) {b:1};
-			\draw (0)--(f3)--(c3)--(a3)--(b1);
-
-			\node at (6,-0) (r0) {$am$\textbf{'s conditional pattern base:} fc:3};
-			\node at (6,-2.5) (r0) {$cm$\textbf{'s conditional pattern base:} f:3};
-			\node at (6,-4.5) (r0) {$cam$\textbf{'s conditional pattern base:} f:3};
-
-			\node at (10,1.5) (0) {\textbf{$am$'s conditional FP-tree:}};
-			\node at (10,1) (r0) {$\{\}$};
-			\node at (10,0) (rf3) {f:3};
-			\node at (10,-1) (rc3) {c:3};
-			\draw (r0)--(rf3)--(rc3);
-
-			\node at (10,-1.5) (0) {\textbf{$cm$'s conditional FP-tree:}};
-			\node at (10,-2) (rr0) {$\{\}$};
-			\node at (10,-3) (rrf3) {f:3};
-			\draw (rr0)--(rrf3);
-
-			\node at (10,-3.5) (0) {\textbf{$cam$'s conditional FP-tree:}};
-			\node at (10,-4) (rrr0) {$\{\}$};
-			\node at (10,-5) (rrrf3) {f:3};
-			\draw (rrr0)--(rrrf3);
-		\end{tikzpicture}
-	}
-\end{frame}
-
-\begin{frame}{A Special Case: Single Prefix Path in FP-tree (I)}
-	\centering
-	\begin{itemize}
-		\item \textbf{Suppose a (conditional) FP-tree $T$ has a shared single
-			      prefix-path $P$.}
-		\item Mining can be decomposed into two parts.
+		\item \textbf{Special Case:} A single prefix path in a FP-tree
 		      \begin{itemize}
 			      \item Reduction of the single prefix path into one node.
 			      \item Concatenation of the mining results of the two parts.
+			      \item Both parts can be mined in parallel.
 		      \end{itemize}
 	\end{itemize}
-	\centering
-	\scalebox{0.9}{
-		\begin{tikzpicture}
-			\node at (0,0) (0) {$\{\}$};
-			\node at (0,-0.7) (a1n1) {$a_1:n_1$};
-			\node at (0,-1.4) (a2n2) {$a_2:n_2$};
-			\node at (0,-2.1) (a3n3) {$a_3:n_3$};
-			\node at (-0.7,-2.8) (b1m1) {$b_1:m_1$};
-			\node at (0.7,-2.8) (c1k1) {$c_1:k_1$};
-			\node at (0,-3.5) (c2k2) {$c_2:k_2$};
-			\node at (1.4,-3.5) (c3k3) {$c_3:k_3$};
-			\draw (0)--(a1n1)--(a2n2)--(a3n3)--(b1m1);
-			\draw (a3n3)--(c1k1);
-			\draw (c1k1)--(c2k2);
-			\draw (c1k1)--(c3k3);
-			\node at (2.1,-2.1) (join) {$\rightarrow$};
-			\node at (3.5,-2.1) (r1) {$r_1$};
-			\node at (4,-2.1) (r1) {$=$};
-			\node at (5,0) (20) {$\{\}$};
-			\node at (5,-0.7) (2a1n1) {$a_1:n_1$};
-			\node at (5,-1.4) (2a2n2) {$a_2:n_2$};
-			\node at (5,-2.1) (2a3n3) {$a_3:n_3$};
-			\draw (20)--(2a1n1)--(2a2n2)--(2a3n3);
-			\node at (7,-2.1) (r1) {$\oplus$};
-			\node at (8.4,-2.1) (30) {$r_1$};
-			\node at (8.1,-2.8) (b1m1) {$b_1:m_1$};
-			\node at (9.5,-2.8) (c1k1) {$c_1:k_1$};
-			\node at (8.4,-3.5) (c2k2) {$c_2:k_2$};
-			\node at (9.9,-3.5) (c3k3) {$c_3:k_3$};
-			\draw (30)--(c1k1)--(c3k3);
-			\draw (30)--(b1m1);
-			\draw (c1k1)--(c2k2);
-		\end{tikzpicture}
-	}
-\end{frame}
 
-\begin{frame}{A Special Case: Single Prefix Path in FP-tree (II)}
-	\centering
-	\begin{itemize}
-		\item \textbf{Completeness.}
-		      \begin{itemize}
-			      \item Preserve complete information for frequent-pattern mining.
-			      \item Never break a long pattern of any transaction.
-		      \end{itemize}
-		\item \textbf{Compactness.}
-		      \begin{itemize}
-			      \item Reduce irrelevant info - infrequent items are removed.
-			      \item Items in frequency-descending order.
-			            \begin{itemize}
-				            \item The more frequently occurring, the more likely to be
-				                  shared.
-			            \end{itemize}
-			      \item Never larger than the original database.
-			            \begin{itemize}
-				            \item Not counting node links and the count fields.
-			            \end{itemize}
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
+	\vspace*{0.5cm}
 
-\begin{frame}{The FP-growth Mining Method}
-	\centering
-	\begin{itemize}
-		\item \textbf{Idea: FP-growth.}
-		      \begin{itemize}
-			      \item Recursively grow frequent patterns by pattern and database
-			            partition.
-		      \end{itemize}
-		\item \textbf{Method:}
-		      \begin{itemize}
-			      \item For each frequent item, construct its conditional pattern
-			            base, \\
-			            and then its conditional FP-tree.
-			      \item Repeat the process on each newly created conditional FP-tree.
-			      \item Until the resulting FP-tree is empty, or it contains only one
-			            path.
-			            \begin{itemize}
-				            \item Single path will generate all the combinations of its
-				                  sub-paths, \\
-				                  each of which is a frequent pattern.
-			            \end{itemize}
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Scaling FP-growth by Database Projection}
-	\centering
-	\begin{itemize}
-		\item \textbf{What if FP-tree does not fit in memory?}
-		      \begin{itemize}
-			      \item DB projection.
-		      \end{itemize}
-		\item \textbf{First partition database into a set of projected DBs.}
-		\item \textbf{Then construct and mine FP-tree for each projected DB.}
-		\item \textbf{Parallel-projection vs. partition-projection techniques:}
-		      \begin{itemize}
-			      \item \textbf{\color{airforceblue}Parallel projection:}
-			            \begin{itemize}
-				            \item Project the DB in parallel for each frequent item.
-				            \item Parallel projection is space costly.
-				            \item All the partitions can be processed in parallel.
-			            \end{itemize}
-			      \item \textbf{\color{airforceblue}Partition projection:}
-			            \begin{itemize}
-				            \item Partition the DB based on the ordered frequent items.
-				            \item Passing the unprocessed parts to the subsequent
-				                  partitions.
-			            \end{itemize}
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Partition-based Projection}
-	\centering
-	\scalebox{0.9}{
-		\begin{tikzpicture}
-			\node at (-4.05,0) {\textbf{Parallel proj. needs much disk space.}};
-			\node at (-4.75,-0.5) {\textbf{Partition projection saves it.}};
-			\node at (0,-0) (0) {
-				\begin{tabular}{|c|}
-					\hline
-					\textbf{Tran. Db} \\\hline
-					fcamp             \\
-					fcabm             \\
-					fb                \\
-					cbp               \\
-					fcamp             \\\hline
-				\end{tabular}
-			};
-			\node at (-6,-2.5) (1) {
-				\begin{tabular}{|c|}
-					\hline
-					\textbf{p-proj. DB} \\\hline
-					fcam                \\
-					cb                  \\
-					fcam                \\\hline
-				\end{tabular}
-			};
-			\node at (-3.5,-2.5) (2) {
-				\begin{tabular}{|c|}
-					\hline
-					\textbf{m-proj. DB} \\\hline
-					fcab                \\
-					fca                 \\
-					fca                 \\\hline
-				\end{tabular}
-			};
-			\node at (-1,-2.5) (3) {
-				\begin{tabular}{|c|}
-					\hline
-					\textbf{b-proj. DB} \\\hline
-					f                   \\
-					cb                  \\
-					$\ldots$            \\\hline
-				\end{tabular}
-			};
-			\node at (1.5,-2.5) (4) {
-				\begin{tabular}{|c|}
-					\hline
-					\textbf{a-proj. DB} \\\hline
-					fc                  \\
-					$\ldots$            \\\hline
-				\end{tabular}
-			};
-			\node at (4,-2.5) (5) {
-				\begin{tabular}{|c|}
-					\hline
-					\textbf{c-proj. DB} \\\hline
-					f                   \\
-					$\ldots$            \\\hline
-				\end{tabular}
-			};
-			\node at (6.5,-2.5) (6) {
-				\begin{tabular}{|c|}
-					\hline
-					\textbf{f-proj. DB} \\\hline
-					$\ldots$            \\\hline
-				\end{tabular}
-			};
-			\node at (-3.5,-4.5) (10) {
-				\begin{tabular}{|c|}
-					\hline
-					\textbf{am-proj. DB} \\\hline
-					fc                   \\
-					fc                   \\
-					fc                   \\\hline
-				\end{tabular}
-			};
-			\node at (-1,-4.5) (11) {
-				\begin{tabular}{|c|}
-					\hline
-					\textbf{cm-proj. DB} \\\hline
-					f                    \\
-					f                    \\
-					f                    \\\hline
-				\end{tabular}
-			};
-			\draw[->] (0)--(1);
-			\draw[->] (0)--(2);
-			\draw[->] (0)--(3);
-			\draw[->] (0)--(4);
-			\draw[->] (0)--(5);
-			\draw[->] (0)--(6);
-			\draw[->] (2)--(10);
-			\draw[->] (2)--(11);
-			\draw[->, color=airforceblue] (-5.5,-2.3) -- (-3.8,-2.7);
-			\draw[->, color=airforceblue] (-5.5,-3.1) -- (-3.8,-3.1);
-			\draw[->, color=airforceblue] (-5.5,-2.7) to [out=-20,in=-180]
-			(-1.2,-2.7);
-			\draw[->, color=airforceblue] (-3.1,-2.3) to [out=20,in=-210]
-			(-3.8,-4.3);
-			\draw[->, color=airforceblue] (-3.1,-2.7) to [out=20,in=-210]
-			(-3.8,-4.7);
-			\draw[->, color=airforceblue] (-3.1,-2.7) to [out=20,in=-210]
-			(1.2,-2.5);
-			\draw[->, color=airforceblue] (1.7,-2.5) -- (3.7,-2.5);
-			\draw[->, color=airforceblue] (-3.1,-3.2) to [out=20,in=-210]
-			(-3.8,-5.2);
-			\draw[->, color=airforceblue] (-3.3,-5.15) -- (-1.2,-5.15);
-			\draw[->, color=airforceblue] (-3.3,-4.7) -- (-1.2,-4.7);
-			\draw[->, color=airforceblue] (-3.3,-4.25) -- (-1.2,-4.25);
-		\end{tikzpicture}
-	}
+	\begin{center}
+		\scalebox{0.7}{
+			\begin{tikzpicture}
+				\node[inner sep=0.05cm] at (0,0) (0) {\scalebox{0.7}{\fptreerootnode}};
+				\node[inner sep=0.05cm] at (0,-0.7) (a1n1) {\scalebox{0.7}{\fptreenode{a\textsubscript{1}}{n\textsubscript{1}}}};
+				\node[inner sep=0.05cm] at (0,-1.4) (a2n2) {\scalebox{0.7}{\fptreenode{a\textsubscript{2}}{n\textsubscript{2}}}};
+				\node[inner sep=0.05cm] at (0,-2.1) (a3n3) {\scalebox{0.7}{\fptreenode{a\textsubscript{3}}{n\textsubscript{3}}}};
+				\node[inner sep=0.05cm] at (-0.7,-2.8) (b1m1) {\scalebox{0.7}{\fptreenode{b\textsubscript{1}}{m\textsubscript{1}}}};
+				\node[inner sep=0.05cm] at (0.7,-2.8) (c1k1) {\scalebox{0.7}{\fptreenode{c\textsubscript{1}}{k\textsubscript{1}}}};
+				\node[inner sep=0.05cm] at (0,-3.5) (c2k2) {\scalebox{0.7}{\fptreenode{c\textsubscript{2}}{k\textsubscript{2}}}};
+				\node[inner sep=0.05cm] at (1.4,-3.5) (c3k3) {\scalebox{0.7}{\fptreenode{c\textsubscript{3}}{k\textsubscript{3}}}};
+				\draw (0)--(a1n1)--(a2n2)--(a3n3)--(b1m1);
+				\draw (a3n3)--(c1k1);
+				\draw (c1k1)--(c2k2);
+				\draw (c1k1)--(c3k3);
+				\node at (2.1,-2.1) (join) {$\rightarrow$};
+				\node[inner sep=0.05cm] at (3.5,-2.1) (r1) {\scalebox{0.7}{\fptreeuniquenode{r\textsubscript{1}}}};
+				\node at (4.25,-2.1) (r1equals) {$=$};
+				\node[inner sep=0.05cm] at (5,0) (20) {\scalebox{0.7}{\fptreerootnode}};
+				\node[inner sep=0.05cm] at (5,-0.7) (2a1n1) {\scalebox{0.7}{\fptreenode{a\textsubscript{1}}{n\textsubscript{1}}}};
+				\node[inner sep=0.05cm] at (5,-1.4) (2a2n2) {\scalebox{0.7}{\fptreenode{a\textsubscript{2}}{n\textsubscript{2}}}};
+				\node[inner sep=0.05cm] at (5,-2.1) (2a3n3) {\scalebox{0.7}{\fptreenode{a\textsubscript{3}}{n\textsubscript{3}}}};
+				\draw (20)--(2a1n1)--(2a2n2)--(2a3n3);
+				\node at (7,-2.1) (r1) {$\oplus$};
+				\node[inner sep=0.05cm] at (8.4,-2.1) (30) {\scalebox{0.7}{\fptreeuniquenode{r\textsubscript{1}}}};
+				\node[inner sep=0.05cm] at (8.1,-2.8) (b1m1) {\scalebox{0.7}{\fptreenode{b\textsubscript{1}}{m\textsubscript{1}}}};
+				\node[inner sep=0.05cm] at (9.5,-2.8) (c1k1) {\scalebox{0.7}{\fptreenode{c\textsubscript{1}}{k\textsubscript{1}}}};
+				\node[inner sep=0.05cm] at (8.4,-3.5) (c2k2) {\scalebox{0.7}{\fptreenode{c\textsubscript{2}}{k\textsubscript{2}}}};
+				\node[inner sep=0.05cm] at (9.9,-3.5) (c3k3) {\scalebox{0.7}{\fptreenode{c\textsubscript{3}}{k\textsubscript{3}}}};
+				\draw (30)--(c1k1)--(c3k3);
+				\draw (30)--(b1m1);
+				\draw (c1k1)--(c2k2);
+			\end{tikzpicture}
+		}
+	\end{center}
 \end{frame}
 
 \begin{frame}{Advantages of the FP-growth Approach}
 	\begin{itemize}
-		\item \textbf{Divide-and-conquer:}
+		\item Can be \textbf{parallelized}:
 		      \begin{itemize}
-			      \item Decompose both the mining task and DB according
-			            to the frequent patterns obtained so far.
-			      \item This leads to focused search of smaller databases.
+			      \item Different conditional pattern bases can be mined in parallel.
 		      \end{itemize}
-		\item \textbf{Other factors:}
-		      \begin{itemize}
-			      \item No candidate generation, no candidate test.
-			      \item Compressed database: FP-tree structure.
-			      \item No repeated scan of entire database.
-			      \item Basic ops: counting local frequent items and building sub
-			            FP-tree,\\
-			            no pattern search and matching.
-		      \end{itemize}
+		\item \textbf{No candidate generation} \\ \hspace*{1cm} $\Rightarrow$ No candidate test required.
+		\item Compressed database: FP-tree structure.
+		\item Only \textbf{two} scans of the database.
 	\end{itemize}
 \end{frame}
+
+\subsection{Other Approaches}
 
 \begin{frame}{ECLAT: Mining by Exploring Vertical Data Format}
 	\begin{itemize}
