@@ -512,6 +512,20 @@
 	\end{tikzpicture}
 }
 
+\newcommand{\headertableheader}{
+	\begin{tikzpicture}
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.5cm] at (0,-1) (Item) {\textbf{Item}};
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.5cm, right = 0cm of Item] {\textbf{Sum}};
+	\end{tikzpicture}
+}
+
+\newcommand{\headertableentry}[2]{
+	\begin{tikzpicture}
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.5cm] at (0,-1) (Item) {$#1$};
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.5cm, right = 0cm of Item] {$#2$};
+	\end{tikzpicture}
+}
+
 \begin{frame}{FP-growth - Algorithm}
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
@@ -545,199 +559,232 @@
 			\vspace*{-0.5cm}
 			\centering
 			\scalebox{0.75}{
-				\begin{tikzpicture}
-					\visible<1-21>{
-						\node[text width=5cm, anchor=north] at (0,0) (original-dataset)
-						{
-							\begin{center}
-								\begin{tabular}{|c|c|}
-									\hline
-									\textbf{TID}                            & \textbf{Items bought}                                                                 \\\hline
-									\only<7-9>{\cellcolor{faugray!50}}100   & \only<7-9>{\cellcolor{faugray!50}}\only<1-7>{f,a,c,d,g,i,m,p}\only<8->{f,c,a,m,p}     \\\hline
-									\only<10-12>{\cellcolor{faugray!50}}200 & \only<10-12>{\cellcolor{faugray!50}}\only<1-10>{a,b,c,f,l,m}\only<11->{f,c,a,b,m}     \\\hline
-									\only<13-15>{\cellcolor{faugray!50}}300 & \only<13-15>{\cellcolor{faugray!50}}\only<1-13>{b,f,h,j,o,w}\only<14->{f,b}           \\\hline
-									\only<16-18>{\cellcolor{faugray!50}}400 & \only<16-18>{\cellcolor{faugray!50}}\only<1-16>{b,c,k,s,p}\only<17->{c,b,p}           \\\hline
-									\only<19-21>{\cellcolor{faugray!50}}500 & \only<19-21>{\cellcolor{faugray!50}}\only<1-19>{a,f,c,e,l,p,m,n}\only<20->{f,c,a,m,p} \\\hline
-								\end{tabular} \\
-								\vspace{0.2cm}
-								$min\_sup=3$ \\
-								\visible<5->{
-									\vspace{0.15cm}
-									\textbf{f-list:} f-c-a-b-m-p
+				\only<1-21>{
+					\begin{tikzpicture}
+						\visible<1-21>{
+							\node[text width=5cm, anchor=north] at (0,0) (original-dataset)
+							{
+								\begin{center}
+									\begin{tabular}{|c|c|}
+										\hline
+										\textbf{TID}                            & \textbf{Items bought}                                                                 \\\hline
+										\only<7-9>{\cellcolor{faugray!50}}100   & \only<7-9>{\cellcolor{faugray!50}}\only<1-7>{f,a,c,d,g,i,m,p}\only<8->{f,c,a,m,p}     \\\hline
+										\only<10-12>{\cellcolor{faugray!50}}200 & \only<10-12>{\cellcolor{faugray!50}}\only<1-10>{a,b,c,f,l,m}\only<11->{f,c,a,b,m}     \\\hline
+										\only<13-15>{\cellcolor{faugray!50}}300 & \only<13-15>{\cellcolor{faugray!50}}\only<1-13>{b,f,h,j,o,w}\only<14->{f,b}           \\\hline
+										\only<16-18>{\cellcolor{faugray!50}}400 & \only<16-18>{\cellcolor{faugray!50}}\only<1-16>{b,c,k,s,p}\only<17->{c,b,p}           \\\hline
+										\only<19-21>{\cellcolor{faugray!50}}500 & \only<19-21>{\cellcolor{faugray!50}}\only<1-19>{a,f,c,e,l,p,m,n}\only<20->{f,c,a,m,p} \\\hline
+									\end{tabular} \\
+									\vspace{0.2cm}
+									$min\_sup=3$ \\
+									\visible<5->{
+										\vspace{0.15cm}
+										\textbf{f-list:} f-c-a-b-m-p
+									}
+								\end{center}
+							};
+						}
+
+						\visible<3-5>{
+							\node[text width=5cm, anchor=north, below=0.15cm of original-dataset] (frequent-1-itemsets)
+							{
+								\begin{center}
+									\textbf{Frequent $1$-itemsets:} \\
+									\vspace{0.2cm}
+									\begin{tabular}{|c|c|}
+										\hline
+										\textbf{Itemset} & \textbf{Support} \\\hline
+										\{f\}            & 4                \\\hline
+										\{a\}            & 3                \\\hline
+										\{c\}            & 4                \\\hline
+										\{m\}            & 3                \\\hline
+										\{p\}            & 3                \\\hline
+										\{b\}            & 3                \\\hline
+									\end{tabular} \\
+								\end{center}
+
+							};
+						}
+
+						\visible<3>{
+							\draw[->] (original-dataset.east) to [out=0, in=-0] (frequent-1-itemsets.east);
+						}
+
+						\visible<5>{
+							\draw[->] (frequent-1-itemsets.east) to [out=0, in=-0] (original-dataset.south east);
+						}
+
+						\visible<9->{
+							\node[text width=5cm, anchor=north, below=0cm of original-dataset] (fp-tree)
+							{
+								\scalebox{0.7}{
+									\begin{tikzpicture} [scale=1]
+										\useasboundingbox (-4,0) rectangle (4,-5.5);
+
+										\node at (0,0) (root) {\fptreerootnode};
+
+										% TID 100
+										\visible<9-11>{
+											\node at (0,-1) (f) {\fptreenode{f}{1}};
+											\node at (0,-2) (fc) {\fptreenode{c}{1}};
+											\node at (0,-3) (fca) {\fptreenode{a}{1}};
+											\node at (0,-4) (fcam) {\fptreenode{m}{1}};
+											\node at (0,-5) (fcamp) {\fptreenode{p}{1}};
+
+											\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
+										}
+
+										% TID 200
+										\visible<12-14>{
+											\node at (0,-1) (f) {\fptreenode{f}{2}};
+											\node at (0,-2) (fc) {\fptreenode{c}{2}};
+											\node at (0,-3) (fca) {\fptreenode{a}{2}};
+											\node at (-1,-4) (fcam) {\fptreenode{m}{1}};
+											\node at (-1,-5) (fcamp) {\fptreenode{p}{1}};
+											\node at (1,-4) (fcab) {\fptreenode{b}{1}};
+											\node at (1,-5) (fcabm) {\fptreenode{m}{1}};
+
+											\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
+											\draw (fca) -- (fcab) -- (fcabm);
+										}
+
+										% TID 300
+										\visible<15-17>{
+											\node at (0,-1) (f) {\fptreenode{f}{3}};
+											\node at (-1,-2) (fc) {\fptreenode{c}{2}};
+											\node at (-1,-3) (fca) {\fptreenode{a}{2}};
+											\node at (-2,-4) (fcam) {\fptreenode{m}{1}};
+											\node at (-2,-5) (fcamp) {\fptreenode{p}{1}};
+											\node at (0,-4) (fcab) {\fptreenode{b}{1}};
+											\node at (0,-5) (fcabm) {\fptreenode{m}{1}};
+											\node at (1,-2) (fb) {\fptreenode{b}{1}};
+
+											\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
+											\draw (fca) -- (fcab) -- (fcabm);
+											\draw (f) -- (fb);
+										}
+
+										% TID 400
+										\visible<18-20>{
+											\node at (-1.5,-1) (f) {\fptreenode{f}{3}};
+											\node at (-2.5,-2) (fc) {\fptreenode{c}{2}};
+											\node at (-2.5,-3) (fca) {\fptreenode{a}{2}};
+											\node at (-3.5,-4) (fcam) {\fptreenode{m}{1}};
+											\node at (-3.5,-5) (fcamp) {\fptreenode{p}{1}};
+											\node at (-1.5,-4) (fcab) {\fptreenode{b}{1}};
+											\node at (-1.5,-5) (fcabm) {\fptreenode{m}{1}};
+											\node at (-0.5,-2) (fb) {\fptreenode{b}{1}};
+											\node at (1.5,-1) (c) {\fptreenode{c}{1}};
+											\node at (1.5,-2) (b) {\fptreenode{b}{1}};
+											\node at (1.5,-3) (p) {\fptreenode{p}{1}};
+
+											\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
+											\draw (fca) -- (fcab) -- (fcabm);
+											\draw (f) -- (fb);
+											\draw (root) -- (c) -- (b) -- (p);
+										}
+
+										% TID 500
+										\visible<21>{
+											\node at (-1.5,-1) (f) {\fptreenode{f}{4}};
+											\node at (-2.5,-2) (fc) {\fptreenode{c}{3}};
+											\node at (-2.5,-3) (fca) {\fptreenode{a}{3}};
+											\node at (-3.5,-4) (fcam) {\fptreenode{m}{2}};
+											\node at (-3.5,-5) (fcamp) {\fptreenode{p}{2}};
+											\node at (-1.5,-4) (fcab) {\fptreenode{b}{1}};
+											\node at (-1.5,-5) (fcabm) {\fptreenode{m}{1}};
+											\node at (-0.5,-2) (fb) {\fptreenode{b}{1}};
+											\node at (1.5,-1) (c) {\fptreenode{c}{1}};
+											\node at (1.5,-2) (b) {\fptreenode{b}{1}};
+											\node at (1.5,-3) (p) {\fptreenode{p}{1}};
+
+											\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
+											\draw (fca) -- (fcab) -- (fcabm);
+											\draw (f) -- (fb);
+											\draw (root) -- (c) -- (b) -- (p);
+										}
+
+									\end{tikzpicture}
 								}
-							\end{center}
-						};
-					}
+							};
+						}
 
-					\visible<3-5>{
-						\node[text width=5cm, anchor=north, below=0.15cm of original-dataset] (frequent-1-itemsets)
-						{
-							\begin{center}
-								\textbf{Frequent $1$-itemsets:} \\
-								\vspace{0.2cm}
-								\begin{tabular}{|c|c|}
-									\hline
-									\textbf{Itemset} & \textbf{Support} \\\hline
-									\{f\}            & 4                \\\hline
-									\{a\}            & 3                \\\hline
-									\{c\}            & 4                \\\hline
-									\{m\}            & 3                \\\hline
-									\{p\}            & 3                \\\hline
-									\{b\}            & 3                \\\hline
-								\end{tabular} \\
-							\end{center}
+						\visible<9,12,15,18,21>{
+							\draw[->] (original-dataset.east) to [out=0, in=-0] (fp-tree.east);
+						}
+					\end{tikzpicture}
+				}
 
-						};
-					}
+				\only<22>{
+					\begin{tikzpicture}
 
-					\visible<3>{
-						\draw[->] (original-dataset.east) to [out=0, in=-0] (frequent-1-itemsets.east);
-					}
+						% Header table
+						\node[inner sep=0cm] at (-5,-0.5) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{\headertableentry{f}{4}}};
+						\node[inner sep=0cm, below=0cm of f-header] (c-header) {\scalebox{0.7}{\headertableentry{c}{4}}};
+						\node[inner sep=0cm, below=0cm of c-header] (a-header) {\scalebox{0.7}{\headertableentry{a}{3}}};
+						\node[inner sep=0cm, below=0cm of a-header] (b-header) {\scalebox{0.7}{\headertableentry{b}{3}}};
+						\node[inner sep=0cm, below=0cm of b-header] (m-header) {\scalebox{0.7}{\headertableentry{m}{3}}};
+						\node[inner sep=0cm, below=0cm of m-header] (p-header) {\scalebox{0.7}{\headertableentry{p}{3}}};
 
-					\visible<5>{
-						\draw[->] (frequent-1-itemsets.east) to [out=0, in=-0] (original-dataset.south east);
-					}
+						%\node[text width=5cm, anchor=east] at (-2.4,-1.75) (header-table)
+						%{
+						%	\begin{tabular}{|c|c|c}
+						%		\hhline{|-|-|~|}
+						%		\textbf{Item} & \textbf{Sum} &           \\\hhline{|-|-|~|}
+						%		f             & 4            & $\bullet$ \\\hhline{|-|-|~|}
+						%		c             & 4            & $\bullet$ \\\hhline{|-|-|~|}
+						%		a             & 3            & $\bullet$ \\\hhline{|-|-|~|}
+						%		b             & 3            & $\bullet$ \\\hhline{|-|-|~|}
+						%		m             & 3            & $\bullet$ \\\hhline{|-|-|~|}
+						%		p             & 3            & $\bullet$ \\\hhline{|-|-|~|}
+						%	\end{tabular}
+						%};
 
-					\visible<9->{
-						\node[text width=5cm, anchor=north, below=0cm of original-dataset] (fp-tree)
-						{
-							\scalebox{0.7}{
-								\begin{tikzpicture} [scale=1]
-									\useasboundingbox (-4,0) rectangle (4,-5.5);
+						% FP-tree
+						\node[inner sep=0.05cm] at (0,0) (root) {\scalebox{0.7}{\fptreerootnode}};
+						\node[inner sep=0.05cm] at (-1.05,-0.7) (f) {\scalebox{0.7}{\fptreenode{f}{4}}};
+						\node[inner sep=0.05cm] at (-1.75,-1.4) (fc) {\scalebox{0.7}{\fptreenode{c}{3}}};
+						\node[inner sep=0.05cm] at (-1.75,-2.1) (fca) {\scalebox{0.7}{\fptreenode{a}{3}}};
+						\node[inner sep=0.05cm] at (-2.45,-2.8) (fcam) {\scalebox{0.7}{\fptreenode{m}{2}}};
+						\node[inner sep=0.05cm] at (-2.45,-3.5) (fcamp) {\scalebox{0.7}{\fptreenode{p}{2}}};
+						\node[inner sep=0.05cm] at (-1.05,-2.8) (fcab) {\scalebox{0.7}{\fptreenode{b}{1}}};
+						\node[inner sep=0.05cm] at (-1.05,-3.5) (fcabm) {\scalebox{0.7}{\fptreenode{m}{1}}};
+						\node[inner sep=0.05cm] at (-0.35,-1.4) (fb) {\scalebox{0.7}{\fptreenode{b}{1}}};
+						\node[inner sep=0.05cm] at (1.05,-0.7) (c) {\scalebox{0.7}{\fptreenode{c}{1}}};
+						\node[inner sep=0.05cm] at (1.05,-1.4) (cb) {\scalebox{0.7}{\fptreenode{b}{1}}};
+						\node[inner sep=0.05cm] at (1.05,-2.1) (cbp) {\scalebox{0.7}{\fptreenode{p}{1}}};
 
-									\node at (0,0) (root) {\fptreerootnode};
+						\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
+						\draw (fca) -- (fcab) -- (fcabm);
+						\draw (f) -- (fb);
+						\draw (root) -- (c) -- (cb) -- (cbp);
 
-									% TID 100
-									\visible<9-11>{
-										\node at (0,-1) (f) {\fptreenode{f}{1}};
-										\node at (0,-2) (fc) {\fptreenode{c}{1}};
-										\node at (0,-3) (fca) {\fptreenode{a}{1}};
-										\node at (0,-4) (fcam) {\fptreenode{m}{1}};
-										\node at (0,-5) (fcamp) {\fptreenode{p}{1}};
+						% Pointers
+						% F
+						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
 
-										\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
-									}
+						% C
+						\draw[->, color=faugraydark, dashed] (c-header) to [out=0, in=180] (fc);
+						\draw[->, color=faugraydark, dashed] (fc) .. controls (-0.5,-1.0) and (0.5,-0.7) .. (c);
+						% A
+						\draw[->, color=faugraydark, dashed] (a-header) to [out=0, in=180] (fca);
 
-									% TID 200
-									\visible<12-14>{
-										\node at (0,-1) (f) {\fptreenode{f}{2}};
-										\node at (0,-2) (fc) {\fptreenode{c}{2}};
-										\node at (0,-3) (fca) {\fptreenode{a}{2}};
-										\node at (-1,-4) (fcam) {\fptreenode{m}{1}};
-										\node at (-1,-5) (fcamp) {\fptreenode{p}{1}};
-										\node at (1,-4) (fcab) {\fptreenode{b}{1}};
-										\node at (1,-5) (fcabm) {\fptreenode{m}{1}};
+						% B
+						\draw[->, color=faugraydark, dashed] (b-header) to [out=0, in=155] (fcab);
+						\draw[->, color=faugraydark, dashed] (fcab) to [out=0, in=270] (fb);
+						\draw[->, color=faugraydark, dashed] (fb) to [out=0, in=180] (cb);
 
-										\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
-										\draw (fca) -- (fcab) -- (fcabm);
-									}
+						% M
+						\draw[->, color=faugraydark, dashed] (m-header) to [out=0, in=180] (fcam);
+						\draw[->, color=faugraydark, dashed] (fcam) to [out=0, in=180] (fcabm);
 
-									% TID 300
-									\visible<15-17>{
-										\node at (0,-1) (f) {\fptreenode{f}{3}};
-										\node at (-1,-2) (fc) {\fptreenode{c}{2}};
-										\node at (-1,-3) (fca) {\fptreenode{a}{2}};
-										\node at (-2,-4) (fcam) {\fptreenode{m}{1}};
-										\node at (-2,-5) (fcamp) {\fptreenode{p}{1}};
-										\node at (0,-4) (fcab) {\fptreenode{b}{1}};
-										\node at (0,-5) (fcabm) {\fptreenode{m}{1}};
-										\node at (1,-2) (fb) {\fptreenode{b}{1}};
+						% P
+						\draw[->, color=faugraydark, dashed] (p-header) to [out=0, in=180] (fcamp);
+						\draw[->, color=faugraydark, dashed] (fcamp) .. controls (-1.05,-4) and (0.5,-4) .. (cbp);
 
-										\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
-										\draw (fca) -- (fcab) -- (fcabm);
-										\draw (f) -- (fb);
-									}
 
-									% TID 400
-									\visible<18-20>{
-										\node at (-1.5,-1) (f) {\fptreenode{f}{3}};
-										\node at (-2.5,-2) (fc) {\fptreenode{c}{2}};
-										\node at (-2.5,-3) (fca) {\fptreenode{a}{2}};
-										\node at (-3.5,-4) (fcam) {\fptreenode{m}{1}};
-										\node at (-3.5,-5) (fcamp) {\fptreenode{p}{1}};
-										\node at (-1.5,-4) (fcab) {\fptreenode{b}{1}};
-										\node at (-1.5,-5) (fcabm) {\fptreenode{m}{1}};
-										\node at (-0.5,-2) (fb) {\fptreenode{b}{1}};
-										\node at (1.5,-1) (c) {\fptreenode{c}{1}};
-										\node at (1.5,-2) (b) {\fptreenode{b}{1}};
-										\node at (1.5,-3) (p) {\fptreenode{p}{1}};
-
-										\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
-										\draw (fca) -- (fcab) -- (fcabm);
-										\draw (f) -- (fb);
-										\draw (root) -- (c) -- (b) -- (p);
-									}
-
-									% TID 500
-									\visible<21>{
-										\node at (-1.5,-1) (f) {\fptreenode{f}{4}\tikzmark{f1}};
-										\node at (-2.5,-2) (fc) {\fptreenode{c}{3}};
-										\node at (-2.5,-3) (fca) {\fptreenode{a}{3}};
-										\node at (-3.5,-4) (fcam) {\fptreenode{m}{2}};
-										\node at (-3.5,-5) (fcamp) {\fptreenode{p}{2}};
-										\node at (-1.5,-4) (fcab) {\fptreenode{b}{1}};
-										\node at (-1.5,-5) (fcabm) {\fptreenode{m}{1}};
-										\node at (-0.5,-2) (fb) {\fptreenode{b}{1}};
-										\node at (1.5,-1) (c) {\fptreenode{c}{1}};
-										\node at (1.5,-2) (b) {\fptreenode{b}{1}};
-										\node at (1.5,-3) (p) {\fptreenode{p}{1}};
-
-										\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
-										\draw (fca) -- (fcab) -- (fcabm);
-										\draw (f) -- (fb);
-										\draw (root) -- (c) -- (b) -- (p);
-									}
-
-								\end{tikzpicture}
-							}
-						};
-					}
-
-					\visible<9,12,15,18,21>{
-						\draw[->] (original-dataset.east) to [out=0, in=-0] (fp-tree.east);
-					}
-
-					%\visible<22-23>{
-					%	\node[text width=5cm, anchor=north] at (0,0) (header-table)
-					%	{
-					%		\begin{center}
-					%			\visible<23->{
-					%				\begin{tikzpicture}
-					%					\node[text width=5cm, anchor=north] at (-5,0) (header-table) {
-					%						\begin{tabular}{|c|c|c}
-					%							\hhline{|-|-|~|}
-					%							\textbf{Item} & \textbf{Sum} &                        \\\hhline{|-|-|~|}
-					%							f             & 4            & $\bullet$\tikzmark{f0} \\\hhline{|-|-|~|}
-					%							c             & 4            & $\bullet$              \\\hhline{|-|-|~|}
-					%							a             & 3            & $\bullet$              \\\hhline{|-|-|~|}
-					%							b             & 3            & $\bullet$              \\\hhline{|-|-|~|}
-					%							m             & 3            & $\bullet$              \\\hhline{|-|-|~|}
-					%							p             & 3            & $\bullet$              \\\hhline{|-|-|~|}
-					%						\end{tabular}
-					%					};
-
-					%					\node at (-1.5,-1) (f) {\fptreenode{f}{4}\tikzmark{f1}};
-					%					\node at (-2.5,-2) (fc) {\fptreenode{c}{3}};
-					%					\node at (-2.5,-3) (fca) {\fptreenode{a}{3}};
-					%					\node at (-3.5,-4) (fcam) {\fptreenode{m}{2}};
-					%					\node at (-3.5,-5) (fcamp) {\fptreenode{p}{2}};
-					%					\node at (-1.5,-4) (fcab) {\fptreenode{b}{1}};
-					%					\node at (-1.5,-5) (fcabm) {\fptreenode{m}{1}};
-					%					\node at (-0.5,-2) (fb) {\fptreenode{b}{1}};
-					%					\node at (1.5,-1) (c) {\fptreenode{c}{1}};
-					%					\node at (1.5,-2) (b) {\fptreenode{b}{1}};
-					%					\node at (1.5,-3) (p) {\fptreenode{p}{1}};
-
-					%					\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
-					%					\draw (fca) -- (fcab) -- (fcabm);
-					%					\draw (f) -- (fb);
-					%					\draw (root) -- (c) -- (b) -- (p);
-					%				\end{tikzpicture}
-					%			}
-					%		\end{center}
-					%	};
-					%}
-				\end{tikzpicture}
+					\end{tikzpicture}
+				}
 			}
 		\end{column}
 	\end{columns}
