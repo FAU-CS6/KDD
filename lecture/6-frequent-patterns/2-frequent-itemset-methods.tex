@@ -512,6 +512,19 @@
 	\end{tikzpicture}
 }
 
+\newcommand{\fptreenodemarked}[2]{
+	\begin{tikzpicture}
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=0.5cm] at (0,-1) (Label) {$#1$};
+		\node[draw, fill=faureddark!75, text=white, minimum height = 0.65cm, minimum width=0.5cm, right = 0cm of Label] {$#2$};
+	\end{tikzpicture}
+}
+
+\newcommand{\fptreenodeprefix}[2]{
+	\begin{tikzpicture}
+		\node[draw, fill=white, minimum height = 0.65cm, minimum width=0.5cm] at (0,-1) (Label) {$#1$};
+		\node[draw, fill=fauorange!75, text=white, minimum height = 0.65cm, minimum width=0.5cm, right = 0cm of Label] {$#2$};
+	\end{tikzpicture}
+}
 \newcommand{\headertableheader}{
 	\begin{tikzpicture}
 		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.5cm] at (0,-1) (Item) {\textbf{Item}};
@@ -525,6 +538,14 @@
 		\node[draw, fill=white, minimum height = 0.65cm, minimum width=1.5cm, right = 0cm of Item] {$#2$};
 	\end{tikzpicture}
 }
+
+\newcommand{\headertableentrymarked}[2]{
+	\begin{tikzpicture}
+		\node[draw, fill=faureddark!20, minimum height = 0.65cm, minimum width=1.5cm] at (0,-1) (Item) {$#1$};
+		\node[draw, fill=faureddark!20, minimum height = 0.65cm, minimum width=1.5cm, right = 0cm of Item] {$#2$};
+	\end{tikzpicture}
+}
+
 
 \begin{frame}{FP-growth - Algorithm}
 	\begin{columns}
@@ -551,6 +572,17 @@
 
 					            \end{itemize}
 					            }
+					            \visible<23->{
+					      \item Start the FP-tree \textbf{recursion:}
+					            \begin{enumerate}
+						            \visible<24->{
+						            \item Determine the \textbf{conditional pattern base} (prefix paths) for each frequent item in the header table.
+						                  }
+						                  \visible<32->{
+						            \item Build a \textbf{conditional FP-tree} for each non-empty conditional pattern base.
+						                  }
+					            \end{enumerate}
+					            }
 
 				      \end{enumerate}
 			\end{itemize}
@@ -559,8 +591,8 @@
 			\vspace*{-0.5cm}
 			\centering
 			\scalebox{0.75}{
-				\only<1-21>{
-					\begin{tikzpicture}
+				\begin{tikzpicture}
+					\visible<1-21>{
 						\visible<1-21>{
 							\node[text width=5cm, anchor=north] at (0,0) (original-dataset)
 							{
@@ -711,49 +743,188 @@
 						\visible<9,12,15,18,21>{
 							\draw[->] (original-dataset.east) to [out=0, in=-0] (fp-tree.east);
 						}
-					\end{tikzpicture}
-				}
 
-				\only<22>{
-					\begin{tikzpicture}
+					}
 
+					\visible<22->{
 						% Header table
-						\node[inner sep=0cm] at (-5,-0.5) (headertable) {\scalebox{0.7}{\headertableheader}};
-						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{\headertableentry{f}{4}}};
-						\node[inner sep=0cm, below=0cm of f-header] (c-header) {\scalebox{0.7}{\headertableentry{c}{4}}};
-						\node[inner sep=0cm, below=0cm of c-header] (a-header) {\scalebox{0.7}{\headertableentry{a}{3}}};
-						\node[inner sep=0cm, below=0cm of a-header] (b-header) {\scalebox{0.7}{\headertableentry{b}{3}}};
-						\node[inner sep=0cm, below=0cm of b-header] (m-header) {\scalebox{0.7}{\headertableentry{m}{3}}};
-						\node[inner sep=0cm, below=0cm of m-header] (p-header) {\scalebox{0.7}{\headertableentry{p}{3}}};
-
-						%\node[text width=5cm, anchor=east] at (-2.4,-1.75) (header-table)
-						%{
-						%	\begin{tabular}{|c|c|c}
-						%		\hhline{|-|-|~|}
-						%		\textbf{Item} & \textbf{Sum} &           \\\hhline{|-|-|~|}
-						%		f             & 4            & $\bullet$ \\\hhline{|-|-|~|}
-						%		c             & 4            & $\bullet$ \\\hhline{|-|-|~|}
-						%		a             & 3            & $\bullet$ \\\hhline{|-|-|~|}
-						%		b             & 3            & $\bullet$ \\\hhline{|-|-|~|}
-						%		m             & 3            & $\bullet$ \\\hhline{|-|-|~|}
-						%		p             & 3            & $\bullet$ \\\hhline{|-|-|~|}
-						%	\end{tabular}
-						%};
+						\node[inner sep=0cm] at (-2,-1.5) (headertable) {\scalebox{0.7}{\headertableheader}};
+						\node[inner sep=0cm, below=0cm of headertable]  (f-header) {\scalebox{0.7}{%
+								\only<22-25,27->{%
+									\headertableentry{f}{4}%
+								}%
+								\only<26>{%
+									\headertableentrymarked{f}{4}%
+								}%
+							}};
+						\node[inner sep=0cm, below=0cm of f-header] (c-header) {\scalebox{0.7}{%
+								\only<22-26,28->{%
+									\headertableentry{c}{4}%
+								}%
+								\only<27>{%
+									\headertableentrymarked{c}{4}%
+								}%
+							}};
+						\node[inner sep=0cm, below=0cm of c-header] (a-header) {\scalebox{0.7}{%
+								\only<22-27,29->{%
+									\headertableentry{a}{3}%
+								}%
+								\only<28>{%
+									\headertableentrymarked{a}{3}%
+								}%
+							}};
+						\node[inner sep=0cm, below=0cm of a-header] (b-header) {\scalebox{0.7}{%
+								\only<22-28,30->{%
+									\headertableentry{b}{3}%
+								}%
+								\only<29>{%
+									\headertableentrymarked{b}{3}%
+								}%
+							}};
+						\node[inner sep=0cm, below=0cm of b-header] (m-header) {\scalebox{0.7}{%
+								\only<22-29,31->{%
+									\headertableentry{m}{3}%
+								}%
+								\only<30>{%
+									\headertableentrymarked{m}{3}%
+								}%
+							}};
+						\node[inner sep=0cm, below=0cm of m-header] (p-header) {\scalebox{0.7}{%
+								\only<22-30,32->{%
+									\headertableentry{p}{3}%
+								}%
+								\only<31>{%
+									\headertableentrymarked{p}{3}%
+								}%
+							}};
 
 						% FP-tree
-						\node[inner sep=0.05cm] at (0,0) (root) {\scalebox{0.7}{\fptreerootnode}};
-						\node[inner sep=0.05cm] at (-1.05,-0.7) (f) {\scalebox{0.7}{\fptreenode{f}{4}}};
-						\node[inner sep=0.05cm] at (-1.75,-1.4) (fc) {\scalebox{0.7}{\fptreenode{c}{3}}};
-						\node[inner sep=0.05cm] at (-1.75,-2.1) (fca) {\scalebox{0.7}{\fptreenode{a}{3}}};
-						\node[inner sep=0.05cm] at (-2.45,-2.8) (fcam) {\scalebox{0.7}{\fptreenode{m}{2}}};
-						\node[inner sep=0.05cm] at (-2.45,-3.5) (fcamp) {\scalebox{0.7}{\fptreenode{p}{2}}};
-						\node[inner sep=0.05cm] at (-1.05,-2.8) (fcab) {\scalebox{0.7}{\fptreenode{b}{1}}};
-						\node[inner sep=0.05cm] at (-1.05,-3.5) (fcabm) {\scalebox{0.7}{\fptreenode{m}{1}}};
-						\node[inner sep=0.05cm] at (-0.35,-1.4) (fb) {\scalebox{0.7}{\fptreenode{b}{1}}};
-						\node[inner sep=0.05cm] at (1.05,-0.7) (c) {\scalebox{0.7}{\fptreenode{c}{1}}};
-						\node[inner sep=0.05cm] at (1.05,-1.4) (cb) {\scalebox{0.7}{\fptreenode{b}{1}}};
-						\node[inner sep=0.05cm] at (1.05,-2.1) (cbp) {\scalebox{0.7}{\fptreenode{p}{1}}};
+						\node[inner sep=0.05cm] at (3,-1) (root) {\scalebox{0.7}{%
+								\fptreerootnode%
+							}};
 
+						% F
+						\node[inner sep=0.05cm] at (1.95,-1.7) (f) {\scalebox{0.7}{%
+								\only<22-25,32->{%
+									\fptreenode{f}{4}%
+								}%
+								\only<26>{%
+									\fptreenodemarked{f}{4}%
+								}%
+								\only<27,28,29,30,31>{%
+									\fptreenodeprefix{f}{4}%
+								}%
+							}};
+
+						% C
+						\node[inner sep=0.05cm] at (1.25,-2.4) (fc) {\scalebox{0.7}{%
+								\only<22-26,32->{%
+									\fptreenode{c}{3}%
+								}%
+								\only<27>{%
+									\fptreenodemarked{c}{3}%
+								}%
+								\only<28,29,30,31>{%
+									\fptreenodeprefix{c}{3}%
+								}%
+							}};
+						\node[inner sep=0.05cm] at (4.05,-1.7) (c) {\scalebox{0.7}{%
+								\only<22-26,28,30,32->{%
+									\fptreenode{c}{1}%
+								}%
+								\only<27>{%
+									\fptreenodemarked{c}{1}%
+								}%
+								\only<29,31>{%
+									\fptreenodeprefix{c}{1}%
+								}%
+							}};
+
+						% A
+						\node[inner sep=0.05cm] at (1.25,-3.1) (fca) {\scalebox{0.7}{%
+								\only<22-27,32->{%
+									\fptreenode{a}{3}%
+								}%
+								\only<28>{%
+									\fptreenodemarked{a}{3}%
+								}%
+								\only<29,30,31>{%
+									\fptreenodeprefix{a}{3}%
+								}%
+							}};
+
+						% B
+						\node[inner sep=0.05cm] at (1.95,-3.8) (fcab) {\scalebox{0.7}{%
+								\only<22-28,31->{%
+									\fptreenode{b}{1}%
+								}%
+								\only<29>{%
+									\fptreenodemarked{b}{1}%
+								}%
+								\only<30>{%
+									\fptreenodeprefix{b}{1}%
+								}%
+							}};
+						\node[inner sep=0.05cm] at (2.65,-2.4) (fb) {\scalebox{0.7}{%
+								\only<22-28,30->{%
+									\fptreenode{b}{1}%
+								}%
+								\only<29>{%
+									\fptreenodemarked{b}{1}%
+								}%
+							}};
+						\node[inner sep=0.05cm] at (4.05,-2.4) (cb) {\scalebox{0.7}{%
+								\only<22-28,30,32->{%
+									\fptreenode{b}{1}%
+								}%
+								\only<29>{%
+									\fptreenodemarked{b}{1}%
+								}%
+								\only<31>{%
+									\fptreenodeprefix{b}{1}%
+								}%
+							}};
+
+						% M
+						\node[inner sep=0.05cm] at (0.55,-3.8) (fcam) {\scalebox{0.7}{%
+								\only<22-29,32->{%
+									\fptreenode{m}{2}%
+								}%
+								\only<30>{%
+									\fptreenodemarked{m}{2}%
+								}%
+								\only<31>{%
+									\fptreenodeprefix{m}{2}%
+								}%
+							}};
+						\node[inner sep=0.05cm] at (1.95,-4.5) (fcabm) {\scalebox{0.7}{%
+								\only<22-29,31->{%
+									\fptreenode{m}{1}%
+								}%
+								\only<30>{%
+									\fptreenodemarked{m}{1}%
+								}%
+							}};
+
+						% P
+						\node[inner sep=0.05cm] at (0.55,-4.5) (fcamp) {\scalebox{0.7}{%
+								\only<22-30,32->{%
+									\fptreenode{p}{2}%
+								}%
+								\only<31>{%
+									\fptreenodemarked{p}{2}%
+								}%
+							}};
+						\node[inner sep=0.05cm] at (4.05,-3.1) (cbp) {\scalebox{0.7}{%
+								\only<22-30,32->{%
+									\fptreenode{p}{1}%
+								}%
+								\only<31>{%
+									\fptreenodemarked{p}{1}%
+								}%
+							}};
+
+						% Connections
 						\draw (root) -- (f) -- (fc) -- (fca) -- (fcam) -- (fcamp);
 						\draw (fca) -- (fcab) -- (fcabm);
 						\draw (f) -- (fb);
@@ -761,30 +932,82 @@
 
 						% Pointers
 						% F
-						\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+						\visible<22-25,27->{
+							\draw[->, color=faugraydark, dashed] (f-header) to [out=0, in=180] (f);
+						}
+						\visible<26>{
+							\draw[->, color=faureddark, dashed] (f-header) to [out=0, in=180] (f);
+						}
 
 						% C
-						\draw[->, color=faugraydark, dashed] (c-header) to [out=0, in=180] (fc);
-						\draw[->, color=faugraydark, dashed] (fc) .. controls (-0.5,-1.0) and (0.5,-0.7) .. (c);
+						\visible<22-26,28->{
+							\draw[->, color=faugraydark, dashed] (c-header) to [out=0, in=180] (fc);
+							\draw[->, color=faugraydark, dashed] (fc) .. controls (2.5,-2.0) and (3.5,-1.7) .. (c);
+						}
+						\visible<27>{
+							\draw[->, color=faureddark, dashed] (c-header) to [out=0, in=180] (fc);
+							\draw[->, color=faureddark, dashed] (fc) .. controls (2.5,-2.0) and (3.5,-1.7) .. (c);
+						}
+
 						% A
-						\draw[->, color=faugraydark, dashed] (a-header) to [out=0, in=180] (fca);
+						\visible<22-27,29->{
+							\draw[->, color=faugraydark, dashed] (a-header) to [out=0, in=180] (fca);
+						}
+						\visible<28>{
+							\draw[->, color=faureddark, dashed] (a-header) to [out=0, in=180] (fca);
+						}
 
 						% B
-						\draw[->, color=faugraydark, dashed] (b-header) to [out=0, in=155] (fcab);
-						\draw[->, color=faugraydark, dashed] (fcab) to [out=0, in=270] (fb);
-						\draw[->, color=faugraydark, dashed] (fb) to [out=0, in=180] (cb);
+						\visible<22-28,30->{
+							\draw[->, color=faugraydark, dashed] (b-header) to [out=0, in=155] (fcab);
+							\draw[->, color=faugraydark, dashed] (fcab) to [out=0, in=270] (fb);
+							\draw[->, color=faugraydark, dashed] (fb) to [out=0, in=180] (cb);
+						}
+						\visible<29>{
+							\draw[->, color=faureddark, dashed] (b-header) to [out=0, in=155] (fcab);
+							\draw[->, color=faureddark, dashed] (fcab) to [out=0, in=270] (fb);
+							\draw[->, color=faureddark, dashed] (fb) to [out=0, in=180] (cb);
+						}
 
 						% M
-						\draw[->, color=faugraydark, dashed] (m-header) to [out=0, in=180] (fcam);
-						\draw[->, color=faugraydark, dashed] (fcam) to [out=0, in=180] (fcabm);
+						\visible<22-29,31->{
+							\draw[->, color=faugraydark, dashed] (m-header) to [out=0, in=180] (fcam);
+							\draw[->, color=faugraydark, dashed] (fcam) to [out=0, in=180] (fcabm);
+						}
+						\visible<30>{
+							\draw[->, color=faureddark, dashed] (m-header) to [out=0, in=180] (fcam);
+							\draw[->, color=faureddark, dashed] (fcam) to [out=0, in=180] (fcabm);
+						}
 
 						% P
-						\draw[->, color=faugraydark, dashed] (p-header) to [out=0, in=180] (fcamp);
-						\draw[->, color=faugraydark, dashed] (fcamp) .. controls (-1.05,-4) and (0.5,-4) .. (cbp);
+						\visible<22-30,32->{
+							\draw[->, color=faugraydark, dashed] (p-header) to [out=0, in=180] (fcamp);
+							\draw[->, color=faugraydark, dashed] (fcamp) .. controls (1.95,-5) and (3.5,-5) .. (cbp);
+						}
+						\visible<31>{
+							\draw[->, color=faureddark, dashed] (p-header) to [out=0, in=180] (fcamp);
+							\draw[->, color=faureddark, dashed] (fcamp) .. controls (1.95,-5) and (3.5,-5) .. (cbp);
+						}
 
+						% Conditional pattern bases
+						\visible<25->{
+							\node[text width=5cm, anchor=north] at (1,-5.5) (conditional-pattern-bases)
+							{
+								\begin{tabular}{|c|c|}
+									\hline
+									\textbf{Item}                         & \textbf{Conditional Pattern Base}                                  \\\hline
+									\only<26>{\cellcolor{faureddark!20}}f & \only<26>{\cellcolor{faureddark!20}}\visible<26->{-}               \\\hline
+									\only<27>{\cellcolor{faureddark!20}}c & \only<27>{\cellcolor{faureddark!20}}\visible<27->{f:3}             \\\hline
+									\only<28>{\cellcolor{faureddark!20}}a & \only<28>{\cellcolor{faureddark!20}}\visible<28->{fc:3}            \\\hline
+									\only<29>{\cellcolor{faureddark!20}}b & \only<29>{\cellcolor{faureddark!20}}\visible<29->{fca:1, f:1, c:1} \\\hline
+									\only<30>{\cellcolor{faureddark!20}}m & \only<30>{\cellcolor{faureddark!20}}\visible<30->{fca:2, fcab:1}   \\\hline
+									\only<31>{\cellcolor{faureddark!20}}p & \only<31>{\cellcolor{faureddark!20}}\visible<31->{fcam:2, cb:1}    \\\hline
+								\end{tabular}
+							};
+						}
+					}
+				\end{tikzpicture}
 
-					\end{tikzpicture}
-				}
 			}
 		\end{column}
 	\end{columns}
