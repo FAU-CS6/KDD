@@ -1695,15 +1695,31 @@
 		      \begin{itemize}
 			      \item Different conditional pattern bases can be mined in parallel.
 		      \end{itemize}
-		\item \textbf{No candidate generation} \\ \hspace*{1cm} $\Rightarrow$ No candidate test required.
-		\item Compressed database: FP-tree structure.
+		\item \textbf{No} candidate generation
 		\item Only \textbf{two} scans of the database.
+		\item The \textbf{FP-tree} structure is \textbf{compact}:
+		      \begin{itemize}
+			      \item Compressed representation of the database.
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
 \subsection{Other Approaches}
 
-\begin{frame}{ECLAT: Mining by Exploring Vertical Data Format}
+\begin{frame}
+	\begin{itemize}
+		\item \textbf{Many other approaches exist.}
+		\item \textbf{Often with a specialization. E.g.:}
+		      \begin{itemize}
+			      \item \textbf{ECLAT\footnote{\fullcite{zaki1997}}:} Mining in the
+			            vertical data format.
+			      \item \textbf{CLOSET\footnote{\fullcite{wang2003}}:} Mining closed itemsets.
+			      \item \textbf{MaxMiner\footnote{\fullcite{bayardo1998}}:} Mining max-itemsets.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ECLAT}
 	\begin{itemize}
 		\item \textbf{Vertical format: $t(AB) = \{T_{11},T_{25},\ldots\}$}
 		      \begin{itemize}
@@ -1723,20 +1739,17 @@
 			      \item $t(X) = \{T_1,T_2,T_3\}$, $t(XY) = \{T_1,T_3\}$.
 			      \item Diffset $(XY,X) = \{T_2\}$.
 		      \end{itemize}
-		\item \textbf{ECLAT} (Zaki et al., KDD'97)
-		\item \textbf{Mining closed itemsets using vertical format: CHARM}
-		      (Zaki \& Hsiao, SDM'02)
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Mining Closed Itemsets: CLOSET (I)}
+\begin{frame}{CLOSET (I)}
 	\begin{columns}[c]
 		\begin{column}{0.6\textwidth}
 			\begin{itemize}
-				\item \textbf{F-list: list of all frequent items \\ in
-					      support-ascending order.}
+				\item \textbf{F-list:} List of all frequent items \\ in
+				      \textbf{support-ascending}\footnote{Note: this is the exact reverse of the f-list ordering in FP-growth.} order.
 				      \begin{itemize}
-					      \item F-list: d-a-f-e-c.
+					      \item f-list: d-a-f-e-c.
 				      \end{itemize}
 				\item \textbf{Divide search space.}
 				      \begin{itemize}
@@ -1747,25 +1760,24 @@
 				      \begin{itemize}
 					      \item Every transaction having d also has $cfa \implies
 						            cfad$ is a closed itemset.
-					      \item (Pei, Han \& Mao, DMKD'00)
 				      \end{itemize}
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.25\textwidth}
 			\begin{tabular}{|c|c|}
 				\hline
-				TID & Items     \\\hline
-				10  & a,c,d,e,f \\\hline
-				20  & a,b,e     \\\hline
-				30  & c,e,f     \\\hline
-				40  & a,c,d,f   \\\hline
-				50  & c,e,f     \\\hline
+				\textbf{TID} & \textbf{Items} \\\hline
+				10           & a,c,d,e,f      \\\hline
+				20           & a,b,e          \\\hline
+				30           & c,e,f          \\\hline
+				40           & a,c,d,f        \\\hline
+				50           & c,e,f          \\\hline
 			\end{tabular}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Mining Closed Itemsets: CLOSET (II)}
+\begin{frame}{CLOSET (II)}
 	\begin{itemize}
 		\item \textbf{Itemset merging:.}
 		      \begin{itemize}
@@ -1788,7 +1800,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{MaxMiner: Mining Max-itemsets}
+\begin{frame}{MaxMiner}
 	\begin{columns}[c]
 		\begin{column}{0.6\textwidth}
 			\begin{itemize}
@@ -1804,16 +1816,16 @@
 				      \end{itemize}
 				\item \textbf{Potential max-itemsets: ABCDE, BCDE, CDE.}
 				\item \textbf{Since BCDE is a max-itemset, no need to check
-					      BCD, BDE, CDE in later scan.} (Bayardo, SIGMOD'98)
+					      BCD, BDE, CDE in later scan.}
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.3\textwidth}
 			\begin{tabular}{|c|c|}
 				\hline
-				TID & Items     \\\hline
-				10  & A,B,C,D,E \\\hline
-				20  & B,C,D,E   \\\hline
-				30  & A,C,D,F   \\\hline
+				\textbf{TID} & \textbf{Items} \\\hline
+				10           & A,B,C,D,E      \\\hline
+				20           & B,C,D,E        \\\hline
+				30           & A,C,D,F        \\\hline
 			\end{tabular}
 		\end{column}
 	\end{columns}
