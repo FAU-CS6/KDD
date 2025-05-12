@@ -10,27 +10,27 @@
 [[https://fau-cs6.github.io/KDD][file:https://fau-cs6.github.io/KDD/gh-badges/time-badge.svg]]
 
 ** Lecture
-  1. *Prologue* - [[https://fau-cs6.github.io/KDD/lecture-slides/1-prologue.pdf]["Download the Slides"]]
-  2. *Introduction* - [[https://fau-cs6.github.io/KDD/lecture-slides/2-introduction.pdf]["Download the Slides"]]
-  3. *Data* - [[https://fau-cs6.github.io/KDD/lecture-slides/3-data.pdf]["Download the Slides"]]
-  4. *Preprocessing* - [[https://fau-cs6.github.io/KDD/lecture-slides/4-preprocessing.pdf]["Download the Slides"]]
-  5. *OLAP* - [[https://fau-cs6.github.io/KDD/lecture-slides/5-olap.pdf]["Download the Slides"]]
-  6. *Mining Frequent Patterns* - [[https://fau-cs6.github.io/KDD/lecture-slides/6-frequent-patterns.pdf]["Download the Slides"]]
-  7. *Classification* - [[https://fau-cs6.github.io/KDD/lecture-slides/7-classification.pdf]["Download the Slides"]]
-  8. *Cluster Analysis* - [[https://fau-cs6.github.io/KDD/lecture-slides/8-cluster.pdf]["Download the Slides"]]
-  9. *Outlier Analysis* - [[https://fau-cs6.github.io/KDD/lecture-slides/9-outlier.pdf]["Download the Slides"]]
+  1. *Prologue* - [[https://fau-cs6.github.io/KDD/lecture-slides/1-prologue.pdf][Slides]]
+  2. *Introduction* - [[https://fau-cs6.github.io/KDD/lecture-slides/2-introduction.pdf][Slides]]
+  3. *Data* - [[https://fau-cs6.github.io/KDD/lecture-slides/3-data.pdf][Slides]]
+  4. *Preprocessing* - [[https://fau-cs6.github.io/KDD/lecture-slides/4-preprocessing.pdf][Slides]]
+  5. *OLAP* - [[https://fau-cs6.github.io/KDD/lecture-slides/5-olap.pdf][Slides]]
+  6. *Mining Frequent Patterns* - [[https://fau-cs6.github.io/KDD/lecture-slides/6-frequent-patterns.pdf][Slides]]
+  7. *Classification* - [[https://fau-cs6.github.io/KDD/lecture-slides/7-classification.pdf][Slides]]
+  8. *Cluster Analysis* - [[https://fau-cs6.github.io/KDD/lecture-slides/8-cluster.pdf][Slides]]
+  9. *Outlier Analysis* - [[https://fau-cs6.github.io/KDD/lecture-slides/9-outlier.pdf][Slides]]
 
 ** Exercise
-  1. *Introduction to Python & Pandas* - [[https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student.zip]["Download the Exercise Sheet"]] - [[https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Solution.zip]["Download the Solution"]]
-  2. *Data analysis & data preprocessing* - [[https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student.zip]["Download the Exercise Sheet"]] - [[https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Solution.zip]["Download the Solution"]]
-  3. *Frequent Patterns* - [[https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student.zip]["Download the Exercise Sheet"]] - [[https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Solution.zip]["Download the Solution"]]
-  4. *Classification* - [[https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student.zip]["Download the Exercise Sheet"]] - [[https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Solution.zip]["Download the Solution"]]
-  5. *Clustering* - [[https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student.zip]["Download the Exercise Sheet"]] - [[https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Solution.zip]["Download the Solution"]]
+  1. *Introduction to Python & Pandas* - [[https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student.zip][Exercise Sheet]] - [[https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Solution.zip][Solution]]
+  2. *Data analysis & data preprocessing* - [[https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student.zip][Exercise Sheet]] - [[https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Solution.zip][Solution]]
+  3. *Frequent Patterns* - [[https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student.zip][Exercise Sheet]] - [[https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Solution.zip][Solution]]
+  4. *Classification* - [[https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student.zip][Exercise Sheet]] - [[https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Solution.zip][Solution]]
+  5. *Clustering* - [[https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student.zip][Exercise Sheet]] - [[https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Solution.zip][Solution]]
 
 ** Submission
-  1. *Frequent Patterns* - [[https://fau-cs6.github.io/KDD/submission-pdfs/1-Frequent-Patterns.pdf]["Download the Task Description"]]
-  2. *Classification* - [[https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf]["Download the Task Description"]]
-  3. *Clustering* - [[https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf]["Download the Task Description"]]
+  1. *Frequent Patterns* - [[https://fau-cs6.github.io/KDD/submission-pdfs/1-Frequent-Patterns.pdf][Task Description]]
+  2. *Classification* - [[https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf][Task Description]]
+  3. *Clustering* - [[https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf][Task Description]]
 
 * Summer Semester 2025
   - Semester duration: 23 April 2025 – 25 July 2025
