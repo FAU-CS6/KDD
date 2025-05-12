@@ -9,30 +9,28 @@
 [[https://fau-cs6.github.io/KDD][file:https://fau-cs6.github.io/KDD/gh-badges/sha-badge.svg]]
 [[https://fau-cs6.github.io/KDD][file:https://fau-cs6.github.io/KDD/gh-badges/time-badge.svg]]
 
-* Responsibilities
 ** Lecture
-  1. *Course Intro* - Dominik Probst
-  2. *Introduction* - Dominik Probst
-  3. *Data* - Dominik Probst
-  4. *Preprocessing* - Dominik Probst
-  5. *OLAP* - Dominik Probst
-  6. *Mining Frequent Patterns, Associations and Correlations* - Dominik Probst
-  7. *Classification* - Dominik Probst
-  8. *Cluster Analysis* - Dominik Probst
-  9. *Outlier Analysis* - Dominik Probst
-  10. *Current Research at CS6* - Dominik Probst
+  1. *Prologue* - [[https://fau-cs6.github.io/KDD/lecture-slides/1-prologue.pdf]["Download the Slides"]]
+  2. *Introduction* - [[https://fau-cs6.github.io/KDD/lecture-slides/2-introduction.pdf]["Download the Slides"]]
+  3. *Data* - [[https://fau-cs6.github.io/KDD/lecture-slides/3-data.pdf]["Download the Slides"]]
+  4. *Preprocessing* - [[https://fau-cs6.github.io/KDD/lecture-slides/4-preprocessing.pdf]["Download the Slides"]]
+  5. *OLAP* - [[https://fau-cs6.github.io/KDD/lecture-slides/5-olap.pdf]["Download the Slides"]]
+  6. *Mining Frequent Patterns* - [[https://fau-cs6.github.io/KDD/lecture-slides/6-frequent-patterns.pdf]["Download the Slides"]]
+  7. *Classification* - [[https://fau-cs6.github.io/KDD/lecture-slides/7-classification.pdf]["Download the Slides"]]
+  8. *Cluster Analysis* - [[https://fau-cs6.github.io/KDD/lecture-slides/8-cluster.pdf]["Download the Slides"]]
+  9. *Outlier Analysis* - [[https://fau-cs6.github.io/KDD/lecture-slides/9-outlier.pdf]["Download the Slides"]]
 
 ** Exercise
-  1. *Introduction to Python & Pandas* - Dominik Probst
-  2. *Data analysis & data preprocessing* - Dominik Probst
-  3. *Frequent Patterns* - Dominik Probst
-  4. *Classification* - Dominik Probst
-  5. *Clustering* - Dominik Probst
+  1. *Introduction to Python & Pandas* - [[https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student.zip]["Download the Exercise Sheet"]] - [[https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Solution.zip]["Download the Solution"]]
+  2. *Data analysis & data preprocessing* - [[https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student.zip]["Download the Exercise Sheet"]] - [[https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Solution.zip]["Download the Solution"]]
+  3. *Frequent Patterns* - [[https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student.zip]["Download the Exercise Sheet"]] - [[https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Solution.zip]["Download the Solution"]]
+  4. *Classification* - [[https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student.zip]["Download the Exercise Sheet"]] - [[https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Solution.zip]["Download the Solution"]]
+  5. *Clustering* - [[https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student.zip]["Download the Exercise Sheet"]] - [[https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Solution.zip]["Download the Solution"]]
 
 ** Submission
-  1. *Frequent Patterns* - Dominik Probst
-  2. *Classification* - Dominik Probst
-  3. *Clustering* - Dominik Probst
+  1. *Frequent Patterns* - [[https://fau-cs6.github.io/KDD/submission-pdfs/1-Frequent-Patterns.pdf]["Download the Task Description"]]
+  2. *Classification* - [[https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf]["Download the Task Description"]]
+  3. *Clustering* - [[https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf]["Download the Task Description"]]
 
 * Summer Semester 2025
   - Semester duration: 23 April 2025 – 25 July 2025
