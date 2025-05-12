@@ -185,41 +185,52 @@
 			      \color{airforceblue} contingency table:} \\
 		      \begin{center}
 			      \vspace{1mm}
-			      \begin{tabular}{|l|c|c|c|c|}
-				      \hline
-				               & $a_1$                             & $\ldots$ & $a_n$             &
-				      \\\hline
-				      $b_1$    & $c_{11} (e_{11})$                 & $\ldots$ & $c_{n1} (e_{n1})$ &
-				      $\sum_{i=1}^n e_{i1}$
-				      \\\hline
-				      $\ldots$ & $\ldots$                          & $\ldots$ & $\ldots$          & $\ldots$
-				      \\\hline
-				      $b_m$    & $c_{1m} (e_{1m})$                 & $\ldots$ & $c_{nm} (e_{nm})$ &
-				      $\sum_{i=1}^n e_{im}$
-				      \\\hline
-				               & $\sum_{j=1}^m e_{1j}$             & $\ldots$ & $\sum_{j=1}^m
-				      e_{nj}$  & $\sum_{i=1}^n\sum_{j=1}^m e_{ij}$
-				      \\\hline
-			      \end{tabular}
+			      \scalebox{0.8}{
+				      \begin{tabular}{|l|c|c|c|c|}
+					      \hline
+					               & $a_1$                             & $\ldots$ & $a_n$             &
+					      \\\hline
+					      $b_1$    & $c_{11} (e_{11})$                 & $\ldots$ & $c_{n1} (e_{n1})$ &
+					      $\sum_{i=1}^n e_{i1}$
+					      \\\hline
+					      $\ldots$ & $\ldots$                          & $\ldots$ & $\ldots$          & $\ldots$
+					      \\\hline
+					      $b_m$    & $c_{1m} (e_{1m})$                 & $\ldots$ & $c_{nm} (e_{nm})$ &
+					      $\sum_{i=1}^n e_{im}$
+					      \\\hline
+					               & $\sum_{j=1}^m e_{1j}$             & $\ldots$ & $\sum_{j=1}^m
+					      e_{nj}$  & $\sum_{i=1}^n\sum_{j=1}^m e_{ij}$
+					      \\\hline
+				      \end{tabular}
+			      }
 			      \vspace{2mm}
 		      \end{center}
-		      \vspace*{0.5cm}
 		\item \textbf{In our example it would look like this:} \\
 		      \begin{center}
 			      \vspace{1mm}
-			      \begin{tabular}{|l|c|c|c|}
-				      \hline
-				                         & Plays chess & Doesn't play chess & Sum (row)
-				      \\\hline
-				      Reads books        & $250 (90)$  & $200 (360)$        & $450$
-				      \\\hline
-				      Doesn't read books & $50 (210)$  & $1000 (840)$       &
-				      $1050$
-				      \\\hline
-				      Sum (column)       & $300$       & $1200$             & $1500$
-				      \\\hline
-			      \end{tabular}
+			      \scalebox{0.8}{
+				      \begin{tabular}{|l|c|c|c|}
+					      \hline
+					                         & Plays Chess                                                                      & Doesn't Play Chess                                                            & Sum (Row)
+					      \\\hline
+					      Reads Books        & \only<2,3,4>{\cellcolor{faugray!25}}$250$ \only<-4>{$(e_{11})$}\only<5->{$(90)$} & \only<3>{\cellcolor{faugray!25}}$200$ \only<-5>{$(e_{21})$}\only<6->{$(360)$} & \only<3>{\cellcolor{faugray!50}}$450$
+					      \\\hline
+					      Doesn't Read Books & \only<2>{\cellcolor{faugray!25}}$50$ \only<-5>{$(e_{12})$}\only<6->{$(210)$}     & $1000$ \only<-5>{$(e_{22})$}\only<6->{$(840)$}                                &
+					      $1050$
+					      \\\hline
+					      Sum (Column)       & \only<2>{\cellcolor{faugray!50}}$300$                                            & $1200$                                                                        & \only<4>{\cellcolor{faugray!50}}$1500$
+					      \\\hline
+				      \end{tabular}
+			      }
 		      \end{center}
+
+		      \begin{block}{Expected Quantity for "Plays Chess" \& "Reads Books"}
+			      \vspace{-7mm}
+			      \begin{align*}
+				      e_{11} = \frac{\sum_{k=1}^{m} c_{1k} \cdot \sum_{l=1}^{n}c_{l1}}{\#Y} = \frac{\visible<2->{300} \cdot \visible<3->{450}}{\visible<4->{1500}} = \visible<5->{90}
+			      \end{align*}
+			      \vspace{-5mm}
+		      \end{block}
 	\end{itemize}
 \end{frame}
 
