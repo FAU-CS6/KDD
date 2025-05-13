@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDDmUe - Knowledge Discovery in Databases with Exercises</title>
+    <style>
+        :root {
+            --faublue: rgb(0, 47, 108);
+            --faubluedark: rgb(4, 30, 66);
+            --fauyellow: rgb(255, 184, 28);
+            --fauorange: rgb(232, 119, 34);
+            --faured: rgb(200, 15, 46);
+            --faureddark: rgb(151, 27, 47);
+            --faucyan: rgb(0, 163, 224);
+            --faucyandark: rgb(0, 97, 160);
+            --faugreen: rgb(67, 176, 42);
+            --faugreendark: rgb(34, 136, 72);
+            --faugray: rgb(119, 159, 181);
+            --faugraydark: rgb(65, 116, 141);
+
+            --max-width: 1500px;
+            --header-height: 120px;
+            --footer-height: 60px;
+            --content-padding: 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica', 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .header {
+            background-color: white;
+            color: var(--faugray);
+            padding: 2rem var(--content-padding);
+            height: var(--header-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--faugray);
+        }
+
+        .header a {
+            color: var(--faugraydark);
+            text-decoration: none;
+        }
+
+        .header a:hover {
+            text-decoration: underline;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header h2 {
+            font-size: 1.25rem;
+            font-weight: normal;
+            color: var(--faugray);
+        }
+
+        .header-text {
+            flex: 1;
+        }
+
+        .logo {
+            max-height: 70px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 var(--content-padding);
+        }
+
+        .divider {
+            width: 100%;
+            height: 6px;
+            background-color: var(--faugraydark);
+            margin-bottom: 1.5rem;
+        }
+
+        .content {
+            padding: 0 var(--content-padding) 2rem var(--content-padding);
+            flex: 1;
+            overflow-y: auto;
+            max-height: calc(100vh - var(--header-height) - var(--footer-height));
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .badges {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badges img {
+            height: 20px;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            color: var(--faugraydark);
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--faugray);
+            padding-bottom: 0.25rem;
+        }
+
+        .section ul {
+            list-style-type: none;
+        }
+
+        .section ul li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section ul li span.number {
+            font-weight: bold;
+            color: var(--faugraydark);
+            margin-right: 0.5rem;
+            min-width: 25px;
+        }
+
+        .section ul li span.title {
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .section ul li a {
+            color: var(--faucyandark);
+            text-decoration: none;
+            margin: 0 0.25rem;
+        }
+
+        .section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .section ul li a.solution {
+            color: var(--faubluedark);
+            text-decoration: none;
+            margin: 0 0.25rem;
+        }
+
+        .section ul li a.solution:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background-color: white;
+            border-top: 1px solid #eee;
+            padding: 1rem 0;
+            color: var(--faugray);
+            font-size: 0.9rem;
+            height: var(--footer-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .footer-left {
+            text-align: left;
+        }
+
+        .footer-right {
+            text-align: right;
+        }
+
+        .footer a {
+            color: var(--faucyandark);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                height: auto;
+                padding: 1rem;
+            }
+
+            .header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-top: 1rem;
+            }
+
+            .content {
+                padding: 1rem;
+                max-height: none;
+                overflow-y: auto;
+            }
+
+            .section ul li {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-text">
+                <h1>Knowledge Discovery in Databases</h1>
+                <h2>with Exercises (KDDmUe) - <a
+                        href="https://www.campo.fau.de:443/qisserver/pages/startFlow.xhtml?_flowId=detailView-flow&unitId=83734&periodId=564&navigationPosition=studiesOffered,searchCourses">Course
+                        Overview</a></h2>
+            </div>
+            <img src="https://fau-cs6.github.io/KDD/fau-logo.svg" alt="FAU Logo" class="logo">
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="divider"></div>
+    </div>
+
+    <main class="content">
+        <div class="badges">
+            <a href="https://fau-cs6.github.io/KDD/lecture-slides.zip"><img
+                    src="https://fau-cs6.github.io/KDD/gh-badges/lectures-badge.svg" alt="Lectures"></a>
+            <a href="https://fau-cs6.github.io/KDD/exercise-archives.zip"><img
+                    src="https://fau-cs6.github.io/KDD/gh-badges/exercises-badge.svg" alt="Exercises"></a>
+            <a href="https://fau-cs6.github.io/KDD/submission-pdfs.zip"><img
+                    src="https://fau-cs6.github.io/KDD/gh-badges/submissions-badge.svg" alt="Submissions"></a>
+            <a href="https://fau-cs6.github.io/KDD"><img src="https://fau-cs6.github.io/KDD/gh-badges/sha-badge.svg"
+                    alt="SHA"></a>
+            <a href="https://fau-cs6.github.io/KDD"><img src="https://fau-cs6.github.io/KDD/gh-badges/time-badge.svg"
+                    alt="Time"></a>
+        </div>
+
+        <section class="section" id="lecture">
+            <h2>Lecture</h2>
+            <ul>
+                <li>
+                    <span class="number">1.</span>
+                    <span class="title">Prologue</span>
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides/1-prologue.pdf">Slides</a>
+                </li>
+                <li>
+                    <span class="number">2.</span>
+                    <span class="title">Introduction</span>
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides/2-introduction.pdf">Slides</a>
+                </li>
+                <li>
+                    <span class="number">3.</span>
+                    <span class="title">Data</span>
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides/3-data.pdf">Slides</a>
+                </li>
+                <li>
+                    <span class="number">4.</span>
+                    <span class="title">Preprocessing</span>
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides/4-preprocessing.pdf">Slides</a>
+                </li>
+                <li>
+                    <span class="number">5.</span>
+                    <span class="title">OLAP</span>
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides/5-olap.pdf">Slides</a>
+                </li>
+                <li>
+                    <span class="number">6.</span>
+                    <span class="title">Mining Frequent Patterns</span>
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides/6-frequent-patterns.pdf">Slides</a>
+                </li>
+                <li>
+                    <span class="number">7.</span>
+                    <span class="title">Classification</span>
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides/7-classification.pdf">Slides</a>
+                </li>
+                <li>
+                    <span class="number">8.</span>
+                    <span class="title">Cluster Analysis</span>
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides/8-cluster.pdf">Slides</a>
+                </li>
+                <li>
+                    <span class="number">9.</span>
+                    <span class="title">Outlier Analysis</span>
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides/9-outlier.pdf">Slides</a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section" id="exercise">
+            <h2>Exercise</h2>
+            <ul>
+                <li>
+                    <span class="number">1.</span>
+                    <span class="title">Introduction to Python & Pandas</span>
+                    <a
+                        href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student/1-Introduction-Python-Pandas-Student.pdf">Exercise
+                        Sheet</a>x<a
+                        href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student/Additional-Files-Student.zip"
+                        class="additional-files">Additional
+                        Files</a> -
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Solution/1-Introduction-Python-Pandas-Solution.pdf"
+                        class="solution">Solution</a>×
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Solution/Additional-Files-Solution.zip"
+                        class="additional-files solution">Additional
+                        Files</a>
+                </li>
+                <li>
+                    <span class="number">2.</span>
+                    <span class="title">Data analysis & data preprocessing</span>
+                    <a
+                        href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student/2-Data-Analysis-Preprocessing-Student.pdf">Exercise
+                        Sheet</a>x<a
+                        href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student/Additional-Files-Student.zip"
+                        class="additional-files">Additional
+                        Files</a> -
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Solution/2-Data-Analysis-Preprocessing-Solution.pdf"
+                        class="solution">Solution</a>×
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Solution/Additional-Files-Solution.zip"
+                        class="additional-files solution">Additional
+                        Files</a>
+                </li>
+                <li>
+                    <span class="number">3.</span>
+                    <span class="title">Frequent Patterns</span>
+                    <a
+                        href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student/3-Frequent-Patterns-Student.pdf">Exercise
+                        Sheet</a>x<a
+                        href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student/Additional-Files-Student.zip"
+                        class="additional-files">Additional
+                        Files</a> -
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Solution/3-Frequent-Patterns-Solution.pdf"
+                        class="solution">Solution</a>×
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Solution/Additional-Files-Solution.zip"
+                        class="additional-files solution">Additional
+                        Files</a>
+                </li>
+                <li>
+                    <span class="number">4.</span>
+                    <span class="title">Classification</span>
+                    <a
+                        href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student/4-Classification-Student.pdf">Exercise
+                        Sheet</a>x<a
+                        href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student/Additional-Files-Student.zip"
+                        class="additional-files">Additional
+                        Files</a> -
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Solution/4-Classification-Solution.pdf"
+                        class="solution">Solution</a>×
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Solution/Additional-Files-Solution.zip"
+                        class="additional-files solution">Additional
+                        Files</a>
+                </li>
+                <li>
+                    <span class="number">5.</span>
+                    <span class="title">Clustering</span>
+                    <a
+                        href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student/5-Clustering-Student.pdf">Exercise
+                        Sheet</a>x<a
+                        href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student/Additional-Files-Student.zip"
+                        class="additional-files">Additional
+                        Files</a> -
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Solution/5-Clustering-Solution.pdf"
+                        class="solution">Solution</a>×
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Solution/Additional-Files-Solution.zip"
+                        class="additional-files solution">Additional
+                        Files</a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section" id="submission">
+            <h2>Submission</h2>
+            <ul>
+                <li>
+                    <span class="number">1.</span>
+                    <span class="title">Frequent Patterns</span>
+                    <a href="https://fau-cs6.github.io/KDD/submission-pdfs/1-Frequent-Patterns.pdf">Task Description</a>
+                </li>
+                <li>
+                    <span class="number">2.</span>
+                    <span class="title">Classification</span>
+                    <a href="https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf">Task Description</a>
+                </li>
+                <li>
+                    <span class="number">3.</span>
+                    <span class="title">Clustering</span>
+                    <a href="https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf">Task Description</a>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-left">
+                <a href="https://www.cs6.tf.fau.eu/" target="_blank">Computer Science 6 (Data Management)</a> |
+                <a href="https://www.fau.de/" target="_blank">Friedrich-Alexander-Universität Erlangen-Nürnberg</a> |
+                <a href="https://github.com/FAU-CS6/KDD" target="_blank">GitHub Repository</a> |
+                <a href="https://www.cs6.tf.fau.eu/imprint" target="_blank">Imprint</a>
+            </div>
+            <div class="footer-right">
+                Last Update: [DATE_OF_UPDATE] (MEZ/MESZ) - SHA: [SHA_OF_UPDATE]
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
