@@ -270,10 +270,9 @@
 
 \begin{frame}{Estimating Confidence Intervals (II)}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\vspace{-6cm}
-			\centering
-			\includegraphics[width=0.8\textwidth]{img/ttest1.jpeg}
+		\begin{column}{0.55\textwidth}
+			\vspace*{-0.7cm}
+
 			\begin{itemize}
 				\item Symmetrical.
 				\item \textbf{\color{airforceblue}Significance level}:
@@ -282,107 +281,33 @@
 				      \end{itemize}
 				\item Confidence limit: $z = \frac{\text{sig}}{2}$.
 			\end{itemize}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\centering
-			\includegraphics[width=0.7\textwidth]{img/ttest2.jpeg}
-		\end{column}
-		% TODO: Recreate plot in tikz.
-	\end{columns}
-\end{frame}
 
-\begin{frame}{Estimating Confidence Intervals (II) - WIP}
-	\begin{columns}
-		\begin{column}{0.55\textwidth}
-			\vspace*{-0.7cm}
-
-			%\begin{itemize}
-			%\item Symmetrical.
-			%\item \textbf{\color{airforceblue}Significance level}:
-			%      \begin{itemize}
-			%	      \item E.g., $\text{sig} = 0.05$ or $5\%$ means $M_1$ \& $M_2$ are significantly different for $95\%$ of population.
-			%      \end{itemize}
-			%\item Confidence limit: $z = \frac{\text{sig}}{2}$.
-			%\end{itemize}
+			\vspace*{0.25cm}
 
 			\begin{center}
-				% Left Tail
+				% T-test curve with two tails for df=5
 				\begin{tikzpicture}
 					\begin{axis}[
-							width=4.5cm, height=2.2cm,
+							width=5.5cm, height=3.5cm,
 							axis lines=middle,
 							axis line style={-stealth},
 							xlabel={$t$},
 							ylabel={},
-							xtick={-2, 0, 2},
+							xtick={-1.5, 0, 1.5},
 							xticklabels={$-t$, $0$, $t$},
 							ytick=\empty,
 							xmin=-4, xmax=4,
 							ymin=0, ymax=0.45,
 							domain=-4:4,
 							samples=50,
-							axis on top,
-							title=Left Tail,
-							title style={font=\footnotesize}
+							axis on top
 						]
-						\addplot[faureddark, thick] {0.4*(1+(x*x/5))^(-3)};
-						\addplot[fill=faugraydark!20, opacity=0.6, draw=none, domain=-4:-2] {0.4*(1+(x*x/5))^(-3)} \closedcycle;
+						\addplot[faucyandark, thick] {0.4*(1+(x*x/5))^(-3)};
+						\addplot[fill=faugraydark!20, opacity=0.6, draw=none, domain=-4:-1.5] {0.4*(1+(x*x/5))^(-3)} \closedcycle;
+						\addplot[fill=faugraydark!20, opacity=0.6, draw=none, domain=1.5:4] {0.4*(1+(x*x/5))^(-3)} \closedcycle;
 						\draw[dashed] (axis cs:0,0) -- (axis cs:0,0.4);
-						\node[anchor=north west, font=\footnotesize] at (axis cs:-3.0,0.11) {Area};
-					\end{axis}
-				\end{tikzpicture}
-
-				% Right Tail
-				\begin{tikzpicture}
-					\begin{axis}[
-							width=4.5cm, height=2.2cm,
-							axis lines=middle,
-							axis line style={-stealth},
-							xlabel={$t$},
-							ylabel={},
-							xtick={-2, 0, 2},
-							xticklabels={$-t$, $0$, $t$},
-							ytick=\empty,
-							xmin=-4, xmax=4,
-							ymin=0, ymax=0.45,
-							domain=-4:4,
-							samples=50,
-							axis on top,
-							title=Right Tail,
-							title style={font=\footnotesize}
-						]
-						\addplot[faureddark, thick] {0.4*(1+(x*x/5))^(-3)};
-						\addplot[fill=faugraydark!20, opacity=0.6, draw=none, domain=2:4] {0.4*(1+(x*x/5))^(-3)} \closedcycle;
-						\draw[dashed] (axis cs:0,0) -- (axis cs:0,0.4);
-						\node[anchor=north east, font=\footnotesize] at (axis cs:3.0,0.11) {Area};
-					\end{axis}
-				\end{tikzpicture}
-
-				% Two Tails
-				\begin{tikzpicture}
-					\begin{axis}[
-							width=4.5cm, height=2.2cm,
-							axis lines=middle,
-							axis line style={-stealth},
-							xlabel={$t$},
-							ylabel={},
-							xtick={-2, 0, 2},
-							xticklabels={$-t$, $0$, $t$},
-							ytick=\empty,
-							xmin=-4, xmax=4,
-							ymin=0, ymax=0.45,
-							domain=-4:4,
-							samples=50,
-							axis on top,
-							title=Two Tails,
-							title style={font=\footnotesize}
-						]
-						\addplot[faureddark, thick] {0.4*(1+(x*x/5))^(-3)};
-						\addplot[fill=faugraydark!20, opacity=0.6, draw=none, domain=-4:-2] {0.4*(1+(x*x/5))^(-3)} \closedcycle;
-						\addplot[fill=faugraydark!20, opacity=0.6, draw=none, domain=2:4] {0.4*(1+(x*x/5))^(-3)} \closedcycle;
-						\draw[dashed] (axis cs:0,0) -- (axis cs:0,0.4);
-						\node[anchor=north west, font=\footnotesize] at (axis cs:-3.0,0.11) {$\frac{\text{Area}}{2}$};
-						\node[anchor=north east, font=\footnotesize] at (axis cs:3.0,0.11) {$\frac{\text{Area}}{2}$};
+						\node[anchor=north west, font=\small] at (axis cs:-3.0,0.2) {$\frac{\text{Area}}{2}$};
+						\node[anchor=north east, font=\small] at (axis cs:3.0,0.2) {$\frac{\text{Area}}{2}$};
 					\end{axis}
 				\end{tikzpicture}
 			\end{center}
@@ -395,19 +320,19 @@
 
 			\scalebox{0.8}{
 				\begin{tabular}{c|ccc}
-					\textbf{}                        & \multicolumn{3}{c}{\textbf{Area in One Tail}}                                                             \\
-					\textbf{}                        & \textbf{0.100}                                 & \textbf{0.050}             & \textbf{0.005}              \\ \cline{2-4}
-					\textbf{}                        & \multicolumn{3}{c}{\textbf{Area in Two Tails}}                                                            \\
-					\textbf{$df/\alpha$}             & \textbf{0.200}                                 & \textbf{0.100}             & \textbf{0.010}              \\ \hline
-					\multicolumn{1}{|c|}{\textbf{1}} & \multicolumn{1}{c|}{3.078}                     & \multicolumn{1}{c|}{6.314} & \multicolumn{1}{c|}{63.657} \\ \hline
-					\multicolumn{1}{|c|}{\textbf{2}} & \multicolumn{1}{c|}{1.886}                     & \multicolumn{1}{c|}{2.920} & \multicolumn{1}{c|}{9.925}  \\ \hline
-					\multicolumn{1}{|c|}{\textbf{3}} & \multicolumn{1}{c|}{1.638}                     & \multicolumn{1}{c|}{2.353} & \multicolumn{1}{c|}{5.841}  \\ \hline
-					\multicolumn{1}{|c|}{\textbf{4}} & \multicolumn{1}{c|}{1.533}                     & \multicolumn{1}{c|}{2.132} & \multicolumn{1}{c|}{4.604}  \\ \hline
-					\multicolumn{1}{|c|}{\textbf{5}} & \multicolumn{1}{c|}{1.476}                     & \multicolumn{1}{c|}{2.015} & \multicolumn{1}{c|}{3.707}  \\ \hline
-					\multicolumn{1}{|c|}{\textbf{6}} & \multicolumn{1}{c|}{1.440}                     & \multicolumn{1}{c|}{1.943} & \multicolumn{1}{c|}{3.499}  \\ \hline
-					\multicolumn{1}{|c|}{\textbf{7}} & \multicolumn{1}{c|}{1.415}                     & \multicolumn{1}{c|}{1.895} & \multicolumn{1}{c|}{3.355}  \\ \hline
-					\multicolumn{1}{|c|}{\textbf{8}} & \multicolumn{1}{c|}{1.397}                     & \multicolumn{1}{c|}{1.860} & \multicolumn{1}{c|}{3.250}  \\ \hline
-					\multicolumn{1}{|c|}{\textbf{9}} & \multicolumn{1}{c|}{1.372}                     & \multicolumn{1}{c|}{1.833} & \multicolumn{1}{c|}{3.169}  \\ \hline
+					\textbf{}                        & \multicolumn{3}{c}{\textbf{Area in One Tail\footnotemark[1]}}                                                             \\
+					\textbf{}                        & \textbf{0.100}                                                 & \textbf{0.050}             & \textbf{0.005}              \\ \cline{2-4}
+					\textbf{}                        & \multicolumn{3}{c}{\textbf{Area in Two Tails\footnotemark[1]}}                                                            \\
+					\textbf{$df/\alpha$}             & \textbf{0.200}                                                 & \textbf{0.100}             & \textbf{0.010}              \\ \hline
+					\multicolumn{1}{|c|}{\textbf{1}} & \multicolumn{1}{c|}{3.078}                                     & \multicolumn{1}{c|}{6.314} & \multicolumn{1}{c|}{63.657} \\ \hline
+					\multicolumn{1}{|c|}{\textbf{2}} & \multicolumn{1}{c|}{1.886}                                     & \multicolumn{1}{c|}{2.920} & \multicolumn{1}{c|}{9.925}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{3}} & \multicolumn{1}{c|}{1.638}                                     & \multicolumn{1}{c|}{2.353} & \multicolumn{1}{c|}{5.841}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{4}} & \multicolumn{1}{c|}{1.533}                                     & \multicolumn{1}{c|}{2.132} & \multicolumn{1}{c|}{4.604}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{5}} & \multicolumn{1}{c|}{1.476}                                     & \multicolumn{1}{c|}{2.015} & \multicolumn{1}{c|}{3.707}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{6}} & \multicolumn{1}{c|}{1.440}                                     & \multicolumn{1}{c|}{1.943} & \multicolumn{1}{c|}{3.499}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{7}} & \multicolumn{1}{c|}{1.415}                                     & \multicolumn{1}{c|}{1.895} & \multicolumn{1}{c|}{3.355}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{8}} & \multicolumn{1}{c|}{1.397}                                     & \multicolumn{1}{c|}{1.860} & \multicolumn{1}{c|}{3.250}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{9}} & \multicolumn{1}{c|}{1.372}                                     & \multicolumn{1}{c|}{1.833} & \multicolumn{1}{c|}{3.169}  \\ \hline
 				\end{tabular}
 			}
 
