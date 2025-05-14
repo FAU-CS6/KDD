@@ -1,18 +1,21 @@
 \section{Decision Tree Induction}
 
 \begin{frame}{Decision Tree: An Example}
+	\vspace*{0.5cm}
 	\begin{columns}
 		\begin{column}{0.35\textwidth}
-			\vspace{-3cm}
+			\vspace{0cm}
 			\begin{itemize}
-				\item \textbf{Training dataset: buys\_computer.}\newline
-				      The dataset follows an example of Quinlan's ID3.
+				\item \textbf{Training dataset:} buys\_computer.
 				\item \textbf{Resulting tree:}\\[0.1cm]
 			\end{itemize}
 			\centering
-			\input{7-classification/tree-example.tex}
+			\scalebox{0.9}{
+				\input{7-classification/tree-example.tex}
+			}
 		\end{column}
 		\begin{column}{0.55\textwidth}
+			\vspace*{-1cm}
 			\begin{center}
 				\scalebox{0.8}{
 					\input{7-classification/table-example.tex}
@@ -64,30 +67,29 @@
 \begin{frame}{Algorithm for Decision Tree Induction (I)}
 	\vspace*{-0em}
 	\begin{columns}
-		\begin{column}{0.75\textwidth}
-			\textbf{Construction in general} follows a greedy algorithm, i. e. non-backtracking. Thus, it is done in a \textit{top-down recursive in a divide-and-conquer manner}.\\\medskip
+		\begin{column}{0.7\textwidth}
+			\textbf{Construction} in a \textit{top-down recursive} and \textit{divide-and-conquer} manner.\\\medskip
 			\textbf{Input:} data partition $D$, \texttt{attribute\_list}, \texttt{attribute\_selection\_method}.\\\medskip
 
 			\textbf{Algorithm Sketch \texttt{build\_decision\_tree}:}
 			\footnotesize
 			\begin{enumerate}
 				\item Create node $N$.
-				\item Determine splitting attribute $A$ according to the splitting criterion
-				      obtained by applying \texttt{attribute\_selection\_method}.  May also return a \textit{split point} or \textit{splitting subset}.
+				\item Determine splitting attribute $A$ with \texttt{attribute\_selection\_method}.
 				\item Label $N$ with splitting criterion.
-				\item If splitting attribute is discrete-valued and multiway split is allowed, or attribute has only one unique value: Remove attribute from \texttt{attribute\_list}.
+				\item If the splitting attribute has been fully utilized, remove it from \texttt{attribute\_list}.
 				\item For each outcome of splitting criterion:
 				      \begin{itemize}
 					      \footnotesize
 					      \item Partition $D$ according to outcome of splitting criterion.
-					      \item Grow branches (subtrees, call \texttt{build\_decision\_tree}) on $N$ for each partition.
+					      \item Grow branches on $N$ for each partition.
 				      \end{itemize}
 				\item Return node $N$
 			\end{enumerate}
 
 
 		\end{column}
-		\begin{column}{0.25\textwidth}
+		\begin{column}{0.2\textwidth}
 			\vspace*{-2em}
 			\centering
 
@@ -128,13 +130,16 @@
 \begin{frame}{Algorithm for Decision Tree Induction (II)}
 	\textbf{Stopping criteria:}
 	\begin{itemize}
-		\item All samples in $D$ belong to the same class. $N$ becomes a leaf.
-		\item \texttt{attribute\_list} is empty. If multiple classes: use majority class.
-		\item Partition $D$ is empty, thus create leaf with majority class.
+		\item All samples in $D$ belong to the same class: \\
+		      $\Rightarrow$ $N$ becomes a leaf.
+		\item Samples in $D$ belong to multiple classes, but \texttt{attribute\_list} is empty: \\
+		      $\Rightarrow$ Create leaf with majority class.
+		\item Partition $D$ is empty: \\
+		      $\Rightarrow$ Create leaf with majority class.
 	\end{itemize}
 	\vfill
 	\begin{alertblock}{Decision Tree Algorithm}
-		We merely discussed the gist to build a decision tree. A detailed algorithm to construct a decision tree is covered in the appendix under \hyperlink{algo:decision-tree}{\beamergotobutton{section ``Basic Decision Tree Algorithm''}}, as well as in our reference book\footfullcite[pp. 332 -- 335]{han2011}.
+		A detailed algorithm to construct a decision tree is covered in the appendix and in our reference book\footfullcite[pp. 332 -- 335]{han2011}.
 	\end{alertblock}
 \end{frame}
 
@@ -147,11 +152,11 @@
 	\begin{itemize}
 		\item Also known as \textit{splitting rules}.
 		\item Provides ranking for each attribute.
-		\item Partition data based on attribute with best score. \textit{Best score} depends on method used (some seek to minimize whereas others maximize).
-		\item Tree node is labeled with splitting criterion (attribute). Sub tree results from partitions of splitting criterion.
-	\end{itemize}
+		\item Partition data based on attribute with best score.
+		\item Tree node is labeled with splitting criterion (attribute).
+	\end{itemize} \medskip
 
-	Popular methods include:
+	We will discuss \textbf{three} popular attribute selection methods:
 	\begin{enumerate}
 		\item Information Gain
 		\item Gain Ratio
@@ -159,9 +164,10 @@
 	\end{enumerate}
 \end{frame}
 
+\subsection{Information Gain (ID3)}
+
 \begin{frame}{Information Gain (ID3) (I)}
 	\begin{itemize}
-		\item \textbf{Select the attribute with the highest information gain.}
 		\item Partitions reflect least randomness, i. e. impurity.
 		\item \textbf{Expected information} (entropy) needed to classify a tuple in $D$:
 		      \begin{align*}
@@ -169,8 +175,7 @@
 		      \end{align*}
 
 		      \begin{itemize}
-			      \item $p_i$ is the probability that tuple in $D$ belongs to class $C_i$,\\
-			            estimated by $\frac{|C_i|}{|D|}$, such that $1 \leq i \leq m$.
+			      \item $p_i$ is the probability that tuple in $D$ belongs to class $C_i$, estimated by $\frac{|C_i|}{|D|}$.
 			      \item $\log_2$ because information is encoded in bits.
 		      \end{itemize}
 	\end{itemize}
@@ -180,98 +185,169 @@
 	Calculate information for every attribute in \texttt{attribute\_list} and data partition $D$:
 	\vspace*{-1.5em}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-				\textbf{Discrete-valued Attribute}
-			\end{center}
-			\vspace*{-1em}
-			\begin{itemize}
-				\item Attribute $A$ with $v$ distinct values.
-				\item Expected information required to classify tuple in $D$ based on partitioning by $A$.
-				\item $D_A$: dataset $D$ partitioned by $A$, $v$: number of distinct values of $A$.
-			\end{itemize}
-			\vspace*{-1em}
-			\begin{align*}
-				\text{Info}_A(D) = \sum_{j=1}^v \frac{|D_{A,j}|}{|D_A|} \text{Info}(D_{A,j})
-			\end{align*}
-		\end{column}
+		\visible<2->{
+			\begin{column}{0.5\textwidth}
+				\begin{center}
+					\textbf{Discrete-valued Attribute}
+				\end{center}
+				\vspace*{-1em}
+				\begin{itemize}
+					\item Attribute $A$ with $v$ distinct values.
+					\item Expected information required to classify tuple in $D$ based on partitioning by $A$.
+					\item $D_A$: dataset $D$ partitioned by $A$, \\
+					      $D_{A,j}$: dataset $D$ partitioned by $A$ with distinct value $j$.
+				\end{itemize}
+			\end{column}
+		}
+		\visible<3->{
+			\begin{column}{0.5\textwidth}
+				\begin{center}
+					\textbf{Continuous-valued Attribute}
+				\end{center}
+				\vspace*{-1em}
 
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-				\textbf{Continuous-valued Attribute}
-			\end{center}
-			\vspace*{-1em}
+				\begin{itemize}
+					\item Attribute $A$ with $v$ distinct values.
+					\item Order values in increasing order.
+					\item Calculate midpoint of every neighbouring value.
+					\item $v-1$ possible split points $s_i=\frac{a_i + a_{i+1}}{2}$.
+					\item Evaluate $\text{Info}_A(D)$ for every possible binary splitting ($A\leq s_i$ and  $A>s_i$).
+				\end{itemize}
 
-			\begin{itemize}
-				\item Attribute $A$ with $v$ distinct values.
-				\item Order values in increasing order.
-				\item Calculate midpoint of every neighbouring value
-				      $\frac{a_i + a_{i+1}}{2}$. Results in $v-1$ possible split points.
-				\item Evaluate $\text{Info}_A(D)$ for every possible splitting.
-				\item Binary split: $A\leq$\texttt{split\_point} and  $A>$\texttt{split\_point}
-			\end{itemize}
-		\end{column}
+			\end{column}
+		}
 	\end{columns}
-	\vspace*{.5em}
-	Given $\text{Info}(D)$ and $\text{Info}_A(D)$, Information Gain is defined as:
+
+	\vspace*{0.25cm}
+
+	\begin{columns}
+		\visible<2->{
+			\begin{column}{0.5\textwidth}
+				{
+					\footnotesize
+					\begin{align*}
+						\text{Info}_A(D) = \sum_{j=1}^v \frac{|D_{A,j}|}{|D_A|} \text{Info}(D_{A,j})
+					\end{align*}
+				}
+			\end{column}
+		}
+		\visible<3->{
+			\begin{column}{0.5\textwidth}
+				{
+					\footnotesize
+					\begin{align*}
+						\text{Info}_A(D) = \frac{|D_{A\leq s_i}|}{|D_A|} \text{Info}(D_{A\leq s_i}) + \frac{|D_{A>s_i}|}{|D_A|} \text{Info}(D_{A>s_i})
+					\end{align*}
+				}
+			\end{column}
+		}
+	\end{columns}
+
+\end{frame}
+
+\begin{frame}{Information Gain (ID3) (III)}
+	Given $\text{Info}(D)$ and $\text{Info}_A(D)$, Information Gain of each attribute $A$ is calculated as:
 	\begin{align*}
 		\text{Gain}(A) = \text{Info}(D) - \text{Info}_A(D)
 	\end{align*}
+
+	\vspace*{0.75cm}
+
+	\begin{block}{Information Gain}
+		The attribute with the \textbf{highest} information gain is selected as the splitting attribute.
+	\end{block}
 \end{frame}
 
 \begin{frame}{Information Gain (ID3) - Example (I)}
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
-			\vspace*{-2em}
 			\begin{itemize}
-				\item \textbf{Class P: buys\_computer = "yes"}
-				\item \textbf{Class N: buys\_computer = "no"}
-				      \begin{align*}
-					      \resizebox{7cm}{!}{%
-						      $\text{Info}(D) = I(9,5) = - \frac{9}{14}\log_2(\frac{9}{14})-\frac{5}{14} \log_2(\frac{5}{14}) = 0.94$
-					      }
-				      \end{align*}
+				\item \textbf{Target attribute:} buys\_computer \medskip
+				\item \textbf{Expected Information}:
 			\end{itemize}
-			\centering
-			\begin{tabular}{|l|l|l|l|}
-				\hline
-				\cellcolor{faugray!62}age     & \cellcolor{faugray!62}p & \cellcolor{faugray!62}n & \cellcolor{faugray!62}$l(p,n)$ \\\hline
-				\cellcolor{white}$\leq 30$    & 2                       & 3                       & 0.971                          \\\hline
-				\cellcolor{white}$31\ldots40$ & 4                       & 0                       & 0                              \\\hline
-				\cellcolor{white}$>40$        & 3                       & 2                       & 0.971                          \\\hline
-			\end{tabular}\\[0.2cm]
-			\begin{itemize}
-				\item \textbf{Similarly,}
-				      \begin{itemize}
-					      \item $\text{Gain}(\texttt{income}) = 0.029$,
-					      \item $\text{Gain}(\texttt{student}) = 0.151$,
-					      \item $\text{Gain}(\texttt{credit\_rating}) = 0.048$.
-				      \end{itemize}
-			\end{itemize}
+			{
+			\footnotesize
+			\begin{align*}
+				\text{Info}(D) & = I(9,5)                                                               \\
+				               & = - \frac{9}{14}\log_2(\frac{9}{14})-\frac{5}{14} \log_2(\frac{5}{14}) \\
+				               & = 0.94                                                                 \\
+			\end{align*}
+			}
 		\end{column}
 		\begin{column}{0.45\textwidth}
-			\vspace{-0.9cm}
-			\begin{align*}
-				\resizebox{7cm}{!}{%
-				$\text{Info}_{\texttt{age}}(D) = \frac{5}{14}I(2,3) + \frac{4}{14} I(4,0) + \frac{5}{14} I(3,2) = 0.694$.
+			\vspace*{-0.5cm}
+			\begin{center}
+				\scalebox{0.7}{
+					\input{7-classification/table-example.tex}
 				}
-			\end{align*}
-			$\frac{5}{14} I(2,3)$ means "$\texttt{age} \leq 30$" has $5$ out of $14$ samples, with $2$ yes'es and $3$ no's. Hence,
-			\vspace*{-.5em}
-			\begin{align*}
-				\text{Gain}(\texttt{age}) = \text{Info}(D)-\text{Info}_{\texttt{age}}(D) = 0.246.
-			\end{align*}
-
-			\vspace*{-.5em}
-			\resizebox{6cm}{!}{%
-				\centering
-				\input{7-classification/table-example.tex}
-			}
+			\end{center}
 		\end{column}
 	\end{columns}
 \end{frame}
 
 \begin{frame}{Information Gain (ID3) - Example (II)}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-2em}
+			\begin{itemize}
+				\item \textbf{Attribute:} Age \medskip
+				\item \textbf{Value distribution:}
+				      \vspace*{0.1cm}
+				      \begin{center}
+					      \scalebox{0.8}{
+						      \begin{tabular}{|c|c|c|c|}
+							      \hline
+							      \cellcolor{faugray!62}Age     & \cellcolor{faugray!62}Yes & \cellcolor{faugray!62}No & \cellcolor{faugray!62}$I(\text{Yes},\text{No})$ \\\hline
+							      \cellcolor{white}$\leq 30$    & 2                         & 3                        & 0.971                                           \\\hline
+							      \cellcolor{white}$31\ldots40$ & 4                         & 0                        & 0                                               \\\hline
+							      \cellcolor{white}$>40$        & 3                         & 2                        & 0.971                                           \\\hline
+						      \end{tabular}
+					      }\medskip
+				      \end{center}
+				\item \textbf{Calculation:}
+				      {
+					      \footnotesize
+					      \begin{align*}
+						      \text{Info}_{\texttt{age}}(D) & = \frac{5}{14}I(2,3) + \frac{4}{14} I(4,0) + \frac{5}{14} I(3,2) \\
+						                                    & = 0.694                                                          \\
+						      \text{Gain}(\texttt{age})     & = \text{Info}(D)-\text{Info}_{\texttt{age}}(D)                   \\
+						                                    & = 0.94 - 0.694                                                   \\
+						                                    & = 0.246
+					      \end{align*}
+				      }
+			\end{itemize}
+
+
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\only<1>{
+				\vspace*{-0.5cm}
+				\begin{center}
+					\scalebox{0.7}{
+						\input{7-classification/table-example.tex}
+					}
+				\end{center}
+			}
+			\only<2->{
+				\vspace*{-0.5cm}
+				\begin{itemize}
+					\item \textbf{Gain of other attributes:}
+					      \begin{itemize}
+						      \item $\text{Gain}(\texttt{income}) = 0.029$,
+						      \item $\text{Gain}(\texttt{student}) = 0.151$,
+						      \item $\text{Gain}(\texttt{credit\_rating}) = 0.048$.
+					      \end{itemize} \medskip
+					      \visible<3->{
+					\item \textbf{Splitting attribute:} \\
+					      Age  with $\text{Gain}(\texttt{age}) = 0.246$.
+					      }
+				\end{itemize}
+			}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Information Gain (ID3) - Example (III)}
 	\centering
 
 	\begin{tikzpicture}[
@@ -354,6 +430,8 @@
 	\end{tikzpicture}
 \end{frame}
 
+\subsection{Gain Ratio (C4.5)}
+
 \begin{frame}{Gain Ratio (C4.5)}
 	\begin{itemize}
 		\item Extension to Information Gain as this method is biased towards attributes with large amount of values.
@@ -368,6 +446,8 @@
 		      approaches zero. Overcome by using Information Gain then.
 	\end{itemize}
 \end{frame}
+
+\subsection{Gini Index}
 
 \begin{frame}{Gini Index (CART, IBM IntelligentMiner) (I)}
 	\begin{itemize}
