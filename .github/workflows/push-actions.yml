@@ -193,14 +193,17 @@ jobs:
         run: |
           SHA=$(git rev-parse --short HEAD)
           CURRENT_TIME=$(TZ="Europe/Berlin" date "+%d.%m.%Y %H:%M")
+          LONG_SHA=$(git rev-parse HEAD)
 
           sed -e "s/\[DATE_OF_UPDATE\]/${CURRENT_TIME}/g" \
               -e "s/\[SHA_OF_UPDATE\]/${SHA}/g" \
+              -e "s/\[LONG_SHA_OF_UPDATE\]/${LONG_SHA}/g" \
               .github/workflows/pages/index.template.html > artifacts/index.html
 
-      - name: Copy logo to artifacts
+      - name: Copy logo(s) to artifacts
         run: |
           cp .github/workflows/pages/fau-logo.svg artifacts/fau-logo.svg
+          cp .github/workflows/pages/favicon.png artifacts/favicon.png
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KDDmUe - Knowledge Discovery in Databases with Exercises</title>
+    <link rel="icon" type="image/ico" href="https://fau-cs6.github.io/KDD/favicon.png">
     <style>
         :root {
             --faublue: rgb(0, 47, 108);
@@ -37,7 +38,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-y: auto;
             background-color: white;
         }
 
@@ -105,7 +106,7 @@
             padding: 0 var(--content-padding) 2rem var(--content-padding);
             flex: 1;
             overflow-y: auto;
-            max-height: calc(100vh - var(--header-height) - var(--footer-height));
+            max-height: none;
             width: 100%;
             max-width: var(--max-width);
             margin: 0 auto;
@@ -141,6 +142,7 @@
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .section ul li span.number {
@@ -210,6 +212,12 @@
             text-decoration: underline;
         }
 
+        .footer-right a {
+            color: var(--faugray);
+            padding: 0;
+            margin: 0;
+        }
+
         @media (max-width: 768px) {
             .header {
                 height: auto;
@@ -221,8 +229,16 @@
                 text-align: center;
             }
 
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header h2 {
+                font-size: 1rem;
+            }
+
             .logo {
-                margin-top: 1rem;
+                display: none;
             }
 
             .content {
@@ -232,13 +248,30 @@
             }
 
             .section ul li {
-                flex-direction: column;
-                align-items: flex-start;
                 margin-bottom: 1rem;
+            }
+
+            .section ul li a {
+                margin: 0.25rem 0.5rem 0.25rem 0;
             }
 
             .container {
                 padding: 0 1rem;
+            }
+
+            .footer .container {
+                display: block;
+                width: 100%;
+            }
+
+            .footer-left {
+                margin-top: 2rem;
+                text-align: center;
+            }
+
+            .footer-right {
+                margin-top: 0.5rem;
+                text-align: center;
             }
         }
     </style>
@@ -253,7 +286,8 @@
                         href="https://www.campo.fau.de:443/qisserver/pages/startFlow.xhtml?_flowId=detailView-flow&unitId=83734&periodId=564&navigationPosition=studiesOffered,searchCourses">Course
                         Overview</a></h2>
             </div>
-            <img src="https://fau-cs6.github.io/KDD/fau-logo.svg" alt="FAU Logo" class="logo">
+            <a href="https://www.fau.eu/"><img src="https://fau-cs6.github.io/KDD/fau-logo.svg" alt="FAU Logo"
+                    class="logo"></a>
         </div>
     </header>
 
@@ -433,12 +467,13 @@
         <div class="container">
             <div class="footer-left">
                 <a href="https://www.cs6.tf.fau.eu/" target="_blank">Computer Science 6 (Data Management)</a> |
-                <a href="https://www.fau.de/" target="_blank">Friedrich-Alexander-Universität Erlangen-Nürnberg</a> |
+                <a href="https://www.fau.eu/" target="_blank">Friedrich-Alexander-Universität Erlangen-Nürnberg</a> |
                 <a href="https://github.com/FAU-CS6/KDD" target="_blank">GitHub Repository</a> |
                 <a href="https://www.cs6.tf.fau.eu/imprint" target="_blank">Imprint</a>
             </div>
             <div class="footer-right">
-                Last Update: [DATE_OF_UPDATE] (MEZ/MESZ) - SHA: [SHA_OF_UPDATE]
+                Last Update: [DATE_OF_UPDATE] (MEZ/MESZ) - SHA: <a
+                    href="https://github.com/FAU-CS6/KDD/tree/[LONG_SHA_OF_UPDATE]">[SHA_OF_UPDATE]</a>
             </div>
         </div>
     </footer>
