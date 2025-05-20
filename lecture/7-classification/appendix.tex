@@ -53,3 +53,36 @@
 		\end{multicols}
 	\end{algorithm}
 \end{frame}
+
+
+\begin{frame}{Other Attribute Selection Methods}
+	\vspace*{-1em}
+	\begin{itemize}
+		\item \textbf{CHAID:}
+		      \begin{itemize}
+			      \item A popular decision tree algorithm, measure based on $\chi^2$ test for independence.
+		      \end{itemize}
+		\item \textbf{C-SEP:}
+		      \begin{itemize}
+			      \item Performs better than Information Gain and Gini Index in certain cases.
+		      \end{itemize}
+		\item \textbf{G-statistic:}
+		      \begin{itemize}
+			      \item Has a close approximation to $\chi^2$ distribution.
+		      \end{itemize}
+		\item \textbf{MDL (Minimal Description Length) principle:}
+		      \begin{itemize}
+			      \item I.e. the simplest solution is preferred.
+			      \item The best tree is the one that requires the fewest number of bits to both (1) encode the tree and (2) encode the exceptions to the tree.
+		      \end{itemize}
+		\item \textbf{Multivariate splits:}
+		      \begin{itemize}
+			      \item Partitioning based on multiple variable combinations.
+			      \item CART: finds multivariate splits based on a linear combination of attributes.
+		      \end{itemize}
+		\item \textbf{Which Attribute Selection Method is the best?}
+		      \begin{itemize}
+			      \item Most give good results, none is significantly superior to others.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}

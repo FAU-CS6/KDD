@@ -156,7 +156,7 @@
 		\item Tree node is labeled with splitting criterion (attribute).
 	\end{itemize} \medskip
 
-	We will discuss \textbf{three} popular attribute selection methods:
+	We will discuss \textbf{three} popular attribute selection methods\footnote{Since this it not even close to an exhaustive list, we list some other popular methods in the appendix.}:
 	\begin{enumerate}
 		\item Information Gain
 		\item Gain Ratio
@@ -254,7 +254,7 @@
 	\vspace*{0.75cm}
 
 	\begin{block}{Information Gain}
-		The attribute with the \textbf{highest} information gain is selected as the splitting attribute.
+		The attribute with the \textbf{highest} Information Gain is selected as the splitting attribute.
 	\end{block}
 \end{frame}
 
@@ -434,126 +434,282 @@
 
 \begin{frame}{Gain Ratio (C4.5)}
 	\begin{itemize}
-		\item Extension to Information Gain as this method is biased towards attributes with large amount of values.
-		\item \textbf{C4.5 (a successor of ID3) uses gain ratio to overcome the problem (normalization to information gain):}
-		      \begin{align*}
-			      \text{SplitInfo}_A(D) = - \sum_{j=1}^{v} \frac{|D_j|}{|D|} \log_2\left( \frac{|D_j|}{|D|} \right), \\
-			      \text{GainRatio}(A) = \frac{\text{Gain}(A)}{\text{SplitInfo}_A(D)}.
-		      \end{align*}
+		\item \textbf{Problem of Information Gain:}
+		      \begin{itemize}
+			      \item Tends to prefer attributes with large number of distinct values.
+			            \begin{itemize}
+				            \item E. g. attribute \texttt{degree\_program} with 278 values vs. \texttt{student\_status} with 2 values.
+				                  % 278 is the number of all degree programs at FAU in WS2024/25
+			            \end{itemize}
+		      \end{itemize}
+		      \visible<2->{
+		\item \textbf{Solution:}
+		      \begin{itemize}
+			      \item Normalize the Information Gain to get the \textbf{Gain Ratio (C4.5)}:
+			            \begin{align*}
+				            \text{SplitInfo}_A(D) & = - \sum_{j=1}^{v} \frac{|D_j|}{|D|} \log_2\left( \frac{|D_j|}{|D|} \right) \\
+				            \text{GainRatio}(A)   & = \frac{\text{Gain}(A)}{\text{SplitInfo}_A(D)}
+			            \end{align*}
+			      \item \textbf{Disadvantage:} Becomes unstable as $\text{SplitInfo}_A(D)$ approaches zero.
 
-		\item The attribute with the maximum gain ratio is selected as the splitting attribute.
-		\item \textbf{Disadvantage:} Becomes unstable as $\text{SplitInfo}_A(D)$
-		      approaches zero. Overcome by using Information Gain then.
+			            \begin{block}{Gain Ratio}
+				            The attribute with the \textbf{highest} Gain Ratio is selected as the splitting attribute.
+			            \end{block}
+
+		      \end{itemize}
+		      }
 	\end{itemize}
 \end{frame}
 
-\subsection{Gini Index}
+\begin{frame}{Gain Ratio (C4.5) - Example}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-0.5em}
+			\begin{itemize}
+				\item \textbf{Attribute:} Age \medskip
+				\item \textbf{Calculation:}
+				      {
+					      \footnotesize
+					      \begin{align*}
+						      \text{Gain}(\texttt{age})  =     & 0.246                                                                                        \\
+						      \text{SplitInfo}_{age}(D)  =     & -\frac{5}{14} \log_2\left(\frac{5}{14}\right) - \frac{4}{14} \log_2\left(\frac{4}{14}\right) \\
+						                                       & - \frac{5}{14} \log_2\left(\frac{5}{14}\right)                                               \\
+						      =                                & 1.577                                                                                        \\
+						      \text{GainRatio}(\texttt{age}) = & \frac{0.246}{1.577}                                                                          \\
+						      =                                & 0.156
+					      \end{align*}
+				      }
+			\end{itemize}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (I)}
+
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-0.5cm}
+			\begin{center}
+				\scalebox{0.7}{
+					\input{7-classification/table-example.tex}
+				}
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\subsection{Gini Index (CART)}
+
+\begin{frame}{Gini Index (CART) (I)}
 	\begin{itemize}
-		\item \textbf{Corrado Gini (1884 -- 1965).}
+		\item \textbf{Problem of Information Gain and Gain Ratio:}
 		      \begin{itemize}
-			      \item Italian statistician and sociologist.
+			      \item Use of logarithm is computationally expensive.
 		      \end{itemize}
-		\item \textbf{Also called Gini coefficient.}
-		\item \textbf{Measures statistical dispersion.}
+		\item \textbf{Solution:}
 		      \begin{itemize}
-			      \item Zero expresses perfect equality where all values belong to the same class.
-			      \item One expresses maximal inequality among values.
+			      \item Use the \textbf{Gini Index (CART)} as an alternative to Information Gain and Gain Ratio.
+			      \item Measures the \textbf{statistical dispersion} of a dataset.
 		      \end{itemize}
-		\item \textbf{Based on the Lorenz curve.}
-		      \begin{itemize}
-			      \item Plots the proportion of the total sum of values ($y$-axis) that is cumulatively assigned to the bottom $x\%$ of the population.
-			      \item Line at $45$ degrees thus represents perfect equality of value distribution.
-		      \end{itemize}
-		\item \textbf{Gini coefficient then is $\ldots$}
-		      \begin{itemize}
-			      \item $\ldots$ the ratio of the area that lies between the line of equality and the Lorenz curve over the total area under the line of equality.
-		      \end{itemize}
+
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (II)} % TODO: plot anpassen, sodass cumulative income nur steigt und nie faellt
-	% TODO: Mark the areas between the curves and the diagonal line. After all, the Gini Index and thus also this image is exactly about this area. This should be recognizable in a Gini Index image.
-	\centering
-	Example: Distribution of incomes.\\[0.5cm]
-	\begin{tikzpicture}
-		\begin{axis}[
-				xmin=0, xmax=100,
-				ymin=0, ymax=100,
-				minor tick num = 4,
-				grid,
-				ylabel = cumulative income (in \%),
-				xlabel = cumulative population (in \%),
-				legend style={legend pos=north west},
-			]
-			\addplot plot
-			coordinates {(0,0) (25,20) (50,15) (75,30) (100,100)};
-			\addplot plot
-			coordinates {(0,0) (25,10) (50,45) (75,40) (100,100)};
-			\addplot plot [thin]
-			coordinates {(0,0) (100,100)};
-			\legend{$L(1)$,$L(2)$}
-		\end{axis}
-	\end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (III)}
+\begin{frame}{Gini Index (CART) (II)}
 	\begin{itemize}
-		\item Measured impurity of partition $D$ is defined as the sum over $n$ classes:
+		\item \textbf{Measured impurity} of partition $D$ is defined as the sum over $n$ classes:
+		      \vspace*{-1em}
 		      \begin{align*}
-			      \text{Gini}(D) = 1-\sum_{j=1}^{n} p_j^2,
+			      \text{Gini}(D) = 1-\sum_{j=1}^{n} p_j^2
 		      \end{align*}
-		      where $p_j$ is the non-zero probability that sample in $D$ belongs to class $C_j$ as estimated by $\frac{|C_{j,D}|}{|D|}$
-		\item If \textbf{attribute $A$ is discrete-valued} with $v$ distinct values
-		      compute all possible subsets of values $2^v - 2$. Compute weighted sum of
-		      each partition tuple ($D_1$ and $D_2$) as follows:
-		      \begin{align*}
-			      \text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2).
-		      \end{align*}
-		\item If \textbf{attribute $A$ is continuous-valued} proceed similarly as in
-		      calculating Information Gain for continuous-valued attributes (order values,
-		      calculate midpoint of value pairs) and then calculate $\text{Gini}_A(D)$ for
-		      every split point.
+		      \vspace*{-1em}
+		      \begin{itemize}
+			      \item $p_j$ is the non-zero probability that sample in $D$ belongs to class $C_j$ as estimated by $\frac{|C_{j,D}|}{|D|}$
+		      \end{itemize}
 	\end{itemize}
+
+	\vspace*{-1em}
+
+	\visible<2->{
+		\begin{columns}
+			\visible<3->{
+				\begin{column}{0.45\textwidth}
+					\begin{center}
+						\textbf{Discrete-valued Attribute}
+					\end{center}
+					\vspace*{-1em}
+					\begin{itemize}
+						\item Attribute $A$ with $v$ distinct values.
+						\item Compute all possible subsets of values.
+						\item Compute weighted sum of each partition tuple ($D_1$ and $D_2$) as follows:
+					\end{itemize}
+				\end{column}
+			}
+			\visible<4->{
+				\begin{column}{0.45\textwidth}
+					\begin{center}
+						\textbf{Continuous-valued Attribute}
+					\end{center}
+					\vspace*{-1em}
+
+					\begin{itemize}
+						\item Order values in increasing order.
+						\item Split the dataset at every midpoint.
+						\item Evaluate $\text{Gini}_A(D)$ for every possible binary splitting:
+					\end{itemize}
+
+				\end{column}
+			}
+		\end{columns}
+
+		\vspace*{0.25cm}
+
+		\only<-4>{
+			\begin{columns}
+				\visible<3->{
+					\begin{column}{0.5\textwidth}
+						{
+							\footnotesize
+							\begin{align*}
+								\text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2)
+							\end{align*}
+						}
+					\end{column}
+				}
+				\visible<4->{
+					\begin{column}{0.5\textwidth}
+						{
+							\footnotesize
+							\begin{align*}
+								\text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2)
+							\end{align*}
+						}
+					\end{column}
+				}
+			\end{columns}
+		}
+		% EXTRA ANIMATION STEP:
+		% Might be used to show that the formula is the same for both cases. But for now, we decided to keep it 
+		% simple.
+		%
+		%\only<5->{
+		%	{
+		%			\footnotesize
+		%			\begin{align*}
+		%				\text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2)
+		%			\end{align*}
+		%		}
+		%}
+	}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (IV)}
+\begin{frame}{Gini Index (CART) (III)}
 	\begin{itemize}
-		\item Gini Index as the \textbf{reduction in impurity} is then given as
+		\item The \textbf{reduction in impurity} (the actual \textbf{Gini Index}) is defined as
 		      follows:
 		      \begin{align*}
 			      \Delta\text{Gini}_A(D) = \text{Gini}(D)-\text{Gini}_A(D).
 		      \end{align*}
-		\item Attribute with minimum Gini Index is used as the splitting attribute.
 	\end{itemize}
+
+	\vspace*{4em}
+
+	\begin{block}{Gini Index}
+		The attribute (and partitioning) with the \textbf{highest} Gini Index is selected as the splitting attribute.
+	\end{block}
 
 \end{frame}
 
-\begin{frame}{Gini Index - Example (I)}
-	\begin{itemize}
-		\item $D$ has $9$ tuples in $\text{buys\_computer} =$ "yes" and 5 in "no", thus
-		      \begin{align*}
-			      \text{Gini}(D) = 1 - \left( \frac{9}{14} \right)^2 - \left( \frac{5}{14} \right)^2 = 0.459.
-		      \end{align*}
-		\item Suppose the attribute $\texttt{income}$ partitions $D$ \\ into $10$ in
-		      $D_1:\{\texttt{low,medium}\}$ and $4$ in $D_2: \{\texttt{high}\}$:
-		      \begin{align*}
-			       & \text{Gini}(D\vert_{D[\texttt{income}]="medium", "low"})                                                                                                                                   \\
-			       & = \frac{10}{14} \text{Gini}(D_1) + \frac{4}{14} \text{Gini}(D_2)                                                                                                                           \\
-			       & =\frac{10}{14} \left(1-\left( \frac{7}{10} \right)^2 - \left( \frac{3}{10} \right)^2 \right) + \frac{4}{14} \left( 1-\left( \frac{2}{4} \right)^2 - \left( \frac{2}{4} \right)^2 \right) = \\
-			       & = 0.443 = \text{gini}(D\vert_{D[\texttt{income}]="high"}).
-		      \end{align*}
-	\end{itemize}
+\begin{frame}{Gini Index (CART) - Example (I)}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item \textbf{Target attribute:} buys\_computer \medskip
+				\item \textbf{Measured impurity}:
+			\end{itemize}
+			{
+			\footnotesize
+			\begin{align*}
+				\text{Gini}(D) & = 1 - \left( \frac{9}{14} \right)^2 - \left( \frac{5}{14} \right)^2 \\
+				               & = 0.459
+			\end{align*}
+			}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-0.5cm}
+			\begin{center}
+				\scalebox{0.7}{
+					\input{7-classification/table-example.tex}
+				}
+			\end{center}
+		\end{column}
+	\end{columns}
 \end{frame}
 
-\begin{frame}{Gini Index - Example (II)}
-	\begin{itemize}
-		\item $\text{Gini}(D\vert_{D[\texttt{income}]="low", "high"}) = 0.458$,\\
-		      $\text{Gini}(D\vert_{D[\texttt{income}]="medium", "high"}) = 0.450.$
-		\item Thus, split on the \{"low","medium"\} and \{"high"\}, since it has the lowest gini index.
-	\end{itemize}
+\begin{frame}{Gini Index (CART) - Example (II)}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-2em}
+			\begin{itemize}
+				\item \textbf{Attribute:} Income \medskip
+				\item \textbf{Subsets:}
+				      {
+					      \footnotesize
+					      \begin{align*}
+						      D_1: & \{\texttt{low,medium}\} \\
+						      D_2: & \{\texttt{high}\}
+					      \end{align*}
+				      }
+				\item \textbf{Calculation:}
+				      {
+					      \footnotesize
+					      \begin{align*}
+						      \text{Gini}(D\vert_{\texttt{i}=\{high\}}) = & \text{Gini}(D\vert_{\texttt{i}=\{medium,low\}})                                             \\
+						      =                                           & \frac{10}{14} \text{Gini}(D_1) + \frac{4}{14} \text{Gini}(D_2)                              \\
+						      =                                           & \frac{10}{14} \left(1-\left( \frac{7}{10} \right)^2 - \left( \frac{3}{10} \right)^2 \right) \\
+						      +                                           & \frac{4}{14} \left( 1-\left( \frac{2}{4} \right)^2 - \left( \frac{2}{4} \right)^2 \right)   \\
+						      =                                           & 0.443
+					      \end{align*}
+				      }
+			\end{itemize}
+
+
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\only<1>{
+				\vspace*{-0.5cm}
+				\begin{center}
+					\scalebox{0.7}{
+						\input{7-classification/table-example.tex}
+					}
+				\end{center}
+			}
+			\only<2->{
+				\vspace*{-0.5cm}
+				\begin{itemize}
+					\item \textbf{Reduction in impurity:}
+					      {
+						      \footnotesize
+						      \begin{align*}
+							      \Delta\text{Gini}_{\texttt{i}=\{high\}}(D) = & \text{Gini}(D)-\text{Gini}(D\vert_{\texttt{i}=\{high\}}) \\
+							      =                                            & 0.459 - 0.443                                            \\
+							      =                                            & 0.016
+						      \end{align*}
+					      }
+					\item \textbf{Gini Index of other subsets:}
+					      \begin{itemize}
+						      \item $\Delta\text{Gini}_{\texttt{i}=\{medium\}}(D) = 0.001$
+						      \item $\Delta\text{Gini}_{\texttt{i}=\{low\}}(D) = 0.009$
+					      \end{itemize} \medskip
+					      \visible<3->{
+					\item \textbf{Splitting subset:} \\
+					      \begin{itemize}
+						      \item If income has the overall highest reduction of impurity, then the split is on \{"low","medium"\} and \{"high"\}.
+					      \end{itemize}
+					      }
+				\end{itemize}
+			}
+		\end{column}
+	\end{columns}
 \end{frame}
+
+\subsection*{Overview}
 
 \begin{frame}{Attribute Selection Methods Overview}
 	\textbf{The three methods, in general, return good results, but}
@@ -571,37 +727,6 @@
 			      \item Biased to multi-valued attributes.
 			      \item Has difficulty when number of classes is large.
 			      \item Tends to favor tests that result in equal-sized partitions and purity in both partitions.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Other Attribute Selection Methods}
-	\begin{itemize}
-		\item \textbf{CHAID:}
-		      \begin{itemize}
-			      \item A popular decision tree algorithm, measure based on $\chi^2$ test for independence.
-		      \end{itemize}
-		\item \textbf{C-SEP:}
-		      \begin{itemize}
-			      \item Performs better than Information Gain and Gini Index in certain cases.
-		      \end{itemize}
-		\item \textbf{G-statistic:}
-		      \begin{itemize}
-			      \item Has a close approximation to $\chi^2$ distribution.
-		      \end{itemize}
-		\item \textbf{MDL (Minimal Description Length) principle:}
-		      \begin{itemize}
-			      \item I.e. the simplest solution is preferred.
-			      \item The best tree is the one that requires the fewest number of bits to both (1) encode the tree and (2) encode the exceptions to the tree.
-		      \end{itemize}
-		\item \textbf{Multivariate splits:}
-		      \begin{itemize}
-			      \item Partitioning based on multiple variable combinations.
-			      \item CART: finds multivariate splits based on a linear combination of attributes.
-		      \end{itemize}
-		\item \textbf{Which Attribute Selection Method is the best?}
-		      \begin{itemize}
-			      \item Most give good results, none is significantly superior to others.
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
