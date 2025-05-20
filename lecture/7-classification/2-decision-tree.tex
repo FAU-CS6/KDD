@@ -601,7 +601,7 @@
 
 \begin{frame}{Gini Index (CART) (III)}
 	\begin{itemize}
-		\item The \textbf{reduction in impurity} (the actual \textbf{Gini Index}) is defined as
+		\item The \textbf{reduction in impurity} is defined as
 		      follows:
 		      \begin{align*}
 			      \Delta\text{Gini}_A(D) = \text{Gini}(D)-\text{Gini}_A(D).
@@ -611,7 +611,7 @@
 	\vspace*{4em}
 
 	\begin{block}{Gini Index}
-		The attribute (and partitioning) with the \textbf{highest} Gini Index is selected as the splitting attribute.
+		The attribute (and partitioning) with the \textbf{highest} reduction in impurity is selected as the splitting attribute.
 	\end{block}
 
 \end{frame}
@@ -692,7 +692,7 @@
 							      =                                            & 0.016
 						      \end{align*}
 					      }
-					\item \textbf{Gini Index of other subsets:}
+					\item \textbf{Other subsets:}
 					      \begin{itemize}
 						      \item $\Delta\text{Gini}_{\texttt{i}=\{medium\}}(D) = 0.001$
 						      \item $\Delta\text{Gini}_{\texttt{i}=\{low\}}(D) = 0.009$
@@ -714,15 +714,15 @@
 \begin{frame}{Attribute Selection Methods Overview}
 	\textbf{The three methods, in general, return good results, but}
 	\begin{itemize}
-		\item \textbf{\color{airforceblue}Information gain:}
+		\item \textbf{\color{airforceblue}Information Gain:}
 		      \begin{itemize}
 			      \item Biased towards multi-valued attributes.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Gain ratio:}
+		\item \textbf{\color{airforceblue}Gain Ratio:}
 		      \begin{itemize}
 			      \item Tends to prefer unbalanced splits in which one partition is much smaller than the others.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Gini index:}
+		\item \textbf{\color{airforceblue}Gini Index:}
 		      \begin{itemize}
 			      \item Biased to multi-valued attributes.
 			      \item Has difficulty when number of classes is large.
@@ -731,168 +731,190 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Overfitting and Tree Pruning}
+\begin{frame}{Decision Tree Induction - Overfitting}
 	\begin{itemize}
-		\item \textbf{Overfitting: An induced tree may overfit the training data.}
+		\item \textbf{Problem:}
 		      \begin{itemize}
-			      \item Too many branches, some may reflect anomalies due to noise or outliers.
-			      \item Poor accuracy for unseen samples.
+			      \item Many branches may reflect anomalies due to noise or outliers.
+			      \item Overall poor accuracy for unseen samples.
 		      \end{itemize}
-		\item Pruned trees are typically smaller, less complex, easier to
-		      comprehend, faster and better at classifying unseen data.
-		\item \textbf{Two approaches to avoid overfitting:}
-		      \begin{enumerate}
-			      \item \textbf{\color{airforceblue}Prepruning:}
+		      $\Rightarrow$ \textbf{Overfitting:} An induced tree may overfit the training data.
+		      \visible<2->{
+		\item \textbf{Solution:}
+		      \begin{itemize}
+			      \item \textbf{\color{airforceblue}Pruning:} Avoid branches that have little importance.
+			      \item \textbf{Two} types of pruning:
+			            \begin{enumerate}
+				            \item \textbf{\color{airforceblue}Prepruning:} Stop growing the tree early.
+				            \item \textbf{\color{airforceblue}Postpruning:} Remove branches from a "fully grown" tree.
+			            \end{enumerate}
+		      \end{itemize}
+		      }
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Decision Tree Induction - Enhancements}
+	\begin{itemize}
+		\item A lot of research has been done to improve basic \textbf{decision tree induction} algorithms. E.g.:
+		      \begin{itemize}
+			      \item \textbf{Allow for} \textbf{\color{airforceblue}continuous-valued attributes.}
 			            \begin{itemize}
-				            \item Halt tree construction early.\\
-				                  Do not split a node, if this would result in the goodness measure falling below a threshold.
-				            \item Difficult to choose an appropriate threshold.
+				            \item Dynamically define new discrete-valued attributes that partition the values of continuous-valued attributes into a discrete set of intervals.
 			            \end{itemize}
-			      \item \textbf{\color{airforceblue}Postpruning:}
+			      \item \textbf{Handle} \textbf{\color{airforceblue}missing attribute values.}
 			            \begin{itemize}
-				            \item Remove branches from a "fully grown" tree.\\
-				                  Get a sequence of progressively pruned trees.
-				            \item Use a set of data different from the training data to decide which is the "best pruned tree."
+				            \item Assign the most common value of the attribute.
+				            \item Assign probability to each of the possible values.
 			            \end{itemize}
-		      \end{enumerate}
+			      \item \textbf{\color{airforceblue}Attribute construction.}
+			            \begin{itemize}
+				            \item Create new attributes based on existing ones that are sparsely represented.
+				            \item This reduces fragmentation, repetition, and replication.
+			            \end{itemize}
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Enhancements to Basic Decision Tree Induction}
+\begin{frame}{Decision Tree Induction - Scalability}
 	\begin{itemize}
-		\item \textbf{Allow for} \textbf{\color{airforceblue}continuous-valued attributes.}
+		\item \textbf{Problem:}
 		      \begin{itemize}
-			      \item Dynamically define new discrete-valued attributes that partition the values of continuous-valued attributes into a discrete set of intervals.
+			      \item Basic decision tree algorithms (ID3, C4.5, and CART) are not scalable \\
+			            (They require the entire dataset to be in memory).
+			      \item They are not designed to handle large datasets.
 		      \end{itemize}
-		\item \textbf{Handle} \textbf{\color{airforceblue}missing attribute values.}
+		\item \textbf{Solution:}
 		      \begin{itemize}
-			      \item Assign the most common value of the attribute.
-			      \item Assign probability to each of the possible values.
-		      \end{itemize}
-		\item \textbf{\color{airforceblue}Attribute construction.}
-		      \begin{itemize}
-			      \item Create new attributes based on existing ones that are sparsely represented.
-			      \item This reduces fragmentation, repetition, and replication.
+			      \item Extend the basic algorithms to handle large datasets.
+			      \item We will take a look at \textbf{two} modifications/methods:
+			            \begin{enumerate}
+				            \item RainForest
+				            \item BOAT
+			            \end{enumerate}
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Classification in Large Databases}
+\begin{frame}{Scalability: RainForest}
 	\begin{itemize}
-		\item ID3, C4.5, and CART have been developed with the assumption that data fits into memory.\\With Big Data that's not possible anymore.
-		\item \textbf{Scalability:}
+		\item \textbf{Basic Idea:}
 		      \begin{itemize}
-			      \item Classifying datasets with millions of examples and \\ hundreds of attributes with reasonable speed.
+			      \item Extract all data required for the attribute selection methods \\
+			            $\Rightarrow$ Store it in a \textbf{compact} data structure.
+			      \item Apply the original algorithm to the compact data structure(s).
 		      \end{itemize}
-		\item \textbf{Why is decision tree induction popular?}
+		\item \textbf{Data structure(s):}
 		      \begin{itemize}
-			      \item Relatively fast learning speed (compared to other classification methods).
-			      \item Convertible to simple and easy-to-understand classification rules.
-			      \item Can use SQL queries for accessing databases.
-			      \item Classification accuracy comparable with other methods.
+			      \item \textbf{\color{airforceblue}AVC-list:}
+			            \begin{itemize}
+				            \item \textbf{\color{airforceblue}A}ttribute
+				            \item \textbf{\color{airforceblue}V}alue
+				            \item \textbf{\color{airforceblue}C}lass label
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}AVC-set} \textbf{(of an attribute X):}
+			            \begin{itemize}
+				            \item Aggregated projection of training dataset onto the attribute $X$ with counts of each class label.
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}AVC-group} \textbf{(of a node n):}
+			            \begin{itemize}
+				            \item Set of AVC-sets of all predictor attributes at the node $n$.
+			            \end{itemize}
 		      \end{itemize}
-		\item Two scalable methods, among others:
-		      \begin{enumerate}
-			      \item RainForest
-			      \item BOAT
-		      \end{enumerate}
+
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Scalable Decision Tree: RainForest}
-	\begin{itemize}
-		\item Applicable to any decision tree algorithm.
-		\item \textbf{Separates the scalability aspects from the criteria that determine the quality of the tree.}
-		\item \textbf{Builds an} \textbf{\color{airforceblue}AVC-list:} (Attribute, Value, Class\_label).
-		\item \textbf{\color{airforceblue}AVC-set} \textbf{(of an attribute X):}
-		      \begin{itemize}
-			      \item Projection of training dataset onto the attribute $X$ and class label where counts of individual class label are aggregated.
-		      \end{itemize}
-		\item \textbf{\color{airforceblue}AVC-group} \textbf{(of a node n):}
-		      \begin{itemize}
-			      \item Set of AVC-sets of all predictor attributes at the node $n$.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{RainForest: Training Set and its AVC-sets}
-	\begin{columns}
-		\begin{column}{0.6\textwidth}
-			\small
+\begin{frame}{Scalability: RainForest - AVC-set Example}
+	\vspace*{-0.25cm}
+	\begin{center}
+		\scalebox{0.7}{
 			\input{7-classification/table-example.tex}
-		\end{column}
-		\begin{column}{0.3\textwidth}
-			\vspace{-3cm}
-
-			\centering
-			AVC-set on age:\\
-			\begin{tabular}{|c|c|c|}
-				\hline
-				age          & yes & no \\\hline
-				$\leq 30$    & 2   & 3  \\\hline
-				$31\ldots40$ & 4   & 0  \\\hline
-				$>40$        & 3   & 2  \\\hline
-			\end{tabular}\\[1cm]
-			AVC-set on income:\\
-			\begin{tabular}{|c|c|c|}
-				\hline
-				income & yes & no \\\hline
-				high   & 2   & 2  \\\hline
-				medium & 4   & 2  \\\hline
-				low    & 3   & 1  \\\hline
-			\end{tabular}
-		\end{column}
-	\end{columns}
+		}
+	\end{center}
+	\vspace*{0.25cm}
+	\begin{center}
+		\begin{columns}
+			\begin{column}{0.225\textwidth}
+				\visible<2->{
+					\footnotesize
+					\centering
+					AVC-set on age:\\
+					\begin{tabular}{|c|c|c|}
+						\hline
+						\rowcolor{faugray!62}\textbf{age} & \textbf{yes} & \textbf{no} \\\hline
+						$\leq 30$                         & 2            & 3           \\\hline
+						$31\ldots40$                      & 4            & 0           \\\hline
+						$>40$                             & 3            & 2           \\\hline
+					\end{tabular}
+				}
+			\end{column}
+			\begin{column}{0.225\textwidth}
+				\visible<3->{
+					\footnotesize
+					\centering
+					AVC-set on income:\\
+					\begin{tabular}{|c|c|c|}
+						\hline
+						\rowcolor{faugray!62}\textbf{income} & \textbf{yes} & \textbf{no} \\\hline
+						high                                 & 2            & 2           \\\hline
+						medium                               & 4            & 2           \\\hline
+						low                                  & 3            & 1           \\\hline
+					\end{tabular}
+				}
+			\end{column}
+			\begin{column}{0.225\textwidth}
+				\visible<4->{
+					\footnotesize
+					\centering
+					AVC-set on student:\\
+					\begin{tabular}{|c|c|c|}
+						\hline
+						\rowcolor{faugray!62}\textbf{student} & \textbf{yes} & \textbf{no} \\\hline
+						yes                                   & 6            & 1           \\\hline
+						no                                    & 3            & 4           \\\hline
+					\end{tabular}
+				}
+			\end{column}
+			\begin{column}{0.225\textwidth}
+				\visible<5->{
+					\footnotesize
+					\centering
+					AVC-set on credit\_rating:\\
+					\begin{tabular}{|c|c|c|}
+						\hline
+						\rowcolor{faugray!62}\textbf{credit\_rating} & \textbf{yes} & \textbf{no} \\\hline
+						fair                                         & 6            & 2           \\\hline
+						excellent                                    & 3            & 3           \\\hline
+					\end{tabular}
+				}
+			\end{column}
+		\end{columns}
+	\end{center}
 \end{frame}
 
-\begin{frame}{RainForest: Training Set and its AVC-sets (II)}
-	\begin{columns}
-		\begin{column}{0.6\textwidth}
-			\small
-			\input{7-classification/table-example.tex}
-		\end{column}
-		\begin{column}{0.3\textwidth}
-			\vspace{-3cm}
 
-			\centering
-			AVC-set on student:\\
-			\begin{tabular}{|c|c|c|}
-				\hline
-				student & yes & no \\\hline
-				yes     & 6   & 1  \\\hline
-				no      & 3   & 4  \\\hline
-			\end{tabular}\\[1cm]
-			AVC-set on credit\_rating:\\
-			\begin{tabular}{|c|c|c|}
-				\hline
-				credit\_rating & yes & no \\\hline
-				fair           & 6   & 2  \\\hline
-				excellent      & 3   & 3  \\\hline
-			\end{tabular}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Scalable Decision Tree: BOAT}
+\begin{frame}{Scalability: BOAT}
 	\begin{itemize}
-		\item BOAT = Bootstrapped Optimistic Algorithm for Tree Construction
-		\item \textbf{Use a statistical technique called bootstrapping to create several smaller samples (subsets), each fitting in memory.}
+		\item \textbf{Basic Idea:}
 		      \begin{itemize}
-			      \item See on the subsequent slides.
-		      \end{itemize}
-		\item \textbf{Each subset is used to create a tree, resulting in several trees.}
-		\item \textbf{These trees are examined and used to construct a new tree T'.}
-		      \begin{itemize}
-			      \item It turns out that T' is very close to the tree that would be generated \\
-			            using the whole data set together.
+			      \item Use a statistical technique to create several smaller samples (subsets).
+			      \item Every sample fits in the memory and is used to induce a decision tree.
+			      \item All trees are combined to form a single tree T'.
 		      \end{itemize}
 		\item \textbf{Advantages:}
 		      \begin{itemize}
-			      \item Requires only two scans of DB.
+			      \item Resulting tree often very close to the tree induced from the entire dataset.
+			      \item Requires only two scans of the DB.
 			      \item An incremental algorithm:
 			            \begin{itemize}
 				            \item Take insertions and deletions of training data and update the decision tree.
 			            \end{itemize}
 		      \end{itemize}
 	\end{itemize}
+
+	\vspace*{0.5cm}
+
+	\begin{block}{BOAT}
+		The full title of BOAT is \textit{Bootstrapped Optimistic Algorithm for Tree Construction}, which refers to the underlying statistical technique used: \textbf{Bootstrapping}.
+	\end{block}
 \end{frame}
