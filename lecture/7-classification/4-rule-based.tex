@@ -1,30 +1,65 @@
 \section{Rule-Based Classification}
 
-\begin{frame}{Using \uppercase{if-then} Rules for Classification}
+\begin{frame}{Basic Concepts}
 	\begin{itemize}
-		\item \textbf{Represent the knowledge in the form of {\color{airforceblue}IF-THEN rules}.}
+		\item Rule-based classification is based on a set of \textbf{IF-THEN rules}.
+		\item Each \textbf{IF-THEN rule} consists of two parts:
 		      \begin{itemize}
-			      \item E.g., if \texttt{age} $\leq 30$ AND \texttt{student} = "yes" THEN buys\_computer = "yes".
-			      \item Readable.
+			      \item \textbf{\color{airforceblue}IF} (antecedent/precondition): a condition or set of conditions that must be satisfied.
+			      \item \textbf{\color{airforceblue}THEN} (consequent): the conclusion or action that follows if the IF part is satisfied.
 		      \end{itemize}
-		\item \textbf{Rule {\color{airforceblue}antecedent/precondition} vs. rule {\color{airforceblue}consequent}}.
-		\item \textbf{Assessment of a rule R: coverage and accuracy.}
+		      \visible<2->{
+		\item \textbf{Example:} (one rule)
 		      \begin{itemize}
-			      \item $n_{\text{covers}} = \#$ of tuples covered by $R$ (antecedent if true).
-			      \item $n_{\text{correct}} = \#$ of tuples correctly classified by $R$.
-			      \item $\text{coverage}(R) = \frac{n_{\text{covers}}}{|D|}$ with $D$ training data set.
-			      \item $\text{accuracy}(R) = \frac{n_{\text{correct}}}{n_{\text{covers}}}$.
+			      \item \textbf{IF} \texttt{age} $\leq$ 30 AND \texttt{student} = "yes" \textbf{THEN} \texttt{buys\_computer} = "yes".
 		      \end{itemize}
+		      }
+		      \visible<3->{
+		\item Very \textbf{easy} to read and understand for humans.
+		      }
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[c]{Potential Problems of Rule-Based Classification}
-	\centering
-	\huge
-	\begin{enumerate}
-		\item More than one rule is triggered.
-		\item No rule is triggered.
-	\end{enumerate}
+\begin{frame}{Example}
+	\begin{itemize}
+		\item Given is a \textbf{\color{airforceblue}set of rules}:
+		      \begin{itemize}
+			      \item \textbf{IF} \texttt{price} $<$ 1500 \textbf{THEN} \texttt{buy} = "yes".
+			      \item \textbf{IF} \texttt{price} $\geq$ 1500 AND \texttt{color} = "red" \textbf{THEN} \texttt{buy} = "no".
+			      \item \textbf{IF} \texttt{price} $\geq$ 1500 AND \texttt{location} = "Erlangen" \textbf{THEN} \texttt{buy} = "yes".
+		      \end{itemize} \medskip
+		      \visible<2->{
+		\item The set may be used to classify \textbf{\color{airforceblue}new tuples}: \medskip
+		      \begin{center}
+			      \scalebox{0.85}{
+				      \begin{tabular}{|c|c|c|c|}
+					      \hline
+					      \rowcolor{faugray!62}\textbf{price}                                 & \textbf{color}                                                       & \textbf{location}                                                       & \textbf{buy}                                                                   \\\hline
+					      % Scenario 1: Exactly one rule is triggered
+					      \only<3-4>{\cellcolor{faugray!28}}1349                              & \only<3-4>{\cellcolor{faugray!28}}red                                & \only<3-4>{\cellcolor{faugray!28}}Nuremberg                             & \only<3-4>{\cellcolor{faugray!28}}\only<-3>{?}\only<4->{{\color{faugreen}yes}} \\\hline
+					      % Scenario 2: More than one rule is triggered
+					      \only<5>{\cellcolor{faugray!28}}\only<6>{\cellcolor{faured!28}}2306 & \only<5>{\cellcolor{faugray!28}}\only<6>{\cellcolor{faured!28}}red   & \only<5>{\cellcolor{faugray!28}}\only<6>{\cellcolor{faured!28}}Erlangen & \only<5>{\cellcolor{faugray!28}}\only<6>{\cellcolor{faured!28}}?
+					      \\\hline
+					      % Scenario 3: No rule is triggered
+					      \only<7>{\cellcolor{faugray!28}}\only<8>{\cellcolor{faured!28}}1995 & \only<7>{\cellcolor{faugray!28}}\only<8>{\cellcolor{faured!28}}green & \only<7>{\cellcolor{faugray!28}}\only<8>{\cellcolor{faured!28}}Fuerth   & \only<7>{\cellcolor{faugray!28}}\only<8>{\cellcolor{faured!28}}?
+					      \\\hline
+				      \end{tabular}
+			      }
+		      \end{center}
+		      } \medskip
+
+		      \visible<6->{
+		\item Some scenarios might lead to \textbf{\color{airforceblue}conflicts}:
+		      \begin{enumerate}
+			      \item More than one rule is triggered.
+			            \visible<8->{
+			      \item No rule is triggered.
+			            }
+		      \end{enumerate}
+		      }
+
+	\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Potential Solutions}
@@ -47,44 +82,213 @@
 				            \item Rules \underline{must} be applied in this particular order to avoid conflict.
 			            \end{itemize}
 		      \end{itemize}
+		      \visible<2->{
 		\item \textbf{No rule is triggered.}
 		      \begin{itemize}
 			      \item Use a fallback/default rule.
 			      \item Always evaluated as the last rule, if and only if other rules are not covered by some tuple, i. e. no rules have been triggered.
 		      \end{itemize}
+		      }
 	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Rule Extraction from a Decision Tree}
 	\begin{itemize}
-		\item \textbf{Rules are {\color{airforceblue}easier to understand} than large trees.}
-		\item \textbf{Rule can be created for {\color{airforceblue}each path from the root to a leaf.}}
+		\item \textbf{Basic idea:}
 		      \begin{itemize}
-			      \item The leaf holds the class prediction.
+			      \item Rules are \textbf{\color{airforceblue}easier to understand} than large trees.
+			      \item A rule can be created for \textbf{\color{airforceblue}each path from the root to a leaf.}
+			      \item Each attribute-value pair along the path forms \textbf{\color{airforceblue}a condition}:
 		      \end{itemize}
-		\item \textbf{Each attribute-value pair along the path forms a conjunction:}
 	\end{itemize}
-	\vspace*{1em}
-	\begin{columns}
-		\begin{column}{0.55\textwidth}
-			\textbf{Example:}
-			\begin{enumerate}
-				\item IF \texttt{age} $\leq$ 30 AND \texttt{student} = "no" \\
-				      THEN \texttt{buys\_computer} = "no".
-				\item IF \texttt{age} $\leq$ 30 AND \texttt{student} = "yes" \\
-				      THEN \texttt{buys\_computer} = "yes".
-				\item IF \texttt{age}== $31\ldots40$ THEN \texttt{buys\_computer} = "yes".
-				\item \dots
-			\end{enumerate}
-		\end{column}
-		\begin{column}{0.45\textwidth}
-			\vspace*{-1em}
-			\begin{figure}[h]
-				\centering
-				\input{7-classification/tree-example.tex}
-			\end{figure}
-		\end{column}
-	\end{columns}
+	\vspace*{0em}
+	\visible<2->{
+		\begin{center}
+			\begin{columns}
+				\begin{column}{0.45\textwidth}
+					\begin{figure}[h]
+						\centering
+						\scalebox{0.9}{
+							\input{7-classification/tree-example.tex}
+						}
+					\end{figure}
+				\end{column}
+				\begin{column}{0.45\textwidth}
+					\begin{enumerate}
+						\visible<3->{
+						\item \textbf{IF} \texttt{age} $\leq$ 30 AND \texttt{student} = "yes" \\
+						      \textbf{THEN} \texttt{buys\_computer} = "yes".
+						      }
+						      \visible<4->{
+						\item \textbf{IF} \texttt{age} $\leq$ 30 AND \texttt{student} = "no" \\
+						      \textbf{THEN} \texttt{buys\_computer} = "no".
+						      }
+						      \visible<5->{
+						\item \textbf{IF} \texttt{age}= $31\ldots40$ \\
+						      \textbf{THEN} \texttt{buys\_computer} = "yes".
+						      }
+						      \visible<6->{
+						\item \dots
+						      }
+					\end{enumerate}
+				\end{column}
+			\end{columns}
+		\end{center}
+	}
+\end{frame}
+
+\begin{frame}{Rule Induction: Sequential Covering Method}
+	\begin{itemize}
+		\item Extracting rules from decision trees is not \textbf{the only} way to learn rules.
+		\item Rules can be learned \textbf{\color{airforceblue}directly} from \textbf{\color{airforceblue}the training data}:
+		      \begin{itemize}
+			      \item Rules are learned \textbf{sequentially}.
+			      \item Each rule is optimized to cover \textbf{as many tuples of a given class} as possible\\ while covering \textbf{as few tuples of other classes} as possible.
+		      \end{itemize}
+	\end{itemize}
+
+	\visible<2->{
+		\begin{center}
+			\begin{columns}
+				\begin{column}{0.45\textwidth}
+					\begin{itemize}
+						\item \textbf{Steps of the method:}
+						      \begin{enumerate}
+							      \visible<3->{
+							      \item Start with an empty set of rules.
+							            }
+							            \visible<4->{
+							      \item Find the rule $r$ with the best covering.
+							            }
+							            \visible<5->{
+							      \item Removed all tuples covered.
+							            }
+							            \visible<6->{
+							      \item Repeat step 2. - 4. until:
+							            \begin{itemize}
+								            \item No more tuples left.
+								            \item The quality of a rule is below a threshold.
+							            \end{itemize}
+							            }
+						      \end{enumerate}
+					\end{itemize}
+
+				\end{column}
+				\begin{column}{0.45\textwidth}
+					\begin{center}
+						\newcommand*{\xMin}{0}%
+						\newcommand*{\xMax}{8}%
+						\newcommand*{\yMin}{0}%
+						\newcommand*{\yMax}{5}%
+						\newcommand*{\colorOne}{faured}%
+						\newcommand*{\colorTwo}{faugray}%
+						\begin{tikzpicture}[scale=0.5]
+							\foreach \i in {\xMin,...,\xMax} {
+									\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at
+									(\i,\yMin) {\tiny$\i$};
+								}
+							\foreach \i in {\yMin,...,\yMax} {
+									\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at
+									(\xMin,\i) {\tiny$\i$};
+								}
+							% \colorOne Nodes (30)
+							\node[circle,fill=\colorOne,scale=0.5] at (0.7,0.8) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (1.2,1.3) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (0.9,2.1) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (1.5,3.2) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (1.8,1.7) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (2.1,0.9) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (2.3,1.4) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (1.9,2.3) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (0.8,3.5) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (1.3,4.2) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (2.2,4.1) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (2.4,3.3) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (3.2,1.1) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (3.7,0.7) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (4.1,1.5) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (4.6,0.9) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (5.3,1.2) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (5.9,0.8) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (6.2,1.4) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (6.7,0.9) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (7.1,1.6) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (6.8,2.3) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (7.2,3.1) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (6.5,3.7) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (7.3,4.2) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (5.8,4.3) {};
+							\node[circle,fill=\colorOne,scale=0.5] at (5.1,3.9) {};
+							\visible<-4>{\node[circle,fill=\colorOne,scale=0.5] at (2.4,2.7) {};}
+							\visible<-4>{\node[circle,fill=\colorOne,scale=0.5] at (3.9,3.2) {};}
+							\visible<-4>{\node[circle,fill=\colorOne,scale=0.5] at (5.4,2.9) {};}
+
+							% \colorTwo Nodes (45)
+							\node[circle,fill=\colorTwo,scale=0.5] at (1.1,1.9) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (1.7,2.7) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (2.9,2.2) {};
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (2.9,2.7) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (3.1,2.9) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (3.4,3.2) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (3.7,3.6) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (3.9,4.1) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (3.3,3.8) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (2.8,3.5) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (2.7,4.0) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (3.2,4.3) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (3.8,2.8) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (4.1,3.1) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (4.3,3.5) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (4.6,3.9) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (4.8,4.2) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (4.5,2.8) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (4.9,3.3) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (5.2,3.6) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (5.4,4.1) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (5.1,2.7) {};}
+							\node[circle,fill=\colorTwo,scale=0.5] at (2.6,1.2) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (2.9,1.8) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (3.4,1.9) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (4.3,2.1) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (4.8,1.8) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (5.7,1.9) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (6.1,2.1) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (6.3,2.8) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (6.4,3.3) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (5.7,3.4) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (0.7,1.4) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (0.9,3.1) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (1.4,3.8) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (7.0,1.0) {};
+							\node[circle,fill=\colorTwo,scale=0.5] at (6.9,3.4) {};
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (4.2,2.6) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (3.6,2.6) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (4.7,3.6) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (3.5,4.0) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (4.1,3.7) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (4.4,4.1) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (5.0,3.1) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (3.8,3.3) {};}
+							\visible<-4>{\node[circle,fill=\colorTwo,scale=0.5] at (2.8,3.1) {};}
+
+							\node[very thin,black,right] at (\xMax + 0.5, \yMax - 0.5) (l) {\scriptsize Legend:};
+
+							\node[circle,fill=\colorOne,scale=0.5,below=1mm of l] (ptw) {};
+							\node[very thin,black,right=0.25mm of ptw] {\scriptsize Class 1};
+							\node[circle,fill=\colorTwo,scale=0.5,below=1mm of ptw] (pth) {};
+							\node[very thin,black,right=0.25mm of pth] {\scriptsize Class 2};
+
+
+							\visible<4>{
+								% Rectangle between (2.5, 2.5) and (5.5, 4.5)
+								\draw[thick, dashed, faugraydark] (2.5, 2.5) rectangle (5.5, 4.5);
+							}
+						\end{tikzpicture}
+					\end{center}
+				\end{column}
+			\end{columns}
+		\end{center}
+	}
 \end{frame}
 
 \begin{frame}{Rule Induction: Sequential Covering Method}
