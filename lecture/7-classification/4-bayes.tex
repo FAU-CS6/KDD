@@ -1,24 +1,95 @@
 \section{Bayes Classification Methods}
 
-\begin{frame}{Bayesian Classification: Why?}
+\begin{frame}{Bayesian Classification: Concepts}
 	\begin{itemize}
-		\item \textbf{A statistical classifier:}
+		\item \textbf{Bayesian Classification:}
 		      \begin{itemize}
-			      \item Performs probabilistic prediction, i.e. predicts class-membership probabilities.
+			      \item Statistical classification method.
+			      \item Predict class membership probabilities.
+			      \item Based on \textbf{\color{airforceblue}Bayes' Theorem}.
 		      \end{itemize}
-		\item \textbf{Foundation:} \textbf{\color{airforceblue}Bayes' Theorem.}
-		\item \textbf{Performance:}
+		      \visible<3->{
+		\item \textbf{Our Focus:}
 		      \begin{itemize}
-			      \item A simple Bayesian classifier (naïve Bayesian classifier) has performance comparable with decision tree and selected neural-network classifiers.
+			      \item \textbf{\color{airforceblue}Naïve Bayesian Classification}
+			            \begin{itemize}
+				            \item Assumes conditional independence of attributes ("naïve").
+				            \item Simplification of Bayesian classification.
+			            \end{itemize}
 		      \end{itemize}
-		\item \textbf{Incremental:}
+		      }
+	\end{itemize}
+
+	\vspace*{0.75cm}
+
+	\visible<2->{
+		\begin{block}{Bayes' Theorem\footnote{\fullcite{bayes1763}}}
+			\textbf{Bayes' Theorem} describes the probability of an event based on prior knowledge of conditions that might be related to the event.
+		\end{block}
+	}
+\end{frame}
+
+\begin{frame}{Bayesian Classification: Basic Terms}
+	\begin{itemize}
+		\item \textbf{Let ...}
 		      \begin{itemize}
-			      \item Each training example can incrementally increase/decrease the probability that a hypothesis is correct -- prior knowledge can be combined with observed data.
+			      \item \textbf{... $X$ be a {\color{airforceblue}data sample} ("evidence").}
+			            \begin{itemize}
+				            \item The class label shall be unknown.
+			            \end{itemize}
+			      \item \textbf{... $C_i$ be the {\color{airforceblue}hypothesis} that $X$ belongs to class $i$.}
 		      \end{itemize}
-		\item \textbf{Standard:}
+		      \visible<2->{
+		\item \textbf{Then our goal is to determine the {\color{airforceblue}Posteriori Probability} $P(C_i|X)$:}
 		      \begin{itemize}
-			      \item Even when Bayesian methods are computationally intractable, they can provide a standard of optimal decision making against which other methods can be measured.
+			      \item The probability that the hypothesis holds given the observed data sample $X$.
 		      \end{itemize}
+		      }
+		      \visible<3->{
+		\item \textbf{To determine $P(C_i|X)$, we need to know:}
+		      \begin{itemize}
+			      \item \textbf{The {\color{airforceblue}Prior Probability} $P(C_i)$:}
+			            \begin{itemize}
+				            \item The overall probability of the class $i$.
+				            \item E.g., $X$ will buy computer, regardless of age, income, $\ldots$.
+			            \end{itemize}
+			      \item \textbf{The {\color{airforceblue}Likelihood} $P(X|C_j)$:}
+			            \begin{itemize}
+				            \item The probability of observing the sample $X$ given that the hypothesis holds.
+				            \item E.g., given that $X$ buys computer, the probability that $X$ is $31\ldots40$, medium income.
+			            \end{itemize}
+			      \item \textbf{The {\color{airforceblue}Probability} of the sample data $P(X)$:}
+			            \begin{itemize}
+				            \item The probability that sample data is observed.
+			            \end{itemize}
+		      \end{itemize}
+		      }
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Bayesian Classification: Posteriori Probability}
+	\begin{itemize}
+		\item \textbf{The {\color{airforceblue}Posteriori Probability} $P(C_i|X)$ follows from the Bayes' Theorem:}
+		      \begin{align*}
+			      P(C_i|X) = \frac{P(X|C_i)P(C_i)}{P(X)}.
+		      \end{align*}
+
+		      \vspace*{0.25cm}
+
+		      \visible<2->{
+			      \begin{block}{The Maximum Posteriori Probability}
+				      Since the posteriori probability $P(C_i|X)$ is the basically the probability that $X$ belongs to class $C_i$, we want to find the class $C_i$ that \textbf{maximizes} this probability. $X$ \textbf{is classified} as belonging to this class.
+			      \end{block}
+		      }
+
+		      \vspace*{0.5cm}
+
+		      \visible<3->{
+		\item \textbf{Since $P(X)$ is constant for all classes, we only must maximize:}
+		      \begin{align*}
+			      P(X|C_i)P(C_i).
+		      \end{align*}
+		      }
 	\end{itemize}
 \end{frame}
 

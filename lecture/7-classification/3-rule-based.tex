@@ -137,7 +137,7 @@
 	}
 \end{frame}
 
-\begin{frame}{Rule Induction: Sequential Covering Method}
+\begin{frame}{Rule Induction: Sequential Covering Method (I)}
 	\begin{itemize}
 		\item Extracting rules from decision trees is not \textbf{the only} way to learn rules.
 		\item Rules can be learned \textbf{\color{airforceblue}directly} from \textbf{\color{airforceblue}the training data}:
@@ -161,7 +161,7 @@
 							      \item Find the rule $r$ with the best covering.
 							            }
 							            \visible<5->{
-							      \item Removed all tuples covered.
+							      \item Remove all tuples covered.
 							            }
 							            \visible<6->{
 							      \item Repeat with step 2 until:
@@ -301,103 +301,18 @@
 	}
 \end{frame}
 
-\begin{frame}{Rule Induction: Sequential Covering Method}
+\begin{frame}{Rule Induction: Sequential Covering Method (II)}
 	\begin{itemize}
-		\item \textbf{Sequential covering algorithm:}
-		      \begin{itemize}
-			      \item Extracts rules directly from training data.
-		      \end{itemize}
 		\item \textbf{Typical sequential covering algorithms:}
 		      \begin{itemize}
-			      \item FOIL, AQ, CN2, RIPPER.
+			      \item {\only<2->{\color{airforceblue}}FOIL\only<1>{\footnote{\fullcite{quinlan1990}}}}, AQ\only<1>{\footnote{\fullcite{michalski1986}}}, CN2\only<1>{\footnote{\fullcite{clark1989}}}, RIPPER\only<1>{\footnote{\fullcite{cohen1995}}}.
 		      \end{itemize}
-		\item \textbf{Rules are learned {\color{airforceblue}sequentially}.}
+		      \only<2->{
+		\item \textbf{\color{airforceblue}FOIL (First-Order Inductive Learner):}
 		      \begin{itemize}
-			      \item Each rule for a given class $C_i$ will cover many tuples of $C_i$, but none (or few) of the tuples of other classes.
-		      \end{itemize}
-		\item \textbf{Algorithm sketch:}
-		      \begin{itemize}
-			      \item Rules are learned one at a time.
-			      \item Each time a rule is learned, the tuples covered by the rule are removed.
-			      \item The process repeats on the remaining tuples unless termination condition, e.g., when no more training examples left or when the quality of a rule returned is below a user-specified threshold.
-		      \end{itemize}
-		\item \textbf{Compare with decision-tree induction:}
-		      \begin{itemize}
-			      \item That was learning a set of rules simultaneously.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Sequential Covering Algorithm (I)}
-	\begin{algorithm}[H]
-		\SetAlgoVlined
-		\KwData{
-			\begin{itemize}
-				\item Training dataset $D$ containing tuples with their associated class labels;
-				\item \texttt{attribute\_values}, the set of all attributes and their possible values;
-			\end{itemize}
-		}
-		\KwResult{A rule set.}
-		\BlankLine
-		\texttt{rule\_set} $\leftarrow \{\}$ \tcp*[l]{Initial set of rules learned is empty}
-		\BlankLine
-		\ForEach{class $c$ of $D$}{
-			\Repeat{terminating condition}{
-				\texttt{rule} $\leftarrow$ \texttt{learn\_one\_rule}($D$, \texttt{attribute\_values, $c$})\;
-				remove tuples covered by \texttt{rule} from $D$\;
-				\BlankLine
-				\texttt{rule\_set} $\leftarrow$ \texttt{rule\_set} + \texttt{rule} \tcp*[l]{add new rule to rule set}
-			}
-		}
-		\BlankLine
-		\KwRet{
-			\texttt{rule\_set}\;
-		}
-	\end{algorithm}
-\end{frame}
-
-\begin{frame}{Sequential Covering Algorithm (II)}
-	\begin{itemize}
-		\item Rules are learned in a \textit{general-to-specific} manner
-		\item Start with the most general rule possible: a rule with an empty condition
-		      \begin{center}
-			      IF THEN \texttt{buys\_computer} = "yes"
-		      \end{center}
-		\item Then: Consider each possible attribute (\texttt{attribute\_values})\newline
-		      For instance: attribute-value pair (\texttt{att}, \texttt{val}); consider the following attribute tests:\newline
-		      \texttt{att} = \texttt{val}, \texttt{att} $<$ \texttt{val}, \texttt{att} $\leq$ \texttt{val}, \texttt{att} > \texttt{val}, \texttt{att} $\geq$ \texttt{val}
-		\item \textbf{Curse of dimensionality:} testing each attribute-value pair is computationally explosive
-		\item Solution: \textbf{greedy depth-first strategy of \texttt{learn\_one\_rule}}
-		      \begin{itemize}
-			      \item Add new attribute test that improves the rule quality the most.
-			      \item Each time a new attribute test is added, the rule should cover more "accept" tuples (\texttt{buys\_computer} = "yes").
-			      \item Repeat until a certain acceptable quality level is reached (\textit{terminating condition}).
-		      \end{itemize}
-		\item \textbf{What if we added a poor choice?} Greedy search does not allow for backtracking.
-		      \begin{itemize}
-			      \item Retain the best $k$ attribute candidates at each step, rather than a single best candidate.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Sequential Covering Algorithm (III)}
-	\vspace*{-1em}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[height=0.8\textheight]{img/7-classification_rule_space.png}
-	\end{figure}
-\end{frame}
-
-\begin{frame}{Sequential Covering Algorithm (IV)}
-	\begin{itemize}
-		\item \texttt{learn\_one\_rule} requires a measure of rule quality.
-		\item Accuracy and coverage seems obvious choices on their own, but
-		      individually not enough.
-		\item \textbf{FOIL} (First-Order Inductive Learner): based on information gain
-		      \begin{itemize}
+			      \item Based on Information Gain
 			      \item Suppose we have two rules:
 			            \begin{align*}
-				            \label{}
 				            R  & : \text{IF condition THEN class} = c  \\
 				            R' & : \text{IF condition' THEN class} = c
 			            \end{align*}
@@ -408,21 +323,6 @@
 			            \end{align*}
 			      \item FOIL favors rules that have high accuracy and cover many positive tuples.
 		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Rule Pruning}
-	\begin{itemize}
-		\item \textbf{Danger of {\color{airforceblue}overfitting}.}
-		\item \textbf{Removing a conjunct (attribute test),}
-		      \begin{itemize}
-			      \item if pruned version of rule has greater quality,\\
-			            assessed on an independent set of test tuples (called "pruning set").
-		      \end{itemize}
-		\item \textbf{FOIL uses:}
-		      \begin{align*}
-			      \text{FOIL\_Prune}(R) = \frac{\text{pos}-\text{neg}}{\text{pos}+\text{neg}}.
-		      \end{align*}
-		\item If $\text{FOIL\_Prune}$ is higher for the pruned version of $R$, prune $R$.
+		      }
 	\end{itemize}
 \end{frame}
