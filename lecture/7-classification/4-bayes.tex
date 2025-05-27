@@ -312,15 +312,20 @@
 			      \item \textbf{Use {\color{airforceblue}Laplacian correction} (or Laplacian estimator):}
 			            \begin{itemize}
 				            \item Add $1$ to each case:
-				                  \begin{align*}
-					                  P(\texttt{income} = "low")    & = \frac{1}{1003}   \\
-					                  P(\texttt{income} = "medium") & = \frac{991}{1003} \\
-					                  P(\texttt{income} = "high")   & = \frac{11}{1003}
-				                  \end{align*}
 			            \end{itemize}
 		      \end{itemize}
 		      }
 	\end{itemize}
+	\visible<3->{
+		{
+				\scriptsize
+				\begin{align*}
+					P(\texttt{income} = "low")    & = \frac{1}{1003}   \\
+					P(\texttt{income} = "medium") & = \frac{991}{1003} \\
+					P(\texttt{income} = "high")   & = \frac{11}{1003}
+				\end{align*}
+			}
+	}
 \end{frame}
 
 \begin{frame}{Bayesian Classification: Summary}
@@ -336,7 +341,7 @@
 			      \item Practically, \textbf{dependencies} exist among most variables.
 			            \begin{itemize}
 				            \item Cannot be modeled by Naïve Bayesian Classifier.
-				            \item \textbf{\color{airforceblue}How to deal with these dependencies?} \\ $\rightarrow$ Bayesian Belief Networks (not part of KDD\footnote{\textbf{More info in our reference book (Chapter 9.1):} \fullcite{han2011}}).
+				            \item \textbf{\color{airforceblue}How to deal with these dependencies?} \\ $\rightarrow$ Bayesian Belief Networks (not part of KDD\footnote{\textbf{More info in the reference book (Chapter 9.1):} \fullcite{han2011}}).
 			            \end{itemize}
 		      \end{itemize}
 	\end{itemize}
