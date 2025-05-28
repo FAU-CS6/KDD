@@ -26,20 +26,9 @@
 
 \begin{frame}{Confusion Matrix}
 
-	\vspace*{-1.5em}
+	\vspace*{-1em}
 
-	\begin{center}
-		\begin{tabular}{lp{1cm}p{1cm}p{1cm}p{1cm}}
-			                                                           &                                                                & \multicolumn{2}{c}{\textit{Predicted Class}}              & \multicolumn{1}{l}{}                                                                                \\ \cline{3-4}
-			                                                           & \multicolumn{1}{l|}{}                                          & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$C_1$}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$\neg C_1$}} & \multicolumn{1}{l}{\textit{Total}} \\ \cline{2-5}
-			\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$C_1$}}      & \multicolumn{1}{c|}{\textbf{TP}}                          & \multicolumn{1}{c|}{\textbf{FN}}                               & \multicolumn{1}{c}{\textbf{P}}     \\ \cline{2-4}
-			\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$\neg C_1$}} & \multicolumn{1}{c|}{\textbf{FP}}                          & \multicolumn{1}{c|}{\textbf{TN}}                               & \multicolumn{1}{c}{\textbf{N}}     \\ \cline{2-5}
-			\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\textbf{P'}}                                & \multicolumn{1}{c|}{\textbf{N'}}                          & \multicolumn{1}{c}{\textbf{P+N}}                                                                    \\
-			                                                           &                                                                &                                                           &                                                                &
-		\end{tabular}
-	\end{center}
-
-	\vspace*{-0.5cm}
+	\input{7-classification/confusion-matrix.tex}
 
 	\begin{itemize}
 		\item \textbf{Confusion Matrix:}
@@ -60,47 +49,44 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Accuracy and Error Rate}
+\begin{frame}{Evaluation Metrics: Accuracy and Error Rate}
 
-	\vspace*{-1.5em}
+	\vspace*{-1em}
 
-	\begin{center}
-		\begin{tabular}{lp{1cm}p{1cm}p{1cm}p{1cm}}
-			                                                           &                                                                & \multicolumn{2}{c}{\textit{Predicted Class}}              & \multicolumn{1}{l}{}                                                                                \\ \cline{3-4}
-			                                                           & \multicolumn{1}{l|}{}                                          & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$C_1$}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$\neg C_1$}} & \multicolumn{1}{l}{\textit{Total}} \\ \cline{2-5}
-			\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$C_1$}}      & \multicolumn{1}{c|}{\textbf{TP}}                          & \multicolumn{1}{c|}{\textbf{FN}}                               & \multicolumn{1}{c}{\textbf{P}}     \\ \cline{2-4}
-			\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$\neg C_1$}} & \multicolumn{1}{c|}{\textbf{FP}}                          & \multicolumn{1}{c|}{\textbf{TN}}                               & \multicolumn{1}{c}{\textbf{N}}     \\ \cline{2-5}
-			\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\textbf{P'}}                                & \multicolumn{1}{c|}{\textbf{N'}}                          & \multicolumn{1}{c}{\textbf{P+N}}                                                                    \\
-			                                                           &                                                                &                                                           &                                                                &
-		\end{tabular}
-	\end{center}
+	\input{7-classification/confusion-matrix.tex}
 
-	\vspace*{-0.5cm}
+	\rule{\textwidth}{0.4pt}
+
+	\vspace*{-0.25cm}
 
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
-			\visible<2->{
-				\begin{itemize}
-					\item \textbf{Accuracy:}
+			\begin{itemize}
+
+				\item \textbf{Accuracy:}
+				      \visible<2->{
 					      \begin{itemize}
 						      \item Percentage of correctly classified tuples.
 					      \end{itemize}
-				\end{itemize}
-			}
+				      }
+			\end{itemize}
 		\end{column}
 		\begin{column}{0.45\textwidth}
-			\visible<3->{
-				\begin{itemize}
-					\item \textbf{Error Rate:}
+
+			\begin{itemize}
+
+				\item \textbf{Error Rate:}
+				      \visible<3->{
 					      \begin{itemize}
 						      \item Inverse of accuracy, i.e. percentage of incorrectly classified tuples.
 					      \end{itemize}
-				\end{itemize}
-			}
+				      }
+			\end{itemize}
+
 		\end{column}
 	\end{columns}
 
-	\vspace*{-0.5em}
+	\vspace*{-0.1em}
 
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
@@ -119,95 +105,58 @@
 			}
 		\end{column}
 	\end{columns}
+
+	\vspace*{-2em}
 \end{frame}
 
-\begin{frame}{Sensitivity, Specificity, Precision, and Recall}
+\begin{frame}{Evaluation Metrics: Sensitivity and Specificity}
 
-	\vspace*{-1.5em}
+	\vspace*{-1em}
 
-	\begin{center}
-		\begin{tabular}{lp{1cm}p{1cm}p{1cm}p{1cm}}
-			                                                           &                                                                & \multicolumn{2}{c}{\textit{Predicted Class}}              & \multicolumn{1}{l}{}                                                                                \\ \cline{3-4}
-			                                                           & \multicolumn{1}{l|}{}                                          & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$C_1$}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$\neg C_1$}} & \multicolumn{1}{l}{\textit{Total}} \\ \cline{2-5}
-			\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$C_1$}}      & \multicolumn{1}{c|}{\textbf{TP}}                          & \multicolumn{1}{c|}{\textbf{FN}}                               & \multicolumn{1}{c}{\textbf{P}}     \\ \cline{2-4}
-			\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$\neg C_1$}} & \multicolumn{1}{c|}{\textbf{FP}}                          & \multicolumn{1}{c|}{\textbf{TN}}                               & \multicolumn{1}{c}{\textbf{N}}     \\ \cline{2-5}
-			\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\textbf{P'}}                                & \multicolumn{1}{c|}{\textbf{N'}}                          & \multicolumn{1}{c}{\textbf{P+N}}                                                                    \\
-			                                                           &                                                                &                                                           &                                                                &
-		\end{tabular}
-	\end{center}
+	\input{7-classification/confusion-matrix.tex}
 
-	\vspace*{-0.5cm}
+	\rule{\textwidth}{0.4pt}
+
+	\vspace*{-0.25cm}
 
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
-			\visible<2->{
-				\begin{itemize}
-					\item \textbf{Sensitivity:}
+
+			\begin{itemize}
+
+				\item \textbf{Sensitivity:}
+				      \visible<2->{
 					      \begin{itemize}
 						      \item True positive rate.
 					      \end{itemize}
-				\end{itemize}
-			}
+				      }
+			\end{itemize}
+
 		\end{column}
 		\begin{column}{0.45\textwidth}
-			\visible<4->{
-				\begin{itemize}
-					\item \textbf{Recall:}
+			\begin{itemize}
+
+				\item \textbf{Specificity:}
+				      \visible<3->{
 					      \begin{itemize}
-						      \item Measure of completeness.
+						      \item True negative rate.
 					      \end{itemize}
-				\end{itemize}
-			}
+				      }
+			\end{itemize}
+
 		\end{column}
 	\end{columns}
 
-	\vspace*{-0.5em}
+	\vspace*{-0.1em}
 
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
 			\visible<2->{
 				\begin{align*}
-					\text{Sensitivity} & = \frac{\text{TP}}{\text{P}} \only<6->{= \text{Recall}} \\
+					\text{Sensitivity} & = \frac{\text{TP}}{\text{P}} \\
 				\end{align*}
 			}
 		\end{column}
-		\begin{column}{0.45\textwidth}
-			\visible<4->{
-				\begin{align*}
-					\text{Recall} & =  \frac{\text{TP}}{\text{TP} + \text{FN}} \only<6->{= \text{Sensitivity}} \\
-				\end{align*}
-			}
-		\end{column}
-	\end{columns}
-
-	\vspace*{-3.5em}
-
-	\begin{columns}
-		\begin{column}{0.45\textwidth}
-			\visible<3->{
-				\begin{itemize}
-					\item \textbf{Specificity:}
-					      \begin{itemize}
-						      \item True negative rate.
-					      \end{itemize}
-				\end{itemize}
-			}
-		\end{column}
-		\begin{column}{0.45\textwidth}
-			\visible<5->{
-				\begin{itemize}
-					\item \textbf{Precision:}
-					      \begin{itemize}
-						      \item Measure of exactness.
-					      \end{itemize}
-				\end{itemize}
-			}
-		\end{column}
-	\end{columns}
-
-	\vspace*{-0.5em}
-
-	\begin{columns}
 		\begin{column}{0.45\textwidth}
 			\visible<3->{
 				\begin{align*}
@@ -215,61 +164,113 @@
 				\end{align*}
 			}
 		\end{column}
-		\begin{column}{0.45\textwidth}
-			\visible<5->{
-				\begin{align*}
-					\text{Precision} & = \frac{\text{TP}}{\text{TP} + \text{FP}}
-				\end{align*}
-			}
-		\end{column}
 	\end{columns}
+
+	\vspace*{-2em}
 \end{frame}
 
-\begin{frame}{$\text{\textbf{F}}_\beta$ Measure}
+\begin{frame}{Evaluation Metrics: Precision and Recall}
 
-	\vspace*{-1.5em}
+	\vspace*{-1em}
 
-	\begin{center}
-		\begin{tabular}{lp{1cm}p{1cm}p{1cm}p{1cm}}
-			                                                           &                                                                & \multicolumn{2}{c}{\textit{Predicted Class}}              & \multicolumn{1}{l}{}                                                                                \\ \cline{3-4}
-			                                                           & \multicolumn{1}{l|}{}                                          & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$C_1$}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$\neg C_1$}} & \multicolumn{1}{l}{\textit{Total}} \\ \cline{2-5}
-			\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$C_1$}}      & \multicolumn{1}{c|}{\textbf{TP}}                          & \multicolumn{1}{c|}{\textbf{FN}}                               & \multicolumn{1}{c}{\textbf{P}}     \\ \cline{2-4}
-			\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$\neg C_1$}} & \multicolumn{1}{c|}{\textbf{FP}}                          & \multicolumn{1}{c|}{\textbf{TN}}                               & \multicolumn{1}{c}{\textbf{N}}     \\ \cline{2-5}
-			\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\textbf{P'}}                                & \multicolumn{1}{c|}{\textbf{N'}}                          & \multicolumn{1}{c}{\textbf{P+N}}                                                                    \\
-			                                                           &                                                                &                                                           &                                                                &
-		\end{tabular}
-	\end{center}
+	\input{7-classification/confusion-matrix.tex}
 
-	\vspace*{-0.5cm}
+	\rule{\textwidth}{0.4pt}
+
+	\vspace*{-0.25cm}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+
+				\item \textbf{Precision:}
+				      \visible<2->{
+					      \begin{itemize}
+						      \item Measure of exactness.
+					      \end{itemize}
+				      }
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+
+			\begin{itemize}
+
+				\item \textbf{Recall:}
+				      \visible<3->{
+					      \begin{itemize}
+						      \item Measure of completeness.
+					      \end{itemize}
+				      }
+			\end{itemize}
+
+		\end{column}
+	\end{columns}
+
+	\vspace*{-0.1em}
 
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
 			\visible<2->{
-				\begin{itemize}
-					\item \textbf{$\text{\textbf{F}}_\beta$ Measure}
+				\begin{align*}
+					\text{Precision} & = \frac{\text{TP}}{\text{TP} + \text{FP}} \\
+				\end{align*}
+			}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\visible<3->{
+				\begin{align*}
+					\text{Recall} & =  \frac{\text{TP}}{\text{TP} + \text{FN}}     \\
+					\visible<4->{ & = \text{Sensitivity} \\}
+				\end{align*}
+			}
+		\end{column}
+	\end{columns}
+
+	\vspace*{-2em}
+\end{frame}
+
+\begin{frame}{Evaluation Metrics: $\text{\textbf{F}}_\beta$ and $\text{\textbf{F}}_1$ Measure}
+
+	\vspace*{-1em}
+
+	\input{7-classification/confusion-matrix.tex}
+
+	\rule{\textwidth}{0.4pt}
+
+	\vspace*{-0.25cm}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+
+			\begin{itemize}
+				\item \textbf{$\text{\textbf{F}}_\beta$ Measure:}
+				      \visible<2->{
 					      \begin{itemize}
 						      \item Combining precision and recall.
 						      \item Gives $\beta$-times more weight to precision.
 						      \item $\beta > 1$: Minimize false positives.
 						      \item $\beta < 1$: Minimize false negatives.
 					      \end{itemize}
-				\end{itemize}
-			}
+				      }
+			\end{itemize}
+
 		\end{column}
 		\begin{column}{0.45\textwidth}
-			\visible<3->{
-				\begin{itemize}
-					\item \textbf{$\text{\textbf{F}}_1$ Measure}
+
+			\begin{itemize}
+				\item \textbf{$\text{\textbf{F}}_1$ Measure:}
+				      \visible<3->{
 					      \begin{itemize}
 						      \item Harmonic mean between the measures.
 						      \item Equal weight to both measures.
 					      \end{itemize}
-				\end{itemize}
-			}
+				      }
+			\end{itemize}
+
 		\end{column}
 	\end{columns}
 
-	\vspace*{-0.5em}
+	\vspace*{-0.1em}
 
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
@@ -287,23 +288,152 @@
 			}
 		\end{column}
 	\end{columns}
+
+	\vspace*{-2em}
 \end{frame}
 
-\begin{frame}{Evaluation Metrics - Example}
-	\centering
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
-		Actual class/predicted class & cancer = yes & cancer = no   & Total & Recognition ($\%$)  \\\hline
-		cancer = yes                 & \textbf{90}  & \textbf{210}  & 300   & 30.00 (sensitivity) \\\hline
-		cancer = no                  & \textbf{140} & \textbf{9560} & 9700  & 98.56 (specificity) \\\hline
-		Total                        & 230          & 9770          & 10000 & 96.40 (accuracy)    \\\hline
-	\end{tabular}\\[0.2cm]
+\begin{frame}{Evaluation Metrics: Example (I)}
 	\begin{itemize}
-		\item Precision $= \frac{90}{230} = 39.13 \%$.
-		\item Recall $=\frac{90}{300} = 30.00 \%$.
-		\item $F_1$-measure = $\frac{2 \cdot 0.3913 \cdot 0.3}{0.3913 + 0.3} = 33.96 \%$.
+		\item \textbf{Evaluation results of a classification model:}
 	\end{itemize}
+
+	\vspace*{0.2cm}
+
+	\begin{center}
+		\begin{tabular}{|r|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			\cellcolor{faugray!62}\textit{True Class}      & \only<3>{\cellcolor{faugray!28}}Cat & \only<9>{\cellcolor{faugray!28}}Dog & \only<7>{\cellcolor{faugray!28}}Fox & \only<5>{\cellcolor{faugray!28}}Cat & \only<3>{\cellcolor{faugray!28}}Cat & \only<9>{\cellcolor{faugray!28}}Hen & \only<3>{\cellcolor{faugray!28}}Cat & \only<5>{\cellcolor{faugray!28}}Cat & \only<9>{\cellcolor{faugray!28}}Dog & \only<9>{\cellcolor{faugray!28}}Fox \\ \hline
+			\cellcolor{faugray!62}\textit{Predicted Class} & \only<3>{\cellcolor{faugray!28}}Cat & \only<9>{\cellcolor{faugray!28}}Dog & \only<7>{\cellcolor{faugray!28}}Cat & \only<5>{\cellcolor{faugray!28}}Fox & \only<3>{\cellcolor{faugray!28}}Cat & \only<9>{\cellcolor{faugray!28}}Dog & \only<3>{\cellcolor{faugray!28}}Cat & \only<5>{\cellcolor{faugray!28}}Dog & \only<9>{\cellcolor{faugray!28}}Fox & \only<9>{\cellcolor{faugray!28}}Fox \\ \hline
+		\end{tabular}
+	\end{center}
+
+	\vspace*{0.2cm}
+
+	\visible<2->{
+		\begin{itemize}
+			\item \textbf{Resulting confusion matrix\only<2->{\footnote{We want to evaluate the classification model with regard to the class \textit{Cat}}}:}
+		\end{itemize}
+		\begin{center}
+			\begin{tabular}{lp{1cm}p{1cm}p{1cm}p{1cm}}
+				                                                           &                                                                 & \multicolumn{2}{c}{\textit{Predicted Class}}                                                       & \multicolumn{1}{l}{}                                                                                                                                                         \\ \cline{3-4}
+				                                                           & \multicolumn{1}{l|}{}                                           & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$}                                            & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$}                                                & \multicolumn{1}{l}{\textit{Total}}                             \\ \cline{2-5}
+				\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$}         & \multicolumn{1}{c|}{\only<2-3>{\cellcolor{faugray!28}}\only<-2>{\textbf{TP}}\only<3->{\textbf{3}}} & \multicolumn{1}{c|}{\only<4-5>{\cellcolor{faugray!28}}\only<-4>{\textbf{FN}}\only<5->{\textbf{2}}}          & \multicolumn{1}{c}{\only<-4>{\textbf{P}}\only<5->{\textbf{5}}} \\ \cline{2-4}
+				\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True Class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$}    & \multicolumn{1}{c|}{\only<6-7>{\cellcolor{faugray!28}}\only<-6>{\textbf{FP}}\only<7->{\textbf{1}}} & \multicolumn{1}{c|}{\textbf{\only<8-9>{\cellcolor{faugray!28}}\only<-8>{\textbf{TN}}\only<9->{\textbf{4}}}} & \multicolumn{1}{c}{\only<-8>{\textbf{N}}\only<9->{\textbf{5}}} \\ \cline{2-5}
+				\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\only<-6>{\textbf{P'}}\only<7->{\textbf{4}}} & \multicolumn{1}{c|}{\only<-8>{\textbf{N'}}\only<9->{\textbf{6}}}                                   & \multicolumn{1}{c}{\only<-8>{\textbf{P+N}}\only<9->{\textbf{10}}}                                                                                                            \\
+				                                                           &                                                                 &                                                                                                    &                                                                                                             &
+			\end{tabular}
+		\end{center}
+	}
+
 \end{frame}
+
+\begin{frame}{Evaluation Metrics: Example (II)}
+
+	\vspace*{-1em}
+
+	\begin{center}
+		\begin{tabular}{lp{1cm}p{1cm}p{1cm}p{1cm}}
+			                                                           &                                                              & \multicolumn{2}{c}{\textit{Predicted Class}}            & \multicolumn{1}{l}{}                                                                              \\ \cline{3-4}
+			                                                           & \multicolumn{1}{l|}{}                                        & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$} & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$} & \multicolumn{1}{l}{\textit{Total}} \\ \cline{2-5}
+			\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$}      & \multicolumn{1}{c|}{\textbf{3}}                         & \multicolumn{1}{c|}{\textbf{2}}                              & \multicolumn{1}{c}{\textbf{5}}     \\ \cline{2-4}
+			\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True Class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$} & \multicolumn{1}{c|}{\textbf{1}}                         & \multicolumn{1}{c|}{\textbf{4}}                              & \multicolumn{1}{c}{\textbf{5}}     \\ \cline{2-5}
+			\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\textbf{4}}                               & \multicolumn{1}{c|}{\textbf{6}}                         & \multicolumn{1}{c}{\textbf{10}}                                                                   \\
+			                                                           &                                                              &                                                         &                                                              &
+		\end{tabular}
+	\end{center}
+
+	\vspace*{-0.25cm}
+
+	\rule{\textwidth}{0.4pt}
+
+	\vspace*{-0.25cm}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{center}
+				\textbf{Calculations:}
+			\end{center}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\begin{center}
+				\textbf{Results:}
+			\end{center}
+		\end{column}
+	\end{columns}
+
+	\vspace*{-0.05cm}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			% Accuracy
+			\only<1-2>{
+				\begin{align*}
+					\text{Accuracy} & = \frac{\text{TP} + \text{TN}}{\text{P} +  \text{N}}       \\
+					                & = \visible<2->{ \frac{3 + 4}{5 + 5} = \frac{7}{10} = 70\%}
+				\end{align*}
+			}
+			% Error Rate
+			\only<3-4>{
+				\begin{align*}
+					\text{Error Rate} & = \frac{\text{FP} + \text{FN}}{\text{P} + \text{N}}       \\
+					                  & = \visible<4->{\frac{1 + 2}{5 + 5} = \frac{3}{10} = 30\%}
+				\end{align*}
+			}
+			% Sensitivity
+			\only<5-6>{
+				\begin{align*}
+					\text{Sensitivity} & = \frac{\text{TP}}{\text{P}}       \\
+					                   & = \visible<6->{\frac{3}{5} = 60\%}
+				\end{align*}
+			}
+			% Specificity
+			\only<7-8>{
+				\begin{align*}
+					\text{Specificity} & = \frac{\text{TN}}{\text{N}}       \\
+					                   & = \visible<8->{\frac{4}{5} = 80\%}
+				\end{align*}
+			}
+			% Precision
+			\only<9-10>{
+				\begin{align*}
+					\text{Precision} & = \frac{\text{TP}}{\text{TP} + \text{FP}}             \\
+					                 & = \visible<10->{\frac{3}{3 + 1} = \frac{3}{4} = 75\%}
+				\end{align*}
+			}
+			% Recall
+			\only<11-12>{
+				\begin{align*}
+					\text{Recall} & = \frac{\text{TP}}{\text{TP} + \text{FN}}             \\
+					              & = \visible<12->{\frac{3}{3 + 2} = \frac{3}{5} = 60\%}
+				\end{align*}
+			}
+			% F1-Measure
+			\only<13-14>{
+				\begin{align*}
+					\text{F}_1 & = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} \\
+					           & = \visible<14->{\frac{2 \cdot 0.75 \cdot 0.6}{0.75 + 0.6} \approx 0.6667 \approx 67\%}
+				\end{align*}
+			}
+
+		\end{column}
+		\begin{column}{0.225\textwidth}
+			\begin{align*}
+				\visible<2->{\text{Accuracy}    & = 70\% \\}
+				\visible<4->{\text{Error Rate}  & = 30\% \\}
+				\visible<6->{\text{Sensitivity} & = 60\% \\}
+				\visible<8->{\text{Specificity} & = 80\% \\}
+			\end{align*}
+		\end{column}
+		\begin{column}{0.225\textwidth}
+			\begin{align*}
+				\visible<10->{\text{Precision} & = 75\% \\}
+				\visible<12->{\text{Recall}    & = 60\% \\}
+				\visible<14->{\text{F}_1       & \approx 67\% \\}
+			\end{align*}
+		\end{column}
+	\end{columns}
+\end{frame}
+
 
 \subsection{Evaluation Strategies}
 
