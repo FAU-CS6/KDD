@@ -20,79 +20,117 @@
 \end{frame}
 
 
-\begin{frame}{Bagging: Bootstrap Aggregation}
-	\begin{columns}
-		\begin{column}{0.3\textwidth}
-			% TODO
-		\end{column}
-		\begin{column}{0.6\textwidth}
-			\begin{center}
-				\scalebox{0.6}{
-					\begin{tikzpicture}
-						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm, dashed] at (0,0) (tuple) {Tuple $T$};
+\begin{frame}{Bagging}
+	\vspace*{-1em}
 
-						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm] at (4,1.2) (classifier1) {Classifier 1};
-						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm] at (4,0) (classifier2) {Classifier 2};
-						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm] at (4,-1.2) (classifier3) {Classifier 3};
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item \textbf{Basic Idea:}
+				      \begin{itemize}
+					      \item Multiple models classify the same tuple.
+					      \item The bagged classifier collects results.
+					      \item The class with the \textbf{most votes} is returned as the final prediction.
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\visible<9->{
+				\item \textbf{Continuous-valued Attributes:}
+				      \begin{itemize}
+					      \item Multiple models predict the same tuple.
+					      \item The bagged regressor collects results.
+					      \item The final prediction is the \textbf{average} of all predictions.
+				      \end{itemize}
+				      }
+			\end{itemize}
+		\end{column}
+	\end{columns}
+
+	\vspace*{1em}
+
+	\begin{center}
+		\scalebox{0.75}{
+			\visible<2->{
+				\begin{tikzpicture}
+					\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm, dotted] at (0,0) (tuple) {Tuple $T$};
+
+					\visible<3->{
+						\draw[draw=none,fill=faugray!25] (2,2) rectangle (8.5,-2);
+						\draw[draw=none,fill=faugray!50] (2,2) rectangle (8.5,2.5);
+
+						\node at (5.25,2.25) {\color{faubluedark}\textbf{Bagged Classifier}};
+
+
+						\node[draw, thick, rectangle, minimum height=0.8cm, fill=faugray!10, minimum width=2cm] at (4,1.2) (classifier1) {Classifier 1};
+						\node[draw, thick, rectangle, minimum height=0.8cm, fill=faugray!10, minimum width=2cm] at (4,0) (classifier2) {Classifier 2};
+						\node[draw, thick, rectangle, minimum height=0.8cm, fill=faugray!10, minimum width=2cm] at (4,-1.2) (classifier3) {Classifier 3};
 
 						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (tuple) -- (classifier1);
 						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (tuple) -- (classifier2);
 						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (tuple) -- (classifier3);
+					}
 
-						\node[right=-1mm of classifier1.east, draw, dashed, fill=white, thick] (classifier1decision) {\tiny Yes};
-						\node[right=-1mm of classifier2.east, draw, dashed, fill=white, thick] (classifier2decision) {\tiny No};
-						\node[right=-1mm of classifier3.east, draw, dashed, fill=white, thick] (classifier3decision) {\tiny Yes};
+					\visible<4->{
+						\node[right=-1mm of classifier1.east, draw, dashed, fill=faugreen!15, thick] (classifier1decision) {\tiny Yes};
+						\node[right=-1mm of classifier2.east, draw, dashed, fill=faured!15, thick] (classifier2decision) {\tiny No};
+						\node[right=-1mm of classifier3.east, draw, dashed, fill=faugreen!15, thick] (classifier3decision) {\tiny Yes};
+					}
 
-						\node[draw, thick, rectangle, minimum width=1cm, minimum height=2.5cm] at (7,0) (vote) {Vote};
+					\visible<5->{
+						\node[draw, thick, rectangle, minimum width=1cm,  fill=faugray!10, minimum height=2.5cm] at (7,0) (vote) {Vote};
 
 						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (classifier1decision) -- (vote);
 						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (classifier2decision) -- (vote);
 						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (classifier3decision) -- (vote);
+					}
 
-						\node[below=3mm of vote.center, text width=0.5cm, fill=white] (votecontent) {\tiny \centering 2$\times$Yes\\1$\times$No\\};
+					\visible<6->{
+						\node[below=3mm of vote.center, text width=0.5cm] (votecontent) {\tiny \centering 2$\times$Yes\\1$\times$No\\};
+					}
 
-						\node[above right=3mm and -1mm of vote.east, draw, dashed, fill=white, thick] (votedecision) {\tiny Yes};
+					\visible<7->{
+						\node[above right=3mm and -1mm of vote.east, draw, dashed, fill=faugreen!15, thick] (votedecision) {\tiny Yes};
+					}
 
-						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm, dashed] at (10.5,0) (class) {Yes};
+					\visible<8->{
+						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm, fill=faugreen!15, dashed] at (10.5,0) (class) {Yes};
 
 						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (vote) -- (class);
+					}
+				\end{tikzpicture}
+			}
+		}
+	\end{center}
 
-						\draw[thick, dotted] (2,2) rectangle (8.5,-2);
-					\end{tikzpicture}
-				}
-			\end{center}
-
-		\end{column}
-	\end{columns}
 \end{frame}
 
-\begin{frame}{Bagging: Bootstrap Aggregation}
+
+\begin{frame}{Boosting}
+	\vspace*{-1em}
+
+
 	\begin{itemize}
-		\item \textbf{Analogy:}
+		\item \textbf{Basic Idea:}
 		      \begin{itemize}
-			      \item Diagnosis based on multiple doctors' majority vote.
-		      \end{itemize}
-		\item \textbf{Training:}
-		      \begin{itemize}
-			      \item Given a set $D$ of d tuples, at each iteration $i$, a training set $D_i$ of $d$ tuples is sampled with replacement from $D$ (i.e., bootstrap).
-			      \item A classifier model $M_i$ is learned for each training set $D_i$.
-		      \end{itemize}
-		\item \textbf{Prediction in the case of classification: classify an unknown sample $X$.}
-		      \begin{itemize}
-			      \item Each classifier $M_i$ returns its class prediction.
-			      \item The bagged classifier $M^*$ counts the votes and assigns the class with the most votes to $X$.
-		      \end{itemize}
-		\item \textbf{Prediction of a real number} (i. e. regression or time series forecast):
-		      \begin{itemize}
-			      \item Can be applied to the prediction of continuous values by taking the average value of each prediction for a given test tuple.
-		      \end{itemize}
-		\item \textbf{Accuracy:}
-		      \begin{itemize}
-			      \item Often significantly better than a single classifier derived from $D$.
-			      \item For noisy data: not considerably worse, more robust.
-			      \item Proved improved accuracy in prediction.
+			      \item Multiple models classify the same tuple.
+			      \item The final prediction is made by combining the predictions of all models.
 		      \end{itemize}
 	\end{itemize}
+
+
+
+	\vspace*{1em}
+
+	\begin{center}
+		\scalebox{0.75}{
+			\visible<2->{
+				% TODO
+			}
+		}
+	\end{center}
+
 \end{frame}
 
 
