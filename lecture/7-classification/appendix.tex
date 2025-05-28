@@ -1,3 +1,5 @@
+\subsection*{Decision Tree Induction}
+
 \begin{frame}{\vspace*{-2em}Basic Decision Tree Algorithm}\label{algo:decision-tree}
 	\vspace*{-3em}
 	\scriptsize
@@ -84,5 +86,191 @@
 		      \begin{itemize}
 			      \item Most give good results, none is significantly superior to others.
 		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection*{Evaluation: Bootstrap and Statistical Significance}
+
+\begin{frame}{Evaluation Strategy: Bootstrap}
+	\textbf{Bootstrap} samples training data uniformly with replacement.
+
+	\textbf{Several bootstrap methods exists, yet a common one is $.632$ bootstrap.}
+	\begin{itemize}
+		\item Data set with $d$ tuples is sampled $d$ times - uniformly with replacement.
+		\item Uniformly = every tuple has the same probability ($\frac{1}{d}$) for selection.
+		\item With replacement = High change a tuple is selected more than once.
+		\item Not selected tuples will form the test set.
+		\item Probability of not being chosen is $1-\frac{1}{d}$. Selecting $d$ times: $(1-\frac{1}{d})^d$.\\
+		      With a large data set it approaches $e^-1=0.368$.
+		\item Thus, on average 63.2\% of tuples are selected as the training set.
+		\item Sampling procedure is repeated $k$ times.\\
+		      Calculate accuracy in every iteration as follows:
+		      \begin{align*}
+			      \text{Acc}(M) = \frac{1}{k} \sum_{i=1}^{k} 0.632 \cdot \text{Acc}(M_i)_{\text{test\_set}} + 0.368 \cdot \text{Acc}(M_i)_{\text{train\_set}}.
+		      \end{align*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluating Classifier Accuracy: Bootstrap (II)}
+	\begin{itemize}
+		\item \textbf{Suppose we have $2$ classifiers, $M_1$ and $M_2$, which one is better?}
+		\item \textbf{Use $10$-fold cross-validation to obtain $\overline{\text{err}}(M_1)$ and $\overline{\text{err}}(M_2)$.}
+		      \begin{itemize}
+			      \item Recall: error rate is $1-\text{accuracy}(M)$.
+		      \end{itemize}
+		\item \textbf{Mean error rates:}
+		      \begin{itemize}
+			      \item Just estimates of error on the true population of future data cases.
+		      \end{itemize}
+		\item \textbf{What if the difference between the $2$ error rates is just attributed to chance?}
+		      \begin{itemize}
+			      \item Use a test of statistical significance.
+			      \item Obtain confidence limits for our error estimates.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluating Classifier Accuracy: Null Hypothesis}
+	\begin{itemize}
+		\item \textbf{Perform $k$-fold cross-validation} with $k=10$.
+		\item \textbf{Assume samples follow a $t$-distribution with $k-1$ degrees of freedom.}
+		\item \textbf{Use $t$-test}
+		      \begin{itemize}
+			      \item Student's $t$-test.
+		      \end{itemize}
+		\item \textbf{Null hypothesis:}
+		      \begin{itemize}
+			      \item $M_1$ and $M_2$ are the same.
+		      \end{itemize}
+		\item \textbf{If we can reject the null hypothesis, then}
+		      \begin{itemize}
+			      \item Conclude that difference between $M_1$ and $M_2$ is statistically significant.
+			      \item Obtain confidence limits for our error estimates.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Estimating Confidence Intervals (I)}
+	\begin{itemize}
+		\item \textbf{If only one test set available: pairwise comparison:}
+		      \begin{itemize}
+			      \item For $i$-th round of $10$-fold cross-validation, the same cross partitioning is used to obtain $\text{err}(M_1)_i$ and $\text{err}(M_2)_i$.
+			      \item Average over $10$ rounds to get $\overline{\text{err}}(M_1)$ and $\overline{\text{err}}(M_2)$.
+			      \item $t$-test computes $t$-statistic with $k-1$ degrees of freedom:
+			            \begin{align*}
+				            \resizebox{3cm}{!}{%
+					            $t = \frac{\overline{\text{err}}(M_1)- \overline{\text{err}}(M_2)}{\frac{\text{var}(M_1-M_2)}{\sqrt{k}}},$}
+			            \end{align*}
+			      \item where
+			            \begin{align*}
+				            \resizebox{10cm}{!}{%
+					            $\text{var}(M_1-M_2) = \frac{1}{k} \sum_{i=1}^{k} \left[ \text{err}(M_1)_i - \text{err}(M_2)_i - (\overline{\text{err}}(M_1) - \overline{\text{err}}(M_2))\right]^2.$}
+			            \end{align*}
+		      \end{itemize}
+		\item \textbf{If two test sets available: use unpaired $t$-test:}
+		      \begin{align*}
+			      \resizebox{5cm}{!}{%
+				      $\text{var}(M_1-M_2) = \sqrt{\frac{\text{var}(M_1)}{k_1} + \frac{\text{var}(M_2)}{k_2}},$}
+		      \end{align*}
+		      where $k_1$ \& $k_2$ are $\#$ of cross-validation samples used for $M_1$ \& $M_2$, respectively.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Estimating Confidence Intervals (II)}
+	\begin{columns}
+		\begin{column}{0.55\textwidth}
+			\vspace*{-0.7cm}
+
+			\begin{itemize}
+				\item Symmetrical.
+				\item \textbf{\color{airforceblue}Significance level}:
+				      \begin{itemize}
+					      \item E.g., $\text{sig} = 0.05$ or $5\%$ means $M_1$ \& $M_2$ are significantly different for $95\%$ of population.
+				      \end{itemize}
+				\item Confidence limit: $z = \frac{\text{sig}}{2}$.
+			\end{itemize}
+
+			\vspace*{0.25cm}
+
+			\begin{center}
+				% T-test curve with two tails for df=5
+				\begin{tikzpicture}
+					\begin{axis}[
+							width=5.5cm, height=3.5cm,
+							axis lines=middle,
+							axis line style={-stealth},
+							xlabel={$t$},
+							ylabel={},
+							xtick={-1.5, 0, 1.5},
+							xticklabels={$-t$, $0$, $t$},
+							ytick=\empty,
+							xmin=-4, xmax=4,
+							ymin=0, ymax=0.45,
+							domain=-4:4,
+							samples=50,
+							axis on top
+						]
+						\addplot[faucyandark, thick] {0.4*(1+(x*x/5))^(-3)};
+						\addplot[fill=faugraydark!20, opacity=0.6, draw=none, domain=-4:-1.5] {0.4*(1+(x*x/5))^(-3)} \closedcycle;
+						\addplot[fill=faugraydark!20, opacity=0.6, draw=none, domain=1.5:4] {0.4*(1+(x*x/5))^(-3)} \closedcycle;
+						\draw[dashed] (axis cs:0,0) -- (axis cs:0,0.4);
+						\node[anchor=north west, font=\small] at (axis cs:-3.0,0.2) {$\frac{\text{Area}}{2}$};
+						\node[anchor=north east, font=\small] at (axis cs:3.0,0.2) {$\frac{\text{Area}}{2}$};
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{column}
+
+		\begin{column}{0.35\textwidth}
+			\centering
+
+			\vspace*{0.25cm}
+
+			\scalebox{0.8}{
+				\begin{tabular}{c|ccc}
+					\textbf{}                        & \multicolumn{3}{c}{\textbf{Area in One Tail\footnotemark[1]}}                                                             \\
+					\textbf{}                        & \textbf{0.100}                                                 & \textbf{0.050}             & \textbf{0.005}              \\ \cline{2-4}
+					\textbf{}                        & \multicolumn{3}{c}{\textbf{Area in Two Tails\footnotemark[1]}}                                                            \\
+					\textbf{$df/\alpha$}             & \textbf{0.200}                                                 & \textbf{0.100}             & \textbf{0.010}              \\ \hline
+					\multicolumn{1}{|c|}{\textbf{1}} & \multicolumn{1}{c|}{3.078}                                     & \multicolumn{1}{c|}{6.314} & \multicolumn{1}{c|}{63.657} \\ \hline
+					\multicolumn{1}{|c|}{\textbf{2}} & \multicolumn{1}{c|}{1.886}                                     & \multicolumn{1}{c|}{2.920} & \multicolumn{1}{c|}{9.925}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{3}} & \multicolumn{1}{c|}{1.638}                                     & \multicolumn{1}{c|}{2.353} & \multicolumn{1}{c|}{5.841}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{4}} & \multicolumn{1}{c|}{1.533}                                     & \multicolumn{1}{c|}{2.132} & \multicolumn{1}{c|}{4.604}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{5}} & \multicolumn{1}{c|}{1.476}                                     & \multicolumn{1}{c|}{2.015} & \multicolumn{1}{c|}{3.707}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{6}} & \multicolumn{1}{c|}{1.440}                                     & \multicolumn{1}{c|}{1.943} & \multicolumn{1}{c|}{3.499}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{7}} & \multicolumn{1}{c|}{1.415}                                     & \multicolumn{1}{c|}{1.895} & \multicolumn{1}{c|}{3.355}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{8}} & \multicolumn{1}{c|}{1.397}                                     & \multicolumn{1}{c|}{1.860} & \multicolumn{1}{c|}{3.250}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{9}} & \multicolumn{1}{c|}{1.372}                                     & \multicolumn{1}{c|}{1.833} & \multicolumn{1}{c|}{3.169}  \\ \hline
+				\end{tabular}
+			}
+
+
+		\end{column}
+		\footnotetext[1]{Good link for a full table: \url{https://www.hawkeslearning.com/documents/statdatasets/stat_tables.pdf}}
+	\end{columns}
+
+
+\end{frame}
+
+\begin{frame}{Estimating Confidence Intervals (III)}
+	\textbf{Are $M_1$ and $M_2$ {\color{airforceblue} significantly different}?}
+	\begin{itemize}
+		\item Compute $t$. Select significance level (E.g., sig = $5 \%$).
+		\item Consult table for $t$-distribution:
+		      \begin{itemize}
+			      \item $t$-distribution is symmetrical:
+			            \begin{itemize}
+				            \item Typically upper $\%$ points of distribution shown.
+			            \end{itemize}
+			      \item Find critical value $c$ corresponding to $k-1$ degrees of freedom (here, $9$)
+			      \item and for confidence limit $z = \frac{\text{sig}}{2}$ (here, $0.025$).
+			      \item $\implies$ Here, critical value $c = 2.262$
+		      \end{itemize}
+		\item If $t > c$ or $t < -c$, then $t$ value lies in rejection region:
+		      \begin{itemize}
+			      \item \textbf{Reject null hypothesis} that mean error rates of $M_1$ and $M_2$ are equal.
+			      \item Conclude: \textbf{statistically significant difference} between $M_1$ and $M_2$.
+		      \end{itemize}
+		\item Otherwise, conclude that any difference is chance.
 	\end{itemize}
 \end{frame}
