@@ -5,16 +5,65 @@
 		An \textit{ensemble method} creates a composite model that consists of several models to form one model.
 	\end{block}
 	\begin{itemize}
-		\item Most of the time \textit{weak} learners are combined to mitigate their respective individual shortcomings.
-		\item Data set is partitioned into $k$ training sets.
-		\item Train a classifier on each training set.
-		\item Every individual classifier returns its prediction.
-		\item Overall prediction is determined for instance by \textit{majority voting}.
-		\item Prediction typically more accurate than each individual model.\\
-		      $\rightarrow$ Returns better results when diversity among models is great.
-		\item \textit{Each classifier should perform better than random guessing.}
-		\item \textbf{Popular methods} include Bagging, Boosting, and Random Forests.
+		\item \textbf{Basic Idea:}
+		      \begin{itemize}
+			      \item Use multiple models to improve classification accuracy.
+			      \item The final prediction is made by combining the predictions of all models.
+		      \end{itemize}
+		\item \textbf{Popular methods:}
+		      \begin{itemize}
+			      \item Bagging
+			      \item Boosting
+			      \item Random Forest
+		      \end{itemize}
 	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Bagging: Bootstrap Aggregation}
+	\begin{columns}
+		\begin{column}{0.3\textwidth}
+			% TODO
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\begin{center}
+				\scalebox{0.6}{
+					\begin{tikzpicture}
+						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm, dashed] at (0,0) (tuple) {Tuple $T$};
+
+						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm] at (4,1.2) (classifier1) {Classifier 1};
+						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm] at (4,0) (classifier2) {Classifier 2};
+						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm] at (4,-1.2) (classifier3) {Classifier 3};
+
+						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (tuple) -- (classifier1);
+						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (tuple) -- (classifier2);
+						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (tuple) -- (classifier3);
+
+						\node[right=-1mm of classifier1.east, draw, dashed, fill=white, thick] (classifier1decision) {\tiny Yes};
+						\node[right=-1mm of classifier2.east, draw, dashed, fill=white, thick] (classifier2decision) {\tiny No};
+						\node[right=-1mm of classifier3.east, draw, dashed, fill=white, thick] (classifier3decision) {\tiny Yes};
+
+						\node[draw, thick, rectangle, minimum width=1cm, minimum height=2.5cm] at (7,0) (vote) {Vote};
+
+						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (classifier1decision) -- (vote);
+						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (classifier2decision) -- (vote);
+						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (classifier3decision) -- (vote);
+
+						\node[below=3mm of vote.center, text width=0.5cm, fill=white] (votecontent) {\tiny \centering 2$\times$Yes\\1$\times$No\\};
+
+						\node[above right=3mm and -1mm of vote.east, draw, dashed, fill=white, thick] (votedecision) {\tiny Yes};
+
+						\node[draw, thick, rectangle, minimum height=0.8cm, minimum width=2cm, dashed] at (10.5,0) (class) {Yes};
+
+						\draw[->, thick, shorten <=1mm, shorten >=1mm, >=stealth] (vote) -- (class);
+
+						\draw[thick, dotted] (2,2) rectangle (8.5,-2);
+					\end{tikzpicture}
+				}
+			\end{center}
+
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Bagging: Bootstrap Aggregation}
