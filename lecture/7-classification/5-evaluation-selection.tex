@@ -2,22 +2,15 @@
 
 \begin{frame}{Model Evaluation}
 	\begin{itemize}
-		\item \textbf{Evaluation metrics:}
+		\item \textbf{Classification models might perform differently depending on the use case.} \\
+		      $\Rightarrow$ \textbf{\color{airforceblue}Model evaluation} is crucial to select the best model for a specific task.
+		\item \textbf{Model evaluation can be split into two parts:}
 		      \begin{itemize}
-			      \item How can we measure accuracy?
-			      \item Other metrics to consider?
-		      \end{itemize}
-		\item \textbf{Use {\color{airforceblue}test} set of class-labeled tuples instead of training set when assessing accuracy.}
-		\item \textbf{Methods for estimating a classifier's accuracy:}
-		      \begin{itemize}
-			      \item Holdout method, random subsampling.
-			      \item Cross-validation.
-			      \item Bootstrap.
-		      \end{itemize}
-		\item \textbf{Comparing classifiers:}
-		      \begin{itemize}
-			      \item Confidence intervals.
-			      \item Cost-benefit analysis and ROC curves.
+			      \item \textbf{\color{airforceblue}Evaluation metrics:} \\
+			            What metric is important for the task?
+
+			      \item \textbf{\color{airforceblue}Evaluation strategies:} \\
+			            How to tackle the evaluation? E.g. how to split the data into training and test sets?
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -333,12 +326,12 @@
 
 	\begin{center}
 		\begin{tabular}{lp{1cm}p{1cm}p{1cm}p{1cm}}
-			                                                           &                                                              & \multicolumn{2}{c}{\textit{Predicted Class}}            & \multicolumn{1}{l}{}                                                                              \\ \cline{3-4}
-			                                                           & \multicolumn{1}{l|}{}                                        & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$} & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$} & \multicolumn{1}{l}{\textit{Total}} \\ \cline{2-5}
-			\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$}      & \multicolumn{1}{c|}{\textbf{3}}                         & \multicolumn{1}{c|}{\textbf{2}}                              & \multicolumn{1}{c}{\textbf{5}}     \\ \cline{2-4}
-			\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True Class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$} & \multicolumn{1}{c|}{\textbf{1}}                         & \multicolumn{1}{c|}{\textbf{4}}                              & \multicolumn{1}{c}{\textbf{5}}     \\ \cline{2-5}
-			\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\textbf{4}}                               & \multicolumn{1}{c|}{\textbf{6}}                         & \multicolumn{1}{c}{\textbf{10}}                                                                   \\
-			                                                           &                                                              &                                                         &                                                              &
+			                                                           &                                                              & \multicolumn{2}{c}{\textit{Predicted Class}}                                                                                           & \multicolumn{1}{l}{}                                                                                                                                                                                                                                                 \\ \cline{3-4}
+			                                                           & \multicolumn{1}{l|}{}                                        & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$}                                                                                & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$}                                                                      & \multicolumn{1}{l}{\textit{Total}}                                                                                               \\ \cline{2-5}
+			\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$}      & \multicolumn{1}{c|}{\only<2,6,10,12>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(TP)}}}}\textbf{3}} & \multicolumn{1}{c|}{\only<4,12>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(FN)}}}}\textbf{2}} & \multicolumn{1}{c}{\only<2,4,6>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(P)}}}}\textbf{5}} \\ \cline{2-4}
+			\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True Class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$} & \multicolumn{1}{c|}{\only<4,10>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(FP)}}}}\textbf{1}}      & \multicolumn{1}{c|}{\only<2,8>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(TN)}}}}\textbf{4}}  & \multicolumn{1}{c}{\only<2,4,8>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(N)}}}}\textbf{5}} \\ \cline{2-5}
+			\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\textbf{4}}                               & \multicolumn{1}{c|}{\textbf{6}}                                                                                                        & \multicolumn{1}{c}{\textbf{10}}                                                                                                                                                                                                                                      \\
+			                                                           &                                                              &                                                                                                                                        &                                                                                                                                   &
 		\end{tabular}
 	\end{center}
 
@@ -426,9 +419,9 @@
 		\end{column}
 		\begin{column}{0.225\textwidth}
 			\begin{align*}
-				\visible<10->{\text{Precision} & = 75\% \\}
-				\visible<12->{\text{Recall}    & = 60\% \\}
-				\visible<14->{\text{F}_1       & \approx 67\% \\}
+				\visible<10->{\text{\only<14>{\color{faugray}}Precision} & = 75\% \\}
+				\visible<12->{\text{\only<14>{\color{faugray}}Recall}    & = 60\% \\}
+				\visible<14->{\text{F}_1                                 & \approx 67\% \\}
 			\end{align*}
 		\end{column}
 	\end{columns}
