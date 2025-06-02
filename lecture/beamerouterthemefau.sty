@@ -129,8 +129,8 @@
 					\setbox0=\hbox{\insertshortinstitute\unskip}\ifdim\wd0=0pt\else%
 						\mbox{\insertshortinstitute}\quad|\quad%
 					\fi%
-					\mbox{\insertshorttitle}\quad%|\quad%
-					%\mbox{\color{faured}Recording of this lecture is prohibited.}
+					\mbox{\insertshorttitle}\quad{\color{faugray!35}|}\quad%
+					\mbox{\color{faugray!35}Version \GITAbrHash}
 
 				}
 			}
@@ -144,7 +144,7 @@
 					\vspace{.33ex}%
 					\setbox0=\hbox{\insertshortdate\unskip}\ifdim\wd0=0pt\else%
 						\insertshortdate%
-					\fi%
+					\fi
 				}
 			}
 		}
