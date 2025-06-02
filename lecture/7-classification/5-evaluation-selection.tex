@@ -1,181 +1,506 @@
-\section{Model Evaluation and Selection}\label{section:evaluation}
+\section{Model Evaluation}\label{section:evaluation}
 
-\begin{frame}{Model Evaluation and Selection}
+\begin{frame}{Model Evaluation}
 	\begin{itemize}
-		\item \textbf{Evaluation metrics:}
+		\item \textbf{Classification models might perform differently depending on the use case.} \\
+		      $\Rightarrow$ \textbf{\color{airforceblue}Model evaluation} is crucial to select the best model for a specific task.
+		\item \textbf{Model evaluation can be split into two parts:}
 		      \begin{itemize}
-			      \item How can we measure accuracy?
-			      \item Other metrics to consider?
-		      \end{itemize}
-		\item \textbf{Use {\color{airforceblue}test} set of class-labeled tuples instead of training set when assessing accuracy.}
-		\item \textbf{Methods for estimating a classifier's accuracy:}
-		      \begin{itemize}
-			      \item Holdout method, random subsampling.
-			      \item Cross-validation.
-			      \item Bootstrap.
-		      \end{itemize}
-		\item \textbf{Comparing classifiers:}
-		      \begin{itemize}
-			      \item Confidence intervals.
-			      \item Cost-benefit analysis and ROC curves.
+			      \item \textbf{\color{airforceblue}Evaluation metrics:} \\
+			            What metric is important for the task?
+
+			      \item \textbf{\color{airforceblue}Evaluation strategies:} \\
+			            How to tackle the evaluation? E.g. how to split the data into training and test sets?
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Confusion Matrix and Evaluation Metrics (I)}
-	Given $M$ classes, an entry $C^{(m)}_{ij}$ in an $M \times M$ confusion matrix
-	indicates the number of tuples in class $i$ that were labeled by the
-	classifier as class $j$.
+\subsection{Evaluation Metrics}
+
+\begin{frame}{Confusion Matrix}
+
+	\vspace*{-1em}
+
 	\input{7-classification/confusion-matrix.tex}
 
-	\textbf{Accuracy:}
-	\vspace*{-1em}
-	\begin{columns}
-		\begin{column}{0.55\textwidth}
-			\begin{itemize}
-				\item Percentage of correctly classified tuples.
-				\item Also known as the (overall) recognition rate.
-				\item Most effective with a \textit{balanced dataset}.
-				\item Inverse: \textbf{Error rate} as the misclassification rate.
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.4\textwidth}
-			\vspace*{-1.2em}
-			\begin{align*}
-				\text{Accuracy}   & = \frac{\text{TP} + \text{TN}}{\text{P} +  \text{N}} \\
-				\text{Error Rate} & = 1 - \text{Accuracy}                                \\
-				                  & = \frac{\text{FP} + \text{FN}}{\text{P} + \text{N}}
-			\end{align*}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Confusion Matrix and Evaluation Metrics (II)}
-	\input{7-classification/confusion-matrix.tex}
-	\begin{columns}
-		\begin{column}{0.4\textwidth}
-			\begin{itemize}
-				\item \textbf{Sensitivity} = True positive rate.
-				\item \textbf{Specificity} = True negative rate.
-				\item \textbf{Precision} = Measure of exactness.
-				\item \textbf{Recall} = Measure of completeness.\\
-				      Perfect score is 1.0.\\
-				      Inverse relationship with precision.
-			\end{itemize}
-		\end{column}
-
-		\begin{column}{0.6\textwidth}
-			\begin{align*}
-				\text{Sensitivity} & = \frac{\text{TP}}{\text{P}}              & = \frac{\text{TP}}{\text{TP} + \text{FN}} & = \text{Recall} \\
-				\text{Specificity} & = \frac{\text{TN}}{\text{N}}                                                                            \\
-				\text{Precision}   & = \frac{\text{TP}}{\text{TP} + \text{FP}}
-			\end{align*}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Confusion Matrix and Evaluation Metrics (III)}
-	\textbf{F-Measure}: Combines precision and recall in one single measure.
-	\vspace*{-1em}
-	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-				\textbf{$\text{\textbf{F}}_1$ Measure}
-			\end{center}
-			\begin{align*}
-				\text{F}_1 = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
-			\end{align*}
-
-			\begin{itemize}
-				\item Harmonic mean between precision and recall.
-				\item Equal weight to both measures.
-			\end{itemize}
-		\end{column}
-
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-				\textbf{$\text{\textbf{F}}_\beta$ Measure}
-			\end{center}
-			\vspace*{-.5em}
-			\begin{align*}
-				\text{F}_\beta = \frac{(1 + \beta^2) \times \text{Precision} \times \text{Recall}}{\beta^2 \times \text{Precision} + \text{Recall}}
-			\end{align*}
-
-			\begin{itemize}
-				\item Weighted measure.
-				\item Gives $\beta$-times more weight to precision.
-				\item $\beta > 1$: More weight on precision. E.g. important to minimize false positives.
-				\item $\beta < 1$: More weight on recall. E.g. important to minimize false negatives.
-			\end{itemize}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Evaluation Metrics - Example}
-	\centering
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
-		Actual class/predicted class & cancer = yes & cancer = no   & Total & Recognition ($\%$)  \\\hline
-		cancer = yes                 & \textbf{90}  & \textbf{210}  & 300   & 30.00 (sensitivity) \\\hline
-		cancer = no                  & \textbf{140} & \textbf{9560} & 9700  & 98.56 (specificity) \\\hline
-		Total                        & 230          & 9770          & 10000 & 96.40 (accuracy)    \\\hline
-	\end{tabular}\\[0.2cm]
 	\begin{itemize}
-		\item Precision $= \frac{90}{230} = 39.13 \%$.
-		\item Recall $=\frac{90}{300} = 30.00 \%$.
-		\item $F_1$-measure = $\frac{2 \cdot 0.3913 \cdot 0.3}{0.3913 + 0.3} = 33.96 \%$.
+		\item \textbf{Confusion Matrix:}
+		      \begin{itemize}
+			      \item Summarizes the results of a classification model.
+			      \item Shows the number of correct and incorrect predictions for each class.
+			      \item \textbf{\color{airforceblue}Correctly classified tuples:}
+			            \begin{itemize}
+				            \item \textbf{True Positives (TP)}: Positive tuples correctly classified as positive.
+				            \item \textbf{True Negatives (TN)}: Negative tuples correctly classified as negative.
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}Incorrectly classified tuples:}
+			            \begin{itemize}
+				            \item \textbf{False Positives (FP)}: Negative tuples incorrectly classified as positive.
+				            \item \textbf{False Negatives (FN)}: Positive tuples incorrectly classified as negative.
+			            \end{itemize}
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
+
+\begin{frame}{Evaluation Metrics: Accuracy and Error Rate}
+
+	\vspace*{-1em}
+
+	\input{7-classification/confusion-matrix.tex}
+
+	\rule{\textwidth}{0.4pt}
+
+	\vspace*{-0.25cm}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+
+				\item \textbf{Accuracy:}
+				      \visible<2->{
+					      \begin{itemize}
+						      \item Percentage of correctly classified tuples.
+					      \end{itemize}
+				      }
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+
+			\begin{itemize}
+
+				\item \textbf{Error Rate:}
+				      \visible<3->{
+					      \begin{itemize}
+						      \item Inverse of accuracy, i.e. percentage of incorrectly classified tuples.
+					      \end{itemize}
+				      }
+			\end{itemize}
+
+		\end{column}
+	\end{columns}
+
+	\vspace*{-0.1em}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\visible<2->{
+				\begin{align*}
+					\text{Accuracy} & = \frac{\text{TP} + \text{TN}}{\text{P} +  \text{N}} \\
+				\end{align*}
+			}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\visible<3->{
+				\begin{align*}
+					\text{Error Rate} & = 1 - \text{Accuracy}                               \\
+					                  & = \frac{\text{FP} + \text{FN}}{\text{P} + \text{N}} \\
+				\end{align*}
+			}
+		\end{column}
+	\end{columns}
+
+	\vspace*{-2em}
+\end{frame}
+
+\begin{frame}{Evaluation Metrics: Sensitivity and Specificity}
+
+	\vspace*{-1em}
+
+	\input{7-classification/confusion-matrix.tex}
+
+	\rule{\textwidth}{0.4pt}
+
+	\vspace*{-0.25cm}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+
+			\begin{itemize}
+
+				\item \textbf{Sensitivity:}
+				      \visible<2->{
+					      \begin{itemize}
+						      \item True positive rate.
+					      \end{itemize}
+				      }
+			\end{itemize}
+
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+
+				\item \textbf{Specificity:}
+				      \visible<3->{
+					      \begin{itemize}
+						      \item True negative rate.
+					      \end{itemize}
+				      }
+			\end{itemize}
+
+		\end{column}
+	\end{columns}
+
+	\vspace*{-0.1em}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\visible<2->{
+				\begin{align*}
+					\text{Sensitivity} & = \frac{\text{TP}}{\text{P}} \\
+				\end{align*}
+			}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\visible<3->{
+				\begin{align*}
+					\text{Specificity} & = \frac{\text{TN}}{\text{N}} \\
+				\end{align*}
+			}
+		\end{column}
+	\end{columns}
+
+	\vspace*{-2em}
+\end{frame}
+
+\begin{frame}{Evaluation Metrics: Precision and Recall}
+
+	\vspace*{-1em}
+
+	\input{7-classification/confusion-matrix.tex}
+
+	\rule{\textwidth}{0.4pt}
+
+	\vspace*{-0.25cm}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+
+				\item \textbf{Precision:}
+				      \visible<2->{
+					      \begin{itemize}
+						      \item Measure of exactness.
+					      \end{itemize}
+				      }
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+
+			\begin{itemize}
+
+				\item \textbf{Recall:}
+				      \visible<3->{
+					      \begin{itemize}
+						      \item Measure of completeness.
+					      \end{itemize}
+				      }
+			\end{itemize}
+
+		\end{column}
+	\end{columns}
+
+	\vspace*{-0.1em}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\visible<2->{
+				\begin{align*}
+					\text{Precision} & = \frac{\text{TP}}{\text{TP} + \text{FP}} \\
+				\end{align*}
+			}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\visible<3->{
+				\begin{align*}
+					\text{Recall} & =  \frac{\text{TP}}{\text{TP} + \text{FN}}     \\
+					\visible<4->{ & = \text{Sensitivity} \\}
+				\end{align*}
+			}
+		\end{column}
+	\end{columns}
+
+	\vspace*{-2em}
+\end{frame}
+
+\begin{frame}{Evaluation Metrics: $\text{\textbf{F}}_\beta$ and $\text{\textbf{F}}_1$ Measure}
+
+	\vspace*{-1em}
+
+	\input{7-classification/confusion-matrix.tex}
+
+	\rule{\textwidth}{0.4pt}
+
+	\vspace*{-0.25cm}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+
+			\begin{itemize}
+				\item \textbf{$\text{\textbf{F}}_\beta$ Measure:}
+				      \visible<2->{
+					      \begin{itemize}
+						      \item Combining precision and recall.
+						      \item Gives $\beta$-times more weight to precision.
+						      \item $\beta > 1$: Minimize false positives.
+						      \item $\beta < 1$: Minimize false negatives.
+					      \end{itemize}
+				      }
+			\end{itemize}
+
+		\end{column}
+		\begin{column}{0.45\textwidth}
+
+			\begin{itemize}
+				\item \textbf{$\text{\textbf{F}}_1$ Measure:}
+				      \visible<3->{
+					      \begin{itemize}
+						      \item Harmonic mean between the measures.
+						      \item Equal weight to both measures.
+					      \end{itemize}
+				      }
+			\end{itemize}
+
+		\end{column}
+	\end{columns}
+
+	\vspace*{-0.1em}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\visible<2->{
+				\begin{align*}
+					\text{F}_\beta & = \frac{(1 + \beta^2) \times \text{Precision} \times \text{Recall}}{\beta^2 \times \text{Precision} + \text{Recall}}
+				\end{align*}
+			}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\visible<3->{
+				\begin{align*}
+					\text{F}_1 & = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} \\
+				\end{align*}
+			}
+		\end{column}
+	\end{columns}
+
+	\vspace*{-2em}
+\end{frame}
+
+\begin{frame}{Evaluation Metrics: Example (I)}
+	\begin{itemize}
+		\item \textbf{Evaluation results of a classification model:}
+	\end{itemize}
+
+	\vspace*{0.2cm}
+
+	\begin{center}
+		\begin{tabular}{|r|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			\cellcolor{faugray!62}\textit{True Class}      & \only<3>{\cellcolor{faugray!28}}Cat & \only<9>{\cellcolor{faugray!28}}Dog & \only<7>{\cellcolor{faugray!28}}Fox & \only<5>{\cellcolor{faugray!28}}Cat & \only<3>{\cellcolor{faugray!28}}Cat & \only<9>{\cellcolor{faugray!28}}Hen & \only<3>{\cellcolor{faugray!28}}Cat & \only<5>{\cellcolor{faugray!28}}Cat & \only<9>{\cellcolor{faugray!28}}Dog & \only<9>{\cellcolor{faugray!28}}Fox \\ \hline
+			\cellcolor{faugray!62}\textit{Predicted Class} & \only<3>{\cellcolor{faugray!28}}Cat & \only<9>{\cellcolor{faugray!28}}Dog & \only<7>{\cellcolor{faugray!28}}Cat & \only<5>{\cellcolor{faugray!28}}Fox & \only<3>{\cellcolor{faugray!28}}Cat & \only<9>{\cellcolor{faugray!28}}Dog & \only<3>{\cellcolor{faugray!28}}Cat & \only<5>{\cellcolor{faugray!28}}Dog & \only<9>{\cellcolor{faugray!28}}Fox & \only<9>{\cellcolor{faugray!28}}Fox \\ \hline
+		\end{tabular}
+	\end{center}
+
+	\vspace*{0.2cm}
+
+	\visible<2->{
+		\begin{itemize}
+			\item \textbf{Resulting confusion matrix\only<2->{\footnote{We want to evaluate the classification model with regard to the class \textit{Cat}}}:}
+		\end{itemize}
+		\begin{center}
+			\begin{tabular}{lp{1cm}p{1cm}p{1cm}p{1cm}}
+				                                                           &                                                                 & \multicolumn{2}{c}{\textit{Predicted Class}}                                                       & \multicolumn{1}{l}{}                                                                                                                                                         \\ \cline{3-4}
+				                                                           & \multicolumn{1}{l|}{}                                           & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$}                                            & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$}                                                & \multicolumn{1}{l}{\textit{Total}}                             \\ \cline{2-5}
+				\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$}         & \multicolumn{1}{c|}{\only<2-3>{\cellcolor{faugray!28}}\only<-2>{\textbf{TP}}\only<3->{\textbf{3}}} & \multicolumn{1}{c|}{\only<4-5>{\cellcolor{faugray!28}}\only<-4>{\textbf{FN}}\only<5->{\textbf{2}}}          & \multicolumn{1}{c}{\only<-4>{\textbf{P}}\only<5->{\textbf{5}}} \\ \cline{2-4}
+				\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True Class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$}    & \multicolumn{1}{c|}{\only<6-7>{\cellcolor{faugray!28}}\only<-6>{\textbf{FP}}\only<7->{\textbf{1}}} & \multicolumn{1}{c|}{\textbf{\only<8-9>{\cellcolor{faugray!28}}\only<-8>{\textbf{TN}}\only<9->{\textbf{4}}}} & \multicolumn{1}{c}{\only<-8>{\textbf{N}}\only<9->{\textbf{5}}} \\ \cline{2-5}
+				\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\only<-6>{\textbf{P'}}\only<7->{\textbf{4}}} & \multicolumn{1}{c|}{\only<-8>{\textbf{N'}}\only<9->{\textbf{6}}}                                   & \multicolumn{1}{c}{\only<-8>{\textbf{P+N}}\only<9->{\textbf{10}}}                                                                                                            \\
+				                                                           &                                                                 &                                                                                                    &                                                                                                             &
+			\end{tabular}
+		\end{center}
+	}
+
+\end{frame}
+
+\begin{frame}{Evaluation Metrics: Example (II)}
+
+	\vspace*{-1em}
+
+	\begin{center}
+		\begin{tabular}{lp{1cm}p{1cm}p{1cm}p{1cm}}
+			                                                           &                                                              & \multicolumn{2}{c}{\textit{Predicted Class}}                                                                                           & \multicolumn{1}{l}{}                                                                                                                                                                                                                                                 \\ \cline{3-4}
+			                                                           & \multicolumn{1}{l|}{}                                        & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$}                                                                                & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$}                                                                      & \multicolumn{1}{l}{\textit{Total}}                                                                                               \\ \cline{2-5}
+			\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\text{Cat}$}      & \multicolumn{1}{c|}{\only<2,6,10,12>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(TP)}}}}\textbf{3}} & \multicolumn{1}{c|}{\only<4,12>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(FN)}}}}\textbf{2}} & \multicolumn{1}{c}{\only<2,4,6>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(P)}}}}\textbf{5}} \\ \cline{2-4}
+			\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True Class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}$\neg \text{Cat}$} & \multicolumn{1}{c|}{\only<4,10>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(FP)}}}}\textbf{1}}      & \multicolumn{1}{c|}{\only<2,8>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(TN)}}}}\textbf{4}}  & \multicolumn{1}{c}{\only<2,4,8>{\cellcolor{faugray!28}{\rlap{\hspace{0.8em}\color{darkgray}\scriptsize\textbf{(N)}}}}\textbf{5}} \\ \cline{2-5}
+			\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\textbf{4}}                               & \multicolumn{1}{c|}{\textbf{6}}                                                                                                        & \multicolumn{1}{c}{\textbf{10}}                                                                                                                                                                                                                                      \\
+			                                                           &                                                              &                                                                                                                                        &                                                                                                                                   &
+		\end{tabular}
+	\end{center}
+
+	\vspace*{-0.25cm}
+
+	\rule{\textwidth}{0.4pt}
+
+	\vspace*{-0.25cm}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{center}
+				\textbf{Calculations:}
+			\end{center}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\begin{center}
+				\textbf{Results:}
+			\end{center}
+		\end{column}
+	\end{columns}
+
+	\vspace*{-0.05cm}
+
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			% Accuracy
+			\only<1-2>{
+				\begin{align*}
+					\text{Accuracy} & = \frac{\text{TP} + \text{TN}}{\text{P} +  \text{N}}       \\
+					                & = \visible<2->{ \frac{3 + 4}{5 + 5} = \frac{7}{10} = 70\%}
+				\end{align*}
+			}
+			% Error Rate
+			\only<3-4>{
+				\begin{align*}
+					\text{Error Rate} & = \frac{\text{FP} + \text{FN}}{\text{P} + \text{N}}       \\
+					                  & = \visible<4->{\frac{1 + 2}{5 + 5} = \frac{3}{10} = 30\%}
+				\end{align*}
+			}
+			% Sensitivity
+			\only<5-6>{
+				\begin{align*}
+					\text{Sensitivity} & = \frac{\text{TP}}{\text{P}}       \\
+					                   & = \visible<6->{\frac{3}{5} = 60\%}
+				\end{align*}
+			}
+			% Specificity
+			\only<7-8>{
+				\begin{align*}
+					\text{Specificity} & = \frac{\text{TN}}{\text{N}}       \\
+					                   & = \visible<8->{\frac{4}{5} = 80\%}
+				\end{align*}
+			}
+			% Precision
+			\only<9-10>{
+				\begin{align*}
+					\text{Precision} & = \frac{\text{TP}}{\text{TP} + \text{FP}}             \\
+					                 & = \visible<10->{\frac{3}{3 + 1} = \frac{3}{4} = 75\%}
+				\end{align*}
+			}
+			% Recall
+			\only<11-12>{
+				\begin{align*}
+					\text{Recall} & = \frac{\text{TP}}{\text{TP} + \text{FN}}             \\
+					              & = \visible<12->{\frac{3}{3 + 2} = \frac{3}{5} = 60\%}
+				\end{align*}
+			}
+			% F1-Measure
+			\only<13-14>{
+				\begin{align*}
+					\text{F}_1 & = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} \\
+					           & = \visible<14->{\frac{2 \cdot 0.75 \cdot 0.6}{0.75 + 0.6} \approx 0.6667 \approx 67\%}
+				\end{align*}
+			}
+
+		\end{column}
+		\begin{column}{0.225\textwidth}
+			\begin{align*}
+				\visible<2->{\text{Accuracy}    & = 70\% \\}
+				\visible<4->{\text{Error Rate}  & = 30\% \\}
+				\visible<6->{\text{Sensitivity} & = 60\% \\}
+				\visible<8->{\text{Specificity} & = 80\% \\}
+			\end{align*}
+		\end{column}
+		\begin{column}{0.225\textwidth}
+			\begin{align*}
+				\visible<10->{\text{\only<14>{\color{faugray}}Precision} & = 75\% \\}
+				\visible<12->{\text{\only<14>{\color{faugray}}Recall}    & = 60\% \\}
+				\visible<14->{\text{F}_1                                 & \approx 67\% \\}
+			\end{align*}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+\subsection{Evaluation Strategies}
+
+\begin{frame}{Evaluation Strategies}
+	\begin{itemize}
+		\item \textbf{We will take a look at two types of evaluation strategies:}
+		      \begin{itemize}
+			      \item \textbf{\color{airforceblue}Methods to split data into training and test sets:} \\
+			            \begin{enumerate}
+				            \item Holdout method
+				            \item Cross validation
+			            \end{enumerate}
+			      \item \textbf{\color{airforceblue}Methods to compare classification models and their settings:} \\
+			            \begin{enumerate}
+				            \item Receiver Operating Characteristics (ROC) curve
+			            \end{enumerate}
+		      \end{itemize}
+		\item \textbf{Of course, there are many many more evaluation strategies}
+	\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Evaluation Strategies: Holdout Method}
-	\textbf{Holdout method.}
+
 	\begin{itemize}
-		\item Randomly assign tuples into two independent sets:
+		\item \textbf{Easy way to split a dataset: {\color{airforceblue} The Holdout Method}}
 		      \begin{itemize}
-			      \item \textbf{\color{airforceblue}Training set} (E.g., $2/3$) for model construction.
-			      \item \textbf{\color{airforceblue}Test set} (E.g., $1/3$) for accuracy estimation.
-		      \end{itemize}
-		\item Random sampling: a variation of holdout that repeats holdout $k$ times.
-		      \begin{itemize}
-			      \item Create an average accuracy over all experiments.
+			      \item Randomly assign tuples into two independent sets:
+			            \begin{itemize}
+				            \item \textbf{\color{airforceblue}Training set} (E.g., $2/3$) for model construction.
+				            \item \textbf{\color{airforceblue}Test set} (E.g., $1/3$) for accuracy estimation.
+			            \end{itemize}
+			      \item Random sampling: a variation of holdout that repeats holdout $k$ times.
+			            \begin{itemize}
+				            \item Create an average accuracy over all experiments.
+			            \end{itemize}
 		      \end{itemize}
 	\end{itemize}
 
 \end{frame}
 
 \begin{frame}{Evaluation Strategies: Cross Validation}
-	Most common: $k$-fold cross validation ($k=10$ is popular).
-
 	\begin{columns}[T]
-		\begin{column}[T]{0.5\textwidth}
+		\begin{column}[T]{0.45\textwidth}
 			\begin{itemize}
-				\item Randomly partition the data into $k$ mutually exclusive subsets (folds), each approximately equal size.
-				\item At $i$-th iteration, use $D_i$ as test set and the others as training set.
-				\item Average accuracy of all iterations.
-				\item \textbf{Leave-one-out}: $k$ folds, on $i$-th iteration leave out $i$-th fold; for small-sized data.
-				\item \textbf{Stratified cross-validation}: For every class select a simple random sample of tuples. Results in subsets with approximately the same distribution.
+				\item \textbf{More robust than holdout method: {\color{airforceblue} Cross Validation}}
+				\item \textbf{In this case: {\color{airforceblue} $k$-fold cross validation}}
+				      \begin{itemize}
+					      \item Randomly partition the data into $k$ mutually exclusive subsets (folds).
+					      \item At each iteration, use one fold as test set and the others as training set.
+					      \item Average accuracy of all iterations.
+				      \end{itemize}
 			\end{itemize}
 
 		\end{column}
 
-		\begin{column}[T]{0.5\textwidth}
+		\begin{column}[T]{0.45\textwidth}
 			\centering
 			\vspace{.3em}
 			\textbf{Example:} $k$-fold cross validation with $k=5$\\\medskip
 
 			\small
 			\begin{tabular}[c]{l *5{|p{2em}}|}
-				            & \multicolumn{5}{c|}{$\leftarrow$ Total Number of Tuples $\longrightarrow$}                                                                                                         \\\cline{2-6}\revealcline
-				Iteration 1 & \cellcolor{faugreen!25}                                                    &                         &                         &                         &                         \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
-				Iteration 2 &                                                                            & \cellcolor{faugreen!25} &                         &                         &                         \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
-				Iteration 3 &                                                                            &                         & \cellcolor{faugreen!25} &                         &                         \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
-				Iteration 4 &                                                                            &                         &                         & \cellcolor{faugreen!25} &                         \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
-				Iteration 5 &                                                                            &                         &                         &                         & \cellcolor{faugreen!25} \\\cline{2-6}\noalign{\vskip1ex}
+				            & \multicolumn{5}{c|}{$\leftarrow$ Total Number of Tuples $\longrightarrow$}                                                                                                     \\\cline{2-6}\revealcline
+				Iteration 1 & \cellcolor{faugray!50}                                                     &                        &                        &                        &                        \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
+				Iteration 2 &                                                                            & \cellcolor{faugray!50} &                        &                        &                        \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
+				Iteration 3 &                                                                            &                        & \cellcolor{faugray!50} &                        &                        \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
+				Iteration 4 &                                                                            &                        &                        & \cellcolor{faugray!50} &                        \\\cline{2-6}\noalign{\vskip1ex}\cline{2-6}\revealcline
+				Iteration 5 &                                                                            &                        &                        &                        & \cellcolor{faugray!50} \\\cline{2-6}\noalign{\vskip1ex}
 			\end{tabular}
 
 			\begin{tabular}[c]{|p{2em}|l|p{2em}|l}
 				\cline{1-1}\cline{3-3}
-				 & Training & \cellcolor{faugreen!25} & Validation \\
+				 & Training & \cellcolor{faugray!50} & Validation \\
 				\cline{1-1}\cline{3-3}
 			\end{tabular}
 		\end{column}
@@ -183,157 +508,21 @@
 
 \end{frame}
 
-\begin{frame}{Evaluation Strategy: Bootstrap}
-	\textbf{Bootstrap} samples training data uniformly with replacement.
-
-	\textbf{Several bootstrap methods exists, yet a common one is $.632$ bootstrap.}
-	\begin{itemize}
-		\item Data set with $d$ tuples is sampled $d$ times - uniformly with replacement.
-		\item Uniformly = every tuple has the same probability ($\frac{1}{d}$) for selection.
-		\item With replacement = High change a tuple is selected more than once.
-		\item Not selected tuples will form the test set.
-		\item Probability of not being chosen is $1-\frac{1}{d}$. Selecting $d$ times: $(1-\frac{1}{d})^d$.\\
-		      With a large data set it approaches $e^-1=0.368$.
-		\item Thus, on average 63.2\% of tuples are selected as the training set.
-		\item Sampling procedure is repeated $k$ times.\\
-		      Calculate accuracy in every iteration as follows:
-		      \begin{align*}
-			      \text{Acc}(M) = \frac{1}{k} \sum_{i=1}^{k} 0.632 \cdot \text{Acc}(M_i)_{\text{test\_set}} + 0.368 \cdot \text{Acc}(M_i)_{\text{train\_set}}.
-		      \end{align*}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Evaluating Classifier Accuracy: Bootstrap (II)}
-	\begin{itemize}
-		\item \textbf{Suppose we have $2$ classifiers, $M_1$ and $M_2$, which one is better?}
-		\item \textbf{Use $10$-fold cross-validation to obtain $\overline{\text{err}}(M_1)$ and $\overline{\text{err}}(M_2)$.}
-		      \begin{itemize}
-			      \item Recall: error rate is $1-\text{accuracy}(M)$.
-		      \end{itemize}
-		\item \textbf{Mean error rates:}
-		      \begin{itemize}
-			      \item Just estimates of error on the true population of future data cases.
-		      \end{itemize}
-		\item \textbf{What if the difference between the $2$ error rates is just attributed to chance?}
-		      \begin{itemize}
-			      \item Use a test of statistical significance.
-			      \item Obtain confidence limits for our error estimates.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Evaluating Classifier Accuracy: Null Hypothesis}
-	\begin{itemize}
-		\item \textbf{Perform $k$-fold cross-validation} with $k=10$.
-		\item \textbf{Assume samples follow a $t$-distribution with $k-1$ degrees of freedom.}
-		\item \textbf{Use $t$-test}
-		      \begin{itemize}
-			      \item Student's $t$-test.
-		      \end{itemize}
-		\item \textbf{Null hypothesis:}
-		      \begin{itemize}
-			      \item $M_1$ and $M_2$ are the same.
-		      \end{itemize}
-		\item \textbf{If we can reject the null hypothesis, then}
-		      \begin{itemize}
-			      \item Conclude that difference between $M_1$ and $M_2$ is statistically significant.
-			      \item Obtain confidence limits for our error estimates.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Estimating Confidence Intervals (I)}
-	\begin{itemize}
-		\item \textbf{If only one test set available: pairwise comparison:}
-		      \begin{itemize}
-			      \item For $i$-th round of $10$-fold cross-validation, the same cross partitioning is used to obtain $\text{err}(M_1)_i$ and $\text{err}(M_2)_i$.
-			      \item Average over $10$ rounds to get $\overline{\text{err}}(M_1)$ and $\overline{\text{err}}(M_2)$.
-			      \item $t$-test computes $t$-statistic with $k-1$ degrees of freedom:
-			            \begin{align*}
-				            \resizebox{3cm}{!}{%
-					            $t = \frac{\overline{\text{err}}(M_1)- \overline{\text{err}}(M_2)}{\frac{\text{var}(M_1-M_2)}{\sqrt{k}}},$}
-			            \end{align*}
-			      \item where
-			            \begin{align*}
-				            \resizebox{10cm}{!}{%
-					            $\text{var}(M_1-M_2) = \frac{1}{k} \sum_{i=1}^{k} \left[ \text{err}(M_1)_i - \text{err}(M_2)_i - (\overline{\text{err}}(M_1) - \overline{\text{err}}(M_2))\right]^2.$}
-			            \end{align*}
-		      \end{itemize}
-		\item \textbf{If two test sets available: use unpaired $t$-test:}
-		      \begin{align*}
-			      \resizebox{5cm}{!}{%
-				      $\text{var}(M_1-M_2) = \sqrt{\frac{\text{var}(M_1)}{k_1} + \frac{\text{var}(M_2)}{k_2}},$}
-		      \end{align*}
-		      where $k_1$ \& $k_2$ are $\#$ of cross-validation samples used for $M_1$ \& $M_2$, respectively.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Estimating Confidence Intervals (II)}
+\begin{frame}{Evaluation Strategies: ROC Curve}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
-			\vspace{-6cm}
-			\centering
-			\includegraphics[width=0.8\textwidth]{img/ttest1.jpeg}
 			\begin{itemize}
-				\item Symmetrical.
-				\item \textbf{\color{airforceblue}Significance level}:
+				\item \textbf{Receiver Operating Characteristics (ROC) curve:}
 				      \begin{itemize}
-					      \item E.g., $\text{sig} = 0.05$ or $5\%$ means $M_1$ \& $M_2$ are significantly different for $95\%$ of population.
+					      \item Visualizes the performance of a classification model:
+					            \begin{itemize}
+						            \item Shows the performance of a model at different settings/thresholds.
+						            \item Plots the True Positive Rate (TPR) \\ against the False Positive Rate (FPR).
+						            \item Shows the trade-off between sensitivity and specificity.
+					            \end{itemize}
+					      \item The closer the curve is to the top-left corner, the better the model. \\
+					            $\Rightarrow$ \textbf{\color{airforceblue}The area under the ROC curve (AUC) is a measure of the model's accuracy.}
 				      \end{itemize}
-				\item Confidence limit: $z = \frac{\text{sig}}{2}$.
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\centering
-			\includegraphics[width=0.7\textwidth]{img/ttest2.jpeg}
-		\end{column}
-		% TODO: Recreate plot in tikz.
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Estimating Confidence Intervals (III)}
-	\textbf{Are $M_1$ and $M_2$ {\color{airforceblue} significantly different}?}
-	\begin{itemize}
-		\item Compute $t$. Select significance level (E.g., sig = $5 \%$).
-		\item Consult table for $t$-distribution:
-		      \begin{itemize}
-			      \item $t$-distribution is symmetrical:
-			            \begin{itemize}
-				            \item Typically upper $\%$ points of distribution shown.
-			            \end{itemize}
-			      \item Find critical value $c$ corresponding to $k-1$ degrees of freedom (here, $9$)
-			      \item and for confidence limit $z = \frac{\text{sig}}{2}$ (here, $0.025$).
-			      \item $\implies$ Here, critical value $c = 2.262$
-		      \end{itemize}
-		\item If $t > c$ or $t < -c$, then $t$ value lies in rejection region:
-		      \begin{itemize}
-			      \item \textbf{Reject null hypothesis} that mean error rates of $M_1$ and $M_2$ are equal.
-			      \item Conclude: \textbf{statistically significant difference} between $M_1$ and $M_2$.
-		      \end{itemize}
-		\item Otherwise, conclude that any difference is chance.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Receiver Operating Characteristics (ROC) Curve}
-	\vspace*{-1.5em}
-	\begin{columns}
-		\begin{column}{0.6\textwidth}
-			\begin{itemize}
-				\item Visual comparison of classification models.
-				\item Compares and shows \textit{trade-off} between TPR and FPR:
-				      \begin{itemize}
-					      \item True Positive Rate (\textbf{TPR}): Proportion of positive tuples correctly classified as positive.\\
-					            $\rightarrow$ sensitivity or recall $= \frac{\text{TP}}{\text{P}}$
-					      \item False Positive Rate (\textbf{FPR}:) Proportion of negative tuples incorrectly classified as positive.\\
-					            $\rightarrow \text{FPR} = \frac{\text{FP}}{\text{N}} = 1 - \text{Specificity}$
-				      \end{itemize}
-
-				\item \textbf{The area under the ROC curve is a
-						      {\color{airforceblue}measure of the accuracy} of the model.}
-				      Maximum area of $1.0$ for a perfect classifier.
-				\item \textbf{The closer to the diagonal line (i.e. the closer the
-					      area is to $0.5$), the less accurate is the model.}
-
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.4\textwidth}
@@ -343,34 +532,6 @@
 				\includegraphics[width=\textwidth]{img/roc-curve.png}
 			\end{figure}
 			\vspace*{-0.5em}
-			\scriptsize
-			How to draw: Order tuples in decreasing order of probability.
-			\begin{itemize}
-				\item If TP move up TPR and plot point.
-				\item If negative tuple classified as positive: move both FPR and FPR.
-			\end{itemize}
 		\end{column}
 	\end{columns}
-\end{frame}
-
-\begin{frame}{Other Aspects of Model Selection}
-	\begin{itemize}
-		\item \textbf{Speed}
-		      \begin{itemize}
-			      \item Computational cost to train a classifier.
-			      \item Time to use model (prediction time).
-		      \end{itemize}
-		\item \textbf{Robustness}, i. e. the ability to make accurate predictions.
-		      \begin{itemize}
-			      \item Noisy data.
-			      \item Missing values.
-		      \end{itemize}
-		\item \textbf{Scalability}, i . e. efficient construction of classifiers on an abundant amount of training tuples.
-		\item \textbf{Interpretability}, refers to understanding and insight
-		      \begin{itemize}
-			      \item Typically subjective and difficult to access.
-			      \item Decision trees and classification rules are easy to interpret, but interpretability degrades with the size.
-		      \end{itemize}
-		\item \textit{Other measures} such as goodness of rules, decision-tree size or compactness of classification rules.
-	\end{itemize}
 \end{frame}

@@ -1,20 +1,26 @@
 \section{Decision Tree Induction}
 
 \begin{frame}{Decision Tree: An Example}
+	\vspace*{0.5cm}
 	\begin{columns}
-		\begin{column}{0.38\textwidth}
-			\vspace{-3cm}
+		\begin{column}{0.35\textwidth}
+			\vspace{0cm}
 			\begin{itemize}
-				\item \textbf{Training dataset: buys\_computer.}\newline
-				      The dataset follows an example of Quinlan's ID3.
+				\item \textbf{Training dataset:} buys\_computer.
 				\item \textbf{Resulting tree:}\\[0.1cm]
 			\end{itemize}
 			\centering
-			\input{7-classification/tree-example.tex}
+			\scalebox{0.9}{
+				\input{7-classification/tree-example.tex}
+			}
 		\end{column}
-		\begin{column}{0.62\textwidth}
-			\small
-			\input{7-classification/table-example.tex}
+		\begin{column}{0.55\textwidth}
+			\vspace*{-1cm}
+			\begin{center}
+				\scalebox{0.8}{
+					\input{7-classification/table-example.tex}
+				}
+			\end{center}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -61,30 +67,29 @@
 \begin{frame}{Algorithm for Decision Tree Induction (I)}
 	\vspace*{-0em}
 	\begin{columns}
-		\begin{column}{0.75\textwidth}
-			\textbf{Construction in general} follows a greedy algorithm, i. e. non-backtracking. Thus, it is done in a \textit{top-down recursive in a divide-and-conquer manner}.\\\medskip
+		\begin{column}{0.7\textwidth}
+			\textbf{Construction} in a \textit{top-down recursive} and \textit{divide-and-conquer} manner.\\\medskip
 			\textbf{Input:} data partition $D$, \texttt{attribute\_list}, \texttt{attribute\_selection\_method}.\\\medskip
 
 			\textbf{Algorithm Sketch \texttt{build\_decision\_tree}:}
 			\footnotesize
 			\begin{enumerate}
 				\item Create node $N$.
-				\item Determine splitting attribute $A$ according to the splitting criterion
-				      obtained by applying \texttt{attribute\_selection\_method}.  May also return a \textit{split point} or \textit{splitting subset}.
+				\item Determine splitting attribute $A$ with \texttt{attribute\_selection\_method}.
 				\item Label $N$ with splitting criterion.
-				\item If splitting attribute is discrete-valued and multiway split is allowed, or attribute has only one unique value: Remove attribute from \texttt{attribute\_list}.
+				\item If the splitting attribute has been fully utilized, remove it from \texttt{attribute\_list}.
 				\item For each outcome of splitting criterion:
 				      \begin{itemize}
 					      \footnotesize
 					      \item Partition $D$ according to outcome of splitting criterion.
-					      \item Grow branches (subtrees, call \texttt{build\_decision\_tree}) on $N$ for each partition.
+					      \item Grow branches on $N$ for each partition.
 				      \end{itemize}
 				\item Return node $N$
 			\end{enumerate}
 
 
 		\end{column}
-		\begin{column}{0.25\textwidth}
+		\begin{column}{0.2\textwidth}
 			\vspace*{-2em}
 			\centering
 
@@ -125,13 +130,16 @@
 \begin{frame}{Algorithm for Decision Tree Induction (II)}
 	\textbf{Stopping criteria:}
 	\begin{itemize}
-		\item All samples in $D$ belong to the same class. $N$ becomes a leaf.
-		\item \texttt{attribute\_list} is empty. If multiple classes: use majority class.
-		\item Partition $D$ is empty, thus create leaf with majority class.
+		\item All samples in $D$ belong to the same class: \\
+		      $\Rightarrow$ $N$ becomes a leaf.
+		\item Samples in $D$ belong to multiple classes, but \texttt{attribute\_list} is empty: \\
+		      $\Rightarrow$ Create leaf with majority class.
+		\item Partition $D$ is empty: \\
+		      $\Rightarrow$ Create leaf with majority class.
 	\end{itemize}
 	\vfill
 	\begin{alertblock}{Decision Tree Algorithm}
-		We merely discussed the gist to build a decision tree. A detailed algorithm to construct a decision tree is covered in the appendix under \hyperlink{algo:decision-tree}{\beamergotobutton{section ``Basic Decision Tree Algorithm''}}, as well as in our reference book\footfullcite[pp. 332 -- 335]{han2011}.
+		A detailed algorithm to construct a decision tree is covered in the appendix and in our reference book\footfullcite[pp. 332 -- 335]{han2011}.
 	\end{alertblock}
 \end{frame}
 
@@ -144,11 +152,11 @@
 	\begin{itemize}
 		\item Also known as \textit{splitting rules}.
 		\item Provides ranking for each attribute.
-		\item Partition data based on attribute with best score. \textit{Best score} depends on method used (some seek to minimize whereas others maximize).
-		\item Tree node is labeled with splitting criterion (attribute). Sub tree results from partitions of splitting criterion.
-	\end{itemize}
+		\item Partition data based on attribute with best score.
+		\item Tree node is labeled with splitting criterion (attribute).
+	\end{itemize} \medskip
 
-	Popular methods include:
+	We will discuss \textbf{three} popular attribute selection methods\footnote{Since this it not even close to an exhaustive list, we list some other popular methods in the appendix.}:
 	\begin{enumerate}
 		\item Information Gain
 		\item Gain Ratio
@@ -156,9 +164,10 @@
 	\end{enumerate}
 \end{frame}
 
+\subsection{Information Gain (ID3)}
+
 \begin{frame}{Information Gain (ID3) (I)}
 	\begin{itemize}
-		\item \textbf{Select the attribute with the highest information gain.}
 		\item Partitions reflect least randomness, i. e. impurity.
 		\item \textbf{Expected information} (entropy) needed to classify a tuple in $D$:
 		      \begin{align*}
@@ -166,8 +175,7 @@
 		      \end{align*}
 
 		      \begin{itemize}
-			      \item $p_i$ is the probability that tuple in $D$ belongs to class $C_i$,\\
-			            estimated by $\frac{|C_i|}{|D|}$, such that $1 \leq i \leq m$.
+			      \item $p_i$ is the probability that tuple in $D$ belongs to class $C_i$, estimated by $\frac{|C_i|}{|D|}$.
 			      \item $\log_2$ because information is encoded in bits.
 		      \end{itemize}
 	\end{itemize}
@@ -177,98 +185,169 @@
 	Calculate information for every attribute in \texttt{attribute\_list} and data partition $D$:
 	\vspace*{-1.5em}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-				\textbf{Discrete-valued Attribute}
-			\end{center}
-			\vspace*{-1em}
-			\begin{itemize}
-				\item Attribute $A$ with $v$ distinct values.
-				\item Expected information required to classify tuple in $D$ based on partitioning by $A$.
-				\item $D_A$: dataset $D$ partitioned by $A$, $v$: number of distinct values of $A$.
-			\end{itemize}
-			\vspace*{-1em}
-			\begin{align*}
-				\text{Info}_A(D) = \sum_{j=1}^v \frac{|D_{A,j}|}{|D_A|} \text{Info}(D_{A,j})
-			\end{align*}
-		\end{column}
+		\visible<2->{
+			\begin{column}{0.5\textwidth}
+				\begin{center}
+					\textbf{Discrete-valued Attribute}
+				\end{center}
+				\vspace*{-1em}
+				\begin{itemize}
+					\item Attribute $A$ with $v$ distinct values.
+					\item Expected information required to classify tuple in $D$ based on partitioning by $A$.
+					\item $D_A$: dataset $D$ partitioned by $A$, \\
+					      $D_{A,j}$: dataset $D$ partitioned by $A$ with distinct value $j$.
+				\end{itemize}
+			\end{column}
+		}
+		\visible<3->{
+			\begin{column}{0.5\textwidth}
+				\begin{center}
+					\textbf{Continuous-valued Attribute}
+				\end{center}
+				\vspace*{-1em}
 
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-				\textbf{Continuous-valued Attribute}
-			\end{center}
-			\vspace*{-1em}
+				\begin{itemize}
+					\item Attribute $A$ with $v$ distinct values.
+					\item Order values in increasing order.
+					\item Calculate midpoint of every neighbouring value.
+					\item $v-1$ possible split points $s_i=\frac{a_i + a_{i+1}}{2}$.
+					\item Evaluate $\text{Info}_A(D)$ for every possible binary splitting ($A\leq s_i$ and  $A>s_i$).
+				\end{itemize}
 
-			\begin{itemize}
-				\item Attribute $A$ with $v$ distinct values.
-				\item Order values in increasing order.
-				\item Calculate midpoint of every neighbouring value
-				      $\frac{a_i + a_{i+1}}{2}$. Results in $v-1$ possible split points.
-				\item Evaluate $\text{Info}_A(D)$ for every possible splitting.
-				\item Binary split: $A\leq$\texttt{split\_point} and  $A>$\texttt{split\_point}
-			\end{itemize}
-		\end{column}
+			\end{column}
+		}
 	\end{columns}
-	\vspace*{.5em}
-	Given $\text{Info}(D)$ and $\text{Info}_A(D)$, Information Gain is defined as:
+
+	\vspace*{0.25cm}
+
+	\begin{columns}
+		\visible<2->{
+			\begin{column}{0.5\textwidth}
+				{
+					\footnotesize
+					\begin{align*}
+						\text{Info}_A(D) = \sum_{j=1}^v \frac{|D_{A,j}|}{|D_A|} \text{Info}(D_{A,j})
+					\end{align*}
+				}
+			\end{column}
+		}
+		\visible<3->{
+			\begin{column}{0.5\textwidth}
+				{
+					\footnotesize
+					\begin{align*}
+						\text{Info}_A(D) = \frac{|D_{A\leq s_i}|}{|D_A|} \text{Info}(D_{A\leq s_i}) + \frac{|D_{A>s_i}|}{|D_A|} \text{Info}(D_{A>s_i})
+					\end{align*}
+				}
+			\end{column}
+		}
+	\end{columns}
+
+\end{frame}
+
+\begin{frame}{Information Gain (ID3) (III)}
+	Given $\text{Info}(D)$ and $\text{Info}_A(D)$, Information Gain of each attribute $A$ is calculated as:
 	\begin{align*}
 		\text{Gain}(A) = \text{Info}(D) - \text{Info}_A(D)
 	\end{align*}
+
+	\vspace*{0.75cm}
+
+	\begin{block}{Information Gain}
+		The attribute with the \textbf{highest} Information Gain is selected as the splitting attribute.
+	\end{block}
 \end{frame}
 
 \begin{frame}{Information Gain (ID3) - Example (I)}
 	\begin{columns}
 		\begin{column}{0.45\textwidth}
-			\vspace*{-2em}
 			\begin{itemize}
-				\item \textbf{Class P: buys\_computer = "yes"}
-				\item \textbf{Class N: buys\_computer = "no"}
-				      \begin{align*}
-					      \resizebox{7cm}{!}{%
-						      $\text{Info}(D) = I(9,5) = - \frac{9}{14}\log_2(\frac{9}{14})-\frac{5}{14} \log_2(\frac{5}{14}) = 0.94$
-					      }
-				      \end{align*}
+				\item \textbf{Target attribute:} buys\_computer \medskip
+				\item \textbf{Expected Information}:
 			\end{itemize}
-			\centering
-			\begin{tabular}{|l|l|l|l|}
-				\hline
-				\cellcolor{faugray!62}age     & \cellcolor{faugray!62}p & \cellcolor{faugray!62}n & \cellcolor{faugray!62}$l(p,n)$ \\\hline
-				\cellcolor{white}$\leq 30$    & 2                       & 3                       & 0.971                          \\\hline
-				\cellcolor{white}$31\ldots40$ & 4                       & 0                       & 0                              \\\hline
-				\cellcolor{white}$>40$        & 3                       & 2                       & 0.971                          \\\hline
-			\end{tabular}\\[0.2cm]
-			\begin{itemize}
-				\item \textbf{Similarly,}
-				      \begin{itemize}
-					      \item $\text{Gain}(\texttt{income}) = 0.029$,
-					      \item $\text{Gain}(\texttt{student}) = 0.151$,
-					      \item $\text{Gain}(\texttt{credit\_rating}) = 0.048$.
-				      \end{itemize}
-			\end{itemize}
+			{
+			\footnotesize
+			\begin{align*}
+				\text{Info}(D) & = I(9,5)                                                               \\
+				               & = - \frac{9}{14}\log_2(\frac{9}{14})-\frac{5}{14} \log_2(\frac{5}{14}) \\
+				               & = 0.94                                                                 \\
+			\end{align*}
+			}
 		\end{column}
 		\begin{column}{0.45\textwidth}
-			\vspace{-0.9cm}
-			\begin{align*}
-				\resizebox{7cm}{!}{%
-				$\text{Info}_{\texttt{age}}(D) = \frac{5}{14}I(2,3) + \frac{4}{14} I(4,0) + \frac{5}{14} I(3,2) = 0.694$.
+			\vspace*{-0.5cm}
+			\begin{center}
+				\scalebox{0.7}{
+					\input{7-classification/table-example.tex}
 				}
-			\end{align*}
-			$\frac{5}{14} I(2,3)$ means "$\texttt{age} \leq 30$" has $5$ out of $14$ samples, with $2$ yes'es and $3$ no's. Hence,
-			\vspace*{-.5em}
-			\begin{align*}
-				\text{Gain}(\texttt{age}) = \text{Info}(D)-\text{Info}_{\texttt{age}}(D) = 0.246.
-			\end{align*}
-
-			\vspace*{-.5em}
-			\resizebox{6cm}{!}{%
-				\centering
-				\input{7-classification/table-example.tex}
-			}
+			\end{center}
 		\end{column}
 	\end{columns}
 \end{frame}
 
 \begin{frame}{Information Gain (ID3) - Example (II)}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-2em}
+			\begin{itemize}
+				\item \textbf{Attribute:} Age \medskip
+				\item \textbf{Value distribution:}
+				      \vspace*{0.1cm}
+				      \begin{center}
+					      \scalebox{0.8}{
+						      \begin{tabular}{|c|c|c|c|}
+							      \hline
+							      \cellcolor{faugray!62}Age     & \cellcolor{faugray!62}Yes & \cellcolor{faugray!62}No & \cellcolor{faugray!62}$I(\text{Yes},\text{No})$ \\\hline
+							      \cellcolor{white}$\leq 30$    & 2                         & 3                        & 0.971                                           \\\hline
+							      \cellcolor{white}$31\ldots40$ & 4                         & 0                        & 0                                               \\\hline
+							      \cellcolor{white}$>40$        & 3                         & 2                        & 0.971                                           \\\hline
+						      \end{tabular}
+					      }\medskip
+				      \end{center}
+				\item \textbf{Calculation:}
+				      {
+					      \footnotesize
+					      \begin{align*}
+						      \text{Info}_{\texttt{age}}(D) & = \frac{5}{14}I(2,3) + \frac{4}{14} I(4,0) + \frac{5}{14} I(3,2) \\
+						                                    & = 0.694                                                          \\
+						      \text{Gain}(\texttt{age})     & = \text{Info}(D)-\text{Info}_{\texttt{age}}(D)                   \\
+						                                    & = 0.94 - 0.694                                                   \\
+						                                    & = 0.246
+					      \end{align*}
+				      }
+			\end{itemize}
+
+
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\only<1>{
+				\vspace*{-0.5cm}
+				\begin{center}
+					\scalebox{0.7}{
+						\input{7-classification/table-example.tex}
+					}
+				\end{center}
+			}
+			\only<2->{
+				\vspace*{-0.5cm}
+				\begin{itemize}
+					\item \textbf{Gain of other attributes:}
+					      \begin{itemize}
+						      \item $\text{Gain}(\texttt{income}) = 0.029$,
+						      \item $\text{Gain}(\texttt{student}) = 0.151$,
+						      \item $\text{Gain}(\texttt{credit\_rating}) = 0.048$.
+					      \end{itemize} \medskip
+					      \visible<3->{
+					\item \textbf{Splitting attribute:} \\
+					      Age  with $\text{Gain}(\texttt{age}) = 0.246$.
+					      }
+				\end{itemize}
+			}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Information Gain (ID3) - Example (III)}
 	\centering
 
 	\begin{tikzpicture}[
@@ -351,139 +430,299 @@
 	\end{tikzpicture}
 \end{frame}
 
+\subsection{Gain Ratio (C4.5)}
+
 \begin{frame}{Gain Ratio (C4.5)}
 	\begin{itemize}
-		\item Extension to Information Gain as this method is biased towards attributes with large amount of values.
-		\item \textbf{C4.5 (a successor of ID3) uses gain ratio to overcome the problem (normalization to information gain):}
-		      \begin{align*}
-			      \text{SplitInfo}_A(D) = - \sum_{j=1}^{v} \frac{|D_j|}{|D|} \log_2\left( \frac{|D_j|}{|D|} \right), \\
-			      \text{GainRatio}(A) = \frac{\text{Gain}(A)}{\text{SplitInfo}_A(D)}.
-		      \end{align*}
+		\item \textbf{Problem of Information Gain:}
+		      \begin{itemize}
+			      \item Tends to prefer attributes with large number of distinct values.
+			            \begin{itemize}
+				            \item E. g. attribute \texttt{degree\_program} with 278 values vs. \texttt{student\_status} with 2 values.
+				                  % 278 is the number of all degree programs at FAU in WS2024/25
+			            \end{itemize}
+		      \end{itemize}
+		      \visible<2->{
+		\item \textbf{Solution:}
+		      \begin{itemize}
+			      \item Normalize the Information Gain to get the \textbf{Gain Ratio (C4.5)}:
+			            \begin{align*}
+				            \text{SplitInfo}_A(D) & = - \sum_{j=1}^{v} \frac{|D_j|}{|D|} \log_2\left( \frac{|D_j|}{|D|} \right) \\
+				            \text{GainRatio}(A)   & = \frac{\text{Gain}(A)}{\text{SplitInfo}_A(D)}
+			            \end{align*}
+			      \item \textbf{Disadvantage:} Becomes unstable as $\text{SplitInfo}_A(D)$ approaches zero.
 
-		\item The attribute with the maximum gain ratio is selected as the splitting attribute.
-		\item \textbf{Disadvantage:} Becomes unstable as $\text{SplitInfo}_A(D)$
-		      approaches zero. Overcome by using Information Gain then.
+			            \begin{block}{Gain Ratio}
+				            The attribute with the \textbf{highest} Gain Ratio is selected as the splitting attribute.
+			            \end{block}
+
+		      \end{itemize}
+		      }
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (I)}
+\begin{frame}{Gain Ratio (C4.5) - Example}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-0.5em}
+			\begin{itemize}
+				\item \textbf{Attribute:} Age \medskip
+				\item \textbf{Calculation:}
+				      {
+					      \footnotesize
+					      \begin{align*}
+						      \text{Gain}(\texttt{age})  =     & 0.246                                                                                        \\
+						      \text{SplitInfo}_{age}(D)  =     & -\frac{5}{14} \log_2\left(\frac{5}{14}\right) - \frac{4}{14} \log_2\left(\frac{4}{14}\right) \\
+						                                       & - \frac{5}{14} \log_2\left(\frac{5}{14}\right)                                               \\
+						      =                                & 1.577                                                                                        \\
+						      \text{GainRatio}(\texttt{age}) = & \frac{0.246}{1.577}                                                                          \\
+						      =                                & 0.156
+					      \end{align*}
+				      }
+			\end{itemize}
+
+
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-0.5cm}
+			\begin{center}
+				\scalebox{0.7}{
+					\input{7-classification/table-example.tex}
+				}
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\subsection{Gini Index (CART)}
+
+\begin{frame}{Gini Index (CART) (I)}
 	\begin{itemize}
-		\item \textbf{Corrado Gini (1884 -- 1965).}
+		\item \textbf{Problem of Information Gain and Gain Ratio:}
 		      \begin{itemize}
-			      \item Italian statistician and sociologist.
+			      \item Use of logarithm is computationally expensive.
 		      \end{itemize}
-		\item \textbf{Also called Gini coefficient.}
-		\item \textbf{Measures statistical dispersion.}
+		\item \textbf{Solution:}
 		      \begin{itemize}
-			      \item Zero expresses perfect equality where all values belong to the same class.
-			      \item One expresses maximal inequality among values.
+			      \item Use the \textbf{Gini Index (CART)} as an alternative to Information Gain and Gain Ratio.
+			      \item Measures the \textbf{statistical dispersion} of a dataset.
 		      \end{itemize}
-		\item \textbf{Based on the Lorenz curve.}
-		      \begin{itemize}
-			      \item Plots the proportion of the total sum of values ($y$-axis) that is cumulatively assigned to the bottom $x\%$ of the population.
-			      \item Line at $45$ degrees thus represents perfect equality of value distribution.
-		      \end{itemize}
-		\item \textbf{Gini coefficient then is $\ldots$}
-		      \begin{itemize}
-			      \item $\ldots$ the ratio of the area that lies between the line of equality and the Lorenz curve over the total area under the line of equality.
-		      \end{itemize}
+
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (II)} % TODO: plot anpassen, sodass cumulative income nur steigt und nie faellt
-	% TODO: Mark the areas between the curves and the diagonal line. After all, the Gini Index and thus also this image is exactly about this area. This should be recognizable in a Gini Index image.
-	\centering
-	Example: Distribution of incomes.\\[0.5cm]
-	\begin{tikzpicture}
-		\begin{axis}[
-				xmin=0, xmax=100,
-				ymin=0, ymax=100,
-				minor tick num = 4,
-				grid,
-				ylabel = cumulative income (in \%),
-				xlabel = cumulative population (in \%),
-				legend style={legend pos=north west},
-			]
-			\addplot plot
-			coordinates {(0,0) (25,20) (50,15) (75,30) (100,100)};
-			\addplot plot
-			coordinates {(0,0) (25,10) (50,45) (75,40) (100,100)};
-			\addplot plot [thin]
-			coordinates {(0,0) (100,100)};
-			\legend{$L(1)$,$L(2)$}
-		\end{axis}
-	\end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (III)}
+\begin{frame}{Gini Index (CART) (II)}
 	\begin{itemize}
-		\item Measured impurity of partition $D$ is defined as the sum over $n$ classes:
+		\item \textbf{Measured impurity} of partition $D$ is defined as the sum over $n$ classes:
+		      \vspace*{-1em}
 		      \begin{align*}
-			      \text{Gini}(D) = 1-\sum_{j=1}^{n} p_j^2,
+			      \text{Gini}(D) = 1-\sum_{j=1}^{n} p_j^2
 		      \end{align*}
-		      where $p_j$ is the non-zero probability that sample in $D$ belongs to class $C_j$ as estimated by $\frac{|C_{j,D}|}{|D|}$
-		\item If \textbf{attribute $A$ is discrete-valued} with $v$ distinct values
-		      compute all possible subsets of values $2^v - 2$. Compute weighted sum of
-		      each partition tuple ($D_1$ and $D_2$) as follows:
-		      \begin{align*}
-			      \text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2).
-		      \end{align*}
-		\item If \textbf{attribute $A$ is continuous-valued} proceed similarly as in
-		      calculating Information Gain for continuous-valued attributes (order values,
-		      calculate midpoint of value pairs) and then calculate $\text{Gini}_A(D)$ for
-		      every split point.
+		      \vspace*{-1em}
+		      \begin{itemize}
+			      \item $p_j$ is the non-zero probability that sample in $D$ belongs to class $C_j$ as estimated by $\frac{|C_{j,D}|}{|D|}$
+		      \end{itemize}
 	\end{itemize}
+
+	\vspace*{-1em}
+
+	\visible<2->{
+		\begin{columns}
+			\visible<3->{
+				\begin{column}{0.45\textwidth}
+					\begin{center}
+						\textbf{Discrete-valued Attribute}
+					\end{center}
+					\vspace*{-1em}
+					\begin{itemize}
+						\item Attribute $A$ with $v$ distinct values.
+						\item Compute all possible subsets of values.
+						\item Compute weighted sum of each partition tuple ($D_1$ and $D_2$) as follows:
+					\end{itemize}
+				\end{column}
+			}
+			\visible<4->{
+				\begin{column}{0.45\textwidth}
+					\begin{center}
+						\textbf{Continuous-valued Attribute}
+					\end{center}
+					\vspace*{-1em}
+
+					\begin{itemize}
+						\item Order values in increasing order.
+						\item Split the dataset at every midpoint.
+						\item Evaluate $\text{Gini}_A(D)$ for every possible binary splitting:
+					\end{itemize}
+
+				\end{column}
+			}
+		\end{columns}
+
+		\vspace*{0.25cm}
+
+		\only<-4>{
+			\begin{columns}
+				\visible<3->{
+					\begin{column}{0.5\textwidth}
+						{
+							\footnotesize
+							\begin{align*}
+								\text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2)
+							\end{align*}
+						}
+					\end{column}
+				}
+				\visible<4->{
+					\begin{column}{0.5\textwidth}
+						{
+							\footnotesize
+							\begin{align*}
+								\text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2)
+							\end{align*}
+						}
+					\end{column}
+				}
+			\end{columns}
+		}
+		% EXTRA ANIMATION STEP:
+		% Might be used to show that the formula is the same for both cases. But for now, we decided to keep it 
+		% simple.
+		%
+		%\only<5->{
+		%	{
+		%			\footnotesize
+		%			\begin{align*}
+		%				\text{Gini}_A(D) = \frac{|D_1|}{|D|}\text{Gini}(D_1)+\frac{|D_2|}{|D|}\text{Gini}(D_2)
+		%			\end{align*}
+		%		}
+		%}
+	}
 \end{frame}
 
-\begin{frame}{Gini Index (CART, IBM IntelligentMiner) (IV)}
+\begin{frame}{Gini Index (CART) (III)}
 	\begin{itemize}
-		\item Gini Index as the \textbf{reduction in impurity} is then given as
+		\item The \textbf{reduction in impurity} is defined as
 		      follows:
 		      \begin{align*}
 			      \Delta\text{Gini}_A(D) = \text{Gini}(D)-\text{Gini}_A(D).
 		      \end{align*}
-		\item Attribute with minimum Gini Index is used as the splitting attribute.
 	\end{itemize}
+
+	\vspace*{4em}
+
+	\begin{block}{Gini Index}
+		The attribute (and partitioning) with the \textbf{highest} reduction in impurity is selected as the splitting attribute.
+	\end{block}
 
 \end{frame}
 
-\begin{frame}{Gini Index - Example (I)}
-	\begin{itemize}
-		\item $D$ has $9$ tuples in $\text{buys\_computer} =$ "yes" and 5 in "no", thus
-		      \begin{align*}
-			      \text{Gini}(D) = 1 - \left( \frac{9}{14} \right)^2 - \left( \frac{5}{14} \right)^2 = 0.459.
-		      \end{align*}
-		\item Suppose the attribute $\texttt{income}$ partitions $D$ \\ into $10$ in
-		      $D_1:\{\texttt{low,medium}\}$ and $4$ in $D_2: \{\texttt{high}\}$:
-		      \begin{align*}
-			       & \text{Gini}(D\vert_{D[\texttt{income}]="medium", "low"})                                                                                                                                   \\
-			       & = \frac{10}{14} \text{Gini}(D_1) + \frac{4}{14} \text{Gini}(D_2)                                                                                                                           \\
-			       & =\frac{10}{14} \left(1-\left( \frac{7}{10} \right)^2 - \left( \frac{3}{10} \right)^2 \right) + \frac{4}{14} \left( 1-\left( \frac{2}{4} \right)^2 - \left( \frac{2}{4} \right)^2 \right) = \\
-			       & = 0.443 = \text{gini}(D\vert_{D[\texttt{income}]="high"}).
-		      \end{align*}
-	\end{itemize}
+\begin{frame}{Gini Index (CART) - Example (I)}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item \textbf{Target attribute:} buys\_computer \medskip
+				\item \textbf{Measured impurity}:
+			\end{itemize}
+			{
+			\footnotesize
+			\begin{align*}
+				\text{Gini}(D) & = 1 - \left( \frac{9}{14} \right)^2 - \left( \frac{5}{14} \right)^2 \\
+				               & = 0.459
+			\end{align*}
+			}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-0.5cm}
+			\begin{center}
+				\scalebox{0.7}{
+					\input{7-classification/table-example.tex}
+				}
+			\end{center}
+		\end{column}
+	\end{columns}
 \end{frame}
 
-\begin{frame}{Gini Index - Example (II)}
-	\begin{itemize}
-		\item $\text{Gini}(D\vert_{D[\texttt{income}]="low", "high"}) = 0.458$,\\
-		      $\text{Gini}(D\vert_{D[\texttt{income}]="medium", "high"}) = 0.450.$
-		\item Thus, split on the \{"low","medium"\} and \{"high"\}, since it has the lowest gini index.
-	\end{itemize}
+\begin{frame}{Gini Index (CART) - Example (II)}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\vspace*{-2em}
+			\begin{itemize}
+				\item \textbf{Attribute:} Income \medskip
+				\item \textbf{Subsets:}
+				      {
+					      \footnotesize
+					      \begin{align*}
+						      D_1: & \{\texttt{low,medium}\} \\
+						      D_2: & \{\texttt{high}\}
+					      \end{align*}
+				      }
+				\item \textbf{Calculation:}
+				      {
+					      \footnotesize
+					      \begin{align*}
+						      \text{Gini}(D\vert_{\texttt{i}=\{high\}}) = & \text{Gini}(D\vert_{\texttt{i}=\{medium,low\}})                                             \\
+						      =                                           & \frac{10}{14} \text{Gini}(D_1) + \frac{4}{14} \text{Gini}(D_2)                              \\
+						      =                                           & \frac{10}{14} \left(1-\left( \frac{7}{10} \right)^2 - \left( \frac{3}{10} \right)^2 \right) \\
+						      +                                           & \frac{4}{14} \left( 1-\left( \frac{2}{4} \right)^2 - \left( \frac{2}{4} \right)^2 \right)   \\
+						      =                                           & 0.443
+					      \end{align*}
+				      }
+			\end{itemize}
+
+
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\only<1>{
+				\vspace*{-0.5cm}
+				\begin{center}
+					\scalebox{0.7}{
+						\input{7-classification/table-example.tex}
+					}
+				\end{center}
+			}
+			\only<2->{
+				\vspace*{-0.5cm}
+				\begin{itemize}
+					\item \textbf{Reduction in impurity:}
+					      {
+						      \footnotesize
+						      \begin{align*}
+							      \Delta\text{Gini}_{\texttt{i}=\{high\}}(D) = & \text{Gini}(D)-\text{Gini}(D\vert_{\texttt{i}=\{high\}}) \\
+							      =                                            & 0.459 - 0.443                                            \\
+							      =                                            & 0.016
+						      \end{align*}
+					      }
+					\item \textbf{Other subsets:}
+					      \begin{itemize}
+						      \item $\Delta\text{Gini}_{\texttt{i}=\{medium\}}(D) = 0.001$
+						      \item $\Delta\text{Gini}_{\texttt{i}=\{low\}}(D) = 0.009$
+					      \end{itemize} \medskip
+					      \visible<3->{
+					\item \textbf{Splitting subset:} \\
+					      \begin{itemize}
+						      \item If income has the overall highest reduction of impurity, then the split is on \{"low","medium"\} and \{"high"\}.
+					      \end{itemize}
+					      }
+				\end{itemize}
+			}
+		\end{column}
+	\end{columns}
 \end{frame}
+
+\subsection*{Overview}
 
 \begin{frame}{Attribute Selection Methods Overview}
 	\textbf{The three methods, in general, return good results, but}
 	\begin{itemize}
-		\item \textbf{\color{airforceblue}Information gain:}
+		\item \textbf{\color{airforceblue}Information Gain:}
 		      \begin{itemize}
 			      \item Biased towards multi-valued attributes.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Gain ratio:}
+		\item \textbf{\color{airforceblue}Gain Ratio:}
 		      \begin{itemize}
 			      \item Tends to prefer unbalanced splits in which one partition is much smaller than the others.
 		      \end{itemize}
-		\item \textbf{\color{airforceblue}Gini index:}
+		\item \textbf{\color{airforceblue}Gini Index:}
 		      \begin{itemize}
 			      \item Biased to multi-valued attributes.
 			      \item Has difficulty when number of classes is large.
@@ -492,214 +731,190 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Other Attribute Selection Methods}
+\begin{frame}{Decision Tree Induction - Overfitting}
 	\begin{itemize}
-		\item \textbf{CHAID:}
+		\item \textbf{Problem:}
 		      \begin{itemize}
-			      \item A popular decision tree algorithm, measure based on $\chi^2$ test for independence.
+			      \item Many branches may reflect anomalies due to noise or outliers.
+			      \item Overall poor accuracy for unseen samples.
 		      \end{itemize}
-		\item \textbf{C-SEP:}
+		      $\Rightarrow$ \textbf{Overfitting:} An induced tree may overfit the training data.
+		      \visible<2->{
+		\item \textbf{Solution:}
 		      \begin{itemize}
-			      \item Performs better than Information Gain and Gini Index in certain cases.
+			      \item \textbf{\color{airforceblue}Pruning:} Avoid branches that have little importance.
+			      \item \textbf{Two} types of pruning:
+			            \begin{enumerate}
+				            \item \textbf{\color{airforceblue}Prepruning:} Stop growing the tree early.
+				            \item \textbf{\color{airforceblue}Postpruning:} Remove branches from a "fully grown" tree.
+			            \end{enumerate}
 		      \end{itemize}
-		\item \textbf{G-statistic:}
-		      \begin{itemize}
-			      \item Has a close approximation to $\chi^2$ distribution.
-		      \end{itemize}
-		\item \textbf{MDL (Minimal Description Length) principle:}
-		      \begin{itemize}
-			      \item I.e. the simplest solution is preferred.
-			      \item The best tree is the one that requires the fewest number of bits to both (1) encode the tree and (2) encode the exceptions to the tree.
-		      \end{itemize}
-		\item \textbf{Multivariate splits:}
-		      \begin{itemize}
-			      \item Partitioning based on multiple variable combinations.
-			      \item CART: finds multivariate splits based on a linear combination of attributes.
-		      \end{itemize}
-		\item \textbf{Which Attribute Selection Method is the best?}
-		      \begin{itemize}
-			      \item Most give good results, none is significantly superior to others.
-		      \end{itemize}
+		      }
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Overfitting and Tree Pruning}
+\begin{frame}{Decision Tree Induction - Enhancements}
 	\begin{itemize}
-		\item \textbf{Overfitting: An induced tree may overfit the training data.}
+		\item A lot of research has been done to improve basic \textbf{decision tree induction} algorithms. E.g.:
 		      \begin{itemize}
-			      \item Too many branches, some may reflect anomalies due to noise or outliers.
-			      \item Poor accuracy for unseen samples.
-		      \end{itemize}
-		\item Pruned trees are typically smaller, less complex, easier to
-		      comprehend, faster and better at classifying unseen data.
-		\item \textbf{Two approaches to avoid overfitting:}
-		      \begin{enumerate}
-			      \item \textbf{\color{airforceblue}Prepruning:}
+			      \item \textbf{Allow for} \textbf{\color{airforceblue}continuous-valued attributes.}
 			            \begin{itemize}
-				            \item Halt tree construction early.\\
-				                  Do not split a node, if this would result in the goodness measure falling below a threshold.
-				            \item Difficult to choose an appropriate threshold.
+				            \item Dynamically define new discrete-valued attributes that partition the values of continuous-valued attributes into a discrete set of intervals.
 			            \end{itemize}
-			      \item \textbf{\color{airforceblue}Postpruning:}
+			      \item \textbf{Handle} \textbf{\color{airforceblue}missing attribute values.}
 			            \begin{itemize}
-				            \item Remove branches from a "fully grown" tree.\\
-				                  Get a sequence of progressively pruned trees.
-				            \item Use a set of data different from the training data to decide which is the "best pruned tree."
+				            \item Assign the most common value of the attribute.
+				            \item Assign probability to each of the possible values.
 			            \end{itemize}
-		      \end{enumerate}
+			      \item \textbf{\color{airforceblue}Attribute construction.}
+			            \begin{itemize}
+				            \item Create new attributes based on existing ones that are sparsely represented.
+				            \item This reduces fragmentation, repetition, and replication.
+			            \end{itemize}
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Enhancements to Basic Decision Tree Induction}
+\begin{frame}{Decision Tree Induction - Scalability}
 	\begin{itemize}
-		\item \textbf{Allow for} \textbf{\color{airforceblue}continuous-valued attributes.}
+		\item \textbf{Problem:}
 		      \begin{itemize}
-			      \item Dynamically define new discrete-valued attributes that partition the values of continuous-valued attributes into a discrete set of intervals.
+			      \item Basic decision tree algorithms (ID3, C4.5, and CART) are not scalable \\
+			            (They require the entire dataset to be in memory).
+			      \item They are not designed to handle large datasets.
 		      \end{itemize}
-		\item \textbf{Handle} \textbf{\color{airforceblue}missing attribute values.}
+		\item \textbf{Solution:}
 		      \begin{itemize}
-			      \item Assign the most common value of the attribute.
-			      \item Assign probability to each of the possible values.
-		      \end{itemize}
-		\item \textbf{\color{airforceblue}Attribute construction.}
-		      \begin{itemize}
-			      \item Create new attributes based on existing ones that are sparsely represented.
-			      \item This reduces fragmentation, repetition, and replication.
+			      \item Extend the basic algorithms to handle large datasets.
+			      \item We will take a look at \textbf{two} modifications/methods:
+			            \begin{enumerate}
+				            \item RainForest
+				            \item BOAT
+			            \end{enumerate}
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Classification in Large Databases}
+\begin{frame}{Scalability: RainForest}
 	\begin{itemize}
-		\item ID3, C4.5, and CART have been developed with the assumption that data fits into memory.\\With Big Data that's not possible anymore.
-		\item \textbf{Scalability:}
+		\item \textbf{Basic Idea:}
 		      \begin{itemize}
-			      \item Classifying datasets with millions of examples and \\ hundreds of attributes with reasonable speed.
+			      \item Extract all data required for the attribute selection methods \\
+			            $\Rightarrow$ Store it in a \textbf{compact} data structure.
+			      \item Apply the original algorithm to the compact data structure(s).
 		      \end{itemize}
-		\item \textbf{Why is decision tree induction popular?}
+		\item \textbf{Data structure(s):}
 		      \begin{itemize}
-			      \item Relatively fast learning speed (compared to other classification methods).
-			      \item Convertible to simple and easy-to-understand classification rules.
-			      \item Can use SQL queries for accessing databases.
-			      \item Classification accuracy comparable with other methods.
+			      \item \textbf{\color{airforceblue}AVC-list:}
+			            \begin{itemize}
+				            \item \textbf{\color{airforceblue}A}ttribute
+				            \item \textbf{\color{airforceblue}V}alue
+				            \item \textbf{\color{airforceblue}C}lass label
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}AVC-set} \textbf{(of an attribute X):}
+			            \begin{itemize}
+				            \item Aggregated projection of training dataset onto the attribute $X$ with counts of each class label.
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}AVC-group} \textbf{(of a node n):}
+			            \begin{itemize}
+				            \item Set of AVC-sets of all predictor attributes at the node $n$.
+			            \end{itemize}
 		      \end{itemize}
-		\item Two scalable methods, among others:
-		      \begin{enumerate}
-			      \item RainForest
-			      \item BOAT
-		      \end{enumerate}
+
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Scalable Decision Tree: RainForest}
-	\begin{itemize}
-		\item Applicable to any decision tree algorithm.
-		\item \textbf{Separates the scalability aspects from the criteria that determine the quality of the tree.}
-		\item \textbf{Builds an} \textbf{\color{airforceblue}AVC-list:} (Attribute, Value, Class\_label).
-		\item \textbf{\color{airforceblue}AVC-set} \textbf{(of an attribute X):}
-		      \begin{itemize}
-			      \item Projection of training dataset onto the attribute $X$ and class label where counts of individual class label are aggregated.
-		      \end{itemize}
-		\item \textbf{\color{airforceblue}AVC-group} \textbf{(of a node n):}
-		      \begin{itemize}
-			      \item Set of AVC-sets of all predictor attributes at the node $n$.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{RainForest: Training Set and its AVC-sets}
-	\begin{columns}
-		\begin{column}{0.6\textwidth}
-			\small
+\begin{frame}{Scalability: RainForest - AVC-set Example}
+	\vspace*{-0.25cm}
+	\begin{center}
+		\scalebox{0.7}{
 			\input{7-classification/table-example.tex}
-		\end{column}
-		\begin{column}{0.3\textwidth}
-			\vspace{-3cm}
-
-			\centering
-			AVC-set on age:\\
-			\begin{tabular}{|c|c|c|}
-				\hline
-				age          & yes & no \\\hline
-				$\leq 30$    & 2   & 3  \\\hline
-				$31\ldots40$ & 4   & 0  \\\hline
-				$>40$        & 3   & 2  \\\hline
-			\end{tabular}\\[1cm]
-			AVC-set on income:\\
-			\begin{tabular}{|c|c|c|}
-				\hline
-				income & yes & no \\\hline
-				high   & 2   & 2  \\\hline
-				medium & 4   & 2  \\\hline
-				low    & 3   & 1  \\\hline
-			\end{tabular}
-		\end{column}
-	\end{columns}
+		}
+	\end{center}
+	\vspace*{0.25cm}
+	\begin{center}
+		\begin{columns}
+			\begin{column}{0.225\textwidth}
+				\visible<2->{
+					\footnotesize
+					\centering
+					AVC-set on age:\\
+					\begin{tabular}{|c|c|c|}
+						\hline
+						\rowcolor{faugray!62}\textbf{age} & \textbf{yes} & \textbf{no} \\\hline
+						$\leq 30$                         & 2            & 3           \\\hline
+						$31\ldots40$                      & 4            & 0           \\\hline
+						$>40$                             & 3            & 2           \\\hline
+					\end{tabular}
+				}
+			\end{column}
+			\begin{column}{0.225\textwidth}
+				\visible<3->{
+					\footnotesize
+					\centering
+					AVC-set on income:\\
+					\begin{tabular}{|c|c|c|}
+						\hline
+						\rowcolor{faugray!62}\textbf{income} & \textbf{yes} & \textbf{no} \\\hline
+						high                                 & 2            & 2           \\\hline
+						medium                               & 4            & 2           \\\hline
+						low                                  & 3            & 1           \\\hline
+					\end{tabular}
+				}
+			\end{column}
+			\begin{column}{0.225\textwidth}
+				\visible<4->{
+					\footnotesize
+					\centering
+					AVC-set on student:\\
+					\begin{tabular}{|c|c|c|}
+						\hline
+						\rowcolor{faugray!62}\textbf{student} & \textbf{yes} & \textbf{no} \\\hline
+						yes                                   & 6            & 1           \\\hline
+						no                                    & 3            & 4           \\\hline
+					\end{tabular}
+				}
+			\end{column}
+			\begin{column}{0.225\textwidth}
+				\visible<5->{
+					\footnotesize
+					\centering
+					AVC-set on credit\_rating:\\
+					\begin{tabular}{|c|c|c|}
+						\hline
+						\rowcolor{faugray!62}\textbf{credit\_rating} & \textbf{yes} & \textbf{no} \\\hline
+						fair                                         & 6            & 2           \\\hline
+						excellent                                    & 3            & 3           \\\hline
+					\end{tabular}
+				}
+			\end{column}
+		\end{columns}
+	\end{center}
 \end{frame}
 
-\begin{frame}{RainForest: Training Set and its AVC-sets (II)}
-	\begin{columns}
-		\begin{column}{0.6\textwidth}
-			\small
-			\input{7-classification/table-example.tex}
-		\end{column}
-		\begin{column}{0.3\textwidth}
-			\vspace{-3cm}
 
-			\centering
-			AVC-set on student:\\
-			\begin{tabular}{|c|c|c|}
-				\hline
-				student & yes & no \\\hline
-				yes     & 6   & 1  \\\hline
-				no      & 3   & 4  \\\hline
-			\end{tabular}\\[1cm]
-			AVC-set on credit\_rating:\\
-			\begin{tabular}{|c|c|c|}
-				\hline
-				credit\_rating & yes & no \\\hline
-				fair           & 6   & 2  \\\hline
-				excellent      & 3   & 3  \\\hline
-			\end{tabular}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Scalable Decision Tree: BOAT}
+\begin{frame}{Scalability: BOAT}
 	\begin{itemize}
-		\item BOAT = Bootstrapped Optimistic Algorithm for Tree Construction
-		\item \textbf{Use a statistical technique called bootstrapping to create several smaller samples (subsets), each fitting in memory.}
+		\item \textbf{Basic Idea:}
 		      \begin{itemize}
-			      \item See on the subsequent slides.
-		      \end{itemize}
-		\item \textbf{Each subset is used to create a tree, resulting in several trees.}
-		\item \textbf{These trees are examined and used to construct a new tree T'.}
-		      \begin{itemize}
-			      \item It turns out that T' is very close to the tree that would be generated \\
-			            using the whole data set together.
+			      \item Use a statistical technique to create several smaller samples (subsets).
+			      \item Every sample fits in the memory and is used to induce a decision tree.
+			      \item All trees are combined to form a single tree T'.
 		      \end{itemize}
 		\item \textbf{Advantages:}
 		      \begin{itemize}
-			      \item Requires only two scans of DB.
+			      \item Resulting tree often very close to the tree induced from the entire dataset.
+			      \item Requires only two scans of the DB.
 			      \item An incremental algorithm:
 			            \begin{itemize}
 				            \item Take insertions and deletions of training data and update the decision tree.
 			            \end{itemize}
 		      \end{itemize}
 	\end{itemize}
-\end{frame}
 
-\begin{frame}{Presentation of Classification Results}
-	\centering
-	\includegraphics[height=0.8\textheight]{img/classification1.jpeg}
-\end{frame}
+	\vspace*{0.5cm}
 
-\begin{frame}{Visualization of a Decision Tree}
-	\centering
-	\includegraphics[height=0.8\textheight]{img/classification2.jpeg}
-\end{frame}
-
-\begin{frame}{Interactive Visual Mining}
-	\centering
-	\includegraphics[height=0.8\textheight]{img/classification3.jpeg}
+	\begin{block}{BOAT}
+		The full title of BOAT is \textit{Bootstrapped Optimistic Algorithm for Tree Construction}, which refers to the underlying statistical technique used: \textbf{Bootstrapping}.
+	\end{block}
 \end{frame}

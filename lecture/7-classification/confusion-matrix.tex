@@ -1,24 +1,12 @@
-\begin{columns}[T]
-	\begin{column}[T]{0.45\textwidth}
-		\begin{tabular}{c|c|p{1cm}|p{1cm}|c|}
+\begin{center}
+	\begin{tabular}{lp{1cm}p{1cm}p{1cm}p{1cm}}
+		                                                           &                                                                & \multicolumn{2}{c}{\textit{Predicted Class}}              & \multicolumn{1}{l}{}                                                                                \\ \cline{3-4}
+		                                                           & \multicolumn{1}{l|}{}                                          & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$C_1$}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$\neg C_1$}} & \multicolumn{1}{l}{\textit{Total}} \\ \cline{2-5}
+		\multicolumn{1}{c|}{}                                      & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$C_1$}}      & \multicolumn{1}{c|}{\textbf{TP}}                          & \multicolumn{1}{c|}{\textbf{FN}}                               & \multicolumn{1}{c}{\textbf{P}}     \\ \cline{2-4}
+		\multicolumn{1}{c|}{\multirow{-2}{*}{\textit{True Class}}} & \multicolumn{1}{c|}{\cellcolor{faugray!62}\textbf{$\neg C_1$}} & \multicolumn{1}{c|}{\textbf{FP}}                          & \multicolumn{1}{c|}{\textbf{TN}}                               & \multicolumn{1}{c}{\textbf{N}}     \\ \cline{2-5}
+		\multicolumn{2}{r|}{\textit{Total}}                        & \multicolumn{1}{c}{\textbf{P'}}                                & \multicolumn{1}{c|}{\textbf{N'}}                          & \multicolumn{1}{c}{\textbf{P+N}}                                                                    \\
+		                                                           &                                                                &                                                           &                                                                &
+	\end{tabular}
+\end{center}
 
-			\multicolumn{2}{c|}{\multirow{2}{*}{}} & \multicolumn{2}{c|}{Predicted Class} &                                           \\\cline{3-4}
-			\multicolumn{2}{c|}{}                  & $C_1$                                & $\neg C_1$  & Total                       \\\hline
-			\multirow{2}{*}{True Class}            & $C_1$                                & \textbf{TP} & \textbf{FN}    & \textbf{P} \\\cline{2-4}
-			                                       & $\neg C_1$                           & \textbf{FP} & \textbf{TN}    & \textbf{N} \\\hline
-			\multicolumn{2}{r|}{Total}             & \textbf{P'}                          & \textbf{N'} & \textbf{P + N}
-		\end{tabular}
-
-	\end{column}
-
-	\begin{column}[T]{0.5\textwidth}
-		\footnotesize
-		\begin{itemize}
-			\item \textbf{True Positives (TP)} = correctly classified tuples.
-			\item \textbf{True Negatives (TN)} = correctly classified tuples.
-			\item \textbf{False Positives (FP)} = negative tuples incorrectly classified as positive.
-			\item \textbf{False Negatives (FN)} = positive tuples incorrectly classified as negative.
-		\end{itemize}
-		% REVIEW: I have already added the abbreviations TP, FN, FP and TN to the legend, but strictly speaking an introduction of P, N, P' and N' is still missing. Since I believe that the slides would be finally overloaded if a legend for them is added, I skip the introduction for the time being, and just leave you a note on this.
-	\end{column}
-\end{columns}
+\vspace*{-0.25cm}

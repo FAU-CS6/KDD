@@ -1,0 +1,348 @@
+\section{Bayes Classification Methods}
+
+\begin{frame}{Bayesian Classification: Concepts}
+	\begin{itemize}
+		\item \textbf{Bayesian Classification:}
+		      \begin{itemize}
+			      \item Statistical classification method.
+			      \item Predict class membership probabilities.
+			      \item Based on \textbf{\color{airforceblue}Bayes' Theorem}.
+		      \end{itemize}
+		      \visible<3->{
+		\item \textbf{Our Focus:}
+		      \begin{itemize}
+			      \item \textbf{\color{airforceblue}Naïve Bayesian Classification}
+			            \begin{itemize}
+				            \item Assumes conditional independence of attributes ("naïve").
+				            \item Simplification of Bayesian classification.
+			            \end{itemize}
+		      \end{itemize}
+		      }
+	\end{itemize}
+
+	\vspace*{0.75cm}
+
+	\visible<2->{
+		\begin{block}{Bayes' Theorem\footnote{\fullcite{bayes1763}}}
+			\textbf{Bayes' Theorem} describes the probability of an event based on prior knowledge of conditions that might be related to the event.
+		\end{block}
+	}
+\end{frame}
+
+\begin{frame}{Bayesian Classification: Basic Terms}
+	\begin{itemize}
+		\item \textbf{Let ...}
+		      \begin{itemize}
+			      \item \textbf{... $X$ be a {\color{airforceblue}data sample} ("evidence").}
+			            \begin{itemize}
+				            \item The class label shall be unknown.
+			            \end{itemize}
+			      \item \textbf{... $C_i$ be the {\color{airforceblue}hypothesis} that $X$ belongs to class $i$.}
+		      \end{itemize}
+		      \visible<2->{
+		\item \textbf{Then our goal is to determine the {\color{airforceblue}Posteriori Probability} $P(C_i|X)$:}
+		      \begin{itemize}
+			      \item The probability that the hypothesis holds given the observed data sample $X$.
+		      \end{itemize}
+		      }
+		      \visible<3->{
+		\item \textbf{To determine $P(C_i|X)$, we need to know:}
+		      \begin{itemize}
+			      \item \textbf{The {\color{airforceblue}Prior Probability} $P(C_i)$:}
+			            \begin{itemize}
+				            \item The overall probability of the class $i$.
+				            \item E.g., $X$ will buy computer, regardless of age, income, $\ldots$.
+			            \end{itemize}
+			      \item \textbf{The {\color{airforceblue}Likelihood} $P(X|C_j)$:}
+			            \begin{itemize}
+				            \item The probability of observing the sample $X$ given that the hypothesis holds.
+				            \item E.g., given that $X$ buys computer, the probability that $X$ is $31\ldots40$, medium income.
+			            \end{itemize}
+			      \item \textbf{The {\color{airforceblue}Probability} of the sample data $P(X)$:}
+			            \begin{itemize}
+				            \item The probability that sample data is observed.
+			            \end{itemize}
+		      \end{itemize}
+		      }
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Bayesian Classification: Posteriori Probability}
+	\begin{itemize}
+		\item \textbf{The {\color{airforceblue}Posteriori Probability} $P(C_i|X)$ follows from the Bayes' Theorem:}
+		      \begin{align*}
+			      P(C_i|X) = \frac{P(X|C_i)P(C_i)}{P(X)}.
+		      \end{align*}
+
+		      \vspace*{0.25cm}
+
+		      \visible<2->{
+			      \begin{block}{The Maximum Posteriori Probability}
+				      Since the posteriori probability $P(C_i|X)$ is the basically the probability that $X$ belongs to class $C_i$, we want to find the class $C_i$ that \textbf{maximizes} this probability. $X$ \textbf{is classified} as belonging to this class.
+			      \end{block}
+		      }
+
+		      \vspace*{0.5cm}
+
+		      \visible<3->{
+		\item \textbf{Since $P(X)$ is constant for all classes, we only have to maximize:}
+		      \begin{align*}
+			      P(X|C_i)P(C_i).
+		      \end{align*}
+		      }
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Bayesian Classification: Likelihood}
+	\begin{itemize}
+		\item \textbf{{\color{airforceblue}Naïve} Bayesian Classification:}
+		      \begin{itemize}
+			      \item \textbf{Assumption:} All attributes are \textit{conditionally independent}.
+			      \item I.e. no dependence relation between attributes (which is "naïve").
+			            \begin{align*}
+				            \resizebox{7cm}{!}{%
+					            $P(X|C_i) = \prod_{k=1}^{n} P(x_k|C_i) = P(x_1|C_i)P(x_2|C_i)\cdots P(x_n|C_i).$}
+			            \end{align*}
+			      \item Greatly reduces the computation cost.
+		      \end{itemize}
+	\end{itemize}
+
+	\vspace*{-1.5em}
+
+
+	\begin{columns}
+		\visible<3->{
+			\begin{column}{0.45\textwidth}
+				\begin{center}
+					\textbf{Categorical Attribute}
+				\end{center}
+				\vspace*{-1em}
+				\begin{itemize}
+					\item $P(x_k|C_i)$ is the number of tuples in $C_i$ having value $x_k$ for $A_k$
+					      divided by $|C_{i,D}|$ (the number of tuples of $C_i$ in $D$):
+				\end{itemize}
+			\end{column}
+		}
+		\visible<4->{
+			\begin{column}{0.45\textwidth}
+				\begin{center}
+					\textbf{Continuous-valued Attribute}
+				\end{center}
+				\vspace*{-1em}
+
+				\begin{itemize}
+					\item $P(x_k|C_i)$ is usually computed based on Gaussian distribution with a mean $\mu$ and standard deviation $\sigma$:
+				\end{itemize}
+
+			\end{column}
+		}
+	\end{columns}
+
+	\vspace*{0.2cm}
+
+	\only<-4>{
+		\begin{columns}
+			\visible<3->{
+				\begin{column}{0.5\textwidth}
+					{
+						\footnotesize
+						\begin{align*}
+							P(x_k|C_i) & = \frac{|\{t \in C_i: t.A_k = x_k\}|}{|C_{i,D}|} \
+						\end{align*}
+					}
+				\end{column}
+			}
+			\visible<4->{
+				\begin{column}{0.5\textwidth}
+					{
+						\footnotesize
+						\begin{align*}
+							G(x,\mu,\sigma) & = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}} \\
+							P(x_k|C_i)      & = G(x_k,\mu_{C_i},\sigma_{C_i})
+						\end{align*}
+					}
+				\end{column}
+			}
+		\end{columns}
+	}
+\end{frame}
+
+\begin{frame}{Bayesian Classification: Example (I)}
+	\vspace*{-0.5cm}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item \textbf{Target attribute:} buys\_computer \medskip
+				\item \textbf{Data sample:}
+			\end{itemize}
+			{
+			\footnotesize
+			\begin{align*}
+				X = ( & \texttt{age} \leq 30,             \\
+				      & \texttt{income} = "medium",       \\
+				      & \texttt{student} = "yes",         \\
+				      & \texttt{credit\_rating} = "fair")
+			\end{align*}
+			}
+			\vspace*{-0.35cm}
+			\visible<2->{
+				\begin{itemize}
+					\item \textbf{Prior Probability $P(C_i)$:}
+				\end{itemize}
+				\visible<3->{
+					{
+							\vspace*{-0.15cm}
+							\scriptsize
+							\begin{align*}
+								P({\color{faugreen}yes}) & = \visible<4->{\frac{9}{14} \approx 0.643} \\
+								P({\color{faured}no})    & = \visible<5->{\frac{5}{14} \approx 0.357}
+							\end{align*}
+						}
+				}
+			}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\vspace*{0.25cm}
+			\begin{center}
+				\scalebox{0.7}{
+					\input{7-classification/table-example.tex}
+				}
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Bayesian Classification: Example (II)}
+	\vspace*{-0.5cm}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item \textbf{Likelihood(s) $P(X_k|C_i)$:}
+			\end{itemize}
+			{
+			\vspace*{-0.15cm}
+			\scriptsize
+			\visible<2->{
+				\begin{align*}
+					P(\texttt{age} \leq 30 | {\color{faugreen}yes})             & = \visible<3->{\frac{2}{9} \approx 0.222} \\
+					P(\texttt{age} \leq 30 | {\color{faured}no})                & = \visible<4->{\frac{3}{5} = 0.6}         \\
+					P(\texttt{income} = "medium" | {\color{faugreen}yes})       & = \visible<5->{\frac{4}{9} \approx 0.444} \\
+					P(\texttt{income} = "medium" | {\color{faured}no})          & = \visible<6->{\frac{2}{5} = 0.4}         \\ % After four iterations, the lecturer-student interaction tends to diminish — starting with this formula, we immediately present the results.
+					P(\texttt{student} = "yes" | {\color{faugreen}yes})         & = \visible<7->{\frac{5}{9} \approx 0.556} \\
+					P(\texttt{student} = "yes" | {\color{faured}no})            & = \visible<7->{\frac{1}{5} = 0.2}         \\
+					P(\texttt{credit\_rating} = "fair" | {\color{faugreen}yes}) & = \visible<7->{\frac{6}{9} \approx 0.667} \\
+					P(\texttt{credit\_rating} = "fair" | {\color{faured}no})    & = \visible<7->{\frac{2}{5} = 0.4}         \\
+				\end{align*}
+			}
+			}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\only<-7>{
+				\vspace*{0.25cm}
+				\begin{center}
+					\scalebox{0.7}{
+						\input{7-classification/table-example.tex}
+					}
+				\end{center}
+			}
+			\only<8->{
+				\begin{itemize}
+					\item \textbf{Likelihood(s) $P(X|C_i)$:}
+				\end{itemize}
+				\vspace*{-0.15cm}
+				{
+					\scriptsize
+					\begin{align*}
+						P(X | {\color{faugreen}yes}) & = \visible<9->{0.222 \cdot 0.444 \cdot 0.556 \cdot 0.667 \approx 0.037} \\
+						P(X | {\color{faured}no})    & = \visible<10->{0.6 \cdot 0.4 \cdot 0.2 \cdot 0.4 = 0.019}
+					\end{align*}
+				}
+
+				\visible<11->{
+					\begin{itemize}
+						\item \textbf{Calculate $P(X | C_i) \cdot P(C_i)$\only<11->{\footnote{\textbf{\color{airforceblue}Reminder:} Calculating the numerator of the posterior probability is sufficient to classify $X$}}:}
+					\end{itemize}
+					\vspace*{-0.15cm}
+					{
+						\scriptsize
+						\visible<12->{
+							\begin{align*}
+								P(X | {\color{faugreen}yes}) \cdot  P({\color{faugreen}yes}) & = 0.024. \\
+								P(X | {\color{faured}no}) \cdot  P({\color{faured}no})       & = 0.007.
+							\end{align*}
+						}
+					}
+				}
+				\vspace*{-0.35cm}
+				\visible<13->{
+					\begin{itemize}
+						\item \textbf{Classification Result:}
+						      \visible<14->{
+							      \begin{itemize}
+								      \item $X$ belongs to class $C_1$ \\ (\texttt{buys\_computer} = {\color{faugreen}yes})
+							      \end{itemize}
+						      }
+
+					\end{itemize}
+				}
+				\vspace*{0.5cm}
+			}
+
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}{Bayesian Classification: Problem}
+	\begin{alertblock}{Zero-Probability Problem}
+		Our naïve Bayes classifier performs poorly if any of the conditional probabilities \textbf{any} of the conditional probabilities $P(x_k|C_i)$ is zero, as this causes the \textbf{entire product} of probabilities to become zero.
+	\end{alertblock}
+
+
+	\begin{itemize}
+		\visible<2->{
+		\item \textbf{Example:}
+		      \begin{itemize}
+			      \item \texttt{income} = "low" (0 tuples), "medium" (990 tuples), "high" (10 tuples).
+		      \end{itemize}
+		      }
+		      \visible<3->{
+		\item \textbf{Solution:}
+		      \begin{itemize}
+			      \item \textbf{Use {\color{airforceblue}Laplacian correction} (or Laplacian estimator):}
+			            \begin{itemize}
+				            \item Add $1$ to each case:
+			            \end{itemize}
+		      \end{itemize}
+		      }
+	\end{itemize}
+	\visible<3->{
+		{
+				\scriptsize
+				\begin{align*}
+					P(\texttt{income} = "low")    & = \frac{1}{1003}   \\
+					P(\texttt{income} = "medium") & = \frac{991}{1003} \\
+					P(\texttt{income} = "high")   & = \frac{11}{1003}
+				\end{align*}
+			}
+	}
+\end{frame}
+
+\begin{frame}{Bayesian Classification: Summary}
+	\begin{itemize}
+		\item \textbf{Advantages of the Naïve Bayes Classifier:}
+		      \begin{itemize}
+			      \item Easy to implement.
+			      \item Good results obtained in most of the cases.
+		      \end{itemize}
+		\item \textbf{Disadvantages of the Naïve Bayes Classifier:}
+		      \begin{itemize}
+			      \item Assumption: class conditional independence, therefore loss of accuracy.
+			      \item Practically, \textbf{dependencies} exist among most variables.
+			            \begin{itemize}
+				            \item Cannot be modeled by Naïve Bayesian Classifier.
+				            \item \textbf{\color{airforceblue}How to deal with these dependencies?} \\ $\rightarrow$ Bayesian Belief Networks (not part of KDD\footnote{\textbf{More info in the reference book (Chapter 9.1):} \fullcite{han2011}}).
+			            \end{itemize}
+		      \end{itemize}
+	\end{itemize}
+\end{frame}

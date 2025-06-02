@@ -1,0 +1,360 @@
+\subsection*{Decision Tree Induction}
+
+\begin{frame}{\vspace*{-2em}Basic Decision Tree Algorithm}\label{algo:decision-tree}
+	\vspace*{-3em}
+	\scriptsize
+	\begin{algorithm}[H]
+		\caption{\texttt{build\_decision\_tree}. Generate a decision tree from training tuples in data partition $D$.}
+		\SetAlgoVlined
+		\begin{multicols}{2}
+			\KwData{
+				\begin{itemize}
+					\item Training dataset $D$ containing tuples with their associated class labels;
+					\item \texttt{attribute\_list}, the set of candidate attributes;
+					\item \texttt{attribute\_selection\_method}, a method to determine the splitting criterion that ``best'' partitions the data tuples into individual classes. The criterion consists of a \texttt{splitting\_attribute}, and possibly, either a \texttt{split\_point} or \texttt{splitting\_subset}.
+				\end{itemize}
+			}
+			\KwResult{A decision tree.}
+			\BlankLine
+			create a node $N$\;
+			\If{tuples in $D$ are all of the same class $C$}{
+				\KwRet{
+					$N$ as a leaf node labeled with the class $C$\;
+				}
+			}
+			\If{\texttt{attribute\_list} is empty}{
+				\tcc{Majority voting}
+				\texttt{majority\_class} $\leftarrow$ determine majority class in $D$\;
+				\KwRet{
+					$N$ as a leaf node labeled with \texttt{majority\_class}\;
+				}
+			}
+			\tcc{apply \texttt{attribute\_selection\_method} to find the ``best'' \texttt{splitting\_criterion}}
+			\texttt{splitting\_criterion} $\leftarrow$ \texttt{attribute\_selection\_method}($D$, \texttt{attribute\_list})\;
+			label node $N$ with \texttt{splitting\_criterion}\;
+
+			\If{(\texttt{splitting\_attribute} is discrete-valued \textbf{and} multiway splits allowed) \textbf{or} attribute value has only one unique value}{
+				\tcp{remove \texttt{splitting\_attribute}}
+				\texttt{attribute\_list} $\leftarrow$ \texttt{attribute\_list} - \texttt{splitting\_attribute}\;
+
+			}
+			\ForEach{outcome $j$ of \texttt{splitting\_criterion}}{
+				\tcc{partition the tuples and grow subtrees for each partition}
+				$D_j$ $\leftarrow$ partition $D$ to satisfy outcome $j$\;
+				\If{$D_j$ is empty}{
+					attach a leaf labeled with the majority class in $D$ to node $N$\;
+				}
+				\Else{
+					attach the node return by \texttt{build\_decision\_tree}($D_j$, \texttt{attribute\_list}) to node $N$\;
+				}
+			}
+			\BlankLine
+			\KwRet{
+				$N$\;
+			}
+		\end{multicols}
+	\end{algorithm}
+\end{frame}
+
+
+\begin{frame}{Other Attribute Selection Methods}
+	\vspace*{-1em}
+	\begin{itemize}
+		\item \textbf{CHAID:}
+		      \begin{itemize}
+			      \item A popular decision tree algorithm, measure based on $\chi^2$ test for independence.
+		      \end{itemize}
+		\item \textbf{C-SEP:}
+		      \begin{itemize}
+			      \item Performs better than Information Gain and Gini Index in certain cases.
+		      \end{itemize}
+		\item \textbf{G-statistic:}
+		      \begin{itemize}
+			      \item Has a close approximation to $\chi^2$ distribution.
+		      \end{itemize}
+		\item \textbf{MDL (Minimal Description Length) principle:}
+		      \begin{itemize}
+			      \item I.e. the simplest solution is preferred.
+			      \item The best tree is the one that requires the fewest number of bits to both (1) encode the tree and (2) encode the exceptions to the tree.
+		      \end{itemize}
+		\item \textbf{Multivariate splits:}
+		      \begin{itemize}
+			      \item Partitioning based on multiple variable combinations.
+			      \item CART: finds multivariate splits based on a linear combination of attributes.
+		      \end{itemize}
+		\item \textbf{Which Attribute Selection Method is the best?}
+		      \begin{itemize}
+			      \item Most give good results, none is significantly superior to others.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection*{Evaluation: Bootstrap and Statistical Significance}
+
+\begin{frame}{Evaluation Strategy: Bootstrap}
+	\textbf{Bootstrap} samples training data uniformly with replacement.
+
+	\textbf{Several bootstrap methods exists, yet a common one is $.632$ bootstrap.}
+	\begin{itemize}
+		\item Data set with $d$ tuples is sampled $d$ times - uniformly with replacement.
+		\item Uniformly = every tuple has the same probability ($\frac{1}{d}$) for selection.
+		\item With replacement = High change a tuple is selected more than once.
+		\item Not selected tuples will form the test set.
+		\item Probability of not being chosen is $1-\frac{1}{d}$. Selecting $d$ times: $(1-\frac{1}{d})^d$.\\
+		      With a large data set it approaches $e^-1=0.368$.
+		\item Thus, on average 63.2\% of tuples are selected as the training set.
+		\item Sampling procedure is repeated $k$ times.\\
+		      Calculate accuracy in every iteration as follows:
+		      \begin{align*}
+			      \text{Acc}(M) = \frac{1}{k} \sum_{i=1}^{k} 0.632 \cdot \text{Acc}(M_i)_{\text{test\_set}} + 0.368 \cdot \text{Acc}(M_i)_{\text{train\_set}}.
+		      \end{align*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluating Classifier Accuracy: Bootstrap (II)}
+	\begin{itemize}
+		\item \textbf{Suppose we have $2$ classifiers, $M_1$ and $M_2$, which one is better?}
+		\item \textbf{Use $10$-fold cross-validation to obtain $\overline{\text{err}}(M_1)$ and $\overline{\text{err}}(M_2)$.}
+		      \begin{itemize}
+			      \item Recall: error rate is $1-\text{accuracy}(M)$.
+		      \end{itemize}
+		\item \textbf{Mean error rates:}
+		      \begin{itemize}
+			      \item Just estimates of error on the true population of future data cases.
+		      \end{itemize}
+		\item \textbf{What if the difference between the $2$ error rates is just attributed to chance?}
+		      \begin{itemize}
+			      \item Use a test of statistical significance.
+			      \item Obtain confidence limits for our error estimates.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluating Classifier Accuracy: Null Hypothesis}
+	\begin{itemize}
+		\item \textbf{Perform $k$-fold cross-validation} with $k=10$.
+		\item \textbf{Assume samples follow a $t$-distribution with $k-1$ degrees of freedom.}
+		\item \textbf{Use $t$-test}
+		      \begin{itemize}
+			      \item Student's $t$-test.
+		      \end{itemize}
+		\item \textbf{Null hypothesis:}
+		      \begin{itemize}
+			      \item $M_1$ and $M_2$ are the same.
+		      \end{itemize}
+		\item \textbf{If we can reject the null hypothesis, then}
+		      \begin{itemize}
+			      \item Conclude that difference between $M_1$ and $M_2$ is statistically significant.
+			      \item Obtain confidence limits for our error estimates.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Estimating Confidence Intervals (I)}
+	\begin{itemize}
+		\item \textbf{If only one test set available: pairwise comparison:}
+		      \begin{itemize}
+			      \item For $i$-th round of $10$-fold cross-validation, the same cross partitioning is used to obtain $\text{err}(M_1)_i$ and $\text{err}(M_2)_i$.
+			      \item Average over $10$ rounds to get $\overline{\text{err}}(M_1)$ and $\overline{\text{err}}(M_2)$.
+			      \item $t$-test computes $t$-statistic with $k-1$ degrees of freedom:
+			            \begin{align*}
+				            \resizebox{3cm}{!}{%
+					            $t = \frac{\overline{\text{err}}(M_1)- \overline{\text{err}}(M_2)}{\frac{\text{var}(M_1-M_2)}{\sqrt{k}}},$}
+			            \end{align*}
+			      \item where
+			            \begin{align*}
+				            \resizebox{10cm}{!}{%
+					            $\text{var}(M_1-M_2) = \frac{1}{k} \sum_{i=1}^{k} \left[ \text{err}(M_1)_i - \text{err}(M_2)_i - (\overline{\text{err}}(M_1) - \overline{\text{err}}(M_2))\right]^2.$}
+			            \end{align*}
+		      \end{itemize}
+		\item \textbf{If two test sets available: use unpaired $t$-test:}
+		      \begin{align*}
+			      \resizebox{5cm}{!}{%
+				      $\text{var}(M_1-M_2) = \sqrt{\frac{\text{var}(M_1)}{k_1} + \frac{\text{var}(M_2)}{k_2}},$}
+		      \end{align*}
+		      where $k_1$ \& $k_2$ are $\#$ of cross-validation samples used for $M_1$ \& $M_2$, respectively.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Estimating Confidence Intervals (II)}
+	\begin{columns}
+		\begin{column}{0.55\textwidth}
+			\vspace*{-0.7cm}
+
+			\begin{itemize}
+				\item Symmetrical.
+				\item \textbf{\color{airforceblue}Significance level}:
+				      \begin{itemize}
+					      \item E.g., $\text{sig} = 0.05$ or $5\%$ means $M_1$ \& $M_2$ are significantly different for $95\%$ of population.
+				      \end{itemize}
+				\item Confidence limit: $z = \frac{\text{sig}}{2}$.
+			\end{itemize}
+
+			\vspace*{0.25cm}
+
+			\begin{center}
+				% T-test curve with two tails for df=5
+				\begin{tikzpicture}
+					\begin{axis}[
+							width=5.5cm, height=3.5cm,
+							axis lines=middle,
+							axis line style={-stealth},
+							xlabel={$t$},
+							ylabel={},
+							xtick={-1.5, 0, 1.5},
+							xticklabels={$-t$, $0$, $t$},
+							ytick=\empty,
+							xmin=-4, xmax=4,
+							ymin=0, ymax=0.45,
+							domain=-4:4,
+							samples=50,
+							axis on top
+						]
+						\addplot[faucyandark, thick] {0.4*(1+(x*x/5))^(-3)};
+						\addplot[fill=faugraydark!20, opacity=0.6, draw=none, domain=-4:-1.5] {0.4*(1+(x*x/5))^(-3)} \closedcycle;
+						\addplot[fill=faugraydark!20, opacity=0.6, draw=none, domain=1.5:4] {0.4*(1+(x*x/5))^(-3)} \closedcycle;
+						\draw[dashed] (axis cs:0,0) -- (axis cs:0,0.4);
+						\node[anchor=north west, font=\small] at (axis cs:-3.0,0.2) {$\frac{\text{Area}}{2}$};
+						\node[anchor=north east, font=\small] at (axis cs:3.0,0.2) {$\frac{\text{Area}}{2}$};
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{column}
+
+		\begin{column}{0.35\textwidth}
+			\centering
+
+			\vspace*{0.25cm}
+
+			\scalebox{0.8}{
+				\begin{tabular}{c|ccc}
+					\textbf{}                        & \multicolumn{3}{c}{\textbf{Area in One Tail\footnotemark[1]}}                                                             \\
+					\textbf{}                        & \textbf{0.100}                                                 & \textbf{0.050}             & \textbf{0.005}              \\ \cline{2-4}
+					\textbf{}                        & \multicolumn{3}{c}{\textbf{Area in Two Tails\footnotemark[1]}}                                                            \\
+					\textbf{$df/\alpha$}             & \textbf{0.200}                                                 & \textbf{0.100}             & \textbf{0.010}              \\ \hline
+					\multicolumn{1}{|c|}{\textbf{1}} & \multicolumn{1}{c|}{3.078}                                     & \multicolumn{1}{c|}{6.314} & \multicolumn{1}{c|}{63.657} \\ \hline
+					\multicolumn{1}{|c|}{\textbf{2}} & \multicolumn{1}{c|}{1.886}                                     & \multicolumn{1}{c|}{2.920} & \multicolumn{1}{c|}{9.925}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{3}} & \multicolumn{1}{c|}{1.638}                                     & \multicolumn{1}{c|}{2.353} & \multicolumn{1}{c|}{5.841}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{4}} & \multicolumn{1}{c|}{1.533}                                     & \multicolumn{1}{c|}{2.132} & \multicolumn{1}{c|}{4.604}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{5}} & \multicolumn{1}{c|}{1.476}                                     & \multicolumn{1}{c|}{2.015} & \multicolumn{1}{c|}{3.707}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{6}} & \multicolumn{1}{c|}{1.440}                                     & \multicolumn{1}{c|}{1.943} & \multicolumn{1}{c|}{3.499}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{7}} & \multicolumn{1}{c|}{1.415}                                     & \multicolumn{1}{c|}{1.895} & \multicolumn{1}{c|}{3.355}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{8}} & \multicolumn{1}{c|}{1.397}                                     & \multicolumn{1}{c|}{1.860} & \multicolumn{1}{c|}{3.250}  \\ \hline
+					\multicolumn{1}{|c|}{\textbf{9}} & \multicolumn{1}{c|}{1.372}                                     & \multicolumn{1}{c|}{1.833} & \multicolumn{1}{c|}{3.169}  \\ \hline
+				\end{tabular}
+			}
+
+
+		\end{column}
+		\footnotetext[1]{Good link for a full table: \url{https://www.hawkeslearning.com/documents/statdatasets/stat_tables.pdf}}
+	\end{columns}
+
+
+\end{frame}
+
+\begin{frame}{Estimating Confidence Intervals (III)}
+	\textbf{Are $M_1$ and $M_2$ {\color{airforceblue} significantly different}?}
+	\begin{itemize}
+		\item Compute $t$. Select significance level (E.g., sig = $5 \%$).
+		\item Consult table for $t$-distribution:
+		      \begin{itemize}
+			      \item $t$-distribution is symmetrical:
+			            \begin{itemize}
+				            \item Typically upper $\%$ points of distribution shown.
+			            \end{itemize}
+			      \item Find critical value $c$ corresponding to $k-1$ degrees of freedom (here, $9$)
+			      \item and for confidence limit $z = \frac{\text{sig}}{2}$ (here, $0.025$).
+			      \item $\implies$ Here, critical value $c = 2.262$
+		      \end{itemize}
+		\item If $t > c$ or $t < -c$, then $t$ value lies in rejection region:
+		      \begin{itemize}
+			      \item \textbf{Reject null hypothesis} that mean error rates of $M_1$ and $M_2$ are equal.
+			      \item Conclude: \textbf{statistically significant difference} between $M_1$ and $M_2$.
+		      \end{itemize}
+		\item Otherwise, conclude that any difference is chance.
+	\end{itemize}
+\end{frame}
+
+\subsection*{Ensemble Methods: AdaBoost and Random Forests}
+
+\begin{frame}{AdaBoost ("Adaptive Boosting" \footfullcite[Algorithm AdaBoost.M1 on p. 131]{freund1997}): Training}
+	\vspace*{-1em}
+	\begin{itemize}
+		\item \textbf{Given a data set $D$ of $d$ class-labeled tuples: $(x_1 , y_1), \ldots, (x_d, y_d)$} with $y_d \in Y = \{1, \dots, c\}$.
+		\item \textbf{Initialize empty lists to hold information per classifier:} $\textbf{w}, \boldsymbol{\beta}, \textbf{M} \leftarrow $ empty list.
+		\item \textbf{Initialize weights for first classifier to hold same probability for each tuple:} $w_j^1 \leftarrow \frac{1}{d}$
+		\item \textbf{Generate $K$ classifiers in $K$ iterations. At iteration $k$,}
+		      \begin{enumerate}
+			      \item Calculate ``normalized'' weights: $\textbf{p}^k = \frac{\textbf{w}^k}{\sum_{j=1}^d w_j^i}$
+			      \item Sample dataset with replacement according to $\textbf{p}^k$ to form training set $D_k$.
+			      \item Derive classification model $M_k$ from $D_k$.
+			      \item Calculate error $\varepsilon_k$ by using $D_k$ as a test set as follows: $\varepsilon_k = \sum_{j=1}^{d} p^k_j \cdot \text{err}(M_k, x_j, y_j)$,\\
+			            where the \textit{misclassification error} $\text{err}(M_k, x_j, y_j)$ returns 1 if $M_k(x_j) \neq y_j$, otherwise it returns $0$.
+			      \item If $\text{error}(M_k)>0.5$: Abandon this classifier and go back to step 1.
+			      \item Calculate $\beta_k = \frac{\varepsilon_k}{1 - \varepsilon_k}$.
+			      \item Update weights for the next iteration: $w^{k+1}_j=w^k_j \beta^{1-err(M_k, x_j, y_j)}_k$. \textit{If a tuple is misclassified, its weight remains the same, otherwise it is decreased.} Misclassified tuple weights are increased relatively.
+			      \item Add $\textbf{w}^{k+1}$, $M_k$, and $\beta_k$ to their respective lists.
+		      \end{enumerate}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{AdaBoost ("Adaptive Boosting" \footfullcite[Algorithm AdaBoost.M1 on p. 131]{freund1997}): Prediction}
+	\begin{itemize}
+		\item \textbf{Initialize weight of each class to zero.}
+		\item \textbf{For each classifier $i$ in $k$ classifiers:}
+		      \begin{enumerate}
+			      \item Calculate the weight of this classifier's vote: $w_i = \log(\frac{1}{\beta_i})$.
+			      \item Get class prediction $c$ for (single) tuple $x$ from current weak classifier $M_i$: $c = M_i(x)$.
+			      \item Add $w_i$ to weight for class $c$.
+		      \end{enumerate}
+		\item \textbf{Return predicted class with the largest weight.}
+		\item Mathematically, this can be formulated as:
+		      \begin{align*}
+			      \textstyle M(x)= \arg \max_{y\in Y} \sum_{i=1}^k (\log \frac{1}{\beta_i})M_i(x)
+		      \end{align*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Random Forest\footfullcite{breiman2001}}
+	\begin{itemize}
+		\item Ensemble method consisting only of decision trees where each tree has been generated using random selection of attributes at each node.
+		\item Classification: Each tree votes and the most popular class is returned.
+		\item \textbf{Two methods to construct random forests:} (each builds $k$ trees)
+		      \begin{enumerate}
+			      \item \underline{Forest-RI} (random input selection):
+			            \begin{itemize}
+				            \item Random sampling with replacement to obtain training data from $D$.
+				            \item Set $F$ as the number of attributes to determine split at each node. $F$ is smaller than the number of available attributes.
+				            \item Construct decision tree $M_i$ by randomly select candidates at each node. Use CART to grow tree to maximum size without pruning.
+			            \end{itemize}
+			      \item \underline{Forest-RC}: Similar to Forest-RI but new attributes (features) are generated by linear combinations of existing attributes to reduce correlation between individual classifiers. At each node, attributes are randomly selected.
+
+		      \end{enumerate}
+		\item \textbf{Comparable in accuracy to AdaBoost, but more robust to errors and outliers.}
+		\item \textbf{Insensitive to the number of attributes selected for consideration at each split, and faster than bagging or boosting.}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Classification of Class-imbalanced Data Sets}
+	\vspace*{-0.5em}
+	\begin{block}{Class-Imbalanced Data}
+		\textit{Class-Imbalanced Data} refers to data where the main class of interest (positive labeled) is only represented by a small number of tuples. E.g., medical diagnosis and fraud detection.
+	\end{block}
+	\begin{itemize}
+		\item Problem because traditional methods assume \textit{equality between
+			      classes},\\ i. e. a balanced distribution of classes and equal error
+		      costs.
+		\item \textbf{Typical methods for imbalanced data in binary classification:}
+		      \begin{enumerate}
+			      \item \textbf{\color{airforceblue}Undersampling/Oversampling:} Changes distribution of tuples in training data.
+			            \begin{itemize}
+				            \item \textit{Undersampling:} Randomly eliminate tuples from negative class.
+				            \item \textit{Oversampling:} Re-samples data from positive class.\\ For instance, method SMOTE generates synthetic data that is similar to existing data using nearest neighbor.
+			            \end{itemize}
+			      \item \textbf{\color{airforceblue}Threshold-moving:} Moves the decision threshold, $t$, so that the rare-class tuples are easier to classify, and hence, less chance of costly false-negative errors. Works when class returns a probability.
+			      \item \textbf{\color{airforceblue}Ensemble techniques}.
+		      \end{enumerate}
+		      Threshold-moving and ensemble methods work well on extremely imbalanced data.
+		\item \textbf{Still difficult on multi-class tasks.}
+	\end{itemize}
+\end{frame}
