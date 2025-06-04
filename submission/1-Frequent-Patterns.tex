@@ -668,4 +668,337 @@ The dataset is structured as follows:
 
 \vspace*{1cm}
 
+\subsection*{Helper Classes}
+
+The following helper classes are provided in the \texttt{classes/} folder to support your implementation. Each class serves a specific purpose in the frequent pattern mining algorithms.
+
+\vspace*{0.5cm}
+
+\subsubsection*{Basic Data Structures}
+
+\paragraph{Item} (\texttt{classes/item.py})
+
+Represents a single item in the dataset.
+
+\begin{itemize}
+	\item \textbf{Attributes:} \texttt{name} (str) - The name of the item
+	\item \textbf{Usage:} Create items like \texttt{Item("Apple")} or \texttt{Item("Book 1")}
+	\item \textbf{Example:} \texttt{apple = Item("Apple")}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{Itemset} (\texttt{classes/itemset.py})
+
+Represents a set of items (an itemset). This is the fundamental data structure for representing collections of items.
+
+\begin{itemize}
+	\item \textbf{Attributes:} \texttt{items} (FrozenSet[Item]) - An immutable set of items
+	\item \textbf{Usage:} Create itemsets like \texttt{Itemset(\{Item("Apple"), Item("Banana")\})}
+	\item \textbf{Iteration:} You can iterate over items: \texttt{for item in itemset: ...}
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+apple = Item("Apple")
+banana = Item("Banana")
+itemset = Itemset({apple, banana})
+for item in itemset:
+    print(item.name)
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{ItemTuple} (\texttt{classes/item\_tuple.py})
+
+Represents an ordered tuple of items. Unlike Itemset, the order of items matters here.
+
+\begin{itemize}
+	\item \textbf{Attributes:} \texttt{items} (Tuple[Item]) - An ordered tuple of items
+	\item \textbf{Usage:} Important for FP-Growth where item order according to the f-list is crucial
+	\item \textbf{Example:} \texttt{ItemTuple((Item("Apple"), Item("Banana")))}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\vspace*{0.5cm}
+
+\subsubsection*{Transaction and Dataset Classes}
+
+\paragraph{Transaction} (\texttt{classes/transaction.py})
+
+Represents a single transaction in the database.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{id} (int) - Unique transaction identifier
+		      \item \texttt{items} (Itemset) - The items purchased in this transaction
+	      \end{itemize}
+	\item \textbf{Usage:} Access transaction data: \texttt{transaction.id}, \texttt{transaction.items}
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+transaction = Transaction(1, Itemset({Item("Apple"), Item("Banana")}))
+print(f"Transaction {transaction.id} contains {len(transaction.items.items)} items")
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{Dataset} (\texttt{classes/dataset.py})
+
+Represents a complete transactional dataset.
+
+\begin{itemize}
+	\item \textbf{Attributes:} \texttt{transactions} (FrozenSet[Transaction]) - All transactions
+	\item \textbf{Usage:} Iterate over transactions: \texttt{for transaction in dataset.transactions: ...}
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+for transaction in dataset.transactions:
+    print(f"Transaction {transaction.id} has {len(transaction.items.items)} items")
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{SortedTransaction} (\texttt{classes/sorted\_transaction.py})
+
+Represents a transaction where items are ordered (used in FP-Growth).
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{id} (int) - Transaction identifier
+		      \item \texttt{items} (ItemTuple) - Items sorted according to f-list
+	      \end{itemize}
+	\item \textbf{Usage:} Similar to Transaction, but items maintain order
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{SortedDataset} (\texttt{classes/sorted\_dataset.py})
+
+Represents a dataset with sorted transactions.
+
+\begin{itemize}
+	\item \textbf{Attributes:} \texttt{transactions} (FrozenSet[SortedTransaction])
+	\item \textbf{Usage:} Used in FP-Growth after sorting transactions according to f-list
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\vspace*{0.5cm}
+
+\subsubsection*{Counting and Support Classes}
+
+\paragraph{ItemsetsWithOccurrenceCounts} (\texttt{classes/itemsets\_with\_occurrence\_counts.py})
+
+A dictionary-like container that stores itemsets with their occurrence counts.
+
+\begin{itemize}
+	\item \textbf{Inherits from:} Python's \texttt{UserDict}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{add\_occurrence(itemset)} - Increments count by 1
+		      \item \texttt{set\_occurrence\_count(itemset, count)} - Sets specific count
+		      \item \texttt{get\_occurrence\_count(itemset)} - Returns current count
+		      \item \texttt{remove\_occurrence(itemset)} - Decrements count by 1
+	      \end{itemize}
+	\item \textbf{Usage:} Essential for counting itemset frequencies in both algorithms
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+counts = ItemsetsWithOccurrenceCounts({itemset1, itemset2})
+counts.add_occurrence(itemset1)  # Count becomes 1
+counts.set_occurrence_count(itemset2, 5)  # Set count to 5
+current_count = counts.get_occurrence_count(itemset1)  # Returns 1
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\vspace*{0.5cm}
+
+\subsubsection*{FP-Tree Data Structures}
+
+\paragraph{FPTree} (\texttt{classes/fp\_tree.py})
+
+The main class representing an FP-Tree structure.
+
+\begin{itemize}
+	\item \textbf{Attributes:} \texttt{root} (FPTreeRootNode) - The root node of the tree
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{add\_items\_to\_tree(item\_tuple, occurrence\_count)} - Adds items to tree
+		      \item \texttt{get\_header\_table()} - Returns the header table
+		      \item \texttt{get\_all\_item\_nodes()} - Returns all item nodes
+		      \item \texttt{is\_single\_path()} - Checks if tree has only one path
+		      \item \texttt{is\_empty()} - Checks if tree is empty
+	      \end{itemize}
+	\item \textbf{Usage:} Central data structure for FP-Growth algorithm
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+fp_tree = FPTree()
+item_tuple = ItemTuple((Item("Apple"), Item("Banana")))
+fp_tree.add_items_to_tree(item_tuple, 3)  # Add with count 3
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{FPTreeNode} (\texttt{classes/fp\_tree\_node.py})
+
+Base class for all FP-Tree nodes.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{childs} (List) - List of child nodes
+		      \item \texttt{occurrence\_count} (int) - Frequency counter
+	      \end{itemize}
+	\item \textbf{Methods:} \texttt{get\_predecessors()} - Returns predecessor nodes
+	\item \textbf{Usage:} Base functionality for tree nodes (you typically don't create these directly)
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{FPTreeRootNode} (\texttt{classes/fp\_tree\_root\_node.py})
+
+The root node of an FP-Tree.
+
+\begin{itemize}
+	\item \textbf{Inherits from:} FPTreeNode
+	\item \textbf{Special Properties:}
+	      \begin{itemize}
+		      \item Has no parent (\texttt{parent = None})
+		      \item Not included in header table
+	      \end{itemize}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{add\_to\_header\_table(header\_table)} - Adds children to header table
+		      \item \texttt{get\_all\_item\_nodes()} - Returns all item nodes in subtree
+		      \item \texttt{is\_single\_path()} - Checks if only one path exists
+		      \item \texttt{is\_empty()} - Checks if tree is empty
+	      \end{itemize}
+	\item \textbf{Usage:} Automatically created when you create an FPTree
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{FPTreeItemNode} (\texttt{classes/fp\_tree\_item\_node.py})
+
+Represents an item node in the FP-Tree.
+
+\begin{itemize}
+	\item \textbf{Inherits from:} FPTreeNode
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{item} (Item) - The item this node represents
+		      \item \texttt{occurrence\_count} (int) - How often this path occurs
+		      \item \texttt{parent} (FPTreeNode) - Parent node
+	      \end{itemize}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{get\_predecessors()} - Returns path from root to this node
+		      \item \texttt{add\_to\_header\_table(header\_table)} - Adds node to header table
+		      \item \texttt{get\_all\_item\_nodes()} - Returns all item nodes in subtree
+		      \item \texttt{is\_single\_path()} - Checks if subtree has only one path
+	      \end{itemize}
+	\item \textbf{Usage:} Automatically created when adding items to FP-Tree
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{FPTreeHeaderTable} (\texttt{classes/fp\_tree\_header\_table.py})
+
+Represents the header table of an FP-Tree.
+
+\begin{itemize}
+	\item \textbf{Attributes:} \texttt{elements} (List[FPTreeHeaderTableElement])
+	\item \textbf{Usage:} Provides quick access to all nodes of a specific item
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+header_table = fp_tree.get_header_table()
+for element in header_table.elements:
+    print(f"Item: {element.item.name}, Count: {element.overall_occurrence_count}")
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{FPTreeHeaderTableElement} (\texttt{classes/fp\_tree\_header\_table\_element.py})
+
+Represents one entry in the header table.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{item} (Item) - The item this element represents
+		      \item \texttt{overall\_occurrence\_count} (int) - Total occurrences across all nodes
+		      \item \texttt{node\_links} (List[FPTreeNode]) - Links to all nodes with this item
+	      \end{itemize}
+	\item \textbf{Usage:} Access all occurrences of a specific item in the tree
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+for element in header_table.elements:
+    print(f"Item {element.item.name} appears {len(element.node_links)} times in tree")
+    for node in element.node_links:
+        print(f"  Node with count: {node.occurrence_count}")
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\vspace*{0.5cm}
+
+\subsubsection*{Conditional Pattern Classes (FP-Growth specific)}
+
+\paragraph{ConditionalPattern} (\texttt{classes/conditional\_pattern.py})
+
+Represents a single conditional pattern.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{prefix\_items} (ItemTuple) - The prefix path items (ordered according to f-list)
+		      \item \texttt{occurrence\_count} (int) - How often this pattern occurs
+	      \end{itemize}
+	\item \textbf{Usage:} Used internally in FP-Growth for conditional pattern bases
+	\item \textbf{Note:} The prefix items must be ordered from top to bottom according to the f-list
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{ConditionalPatternBase} (\texttt{classes/conditional\_pattern\_base.py})
+
+Represents a conditional pattern base for an item.
+
+\begin{itemize}
+	\item \textbf{Attributes:} \texttt{conditional\_patterns} (FrozenSet[ConditionalPattern])
+	\item \textbf{Usage:} Contains all conditional patterns for a specific item (one item can have multiple prefix paths in the FP-tree)
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+for pattern in conditional_pattern_base.conditional_patterns:
+    print(f"Pattern: {[item.name for item in pattern.prefix_items.items]}")
+    print(f"Count: {pattern.occurrence_count}")
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\vspace*{0.5cm}
+
+\subsubsection*{Practical Tips}
+
+\begin{itemize}
+	\item \textbf{Creating Items and Itemsets:} \\ Always use the provided classes instead of raw strings or sets
+	\item \textbf{Iteration:} \\ Most classes support Python's standard iteration patterns (\texttt{for item in itemset})
+	\item \textbf{Immutability:} \\ Many classes use frozen sets/tuples for thread safety and hashability
+	\item \textbf{Type Hints:} \\ Pay attention to the expected return types in function signatures
+	\item \textbf{Testing:} \\ Use the provided test cases to understand expected behavior
+	\item \textbf{Dictionary Access:} \\ \texttt{ItemsetsWithOccurrenceCounts} works like a dictionary - use square brackets for access
+	\item \textbf{Tree Traversal:} \\ Use the provided methods like \texttt{get\_all\_item\_nodes()} instead of manual traversal
+	\item \textbf{Debugging:} \\ Most classes have \texttt{\_\_str\_\_} methods for easy printing and debugging
+\end{itemize}
+
+\vspace*{0.3cm}
+
 \end{document}
