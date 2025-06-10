@@ -16,7 +16,9 @@ smallborders
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage{array}
+\usepackage{enumitem}
 \usepackage[]{mdframed}
+
 \usepackage{listings}
 \lstset
 {
@@ -34,6 +36,24 @@ smallborders
 	deletekeywords=[2]{abs,max}
 }
 
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,skins,breakable}
+
+\newtcolorbox{functionbox}[1]{
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    fonttitle=\bfseries,
+    title=#1,
+	arc=0mm,
+	outer arc=0mm,
+    breakable,
+    enhanced,
+	boxrule=1pt,
+    attach boxed title to top left={yshift=-3mm,xshift=5mm},
+    boxed title style={colback=gray!85!black,arc=1mm},
+    before upper={\parindent=0pt}
+}
+
 \newcommand{\points}[1]{\hfill \color{red}(#1 Points)\color{black}}
 
 
@@ -47,7 +67,7 @@ smallborders
 
 \section*{About this Assignment}
 
-In this assignment, your task is to implement the algorithms for  \hyperref[sec:task-one]{Decision Tree Induction} and \hyperref[sec:task-one]{Naïve Bayes Classification}. For this purpose, you have access to a basic code skeleton, some helper classes, and several test cases.
+In this assignment, your task is to implement the algorithms for  \hyperref[sec:task-one]{Decision Tree Induction} and \hyperref[sec:task-two]{Naïve Bayes Classification}. For this purpose, you have access to a basic code skeleton, some helper classes, and several test cases.
 
 \subsection*{Key Data}
 
@@ -104,32 +124,39 @@ The Information Gain is a measure of the difference in entropy before and after 
 
 \paragraph*{Task 1.1.1.1 \points{1}} \hfill
 
-To calculate the difference between the entropies before and after the split, the entropy of the dataset prior to the split has to be computed.
+At the beginning of Apriori, the identification of 1-itemsets is paramount.
 
-Open \texttt{information\_gain.py} and implement \texttt{calculate\_entropy}, which calculates the entropy of a dataset with regard to a target attribute:
+Open \texttt{information\_gain.py} and implement the \texttt{calculate\_entropy}, which calculates the entropy of a dataset with regard to a target attribute:
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{calculate\_entropy}
+	\begin{lstlisting}[numbers=none]
 def calculate_entropy(dataset: pd.DataFrame, target_attribute: str) -> float:
-	"""
-	Calculate the entropy for a given target attribute in a dataset.
-
-	Parameters:
-	dataset (pd.DataFrame): The dataset to calculate the entropy for
-	target_attribute (str): The target attribute used as the class label
-
-	Returns:
-	float: The calculated entropy (= expected information)
-	"""
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Calculate the entropy for a given target attribute in a dataset.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The dataset to calculate the entropy for.
+		\item \texttt{target\_attribute} (str): The target attribute used as the class label.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{float}: The calculated entropy (= expected information).
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
-The method expects a pandas DataFrame as the dataset and a string as the target attribute. Make sure to return the calculated entropy as a \texttt{float}.
+Make sure that you expect a pandas DataFrame as the dataset and a string as the target attribute. Make sure to return the calculated entropy as a \texttt{float}.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -137,7 +164,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/information_gain/test_calculate_entropy.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \paragraph*{Task 1.1.1.2 \points{1}} \hfill
 
@@ -147,42 +174,50 @@ Implement \texttt{calculate\_information\_partitioned}, which calculates the ent
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{calculate\_information\_partitioned}
+	\begin{lstlisting}[numbers=none]
 def calculate_information_partitioned(
-	dataset: pd.DataFrame, target_attribute: str,
-	partition_attribute: str, split_value: int | float = None,
+    dataset: pd.DataFrame, 
+    target_attribute: str,
+    partition_attribute: str, 
+    split_value: int | float = None,
 ) -> float:
-	"""
-	Calculate the information for a given target attribute in a dataset if the dataset is
-	partitioned by a given attribute.
-
-	Parameters:
-	dataset (pd.DataFrame): The dataset to calculate the information for
-	target_attribute (str): The target attribute used as the class label
-	partition_attribute (str): The attribute that is used to partition the dataset
-	split_value (int|float), default None: The value to split the partition attribute
-	on. If set to None, the function will calculate the information for a discrete-valued
-	partition attribute. If set to a value, the function will calculate the information
-	for a continuous-valued partition attribute.
-	"""
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Calculate the information for a given target attribute in a dataset if the dataset is partitioned by a given attribute.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The dataset to calculate the information for.
+		\item \texttt{target\_attribute} (str): The target attribute used as the class label.
+		\item \texttt{partition\_attribute} (str): The attribute that is used to partition the dataset.
+		\item \texttt{split\_value} (int|float), default None: The value to split the partition attribute on. If set to None, the function will calculate the information for a discrete-valued partition attribute. If set to a value, the function will calculate the information for a continuous-valued partition attribute.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{float}: The calculated entropy.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 Like \texttt{calculate\_entropy}, \texttt{calculate\_information\_partitioned} also requires a dataset and a target attribute. Additionally, the function requires a string that specifies which attribute is used for partitioning. If the partitioning attribute is a continuous attribute, an optional numeric value can be provided, indicating where the partitioning into two partitions should occur.
 
 The function should return the calculated entropy as a \texttt{float}.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
 \begin{lstlisting}
-	pytest tests/information_gain/test_calculate_information_partitioned.py
+pytest tests/information_gain/test_calculate_information_partitioned.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \paragraph*{Task 1.1.1.3 \points{1}} \hfill
 
@@ -192,35 +227,40 @@ Implement \texttt{calculate\_information\_gain}, which calculates the informatio
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{calculate\_information\_gain}
+	\begin{lstlisting}[numbers=none]
 def calculate_information_gain(
-	dataset: pd.DataFrame, target_attribute: str,
-	partition_attribute: str, split_value: int | float = None,
+    dataset: pd.DataFrame, 
+    target_attribute: str,
+    partition_attribute: str, 
+    split_value: int | float = None,
 ) -> float:
-	"""
-	Calculate the information gain for a given target attribute in a dataset if the
-	dataset is partitioned by a given attribute.
-
-	Parameters:
-	dataset (pd.DataFrame): The dataset to calculate the information gain for
-	target_attribute (str): The target attribute used as the class label
-	partition_attribute (str): The attribute that is used to partition the dataset
-	split_value (int|float), default None: The value to split the partition attribute on.
-	If set to None, the function will calculate the information gain for a discrete-valued
-	partition attribute. If set to a value, the function will calculate the information
-	gain for a continuous-valued partition attribute.
-
-	Returns:
-	float: The calculated information gain
-	"""
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Calculate the information gain for a given target attribute in a dataset if the dataset is partitioned by a given attribute.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The dataset to calculate the information gain for.
+		\item \texttt{target\_attribute} (str): The target attribute used as the class label.
+		\item \texttt{partition\_attribute} (str): The attribute that is used to partition the dataset.
+		\item \texttt{split\_value} (int|float), default None: The value to split the partition attribute on. If set to None, the function will calculate the information gain for a discrete-valued partition attribute. If set to a value, the function will calculate the information gain for a continuous-valued partition attribute.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{float}: The calculated information gain.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects a dataset, a target attribute, and a partitioning attribute. If the partitioning attribute is continuous, a split value can be provided. The function should return the calculated information gain as a \texttt{float}.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -228,7 +268,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/information_gain/test_calculate_information_gain.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsubsection*{Task 1.1.2: Gini Index}
 
@@ -242,26 +282,33 @@ Open \texttt{gini\_index.py}. Implement \texttt{calculate\_impurity}, which calc
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{calculate\_impurity}
+	\begin{lstlisting}[numbers=none]
 def calculate_impurity(dataset: pd.DataFrame, target_attribute: str) -> float:
-    """
-    Calculate the impurity for a given target attribute in a dataset.
-
-    Parameters:
-    dataset (pd.DataFrame): The dataset to calculate the impurity for
-    target_attribute (str): The target attribute used as the class label
-
-    Returns:
-    float: The calculated impurity
-    """
-    # TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Calculate the impurity for a given target attribute in a dataset.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The dataset to calculate the impurity for.
+		\item \texttt{target\_attribute} (str): The target attribute used as the class label.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{float}: The calculated impurity.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects a dataset and a target attribute. Make sure to return the calculated impurity as a \texttt{float}.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -269,7 +316,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/gini_index/test_calculate_impurity.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \paragraph*{Task 1.1.2.2 \points{1}} \hfill
 
@@ -279,34 +326,40 @@ Implement \texttt{calculate\_impurity\_partitioned}, which calculates the impuri
 
 \vspace*{0.3cm}
 
-\newpage
-
-\begin{lstlisting}
+\begin{functionbox}{calculate\_impurity\_partitioned}
+	\begin{lstlisting}[numbers=none]
 def calculate_impurity_partitioned(
-	dataset: pd.DataFrame, target_attribute: str,
-	partition_attribute: str, split: int | float | Set[str],
+    dataset: pd.DataFrame, 
+    target_attribute: str,
+    partition_attribute: str, 
+    split: int | float | Set[str],
 ) -> float:
-	"""
-	Calculate the impurity for a given target attribute in a dataset if the dataset
-	is partitioned by a given attribute and split.
-
-	Parameters:
-	dataset (pd.DataFrame): The dataset to calculate the impurity for
-	target_attribute (str): The target attribute used as the class label
-	partition_attribute (str): The attribute that is used to partition the dataset
-	split (int|float|Set[str]): The split used to partition the partition attribute.
-	If the partition attribute is discrete-valued, the split is a set of strings
-	(Set[str]). If the partition attribute is continuous-valued, the split is a
-	single value (int or float).
-	"""
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Calculate the impurity for a given target attribute in a dataset if the dataset is partitioned by a given attribute and split.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The dataset to calculate the impurity for.
+		\item \texttt{target\_attribute} (str): The target attribute used as the class label.
+		\item \texttt{partition\_attribute} (str): The attribute that is used to partition the dataset.
+		\item \texttt{split} (int|float|Set[str]): The split used to partition the partition attribute. If the partition attribute is discrete-valued, the split is a set of strings (Set[str]). If the partition attribute is continuous-valued, the split is a single value (int or float).
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{float}: The calculated impurity.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects a dataset, a target attribute, and a partitioning attribute. If the partitioning attribute is continuous, a single split value can be provided. If the partitioning attribute is discrete, a set of strings can be provided. The function should return the calculated impurity as a \texttt{float}.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -314,7 +367,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/gini_index/test_calculate_impurity_partitioned.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \paragraph*{Task 1.1.2.3 \points{1}} \hfill
 
@@ -324,35 +377,40 @@ Implement \texttt{calculate\_gini\_index}, which calculates the gini index for a
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{calculate\_gini\_index}
+	\begin{lstlisting}[numbers=none]
 def calculate_gini_index(
-	dataset: pd.DataFrame, target_attribute: str,
-	partition_attribute: str, split: int | float | Set[str],
+    dataset: pd.DataFrame, 
+    target_attribute: str,
+    partition_attribute: str, 
+    split: int | float | Set[str],
 ) -> float:
-	"""
-	Calculate the Gini index (= reduction of impurity) for a given target attribute in a
-	dataset if the dataset is partitioned by a given attribute and split.
-
-	Parameters:
-	dataset (pd.DataFrame): The dataset to calculate the Gini index for
-	target_attribute (str): The target attribute used as the class label
-	partition_attribute (str): The attribute that is used to partition the dataset
-	split (int|float|Set[str]): The split used to partition the partition attribute.
-	If the partition attribute is discrete-valued, the split is a set of strings
-	(Set[str]). If the partition attribute is continuous-valued, the split is a
-	single value (int or float).
-
-	Returns:
-	float: The calculated Gini index
-	"""
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Calculate the Gini index (= reduction of impurity) for a given target attribute in a dataset if the dataset is partitioned by a given attribute and split.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The dataset to calculate the Gini index for.
+		\item \texttt{target\_attribute} (str): The target attribute used as the class label.
+		\item \texttt{partition\_attribute} (str): The attribute that is used to partition the dataset.
+		\item \texttt{split} (int|float|Set[str]): The split used to partition the partition attribute. If the partition attribute is discrete-valued, the split is a set of strings (Set[str]). If the partition attribute is continuous-valued, the split is a single value (int or float).
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{float}: The calculated Gini index.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects a dataset, a target attribute, and a partitioning attribute. If the partitioning attribute is continuous, a single split value can be provided. If the partitioning attribute is discrete, a set of strings can be provided. The function should return the calculated gini index as a \texttt{float}.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -360,7 +418,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/gini_index/test_calculate_gini_index.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsection*{Task 1.2: Training}
 
@@ -374,39 +432,40 @@ Open \texttt{decision\_tree.py} and implement \texttt{\_calculate\_information\_
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{\_calculate\_information\_gain}
+	\begin{lstlisting}[numbers=none]
 def _calculate_information_gain(
-	self, data: pd.DataFrame, attribute: str
+    self, 
+    data: pd.DataFrame, 
+    attribute: str
 ) -> Tuple[float, List[DecisionTreeDecisionOutcome]]:
-	"""
-	Calculate the (best) information gain for a given attribute in a dataset.
-
-	Parameters:
-	data (pd.DataFrame): The dataset to calculate the information gain for
-	attribute (str): The attribute to calculate the information gain for
-
-	Returns:
-	float: The calculated information gain
-	List[DecisionTreeDecisionOutcome]: The outcomes the best split of this attribute has
-	"""
-	# If self.target_attribute is not set, raise an error
-	if self.target_attribute is None:
-		raise ValueError("Target attribute not set.")
-
-	# If the attribute is not in the dataset, raise an error
-	if attribute not in data.columns:
-		raise ValueError(f"Attribute '{attribute}' not in dataset.")
-
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Calculate the (best) information gain for a given attribute in a dataset.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{data} (pd.DataFrame): The dataset to calculate the information gain for.
+		\item \texttt{attribute} (str): The attribute to calculate the information gain for.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{float}: The calculated information gain.
+		\item \texttt{List[DecisionTreeDecisionOutcome]}: The outcomes the best split of this attribute has.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects the dataset and the attribute for which the information gain is to be calculated. The target classification attribute is already set in \texttt{self.target\_attribute} when the function is called.
 
 The function should return the calculated information gain as a \texttt{float} and a list of outcomes. The \texttt{DecisionTreeDecisionOutcome} objects represent the outcomes of the best split of the attribute (e.g. if the attribute is \texttt{Age}, the outcomes might be \texttt{$\leq 25$} and \texttt{$> 25$}).
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -414,7 +473,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/decision_tree/test_calculate_information_gain.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsubsection*{Task 1.2.2 \points{3}}
 
@@ -424,39 +483,40 @@ Implement \texttt{\_calculate\_gini\_index}, which calculates the best possible 
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{\_calculate\_gini\_index}
+	\begin{lstlisting}[numbers=none]
 def _calculate_gini_index(
-	self, data: pd.DataFrame, attribute: str
+    self, 
+    data: pd.DataFrame, 
+    attribute: str
 ) -> Tuple[float, List[DecisionTreeDecisionOutcome]]:
-	"""
-	Calculate the (best) gini index for a given attribute in a dataset.
-
-	Parameters:
-	data (pd.DataFrame): The dataset to calculate the gini index for
-	attribute (str): The attribute to calculate the gini index for
-
-	Returns:
-	float: The calculated gini index (reduction of impurity)
-	List[DecisionTreeDecisionOutcome]: The outcomes the best split of this attribute has
-	"""
-	# If self.target_attribute is not set, raise an error
-	if self.target_attribute is None:
-		raise ValueError("Target attribute not set.")
-
-	# If the attribute is not in the dataset, raise an error
-	if attribute not in data.columns:
-		raise ValueError(f"Attribute '{attribute}' not in dataset.")
-
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Calculate the (best) gini index for a given attribute in a dataset.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{data} (pd.DataFrame): The dataset to calculate the gini index for.
+		\item \texttt{attribute} (str): The attribute to calculate the gini index for.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{float}: The calculated gini index (reduction of impurity).
+		\item \texttt{List[DecisionTreeDecisionOutcome]}: The outcomes the best split of this attribute has.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects the dataset and the attribute for which the gini index is to be calculated. The target classification attribute is already set in \texttt{self.target\_attribute} when the function is called.
 
 The function should return the calculated gini index as a \texttt{float} and a list of outcomes. The \texttt{DecisionTreeDecisionOutcome} objects represent the outcomes of the best split of the attribute (e.g. if the attribute is \texttt{Participation}, the outcomes might be \texttt{$\{\text{High}, \text{Medium}\}$} and \texttt{$\{\text{Low}$\}}).
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -464,7 +524,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/decision_tree/test_calculate_gini_index.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsubsection*{Task 1.2.3 \points{6}}
 
@@ -474,34 +534,40 @@ Implement \texttt{\_find\_best\_split}, which finds the best split for a given d
 
 \vspace*{0.3cm}
 
-\newpage
-
-\begin{lstlisting}
+\begin{functionbox}{\_find\_best\_split}
+	\begin{lstlisting}[numbers=none]
 def _find_best_split(
-	self, data: pd.DataFrame, attribute_list: List[str], attribute_selection_method: str,
+    self, 
+    data: pd.DataFrame, 
+    attribute_list: List[str], 
+    attribute_selection_method: str,
 ) -> Tuple[str, List[DecisionTreeDecisionOutcome]]:
-	"""
-	Find the best split for a given dataset and attribute list. Finding the best split
-	includes finding the best attribute to split on and also (depending on the attribute
-	selection method) the best set of outcomes to split on this attribute.
-
-	Parameters:
-	data (pd.DataFrame): The dataset to find the best splitting attribute for
-	attribute_list (List[str]): The list of attributes to consider
-	attribute_selection_method (str): The attribute selection method to use
-
-	Returns:
-	str: The attribute to split on
-	List[DecisionTreeDecisionOutcome]: The outcomes a split on this attribute should have
-	"""
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Find the best split for a given dataset and attribute list. Finding the best split includes finding the best attribute to split on and also (depending on the attribute selection method) the best set of outcomes to split on this attribute.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{data} (pd.DataFrame): The dataset to find the best splitting attribute for.
+		\item \texttt{attribute\_list} (List[str]): The list of attributes to consider.
+		\item \texttt{attribute\_selection\_method} (str): The attribute selection method to use.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{str}: The attribute to split on.
+		\item \texttt{List[DecisionTreeDecisionOutcome]}: The outcomes a split on this attribute should have.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects the dataset, a list of all attributes that might become the splitting attribute, and the attribute selection method. The attribute selection method can be either \texttt{information\_gain} or \texttt{gini\_index}. The function should return the best attribute to split on and a list of \texttt{DecisionTreeDecisionOutcome}s.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -509,7 +575,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/decision_tree/test_find_best_split.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsubsection*{Task 1.2.4 \points{6}}
 
@@ -519,32 +585,39 @@ Implement \texttt{\_build\_tree}, which recursively builds the decision tree:
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{\_build\_tree}
+	\begin{lstlisting}[numbers=none]
 def _build_tree(
-	self,
-	data: pd.DataFrame,
-	attribute_list: List[str],
-	attribute_selection_method: str,
+    self,
+    data: pd.DataFrame,
+    attribute_list: List[str],
+    attribute_selection_method: str,
 ) -> DecisionTreeNode:
-    """
-    Recursively build the decision tree.
-
-	Parameters:
-	data (pd.DataFrame): The (partial) dataset to build the decision tree with
-	attribute_list (List[str]): The list of attributes to consider
-	attribute_selection_method (str): The attribute selection method to use
-
-	Returns:
-	DecisionTreeNode: The root node of the decision tree
-	"""
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Recursively build the decision tree.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{data} (pd.DataFrame): The (partial) dataset to build the decision tree with.
+		\item \texttt{attribute\_list} (List[str]): The list of attributes to consider.
+		\item \texttt{attribute\_selection\_method} (str): The attribute selection method to use.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{DecisionTreeNode}: The root node of the decision tree.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects the dataset, a list of all attributes that might become the splitting attribute, and the attribute selection method. The attribute selection method can be either \texttt{information\_gain} or \texttt{gini\_index}. The function should return the \texttt{DecisionTreeNode} that represents the root node of the part of the decision tree that was built within the call of the function.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -552,7 +625,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/decision_tree/test_build_tree.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsubsection*{Task 1.2.5 \points{4}}
 
@@ -562,37 +635,39 @@ Implement \texttt{fit}, which fits the decision tree to the dataset:
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{fit}
+	\begin{lstlisting}[numbers=none]
 def fit(
-	self, dataset: pd.DataFrame,
-	target_attribute: str, attribute_selection_method: str,
+    self, 
+    dataset: pd.DataFrame,
+    target_attribute: str, 
+    attribute_selection_method: str,
 ):
-	"""
-	Fit decision tree on a given dataset and target attribute, using a specified
-	attribute selection method.
-
-	Parameters:
-	dataset (pd.DataFrame): The dataset to fit the decision tree on
-	target_attribute (str): The target attribute to predict
-	attribute_selection_method (str): The attribute selection method to use
-	"""
-	# Make sure that the target_attribute is in the dataset
-	if target_attribute not in dataset.columns:
-		raise ValueError(f"Target attribute '{target_attribute}' not in dataset.")
-
-	# Make sure that the attribute_selection_method is valid
-	if attribute_selection_method not in ["information_gain","gini_index",]:
-		raise ValueError(f"Attribute selection method '{attribute_selection_method}'
-		not valid (select either 'information_gain' or 'gini_index').")
-
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Fit decision tree on a given dataset and target attribute, using a specified attribute selection method.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The dataset to fit the decision tree on.
+		\item \texttt{target\_attribute} (str): The target attribute to predict.
+		\item \texttt{attribute\_selection\_method} (str): The attribute selection method to use.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item None - The method saves the trained model in \texttt{self.target\_attribute} and \texttt{self.tree}.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects the dataset, the target attribute, and the attribute selection method that should be used to build the decision tree. The function doesn't return anything, but sets both members \texttt{self.target\_attribute} and \texttt{self.tree}. The former is the target attribute, and the latter is the root node of the decision tree.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -600,7 +675,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/decision_tree/test_fit.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsection*{Task 1.3: Prediction}
 
@@ -614,32 +689,37 @@ Within \texttt{decision\_tree.py} implement \texttt{\_predict\_tuple}, which pre
 
 \vspace*{0.3cm}
 
-\newpage
-
-\begin{lstlisting}
+\begin{functionbox}{\_predict\_tuple}
+	\begin{lstlisting}[numbers=none]
 def _predict_tuple(
-	self, tuple: pd.Series, node: DecisionTreeNode
+    self, 
+    tuple: pd.Series, 
+    node: DecisionTreeNode
 ) -> str | int | float:
-	"""
-	Predict the target attribute for a given row in the dataset.
-	This is a recursive function that traverses the decision tree until a leaf node
-	is reached.
-
-	Parameters:
-	tuple (pd.Series): The row to predict the target attribute for
-	node (DecisionTreeNode): The current node in the decision tree
-
-	Returns:
-	str | int | float: The predicted class label
-	"""
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Predict the target attribute for a given row in the dataset. This is a recursive function that traverses the decision tree until a leaf node is reached.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{tuple} (pd.Series): The row to predict the target attribute for.
+		\item \texttt{node} (DecisionTreeNode): The current node in the decision tree.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{str | int | float}: The predicted class label.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects a single tuple as a pandas Series and the current node of the decision tree. The function should return the predicted class label.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -647,7 +727,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/decision_tree/test_predict_tuple.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsubsection*{Task 1.3.2 \points{2}}
 
@@ -657,39 +737,38 @@ Implement \texttt{predict}, which predicts the classes of a dataset:
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{predict}
+	\begin{lstlisting}[numbers=none]
 def predict(self, dataset: pd.DataFrame) -> List[str | int | float]:
-	"""
-	Predict the target attribute for a given dataset.
-
-	Parameters:
-	dataset (pd.DataFrame): The dataset to predict the target attribute for
-
-	Returns:
-	List[str | int | float]: A list of predicted class labels
-	"""
-
-	# If the tree is not fitted, raise an error
-	if self.tree is None:
-		raise ValueError("Tree not fitted. Call fit method first.")
-
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Predict the target attribute for a given dataset.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The dataset to predict the target attribute for.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{List[str | int | float]}: A list of predicted class labels.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects a dataset and should return a list of predicted class labels.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
 \begin{lstlisting}
 pytest tests/decision_tree/test_predict.py
 \end{lstlisting}
-
-\vspace*{0.1cm}
-
 
 \newpage
 
@@ -720,32 +799,35 @@ Open \texttt{naive\_bayes.py} and implement \texttt{\_calculate\_prior\_probabil
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{\_calculate\_prior\_probabilities}
+	\begin{lstlisting}[numbers=none]
 def _calculate_prior_probabilities(
-	self, dataset: pd.DataFrame
+    self, 
+    dataset: pd.DataFrame
 ) -> NaiveBayesPriorProbabilities:
-	"""
-	Calculate the prior probability for each class.
-	(The target attribute has to be set before calling this method.)
-
-	Parameters:
-	dataset (pd.DataFrame): The training dataset
-
-	Returns:
-	NaiveBayesPriorProbabilities: The prior probabilities for each class
-	"""
-	# Make sure that the target_attribute is set
-	if self.target_attribute is None:
-		raise ValueError("Target attribute not set.")
-
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Calculate the prior probability for each class. (The target attribute has to be set before calling this method.)
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The training dataset.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{NaiveBayesPriorProbabilities}: The prior probabilities for each class.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects a dataset and should return an instance of \texttt{NaiveBayesPriorProbabilities}. This object contains the prior probabilities for each class. The target attribute is already set in \texttt{self.target\_attribute} when the function is called.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -753,7 +835,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/naive_bayes/test_calculate_prior_probabilities.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsubsection*{Task 2.1.2 \points{5}}
 
@@ -763,30 +845,32 @@ Implement \texttt{\_calculate\_likelihoods}, which calculates the likelihoods fo
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{\_calculate\_likelihoods}
+	\begin{lstlisting}[numbers=none]
 def _calculate_likelihoods(self, dataset: pd.DataFrame) -> NaiveBayesLikelihoods:
-	"""
-	Calculate the likelihoods for each attribute and class.
-	(The target attribute has to be set before calling this method.)
-
-	Parameters:
-	dataset (pd.DataFrame): The training dataset
-
-	Returns:
-	NaiveBayesLikelihoods: The likelihoods for each attribute and class
-	"""
-	# Make sure that the target_attribute is set
-	if self.target_attribute is None:
-		raise ValueError("Target attribute not set.")
-
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Calculate the likelihoods for each attribute and class. (The target attribute has to be set before calling this method.)
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The training dataset.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{NaiveBayesLikelihoods}: The likelihoods for each attribute and class.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects a dataset and should return an instance of \texttt{NaiveBayesLikelihoods}. This object contains the likelihoods for each attribute given the class label. The target attribute is already set in \texttt{self.target\_attribute} when the function is called.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -794,7 +878,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/naive_bayes/test_calculate_likelihoods.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsubsection*{Task 2.1.3 \points{3}}
 
@@ -804,29 +888,33 @@ Implement \texttt{fit}, which fits the naïve Bayes classifier to the dataset:
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{fit}
+	\begin{lstlisting}[numbers=none]
 def fit(self, dataset: pd.DataFrame, target_attribute: str):
-	"""
-	Fit the Naive Bayes classifier to the training dataset.
-	Sets the target attribute and the class labels.
-	Calculates the prior probabilities, and the likelihoods.
-
-	Parameters:
-	dataset (pd.DataFrame): The training dataset
-	target_attribute (str): The target attribute to predict
-	"""
-	# Make sure that the target_attribute is in the dataset
-	if target_attribute not in dataset.columns:
-		raise ValueError(f"Target attribute '{target_attribute}' not in dataset.")
-
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Fit the Naive Bayes classifier to the training dataset. Sets the target attribute and the class labels. Calculates the prior probabilities, and the likelihoods.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The training dataset.
+		\item \texttt{target\_attribute} (str): The target attribute to predict.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item None - The method saves the trained model in \texttt{self.target\_attribute}, \texttt{self.class\_labels}, \texttt{self.prior\_probabilities}, and \texttt{self.likelihoods}.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects the dataset and the target attribute. The function doesn't return anything, but sets the members \texttt{self.target\_attribute}, \texttt{self.class\_labels}, \texttt{self.prior\_probabilities}, and \texttt{self.likelihoods}. The former is the target attribute, the second is a list of all possible class labels, the third is an instance of \texttt{NaiveBayesPriorProbabilities}, and the last is an instance of \texttt{NaiveBayesLikelihoods}.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -834,7 +922,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/naive_bayes/test_fit.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsection*{Task 2.2: Prediction}
 
@@ -848,25 +936,32 @@ Within \texttt{naive\_bayes.py} implement \texttt{\_predict\_tuple}, which predi
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{\_predict\_tuple}
+	\begin{lstlisting}[numbers=none]
 def _predict_tuple(self, tuple: pd.Series) -> str | int | float:
-	"""
-	Predict the target attribute for a given row in the dataset.
-
-	Parameters:
-	tuple (pd.Series): The row in the dataset to predict the target attribute for
-
-	Returns:
-	str | int | float: The predicted class label
-	"""
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Predict the target attribute for a given row in the dataset.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{tuple} (pd.Series): The row in the dataset to predict the target attribute for.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{str | int | float}: The predicted class label.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects a single tuple as a pandas Series. The function should return the predicted class label.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -874,7 +969,7 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/naive_bayes/test_predict_tuple.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsubsection*{Task 2.2.2 \points{2}}
 
@@ -884,31 +979,32 @@ Implement \texttt{predict}, which predicts the classes of a dataset:
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{predict}
+	\begin{lstlisting}[numbers=none]
 def predict(self, dataset: pd.DataFrame) -> List[str | int | float]:
-	"""
-	Predict the target attribute for a given dataset.
-
-	Parameters:
-	dataset (pd.DataFrame): The dataset to predict the target attribute for
-
-	Returns:
-	List[str | int | float]: A list of predicted class labels
-	"""
-
-	# If the likelihoods or/and the prior probabilities are not calculated yet, raise
-	an error
-	if self.likelihoods is None or self.prior_probabilities is None:
-		raise ValueError("Model not trained yet.")
-
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Predict the target attribute for a given dataset.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{dataset} (pd.DataFrame): The dataset to predict the target attribute for.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{List[str | int | float]}: A list of predicted class labels.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The function expects a dataset and should return a list of predicted class labels.
 
-You can test whether your implementation is correct by executing the following command:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -916,27 +1012,17 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/naive_bayes/test_predict.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
-
-
-
-
-
-
-
-
-
-
-
 \newpage
 
 \section*{Appendices}
 
-In \hyperref[sec:task-one]{Task 1} and \hyperref[sec:task-one]{Task 2} test cases are provided and used to grade the submission.
+In \hyperref[sec:task-one]{Task 1} and \hyperref[sec:task-two]{Task 2} test cases are provided and used to grade the submission.
+
+\subsection*{Dataset(s)}
 
 The most test cases are based on the following data sets:
 
-\subsection*{Small Student Dataset}
+\subsubsection*{Small Student Dataset}
 
 All test cases starting with the prefix \texttt{test\_with\_small\_student\_dataset} are based on the small student dataset known from Exercise Sheet 4 - Task 1.
 
@@ -946,23 +1032,25 @@ The dataset is structured as follows:
 
 \begin{table}[ht]
 	\centering
-	\begin{tabular}{|c|c|c|c|c|c|}
-		\hline
-		\textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
-		23           & CS             & High                   & Yes             \\ \hline
-		23           & DS             & Low                    & No              \\ \hline
-		26           & DS             & High                   & Yes             \\ \hline
-		24           & DS             & Medium                 & Yes             \\ \hline
-		26           & DS             & Medium                 & No              \\ \hline
-		26           & DS             & Low                    & No              \\ \hline
-	\end{tabular}
+	\scalebox{0.8}{
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			\textbf{Age} & \textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
+			23           & CS             & High                   & Yes             \\ \hline
+			23           & DS             & Low                    & No              \\ \hline
+			26           & DS             & High                   & Yes             \\ \hline
+			24           & DS             & Medium                 & Yes             \\ \hline
+			26           & DS             & Medium                 & No              \\ \hline
+			26           & DS             & Low                    & No              \\ \hline
+		\end{tabular}
+	}
 	\caption{Small Student Dataset}
 	\label{tab:small-student-dataset}
 \end{table}
 
 \vspace*{1cm}
 
-\subsection*{Small Submission Dataset}
+\subsubsection*{Small Submission Dataset}
 
 All test cases starting with the prefix \texttt{test\_with\_small\_student\_dataset} are based on the small submission dataset known from Exercise Sheet 4 - Task 2.
 
@@ -972,24 +1060,302 @@ The dataset is structured as follows:
 
 \begin{table}[ht]
 	\centering
-	\begin{tabular}{|c|c|c|c|}
-		\hline
-		\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{Passed} \\ \hline
-		Classification    & High               & 1,0            & No              \\ \hline
-		Clustering        & Low                & 4,0            & No              \\ \hline
-		Frequent Patterns & High               & 5,0            & Yes             \\ \hline
-		Clustering        & Medium             & 5,0            & Yes             \\ \hline
-		Frequent Patterns & High               & 2,0            & No              \\ \hline
-		Frequent Patterns & Medium             & 3,0            & Yes             \\ \hline
-		Classification    & Low                & 6,0            & Yes             \\ \hline
-		Clustering        & Low                & 5,0            & Yes             \\ \hline
-		Clustering        & High               & 3,0            & Yes             \\ \hline
-		Classification    & Medium             & 4,0            & Yes             \\ \hline
-	\end{tabular}
+	\scalebox{0.8}{
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\textbf{Topic}    & \textbf{Knowledge} & \textbf{Hours} & \textbf{Passed} \\ \hline
+			Classification    & High               & 1,0            & No              \\ \hline
+			Clustering        & Low                & 4,0            & No              \\ \hline
+			Frequent Patterns & High               & 5,0            & Yes             \\ \hline
+			Clustering        & Medium             & 5,0            & Yes             \\ \hline
+			Frequent Patterns & High               & 2,0            & No              \\ \hline
+			Frequent Patterns & Medium             & 3,0            & Yes             \\ \hline
+			Classification    & Low                & 6,0            & Yes             \\ \hline
+			Clustering        & Low                & 5,0            & Yes             \\ \hline
+			Clustering        & High               & 3,0            & Yes             \\ \hline
+			Classification    & Medium             & 4,0            & Yes             \\ \hline
+		\end{tabular}
+	}
 	\caption{Small Submission Dataset}
 	\label{tab:small-submission-dataset}
 \end{table}
 
 \vspace*{1cm}
+
+\subsection*{Helper Classes}
+
+The following helper classes are provided in the \texttt{classes/} folder to support your implementation. Each class serves a specific purpose in the classification algorithms.
+
+\vspace*{0.5cm}
+
+\subsubsection*{Decision Tree Data Structures}
+
+\paragraph{DecisionTreeNode} (\texttt{classes/decision\_tree\_node.py})
+
+Abstract superclass for all decision tree node types.
+
+\begin{itemize}
+	\item \textbf{Usage:} Base class for DecisionTreeInternalNode and DecisionTreeLeafNode
+	\item \textbf{Note:} You typically don't create instances of this class directly
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{DecisionTreeInternalNode} (\texttt{classes/decision\_tree\_internal\_node.py})
+
+Represents an internal node in a decision tree that contains a decision attribute and branches.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{attribute\_label} (str) - The attribute this node makes decisions on
+		      \item \texttt{branches} (List[DecisionTreeBranch]) - The branches starting from this node
+	      \end{itemize}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{get\_label()} - Returns the attribute label
+		      \item \texttt{get\_branches()} - Returns list of branches
+	      \end{itemize}
+	\item \textbf{Usage:} Created when building decision tree for non-leaf nodes
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+internal_node = DecisionTreeInternalNode("Age", branches_list)
+attribute = internal_node.get_label()  # Returns "Age"
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{DecisionTreeLeafNode} (\texttt{classes/decision\_tree\_leaf\_node.py})
+
+Represents a leaf node in a decision tree that contains a final class prediction.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{class\_label} (str|int|float) - The predicted class for this leaf
+	      \end{itemize}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{get\_label()} - Returns the class label
+	      \end{itemize}
+	\item \textbf{Usage:} Created when building decision tree for terminal nodes
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+leaf_node = DecisionTreeLeafNode("Yes")
+prediction = leaf_node.get_label()  # Returns "Yes"
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{DecisionTreeBranch} (\texttt{classes/decision\_tree\_branch.py})
+
+Represents a branch connecting nodes in a decision tree.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{label} (DecisionTreeDecisionOutcome) - The condition for this branch
+		      \item \texttt{branch\_node} (DecisionTreeNode) - The node this branch leads to
+	      \end{itemize}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{get\_label()} - Returns the branch condition
+		      \item \texttt{get\_branch\_node()} - Returns the destination node
+		      \item \texttt{value\_matches(value)} - Checks if a value satisfies the branch condition
+	      \end{itemize}
+	\item \textbf{Usage:} Connects internal nodes to their child nodes with conditions
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+outcome = DecisionTreeDecisionOutcomeAbove(25)
+branch = DecisionTreeBranch(outcome, child_node)
+if branch.value_matches(30):  # True, since 30 > 25
+    next_node = branch.get_branch_node()
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\vspace*{0.5cm}
+
+\subsubsection*{Decision Outcome Classes}
+
+\paragraph{DecisionTreeDecisionOutcome} (\texttt{classes/decision\_tree\_decision\_outcome.py})
+
+Abstract base class for all decision outcomes in decision trees.
+
+\begin{itemize}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{value\_matches(value)} - Checks if a value matches this outcome
+	      \end{itemize}
+	\item \textbf{Usage:} Base class for specific outcome types
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{DecisionTreeDecisionOutcomeEquals} (\texttt{classes/decision\_tree\_decision\_outcome\_equals.py})
+
+Represents an outcome where values must exactly equal a specific value.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{value} (str|int|float) - The exact value required for this outcome
+	      \end{itemize}
+	\item \textbf{Usage:} Used for categorical attributes or exact numeric matches
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+outcome = DecisionTreeDecisionOutcomeEquals("High")
+print(outcome.value_matches("High"))   # True
+print(outcome.value_matches("Medium")) # False
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{DecisionTreeDecisionOutcomeAbove} (\texttt{classes/decision\_tree\_decision\_outcome\_above.py})
+
+Represents an outcome where values must be above a threshold.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{value} (str|int|float) - The threshold value
+	      \end{itemize}
+	\item \textbf{Usage:} Used for continuous attributes with upper splits
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+outcome = DecisionTreeDecisionOutcomeAbove(25)
+print(outcome.value_matches(30))  # True, since 30 > 25
+print(outcome.value_matches(20))  # False, since 20 <= 25
+print(str(outcome))               # ">25"
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{DecisionTreeDecisionOutcomeBelowEqual} \hfill \\ (\texttt{classes/decision\_tree\_decision\_outcome\_below\_equal.py})
+
+Represents an outcome where values must be below or equal to a threshold.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{value} (str|int|float) - The threshold value
+	      \end{itemize}
+	\item \textbf{Usage:} Used for continuous attributes with lower splits
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+outcome = DecisionTreeDecisionOutcomeBelowEqual(25)
+print(outcome.value_matches(20))  # True, since 20 <= 25
+print(outcome.value_matches(30))  # False, since 30 > 25
+print(str(outcome))               # "<=25"
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{DecisionTreeDecisionOutcomeInList} (\texttt{classes/decision\_tree\_decision\_outcome\_in\_list.py})
+
+Represents an outcome where values must be in a specific list of allowed values.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{value} (List[str|int|float]) - List of allowed values for this outcome
+	      \end{itemize}
+	\item \textbf{Usage:} Used for categorical attributes with multiple valid values
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+outcome = DecisionTreeDecisionOutcomeInList(["High", "Medium"])
+print(outcome.value_matches("High"))   # True
+print(outcome.value_matches("Medium")) # True
+print(outcome.value_matches("Low"))    # False
+print(str(outcome))                    # "{High, Medium}"
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\vspace*{0.5cm}
+
+\subsubsection*{Naïve Bayes Data Structures}
+
+\paragraph{NaiveBayesPriorProbabilities} (\texttt{classes/naive\_bayes\_prior\_probabilities.py})
+
+Stores prior probabilities for each class in a Naïve Bayes classifier.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{prior\_probabilities} (dict) - Dictionary mapping class labels to probabilities
+	      \end{itemize}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{add\_prior\_probability(class\_label, probability)} - Adds a prior probability
+		      \item \texttt{get\_prior\_probability(class\_label)} - Retrieves a prior probability
+	      \end{itemize}
+	\item \textbf{Usage:} Stores P(Class) for each class label
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+priors = NaiveBayesPriorProbabilities()
+priors.add_prior_probability("Yes", 0.6)
+priors.add_prior_probability("No", 0.4)
+prob_yes = priors.get_prior_probability("Yes")  # Returns 0.6
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{NaiveBayesLikelihoods} (\texttt{classes/naive\_bayes\_likelihoods.py})
+
+Stores likelihoods for attributes given class labels in a Naïve Bayes classifier.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{likelihoods} (dict) - Nested dictionary storing likelihood information
+	      \end{itemize}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{add\_categorical\_likelihood(attribute, value, class\_label, likelihood)} - Adds likelihood for categorical attributes
+		      \item \texttt{add\_continuous\_likelihood(attribute, class\_label, mean, std)} - Adds parameters for continuous attributes
+		      \item \texttt{get\_likelihood(attribute, value, class\_label)} - Retrieves likelihood for given parameters
+	      \end{itemize}
+	\item \textbf{Usage:} Stores P(Attribute|Class) for both categorical and continuous attributes
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+likelihoods = NaiveBayesLikelihoods()
+
+# For categorical attribute
+likelihoods.add_categorical_likelihood("Major", "CS", "Yes", 0.8)
+
+# For continuous attribute (stores mean and std for Gaussian)
+likelihoods.add_continuous_likelihood("Age", "Yes", 24.5, 2.1)
+
+# Retrieve likelihoods
+prob_cs_given_yes = likelihoods.get_likelihood("Major", "CS", "Yes")     # 0.8
+prob_age_given_yes = likelihoods.get_likelihood("Age", 25.0, "Yes")      # Calculated using Gaussian
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\vspace*{0.5cm}
+
+\subsubsection*{Practical Tips}
+
+\begin{itemize}
+	\item \textbf{Decision Tree Construction:} \\ Use DecisionTreeInternalNode for decision points and DecisionTreeLeafNode for final predictions
+	\item \textbf{Outcome Matching:} \\ Different outcome types handle different split conditions - choose the appropriate type based on your attribute and split
+	\item \textbf{Type Hints:} \\ Pay attention to the expected types in method signatures - many methods accept str|int|float for flexibility
+	\item \textbf{Error Handling:} \\ The classes include appropriate error checking and warnings for common mistakes
+	\item \textbf{String Representations:} \\ Most classes have useful \_\_str\_\_ methods for debugging and visualization
+	\item \textbf{Decision Tree Traversal:} \\ Use the value\_matches() method on branches to determine which path to follow during prediction
+\end{itemize}
+
+\vspace*{0.3cm}
 
 \end{document}
