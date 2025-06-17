@@ -16,7 +16,8 @@ smallborders
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage{array}
-\usepackage[]{mdframed}
+\usepackage{enumitem}
+
 \usepackage{listings}
 \usepackage{multicol}
 \usetikzlibrary{calc}
@@ -34,6 +35,24 @@ smallborders
 	numbers=left,
 	stepnumber=1,
 	deletekeywords=[2]{abs,max}
+}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,skins,breakable}
+
+\newtcolorbox{functionbox}[1]{
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    fonttitle=\bfseries,
+    title=#1,
+	arc=0mm,
+	outer arc=0mm,
+    breakable,
+    enhanced,
+	boxrule=1pt,
+    attach boxed title to top left={yshift=-3mm,xshift=5mm},
+    boxed title style={colback=gray!85!black,arc=1mm},
+    before upper={\parindent=0pt}
 }
 
 \newcommand{\points}[1]{\hfill \color{red}(#1 Points)\color{black}}
@@ -100,7 +119,6 @@ smallborders
     \end{center}
 }
 
-
 \hyphenation{Stud-On}
 
 \begin{document}
@@ -143,12 +161,12 @@ This will be checked on a random basis, and any attempt to do so will result in 
 
 \newpage
 
-\section*{Task 1: K-means \points{14}}
+\section*{Task 1: K-means}
 \label{sec:task-one}
 
 K-means is a simple and widely used clustering algorithm. It partitions a dataset into \textit{k} clusters by iteratively assigning each data point to the cluster with the nearest centroid and updating the centroids based on the mean of the data points in the cluster.
 
-\subsection*{Task 1.1}
+\subsection*{Task 1.1 \points{3}}
 
 The first step of the K-means algorithm is to distribute the data points to the k partitions. This partition can be done randomly or by using a more sophisticated method. All partitions have to be non-empty after the initialization and each data point has to be assigned to exactly one partition.
 
@@ -156,31 +174,35 @@ Open \texttt{kmeans.py} and implement \texttt{\_initialize\_partitions}, which i
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
-def _initialize_partitions(self, points: List[Point]):
-	"""
-	Initializes the partitions (self.partitions) by assigning each point 
-	to a cluster/partition.
-	All clusters/partitions are non empty after this method is called.
-
-	Parameters:
-	points (List[Point]): The points to cluster
-	"""
-	# Check if the number of points is greater or equal to the number of clusters
-	if len(points) < self.k:
-		raise ValueError(
-			"Number of points has to be greater or equal to the number of clusters."
-		)
-
-	# TODO
+\begin{functionbox}{\_initialize\_partitions}
+	\begin{lstlisting}[numbers=none]
+def _initialize_partitions(
+    self, 
+    points: List[Point]
+):
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Initializes the partitions (self.partitions) by assigning each point to a cluster/partition. All clusters/partitions are non empty after this method is called.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{points} (List[Point]): The points to cluster.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item None - The method stores the partitions in \texttt{self.partitions}
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The method expects a list of \texttt{Point}s and does not return anything. The method should put each point into one of the partitions available at \texttt{self.partitions}. The number of partitions is given by the variable \texttt{self.k}.
 
-You can test whether your implementation is correct by executing the following command in
-the console:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -188,9 +210,9 @@ the console:
 pytest tests/kmeans/test_initialize_partitions.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
-\subsection*{Task 1.2}
+\subsection*{Task 1.2 \points{3}}
 
 A second important part of the K-means algorithm is to update the centroids of the partitions. The centroid of a partition is the mean of all points in the partition.
 
@@ -198,31 +220,32 @@ Open \texttt{kmeans.py} and implement \texttt{\_update\_centroids}, which update
 
 \vspace*{0.3cm}
 
-\newpage
-
-\begin{lstlisting}
+\begin{functionbox}{\_update\_centroids}
+	\begin{lstlisting}[numbers=none]
 def _update_centroids(self):
-	"""
-	Updates the centroids of the partitions and writes the new centroids
-	into self.centroids.
-	"""
-	# Make sure that all partitions are non-empty
-	for partition in self.partitions:
-		if len(partition) == 0:
-			# Throw an error if a partition is empty
-			raise ValueError(
-				"All partitions have to be non-empty before updating the centroids."
-			)
-
-	# TODO	
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Updates the centroids of the partitions and writes the new centroids into self.centroids.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item None
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item None - The method updates \texttt{self.centroids}
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The method does not expect any parameters and does not return anything. The method should update the \texttt{self.centroids} based on the mean of all points in the partition. The i-th centroid in \texttt{self.centroids} should refer to the i-th partition in \texttt{self.partitions}.
 
-You can test whether your implementation is correct by executing the following command in
-the console:
+You can test whether your implementation is correct by executing the following command in the console:
 
 \vspace*{0.3cm}
 
@@ -230,35 +253,38 @@ the console:
 pytest tests/kmeans/test_update_centroids.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
-\subsection*{Task 1.3}
+\subsection*{Task 1.3 \points{5}}
 
 The last step of the K-means algorithm is to assign each data point to the cluster with the nearest centroid. 
 
-Open \texttt{kmeans.py} and implement \texttt{\_reassign\_points(self)}, which assigns each data point to the partition with the nearest centroid:
+Open \texttt{kmeans.py} and implement \texttt{\_reassign\_points}, which assigns each data point to the partition with the nearest centroid:
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
+\begin{functionbox}{\_reassign\_points}
+	\begin{lstlisting}[numbers=none]
 def _reassign_points(self) -> bool:
-	"""
-	Reassigns each point to the partition with the closest centroid.
-
-	Ensures that each partition is non-empty after reassigning the points,
-	by randomly reassigning a single point from a random non-empty partition
-	with more than one element into each empty partition.
-
-	This is necessary to avoid empty partitions, which would lead to k-means
-	not producing k clusters, but k-n clusters (n is the number of empty partitions).
-
-	Returns:
-	bool: True if the reassignment changed the partitions, False otherwise
-	"""
-	# TODO
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Reassigns each point to the partition with the closest centroid. Ensures that each partition is non-empty after reassigning the points, by randomly reassigning a single point from a random non-empty partition with more than one element into each empty partition.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item None
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{bool}: True if the reassignment changed the partitions, False otherwise
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The method does not expect any parameters and returns a boolean. The method should remove all points from their previous partition and add them to the partition with the nearest centroid if there is a closer centroid. If the reassignment changed the partitions, the method should return \texttt{True}, otherwise \texttt{False}.
 
@@ -272,9 +298,9 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/kmeans/test_reassign_points.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
-\subsection*{Task 1.4}
+\subsection*{Task 1.4 \points{3}}
 
 The K-means algorithm is iterative. The algorithm stops if the partitions do not change anymore or if a maximum number of iterations is reached.
 
@@ -282,18 +308,31 @@ Open \texttt{kmeans.py} and implement \texttt{fit}, which combines the previous 
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
-def fit(self, points: List[Point]):
-	"""
-	Fit the K-Means clustering instance to the given points.
-
-	Parameters:
-	points (List[Point]): The points to cluster
-	"""
-	# TODO
+\begin{functionbox}{fit}
+	\begin{lstlisting}[numbers=none]
+def fit(
+    self, 
+    points: List[Point]
+):
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Fit the K-Means clustering instance to the given points.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{points} (List[Point]): The points to cluster.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item None
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The method expects a list of \texttt{Point}s and does not return anything. The method should implement the K-means algorithm by calling the methods \texttt{\_initialize\_partitions}, \texttt{\_update\_centroids}, and \texttt{\_reassign\_points}. 
 
@@ -304,8 +343,6 @@ You can test whether your implementation is correct by executing the following c
 \begin{lstlisting}
 pytest tests/kmeans/test_fit.py
 \end{lstlisting}
-
-\vspace*{0.1cm}
 
 \newpage
 
@@ -318,26 +355,37 @@ DBSCAN is a density-based clustering algorithm that groups together points that 
 
 A core part of the DBSCAN algorithm is to find all points that are within a distance of $\varepsilon$ of a given point, the so-called $\varepsilon$-Neighborhood.
 
-Open \texttt{dbscan.py} and implement \texttt{\_epsilon\_neighborhood}, which returns all points that are within a distance of $\varepsilon$ of a given point:
+Open \texttt{dbscan.py} and implement \texttt{\_get\_neighborhood}, which returns all points that are within a distance of $\varepsilon$ of a given point:
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
-def _get_neighborhood(self, point: Point, points: List[Point]) -> List[Point]:
-	"""
-	Get the neighborhood of a point.
-
-	Parameters:
-	point (Point): The point to get the neighborhood of.
-	points (List[Point]): The points to consider.
-
-	Returns:
-	List[Point]: The points in the neighborhood.
-	"""
-	# TODO
+\begin{functionbox}{\_get\_neighborhood}
+	\begin{lstlisting}[numbers=none]
+def _get_neighborhood(
+    self, 
+    point: Point, 
+    points: List[Point]
+) -> List[Point]:
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Get the neighborhood of a point.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{point} (Point): The point to get the neighborhood of.
+		\item \texttt{points} (List[Point]): The points to consider.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{List[Point]}: The points in the neighborhood.
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The method expects the \texttt{Point} for which the neighborhood should be determined and a list of all \texttt{Point}s that should be considered. The method should return all points that are within a distance of $\varepsilon$ of the given point as a list of \texttt{Point}s. $\varepsilon$ is given by the variable \texttt{self.epsilon}.
 
@@ -349,28 +397,41 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/dbscan/test_epsilon_neighborhood.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
+\newpage
 
 \subsection*{Task 2.2 \points{14}}
 
-The function \texttt{\_epsilon\_neighborhood} can be used to implement the DBSCAN algorithm. The algorithm can be implemented either iteratively or recursively.
+The function \texttt{\_get\_neighborhood} can be used to implement the DBSCAN algorithm. The algorithm can be implemented either iteratively or recursively.
 
 Open \texttt{dbscan.py} and implement \texttt{fit}, which implements the DBSCAN algorithm:
 
 \vspace*{0.3cm}
 
-\begin{lstlisting}
-def fit(self, points: List[Point]) -> None:
-	"""
-	Fit the DBSCAN clustering instance to the given points.
-
-	Parameters:
-	points (List[Point]): The points to cluster.
-	"""
-	# TODO
+\begin{functionbox}{fit}
+	\begin{lstlisting}[numbers=none]
+def fit(
+    self, 
+    points: List[Point]
+) -> None:
 \end{lstlisting}
+	
+	\textbf{Description:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item Fit the DBSCAN clustering instance to the given points.
+	\end{itemize}
+	
+	\textbf{Parameters:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item \texttt{points} (List[Point]): The points to cluster.
+	\end{itemize}
+	
+	\textbf{Returns:}
+	\begin{itemize}[leftmargin=*,topsep=0pt]
+		\item None - The method stores the found clusters in \texttt{self.clusters} and the noise points in \texttt{self.noise}
+	\end{itemize}
+\end{functionbox}
 
-\vspace*{0.1cm}
+\vspace*{0.5cm}
 
 The method expects a list of \texttt{Point}s and does store the found clusters in the variable \texttt{self.clusters} and the noise points in the variable \texttt{self.noise}. 
 
@@ -384,36 +445,17 @@ You can test whether your implementation is correct by executing the following c
 pytest tests/dbscan/test_fit.py
 \end{lstlisting}
 
-\vspace*{0.1cm}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \newpage
 
 \section*{Appendices}
 
 In \hyperref[sec:task-one]{Task 1} and \hyperref[sec:task-two]{Task 2} test cases are provided and used to grade the submission.
 
+\subsection*{Dataset(s)}
+
 The most test cases are based on the following data sets:
 
-\subsection*{Small Point Dataset}
+\subsubsection*{Small Point Dataset}
 
 All test cases starting with the prefix \texttt{test\_with\_small\_point\_dataset} are based on the small dataset of 2D Points known from Exercise Sheet 5 - Task 1/Task 2.
 
@@ -422,7 +464,7 @@ The dataset is structured as follows:
 \CoordinateSystem{(1,1), (1,2), (1,4), (2,1), (2,3), (3,2), (3,4), (4,1), (4,3), (4,4)}{0}{5}{0}{5}{5cm}{5}
 
 
-\subsection*{Bigger Point Dataset}
+\subsubsection*{Bigger Point Dataset}
 
 All test cases starting with the prefix \texttt{test\_with\_bigger\_point\_dataset} are based on a bigger dataset of one-hundred 2D Points.
 
@@ -449,5 +491,101 @@ The dataset is structured as follows:
 	(8,8), (8,9), (9,-10), (9,-9), (9,9), (9,10),
 	(10,-10), (10,-8), (10,10)
 }{-11}{11}{-13}{13}{7cm}{5}
+
+
+\subsection*{Helper Classes}
+
+The following helper classes are provided in the \texttt{classes/} folder to support your implementation. Each class serves a specific purpose in the clustering algorithms.
+
+\vspace*{0.5cm}
+
+\subsubsection*{Basic Data Structures}
+
+\paragraph{Point} (\texttt{classes/point.py})
+
+Represents a single point in 2D space with additional flags for DBSCAN.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{x} (float) - The x-coordinate of the point
+		      \item \texttt{y} (float) - The y-coordinate of the point
+		      \item \texttt{visited} (bool) - Flag for DBSCAN to indicate if the point has been visited (default: False)
+		      \item \texttt{clustered} (bool) - Flag for DBSCAN to indicate if the point is part of a cluster (default: False)
+	      \end{itemize}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{get\_x()} - Returns the x-coordinate
+		      \item \texttt{get\_y()} - Returns the y-coordinate
+		      \item \texttt{get\_distance(other)} - Calculates Euclidean distance to another point
+		      \item \texttt{is\_visited()} / \texttt{set\_visited(visited)} - Check/set visited flag
+		      \item \texttt{is\_clustered()} / \texttt{set\_clustered(clustered)} - Check/set clustered flag
+	      \end{itemize}
+	\item \textbf{Usage:} Create points like \texttt{Point(1.0, 2.0)} or \texttt{Point(3.5, 4.2, visited=True)}
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+point1 = Point(1.0, 2.0)
+point2 = Point(4.0, 6.0)
+distance = point1.get_distance(point2)  # Calculate distance
+point1.set_visited(True)  # Mark as visited for DBSCAN
+print(f"Point: {point1}")  # Output: (1.0, 2.0)
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\paragraph{Cluster} (\texttt{classes/cluster.py})
+
+Represents a cluster (or partition) of points. Can be used for both K-means partitions and DBSCAN clusters.
+
+\begin{itemize}
+	\item \textbf{Attributes:}
+	      \begin{itemize}
+		      \item \texttt{points} (List[Point]) - List of points in the cluster
+	      \end{itemize}
+	\item \textbf{Key Methods:}
+	      \begin{itemize}
+		      \item \texttt{add\_point(point)} - Add a point to the cluster
+		      \item \texttt{remove\_point(point)} - Remove a point from the cluster
+		      \item \texttt{get\_points()} - Returns all points as a list
+		      \item \texttt{\_\_contains\_\_(point)} - Check if point is in cluster (enables \texttt{point in cluster})
+		      \item \texttt{\_\_len\_\_()} - Get number of points in cluster (enables \texttt{len(cluster)})
+		      \item \texttt{\_\_iter\_\_()} - Iterate over points (enables \texttt{for point in cluster})
+	      \end{itemize}
+	\item \textbf{Usage:} Essential for storing and managing groups of points in both algorithms
+	\item \textbf{Example:}
+	      \begin{lstlisting}
+cluster = Cluster()
+cluster.add_point(Point(1.0, 2.0))
+cluster.add_point(Point(3.0, 4.0))
+
+print(f"Cluster size: {len(cluster)}")  # Output: 2
+for point in cluster:
+    print(f"Point: {point}")
+
+if Point(1.0, 2.0) in cluster:
+    print("Point found in cluster")
+    \end{lstlisting}
+\end{itemize}
+
+\vspace*{0.3cm}
+
+\vspace*{0.5cm}
+
+\subsubsection*{Practical Tips}
+
+\begin{itemize}
+	\item \textbf{Distance Calculation:} \\ Use \texttt{point1.get\_distance(point2)} for Euclidean distance between points
+	\item \textbf{DBSCAN Flags:} \\ The \texttt{visited} and \texttt{clustered} flags in Point are specifically designed for DBSCAN implementation
+	\item \textbf{K-means Partitions:} \\ Use Cluster objects to represent the k partitions in K-means
+	\item \textbf{DBSCAN Clusters:} \\ Use Cluster objects to store the final clusters found by DBSCAN
+	\item \textbf{Iteration:} \\ Both Point and Cluster classes support Python's standard iteration patterns
+	\item \textbf{Point Equality:} \\ Points are considered equal if they have the same x and y coordinates
+	\item \textbf{Debugging:} \\ Both classes have \texttt{\_\_str\_\_} methods for easy printing and debugging
+	\item \textbf{Neighborhood Search:} \\ For DBSCAN, use \texttt{get\_distance()} to find points within epsilon distance
+\end{itemize}
+
+\vspace*{0.3cm}
+
 
 \end{document}
