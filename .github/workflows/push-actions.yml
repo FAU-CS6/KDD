@@ -200,10 +200,19 @@ jobs:
               -e "s/\[LONG_SHA_OF_UPDATE\]/${LONG_SHA}/g" \
               .github/workflows/pages/index.template.html > artifacts/index.html
 
-      - name: Copy logo(s) to artifacts
+      - name: Create sitemap.xml
+        run: |
+          CURRENT_TIME=$(TZ="Europe/Berlin" date -u +"%Y-%m-%dT%H:%M:%S+00:00")
+          LONG_SHA=$(git rev-parse HEAD)
+
+          sed -e "s/\[DATE_OF_UPDATE\]/${CURRENT_TIME}/g" \
+              .github/workflows/pages/sitemap.template.xml > artifacts/sitemap.xml
+
+      - name: Copy the logo(s) and the google search console identification to artifacts
         run: |
           cp .github/workflows/pages/fau-logo.svg artifacts/fau-logo.svg
           cp .github/workflows/pages/favicon.png artifacts/favicon.png
+          cp .github/workflows/pages/google1cda3c705da932df.html artifacts/google1cda3c705da932df.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
