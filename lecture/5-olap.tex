@@ -12,6 +12,9 @@
 	inst=tf%
 ]{fau}
 
+% Load the Git hash for the version
+\input{x-additional/vc.tex}
+
 % Set all important settings and define commands that are used in more than one lecture
 \input{x-additional/preamble}
 
@@ -21,34 +24,7 @@
 \input{x-additional/dp.tex}
 
 % Metadata
-\input{x-additional/vc.tex}
-\hypersetup{
-	pdftitle={KDDmUe - 5. Data Warehousing and Online Analytical Processing},
-	pdfkeywords={
-		KDD, 
-		KDDmUe, 
-		Knowledge Discovery in Databases, 
-		Knowledge Discovery in Databases with Exercises, 
-		FAU Erlangen-Nürnberg, 
-		Data Science, 
-		Machine Learning, 
-		Data Mining, 
-		Lecture, 
-		Data Warehousing,
-		OLAP,
-		Data Cube,
-		Star Schema,
-		ETL,
-		Extract, Transform, Load,
-		OLAP Operations,
-		Slice and Dice,
-		Decision Support,
-		Version \GITAbrHash
-	},
-	pdfsubject={Lecture on data warehousing and OLAP: covers data cube modeling, star schemas, ETL processes, and OLAP operations like slice and dice for decision support.},
-	pdfcreator={Dominik Probst, CS6, FAU Erlangen-Nürnberg},
-	pdflang={English}
-}
+\metadata{5. Data Warehousing and Online Analytical Processing}{Data Warehousing, OLAP, Data Cube, Star Schema, ETL, Extract, Transform, Load, OLAP Operations, Slice and Dice, Decision Support}{Lecture on data warehousing and OLAP: covers data cube modeling, star schemas, ETL processes, and OLAP operations like slice and dice for decision support.}
 
 % Define a custom column type
 \newcolumntype{b}{>{\columncolor{faugray!62}}l}

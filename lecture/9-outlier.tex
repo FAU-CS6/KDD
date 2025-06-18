@@ -12,6 +12,9 @@
 	inst=tf%
 ]{fau}
 
+% Load the Git hash for the version
+\input{x-additional/vc.tex}
+
 % Set all important settings and define commands that are used in more than one lecture
 \input{x-additional/preamble}
 
@@ -21,32 +24,7 @@
 \input{x-additional/dp.tex}
 
 % Metadata
-\input{x-additional/vc.tex}
-\hypersetup{
-	pdftitle={KDDmUe - 9. Outlier Analysis},
-	pdfkeywords={
-		KDD, 
-		KDDmUe, 
-		Knowledge Discovery in Databases, 
-		Knowledge Discovery in Databases with Exercises, 
-		FAU Erlangen-Nürnberg, 
-		Data Science, 
-		Machine Learning, 
-		Data Mining, 
-		Lecture, 
-		Outlier Analysis,
-		Outlier Detection,
-		Outlier Definition,
-		Outlier Types,
-		Outlier Detection Methods,
-		Statistical Approaches,
-		Proximity-Based Approaches,
-		Version \GITAbrHash
-	},
-	pdfsubject={Lecture on outlier analysis: definition, types, detection methods, statistical and proximity-based approaches, and applications in data mining.},
-	pdfcreator={Dominik Probst, CS6, FAU Erlangen-Nürnberg},
-	pdflang={English}
-}
+\metadata{9. Outlier Analysis}{Outlier Analysis, Outlier Detection, Outlier Definition, Outlier Types, Outlier Detection Methods, Statistical Approaches, Proximity-Based Approaches}{Lecture on outlier analysis: definition, types, detection methods, statistical and proximity-based approaches, and applications in data mining.}
 
 % Create custom commands
 \newcommand*\eqmark[3]{{\color{#1}\underbrace{\color{black}#2}_{\tikzmark{#3}}}}

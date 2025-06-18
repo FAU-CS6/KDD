@@ -138,3 +138,18 @@
 \newcommand{\plotm}{2.19882}
 \newcommand{\MaxNumberX}{3}
 \newcommand{\MaxNumberY}{5}
+
+% Define the Metadata command
+% Parameters:
+%  #1 - Section name
+%  #2 - Lecture specific keywords
+%  #3 - Lecture specific short description
+\newcommand{\metadata}[3]{
+	\hypersetup{
+		pdftitle={#1 - Knowledge Discovery in Databases with Exercises (Version \GITAbrHash)},
+		pdfkeywords={KDD, KDDmUe, Knowledge Discovery in Databases, Knowledge Discovery in Databases with Exercises, FAU Erlangen-Nürnberg, Data Science, Machine Learning, Data Mining, Lecture, #2},
+		pdfsubject={#3},
+		pdfauthor={Chair of Computer Science 6 (Data Management), FAU Erlangen-Nürnberg},
+		pdflang={English}
+	}
+}

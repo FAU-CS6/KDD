@@ -12,6 +12,9 @@
 	inst=tf%
 ]{fau}
 
+% Load the Git hash for the version
+\input{x-additional/vc.tex}
+
 % Set all important settings and define commands that are used in more than one lecture
 \input{x-additional/preamble}
 
@@ -21,32 +24,7 @@
 \input{x-additional/dp.tex}
 
 % Metadata
-\input{x-additional/vc.tex}
-\hypersetup{
-	pdftitle={KDDmUe - 7. Classification},
-	pdfkeywords={
-		KDD, 
-		KDDmUe, 
-		Knowledge Discovery in Databases, 
-		Knowledge Discovery in Databases with Exercises, 
-		FAU Erlangen-Nürnberg, 
-		Data Science, 
-		Machine Learning, 
-		Data Mining, 
-		Lecture, 
-		Classification,
-		Decision Trees,
-		Rule-Based Systems,
-		Bayes Classifiers,
-		Model Evaluation Metrics,
-		Ensemble Techniques,
-		Version \GITAbrHash
-	},
-	pdfsubject={Lecture on classification methods: decision trees, rule-based systems, Bayes classifiers, model evaluation metrics, and ensemble techniques.},
-	pdfcreator={Dominik Probst, CS6, FAU Erlangen-Nürnberg},
-	pdflang={English}
-}
-
+\metadata{7. Classification}{Classification, Decision Trees, Rule-Based Systems, Bayes Classifiers, Model Evaluation Metrics, Ensemble Techniques}{Lecture on classification methods: decision trees, rule-based systems, Bayes classifiers, model evaluation metrics, and ensemble techniques.}
 
 % Create custom commands
 \newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{faucyan}{#1}}
