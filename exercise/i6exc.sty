@@ -141,3 +141,19 @@
 
 \newcommand{\mcsmall}{\Square}
 \newcommand{\mcsmallsol}{\ifsolutions \XBox \else \Square \fi}
+
+
+% Define the Metadata command
+% Parameters:
+%  #1 - Section name
+%  #2 - Lecture specific keywords
+%  #3 - Lecture specific short description
+\newcommand{\metadata}[3]{
+	\hypersetup{
+		pdftitle={#1 - Knowledge Discovery in Databases with Exercises},
+		pdfkeywords={KDD, KDDmUe, Knowledge Discovery in Databases, Knowledge Discovery in Databases with Exercises, FAU Erlangen-Nürnberg, Data Science, Machine Learning, Data Mining, Exercise, #2},
+		pdfsubject={#3},
+		pdfauthor={Chair of Computer Science 6 (Data Management), FAU Erlangen-Nürnberg},
+		pdflang={English}
+	}
+}
