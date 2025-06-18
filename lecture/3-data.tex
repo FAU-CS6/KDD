@@ -16,10 +16,40 @@
 \input{x-additional/preamble}
 
 % Title, author(s), and date
-\title[KDD~3.~Data]{3. Getting to Know Your Data} %
-\subtitle{Knowledge Discovery in Databases}
+\title[KDDmUe~3.~Data]{3. Getting to Know Your Data} %
+\subtitle{Knowledge Discovery in Databases with Exercises}
 \input{x-additional/dp.tex}
-\input{x-additional/get_git_rev.tex}
+
+% Metadata
+\input{x-additional/vc.tex}
+\hypersetup{
+	pdftitle={KDDmUe - 3. Getting to Know Your Data},
+	pdfkeywords={
+		KDD, 
+		KDDmUe, 
+		Knowledge Discovery in Databases, 
+		Knowledge Discovery in Databases with Exercises, 
+		FAU Erlangen-Nürnberg, 
+		Data Science, 
+		Machine Learning, 
+		Data Mining, 
+		Lecture, 
+		Data,
+		Data Objects,
+		Data Types,
+		Data Statistical Description,
+		Data Visualization,
+		Data Similarity,
+		Data Understanding,
+		Basic Data Analysis,
+		Data Exploration,
+		Version \GITAbrHash
+	},
+	pdfsubject={Lecture on data types, statistical descriptors, visualization techniques, and similarity measures to understand, analyze, and compare data.},
+	pdfcreator={Dominik Probst, CS6, FAU Erlangen-Nürnberg},
+	pdflang={English}
+}
+
 
 % Read in the required data files
 \pgfplotstableread{data/iris.dat}\iris
