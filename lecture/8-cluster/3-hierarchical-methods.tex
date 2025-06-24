@@ -433,7 +433,7 @@
 		\item \textbf{Allows to derive many useful statistics of a cluster. E.g.:}
 		      \begin{itemize}
 			      \item centroid: $c = \frac{\sum_{i=1}^{n}o_i}{n} = \frac{LS}{n}$,
-			      \item radius: $R = \sqrt{\frac{\sum_{i=1}^{n}(x_i-c)^2}{n}} = \sqrt{\frac{nSS-2LS^2+nLS}{n^2}}$,
+			      \item radius: $R = \sqrt{\frac{\sum_{i=1}^{n}(x_i-c)^2}{n}} = \sqrt{\frac{SS}{n}-(\frac{LS}{n})^2}$,
 			      \item diameter: $D = \sqrt{\frac{\sum_{i=1}^{n}\sum_{j=1}^{n}(x_i-x_j)^2}{n(n-1)}} = \sqrt{\frac{2nSS-2LS^2}{n(n-1)}}$
 		      \end{itemize}
 		\item \textbf{Additive:}
