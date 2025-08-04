@@ -73,7 +73,7 @@
 
 \begin{frame}{Directly Density-reachable}
 	\begin{itemize}
-		\item A point $q$ is said to be directly density-reachable from a point
+		\item A point $q$ is said to be directly density-reachable from a core point
 		      $p$ \\
 		      w.r.t. $\epsilon$, MinPts, if $q$ belongs to $N_{\epsilon}(p)$.
 	\end{itemize}
@@ -112,7 +112,7 @@
 		\item \textbf{\color{airforceblue}Density-reachable:}
 		      \begin{itemize}
 			      \item A point $q$ is density-reachable from a point $p$ w.r.t.
-			            $\epsilon$, MinPts, if there is a \textbf{chain of points} $p_1,
+			            $\epsilon$, MinPts, if there is a \textbf{chain of (core) points} $p_1,
 				            \ldots, p_n$, $p_1 = p$, $p_n = q$ such that $p_i+1$ is directly
 			            density-reachable from $p_i$.\\[0.2cm]
 			            \centering
@@ -143,7 +143,7 @@
 		\item \textbf{\color{airforceblue}Density-connected:}
 		      \begin{itemize}
 			      \item A point $p$ is density-connected to a point $q$ w.r.t.
-			            $\epsilon$, MinPts, if there is a point $o$ such that both $p$ and
+			            $\epsilon$, MinPts, if there is a (core) point $o$ such that both $p$ and
 			            $q$ are density-reachable from $o$. \\[0.2cm]
 			            \centering
 			            \begin{tikzpicture}[scale=1.1]
