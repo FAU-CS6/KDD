@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+
+<url>
+  <loc>https://fau-cs6.github.io/KDD/</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/lecture-slides/1-prologue.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/lecture-slides/2-introduction.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/lecture-slides/3-data.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/lecture-slides/4-preprocessing.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/lecture-slides/5-olap.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/lecture-slides/6-frequent-patterns.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/lecture-slides/7-classification.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/lecture-slides/8-cluster.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/lecture-slides/9-outlier.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student/1-Introduction-Python-Pandas-Student.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Solution/1-Introduction-Python-Pandas-Solution.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student/2-Data-Analysis-Preprocessing-Student.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Solution/2-Data-Analysis-Preprocessing-Solution.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student/3-Frequent-Patterns-Student.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Solution/3-Frequent-Patterns-Solution.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student/4-Classification-Student.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Solution/4-Classification-Solution.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student/5-Clustering-Student.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Solution/5-Clustering-Solution.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/submission-pdfs/1-Frequent-Patterns.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf</loc>
+  <lastmod>2025-12-02T09:07:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>
