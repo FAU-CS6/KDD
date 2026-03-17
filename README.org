@@ -32,16 +32,16 @@
   2. *Classification* - [[https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf][Task Description]]
   3. *Clustering* - [[https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf][Task Description]]
 
-* Summer Semester 2025
-  - Semester duration: 23 April 2025 – 25 July 2025
+* Summer Semester 2026
+  - Semester duration: 13 April 2026 – 17 July 2026
   - Public holidays:
-    - Wednesday, 1 May 2025
-    - Thursday, 29 May 2025
-    - Monday, 9 June 2025
-    - Thursday, 19 June 2025
+    - Friday, 1 May 2026
+    - Thursday, 14 May 2026
+    - Monday, 25 May 2026
+    - Thursday, 4 June 2026
   - FAU specific holidays (no lectures and exercises):
-    - Tuesday, 10 June 2025
-    - Friday, 20 June 2025
+    - Tuesday, 26 May 2026
+    - Friday, 5 June 2026
 
 * Setup for Building Lecture Slides Locally
 To build these lecture slides locally on your machine you'll need an up-to-date
