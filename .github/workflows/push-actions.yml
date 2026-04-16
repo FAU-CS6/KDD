@@ -212,7 +212,6 @@ jobs:
         run: |
           cp .github/workflows/pages/fau-logo.svg artifacts/fau-logo.svg
           cp .github/workflows/pages/favicon.png artifacts/favicon.png
-          cp .github/workflows/pages/google1cda3c705da932df.html artifacts/google1cda3c705da932df.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
