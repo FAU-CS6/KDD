@@ -5,9 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KDDmUe - Knowledge Discovery in Databases with Exercises</title>
+
     <meta name="description"
         content="Course materials for Knowledge Discovery in Databases with Exercises (KDDmUe / KDD) at Friedrich-Alexander Universität Erlangen-Nürnberg (FAU).">
+    <meta name="theme-color" content="#002f6c">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fau-cs6.github.io/KDD/">
+    <meta property="og:title" content="KDDmUe - Knowledge Discovery in Databases with Exercises">
+    <meta property="og:description"
+        content="Course materials for Knowledge Discovery in Databases with Exercises (KDDmUe / KDD) at Friedrich-Alexander Universität Erlangen-Nürnberg (FAU).">
+    <meta property="og:image" content="https://fau-cs6.github.io/KDD/favicon.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fau-cs6.github.io/KDD/">
+    <meta property="twitter:title" content="KDDmUe - Knowledge Discovery in Databases with Exercises">
+    <meta property="twitter:description"
+        content="Course materials for Knowledge Discovery in Databases with Exercises (KDDmUe / KDD) at Friedrich-Alexander Universität Erlangen-Nürnberg (FAU).">
+    <meta property="twitter:image" content="https://fau-cs6.github.io/KDD/favicon.png">
+
     <link rel="icon" type="image/ico" href="https://fau-cs6.github.io/KDD/favicon.png">
+
     <style>
         :root {
             --faublue: rgb(0, 47, 108);
@@ -80,6 +98,10 @@
             font-size: 1.25rem;
             font-weight: normal;
             color: var(--faugray);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .header-text {
@@ -88,6 +110,33 @@
 
         .logo {
             max-height: 70px;
+        }
+
+        .header-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--faucyandark);
+            background-color: rgba(0, 163, 224, 0.08);
+            border: 1px solid rgba(0, 163, 224, 0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .header-link-btn:hover {
+            background-color: var(--faucyandark) !important;
+            color: white !important;
+            border-color: var(--faucyandark);
+            text-decoration: none !important;
+        }
+
+        .header-link-btn svg {
+            width: 14px;
+            height: 14px;
         }
 
         .container {
@@ -138,10 +187,6 @@
             flex-wrap: wrap;
         }
 
-        .badges img {
-            height: 20px;
-        }
-
         .section ul {
             list-style-type: none;
         }
@@ -157,7 +202,6 @@
             gap: 0.5rem;
         }
 
-        /* --- Spoiler / Toggle Styles --- */
         .toggle-btn {
             display: inline-flex;
             align-items: center;
@@ -204,8 +248,6 @@
             display: block;
         }
 
-        /* ------------------------------- */
-
         .section ul li span.number {
             font-weight: bold;
             color: var(--faugraydark);
@@ -217,7 +259,6 @@
             margin-right: 0.25rem;
         }
 
-        /* --- Download Link Buttons --- */
         .link-group {
             display: inline-flex;
             flex-wrap: wrap;
@@ -240,7 +281,6 @@
             transition: all 0.2s ease;
         }
 
-        /* Automatisches Einfügen des Download-SVGs via Maske (erlaubt Anpassung der Icon-Farbe) */
         .section ul li a::before {
             content: '';
             display: inline-block;
@@ -270,7 +310,75 @@
             border-color: var(--faubluedark);
         }
 
-        /* ------------------------------- */
+        .course-summary {
+            background-color: rgba(0, 163, 224, 0.05);
+            border-left: 4px solid var(--faucyandark);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: 0 6px 6px 0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .course-summary p {
+            margin: 0;
+        }
+
+        .fautv-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--faured);
+            background-color: rgba(200, 15, 46, 0.08);
+            border: 1px solid rgba(200, 15, 46, 0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .fautv-btn:hover {
+            background-color: var(--faured);
+            color: white;
+            border-color: var(--faured);
+        }
+
+        .fautv-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .download-badge-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--faucyandark);
+            background-color: rgba(0, 97, 160, 0.08);
+            border: 1px solid rgba(0, 97, 160, 0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .download-badge-btn:hover {
+            background-color: var(--faucyandark);
+            color: white;
+            border-color: var(--faucyandark);
+        }
+
+        .download-badge-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
 
         .footer {
             background-color: white;
@@ -299,7 +407,6 @@
         }
 
         .footer a {
-            /* Im Footer heben wir das Button-Design auf */
             display: inline;
             background: none;
             border: none;
@@ -310,7 +417,6 @@
 
         .footer a::before {
             display: none;
-            /* Kein Icon im Footer */
         }
 
         .footer a:hover {
@@ -346,6 +452,7 @@
 
             .header h2 {
                 font-size: 1rem;
+                justify-content: center;
             }
 
             .logo {
@@ -395,10 +502,18 @@
         <div class="container">
             <div class="header-text">
                 <h1>Knowledge Discovery in Databases</h1>
-                <h2>with Exercises (KDDmUe) - <a
-                        href="https://www.campo.fau.de:443/qisserver/pages/startFlow.xhtml?_flowId=detailView-flow&unitId=83734&periodId=564&navigationPosition=studiesOffered,searchCourses"
-                        style="display:inline; background:none; border:none; padding:0; font-size:inherit;">Course
-                        Overview</a></h2>
+                <h2>with Exercises (KDDmUe)
+                    <a href="https://www.campo.fau.de:443/qisserver/pages/startFlow.xhtml?_flowId=detailView-flow&unitId=83734&periodId=564&navigationPosition=studiesOffered,searchCourses"
+                        target="_blank" rel="noopener noreferrer" class="header-link-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Course Overview
+                    </a>
+                </h2>
             </div>
             <a href="https://www.fau.eu/" style="display:inline; background:none; border:none; padding:0;"><img
                     src="https://fau-cs6.github.io/KDD/fau-logo.svg" alt="FAU Logo" class="logo"></a>
@@ -411,13 +526,34 @@
 
     <main class="content">
 
+        <div class="course-summary">
+            <p>This lecture series provides a comprehensive overview of Knowledge Discovery in Databases (KDD),
+                systematically covering the fundamental methodologies required to extract meaningful patterns from
+                large-scale data. It guides students through the entire data mining pipeline, starting with initial data
+                exploration, rigorous data preprocessing, and the principles of data warehousing using Online Analytical
+                Processing (OLAP). Furthermore, the course delves into core data mining techniques, including frequent
+                pattern mining, various classification models, cluster analysis, and outlier detection. By integrating
+                theoretical foundations with practical methodologies, the curriculum equips students with the analytical
+                skills necessary to evaluate complex data structures and derive actionable insights.</p>
+        </div>
+
         <section class="section" id="lecture">
             <div class="section-header">
                 <h2>Lecture</h2>
                 <div class="badges">
-                    <a href="https://fau-cs6.github.io/KDD/lecture-slides.zip"
-                        style="background:none; border:none; padding:0;"><img
-                            src="https://fau-cs6.github.io/KDD/gh-badges/lectures-badge.svg" alt="Lectures"></a>
+                    <a href="https://www.fau.tv/series/knowledge-discovery-in-databases-w25" target="_blank"
+                        rel="noopener noreferrer" class="fautv-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                        FAU.tv Recordings
+                    </a>
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides.zip" class="download-badge-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                        </svg>
+                        Download Slides
+                    </a>
                 </div>
             </div>
             <ul>
@@ -541,9 +677,12 @@
             <div class="section-header">
                 <h2>Exercise</h2>
                 <div class="badges">
-                    <a href="https://fau-cs6.github.io/KDD/exercise-archives.zip"
-                        style="background:none; border:none; padding:0;"><img
-                            src="https://fau-cs6.github.io/KDD/gh-badges/exercises-badge.svg" alt="Exercises"></a>
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives.zip" class="download-badge-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                        </svg>
+                        Download Exercises
+                    </a>
                 </div>
             </div>
             <ul>
@@ -670,9 +809,12 @@
             <div class="section-header">
                 <h2>Submission</h2>
                 <div class="badges">
-                    <a href="https://fau-cs6.github.io/KDD/submission-pdfs.zip"
-                        style="background:none; border:none; padding:0;"><img
-                            src="https://fau-cs6.github.io/KDD/gh-badges/submissions-badge.svg" alt="Submissions"></a>
+                    <a href="https://fau-cs6.github.io/KDD/submission-pdfs.zip" class="download-badge-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                        </svg>
+                        Download Submissions
+                    </a>
                 </div>
             </div>
             <ul>
@@ -743,10 +885,7 @@
 
             toggleButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Toggle the open class for the arrow rotation
                     btn.classList.toggle('open');
-
-                    // Find the description div next to the header and toggle it
                     const listItem = btn.closest('li');
                     const description = listItem.querySelector('.description');
 
