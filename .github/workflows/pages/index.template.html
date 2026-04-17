@@ -8,6 +8,11 @@
 
     <meta name="description"
         content="Course materials for Knowledge Discovery in Databases with Exercises (KDDmUe / KDD) at Friedrich-Alexander Universität Erlangen-Nürnberg (FAU).">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://fau-cs6.github.io/KDD/" />
+
     <meta name="theme-color" content="#002f6c">
 
     <meta property="og:type" content="website">
@@ -25,6 +30,20 @@
     <meta property="twitter:image" content="https://fau-cs6.github.io/KDD/favicon.png">
 
     <link rel="icon" type="image/ico" href="https://fau-cs6.github.io/KDD/favicon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "Knowledge Discovery in Databases with Exercises (KDDmUe)",
+      "description": "This lecture series provides a comprehensive overview of Knowledge Discovery in Databases (KDD), systematically covering the fundamental methodologies required to extract meaningful patterns from large-scale data.",
+      "provider": {
+        "@type": "CollegeOrUniversity",
+        "name": "Friedrich-Alexander-Universität Erlangen-Nürnberg",
+        "sameAs": "https://www.fau.eu/"
+      }
+    }
+    </script>
 
     <style>
         :root {
@@ -74,7 +93,7 @@
 
         .header h1 {
             font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0;
             color: var(--faugray);
         }
 
@@ -94,7 +113,8 @@
             width: 100%;
         }
 
-        .header h2 {
+        /* NEU: Ersetzt das alte h2 Styling für semantische Korrektheit */
+        .header-subtitle {
             font-size: 1.25rem;
             font-weight: normal;
             color: var(--faugray);
@@ -102,6 +122,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 0.5rem;
+            margin-top: 0.5rem;
         }
 
         .header-text {
@@ -450,7 +471,7 @@
                 font-size: 1.8rem;
             }
 
-            .header h2 {
+            .header-subtitle {
                 font-size: 1rem;
                 justify-content: center;
             }
@@ -502,21 +523,25 @@
         <div class="container">
             <div class="header-text">
                 <h1>Knowledge Discovery in Databases</h1>
-                <h2>with Exercises (KDDmUe)
+                <div class="header-subtitle">
+                    with Exercises (KDDmUe)
                     <a href="https://www.campo.fau.de:443/qisserver/pages/startFlow.xhtml?_flowId=detailView-flow&unitId=83734&periodId=564&navigationPosition=studiesOffered,searchCourses"
-                        target="_blank" rel="noopener noreferrer" class="header-link-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        target="_blank" rel="noopener noreferrer" class="header-link-btn"
+                        aria-label="Open Course Overview on Campo">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                             <polyline points="15 3 21 3 21 9"></polyline>
                             <line x1="10" y1="14" x2="21" y2="3"></line>
                         </svg>
                         Course Overview
                     </a>
-                </h2>
+                </div>
             </div>
-            <a href="https://www.fau.eu/" style="display:inline; background:none; border:none; padding:0;"><img
-                    src="https://fau-cs6.github.io/KDD/fau-logo.svg" alt="FAU Logo" class="logo"></a>
+            <a href="https://www.fau.eu/" style="display:inline; background:none; border:none; padding:0;"
+                aria-label="Homepage Friedrich-Alexander-Universität"><img
+                    src="https://fau-cs6.github.io/KDD/fau-logo.svg"
+                    alt="Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) Logo" class="logo"></a>
         </div>
     </header>
 
@@ -542,14 +567,15 @@
                 <h2>Lecture</h2>
                 <div class="badges">
                     <a href="https://www.fau.tv/series/knowledge-discovery-in-databases-w25" target="_blank"
-                        rel="noopener noreferrer" class="fautv-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        rel="noopener noreferrer" class="fautv-btn" aria-label="Watch FAU.tv Recordings">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z" />
                         </svg>
                         FAU.tv Recordings
                     </a>
-                    <a href="https://fau-cs6.github.io/KDD/lecture-slides.zip" class="download-badge-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <a href="https://fau-cs6.github.io/KDD/lecture-slides.zip" class="download-badge-btn"
+                        aria-label="Download all Lecture Slides as ZIP">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                         </svg>
                         Download Slides
@@ -561,8 +587,10 @@
                     <div class="item-header">
                         <span class="number">1.</span>
                         <span class="title">Prologue</span>
-                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/1-prologue.pdf">Slides</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/1-prologue.pdf"
+                            aria-label="Download Slides for Lecture 1: Prologue">Slides</a>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Prologue"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This introductory presentation outlines the foundational structure,
                         learning objectives, and expectations for our comprehensive course on knowledge discovery in
@@ -573,8 +601,10 @@
                     <div class="item-header">
                         <span class="number">2.</span>
                         <span class="title">Introduction</span>
-                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/2-introduction.pdf">Slides</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/2-introduction.pdf"
+                            aria-label="Download Slides for Lecture 2: Introduction">Slides</a>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Introduction"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This lecture explores the fundamental principles, overarching
                         methodologies, and significant challenges of data mining within an era of exponential data
@@ -585,8 +615,10 @@
                     <div class="item-header">
                         <span class="number">3.</span>
                         <span class="title">Data</span>
-                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/3-data.pdf">Slides</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/3-data.pdf"
+                            aria-label="Download Slides for Lecture 3: Data">Slides</a>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Data"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This session provides a detailed examination of data characteristics,
                         covering essential attribute types, statistical descriptors, and visualization techniques
@@ -598,8 +630,10 @@
                     <div class="item-header">
                         <span class="number">4.</span>
                         <span class="title">Preprocessing</span>
-                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/4-preprocessing.pdf">Slides</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/4-preprocessing.pdf"
+                            aria-label="Download Slides for Lecture 4: Preprocessing">Slides</a>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Preprocessing"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This presentation details the critical phases of data preprocessing,
                         including data cleaning, integration, reduction, and transformation, which are essential for
@@ -611,8 +645,10 @@
                     <div class="item-header">
                         <span class="number">5.</span>
                         <span class="title">OLAP</span>
-                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/5-olap.pdf">Slides</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/5-olap.pdf"
+                            aria-label="Download Slides for Lecture 5: OLAP">Slides</a>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for OLAP"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This presentation examines the foundational architectures of data
                         warehousing, emphasizing multidimensional data modeling and Online Analytical Processing. By
@@ -623,8 +659,11 @@
                     <div class="item-header">
                         <span class="number">6.</span>
                         <span class="title">Mining Frequent Patterns</span>
-                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/6-frequent-patterns.pdf">Slides</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/6-frequent-patterns.pdf"
+                            aria-label="Download Slides for Lecture 6: Mining Frequent Patterns">Slides</a>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Mining Frequent Patterns"><span
+                                class="chevron"></span></span>
                     </div>
                     <div class="description">This lecture explores the principles of frequent pattern mining and
                         association rule generation, which are essential for discovering inherent regularities within
@@ -635,8 +674,10 @@
                     <div class="item-header">
                         <span class="number">7.</span>
                         <span class="title">Classification</span>
-                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/7-classification.pdf">Slides</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/7-classification.pdf"
+                            aria-label="Download Slides for Lecture 7: Classification">Slides</a>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Classification"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This document provides a comprehensive overview of supervised learning,
                         specifically focusing on the theoretical underpinnings and practical applications of
@@ -648,8 +689,10 @@
                     <div class="item-header">
                         <span class="number">8.</span>
                         <span class="title">Cluster Analysis</span>
-                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/8-cluster.pdf">Slides</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/8-cluster.pdf"
+                            aria-label="Download Slides for Lecture 8: Cluster Analysis">Slides</a>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Cluster Analysis"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This slide deck investigates the core paradigms of cluster analysis, a
                         fundamental unsupervised learning technique used to segment data into meaningful, cohesive
@@ -661,8 +704,10 @@
                     <div class="item-header">
                         <span class="number">9.</span>
                         <span class="title">Outlier Analysis</span>
-                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/9-outlier.pdf">Slides</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <a href="https://fau-cs6.github.io/KDD/lecture-slides/9-outlier.pdf"
+                            aria-label="Download Slides for Lecture 9: Outlier Analysis">Slides</a>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Outlier Analysis"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This presentation addresses the principles of outlier analysis, detailing
                         the diverse methodologies used to detect significant anomalies and deviations within complex
@@ -677,8 +722,9 @@
             <div class="section-header">
                 <h2>Exercise</h2>
                 <div class="badges">
-                    <a href="https://fau-cs6.github.io/KDD/exercise-archives.zip" class="download-badge-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <a href="https://fau-cs6.github.io/KDD/exercise-archives.zip" class="download-badge-btn"
+                        aria-label="Download all Exercises as ZIP">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                         </svg>
                         Download Exercises
@@ -691,18 +737,23 @@
                         <span class="number">1.</span>
                         <span class="title">Introduction to Python & Pandas</span>
                         <span class="link-group">
-                            <a
-                                href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student/1-Introduction-Python-Pandas-Student.pdf">Exercise
+                            <a href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student/1-Introduction-Python-Pandas-Student.pdf"
+                                aria-label="Download Exercise Sheet for Introduction to Python and Pandas">Exercise
                                 Sheet</a>
-                            <a
-                                href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student/Additional-Files-Student.zip">Additional
+                            <a href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student/Additional-Files-Student.zip"
+                                aria-label="Download Additional Files for Students for Introduction to Python and Pandas">Additional
                                 Files</a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Solution/1-Introduction-Python-Pandas-Solution.pdf"
-                                class="solution">Solution</a>
+                                class="solution"
+                                aria-label="Download Solution for Introduction to Python and Pandas">Solution</a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Solution/Additional-Files-Solution.zip"
-                                class="solution">Additional Files</a>
+                                class="solution"
+                                aria-label="Download Additional Files for Solutions for Introduction to Python and Pandas">Additional
+                                Files</a>
                         </span>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Introduction to Python and Pandas"><span
+                                class="chevron"></span></span>
                     </div>
                     <div class="description">This exercise sheet provides a foundational introduction to essential
                         programming environments and data manipulation libraries utilized in computational analytics.
@@ -714,18 +765,23 @@
                         <span class="number">2.</span>
                         <span class="title">Data Analysis and Preprocessing</span>
                         <span class="link-group">
-                            <a
-                                href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student/2-Data-Analysis-Preprocessing-Student.pdf">Exercise
+                            <a href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student/2-Data-Analysis-Preprocessing-Student.pdf"
+                                aria-label="Download Exercise Sheet for Data Analysis and Preprocessing">Exercise
                                 Sheet</a>
-                            <a
-                                href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student/Additional-Files-Student.zip">Additional
+                            <a href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student/Additional-Files-Student.zip"
+                                aria-label="Download Additional Files for Students for Data Analysis and Preprocessing">Additional
                                 Files</a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Solution/2-Data-Analysis-Preprocessing-Solution.pdf"
-                                class="solution">Solution</a>
+                                class="solution"
+                                aria-label="Download Solution for Data Analysis and Preprocessing">Solution</a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Solution/Additional-Files-Solution.zip"
-                                class="solution">Additional Files</a>
+                                class="solution"
+                                aria-label="Download Additional Files for Solutions for Data Analysis and Preprocessing">Additional
+                                Files</a>
                         </span>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Data Analysis and Preprocessing"><span
+                                class="chevron"></span></span>
                     </div>
                     <div class="description">This exercise set focuses on the critical initial stages of the data mining
                         pipeline, encompassing data cleaning, integration, and transformation methodologies. These
@@ -737,18 +793,21 @@
                         <span class="number">3.</span>
                         <span class="title">Frequent Patterns</span>
                         <span class="link-group">
-                            <a
-                                href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student/3-Frequent-Patterns-Student.pdf">Exercise
+                            <a href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student/3-Frequent-Patterns-Student.pdf"
+                                aria-label="Download Exercise Sheet for Frequent Patterns">Exercise
                                 Sheet</a>
-                            <a
-                                href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student/Additional-Files-Student.zip">Additional
+                            <a href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student/Additional-Files-Student.zip"
+                                aria-label="Download Additional Files for Students for Frequent Patterns">Additional
                                 Files</a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Solution/3-Frequent-Patterns-Solution.pdf"
-                                class="solution">Solution</a>
+                                class="solution" aria-label="Download Solution for Frequent Patterns">Solution</a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Solution/Additional-Files-Solution.zip"
-                                class="solution">Additional Files</a>
+                                class="solution"
+                                aria-label="Download Additional Files for Solutions for Frequent Patterns">Additional
+                                Files</a>
                         </span>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Frequent Patterns"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This assignment explores the algorithmic identification of recurring
                         itemsets and association rules within large-scale transactional databases. By practically
@@ -760,18 +819,21 @@
                         <span class="number">4.</span>
                         <span class="title">Classification</span>
                         <span class="link-group">
-                            <a
-                                href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student/4-Classification-Student.pdf">Exercise
+                            <a href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student/4-Classification-Student.pdf"
+                                aria-label="Download Exercise Sheet for Classification">Exercise
                                 Sheet</a>
-                            <a
-                                href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student/Additional-Files-Student.zip">Additional
+                            <a href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student/Additional-Files-Student.zip"
+                                aria-label="Download Additional Files for Students for Classification">Additional
                                 Files</a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Solution/4-Classification-Solution.pdf"
-                                class="solution">Solution</a>
+                                class="solution" aria-label="Download Solution for Classification">Solution</a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Solution/Additional-Files-Solution.zip"
-                                class="solution">Additional Files</a>
+                                class="solution"
+                                aria-label="Download Additional Files for Solutions for Classification">Additional
+                                Files</a>
                         </span>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Classification"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This exercise delves into supervised learning paradigms, requiring the
                         mathematical construction and empirical evaluation of foundational classification models. It
@@ -783,18 +845,20 @@
                         <span class="number">5.</span>
                         <span class="title">Clustering</span>
                         <span class="link-group">
-                            <a
-                                href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student/5-Clustering-Student.pdf">Exercise
+                            <a href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student/5-Clustering-Student.pdf"
+                                aria-label="Download Exercise Sheet for Clustering">Exercise
                                 Sheet</a>
-                            <a
-                                href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student/Additional-Files-Student.zip">Additional
+                            <a href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student/Additional-Files-Student.zip"
+                                aria-label="Download Additional Files for Students for Clustering">Additional
                                 Files</a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Solution/5-Clustering-Solution.pdf"
-                                class="solution">Solution</a>
+                                class="solution" aria-label="Download Solution for Clustering">Solution</a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Solution/Additional-Files-Solution.zip"
-                                class="solution">Additional Files</a>
+                                class="solution"
+                                aria-label="Download Additional Files for Solutions for Clustering">Additional Files</a>
                         </span>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Clustering"><span class="chevron"></span></span>
                     </div>
                     <div class="description">This exercise sheet centers on the application of unsupervised learning
                         methodologies, specifically partitioning and density-based clustering algorithms, to discover
@@ -809,8 +873,9 @@
             <div class="section-header">
                 <h2>Submission</h2>
                 <div class="badges">
-                    <a href="https://fau-cs6.github.io/KDD/submission-pdfs.zip" class="download-badge-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <a href="https://fau-cs6.github.io/KDD/submission-pdfs.zip" class="download-badge-btn"
+                        aria-label="Download all Submissions as ZIP">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                         </svg>
                         Download Submissions
@@ -822,9 +887,12 @@
                     <div class="item-header">
                         <span class="number">1.</span>
                         <span class="title">Frequent Patterns</span>
-                        <a href="https://fau-cs6.github.io/KDD/submission-pdfs/1-Frequent-Patterns.pdf">Task
+                        <a href="https://fau-cs6.github.io/KDD/submission-pdfs/1-Frequent-Patterns.pdf"
+                            aria-label="Download Task Description for Submission: Frequent Patterns">Task
                             Description</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Submission: Frequent Patterns"><span
+                                class="chevron"></span></span>
                     </div>
                     <div class="description">This programming assignment focuses on the computational extraction of
                         recurring itemsets from transactional databases through the implementation of the foundational
@@ -836,9 +904,12 @@
                     <div class="item-header">
                         <span class="number">2.</span>
                         <span class="title">Classification</span>
-                        <a href="https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf">Task
+                        <a href="https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf"
+                            aria-label="Download Task Description for Submission: Classification">Task
                             Description</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Submission: Classification"><span
+                                class="chevron"></span></span>
                     </div>
                     <div class="description">This submission necessitates the practical implementation of fundamental
                         predictive modeling techniques, specifically focusing on building Decision Tree induction and
@@ -851,8 +922,11 @@
                     <div class="item-header">
                         <span class="number">3.</span>
                         <span class="title">Clustering</span>
-                        <a href="https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf">Task Description</a>
-                        <span class="toggle-btn" title="Toggle description"><span class="chevron"></span></span>
+                        <a href="https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf"
+                            aria-label="Download Task Description for Submission: Clustering">Task Description</a>
+                        <span class="toggle-btn" title="Toggle description"
+                            aria-label="Toggle description for Submission: Clustering"><span
+                                class="chevron"></span></span>
                     </div>
                     <div class="description">This submission centers on unsupervised learning paradigms, requiring the
                         algorithmic implementation of K-means and DBSCAN to effectively partition multidimensional
@@ -891,6 +965,9 @@
 
                     if (description) {
                         description.classList.toggle('show');
+
+                        const isExpanded = btn.classList.contains('open');
+                        btn.setAttribute('aria-expanded', isExpanded);
                     }
                 });
             });
