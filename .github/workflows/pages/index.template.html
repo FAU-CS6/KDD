@@ -400,7 +400,6 @@
             fill: currentColor;
         }
 
-        /* --- NEU: PDF Container Styles für Lazy Loading --- */
         .pdf-container {
             margin-top: 1rem;
             width: 100%;
@@ -1064,20 +1063,16 @@
                         const isExpanded = btn.classList.contains('open');
 
                         if (isExpanded) {
-                            // Textbereich anzeigen
                             description.classList.add('show');
 
-                            // Lazy Loading für iFrame
                             const pdfContainer = description.querySelector('.pdf-container');
                             if (pdfContainer && !pdfContainer.querySelector('iframe')) {
                                 const pdfUrl = pdfContainer.getAttribute('data-pdf-src');
 
-                                // Platzhalter Text einfügen
                                 pdfContainer.innerHTML = '<span style="color: #666; padding: 20px; font-size: 0.9rem;">Loading PDF...</span>';
 
-                                // iFrame generieren
                                 const iframe = document.createElement('iframe');
-                                iframe.src = pdfUrl + "#toolbar=0&navpanes=0"; // Versteckt PDF-Tools für cleaneren Look
+                                iframe.src = pdfUrl + "#toolbar=0&navpanes=0";
 
                                 iframe.onload = () => {
                                     const loadingText = pdfContainer.querySelector('span');
@@ -1087,7 +1082,6 @@
                                 pdfContainer.appendChild(iframe);
                             }
                         } else {
-                            // Textbereich verstecken
                             description.classList.remove('show');
                         }
 
