@@ -4,7 +4,7 @@ scikit-learn==1.5.0
 numpy==1.26.4
 squarify==0.4.3
 pywaffle==1.1.1
-matplotlib==3.9.0
+matplotlib==3.10.8
 plotly==5.22.0
 seaborn==0.13.2
 
