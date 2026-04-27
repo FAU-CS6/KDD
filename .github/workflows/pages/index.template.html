@@ -45,6 +45,8 @@
     }
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
     <style>
         :root {
             --faublue: rgb(0, 47, 108);
@@ -400,25 +402,89 @@
             fill: currentColor;
         }
 
-        .pdf-container {
-            margin-top: 1rem;
-            width: 100%;
+        .pdf-viewer-container {
+            display: flex;
+            flex-direction: column;
+            background-color: #ebecf0;
+            border: 1px solid var(--faugray);
             border-radius: 6px;
             overflow: hidden;
-            background-color: #f1f1f1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 0;
-            transition: all 0.3s ease;
+            margin-top: 1rem;
         }
 
-        .pdf-container iframe {
-            width: 100%;
-            height: 500px;
-            border: 1px solid var(--faugray);
+        .pdf-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pdf-toolbar-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pdf-toolbar button {
+            background-color: #555;
+            color: white;
+            border: none;
             border-radius: 4px;
-            display: block;
+            padding: 6px 14px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: bold;
+        }
+
+        .pdf-toolbar button:hover:not(:disabled) {
+            background-color: var(--faucyandark);
+        }
+
+        .pdf-toolbar button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .pdf-toolbar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+            background-color: var(--faucyandark);
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .pdf-toolbar a::before {
+            display: none;
+        }
+
+        .pdf-toolbar a:hover {
+            background-color: var(--faucyan);
+            text-decoration: none;
+        }
+
+        .pdf-canvas-wrapper {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+            min-height: 400px;
+            align-items: center;
+        }
+
+        .pdf-canvas-wrapper canvas {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 100%;
+            height: auto !important;
         }
 
         .footer {
@@ -486,6 +552,12 @@
             clip: rect(0, 0, 0, 0);
             white-space: nowrap;
             border: 0;
+        }
+
+        @media (max-width: 600px) {
+            .pdf-toolbar {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 1500px) {
@@ -1108,6 +1180,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Setup PDF.js worker
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
             const toggleButtons = document.querySelectorAll('.toggle-btn');
 
             toggleButtons.forEach(btn => {
@@ -1123,20 +1198,110 @@
                             description.classList.add('show');
 
                             const pdfContainer = description.querySelector('.pdf-container');
-                            if (pdfContainer && !pdfContainer.querySelector('iframe')) {
+
+                            if (pdfContainer && !pdfContainer.hasAttribute('data-loaded')) {
+                                pdfContainer.setAttribute('data-loaded', 'true');
                                 const pdfUrl = pdfContainer.getAttribute('data-pdf-src');
 
-                                pdfContainer.innerHTML = '<span style="color: #666; padding: 20px; font-size: 0.9rem;">Loading PDF...</span>';
+                                // Re-style container and inject the custom viewer UI
+                                pdfContainer.className = 'pdf-viewer-container';
+                                pdfContainer.innerHTML = `
+                                    <div class="pdf-toolbar">
+                                        <div class="pdf-toolbar-controls">
+                                            <button class="pdf-prev" disabled>❮ Prev</button>
+                                            <span>Page <span class="pdf-page-num">...</span> / <span class="pdf-page-count">...</span></span>
+                                            <button class="pdf-next" disabled>Next ❯</button>
+                                        </div>
+                                        <a href="${pdfUrl}" target="_blank" aria-label="Open PDF natively in full screen">
+                                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                                            Full Screen
+                                        </a>
+                                    </div>
+                                    <div class="pdf-canvas-wrapper">
+                                        <span class="pdf-loading-text" style="color: #666; font-weight: 500;">Loading Document...</span>
+                                        <canvas class="pdf-canvas" style="display:none;"></canvas>
+                                    </div>
+                                `;
 
-                                const iframe = document.createElement('iframe');
-                                iframe.src = pdfUrl + "#toolbar=0&navpanes=0";
+                                const canvas = pdfContainer.querySelector('.pdf-canvas');
+                                const ctx = canvas.getContext('2d');
+                                const btnPrev = pdfContainer.querySelector('.pdf-prev');
+                                const btnNext = pdfContainer.querySelector('.pdf-next');
+                                const spanNum = pdfContainer.querySelector('.pdf-page-num');
+                                const spanCount = pdfContainer.querySelector('.pdf-page-count');
+                                const loadingText = pdfContainer.querySelector('.pdf-loading-text');
+                                const wrapper = pdfContainer.querySelector('.pdf-canvas-wrapper');
 
-                                iframe.onload = () => {
-                                    const loadingText = pdfContainer.querySelector('span');
-                                    if (loadingText) loadingText.remove();
+                                let pdfDoc = null;
+                                let pageNum = 1;
+                                let pageIsRendering = false;
+                                let pageNumPending = null;
+
+                                const renderPage = (num) => {
+                                    pageIsRendering = true;
+                                    pdfDoc.getPage(num).then(page => {
+                                        const wrapperWidth = wrapper.clientWidth - 40;
+                                        const unscaledViewport = page.getViewport({ scale: 1 });
+
+                                        let scale = wrapperWidth / unscaledViewport.width;
+                                        if (scale > 1.5) scale = 1.5;
+
+                                        const viewport = page.getViewport({ scale: scale });
+                                        canvas.height = viewport.height;
+                                        canvas.width = viewport.width;
+
+                                        const renderCtx = {
+                                            canvasContext: ctx,
+                                            viewport: viewport
+                                        };
+
+                                        canvas.style.display = 'block';
+                                        loadingText.style.display = 'none';
+
+                                        page.render(renderCtx).promise.then(() => {
+                                            pageIsRendering = false;
+                                            if (pageNumPending !== null) {
+                                                renderPage(pageNumPending);
+                                                pageNumPending = null;
+                                            }
+                                        });
+
+                                        spanNum.textContent = num;
+                                        btnPrev.disabled = num <= 1;
+                                        btnNext.disabled = num >= pdfDoc.numPages;
+                                    });
                                 };
 
-                                pdfContainer.appendChild(iframe);
+                                const queueRenderPage = (num) => {
+                                    if (pageIsRendering) {
+                                        pageNumPending = num;
+                                    } else {
+                                        renderPage(num);
+                                    }
+                                };
+
+                                pdfjsLib.getDocument(pdfUrl).promise.then(doc => {
+                                    pdfDoc = doc;
+                                    spanCount.textContent = pdfDoc.numPages;
+                                    btnNext.disabled = pdfDoc.numPages <= 1;
+                                    renderPage(pageNum);
+                                }).catch(err => {
+                                    loadingText.textContent = "Error loading PDF.";
+                                    loadingText.style.color = "var(--faured)";
+                                    console.error("PDF.js Error: ", err);
+                                });
+
+                                btnPrev.addEventListener('click', () => {
+                                    if (pageNum <= 1) return;
+                                    pageNum--;
+                                    queueRenderPage(pageNum);
+                                });
+
+                                btnNext.addEventListener('click', () => {
+                                    if (pageNum >= pdfDoc.numPages) return;
+                                    pageNum++;
+                                    queueRenderPage(pageNum);
+                                });
                             }
                         } else {
                             description.classList.remove('show');
