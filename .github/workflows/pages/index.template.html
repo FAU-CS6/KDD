@@ -198,6 +198,11 @@
             padding-bottom: 0.25rem;
         }
 
+        .section-title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
         .section h2 {
             color: var(--faugraydark);
             margin: 0;
@@ -668,7 +673,13 @@
 
         <section class="section" id="lecture">
             <div class="section-header">
-                <h2>Lecture</h2>
+                <div class="section-title-wrapper">
+                    <h2>Lecture</h2>
+                    <span class="toggle-all-btn toggle-btn" title="Toggle all lecture entries"
+                        aria-label="Toggle all lecture entries">
+                        <span class="chevron"></span>
+                    </span>
+                </div>
                 <div class="badges">
                     <a href="https://www.fau.tv/series/knowledge-discovery-in-databases-w25" target="_blank"
                         rel="noopener noreferrer" class="fautv-btn" aria-label="Watch FAU.tv Recordings">
@@ -874,7 +885,13 @@
 
         <section class="section" id="exercise">
             <div class="section-header">
-                <h2>Exercise</h2>
+                <div class="section-title-wrapper">
+                    <h2>Exercise</h2>
+                    <span class="toggle-all-btn toggle-btn" title="Toggle all exercise entries"
+                        aria-label="Toggle all exercise entries">
+                        <span class="chevron"></span>
+                    </span>
+                </div>
                 <div class="badges">
                     <a href="https://fau-cs6.github.io/KDD/exercise-archives.zip" class="download-badge-btn"
                         aria-label="Download all Exercises as ZIP">
@@ -1075,7 +1092,13 @@
 
         <section class="section" id="submission">
             <div class="section-header">
-                <h2>Submission</h2>
+                <div class="section-title-wrapper">
+                    <h2>Submission</h2>
+                    <span class="toggle-all-btn toggle-btn" title="Toggle all submission entries"
+                        aria-label="Toggle all submission entries">
+                        <span class="chevron"></span>
+                    </span>
+                </div>
                 <div class="badges">
                     <a href="https://fau-cs6.github.io/KDD/submission-pdfs.zip" class="download-badge-btn"
                         aria-label="Download all Submissions as ZIP">
@@ -1180,10 +1203,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Setup PDF.js worker
             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            const toggleButtons = document.querySelectorAll('.section ul li .toggle-btn');
 
             toggleButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -1203,11 +1225,14 @@
                                 pdfContainer.setAttribute('data-loaded', 'true');
                                 const pdfUrl = pdfContainer.getAttribute('data-pdf-src');
 
-                                // Re-style container and inject the custom viewer UI
                                 pdfContainer.className = 'pdf-viewer-container';
                                 pdfContainer.innerHTML = `
                                     <div class="pdf-toolbar">
                                         <div class="pdf-toolbar-controls">
+                                            <button class="pdf-zoom-out">-</button>
+                                            <span class="pdf-zoom-level" style="min-width: 45px; text-align: center; display: inline-block;">100%</span>
+                                            <button class="pdf-zoom-in">+</button>
+                                            <span style="border-left: 1px solid #666; height: 20px; margin: 0 5px;"></span>
                                             <button class="pdf-prev" disabled>❮ Prev</button>
                                             <span>Page <span class="pdf-page-num">...</span> / <span class="pdf-page-count">...</span></span>
                                             <button class="pdf-next" disabled>Next ❯</button>
@@ -1216,7 +1241,7 @@
                                             Download
                                         </a>
                                     </div>
-                                    <div class="pdf-canvas-wrapper">
+                                    <div class="pdf-canvas-wrapper" style="overflow: auto;">
                                         <span class="pdf-loading-text" style="color: #666; font-weight: 500;">Loading Document...</span>
                                         <canvas class="pdf-canvas" style="display:none;"></canvas>
                                     </div>
@@ -1231,10 +1256,17 @@
                                 const loadingText = pdfContainer.querySelector('.pdf-loading-text');
                                 const wrapper = pdfContainer.querySelector('.pdf-canvas-wrapper');
 
+                                const btnZoomIn = pdfContainer.querySelector('.pdf-zoom-in');
+                                const btnZoomOut = pdfContainer.querySelector('.pdf-zoom-out');
+                                const spanZoomLevel = pdfContainer.querySelector('.pdf-zoom-level');
+
                                 let pdfDoc = null;
                                 let pageNum = 1;
                                 let pageIsRendering = false;
                                 let pageNumPending = null;
+
+                                let currentZoom = 1.0;
+                                const zoomStep = 0.25;
 
                                 const renderPage = (num) => {
                                     pageIsRendering = true;
@@ -1243,9 +1275,12 @@
                                         const unscaledViewport = page.getViewport({ scale: 1 });
                                         let baseScale = wrapperWidth / unscaledViewport.width;
                                         if (baseScale > 1.5) baseScale = 1.5;
+
+                                        const finalScale = baseScale * currentZoom;
                                         const outputScale = window.devicePixelRatio || 1;
-                                        const viewport = page.getViewport({ scale: baseScale });
-                                        const renderViewport = page.getViewport({ scale: baseScale * outputScale });
+                                        const viewport = page.getViewport({ scale: finalScale });
+                                        const renderViewport = page.getViewport({ scale: finalScale * outputScale });
+
                                         canvas.style.width = Math.floor(viewport.width) + "px";
                                         canvas.style.height = Math.floor(viewport.height) + "px";
                                         canvas.width = Math.floor(renderViewport.width);
@@ -1303,6 +1338,24 @@
                                     pageNum++;
                                     queueRenderPage(pageNum);
                                 });
+
+                                const updateZoomDisplay = () => {
+                                    spanZoomLevel.textContent = Math.round(currentZoom * 100) + '%';
+                                };
+
+                                btnZoomIn.addEventListener('click', () => {
+                                    if (currentZoom >= 3.0) return;
+                                    currentZoom += zoomStep;
+                                    updateZoomDisplay();
+                                    queueRenderPage(pageNum);
+                                });
+
+                                btnZoomOut.addEventListener('click', () => {
+                                    if (currentZoom <= 0.5) return;
+                                    currentZoom -= zoomStep;
+                                    updateZoomDisplay();
+                                    queueRenderPage(pageNum);
+                                });
                             }
                         } else {
                             description.classList.remove('show');
@@ -1310,6 +1363,26 @@
 
                         btn.setAttribute('aria-expanded', isExpanded);
                     }
+                });
+            });
+
+            const toggleAllButtons = document.querySelectorAll('.toggle-all-btn');
+
+            toggleAllButtons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    this.classList.toggle('open');
+                    const isExpanded = this.classList.contains('open');
+
+                    const section = this.closest('.section');
+                    const individualToggles = section.querySelectorAll('li .toggle-btn');
+
+                    individualToggles.forEach(tBtn => {
+                        const isOpen = tBtn.classList.contains('open');
+
+                        if ((isExpanded && !isOpen) || (!isExpanded && isOpen)) {
+                            tBtn.click();
+                        }
+                    });
                 });
             });
         });
