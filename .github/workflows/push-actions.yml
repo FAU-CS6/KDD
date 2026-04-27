@@ -213,6 +213,11 @@ jobs:
           cp .github/workflows/pages/fau-logo.svg artifacts/fau-logo.svg
           cp .github/workflows/pages/favicon.png artifacts/favicon.png
 
+      - name: Linearize PDFs for Fast Web View (SEO & Performance)
+        run: |
+          sudo apt-get update && sudo apt-get install -y qpdf
+          find artifacts -name "*.pdf" -exec qpdf --linearize --replace-input {} \;
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:

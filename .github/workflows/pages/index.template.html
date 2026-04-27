@@ -476,6 +476,18 @@
             color: var(--faugray);
         }
 
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         @media (max-width: 1500px) {
             .header {
                 height: auto;
@@ -608,7 +620,8 @@
                         <span class="number">1.</span>
                         <span class="title">Prologue</span>
                         <a href="https://fau-cs6.github.io/KDD/lecture-slides/1-prologue.pdf"
-                            aria-label="Download Slides for Lecture 1: Prologue">Slides</a>
+                            aria-label="Download Slides for Lecture 1: Prologue"><span class="visually-hidden">Lecture
+                                1: Prologue </span>Slides<span class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Prologue"><span class="chevron"></span></span>
                     </div>
@@ -626,7 +639,9 @@
                         <span class="number">2.</span>
                         <span class="title">Introduction</span>
                         <a href="https://fau-cs6.github.io/KDD/lecture-slides/2-introduction.pdf"
-                            aria-label="Download Slides for Lecture 2: Introduction">Slides</a>
+                            aria-label="Download Slides for Lecture 2: Introduction"><span
+                                class="visually-hidden">Lecture 2: Introduction </span>Slides<span
+                                class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Introduction"><span class="chevron"></span></span>
                     </div>
@@ -644,7 +659,8 @@
                         <span class="number">3.</span>
                         <span class="title">Data</span>
                         <a href="https://fau-cs6.github.io/KDD/lecture-slides/3-data.pdf"
-                            aria-label="Download Slides for Lecture 3: Data">Slides</a>
+                            aria-label="Download Slides for Lecture 3: Data"><span class="visually-hidden">Lecture 3:
+                                Data </span>Slides<span class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Data"><span class="chevron"></span></span>
                     </div>
@@ -663,7 +679,9 @@
                         <span class="number">4.</span>
                         <span class="title">Preprocessing</span>
                         <a href="https://fau-cs6.github.io/KDD/lecture-slides/4-preprocessing.pdf"
-                            aria-label="Download Slides for Lecture 4: Preprocessing">Slides</a>
+                            aria-label="Download Slides for Lecture 4: Preprocessing"><span
+                                class="visually-hidden">Lecture 4: Preprocessing </span>Slides<span
+                                class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Preprocessing"><span class="chevron"></span></span>
                     </div>
@@ -682,7 +700,8 @@
                         <span class="number">5.</span>
                         <span class="title">OLAP</span>
                         <a href="https://fau-cs6.github.io/KDD/lecture-slides/5-olap.pdf"
-                            aria-label="Download Slides for Lecture 5: OLAP">Slides</a>
+                            aria-label="Download Slides for Lecture 5: OLAP"><span class="visually-hidden">Lecture 5:
+                                OLAP </span>Slides<span class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for OLAP"><span class="chevron"></span></span>
                     </div>
@@ -700,7 +719,9 @@
                         <span class="number">6.</span>
                         <span class="title">Mining Frequent Patterns</span>
                         <a href="https://fau-cs6.github.io/KDD/lecture-slides/6-frequent-patterns.pdf"
-                            aria-label="Download Slides for Lecture 6: Mining Frequent Patterns">Slides</a>
+                            aria-label="Download Slides for Lecture 6: Mining Frequent Patterns"><span
+                                class="visually-hidden">Lecture 6: Mining Frequent Patterns </span>Slides<span
+                                class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Mining Frequent Patterns"><span
                                 class="chevron"></span></span>
@@ -719,7 +740,9 @@
                         <span class="number">7.</span>
                         <span class="title">Classification</span>
                         <a href="https://fau-cs6.github.io/KDD/lecture-slides/7-classification.pdf"
-                            aria-label="Download Slides for Lecture 7: Classification">Slides</a>
+                            aria-label="Download Slides for Lecture 7: Classification"><span
+                                class="visually-hidden">Lecture 7: Classification </span>Slides<span
+                                class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Classification"><span class="chevron"></span></span>
                     </div>
@@ -737,7 +760,9 @@
                         <span class="number">8.</span>
                         <span class="title">Cluster Analysis</span>
                         <a href="https://fau-cs6.github.io/KDD/lecture-slides/8-cluster.pdf"
-                            aria-label="Download Slides for Lecture 8: Cluster Analysis">Slides</a>
+                            aria-label="Download Slides for Lecture 8: Cluster Analysis"><span
+                                class="visually-hidden">Lecture 8: Cluster Analysis </span>Slides<span
+                                class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Cluster Analysis"><span class="chevron"></span></span>
                     </div>
@@ -756,7 +781,9 @@
                         <span class="number">9.</span>
                         <span class="title">Outlier Analysis</span>
                         <a href="https://fau-cs6.github.io/KDD/lecture-slides/9-outlier.pdf"
-                            aria-label="Download Slides for Lecture 9: Outlier Analysis">Slides</a>
+                            aria-label="Download Slides for Lecture 9: Outlier Analysis"><span
+                                class="visually-hidden">Lecture 9: Outlier Analysis </span>Slides<span
+                                class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Outlier Analysis"><span class="chevron"></span></span>
                     </div>
@@ -793,18 +820,23 @@
                         <span class="title">Introduction to Python & Pandas</span>
                         <span class="link-group">
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student/1-Introduction-Python-Pandas-Student.pdf"
-                                aria-label="Download Exercise Sheet for Introduction to Python and Pandas">Exercise
-                                Sheet</a>
+                                aria-label="Download Exercise Sheet for Introduction to Python and Pandas"><span
+                                    class="visually-hidden">Introduction to Python and Pandas </span>Exercise
+                                Sheet<span class="visually-hidden"> PDF</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Student/Additional-Files-Student.zip"
-                                aria-label="Download Additional Files for Students for Introduction to Python and Pandas">Additional
-                                Files</a>
+                                aria-label="Download Additional Files for Students for Introduction to Python and Pandas"><span
+                                    class="visually-hidden">Introduction to Python and Pandas </span>Additional
+                                Files<span class="visually-hidden"> ZIP</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Solution/1-Introduction-Python-Pandas-Solution.pdf"
                                 class="solution"
-                                aria-label="Download Solution for Introduction to Python and Pandas">Solution</a>
+                                aria-label="Download Solution for Introduction to Python and Pandas"><span
+                                    class="visually-hidden">Introduction to Python and Pandas </span>Solution<span
+                                    class="visually-hidden"> PDF</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/1-Introduction-Python-Pandas-Solution/Additional-Files-Solution.zip"
                                 class="solution"
-                                aria-label="Download Additional Files for Solutions for Introduction to Python and Pandas">Additional
-                                Files</a>
+                                aria-label="Download Additional Files for Solutions for Introduction to Python and Pandas"><span
+                                    class="visually-hidden">Introduction to Python and Pandas Solution </span>Additional
+                                Files<span class="visually-hidden"> ZIP</span></a>
                         </span>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Introduction to Python and Pandas"><span
@@ -826,18 +858,23 @@
                         <span class="title">Data Analysis and Preprocessing</span>
                         <span class="link-group">
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student/2-Data-Analysis-Preprocessing-Student.pdf"
-                                aria-label="Download Exercise Sheet for Data Analysis and Preprocessing">Exercise
-                                Sheet</a>
+                                aria-label="Download Exercise Sheet for Data Analysis and Preprocessing"><span
+                                    class="visually-hidden">Data Analysis and Preprocessing </span>Exercise
+                                Sheet<span class="visually-hidden"> PDF</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Student/Additional-Files-Student.zip"
-                                aria-label="Download Additional Files for Students for Data Analysis and Preprocessing">Additional
-                                Files</a>
+                                aria-label="Download Additional Files for Students for Data Analysis and Preprocessing"><span
+                                    class="visually-hidden">Data Analysis and Preprocessing </span>Additional
+                                Files<span class="visually-hidden"> ZIP</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Solution/2-Data-Analysis-Preprocessing-Solution.pdf"
                                 class="solution"
-                                aria-label="Download Solution for Data Analysis and Preprocessing">Solution</a>
+                                aria-label="Download Solution for Data Analysis and Preprocessing"><span
+                                    class="visually-hidden">Data Analysis and Preprocessing </span>Solution<span
+                                    class="visually-hidden"> PDF</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/2-Data-Analysis-Preprocessing-Solution/Additional-Files-Solution.zip"
                                 class="solution"
-                                aria-label="Download Additional Files for Solutions for Data Analysis and Preprocessing">Additional
-                                Files</a>
+                                aria-label="Download Additional Files for Solutions for Data Analysis and Preprocessing"><span
+                                    class="visually-hidden">Data Analysis and Preprocessing Solution </span>Additional
+                                Files<span class="visually-hidden"> ZIP</span></a>
                         </span>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Data Analysis and Preprocessing"><span
@@ -859,17 +896,22 @@
                         <span class="title">Frequent Patterns</span>
                         <span class="link-group">
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student/3-Frequent-Patterns-Student.pdf"
-                                aria-label="Download Exercise Sheet for Frequent Patterns">Exercise
-                                Sheet</a>
+                                aria-label="Download Exercise Sheet for Frequent Patterns"><span
+                                    class="visually-hidden">Frequent Patterns </span>Exercise
+                                Sheet<span class="visually-hidden"> PDF</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Student/Additional-Files-Student.zip"
-                                aria-label="Download Additional Files for Students for Frequent Patterns">Additional
-                                Files</a>
+                                aria-label="Download Additional Files for Students for Frequent Patterns"><span
+                                    class="visually-hidden">Frequent Patterns </span>Additional
+                                Files<span class="visually-hidden"> ZIP</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Solution/3-Frequent-Patterns-Solution.pdf"
-                                class="solution" aria-label="Download Solution for Frequent Patterns">Solution</a>
+                                class="solution" aria-label="Download Solution for Frequent Patterns"><span
+                                    class="visually-hidden">Frequent Patterns </span>Solution<span
+                                    class="visually-hidden"> PDF</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/3-Frequent-Patterns-Solution/Additional-Files-Solution.zip"
                                 class="solution"
-                                aria-label="Download Additional Files for Solutions for Frequent Patterns">Additional
-                                Files</a>
+                                aria-label="Download Additional Files for Solutions for Frequent Patterns"><span
+                                    class="visually-hidden">Frequent Patterns Solution </span>Additional
+                                Files<span class="visually-hidden"> ZIP</span></a>
                         </span>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Frequent Patterns"><span class="chevron"></span></span>
@@ -890,17 +932,22 @@
                         <span class="title">Classification</span>
                         <span class="link-group">
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student/4-Classification-Student.pdf"
-                                aria-label="Download Exercise Sheet for Classification">Exercise
-                                Sheet</a>
+                                aria-label="Download Exercise Sheet for Classification"><span
+                                    class="visually-hidden">Classification </span>Exercise
+                                Sheet<span class="visually-hidden"> PDF</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Student/Additional-Files-Student.zip"
-                                aria-label="Download Additional Files for Students for Classification">Additional
-                                Files</a>
+                                aria-label="Download Additional Files for Students for Classification"><span
+                                    class="visually-hidden">Classification </span>Additional
+                                Files<span class="visually-hidden"> ZIP</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Solution/4-Classification-Solution.pdf"
-                                class="solution" aria-label="Download Solution for Classification">Solution</a>
+                                class="solution" aria-label="Download Solution for Classification"><span
+                                    class="visually-hidden">Classification </span>Solution<span class="visually-hidden">
+                                    PDF</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/4-Classification-Solution/Additional-Files-Solution.zip"
                                 class="solution"
-                                aria-label="Download Additional Files for Solutions for Classification">Additional
-                                Files</a>
+                                aria-label="Download Additional Files for Solutions for Classification"><span
+                                    class="visually-hidden">Classification Solution </span>Additional
+                                Files<span class="visually-hidden"> ZIP</span></a>
                         </span>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Classification"><span class="chevron"></span></span>
@@ -921,16 +968,22 @@
                         <span class="title">Clustering</span>
                         <span class="link-group">
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student/5-Clustering-Student.pdf"
-                                aria-label="Download Exercise Sheet for Clustering">Exercise
-                                Sheet</a>
+                                aria-label="Download Exercise Sheet for Clustering"><span
+                                    class="visually-hidden">Clustering </span>Exercise
+                                Sheet<span class="visually-hidden"> PDF</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Student/Additional-Files-Student.zip"
-                                aria-label="Download Additional Files for Students for Clustering">Additional
-                                Files</a>
+                                aria-label="Download Additional Files for Students for Clustering"><span
+                                    class="visually-hidden">Clustering </span>Additional
+                                Files<span class="visually-hidden"> ZIP</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Solution/5-Clustering-Solution.pdf"
-                                class="solution" aria-label="Download Solution for Clustering">Solution</a>
+                                class="solution" aria-label="Download Solution for Clustering"><span
+                                    class="visually-hidden">Clustering </span>Solution<span class="visually-hidden">
+                                    PDF</span></a>
                             <a href="https://fau-cs6.github.io/KDD/exercise-archives/5-Clustering-Solution/Additional-Files-Solution.zip"
                                 class="solution"
-                                aria-label="Download Additional Files for Solutions for Clustering">Additional Files</a>
+                                aria-label="Download Additional Files for Solutions for Clustering"><span
+                                    class="visually-hidden">Clustering Solution </span>Additional Files<span
+                                    class="visually-hidden"> ZIP</span></a>
                         </span>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Clustering"><span class="chevron"></span></span>
@@ -967,8 +1020,9 @@
                         <span class="number">1.</span>
                         <span class="title">Frequent Patterns</span>
                         <a href="https://fau-cs6.github.io/KDD/submission-pdfs/1-Frequent-Patterns.pdf"
-                            aria-label="Download Task Description for Submission: Frequent Patterns">Task
-                            Description</a>
+                            aria-label="Download Task Description for Submission: Frequent Patterns"><span
+                                class="visually-hidden">Submission 1: Frequent Patterns </span>Task
+                            Description<span class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Submission: Frequent Patterns"><span
                                 class="chevron"></span></span>
@@ -988,8 +1042,9 @@
                         <span class="number">2.</span>
                         <span class="title">Classification</span>
                         <a href="https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf"
-                            aria-label="Download Task Description for Submission: Classification">Task
-                            Description</a>
+                            aria-label="Download Task Description for Submission: Classification"><span
+                                class="visually-hidden">Submission 2: Classification </span>Task
+                            Description<span class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Submission: Classification"><span
                                 class="chevron"></span></span>
@@ -1010,7 +1065,9 @@
                         <span class="number">3.</span>
                         <span class="title">Clustering</span>
                         <a href="https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf"
-                            aria-label="Download Task Description for Submission: Clustering">Task Description</a>
+                            aria-label="Download Task Description for Submission: Clustering"><span
+                                class="visually-hidden">Submission 3: Clustering </span>Task Description<span
+                                class="visually-hidden"> PDF</span></a>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Submission: Clustering"><span
                                 class="chevron"></span></span>
