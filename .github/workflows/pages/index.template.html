@@ -1241,17 +1241,19 @@
                                     pdfDoc.getPage(num).then(page => {
                                         const wrapperWidth = wrapper.clientWidth - 40;
                                         const unscaledViewport = page.getViewport({ scale: 1 });
-
-                                        let scale = wrapperWidth / unscaledViewport.width;
-                                        if (scale > 1.5) scale = 1.5;
-
-                                        const viewport = page.getViewport({ scale: scale });
-                                        canvas.height = viewport.height;
-                                        canvas.width = viewport.width;
+                                        let baseScale = wrapperWidth / unscaledViewport.width;
+                                        if (baseScale > 1.5) baseScale = 1.5;
+                                        const outputScale = window.devicePixelRatio || 1;
+                                        const viewport = page.getViewport({ scale: baseScale });
+                                        const renderViewport = page.getViewport({ scale: baseScale * outputScale });
+                                        canvas.style.width = Math.floor(viewport.width) + "px";
+                                        canvas.style.height = Math.floor(viewport.height) + "px";
+                                        canvas.width = Math.floor(renderViewport.width);
+                                        canvas.height = Math.floor(renderViewport.height);
 
                                         const renderCtx = {
                                             canvasContext: ctx,
-                                            viewport: viewport
+                                            viewport: renderViewport
                                         };
 
                                         canvas.style.display = 'block';
