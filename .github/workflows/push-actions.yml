@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Lecture-Figures
-          path: lecture/src/*.pdf
+          path: lecture/img/*.pdf
           retention-days: 1
 
   build_lecture:
