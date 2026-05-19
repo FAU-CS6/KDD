@@ -103,7 +103,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Download Figures
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         continue-on-error: true
         with:
           name: Lecture-Figures
@@ -224,21 +224,21 @@ jobs:
         run: mkdir -p artifacts/gh-badges
 
       - name: Download Lecture Slides
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: Lecture Slides - *
           path: artifacts/lecture-slides
           merge-multiple: true
 
       - name: Download Exercise Archives
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: Exercise Archives - *
           path: artifacts/exercise-archives
           merge-multiple: true
 
       - name: Download Submission PDFs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: Submission PDFs - *
           path: artifacts/submission-pdfs
