@@ -91,6 +91,9 @@ jobs:
           name: Lecture-Figures
           path: lecture/src/
 
+      - name: Random delay to stagger Docker pull # Without this random delay we might get a timeout in the next step (to many parallel pulls from ghcr.io)
+        run: sleep $((RANDOM % 45))
+
       - name: Compile LaTeX document
         uses: xu-cheng/texlive-action@v2
         with:
