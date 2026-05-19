@@ -314,6 +314,7 @@
             width: 14px;
             height: 14px;
             background-color: currentColor;
+            /* Default Download Icon */
             -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='7 10 12 15 17 10'/%3E%3Cline x1='12' y1='15' x2='12' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
             mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='7 10 12 15 17 10'/%3E%3Cline x1='12' y1='15' x2='12' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
         }
@@ -323,6 +324,12 @@
             color: white;
             border-color: var(--faucyandark);
             text-decoration: none;
+        }
+
+        /* Neue Klasse fuer Link-Icons (z.B. fuer GitHub Templates) */
+        .section ul li a.template-link::before {
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
         }
 
         .section ul li a.solution {
@@ -1114,10 +1121,17 @@
                     <div class="item-header">
                         <span class="number">1.</span>
                         <span class="title">Frequent Patterns</span>
-                        <a href="https://fau-cs6.github.io/KDD/submission-pdfs/1-Frequent-Patterns.pdf"
-                            aria-label="Download Task Description for Submission: Frequent Patterns"><span
-                                class="visually-hidden">Submission 1: Frequent Patterns </span>Task
-                            Description<span class="visually-hidden"> PDF</span></a>
+                        <span class="link-group">
+                            <a href="https://fau-cs6.github.io/KDD/submission-pdfs/1-Frequent-Patterns.pdf"
+                                aria-label="Download Task Description for Submission: Frequent Patterns"><span
+                                    class="visually-hidden">Submission 1: Frequent Patterns </span>Task
+                                Description<span class="visually-hidden"> PDF</span></a>
+                            <a href="https://github.com/FAU-CS6-KDDmUe-Submissions/1-Frequent-Patterns"
+                                class="template-link" target="_blank" rel="noopener noreferrer"
+                                aria-label="Open GitHub Template for Submission 1: Frequent Patterns"><span
+                                    class="visually-hidden">Submission 1: Frequent Patterns </span>Template
+                                Repository</a>
+                        </span>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Submission: Frequent Patterns"><span
                                 class="chevron"></span></span>
@@ -1136,10 +1150,16 @@
                     <div class="item-header">
                         <span class="number">2.</span>
                         <span class="title">Classification</span>
-                        <a href="https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf"
-                            aria-label="Download Task Description for Submission: Classification"><span
-                                class="visually-hidden">Submission 2: Classification </span>Task
-                            Description<span class="visually-hidden"> PDF</span></a>
+                        <span class="link-group">
+                            <a href="https://fau-cs6.github.io/KDD/submission-pdfs/2-Classification.pdf"
+                                aria-label="Download Task Description for Submission: Classification"><span
+                                    class="visually-hidden">Submission 2: Classification </span>Task
+                                Description<span class="visually-hidden"> PDF</span></a>
+                            <a href="https://github.com/FAU-CS6-KDDmUe-Submissions/2-Classification"
+                                class="template-link" target="_blank" rel="noopener noreferrer"
+                                aria-label="Open GitHub Template for Submission 2: Classification"><span
+                                    class="visually-hidden">Submission 2: Classification </span>Template Repository</a>
+                        </span>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Submission: Classification"><span
                                 class="chevron"></span></span>
@@ -1159,10 +1179,16 @@
                     <div class="item-header">
                         <span class="number">3.</span>
                         <span class="title">Clustering</span>
-                        <a href="https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf"
-                            aria-label="Download Task Description for Submission: Clustering"><span
-                                class="visually-hidden">Submission 3: Clustering </span>Task Description<span
-                                class="visually-hidden"> PDF</span></a>
+                        <span class="link-group">
+                            <a href="https://fau-cs6.github.io/KDD/submission-pdfs/3-Clustering.pdf"
+                                aria-label="Download Task Description for Submission: Clustering"><span
+                                    class="visually-hidden">Submission 3: Clustering </span>Task Description<span
+                                    class="visually-hidden"> PDF</span></a>
+                            <a href="https://github.com/FAU-CS6-KDDmUe-Submissions/3-Clustering" class="template-link"
+                                target="_blank" rel="noopener noreferrer"
+                                aria-label="Open GitHub Template for Submission 3: Clustering"><span
+                                    class="visually-hidden">Submission 3: Clustering </span>Template Repository</a>
+                        </span>
                         <span class="toggle-btn" title="Toggle description"
                             aria-label="Toggle description for Submission: Clustering"><span
                                 class="chevron"></span></span>
