@@ -31,11 +31,28 @@ jobs:
               echo "Pre-commit did run on local machine."
             fi
 
-  build_lecture:
-    name: Build lecture PDFs
+  setup_matrix:
+    name: Determine lectures for parallel build
     runs-on: ubuntu-latest
     needs: [pre_commit_validation]
     if: contains(needs.*.result, 'success')
+    outputs:
+      lectures: ${{ steps.set-matrix.outputs.lectures }}
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+
+      - name: Find all lecture tex files
+        id: set-matrix
+        run: |
+          cd lecture
+          LECTURES_JSON=$(ls *.tex | sed 's/\.tex$//' | jq -R -s -c 'split("\n")[:-1]')
+          echo "lectures=$LECTURES_JSON" >> $GITHUB_OUTPUT
+
+  build_lecture_figures:
+    name: Build lecture figures
+    runs-on: ubuntu-latest
+    needs: [setup_matrix]
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
@@ -49,26 +66,50 @@ jobs:
             cd $WORKSPACE/lecture
             make figures
 
+      - name: Upload Figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lecture-Figures
+          path: lecture/src/*.pdf
+          retention-days: 1
+
+  build_lecture:
+    name: Build lecture PDF (${{ matrix.lecture }})
+    runs-on: ubuntu-latest
+    needs: [build_lecture_figures, setup_matrix]
+    strategy:
+      fail-fast: false
+      matrix:
+        lecture: ${{ fromJson(needs.setup_matrix.outputs.lectures) }}
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+
+      - name: Download Figures
+        uses: actions/download-artifact@v4
+        with:
+          name: Lecture-Figures
+          path: lecture/src/
+
       - name: Compile LaTeX document
         uses: xu-cheng/texlive-action@v2
         with:
           run: |
-            apk add make
-            apk add git
+            apk add make git
             git config --global --add safe.directory /github/workspace
             git config --global --add safe.directory /home/runner/work/KDD/KDD
             cd lecture
-            ls -la img
-            make all-wo-figures
+            make vc.tex
+            make ${{ matrix.lecture }}.pdf
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Lecture Slides
+          name: Lecture Slides - ${{ matrix.lecture }}
           path: |
-            lecture/output/*.pdf
-            lecture/output/*.log
+            lecture/output/${{ matrix.lecture }}.pdf
+            lecture/output/${{ matrix.lecture }}.log
           retention-days: 90
 
   build_exercise:
@@ -149,8 +190,9 @@ jobs:
       - name: Download Lecture Slides
         uses: actions/download-artifact@v4
         with:
-          name: Lecture Slides
+          pattern: Lecture Slides - *
           path: artifacts/lecture-slides
+          merge-multiple: true
 
       - name: Download Exercise Archives
         uses: actions/download-artifact@v4
