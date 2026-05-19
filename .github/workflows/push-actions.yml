@@ -32,22 +32,38 @@ jobs:
             fi
 
   setup_matrix:
-    name: Determine lectures for parallel build
+    name: Determine files for parallel build
     runs-on: ubuntu-latest
     needs: [pre_commit_validation]
     if: contains(needs.*.result, 'success')
     outputs:
-      lectures: ${{ steps.set-matrix.outputs.lectures }}
+      lectures: ${{ steps.set-matrix-lectures.outputs.lectures }}
+      exercises: ${{ steps.set-matrix-exercises.outputs.exercises }}
+      submissions: ${{ steps.set-matrix-submissions.outputs.submissions }}
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v6
 
       - name: Find all lecture tex files
-        id: set-matrix
+        id: set-matrix-lectures
         run: |
           cd lecture
           LECTURES_JSON=$(ls *.tex | sed 's/\.tex$//' | jq -R -s -c 'split("\n")[:-1]')
           echo "lectures=$LECTURES_JSON" >> $GITHUB_OUTPUT
+
+      - name: Find all exercise tex files
+        id: set-matrix-exercises
+        run: |
+          cd exercise
+          EXERCISES_JSON=$(ls *.tex | sed 's/\.tex$//' | jq -R -s -c 'split("\n")[:-1]')
+          echo "exercises=$EXERCISES_JSON" >> $GITHUB_OUTPUT
+
+      - name: Find all submission tex files
+        id: set-matrix-submissions
+        run: |
+          cd submission
+          SUBMISSIONS_JSON=$(ls *.tex | sed 's/\.tex$//' | jq -R -s -c 'split("\n")[:-1]')
+          echo "submissions=$SUBMISSIONS_JSON" >> $GITHUB_OUTPUT
 
   build_lecture_figures:
     name: Build lecture figures
@@ -72,6 +88,7 @@ jobs:
           name: Lecture-Figures
           path: lecture/img/*.pdf
           retention-days: 1
+          if-no-files-found: ignore
 
   build_lecture:
     name: Build lecture PDF (${{ matrix.lecture }})
@@ -87,11 +104,12 @@ jobs:
 
       - name: Download Figures
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: Lecture-Figures
           path: lecture/img/
 
-      - name: Random delay to stagger Docker pull # Without this random delay we might get a timeout in the next step (to many parallel pulls from ghcr.io)
+      - name: Random delay to stagger Docker pull
         run: sleep $((RANDOM % 45))
 
       - name: Compile LaTeX document
@@ -116,13 +134,20 @@ jobs:
           retention-days: 90
 
   build_exercise:
-    name: Build the exercise archives
+    name: Build exercise archives (${{ matrix.exercise }})
     runs-on: ubuntu-latest
-    needs: [pre_commit_validation]
+    needs: [pre_commit_validation, setup_matrix]
     if: contains(needs.*.result, 'success')
+    strategy:
+      fail-fast: false
+      matrix:
+        exercise: ${{ fromJson(needs.setup_matrix.outputs.exercises) }}
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v6
+
+      - name: Random delay to stagger Docker pull
+        run: sleep $((RANDOM % 45))
 
       - name: Create the exercise archives
         uses: xu-cheng/texlive-action@v2
@@ -136,25 +161,33 @@ jobs:
             source venv/bin/activate
             pip3 install -r exercise/requirements.txt
             cd exercise
-            make all
+            make ${{ matrix.exercise }}-Student
+            make ${{ matrix.exercise }}-Solution
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: Exercise Archives
-          path: |
-            exercise/output/*.zip
+          name: Exercise Archives - ${{ matrix.exercise }}
+          path: exercise/output/*.zip
+          if-no-files-found: ignore
           retention-days: 90
 
   build_submission:
-    name: Build the submission PDFs
+    name: Build submission PDF (${{ matrix.submission }})
     runs-on: ubuntu-latest
-    needs: [pre_commit_validation]
+    needs: [pre_commit_validation, setup_matrix]
     if: contains(needs.*.result, 'success')
+    strategy:
+      fail-fast: false
+      matrix:
+        submission: ${{ fromJson(needs.setup_matrix.outputs.submissions) }}
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v6
+
+      - name: Random delay to stagger Docker pull
+        run: sleep $((RANDOM % 45))
 
       - name: Create the submission PDFs
         uses: xu-cheng/texlive-action@v2
@@ -164,15 +197,15 @@ jobs:
             apk upgrade
             apk add --virtual build-dependencies build-base gcc wget git
             cd submission
-            make all
+            make ${{ matrix.submission }}.tex
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: Submission PDFs
-          path: |
-            submission/output/*.pdf
+          name: Submission PDFs - ${{ matrix.submission }}
+          path: submission/output/*.pdf
+          if-no-files-found: ignore
           retention-days: 90
 
   publish_artifacts:
@@ -200,14 +233,16 @@ jobs:
       - name: Download Exercise Archives
         uses: actions/download-artifact@v4
         with:
-          name: Exercise Archives
+          pattern: Exercise Archives - *
           path: artifacts/exercise-archives
+          merge-multiple: true
 
       - name: Download Submission PDFs
         uses: actions/download-artifact@v4
         with:
-          name: Submission PDFs
+          pattern: Submission PDFs - *
           path: artifacts/submission-pdfs
+          merge-multiple: true
 
       - name: Create ZIP files
         run: |
