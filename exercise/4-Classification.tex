@@ -54,23 +54,23 @@ The sample solution will be published after the three weeks have elapsed.
 
 Before participating in the exercise, you must prepare the following:
 
-\begin{enumerate}
+\begin{enumerate}	
 	\item \textbf{Install Python and pip on your computer}
 	      
-	      \begin{itemize}
+	      \begin{itemize}	
 		      \item Detailed instructions can be found in \texttt{1-Introduction-Python-Pandas.pdf}.
 	      \end{itemize}
 	      
 	\item \textbf{Download provided additional files}
 	      
-	      \begin{itemize}
+	      \begin{itemize}	
 		      \item Download \texttt{Additional-Files-Student.zip} from StudOn
 		      \item Extract it to a folder of your choice.
 	      \end{itemize}
 	      
 	\item \textbf{Install required Python packages}
 	      
-	      \begin{itemize}
+	      \begin{itemize}	
 		      \item Open a terminal and navigate to the folder where you extracted the files.
 		      \item Run the command \texttt{pip install -r requirements.txt} within the extracted additional files folder to install the required Python packages.
 	      \end{itemize}
@@ -88,7 +88,7 @@ Before participating in the exercise, you must prepare the following:
 	$D$ is containing a continuous attribute (\textit{Age}) and two categorical attributes (\textit{Major} and \textit{Participation}) which can be used to predict the target attribute \textit{Passed}.
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-	\begin{flushright}
+	\begin{flushright}	
 		\scalebox{0.85}{
 			\begin{tabular}{|c|c|c|c|c|c|}
 				\hline
@@ -110,13 +110,13 @@ Use the algorithm for \textbf{Decision Tree Induction} known from the lecture to
 
 Write down \textbf{all} intermediate steps.
 
-\begin{solution}
-	\begin{enumerate}
+\begin{solution}	
+	\begin{enumerate}	
 		\item \textbf{Create the root node:}
 		      
 		      To create the root node, we need to calculate the Information Gain for each attribute and select the one with the highest Information Gain.
 		      
-		      \begin{enumerate}
+		      \begin{enumerate}	
 			      \item \textbf{Calculate the Entropy of the target attribute \textit{Passed}:}
 			            \begin{alignat*}{2}
 				            \text{Info}(D) & = -\sum_{i=1}^{m}p_i \log_2(p_i)                                                                                                                          \\
@@ -127,12 +127,12 @@ Write down \textbf{all} intermediate steps.
 			            
 			      \item \textbf{Calculate the Information Gain for all attributes:}
 			            
-			            \begin{enumerate}
+			            \begin{enumerate}	
 				            \item \textbf{Attribute \textit{Age}:}
 				                  
 				                  \textit{Age} is a continuous attribute. To calculate the Information Gain, we need to find the best split point.
 				                  
-				                  \begin{enumerate}
+				                  \begin{enumerate}	
 					                  \item \textbf{Split point $23,5$:}
 					                        
 					                        \begin{alignat*}{2}
@@ -161,7 +161,7 @@ Write down \textbf{all} intermediate steps.
 					                        
 				                  \end{enumerate}
 				                  
-				                  Therefore, the Information Gain for the attribute \textit{Age} is $0,817$ (if we split at $25,0$).
+				                  Therefore, the Information Gain for the attribute \textit{Age} is $0,0817$ (if we split at $25,0$).
 				                  
 				            \item \textbf{Attribute \textit{Major}:}
 				                  
@@ -207,7 +207,7 @@ Write down \textbf{all} intermediate steps.
 			            
 			            The resulting tree will look like this:
 			            
-			            \begin{center}
+			            \begin{center}	
 				            \begin{tikzpicture}[
 						            >=latex,
 						            thick,
@@ -277,12 +277,12 @@ Write down \textbf{all} intermediate steps.
 		      
 		\item \textbf{Visit each branch:}
 		      
-		      \begin{enumerate}
+		      \begin{enumerate}	
 			      \item \textbf{Branch \textit{High}:}
 			            
 			            All samples in the partial dataset of the branch \textit{High} have the same value for the target attribute \textit{Passed}. Therefore, the branch becomes a leaf node.
 			            
-			            \begin{center}
+			            \begin{center}	
 				            \begin{tikzpicture}[
 						            >=latex,
 						            thick,
@@ -344,7 +344,7 @@ Write down \textbf{all} intermediate steps.
 			            
 			            The partial dataset of the branch \textit{Medium} contains samples with different values for the target attribute \textit{Passed}. Therefore, we need to create a new node.
 			            
-			            \begin{enumerate}
+			            \begin{enumerate}	
 				            \item \textbf{Calculate the Entropy of the target attribute \textit{Passed}:}
 				                  
 				                  \begin{alignat*}{2}
@@ -356,7 +356,7 @@ Write down \textbf{all} intermediate steps.
 				                  
 				            \item \textbf{Calculate the Information Gain for all attributes that are not yet a node:}
 				                  
-				                  \begin{enumerate}
+				                  \begin{enumerate}	
 					                  \item \textbf{Attribute \textit{Age}:}
 					                        
 					                        \textit{Age} is still a continuous attribute. However since there are only two different values in the partial dataset, we only have one split point.
@@ -394,7 +394,7 @@ Write down \textbf{all} intermediate steps.
 				                  
 				                  The resulting tree will look like this:
 				                  
-				                  \begin{center}
+				                  \begin{center}	
 					                  \begin{tikzpicture}[
 							                  >=latex,
 							                  thick,
@@ -454,7 +454,7 @@ Write down \textbf{all} intermediate steps.
 			            
 			            All samples in the partial dataset of the branch \textit{Low} have the same value for the target attribute \textit{Passed}. Therefore, the branch becomes a leaf node.
 			            
-			            \begin{center}
+			            \begin{center}	
 				            \begin{tikzpicture}[
 						            >=latex,
 						            thick,
@@ -508,7 +508,7 @@ Write down \textbf{all} intermediate steps.
 		      
 		      The final decision tree is:
 		      
-		      \begin{center}
+		      \begin{center}	
 			      \begin{tikzpicture}[
 					      >=latex,
 					      thick,
@@ -566,13 +566,13 @@ Using the algorithm for building a decision tree with the Gini Index, create the
 
 Write down \textbf{all} intermediate steps \textbf{up to} (and including) the point where the root node is created.
 
-\begin{solution}
-	\begin{enumerate}
+\begin{solution}	
+	\begin{enumerate}	
 		\item \textbf{Create the root node:}
 		      
 		      To create the root node, we need to calculate the Gini Index for each attribute and select the one with the lowest Gini Index.
 		      
-		      \begin{enumerate}
+		      \begin{enumerate}	
 			      \item \textbf{Calculate the impurity of the whole Dataset $D$:}
 			            
 			            \begin{alignat*}{2}
@@ -584,12 +584,12 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 			            
 			      \item \textbf{Calculate the Gini Index for all attributes:}
 			            
-			            \begin{enumerate}
+			            \begin{enumerate}	
 				            \item \textbf{Attribute \textit{Age}:}
 				                  
 				                  \textit{Age} is a continuous attribute. Similar to the Information Gain, we need to find the best split point.
 				                  
-				                  \begin{enumerate}
+				                  \begin{enumerate}	
 					                  \item \textbf{Split point $23,5$:}
 					                        
 					                        \begin{alignat*}{2}
@@ -640,7 +640,7 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 				                  
 				                  Since we have more than two different attributes, we have to calculate the Gini Index for each possible attribute combination.
 				                  
-				                  \begin{enumerate}
+				                  \begin{enumerate}	
 					                  \item \textbf{Combination \textit{\{High, Medium\}} and \textit{\{Low\}}:}
 					                        
 					                        \begin{alignat*}{2}
@@ -688,7 +688,7 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 			            
 			            The resulting tree will look like this:
 			            
-			            \begin{center}
+			            \begin{center}	
 				            \begin{tikzpicture}[
 						            >=latex,
 						            thick,
@@ -747,7 +747,7 @@ Write down \textbf{all} intermediate steps \textbf{up to} (and including) the po
 			            
 			            Since the table for the branch \textit{Low} only contains tuples with the class label \textit{No}, we can already create a leaf node for this branch:
 			            
-			            \begin{center}
+			            \begin{center}	
 				            \begin{tikzpicture}[
 						            >=latex,
 						            thick,
@@ -805,8 +805,8 @@ In the resulting tree from Task 2.a, one of the branches is already a leaf node.
 
 Which of the \textbf{attributes} \textit{Age}, \textit{Major} and \textit{Participation} have to \textbf{be checked} for their Gini index in the next step necessary to further split the remaining branch?
 
-\begin{solution}
-	\begin{itemize}
+\begin{solution}	
+	\begin{itemize}	
 		\item \textbf{Attribute \textit{Age}:}
 		      
 		      The attribute \textit{Age} should be checked for its Gini Index in the branch \textit{High, Medium} since it still contains different values.
@@ -831,12 +831,12 @@ The \textbf{Gain Ratio} is a solution to a problem of the \textbf{Information Ga
 
 Come up with an example \textbf{dataset} showing the problem of the Information Gain and explain how the Gain Ratio solves this problem.
 
-\begin{solution}
+\begin{solution}	
 	The problem of the Information Gain is that it tends to favor attributes with a large number of values.
 	
 	If we for example take a look at the following dataset $D$:
 	
-	\begin{center}
+	\begin{center}	
 		\begin{tabular}{|c|c|c|c|c|c|}
 			\hline
 			\textbf{Major} & \textbf{Participation} & \textbf{Passed} \\ \hline
@@ -937,7 +937,7 @@ Come up with an example \textbf{dataset} showing the problem of the Information 
 	The attribute \textit{Hours} is a continuous attribute. It can be assumed that the values of this attribute are distributed according to a Gaussian distribution.
 \end{minipage}
 \begin{minipage}{.625\textwidth}
-	\begin{flushright}
+	\begin{flushright}	
 		\scalebox{0.85}{
 			\begin{tabular}{|c|c|c|c|}
 				\hline
@@ -963,7 +963,7 @@ Come up with an example \textbf{dataset} showing the problem of the Information 
 
 Use the dataset $D$ and the Naïve Bayes algorithm to classify the following tuples:
 
-\begin{center}
+\begin{center}	
 	\scalebox{0.85}{
 		\begin{tabular}{|c|c|c|c|}
 			\hline
@@ -978,8 +978,8 @@ Use the dataset $D$ and the Naïve Bayes algorithm to classify the following tup
 
 Write down \textbf{all} intermediate steps.
 
-\begin{solution}
-	\begin{enumerate}
+\begin{solution}	
+	\begin{enumerate}	
 		\item \textbf{Calculate the prior probabilities:}
 		      
 		      \begin{alignat*}{2}
@@ -989,7 +989,7 @@ Write down \textbf{all} intermediate steps.
 		      
 		\item \textbf{Calculate the likelihoods:}
 		      
-		      \begin{enumerate}
+		      \begin{enumerate}	
 			      \item \textbf{Attribute \textit{Topic}:}
 			            \begin{alignat*}{2}
 				            \Likelihood{Topic}{Clustering}{Passed}{Yes}        & = \frac{3}{7} \approx 0,4286 \\
@@ -1042,7 +1042,7 @@ Write down \textbf{all} intermediate steps.
 		      
 		\item \textbf{Calculate the likelihood of each tuple:}
 		      
-		      \begin{enumerate}
+		      \begin{enumerate}	
 			      \item \textbf{Tuple $T_1$ with \textit{Clustering, Medium, 4}:}
 			            \begin{alignat*}{2}
 				            \LikelihoodTuple{T_1}{Passed}{Yes} & =  \Likelihood{Topic}{Clustering}{Passed}{Yes}    \\
@@ -1102,7 +1102,7 @@ Write down \textbf{all} intermediate steps.
 		      
 		      Being able to determine the highest $P(C_i|X)$ (even without knowing its exact value) is sufficient to classify the tuple.
 		      
-		      \begin{enumerate}
+		      \begin{enumerate}	
 			      \item \textbf{Tuple $T_1$ with \textit{Clustering, Medium, 4}:}
 			            
 			            Calculate the numerator of $\PosterioriProbability{T_1}{Passed}{Yes}$ and $\PosterioriProbability{T_1}{Passed}{No}$:
@@ -1118,7 +1118,7 @@ Write down \textbf{all} intermediate steps.
 			            
 			            \begin{mdframed}[linecolor=solutioncolor]
 				            \color{solutioncolor}
-				            \begin{em}
+				            \begin{em}	
 					            \textbf{Calculation of the posteriori probability:}
 					            
 					            Even if the calculation of the full posteriori probability is not necessary, it is still possible to calculate it.
@@ -1185,7 +1185,7 @@ The classifier was also trained on a version of dataset $D$ with more tuples:
 
 The dataset $T$ contains both the true and the predicted "Passed"-Status for each test tuple.
 
-\begin{center}
+\begin{center}	
 	\scalebox{0.85}{
 		\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1209,12 +1209,12 @@ Use the dataset $T$ to calculate the \textbf{sensitivity}, \textbf{specificity},
 
 Also state the \textbf{best possible} value for each metric.
 
-\begin{solution}
+\begin{solution}	
 	We need to calculate the True Positives (TP), True Negatives (TN), False Positives (FP), and False Negatives (FN) for the model evaluation.
 	
 	This is often done by creating a confusion matrix:
 	
-	\begin{center}
+	\begin{center}	
 		\begin{tabular}{c|c|>{\centering}p{1.5cm}|>{\centering}p{1.5cm}|c|}
 			
 			\multicolumn{2}{c|}{\multirow{2}{*}{}} & \multicolumn{2}{c|}{Predicted} &                              \\\cline{3-4}
@@ -1227,7 +1227,7 @@ Also state the \textbf{best possible} value for each metric.
 	
 	This confusion matrix can be used to calculate the metrics:
 	
-	\begin{itemize}
+	\begin{itemize}	
 		\item \textbf{Sensitivity:}
 		      \begin{alignat*}{2}
 			      \text{Sensitivity} & = \frac{TP}{P} = \frac{4}{5} = 0,8
@@ -1277,14 +1277,14 @@ Also state the \textbf{best possible} value for each metric.
 
 This exercise comprises practical data science tasks and thus utilizes a Jupyter Notebook:
 
-\begin{enumerate}
+\begin{enumerate}	
 	\item Open \texttt{Conducting-Classification.ipynb}.
 	\item Take a look at the tasks (blue boxes) in the notebook and try to solve them.
 \end{enumerate}
 
 If you are unfamiliar with how to open a Jupyter Notebook, please refer to Exercise 1 of \texttt{1-Introduction-Python-Pandas.pdf}.
 
-\begin{solution}
+\begin{solution}	
 	The solution to the exercise can be found in \texttt{Additional-Files-Solution.zip}.
 \end{solution}
 
