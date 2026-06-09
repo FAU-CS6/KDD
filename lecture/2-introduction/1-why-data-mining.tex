@@ -30,12 +30,12 @@
 			\begin{axis}[
 					width=0.9\textwidth, height=0.875\textheight,
 					ybar,
-					symbolic x coords={2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023},
+					symbolic x coords={2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024},
 					xtick=data,
 					xticklabel style={rotate=45, anchor=east},
 					ymin=0,
-					ymax=150,
-					ylabel={Annual data volume generated \\ (in Zettabytes)\footnote{Source: \url{https://de.statista.com/statistik/daten/studie/267974/umfrage/prognose-zum-weltweit-generierten-datenvolumen/}}},
+					ymax=180,
+					ylabel={Annual data volume generated \\ (in Zettabytes)\footnote{Source: \url{https://de.statista.com/statistik/daten/studie/267974/umfrage/prognose-zum-weltweit-generierten-datenvolumen/} (Last checked: June 9, 2026)}},
 					ylabel style={align=center},
 					xlabel={Year},
 					enlargelimits=0.05,
@@ -47,7 +47,7 @@
 				]
 				\addplot[fill=gray!60] coordinates {(2010,2) (2011,5) (2012,6.5) (2013,9) (2014,12.5) (2015,15.5) (2016,18)
 						(2017,26) (2018,33) (2019,41) (2020,64.2) (2021,84.5) (2022,103.66)
-						(2023,132.4)};
+						(2023,132.4) (2024,173.4)};
 			\end{axis}
 		\end{tikzpicture}
 	\end{figure}
