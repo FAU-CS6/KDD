@@ -104,7 +104,7 @@ def compile_latex_files(input, output_folder, style):
     command = [
         "latexmk",
         "-pdf",
-        "-pdflatex=pdflatex -interaction=nonstopmode -shell-escape -synctex=1 %O '\input{%S}'",
+        r"-pdflatex=pdflatex -interaction=nonstopmode -shell-escape -synctex=1 %O '\input{%S}'",
         "--interaction=nonstopmode",
         "-shell-escape",
         "-silent",
@@ -118,7 +118,7 @@ def compile_latex_files(input, output_folder, style):
         command = [
             "latexmk",
             "-pdf",
-            "-pdflatex=pdflatex -interaction=nonstopmode -shell-escape -synctex=1 %O '\def\solutionsflag{}\input{%S}'",
+            r"-pdflatex=pdflatex -interaction=nonstopmode -shell-escape -synctex=1 %O '\def\solutionsflag{}\input{%S}'",
             "--interaction=nonstopmode",
             "-shell-escape",
             "-silent",
