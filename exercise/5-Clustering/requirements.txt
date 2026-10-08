@@ -4,4 +4,4 @@ matplotlib==3.11.1
 seaborn==0.13.2
 
 ipython==9.16.1
-jupyterlab==4.6.2
+jupyterlab==4.6.4
