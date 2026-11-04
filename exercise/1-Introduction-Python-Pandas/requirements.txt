@@ -1,4 +1,4 @@
 pandas==3.0.5
 
 ipython==9.16.1
-jupyterlab==4.6.2
+jupyterlab==4.6.4
